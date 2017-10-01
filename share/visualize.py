@@ -2,13 +2,8 @@
 
 from CommonAnalysisHelpers import *
 
-def main():
-    # create a pre-configures argument parser
-    parser = DefaultArgumentParsers.forVisualize()
-
-    # use the argument parser to read the command line arguments and config options from the config file
-    config = getConfigOptions(parser.parse_args())
-
+def main(config):
+    """visualize the results of your analysis according to the given configuration (can be created from a config file)"""
     # load the sample folder from disk
     samples = loadSampleFolder(config)
 
@@ -22,6 +17,12 @@ def main():
     # write the sample folder to disk
     writeSampleFolder(config, samples)
     
-
 if __name__ == "__main__":
-    main()    
+    # create a pre-configures argument parser
+    parser = DefaultArgumentParsers.forVisualize()
+
+    # use the argument parser to read the command line arguments and config options from the config file
+    config = getConfigOptions(parser.parse_args())
+
+    # call the main function
+    main(config)    

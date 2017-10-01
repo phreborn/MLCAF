@@ -3,6 +3,8 @@
 from CommonAnalysisHelpers import *
 
 def main(config):
+    """create the sample folder for your analysis according to the given configuration (can be created from a config file)"""
+    
     # create a new sample folder
     samples = createSampleFolder(config)
 

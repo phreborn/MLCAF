@@ -2,12 +2,8 @@
 
 from CommonAnalysisHelpers import *
 
-def main():
-    # create a pre-configures argument parser
-    parser = DefaultArgumentParsers.forExecute()
-
-    # use the argument parser to read the command line arguments and config options from the config file
-    config = getConfigOptions(parser.parse_args())
+def main(config):
+    """execute your analysis according to the given configuration (can be created from a config file)"""
 
     # load the sample folder from disk
     samples = loadSampleFolder(config)
@@ -51,4 +47,11 @@ def main():
     printExecutionStatistics(config)
 
 if __name__ == "__main__":
-    main()
+    # create a pre-configures argument parser
+    parser = DefaultArgumentParsers.forExecute()
+
+    # use the argument parser to read the command line arguments and config options from the config file
+    config = getConfigOptions(parser.parse_args())
+
+    # call the main function
+    main(config)
