@@ -17,7 +17,6 @@ find_package( AnalysisBase QUIET)
 
 # define dependencies on other packages
 find_package( ROOT COMPONENTS Core Matrix RooFitCore Minuit2)
-find_package( Eigen )
 
 # set some variables for easier handling
 file(GLOB CAFExampleSources Root/*.cxx)
@@ -62,7 +61,7 @@ IF(${AnalysisBase_FOUND})
     atlas_add_library( CAFExample
       ${CAFExampleHeaders} ${CAFExampleSources} ${CAFExampleCintDict}
       PUBLIC_HEADERS CAFExample
-      PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} ${EIGEN_INCLUDE_DIRS}
+      PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} 
       LINK_LIBRARIES QFramework
       # here go all the libraries corresonding to the packages that you depend on
       PRIVATE_LINK_LIBRARIES ${ROOT_LIBRARIES}
@@ -92,7 +91,7 @@ else()
 
   # set general CMake settings
   set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-  set(CMAKE_DISABLE_SOURCE_CHANGES  ON)  
+  set(CMAKE_DISABLE_SOURCE_CHANGES  OFF)  
   set(CMAKE_VERBOSE_MAKEFILE OFF)
   set(CMAKE_COLOR_MAKEFILE   ON)
 
