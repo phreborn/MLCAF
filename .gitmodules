@@ -1,3 +1,4 @@
 [submodule "CAFCore"]
 	path = CAFCore
-	url = ssh://git@gitlab.cern.ch:7999/atlas-caf/CAFCore.git
+	url = https://:@gitlab.cern.ch:8443/atlas-caf/CAFCore.git
+	branch = CommonAnalysisHelpers
