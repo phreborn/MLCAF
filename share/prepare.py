@@ -1,10 +1,14 @@
 #!/bin/env python
 
+# TODO: importing QFramework up here removes custom help when running './prepare.py -h'
 from CommonAnalysisHelpers import common,prepare
 
 def main(config):
     """create the sample folder for your analysis according to the given configuration (can be created from a config file)"""
     
+    # print a welcome message
+    print(QFramework.TQStringUtils.makeBoldWhite("\nPreparing Analysis ROOT File\n"))
+
     # create a new sample folder
     samples = common.createSampleFolder(config)
 
@@ -21,11 +25,22 @@ def main(config):
     common.writeSampleFolder(config, samples)
 
 if __name__ == "__main__":
-    # create a pre-configures argument parser
+
+    # create a pre-configured argument parser
     parser = prepare.DefaultArgumentParser()
+
+    import sys
+    import QFramework
 
     # use the argument parser to read the command line arguments and config options from the config file
     config = common.getConfigOptions(parser.parse_args())
+
+    # TODO: Do we still need this line?
+    #get rid of command line arguments since ROOT is very greedy here (and tends to choke from it!)
+    sys.argv = []
+
+    print "Exiting successfully!"
+    sys.exit(0)
 
     # call the main function
     main(config)
