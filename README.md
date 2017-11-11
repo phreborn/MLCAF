@@ -1,0 +1,25 @@
+Example CAFCore Analysis
+=========================
+
+This repository is meant as an example for how to construct an analysis using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework. In order to begin a new analysis, simply fork this project and modify the scripts and configs which are available here.
+
+Cloning the project
+--------------------
+
+```bash
+mkdir AnalysisExample
+cd AnalysisExample
+git clone https://:@gitlab.cern.ch:8443/atlas-caf/CAFExample.git
+```
+
+Building the project
+---------------------
+
+```bash
+mkdir build
+cd build
+asetup 21.2.4,AnalysisBase
+cmake ../CAFExample
+make
+source */setup.sh
+```
