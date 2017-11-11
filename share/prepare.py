@@ -19,15 +19,15 @@ def main(config):
     # write the sample folder to disk
     #common.writeSampleFolder(config, samples)
 
-    # TODO: delete, just for debugging
-    # print "Exiting successfully!"
-    # sys.exit(0)
-
     # add the monte carlo as given by the cross section file
     prepare.addMonteCarlo(config, samples, "info/xsp")
 
     # add all the data
     prepare.addData(config, samples)
+
+    # TODO: delete, just for debugging
+    print "Exiting successfully!"
+    sys.exit(0)
 
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
