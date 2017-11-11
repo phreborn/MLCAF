@@ -12,6 +12,17 @@ def main(config):
     # create a new sample folder
     samples = common.createSampleFolder(config)
 
+    # TODO: delete, just for debugging
+    #samples.printContents("rdt")
+
+    # TODO: delete, just for debugging
+    # write the sample folder to disk
+    #common.writeSampleFolder(config, samples)
+
+    # TODO: delete, just for debugging
+    # print "Exiting successfully!"
+    # sys.exit(0)
+
     # add the monte carlo as given by the cross section file
     prepare.addMonteCarlo(config, samples, "info/xsp")
 
@@ -38,9 +49,6 @@ if __name__ == "__main__":
     # TODO: Do we still need this line?
     #get rid of command line arguments since ROOT is very greedy here (and tends to choke from it!)
     sys.argv = []
-
-    print "Exiting successfully!"
-    sys.exit(0)
 
     # call the main function
     main(config)
