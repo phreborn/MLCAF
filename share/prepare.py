@@ -21,6 +21,10 @@ def main(config):
     # add all the data
     prepare.addData(config, samples)
 
+    # if requested, print the XSection information
+    if config.getTagBoolDefault("printXsec",False):
+        prepare.printXSecParser(samples)
+
     # TODO: delete, just for debugging
     # print "Exiting successfully!"
     # sys.exit(0)
