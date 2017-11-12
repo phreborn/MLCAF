@@ -12,6 +12,9 @@ def main(config):
     # create a new sample folder
     samples = common.createSampleFolder(config)
 
+    # make sure that sample folder is writable before we go too far
+    common.testWriteSampleFolder(config, samples)
+
     # TODO: delete, just for debugging
     #samples.printContents("rdt")
 
@@ -20,14 +23,16 @@ def main(config):
     #common.writeSampleFolder(config, samples)
 
     # add the monte carlo as given by the cross section file
-    prepare.addMonteCarlo(config, samples, "info/xsp")
+    # TODO: remove returning parser
+    parser = prepare.addMonteCarlo(config, samples, "info/xsp")
 
     # add all the data
-    prepare.addData(config, samples)
+    # TODO: remove passing parser
+    prepare.addData(config, samples, parser)
 
     # TODO: delete, just for debugging
-    print "Exiting successfully!"
-    sys.exit(0)
+    # print "Exiting successfully!"
+    # sys.exit(0)
 
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
