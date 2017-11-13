@@ -9,7 +9,10 @@ Cloning the project
 ```bash
 mkdir AnalysisExample
 cd AnalysisExample
-git clone https://:@gitlab.cern.ch:8443/atlas-caf/CAFExample.git
+git clone --recursive https://:@gitlab.cern.ch:8443/atlas-caf/CAFExample.git
+cd CAFExample
+git submodule update --remote
+cd ..
 ```
 
 Building the project
@@ -18,10 +21,10 @@ Building the project
 ```bash
 mkdir build
 cd build
+setupATLAS
 asetup 21.2.4,AnalysisBase
 cmake ../CAFExample
 make
-source */setup.sh
 ```
 
 Running a test
