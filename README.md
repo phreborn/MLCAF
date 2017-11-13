@@ -23,3 +23,13 @@ cmake ../CAFExample
 make
 source */setup.sh
 ```
+
+Running a test
+--------------
+
+```bash
+cd ../CAFExample
+source CAFCore/cafsetup.sh
+cd share
+./prepare.py config/test/run2-ZjetsTest.cfg
+./initialize.py config/test/run2-ZjetsTest.cfg
