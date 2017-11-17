@@ -5,6 +5,10 @@ from CommonAnalysisHelpers import common,analyze
 def main(config):
     """execute your analysis according to the given configuration (can be created from a config file)"""
 
+    # TODO: remove, just for debugging!
+    #print "Exiting successfully!"
+    #sys.exit(0)
+
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
 
