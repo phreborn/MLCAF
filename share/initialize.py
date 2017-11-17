@@ -9,17 +9,20 @@ def main(config):
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
 
+    # apply pre-initialize patches as given by the config
+    common.patchSampleFolder(config.getTagVStandardString("preInit_patches"), samples)
+
     # TODO: remove, just for debugging!
     print "Exiting successfully!"
     sys.exit(0)
 
-    # apply patches as given by the config
-    common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
-    
     # run the initialization
     #  - collect meta-information including the sum-of-weights from the files
     #  - compute the corresponding normalization factor for each sample
     initialize.initializeSampleFolder(config, samples)
+
+    # apply post-initialize patches as given by the config
+    common.patchSampleFolder(config.getTagVStandardString("postInit_patches"), samples)
 
     # run a reduction step, slimming down the sample folder to reduce future memory consumption
     common.reduceSampleFolder(config, samples)
@@ -28,7 +31,7 @@ def main(config):
 
 if __name__ == "__main__":
 
-    # create a pre-configures argument parser
+    # create a pre-configured argument parser
     parser = initialize.DefaultArgumentParser()
 
     import sys
