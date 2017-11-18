@@ -33,6 +33,7 @@ def main(config):
     QFramework.INFO("please investigate the top-level structure of your sample folder to make sure everything is in place!")
     samples.printContents(config.getTagStringDefault("printFolderTags","r1dt"))
 
+    # write the sample folder to disk
     common.writeSampleFolder(config, samples)
 
     if config.hasUnreadKeys("!.*"):
