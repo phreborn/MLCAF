@@ -9,15 +9,23 @@ def main(config):
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
 
+    CLI = config.getFolder("CLI")
+
+    if CLI.getTagIntegerDefault("width",0):
+        QFramework.TQLibrary.setConsoleWidth(CLI.getTagInteger("width"))
+
+    dummy = CLI.getTagBoolDefault("dummy",False)
+
+    try:
+        ROOT.StatusCode.enableFailure()
+    except AttributeError:
+        pass
+
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
 
     # check writeability of the output destination to discover typos ahead of time
     common.testWriteSampleFolder(config, samples)
-
-    # TODO: remove, just for debugging!
-    print "Exiting successfully!"
-    sys.exit(0)
 
     # load all the observables that allow access of the physics-content of your samples
     analyze.loadObservables(config)
@@ -61,6 +69,10 @@ def main(config):
     #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # TODO: still necessary?
     ROOT.xAOD.ClearTransientTrees()
+
+    # TODO: remove, just for debugging!
+    #print "Exiting successfully!"
+    #sys.exit(0)
 
 if __name__ == "__main__":
     # create a pre-configured argument parser
