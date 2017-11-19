@@ -6,7 +6,7 @@ from CommonAnalysisHelpers import common,analyze
 def main(config):
     """execute your analysis according to the given configuration (can be created from a config file)"""
 
-    CLI = config.getFolder("CLI")
+    CLI = config.getFolder("CLI+")
 
     if CLI.getTagIntegerDefault("width",0):
         QFramework.TQLibrary.setConsoleWidth(CLI.getTagInteger("width"))

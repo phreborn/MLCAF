@@ -1,0 +1,134 @@
+
+# Run1Scheme Identifiers
+
+<isBottomLeptonic = false> @ /.;
+<isBottomHadronic = false> @ /.;
+<isCharmLeptonic = false> @ /.;
+<isCharmHadronic = false> @ /.;
+<isStrangeLeptonic = false> @ /.;
+<isStrangeHadronic = false> @ /.;
+<isLightLeptonic = false> @ /.;
+<isLightHadronic = false> @ /.;
+<isOtherLeptonic = false> @ /.;
+<isOtherHadronic = false> @ /.;
+
+<isBottomLeptonic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/bottomLeptonic;
+<isBottomHadronic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/bottomHadronic;
+<isCharmLeptonic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/charmLeptonic;
+<isCharmHadronic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/charmHadronic;
+<isStrangeLeptonic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/strangeLeptonic;
+<isStrangeHadronic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/strangeHadronic;
+<isLightLeptonic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/lightLeptonic;
+<isLightHadronic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/lightHadronic;
+<isOtherLeptonic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/otherLeptonic;
+<isOtherHadronic = true> @ /bkg/?/Zjets/Powheg/Run1Scheme/otherHadronic;
+
+<isBottomLeptonic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/bottomLeptonic;
+<isBottomHadronic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/bottomHadronic;
+<isCharmLeptonic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/charmLeptonic;
+<isCharmHadronic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/charmHadronic;
+<isStrangeLeptonic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/strangeLeptonic;
+<isStrangeHadronic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/strangeHadronic;
+<isLightLeptonic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/lightLeptonic;
+<isLightHadronic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/lightHadronic;
+<isOtherLeptonic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/otherLeptonic;
+<isOtherHadronic = true> @ /bkg/?/Zjets/Alpgen/Run1Scheme/otherHadronic;
+
+<isBottomLeptonic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/bottomLeptonic;
+<isBottomHadronic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/bottomHadronic;
+<isCharmLeptonic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/charmLeptonic;
+<isCharmHadronic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/charmHadronic;
+<isStrangeLeptonic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/strangeLeptonic;
+<isStrangeHadronic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/strangeHadronic;
+<isLightLeptonic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/lightLeptonic;
+<isLightHadronic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/lightHadronic;
+<isOtherLeptonic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/otherLeptonic;
+<isOtherHadronic = true> @ /bkg/?/Zjets/Sherpa2p2p1/Run1Scheme/otherHadronic;
+
+<isBottomLeptonic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/bottomLeptonic;
+<isBottomHadronic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/bottomHadronic;
+<isCharmLeptonic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/charmLeptonic;
+<isCharmHadronic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/charmHadronic;
+<isStrangeLeptonic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/strangeLeptonic;
+<isStrangeHadronic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/strangeHadronic;
+<isLightLeptonic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/lightLeptonic;
+<isLightHadronic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/lightHadronic;
+<isOtherLeptonic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/otherLeptonic;
+<isOtherHadronic = true> @ /bkg/?/Zjets/MadGraph/Run1Scheme/otherHadronic;
+
+# MCTruthClassifier Identifiers
+
+<isEL_NonDefined_Origin = false> @ /.;
+<isMU_NonDefined_Origin = false> @ /.;
+<isPrompt = false> @ /.;
+<isChargeFlip = false> @ /.;
+<isEL_HFb = false> @ /.;
+<isMU_HFb = false> @ /.;
+<isEL_HFc = false> @ /.;
+<isMU_HFc = false> @ /.;
+<isEL_LFgamma = false> @ /.;
+<isEL_pi0 = false> @ /.;
+<isEL_Kaon = false> @ /.;
+<isMU_Kaon = false> @ /.;
+<isEL_LFrest = false> @ /.;
+<isMU_LFrest = false> @ /.;
+
+<isEL_NonDefined_Origin = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/EL_NonDefined_Origin;
+<isMU_NonDefined_Origin = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/MU_NonDefined_Origin;
+<isPrompt = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/Prompt;
+<isChargeFlip = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/ChargeFlip;
+<isEL_HFb = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/EL_HFb;
+<isMU_HFb = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/MU_HFb;
+<isEL_HFc = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/EL_HFc;
+<isMU_HFc = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/MU_HFc;
+<isEL_LFgamma = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/EL_LFgamma;
+<isEL_pi0 = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/EL_pi0;
+<isEL_Kaon = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/EL_Kaon;
+<isMU_Kaon = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/MU_Kaon;
+<isEL_LFrest = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/EL_LFrest;
+<isMU_LFrest = true> @ /bkg/?/Zjets/Powheg/MCTruthClassifier/MU_LFrest;
+
+<isEL_NonDefined_Origin = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/EL_NonDefined_Origin;
+<isMU_NonDefined_Origin = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/MU_NonDefined_Origin;
+<isPrompt = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/Prompt;
+<isChargeFlip = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/ChargeFlip;
+<isEL_HFb = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/EL_HFb;
+<isMU_HFb = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/MU_HFb;
+<isEL_HFc = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/EL_HFc;
+<isMU_HFc = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/MU_HFc;
+<isEL_LFgamma = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/EL_LFgamma;
+<isEL_pi0 = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/EL_pi0;
+<isEL_Kaon = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/EL_Kaon;
+<isMU_Kaon = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/MU_Kaon;
+<isEL_LFrest = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/EL_LFrest;
+<isMU_LFrest = true> @ /bkg/?/Zjets/Alpgen/MCTruthClassifier/MU_LFrest;
+
+<isEL_NonDefined_Origin = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/EL_NonDefined_Origin;
+<isMU_NonDefined_Origin = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/MU_NonDefined_Origin;
+<isPrompt = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/Prompt;
+<isChargeFlip = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/ChargeFlip;
+<isEL_HFb = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/EL_HFb;
+<isMU_HFb = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/MU_HFb;
+<isEL_HFc = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/EL_HFc;
+<isMU_HFc = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/MU_HFc;
+<isEL_LFgamma = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/EL_LFgamma;
+<isEL_pi0 = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/EL_pi0;
+<isEL_Kaon = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/EL_Kaon;
+<isMU_Kaon = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/MU_Kaon;
+<isEL_LFrest = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/EL_LFrest;
+<isMU_LFrest = true> @ /bkg/?/Zjets/Sherpa2p2p1/MCTruthClassifier/MU_LFrest;
+
+<isEL_NonDefined_Origin = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/EL_NonDefined_Origin;
+<isMU_NonDefined_Origin = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/MU_NonDefined_Origin;
+<isPrompt = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/Prompt;
+<isChargeFlip = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/ChargeFlip;
+<isEL_HFb = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/EL_HFb;
+<isMU_HFb = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/MU_HFb;
+<isEL_HFc = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/EL_HFc;
+<isMU_HFc = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/MU_HFc;
+<isEL_LFgamma = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/EL_LFgamma;
+<isEL_pi0 = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/EL_pi0;
+<isEL_Kaon = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/EL_Kaon;
+<isMU_Kaon = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/MU_Kaon;
+<isEL_LFrest = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/EL_LFrest;
+<isMU_LFrest = true> @ /bkg/?/Zjets/MadGraph/MCTruthClassifier/MU_LFrest;
