@@ -6,15 +6,13 @@ from CommonAnalysisHelpers import common,analyze
 def main(config):
     """execute your analysis according to the given configuration (can be created from a config file)"""
 
-    # print a welcome message
-    print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
-
     CLI = config.getFolder("CLI")
 
     if CLI.getTagIntegerDefault("width",0):
         QFramework.TQLibrary.setConsoleWidth(CLI.getTagInteger("width"))
 
-    dummy = CLI.getTagBoolDefault("dummy",False)
+    # print a welcome message
+    print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
 
     # TODO: still need this?
     try:
@@ -26,6 +24,7 @@ def main(config):
     aliases = QFramework.TQTaggable()
     aliases.importTagsWithoutPrefix(config,"cutParameters.")
     aliases.importTagsWithoutPrefix(config,"aliases.")
+    # TODO: understand why we need this
     QFramework.TQMVAObservable.globalAliases.importTags(aliases)
 
     # read the channel definitions
@@ -54,13 +53,70 @@ def main(config):
         except:
             pass
 
-    # load the sample folder from disk
-    samples = common.loadSampleFolder(config)
+    # flag indicating to run a dummy analysis
+    dummy = CLI.getTagBoolDefault("dummy",False)
 
-    
+    # TODO: put dummy sample folder retrieval also in loadSampleFolder? It would get the config saved for free
+    # load the sample folder from disk
+    if dummy:
+        samples = TQSampleFolder("test")
+    else:
+        samples = common.loadSampleFolder(config)
 
     # check writeability of the output destination to discover typos ahead of time
+    # TODO: if we are running in debug mode, should call output file a different name, something like debug.root
     common.testWriteSampleFolder(config, samples)
+
+    # remove the data folder if not desired
+    if not config.getTagBoolDefault("doData",True):
+        QFramework.INFO("removing data folder")
+        samples.deleteObject("data!")
+
+    # flag indicating to run a robust analysis
+    robust = CLI.getTagBoolDefault("robust",False)
+
+    if not robust and not dummy:
+        # remove the channels that are not scheduled
+        for sf in samples.getListOfSampleFolders("?/?"):
+            found = False
+            for c in channels:
+                if QFramework.TQStringUtils.equal(sf.getName(),c):
+                    found = True
+                    break
+            if not found:
+                QFramework.INFO("removing folder '{:s}' - unscheduled channel!".format(sf.getPath()))
+                sf.detachFromBase()
+
+        # check if all requested channels are present
+        for c in channels:
+            if not samples.getSampleFolder(QFramework.TQFolder.concatPaths("?",c)):
+                QFramework.BREAK("channel '{:s}' was requested, but is not present in input!".format(c))
+
+    # apply patches as given by the config
+    common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
+
+    # if requested, we initialize the samples from the input lists
+    initlists = config.getTagVString("initializerLists")
+    init = QFramework.TQSampleListInitializer(samples)
+    init.setTagString("treeName","CollectionTree")
+    for filelist in initlists:
+        with open(filelist.Data(),'r') as f:
+            for line in f:
+                init.initializeSampleForFile(line) 
+
+    # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
+    if config.getTagBoolDefault("purgeSamples",False):
+        common.reduceSampleFolder(config, samples)
+
+    pathselect = CLI.getTagStandardStringDefault("pathselect","None")
+
+    # TODO: put this in the reduceSampleFolder method as well?
+    # if requested, purge samples (even more)
+    if config.getTagBoolDefault("purgeRemainder",False) and not QFramework.TQStringUtils.equal(pathselect,"None"):
+        samples.setTagBool("restrict",True,pathselect)
+        samples.purgeWithoutTag("~restrict")
+        if not samples.getListOfSampleFolders("?"):
+            QFramework.BREAK("sample folder empty after purge - something is wrong!") 
 
     # load all the observables that allow access of the physics-content of your samples
     analyze.loadObservables(config)
@@ -73,15 +129,18 @@ def main(config):
 
     # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
     visitor = analyze.createSampleVisitor(config)
-    
-    # perform any pre-processing of the sample folder for handling of systematic uncertainties
-    # this step is likely to be highly analysis-dependent, so this is just an example implementation
-    analyze.prepareSystematicsExample(config, samples, visitor)
 
-    # TODO: move to just after loading?
-    # apply patches as given by the config
-    common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
-    
+    if not robust and not dummy:
+        # perform any pre-processing of the sample folder for handling of systematic uncertainties
+        # this step is likely to be highly analysis-dependent, so this is just an example implementation
+        analyze.prepareSystematicsExample(config, samples, visitor)
+
+    # TODO: put this in prepareSystematicsExample method?
+    # possibly print how the folder looks like now
+    if config.getTagBoolDefault("showChannels",False):
+        QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
+        samples.printContents("r2dt")
+
     # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
     analyze.bookAlgorithms(config, visitor)
 
@@ -93,6 +152,8 @@ def main(config):
     analyze.trainMVA(config, samples, cuts)
 
     # write the sample folder to disk
+    # TODO: if we are running in debug mode, should call output file a different name, something like debug.root
+    #       Put this in writeSampleFolder method?
     common.writeSampleFolder(config, samples)
 
     if config.hasUnreadKeys("!.*"):
