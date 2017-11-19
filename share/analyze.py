@@ -16,13 +16,48 @@ def main(config):
 
     dummy = CLI.getTagBoolDefault("dummy",False)
 
+    # TODO: still need this?
     try:
         ROOT.StatusCode.enableFailure()
     except AttributeError:
         pass
 
+    # load the aliases from the config file
+    aliases = QFramework.TQTaggable()
+    aliases.importTagsWithoutPrefix(config,"cutParameters.")
+    aliases.importTagsWithoutPrefix(config,"aliases.")
+    QFramework.TQMVAObservable.globalAliases.importTags(aliases)
+
+    # read the channel definitions
+    channels = config.getTagVString("channels")
+
+    # TODO: load correct library
+    # load MVA libraries if required
+    # if config.getTagBoolDefault("loadMVA",True):
+    #     try:
+    #         libMVA = analyze.loadLibMVA(config)
+    #     except Exception as ex:
+    #         libMVA = False
+    #         template = "An exception of type '{0}' occured: {1!s}"
+    #         message = template.format(type(ex).__name__, ",".join(ex.args))
+    #         QFramework.ERROR(message)
+
+    # set some global properties
+    if not config.getTagBoolDefault("useTransientTree",True):
+        QFramework.TQSample.gUseTransientTree = False
+    if config.getTagBoolDefault("useAthenaAccessMode",False):
+        QFramework.TQSample.gUseAthenaAccessMode = True
+    if config.getTagBoolDefault("loadStore",True):
+        try:
+            store = xAOD.TStore()
+            store.setActive()
+        except:
+            pass
+
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
+
+    
 
     # check writeability of the output destination to discover typos ahead of time
     common.testWriteSampleFolder(config, samples)
