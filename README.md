@@ -7,6 +7,8 @@ Cloning the project
 --------------------
 
 ```bash
+setupATLAS
+lsetup git # needed for 'git submodule update --remote'
 mkdir AnalysisExample
 cd AnalysisExample
 git clone --recursive ssh://git@gitlab.cern.ch:7999/atlas-caf/CAFExample.git
@@ -21,10 +23,9 @@ Building the project
 ```bash
 mkdir build
 cd build
-setupATLAS
 asetup 21.2.4,AnalysisBase
 cmake ../CAFExample
-make
+make -j4
 ```
 
 Running a test
