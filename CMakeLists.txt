@@ -23,6 +23,8 @@ file(GLOB CAFExampleSources Root/*.cxx)
 file(GLOB CAFExampleHeaders CAFExample/*.h)
 file(GLOB CAFExampleTests test/*.py)
 
+message(${CAFExampleHeaders})
+
 IF(${AnalysisBase_FOUND})
   # this is ASG compilation, we don't need to do anything
 
@@ -45,7 +47,8 @@ IF(${AnalysisBase_FOUND})
   atlas_subdir( CAFExample )
 
   # check if there is any C++ code at all in this package
-  if(${CAFExampleHeaders})
+  if(NOT ${CAFExampleHeaders} STREQUAL "")
+
     # generate the LinkDef.h 
     execute_process(
       COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --verbose --linkdef ROOT/LinkDef.h --headers ${CAFExampleHeaders}
