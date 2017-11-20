@@ -9,7 +9,7 @@ Cloning the project
 ```bash
 mkdir AnalysisExample
 cd AnalysisExample
-git clone --recursive https://:@gitlab.cern.ch:8443/atlas-caf/CAFExample.git
+git clone --recursive ssh://git@gitlab.cern.ch:7999/atlas-caf/CAFExample.git
 cd CAFExample
 git submodule update --remote
 cd ..
