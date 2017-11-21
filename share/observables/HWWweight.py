@@ -134,7 +134,7 @@ def addObservables(config):
         WeightObs.doElectronIsoWeight("effiSFIsoGradient_wrt"+str(electronID), "effiSF"+str(electronIsoLowPt)+"_wrt"+str(electronIDLowPt))
         WeightObs.doMuonIsoWeight()
         if useMuonTTVASF: WeightObs.doMuonTTVAWeight()
-	if useTTbarNNLORW: WeightObs.doTTbarNNLOWeight()
+    if useTTbarNNLORW: WeightObs.doTTbarNNLOWeight()
         if not usePRWTool and inputVersion > 9:
             WeightObs.doPRWWeight(prwVarName)
         else:

@@ -19,6 +19,7 @@ find_package( AnalysisBase QUIET)
 find_package( ROOT COMPONENTS Core Matrix RooFitCore Minuit2)
 
 # set some variables for easier handling
+set(CAFExampleLinkDef ${PROJECT_SOURCE_DIR}/Root/LinkDef.h)
 file(GLOB CAFExampleSources Root/*.cxx)
 file(GLOB CAFExampleHeaders CAFExample/*.h)
 file(GLOB CAFExampleTests test/*.py)
@@ -51,12 +52,12 @@ IF(${AnalysisBase_FOUND})
 
     # generate the LinkDef.h 
     execute_process(
-      COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --verbose --linkdef ROOT/LinkDef.h --headers ${CAFExampleHeaders}
+      COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --verbose --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
       )
     
     # use the standard ROOT method of dictionary generation
     atlas_add_root_dictionary( CAFExample CAFExampleCintDict
-      ROOT_HEADERS ${CAFExampleHeaders} Root/LinkDef.h
+      ROOT_HEADERS ${CAFExampleHeaders} ${CAFExampleLinkDef}
       EXTERNAL_PACKAGES ROOT
       )
   
@@ -65,7 +66,7 @@ IF(${AnalysisBase_FOUND})
       ${CAFExampleHeaders} ${CAFExampleSources} ${CAFExampleCintDict}
       PUBLIC_HEADERS CAFExample
       PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} 
-      LINK_LIBRARIES QFramework
+      LINK_LIBRARIES QFramework CAFxAODUtils PileupReweightingLib
       # here go all the libraries corresonding to the packages that you depend on
       PRIVATE_LINK_LIBRARIES ${ROOT_LIBRARIES}
       )

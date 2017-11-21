@@ -1,4 +1,4 @@
-#include "HWWlvlv2015/HWWEventWeight.h"
+#include "CAFExample/HWWEventWeight.h"
 #include "QFramework/TQUtils.h"
 
 // uncomment the following line to enable debug printouts
@@ -19,7 +19,7 @@
 
 // Tool includes:
 #include "PileupReweighting/PileupReweightingTool.h"
-#include "NNLOReweighter/NNLOReweighter.h"
+// #include "NNLOReweighter/NNLOReweighter.h"
 
 ClassImp(HWWEventWeight)
 
@@ -1124,43 +1124,43 @@ double HWWEventWeight::getTriggerSF_singLep(const xAOD::CompositeParticle* compP
 
 //______________________________________________________________________________________________
 
-double HWWEventWeight::getTTbarNNLOWeight(const xAOD::EventInfo* evtInfo) const {
-  //INFOclass("Doing TTbar NNLO reweighting ...");
-  double retval = 1.;
+// double HWWEventWeight::getTTbarNNLOWeight(const xAOD::EventInfo* evtInfo) const {
+//   //INFOclass("Doing TTbar NNLO reweighting ...");
+//   double retval = 1.;
 
-  int DSID = evtInfo->mcChannelNumber();
-  //double tTTbarPt = 0;
-  double tTopPt = 0;
+//   int DSID = evtInfo->mcChannelNumber();
+//   //double tTTbarPt = 0;
+//   double tTopPt = 0;
 
-  NNLOReweighter* gNNLOReweighter;
-  gNNLOReweighter = new NNLOReweighter(DSID);
-  gNNLOReweighter->Init();
+//   NNLOReweighter* gNNLOReweighter;
+//   gNNLOReweighter = new NNLOReweighter(DSID);
+//   gNNLOReweighter->Init();
 
-  #ifdef _DEBUG_
-  if(!this->fEvent){
-    ERRORclass("failed to access xAOD::TEvent member!");
-    return 1.;
-  }
-  #endif
+//   #ifdef _DEBUG_
+//   if(!this->fEvent){
+//     ERRORclass("failed to access xAOD::TEvent member!");
+//     return 1.;
+//   }
+//   #endif
 
-  if( evtInfo->isAvailable<float>("truth_toppt")){ // && evtInfo->isAvailable<float>("truth_ttbarpt") ){
-    tTopPt = evtInfo->auxdata<float>("truth_toppt");
-    // sequential weights
-    //tTTbarPt = evtInfo->auxdata<float>("truth_ttbarpt");
-    //retval = gNNLOReweighter->GetTtbarAndTopPtWeight(tTTbarPt, tTopPt);
-    // extended binning
-    retval = gNNLOReweighter->GetExtendedTopPtWeight(tTopPt);
-  }
+//   if( evtInfo->isAvailable<float>("truth_toppt")){ // && evtInfo->isAvailable<float>("truth_ttbarpt") ){
+//     tTopPt = evtInfo->auxdata<float>("truth_toppt");
+//     // sequential weights
+//     //tTTbarPt = evtInfo->auxdata<float>("truth_ttbarpt");
+//     //retval = gNNLOReweighter->GetTtbarAndTopPtWeight(tTTbarPt, tTopPt);
+//     // extended binning
+//     retval = gNNLOReweighter->GetExtendedTopPtWeight(tTopPt);
+//   }
 
-  //INFOclass("Event:: DSID: %i", DSID);
-  //INFOclass("Event:: Truth ttbar pt: %.2f", tTTbarPt);
-  //INFOclass("Event:: Truth top pt: %.2f", tTopPt);
-  //INFOclass("TTbar NNLO weight: %.2f", retval);
+//   //INFOclass("Event:: DSID: %i", DSID);
+//   //INFOclass("Event:: Truth ttbar pt: %.2f", tTTbarPt);
+//   //INFOclass("Event:: Truth top pt: %.2f", tTopPt);
+//   //INFOclass("TTbar NNLO weight: %.2f", retval);
 
-  gNNLOReweighter->~NNLOReweighter();
+//   gNNLOReweighter->~NNLOReweighter();
 
-  return retval;
-}
+//   return retval;
+// }
 
 //______________________________________________________________________________________________
 
@@ -1335,10 +1335,10 @@ double HWWEventWeight::getValue() const {
     return 0;
   }
   double ttbarNNLOWeight = 1.0;
-  if( m_ttbarNNLOSFDecor ) {
-    ttbarNNLOWeight = this->getTTbarNNLOWeight(evtInfo);
-    DEBUGclass("TTbar NNLO weight = %f", ttbarNNLOWeight);
-  }
+  // if( m_ttbarNNLOSFDecor ) {
+  //   ttbarNNLOWeight = this->getTTbarNNLOWeight(evtInfo);
+  //   DEBUGclass("TTbar NNLO weight = %f", ttbarNNLOWeight);
+  // }
 
   double DFTrigWeight   = 1.0;
   double eleTrigWeight  = 1.0;
