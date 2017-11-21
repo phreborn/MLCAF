@@ -25,6 +25,7 @@ mkdir build
 cd build
 asetup 21.2.4,AnalysisBase
 cmake ../CAFExample
+source ../CAFExample/CAFCore/cafsetup.sh
 make -j4
 ```
 
@@ -32,9 +33,7 @@ Running a test
 --------------
 
 ```bash
-cd ../CAFExample
-source CAFCore/cafsetup.sh
-cd share
+cd ../CAFExample/share
 ./prepare.py config/test/run2-ZjetsTest.cfg
 ./initialize.py config/test/run2-ZjetsTest.cfg
 ```
