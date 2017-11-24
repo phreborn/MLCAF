@@ -36,4 +36,5 @@ Running a test
 cd ../CAFExample/share
 ./prepare.py config/test/run2-ZjetsTest.cfg
 ./initialize.py config/test/run2-ZjetsTest.cfg
+./analyze.py config/test/run2-ZjetsTest.cfg
 ```
