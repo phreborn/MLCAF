@@ -20,6 +20,7 @@ find_package( ROOT COMPONENTS Core Matrix RooFitCore Minuit2)
 
 # set some variables for easier handling
 set(CAFExampleLinkDef ${PROJECT_SOURCE_DIR}/Root/LinkDef.h)
+set(CAFExamplePython ${PROJECT_SOURCE_DIR}/python/__init__.py)
 file(GLOB CAFExampleSources Root/*.cxx)
 file(GLOB CAFExampleHeaders CAFExample/*.h)
 file(GLOB CAFExampleTests test/*.py)
@@ -47,30 +48,26 @@ IF(${AnalysisBase_FOUND})
   # register this as a package to ASG
   atlas_subdir( CAFExample )
 
-  # check if there is any C++ code at all in this package
-  if(NOT ${CAFExampleHeaders} STREQUAL "")
-
-    # generate the LinkDef.h 
-    execute_process(
-      COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --verbose --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
-      )
+  # generate the LinkDef.h 
+  execute_process(
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --verbose --python ${CAFExamplePython} --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    )
     
-    # use the standard ROOT method of dictionary generation
-    atlas_add_root_dictionary( CAFExample CAFExampleCintDict
-      ROOT_HEADERS ${CAFExampleHeaders} ${CAFExampleLinkDef}
-      EXTERNAL_PACKAGES ROOT
-      )
+  # use the standard ROOT method of dictionary generation
+  atlas_add_root_dictionary( CAFExample CAFExampleCintDict
+    ROOT_HEADERS ${CAFExampleHeaders} ${CAFExampleLinkDef}
+    EXTERNAL_PACKAGES ROOT
+    )
   
-    # put everything together to make CMake compile your library
-    atlas_add_library( CAFExample
-      ${CAFExampleHeaders} ${CAFExampleSources} ${CAFExampleCintDict}
-      PUBLIC_HEADERS CAFExample
-      PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} 
-      LINK_LIBRARIES QFramework CAFxAODUtils PileupReweightingLib
-      # here go all the libraries corresonding to the packages that you depend on
-      PRIVATE_LINK_LIBRARIES ${ROOT_LIBRARIES}
-      )
-  endif()
+  # put everything together to make CMake compile your library
+  atlas_add_library( CAFExample
+    ${CAFExampleHeaders} ${CAFExampleSources} ${CAFExampleCintDict}
+    PUBLIC_HEADERS CAFExample
+    PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} 
+    LINK_LIBRARIES QFramework CAFxAODUtils PileupReweightingLib
+    # here go all the libraries corresonding to the packages that you depend on
+    PRIVATE_LINK_LIBRARIES ${ROOT_LIBRARIES}
+    )
 
   # also have all of your python files installed
   atlas_install_python_modules( python/*.py )
