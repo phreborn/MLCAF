@@ -1,17 +1,20 @@
 from QFramework import *
 from ROOT import *
 from CAFExample import HWWTriggerSelection,HWWTriggerMatchingObs
+import imp
 
 def addObservables(config):
   INFO("adding different trigger observables and trigger matching tools")
 
   #======================
   #===== import trigger config, needed by trigger observables
-  try: 
-    import HWWTrigConfig as hwwtrigconf
-  except:
-    ERROR("Couldn't import HWWTrigConfig")
-    return False  
+  #try:
+  #  import HWWTrigConfig as hwwtrigconf
+  #except Exception as error:
+  #  ERROR("Couldn't import HWWTrigConfig")
+  #  print error
+  #  return False
+  hwwtrigconf = imp.load_source("HWWTrigConfig","observables/HWWTrigConfig.py")
 
   #======================
   #===== import lepton ID helper snippet, will pass object to observables that need it
