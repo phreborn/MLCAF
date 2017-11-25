@@ -1,6 +1,8 @@
 from QFramework import *
 from ROOT import *
 
+from CAFExample import HWWEventWeight
+
 import os
 workdir = ""
 if os.getenv("ROOTCOREBIN") :
@@ -20,7 +22,7 @@ def addObservables(config):
     muonQualityLowPt = config.getTagStringDefault("MuonQualityLowPt", "Tight")
     electronIsoLowPt = "IsoGradient"
     if inputVersion > 16:
-      electronIsoLowPt = "IsoFixedCutTrackCone40"
+        electronIsoLowPt = "IsoFixedCutTrackCone40"
 
     ## Some options for testing
     usePRWTool = config.getTagBoolDefault("UsePRWTool", True)
@@ -52,7 +54,7 @@ def addObservables(config):
     confFile  = workdir+"HWWDualUseUtils/data/PRW/mc15ab_defaults.NotRecommended.prw.root"
     lCalcFile = workdir+"HWWDualUseUtils/data/PRW/ilumicalc_histograms_None_276262-284484_v73.root"
 
-    
+
     sfsystematics =config.getTagVString("xAODsfSystematics")
     sfsystematics.push_back( 'nominal' )
 
@@ -128,13 +130,13 @@ def addObservables(config):
         ## Switching on the various weights and setting variable names according to config input
         WeightObs.doMCWeight(True) # This is set to true per default
         if doMCWeightOnly:
-          WeightObs.doMCWeightOnly(True) # This is set only for truth samples 
+            WeightObs.doMCWeightOnly(True) # This is set only for truth samples 
         WeightObs.doLepWeight("effiSFRecoTrk", "effiSF"+str(muonQuality), "effiSF"+str(muonQualityLowPt))
         WeightObs.doElectronIDWeight("effiSF"+str(electronID), "effiSF"+str(electronIDLowPt))
         WeightObs.doElectronIsoWeight("effiSFIsoGradient_wrt"+str(electronID), "effiSF"+str(electronIsoLowPt)+"_wrt"+str(electronIDLowPt))
         WeightObs.doMuonIsoWeight()
         if useMuonTTVASF: WeightObs.doMuonTTVAWeight()
-    if useTTbarNNLORW: WeightObs.doTTbarNNLOWeight()
+        if useTTbarNNLORW: WeightObs.doTTbarNNLOWeight()
         if not usePRWTool and inputVersion > 9:
             WeightObs.doPRWWeight(prwVarName)
         else:
@@ -183,14 +185,15 @@ def addObservables(config):
             WeightObs.doJVTWeight("effiSFJVT")
             WeightObs.doForwardJVTWeight("effiSFForwardJVT")
 
-        
+
         ## Uncomment only if you want to include the btagging efficiency SFs in the main weight observable
         # WeightObs.doBtagWeight(config.getTagBoolDefault("useSubThresholdBTagWeights",True), "effiSF")
-    
+
         ## Add the observable to the list of observables
         if not ok or not TQTreeObservable.addObservable(WeightObs):
             WARN("failed to add weight observable for variation '{:s}'".format(variation))
             return False
         #INFO("adding weights for variation '{:s}' as '{:s}' with expression '{:s}'".format(variation,WeightObs.GetName(),WeightObs.getExpression().Data()))
-        
+
     return True
+

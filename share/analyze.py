@@ -95,6 +95,7 @@ def main(config):
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
+    # TODO: do we still want this option?
     # if requested, we initialize the samples from the input lists
     initlists = config.getTagVString("initializerLists")
     init = QFramework.TQSampleListInitializer(samples)
