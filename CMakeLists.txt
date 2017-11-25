@@ -64,7 +64,7 @@ IF(${AnalysisBase_FOUND})
     ${CAFExampleHeaders} ${CAFExampleSources} ${CAFExampleCintDict}
     PUBLIC_HEADERS CAFExample
     PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} 
-    LINK_LIBRARIES QFramework CAFxAODUtils PileupReweightingLib
+    LINK_LIBRARIES QFramework CAFxAODUtils PileupReweightingLib MCTruthClassifierLib
     # here go all the libraries corresonding to the packages that you depend on
     PRIVATE_LINK_LIBRARIES ${ROOT_LIBRARIES}
     )
