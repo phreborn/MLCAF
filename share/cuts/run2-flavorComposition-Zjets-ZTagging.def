@@ -1,0 +1,380 @@
+# -*- mode: tqfolder -*-
+# this files name is 'cuts.txt'
+# to get proper syntax highlighting and indentation when using emacs,
+# add the following line to your .emacs file:
+#   (load-file "$TQPATH/share/tqfolder.el")
+
++CutChannels {
+  # to use the per-event event weights poperly, use "Weight" as .weightExpression here
+  <.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_$(weightname):$(cand)", .title="Channel Selection">
+
+  +Cut1OtherLep{
+	<.cutExpression = "$(nOtherLep) == 1", .title = "One additional lepton">
+
+	###
+	### Ensure that the flavor process sample folders contain only their respective flavors
+	###
+
+	+CutBottomLeptonic {
+	  <.cutExpression = "$(isBottomLeptonic) ? ($(FakeFlavor) == $(bottomLeptonic)) : 1.", .title = "bottomLeptonic fake flavor">
+
+	  +CutBottomHadronic {
+	   	<.cutExpression = "$(isBottomHadronic) ? ($(FakeFlavor) == $(bottomHadronic)) : 1.", .title = "bottomHadronic fake flavor">
+
+	    +CutCharmLeptonic {
+	      <.cutExpression = "$(isCharmLeptonic) ? ($(FakeFlavor) == $(charmLeptonic)) : 1.", .title = "charmLeptonic fake flavor">
+
+	      +CutCharmHadronic {
+	   		<.cutExpression = "$(isCharmHadronic) ? ($(FakeFlavor) == $(charmHadronic)) : 1.", .title = "charmHadronic fake flavor">
+
+	    	+CutStrangeLeptonic {
+	    	  <.cutExpression = "$(isStrangeLeptonic) ? ($(FakeFlavor) == $(strangeLeptonic)) : 1.", .title = "strangeLeptonic fake flavor">
+
+	    	  +CutStrangeHadronic {
+	    		<.cutExpression = "$(isStrangeHadronic) ? ($(FakeFlavor) == $(strangeHadronic)) : 1.", .title = "strangeHadronic fake flavor">
+
+	    		+CutLightLeptonic {
+	    		  <.cutExpression = "$(isLightLeptonic) ? ($(FakeFlavor) == $(lightLeptonic)) : 1.", .title = "lightLeptonic fake flavor">
+
+	    		  +CutLightHadronic {
+	    			<.cutExpression = "$(isLightHadronic) ? ($(FakeFlavor) == $(lightHadronic)) : 1.", .title = "lightHadronic fake flavor">
+
+	    			+CutOtherLeptonic {
+	    			  <.cutExpression = "$(isOtherLeptonic) ? ($(FakeFlavor) == $(otherLeptonic)) : 1.", .title = "otherLeptonic fake flavor">
+
+	    			  +CutOtherHadronic {
+	    			    <.cutExpression = "$(isOtherHadronic) ? ($(FakeFlavor) == $(otherHadronic)) : 1.", .title = "otherHadronic fake flavor">
+
+	    			    +CutEL_NonDefined_Origin {
+	    			      <.cutExpression = "$(isEL_NonDefined_Origin) ? ($(FakeFlavorMCTC) == $(EL_NonDefined_Origin)) : 1.", .title = "EL_NonDefined_Origin fake flavor">
+
+	    			      +CutMU_NonDefined_Origin {
+	    			        <.cutExpression = "$(isMU_NonDefined_Origin) ? ($(FakeFlavorMCTC) == $(MU_NonDefined_Origin)) : 1.", .title = "MU_NonDefined_Origin fake flavor">
+
+	    			        +CutPrompt {
+	    			          <.cutExpression = "$(isPrompt) ? ($(FakeFlavorMCTC) == $(Prompt)) : 1.", .title = "Prompt fake flavor">
+
+	    			          +CutChargeFlip {
+	    			          	<.cutExpression = "$(isChargeFlip) ? ($(FakeFlavorMCTC) == $(ChargeFlip)) : 1.", .title = "ChargeFlip fake flavor">
+
+	    			          	+CutEL_HFb {
+	    			          	  <.cutExpression = "$(isEL_HFb) ? ($(FakeFlavorMCTC) == $(EL_HFb)) : 1.", .title = "EL_HFb fake flavor">
+
+	    			          	  +CutMU_HFb {
+	    			          	  	<.cutExpression = "$(isMU_HFb) ? ($(FakeFlavorMCTC) == $(MU_HFb)) : 1.", .title = "MU_HFb fake flavor">
+
+	    			          	  	+CutEL_HFc {
+	    			          	  	  <.cutExpression = "$(isEL_HFc) ? ($(FakeFlavorMCTC) == $(EL_HFc)) : 1.", .title = "EL_HFc fake flavor">
+
+	    			          	  	  +CutMU_HFc {
+	    			          	  	    <.cutExpression = "$(isMU_HFc) ? ($(FakeFlavorMCTC) == $(MU_HFc)) : 1.", .title = "MU_HFc fake flavor">
+
+	    			          	  	    +CutEL_LFgamma {
+	    			          	  	      <.cutExpression = "$(isEL_LFgamma) ? ($(FakeFlavorMCTC) == $(EL_LFgamma)) : 1.", .title = "EL_LFgamma fake flavor">
+
+	    			          	  	      +CutEL_pi0 {
+	    			          	  	      	<.cutExpression = "$(isEL_pi0) ? ($(FakeFlavorMCTC) == $(EL_pi0)) : 1.", .title = "EL_pi0 fake flavor">
+
+	    			          	  	        +CutEL_Kaon {
+	    			          	  	    	  <.cutExpression = "$(isEL_Kaon) ? ($(FakeFlavorMCTC) == $(EL_Kaon)) : 1.", .title = "EL_Kaon fake flavor">
+
+	    			          	  	    	  +CutMU_Kaon {
+	    			          	  	    	    <.cutExpression = "$(isMU_Kaon) ? ($(FakeFlavorMCTC) == $(MU_Kaon)) : 1.", .title = "MU_Kaon fake flavor">
+
+	    			          	  	    	    +CutEL_LFrest {
+	    			          	  	    		  <.cutExpression = "$(isEL_LFrest) ? ($(FakeFlavorMCTC) == $(EL_LFrest)) : 1.", .title = "EL_LFrest fake flavor">
+
+	    			          	  	    		  +CutMU_LFrest {
+	    			          	  	    		    <.cutExpression = "$(isMU_LFrest) ? ($(FakeFlavorMCTC) == $(MU_LFrest)) : 1.", .title = "MU_LFrest fake flavor">
+
+	    			          	  	    		    ###
+	    			          	  	    		    ### Separate Electron ID, Electron AntiID, Muon ID, and Muon AntiID
+	    			          	  	    		    ###
+
+	    			          	  	    		    +CutOtherElec{
+													  <.cutExpression = "$(nOtherElec) == 1", .title = "One additional electron">
+
+													  # find the fake index by finding the most optimal Z-boson pair
+
+													  +CutZMassFakeIndex_elfakeIsOtherLep{
+													    <.cutExpression = "[ZBosonPairFakeIndex]==3", .title = "Z-tag: fakeLep=otherLep", fakeId="_otherLepFake_">
+
+													    +Cut$(fakeId)PtFakeElec_PtZleptons{
+													      <.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 15000 && $(elFake0).pt() > 15000", .title = "All lep pT > 15">
+													      #<.cutExpression = "$(lep0).pt() > 25000 && $(lep1).pt() > 25000 && $(elFake0).pt() > 15000", .title = "fake(Zcand) pT > 15(25)">
+
+													      +Cut$(fakeId)EtaFakeElec{
+														    <.cutExpression = "(fabs($(elFake0).eta()) < 2.47 && (fabs(($elFake0).eta()) < 1.37 || fabs(($elFake0).eta()) > 1.52))", .title = "Fake el eta cut">
+
+													        +Cut$(fakeId)ElecID{
+													          <.cutExpression = "[otherLep0ID]>0", .title = "Fake El ID", IDName="_El_ID">
+													        }
+													        +Cut$(fakeId)ElecAntiID{
+													          <.cutExpression = "[otherLep0AntiID]>0", .title = "Fake El Anti-ID", IDName="_El_AntiID">
+													        }
+													      }
+													    }
+													  }
+													  +CutZMassFakeIndex_elfakeIsSubLeadLep{
+													    <.cutExpression = "[ZBosonPairFakeIndex]==2", .title = "Z-tag: fakeLep=sublead Lep", fakeId="_subleadLepFake_">
+
+													    +Cut$(fakeId)PtFakeElec_PtZleptons{
+													      <.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 15000 && $(elFake0).pt() > 15000", .title = "All lep pT > 15">
+													      #<.cutExpression = "$(lep0).pt() > 25000 && $(lep1).pt() > 15000 && $(elFake0).pt() > 25000", .title = "fake(Zcand) pT > 15(25)">
+
+													      +Cut$(fakeId)EtaFakeElec{
+														    <.cutExpression = "(fabs($(lep1).eta()) < 2.47 && (fabs(($lep1).eta()) < 1.37 || fabs(($lep1).eta()) > 1.52))", .title = "Fake el eta cut">
+
+													        +Cut$(fakeId)ElecID{
+													          <.cutExpression = "[subleadLepID]>0", .title = "Fake El ID", IDName="_El_ID">
+													        }
+													        +Cut$(fakeId)ElecAntiID{
+													          <.cutExpression = "[subleadLepAntiID]>0", .title = "Fake El Anti-ID", IDName="_El_AntiID">
+													        }
+													      }
+													    }
+													  }
+													  +CutZMassFakeIndex_elfakeIsLeadLep{
+													    <.cutExpression = "[ZBosonPairFakeIndex]==1", .title = "Z-tag: fakeLep=lead Lep", fakeId="_leadLepFake_">
+
+													    +Cut$(fakeId)PtFakeElec_PtZleptons{
+													      <.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 15000 && $(elFake0).pt() > 15000", .title = "All lep pT > 15">
+													      #<.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 25000 && $(elFake0).pt() > 25000", .title = "fake(Zcand) pT > 15(25)">
+
+													      +Cut$(fakeId)EtaFakeElec{
+														    <.cutExpression = "(fabs($(lep0).eta()) < 2.47 && (fabs(($lep0).eta()) < 1.37 || fabs(($lep0).eta()) > 1.52))", .title = "Fake el eta cut">
+
+													        +Cut$(fakeId)ElecID{
+													          <.cutExpression = "[leadLepID]>0", .title = "Fake El ID", IDName="_El_ID">
+													        }
+													        +Cut$(fakeId)ElecAntiID{
+													          <.cutExpression = "[leadLepAntiID]>0", .title = "Fake El Anti-ID", IDName="_El_AntiID">
+													        }
+													      }
+													    }
+													  }
+												    }
+
+												    +CutOtherMuon{
+													  <.cutExpression = "$(nOtherMuon) == 1", .title = "One additional muon">
+
+													  # find the fake index by finding the most optimal Z-boson pair
+
+													  +CutZMassFakeIndex_mufakeIsOtherLep{
+													    <.cutExpression = "[ZBosonPairFakeIndex]==3", .title = "Z-tag: fakeLep=otherLep", fakeId="_otherLepFake_">
+
+													    +Cut$(fakeId)PtFakeMuon_PtZleptons{
+													      <.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 15000 && $(muFake0).pt() > 15000", .title = "All lep pT > 15">
+													      #<.cutExpression = "$(lep0).pt() > 25000 && $(lep1).pt() > 25000 && $(muFake0).pt() > 15000", .title = "fake(Zcand) pT > 15(25)">
+
+													      +Cut$(fakeId)EtaFakeMuon{
+														    <.cutExpression = "fabs($(muFake0).eta()) < 2.5", .title = "Fake mu eta cut">
+
+													        +Cut$(fakeId)MuonID{
+													          <.cutExpression = "[otherLep0ID]>0", .title = "Fake Mu ID", IDName="_Mu_ID">
+													        }
+													        +Cut$(fakeId)MuonAntiID{
+													          <.cutExpression = "[otherLep0AntiID]>0", .title = "Fake Mu Anti-ID", IDName="_Mu_AntiID">
+													        }
+													      }
+													    }
+													  }
+													  +CutZMassFakeIndex_mufakeIsSubLeadLep{
+													    <.cutExpression = "[ZBosonPairFakeIndex]==2", .title = "Z-tag: fakeLep=sublead Lep", fakeId="_subleadLepFake_">
+
+													    +Cut$(fakeId)PtFakeMuon_PtZleptons{
+													      <.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 15000 && $(muFake0).pt() > 15000", .title = "All lep pT > 15">
+													      #<.cutExpression = "$(lep0).pt() > 25000 && $(lep1).pt() > 15000 && $(muFake0).pt() > 25000", .title = "fake(Zcand) pT > 15(25)">
+
+													      +Cut$(fakeId)EtaFakeMuon{
+														    <.cutExpression = "fabs($(lep1).eta()) < 2.5", .title = "Fake mu eta cut">
+
+													        +Cut$(fakeId)MuonID{
+													          <.cutExpression = "[subleadLepID]>0", .title = "Fake Mu ID", IDName="_Mu_ID">
+													        }
+													        +Cut$(fakeId)MuonAntiID{
+													          <.cutExpression = "[subleadLepAntiID]>0", .title = "Fake Mu Anti-ID", IDName="_Mu_AntiID">
+													        }
+													      }
+													    }
+													  }
+													  +CutZMassFakeIndex_mufakeIsLeadLep{
+													    <.cutExpression = "[ZBosonPairFakeIndex]==1", .title = "Z-tag: fakeLep=lead Lep", fakeId="_leadLepFake_">
+
+													    +Cut$(fakeId)PtFakeMuon_PtZleptons{
+													      <.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 15000 && $(muFake0).pt() > 15000", .title = "All lep pT > 15">
+													      #<.cutExpression = "$(lep0).pt() > 15000 && $(lep1).pt() > 25000 && $(muFake0).pt() > 25000", .title = "fake(Zcand) pT > 15(25)">
+
+													      +Cut$(fakeId)EtaFakeMuon{
+														    <.cutExpression = "fabs($(lep0).eta()) < 2.5", .title = "Fake mu eta cut">
+
+													        +Cut$(fakeId)MuonID{
+													          <.cutExpression = "[leadLepID]>0", .title = "Fake Mu ID", IDName="_Mu_ID">
+													        }
+													        +Cut$(fakeId)MuonAntiID{
+													          <.cutExpression = "[leadLepAntiID]>0", .title = "Fake Mu Anti-ID", IDName="_Mu_AntiID">
+													        }
+													      }
+													    }
+													  }
+												    }
+
+												  }
+											    }
+											  }
+											}
+										  }
+										}
+									  }
+									}
+								  }
+								}
+							  }
+							}
+						  }
+						}
+					  }
+					}
+				  }
+				}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# Here the cuts are applied on ID/AntiID electrons and ID/AntiID muons separately - the fake flavors have already been separated into different processes (different sample folders)
+
+@*/Cut_otherLepFake_Elec*ID {
+
+	+Cut$(fakeId)VgammaVjet_overlap$(IDName) {
+        <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+        +Cut$(fakeId)ZCandPrompt$(IDName) {
+					<.cutExpression = "$(Prompt_Zcands_otherE)", .title="Z cands prompt">
+
+			+Cut$(fakeId)PtFakeElectron_15_to_20$(IDName) {
+				<.cutExpression = "(20000 > $(elFake0).pt()) && ($(elFake0).pt() > 15000)", .title = "Fake el pT 15-20">
+			}
+			+Cut$(fakeId)PtFakeElectron_20_to_25$(IDName) {
+				<.cutExpression = "(25000 > $(elFake0).pt()) && ($(elFake0).pt() > 20000)", .title = "Fake el pT 20-25">
+			}
+			+Cut$(fakeId)PtFakeElectron_25_to_35$(IDName) {
+				<.cutExpression = "(35000 > $(elFake0).pt()) && ($(elFake0).pt() > 25000)", .title = "Fake el pT 25-35">
+			}
+			+Cut$(fakeId)PtFakeElectron_35_to_1000$(IDName) {
+				<.cutExpression = "(1000000 > $(elFake0).pt()) && ($(elFake0).pt() > 35000)", .title = "Fake el pT 35-1000">
+			}
+		}
+    }
+}
+@*/Cut_subleadLepFake_Elec*ID {
+
+	+Cut$(fakeId)VgammaVjet_overlap$(IDName) {
+        <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+        +Cut$(fakeId)ZCandPrompt$(IDName) {
+					<.cutExpression = "$(Prompt_Zcands_otherE)", .title="Z cands prompt">
+
+			+Cut$(fakeId)PtFakeElectron_15_to_20$(IDName) {
+				<.cutExpression = "(20000 > $(lep1).pt()) && ($(lep1).pt() > 15000)", .title = "Fake el pT 15-20">
+			}
+			+Cut$(fakeId)PtFakeElectron_20_to_25$(IDName) {
+				<.cutExpression = "(25000 > $(lep1).pt()) && ($(lep1).pt() > 20000)", .title = "Fake el pT 20-25">
+			}
+			+Cut$(fakeId)PtFakeElectron_25_to_35$(IDName) {
+				<.cutExpression = "(35000 > $(lep1).pt()) && ($(lep1).pt() > 25000)", .title = "Fake el pT 25-35">
+			}
+			+Cut$(fakeId)PtFakeElectron_35_to_1000$(IDName) {
+				<.cutExpression = "(1000000 > $(lep1).pt()) && ($(lep1).pt() > 35000)", .title = "Fake el pT 35-1000">
+			}
+		}
+    }
+}
+@*/Cut_leadLepFake_Elec*ID {
+
+	+Cut$(fakeId)VgammaVjet_overlap$(IDName) {
+        <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+        +Cut$(fakeId)ZCandPrompt$(IDName) {
+					<.cutExpression = "$(Prompt_Zcands_otherE)", .title="Z cands prompt">
+
+			+Cut$(fakeId)PtFakeElectron_15_to_20$(IDName) {
+				<.cutExpression = "(20000 > $(lep0).pt()) && ($(lep0).pt() > 15000)", .title = "Fake el pT 15-20">
+			}
+			+Cut$(fakeId)PtFakeElectron_20_to_25$(IDName) {
+				<.cutExpression = "(25000 > $(lep0).pt()) && ($(lep0).pt() > 20000)", .title = "Fake el pT 20-25">
+			}
+			+Cut$(fakeId)PtFakeElectron_25_to_35$(IDName) {
+				<.cutExpression = "(35000 > $(lep0).pt()) && ($(lep0).pt() > 25000)", .title = "Fake el pT 25-35">
+			}
+			+Cut$(fakeId)PtFakeElectron_35_to_1000$(IDName) {
+				<.cutExpression = "(1000000 > $(lep0).pt()) && ($(lep0).pt() > 35000)", .title = "Fake el pT 35-1000">
+			}
+		}
+    }
+}
+
+@*/Cut_otherLepFake_Muon*ID {
+
+	+Cut$(fakeId)VgammaVjet_overlap$(IDName) {
+        <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+        +Cut$(fakeId)ZCandPrompt$(IDName) {
+					<.cutExpression = "$(Prompt_Zcands_otherM)", .title="Z cands prompt">
+
+			+Cut$(fakeId)PtFakeMuon_15_to_20$(IDName) {
+				<.cutExpression = "(20000 > $(muFake0).pt()) && ($(muFake0).pt() > 15000)", .title = "Fake mu pT 15-20">
+			}
+			+Cut$(fakeId)PtFakeMuon_20_to_25$(IDName) {
+				<.cutExpression = "(25000 > $(muFake0).pt()) && ($(muFake0).pt() > 20000)", .title = "Fake mu pT 20-25">
+			}
+			+Cut$(fakeId)PtFakeMuon_25_to_1000$(IDName) {
+				<.cutExpression = "(1000000 > $(muFake0).pt()) && ($(muFake0).pt() > 25000)", .title = "Fake mu pT 25-1000">
+			}
+		}
+    }
+}
+@*/Cut_subleadLepFake_Muon*ID {
+
+	+Cut$(fakeId)VgammaVjet_overlap$(IDName) {
+        <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+        +Cut$(fakeId)ZCandPrompt$(IDName) {
+					<.cutExpression = "$(Prompt_Zcands_otherM)", .title="Z cands prompt">
+
+			+Cut$(fakeId)PtFakeMuon_15_to_20$(IDName) {
+				<.cutExpression = "(20000 > $(lep1).pt()) && ($(lep1).pt() > 15000)", .title = "Fake mu pT 15-20">
+			}
+			+Cut$(fakeId)PtFakeMuon_20_to_25$(IDName) {
+				<.cutExpression = "(25000 > $(lep1).pt()) && ($(lep1).pt() > 20000)", .title = "Fake mu pT 20-25">
+			}
+			+Cut$(fakeId)PtFakeMuon_25_to_1000$(IDName) {
+				<.cutExpression = "(1000000 > $(lep1).pt()) && ($(lep1).pt() > 25000)", .title = "Fake mu pT 25-1000">
+			}
+		}
+    }
+}
+@*/Cut_leadLepFake_Muon*ID {
+
+	+Cut$(fakeId)VgammaVjet_overlap$(IDName) {
+        <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+        +Cut$(fakeId)ZCandPrompt$(IDName) {
+					<.cutExpression = "$(Prompt_Zcands_otherM)", .title="Z cands prompt">
+
+			+Cut$(fakeId)PtFakeMuon_15_to_20$(IDName) {
+				<.cutExpression = "(20000 > $(lep0).pt()) && ($(lep0).pt() > 15000)", .title = "Fake mu pT 15-20">
+			}
+			+Cut$(fakeId)PtFakeMuon_20_to_25$(IDName) {
+				<.cutExpression = "(25000 > $(lep0).pt()) && ($(lep0).pt() > 20000)", .title = "Fake mu pT 20-25">
+			}
+			+Cut$(fakeId)PtFakeMuon_25_to_1000$(IDName) {
+				<.cutExpression = "(1000000 > $(lep0).pt()) && ($(lep0).pt() > 25000)", .title = "Fake mu pT 25-1000">
+			}
+		}
+    }
+}

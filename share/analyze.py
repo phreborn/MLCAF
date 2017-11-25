@@ -20,6 +20,7 @@ def main(config):
     except AttributeError:
         pass
 
+    # TODO: make a get aliases method? aliases also loaded during cut creation
     # load the aliases from the config file
     aliases = QFramework.TQTaggable()
     aliases.importTagsWithoutPrefix(config,"cutParameters.")
