@@ -70,7 +70,7 @@ def addObservables(config):
 
         # take care of sf systematics, needs to be done before the SF names are set
         ok = False
-        print variation
+        #print variation
         # error message when trying to use old namings for pileup weights
         if variation == "$(weightname)" or variation == "nominal":
             # this is "nominal" or any p4 variation
