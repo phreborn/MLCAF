@@ -1,2 +1,3 @@
-Root/LinkDef.h
 *.pyc
+Root/LinkDef.h
+python/__init__.py
