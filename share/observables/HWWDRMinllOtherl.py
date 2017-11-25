@@ -1,6 +1,8 @@
 from QFramework import *
 from ROOT import *
 
+from CAFExample import HWWDRMinllOtherl
+
 def addObservables():
 
 	obs = HWWDRMinllOtherl("HWWDRMinllOtherl")
