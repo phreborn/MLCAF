@@ -1,0 +1,90 @@
+TH1F('Electron_Numerator_Flavor', '', 14, -3., 10.) << ( $(FakeFlavor) : 'ID electron flavor')
+TH1F('Electron_Denominator_Flavor', '', 14, -3., 10.) << ( $(FakeFlavor) : 'Anti-ID electron flavor')
+TH1F('Muon_Numerator_Flavor', '', 14, -3., 10.) << ( $(FakeFlavor) : 'ID muon flavor')
+TH1F('Muon_Denominator_Flavor', '', 14, -3., 10.) << ( $(FakeFlavor) : 'Anti-ID muon flavor')
+
+# For gamma tail
+TH1F('Electron_Numerator_fine_pT',   '', 48, 0., 120.) << ( $(elFake0).pt()/1000 : 'Electron Numerator p_{t} [GeV]' )
+TH1F('Electron_Denominator_fine_pT',   '', 48, 0., 120.) << ( $(elFake0).pt()/1000 : 'Electron Denominator p_{t} [GeV]' )
+TH1F('DRMinllOtherl', '', 50, 0., 5.) << ( [HWWDRMinllOtherl] : '\#Delta \R^{ll}' );
+TH1F('DRMinllOtherlClose', '', 40, 0., 1.) << ( [HWWDRMinllOtherl] : '\#Delta \R^{ll}' );
+
+#TH1F('Electron_Numerator_pT',   '', 21, 15., 120.) << ( $(elFake0).pt()/1000 : 'Electron Numerator p_{t} [GeV]' )
+#TH1F('Electron_Denominator_pT',   '', 21, 15., 120.) << ( $(elFake0).pt()/1000 : 'Electron Denominator p_{t} [GeV]' )
+#TH1F('Muon_Numerator_pT',   '', 21, 15., 120.) << ( $(muFake0).pt()/1000 : 'Muon Numerator p_{t} [GeV]' )
+#TH1F('Muon_Denominator_pT',   '', 21, 15., 120.) << ( $(muFake0).pt()/1000 : 'Muon Denominator p_{t} [GeV]' )
+
+TH1F('Electron_Numerator_pT',   '', 21, 15., 120.) << ( $(elFake_pT) : 'Electron Numerator p_{t} [GeV]' )
+TH1F('Electron_Denominator_pT',   '', 21, 15., 120.) << ( $(elFake_pT) : 'Electron Denominator p_{t} [GeV]' )
+TH1F('Muon_Numerator_pT',   '', 21, 15., 120.) << ( $(muFake_pT) : 'Muon Numerator p_{t} [GeV]' )
+TH1F('Muon_Denominator_pT',   '', 21, 15., 120.) << ( $(muFake_pT) : 'Muon Denominator p_{t} [GeV]' )
+
+#TH1F('Electron_d0','',30, 0., 0.3) << (abs($(elFake0_d0)) : 'Electron d_{0} [mm]');
+#TH1F('Muon_d0','',30, 0., 0.3) << (abs($(muFake0_d0)) : 'Muon d_{0} [mm]');
+#TH1F('Electron_d0sig','',10, 0., 5) << (abs($(elFake0_d0sig)) : 'Electron d_{0} signifiance ');
+#TH1F('Muon_d0sig','',10, 0., 15) <<     (abs($(muFake0_d0sig)) : 'Muon d_{0} significance');
+
+TH1F('FakeElectron_d0','',30, 0., 0.3) << (abs($(elFake_d0)) : 'Electron d_{0} [mm]');
+TH1F('FakeMuon_d0','',30, 0., 0.3) << (abs($(muFake_d0)) : 'Muon d_{0} [mm]');
+TH1F('FakeElectron_d0sig','',10, 0., 5) << (abs($(elFake_d0sig)) : 'Electron d_{0} signifiance ');
+TH1F('FakeMuon_d0sig','',10, 0., 15) <<     (abs($(muFake_d0sig)) : 'Muon d_{0} significance');
+
+#TH1F('Mll', '', 60, 60., 120.) << ( $(Mll)/1000. : 'Dilepton mass [GeV]' );
+#TH1F('Mll01', '', 60, 60., 120.) << ( $(Mll01)/1000. : 'Dilepton mass [GeV]' );
+#TH1F('Mll02', '', 60, 60., 120.) << ( $(Mll02)/1000. : 'Dilepton mass [GeV]' );
+#TH1F('Mll12', '', 60, 60., 120.) << ( $(Mll12)/1000. : 'Dilepton mass [GeV]' );
+
+# FF histos
+#TH2F('OtherElecEtaVsPt', '', {15., 20., 25., 35., 1000.}, {0., 1.5, 2.5}) << ( $(elFake0).pt()/1000 : 'Fake candidate p_{T} [GeV]', abs($(elFake0).eta()) : 'Fake candidate \#eta' );
+#TH2F('OtherMuonEtaVsPt', '', {15., 20., 25., 1000.}, {0., 1.05, 2.5}) << ( $(muFake0).pt()/1000 : 'Fake candidate p_{T} [GeV]', abs($(muFake0).eta()) : 'Fake candidate \#eta' );
+
+TH2F('FakeElecEtaVsPt', '', {15., 20., 25., 35., 1000.}, {0., 1.5, 2.5}) << ( $(elFake_pT) : 'Fake candidate p_{T} [GeV]', abs($(elFake_eta)) : 'Fake candidate \#eta' );
+TH2F('FakeMuonEtaVsPt', '', {15., 20., 25., 1000.}, {0., 1.05, 2.5}) << ( $(muFake_pT) : 'Fake candidate p_{T} [GeV]', abs($(muFake_eta)) : 'Fake candidate \#eta' );
+
+#########################
+
+#@Cut*ElecID/*: Electron_Numerator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll;
+#@Cut*ElecAntiID/*: Electron_Denominator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll;
+
+#@Cut*MuonID/*: Muon_Numerator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll;
+#@Cut*MuonAntiID/*: Muon_Denominator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll;
+
+### Only make histos explicitly for cuts, flavor split sample folders can get too big otherwise!
+
+#@CutZLeptonPt_El_ID: Electron_Numerator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+#@CutZLeptonPt_El_AntiID: Electron_Denominator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+
+#@CutZLeptonPt_Mu_ID: Muon_Numerator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;
+#@CutZLeptonPt_Mu_AntiID: Muon_Denominator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;
+
+#@CutZMass_El_ID: Electron_Numerator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+#@CutZMass_El_AntiID: Electron_Denominator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+
+#@CutZMass_Mu_ID: Muon_Numerator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;
+#@CutZMass_Mu_AntiID: Muon_Denominator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;
+
+###
+
+# For truthMatch cutflow
+
+#@CutZLeptonID_El_ID: Electron_Numerator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+#@CutZLeptonID_El_AntiID: Electron_Denominator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+
+#@CutZLeptonID_Mu_ID: Muon_Numerator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;
+#@CutZLeptonID_Mu_AntiID: Muon_Denominator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;
+
+# For ZTagging selection
+
+@Cut*ZCandPrompt_El_ID: Electron_Numerator_pT, FakeElecEtaVsPt, FakeElectron_d0sig;
+@Cut*ZCandPrompt_El_AntiID: Electron_Denominator_pT, FakeElecEtaVsPt, FakeElectron_d0sig;
+
+@Cut*ZCandPrompt_Mu_ID: Muon_Numerator_pT, FakeMuonEtaVsPt, FakeMuon_d0sig;
+@Cut*ZCandPrompt_Mu_AntiID: Muon_Denominator_pT, FakeMuonEtaVsPt, FakeMuon_d0sig;
+
+# For fullSelection cutflow
+
+#@CutWZVeto_El_ID: Electron_Numerator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+#@CutWZVeto_El_AntiID: Electron_Denominator_pT, OtherElecEtaVsPt, DRMinllOtherl, Mll, Electron_d0sig;
+
+#@CutWZVeto_Mu_ID: Muon_Numerator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;
+#@CutWZVeto_Mu_AntiID: Muon_Denominator_pT, OtherMuonEtaVsPt, DRMinllOtherl, Mll, Muon_d0sig;

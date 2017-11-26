@@ -20,7 +20,7 @@ def main(config):
     except AttributeError:
         pass
 
-    # TODO: make a get aliases method? aliases also loaded during cut creation
+    # TODO: make a get aliases method? aliases also loaded during cut creation and analysis job booking
     # load the aliases from the config file
     aliases = QFramework.TQTaggable()
     aliases.importTagsWithoutPrefix(config,"cutParameters.")
@@ -126,8 +126,12 @@ def main(config):
     # load all the cuts that are defined
     cuts = analyze.loadCuts(config)
 
-    # load all the analysis jobs, booking histograms, event counters for cutflows and much more
-    analyze.bookAnalysisJobs(config, cuts)
+    # load all the analysis jobs - booking histograms, event counters for cutflows, and much more
+    # return a boolean for determining whether or not analysis is cutbased
+    cutbased = analyze.bookAnalysisJobs(config, cuts)
+
+    if config.getTagBoolDefault("printCuts",cutbased):
+        cuts.printCut();
 
     # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
     visitor = analyze.createSampleVisitor(config)
