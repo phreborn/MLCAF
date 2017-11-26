@@ -121,7 +121,7 @@ def main(config):
             QFramework.BREAK("sample folder empty after purge - something is wrong!") 
 
     # load all the observables that allow access of the physics-content of your samples
-    analyze.loadObservables(config)
+    customobservables = analyze.loadObservables(config)
 
     # load all the cuts that are defined
     cuts = analyze.loadCuts(config)
@@ -132,6 +132,10 @@ def main(config):
 
     if config.getTagBoolDefault("printCuts",cutbased):
         cuts.printCut();
+
+    if customobservables or config.getTagBoolDefault("printObservables"):
+        QFramework.INFO("custom observables were defined - this is the list of known observables:")
+        QFramework.TQTreeObservable.printObservables()
 
     # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
     visitor = analyze.createSampleVisitor(config)
