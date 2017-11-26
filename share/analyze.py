@@ -137,6 +137,124 @@ def main(config):
         QFramework.INFO("custom observables were defined - this is the list of known observables:")
         QFramework.TQTreeObservable.printObservables()
 
+    # flag indicating to run analysis in debug mode
+    debug = CLI.getTagBoolDefault("debug",False)
+
+    # run the cutbased analysis
+    mcvchannels = []
+    analysisError = "" #setting this to a non-empty string will supress writing the regular output file and write an alternative file with the value of this string
+    if cutbased:
+        if debug:
+            maxEvents = 100
+        else:
+            maxEvents = config.getTagIntegerDefault("maxEvents",-1)
+        if not config.getTagBoolDefault("useMultiChannelVisitor",False) or robust or dummy:
+            # using regular analysis sample visitor (default)
+            visitor = QFramework.TQAnalysisSampleVisitor()
+            visitor.setVerbose(True)
+            visitor.setBaseCut(cuts)
+            # book any algorithms
+            for algorithm in config.getTagVString("algorithms"):
+                QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
+                loader = str(algorithm.Data())
+                QFramework.START("l.","adding algorithms from '{:s}'".format(loader))
+                try:
+                    addalgorithms = importlib.import_module("algorithms."+loader)
+                    added = addalgorithms.addAlgorithms(visitor,config)
+                    if added:
+                        QFramework.END(QFramework.TQMessageStream.OK)
+                    else:
+                        QFramework.END(QFramework.TQMessageStream.FAIL)
+                        QFramework.BREAK("unable to properly setup custom algorithms")
+                except IOError:
+                    QFramework.END(QFramework.TQMessageStream.FAIL)
+                    QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
+        else:
+            # using fast MultiChannel analysis sample visitor
+            visitor = QFramework.TQMultiChannelAnalysisSampleVisitor()
+            visitor.setVerbose(True)
+            visitor.setTagDouble("progressInterval",config.getTagDoubleDefault("progressInterval",5.))
+            #add algorithms (encapsulated in 'try' as older versions of CAFCore do not support this)
+            for algorithm in config.getTagVString("algorithms"):
+                QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
+                loader = str(algorithm.Data())
+                QFramework.START("l.","adding algorithms from '{:s}'".format(loader))
+                try:
+                    addalgorithms = importlib.import_module("algorithms."+loader)
+                    try:
+                        added = addalgorithms.addAlgorithms(visitor,config)
+                    except AttributeError:
+                        QFramework.END(QFramework.TQMessageStream.FAIL)
+                        QFramework.BREAK("cannot schedule algorithms when using the TQMultiChannelAnalysisSampleVisitor with your current version of CAFCore. "
+                                         "This feature is expected to be available starting from release 17.08.x")
+                    if added:
+                        QFramework.END(QFramework.TQMessageStream.OK)
+                    else:
+                        QFramework.END(QFramework.TQMessageStream.FAIL)
+                        QFramework.BREAK("unable to properly setup custom algorithms")
+                except IOError:
+                    QFramework.END(QFramework.TQMessageStream.FAIL)
+                    QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
+
+            # TODO: this is also done in bookAnalysisJobs
+            xAODdumpingConfig = QFramework.TQTaggable()
+            dumpXAODs = (xAODdumpingConfig.importTagsWithoutPrefix(config,"xAODdumping.") > 0)
+
+            jobID = CLI.getTagStringDefault("jobID","analyze")
+
+            #add xAODskimmingAlgorithm if requested (only for MCASV as we'd have event duplications otherwise!)
+            #note: if we ever implement an option to limit the number of channels executed at the same time we must ensure this does not run in such a configuration!!!!
+            if dumpXAODs:
+                xAODskimmingAlg = QFramework.TQxAODskimmingAlgorithm()
+                xAODskimmingAlg.SetName("xAODdumper")
+                xAODskimmingAlg.setOutputDir( xAODdumpingConfig.getTagStringDefault("outputDir","CAFxAODs") )
+                xAODskimmingAlg.setFilePrefix(jobID+"_")
+                if config.hasTag("nameTagName") : xAODskimmingAlg.setPrefix( config.getTagStringDefault( ROOT.TString("aliases.")+config.getTagStringDefault("nameTagName",""), "" ) )
+                visitor.addAlgorithm( xAODskimmingAlg )
+
+            # TODO: will need to go in systematics section, find a way to propagate it also to here
+            mcasvchannels = set([ c for c in channels ])
+
+            cutlist = []
+            for channel in mcasvchannels:
+                cut = cuts.getClone()
+                cutlist.append(cut)
+                visitor.addChannel(channel,cut)
+                mcvchannels.append(channel)
+            if config.getTagBoolDefault("showChannels",False):
+                visitor.printChannels()
+
+        cloneObservablesSmart = False
+        if config.getTagBoolDefault("reduceMCVObservables",False):
+            try:
+                from CAFExample.SmartObservableCloning import cloneSetSmart
+                cloneObservablesSmart = True
+            except ImportError:
+                cloneObservablesSmart = False
+                QFramework.ERROR("smart observable cloning unavailable, skipping")
+        if  cloneObservablesSmart:
+            for channel in mcvchannels:
+                QFramework.TQObservable.getManager().cloneActiveSet(channel)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
     visitor = analyze.createSampleVisitor(config)
 
@@ -187,6 +305,7 @@ if __name__ == "__main__":
     import sys
     import QFramework
     import ROOT
+    import importlib
 
     # use the argument parser to read the command line arguments and config options from the config file
     config = common.getConfigOptions(parser.parse_args())
