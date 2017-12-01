@@ -65,7 +65,6 @@ def main(config):
         samples = common.loadSampleFolder(config)
 
     # check writeability of the output destination to discover typos ahead of time
-    # TODO: if we are running in debug mode, should call output file a different name, something like debug.root
     common.testWriteSampleFolder(config, samples)
 
     # remove the data folder if not desired
@@ -110,11 +109,11 @@ def main(config):
     if config.getTagBoolDefault("purgeSamples",False):
         common.reduceSampleFolder(config, samples)
 
-    pathselect = CLI.getTagStandardStringDefault("pathselect","None")
+    pathselect = CLI.getTagStandardStringDefault("pathselect","")
 
     # TODO: put this in the reduceSampleFolder method as well?
     # if requested, purge samples (even more)
-    if config.getTagBoolDefault("purgeRemainder",False) and not QFramework.TQStringUtils.equal(pathselect,"None"):
+    if config.getTagBoolDefault("purgeRemainder",False) and not QFramework.TQStringUtils.equal(pathselect,""):
         samples.setTagBool("restrict",True,pathselect)
         samples.purgeWithoutTag("~restrict")
         if not samples.getListOfSampleFolders("?"):
@@ -148,6 +147,7 @@ def main(config):
             maxEvents = 100
         else:
             maxEvents = config.getTagIntegerDefault("maxEvents",-1)
+
         if not config.getTagBoolDefault("useMultiChannelVisitor",False) or robust or dummy:
             # using regular analysis sample visitor (default)
             visitor = QFramework.TQAnalysisSampleVisitor()
@@ -196,7 +196,7 @@ def main(config):
                     QFramework.END(QFramework.TQMessageStream.FAIL)
                     QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
 
-            # TODO: this is also done in bookAnalysisJobs
+            # TODO: these two lines are also done in bookAnalysisJobs
             xAODdumpingConfig = QFramework.TQTaggable()
             dumpXAODs = (xAODdumpingConfig.importTagsWithoutPrefix(config,"xAODdumping.") > 0)
 
@@ -213,6 +213,7 @@ def main(config):
                 visitor.addAlgorithm( xAODskimmingAlg )
 
             # TODO: will need to go in systematics section, find a way to propagate it also to here
+            # after adding systematics above, will be a set of channels which includes all systematics
             mcasvchannels = set([ c for c in channels ])
 
             cutlist = []
@@ -236,16 +237,89 @@ def main(config):
             for channel in mcvchannels:
                 QFramework.TQObservable.getManager().cloneActiveSet(channel)
 
+        downmerge   = CLI.getTagBoolDefault("downmerge",False)
+        downmergeTo = CLI.getTagStandardStringDefault("downmergeTo","")
 
+        # proceed with analysis
+        appname = QFramework.TQLibrary.getApplicationName().Data()
+        visitor.setVisitTraceID(appname)
+        if maxEvents > 0:
+            QFramework.WARN("setting maximum number of events per sample to {:d}".format(maxEvents))
+            visitor.setMaxEvents(maxEvents)
+        QFramework.TQLibrary.allowRedirection(False)
+        timer = ROOT.TStopwatch()
+        nsamples = 0
+        if pathselect:
+            paths = ROOT.TString(pathselect)
+        else:
+            # Read in sample folder restrictions and convert to a single comma-
+            # separated string, the same format as it would be passed in via CLI.
+            # Can't use `join` since this is a vector<TString>
+            # Can't read in the field as a single string with getTagString,
+            # perhaps since it has commas
+            paths = ""
+            for path in config.getTagVString("restrict"):
+                paths += path.Data() + ","
+            paths = ROOT.TString(paths[:-1])
+        if paths.Length() != 0:
+            if not dummy:
+                nsamples = samples.visitSampleFolders(visitor,paths)
+                QFramework.TQLibrary.recordMemory()
+                QFramework.TQObservable.clearAll()
+                QFramework.TQLibrary.recordMemory()
+                if downmerge or downmergeTo:
+                    downmergeTargets = downmergeTo
+                    if not downmergeTargets:
+                        downmergeTargets = paths
+                    samples.setTag(".generalize.histograms",True,downmergeTargets)
+                    samples.setTag(".generalize.cutflow",True,downmergeTargets)
+            else:
+                QFramework.WARN("dummy run, skipping execution of cutbased analysis on paths '{:s}'".format(pathselect))
+        else:
+            if not dummy:
+                nsamples = samples.visitMe(visitor)
+                QFramework.TQLibrary.recordMemory()
+            else:
+                QFramework.WARN("dummy run, skipping execution of cutbased analysis on root sample folder")
+        if nsamples > 0:
+            if downmerge or downmergeTo:
+                samples.generalizeObjects(".generalize")
+            timer.Stop()
+            if config.getTagBoolDefault("checkRun",True):
+                if dummy:
+                    allevents = QFramework.TQCounter("dummy",0,0,0)
+                else:
+                    allevents = samples.getCounter(".",cuts.GetName())
+                if allevents:
+                    raw = allevents.getRawCounter()
+                else:
+                    raw = 0
+                time = timer.RealTime()
 
+                QFramework.INFO("finished cutbased analysis run over {:d} events in {:d} samples after {:.2f}s ({:.1f} Hz)".format(raw,nsamples,time,float(raw)/time))
 
+            # debugging printout
+            if config.getTagBoolDefault("printCounterValues",False):
+                samples.printListOfCounters()
+            printhists = config.getTagVString("printHistogramsASCII")
+            for hist in printhists:
+                h = samples.getHistogram(".",hist)
+                if h:
+                    QFramework.TQHistogramUtils.printHistogramASCII(h)
+                else:
+                    QFramework.ERROR("unable to access histogram '{:s}'".format(hist))
 
+        else:
+            #QFramework.ERROR("execution of analysis failed, no samples were visited successfully.")
+            QFramework.ERROR("execution of analysis finished but might have failed, no samples were visited successfully (they might simply be empty).")
+            analysisError = "execution of analysis finished but might have failed, no samples were visited successfully (they might simply be empty)."
+            #don't quit just now, but instead we'll write an alternative output file later which basically states "job didn't crash but there is a small chance something went wrong"
+            #quit()
 
-
-
-
-
-
+    # TODO: provide a defaultConfig for the path to cuts
+    # attach the definitions to the info folder
+    if not cuts.dumpToFolder(samples.getFolder("info/cuts+")):
+        QFramework.ERROR("unable to attach cuts to info folder")
 
 
 
