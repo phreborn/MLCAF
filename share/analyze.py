@@ -277,7 +277,7 @@ def main(config):
                 QFramework.WARN("dummy run, skipping execution of cutbased analysis on paths '{:s}'".format(pathselect))
         else:
             if not dummy:
-                nsamples = samples.visitMe(visitor)
+                #nsamples = samples.visitMe(visitor)
                 QFramework.TQLibrary.recordMemory()
             else:
                 QFramework.WARN("dummy run, skipping execution of cutbased analysis on root sample folder")
@@ -321,6 +321,70 @@ def main(config):
     if not cuts.dumpToFolder(samples.getFolder("info/cuts+")):
         QFramework.ERROR("unable to attach cuts to info folder")
 
+    # run the multivariate analysis
+    mvascriptnames = config.getTagVString("MVA")
+    mvaOK = False
+    if len(mvascriptnames)>0:
+        for mvaconfig in mvascriptnames:
+            mvascriptname = ROOT.TString()
+            QFramework.TQStringUtils.readUpTo(mvaconfig,mvascriptname,"(")
+            QFramework.TQStringUtils.removeLeadingText(mvaconfig,"(")
+            QFramework.TQStringUtils.removeTrailingText(mvaconfig,")")
+            path = QFramework.TQFolder.concatPaths("MVA",mvascriptname).Data() + ".py"
+            if (mvaconfig):
+                QFramework.INFO("now running analysis '{:s}' with options '{:s}'".format(mvascriptname,mvaconfig))
+            else:
+                QFramework.INFO("now running analysis '{:s}'".format(mvascriptname))
+            allOK = True
+
+        try:
+            myMVA = imp.load_source("myMVA",path)
+        except IOError:
+            QFramework.CRITICAL("unable to open file '{:s}' - please double-check!".format(path))
+            allOK = False
+
+        if allOK:
+            try:
+                QFramework.TQUtils.ensureDirectory("weights")
+                tqmva = QFramework.TQMVA(samples)
+                tqmva.setBaseCut(cuts)
+                tqmva.setName(mvascriptname)
+                tqmva.setTitle(mvascriptname)
+                tqmva.setAliases(aliases)
+                tqmva.importTags(mvaconfig,False)
+                timer = ROOT.TStopwatch()
+                if not dummy:
+                    retval = myMVA.runMVA(tqmva)
+                else:
+                    retval = True
+                    QFramework.WARN("dummy run, skipping execution of MVA analysis '{:s}'".format(tqmva.GetName()))
+                timer.Stop()
+                if retval:
+                    QFramework.INFO("analysis '{:s}' complete after {:.2f}s, output written to '{:s}'!".format(mvascriptname,timer.RealTime(),tqmva.getTagStringDefault("outputFileName","<unknown file>")))
+                    mvaOK = True
+                else:
+                    QFramework.WARN("analysis '{:s}' returned '{:s}' - please double-check!".format(mvascript,str(retval)))
+            except Exception as ex:
+                template = "An exception of type '{0}' occured: {1!s}"
+                message = template.format(type(ex).__name__, ",".join(map(str,ex.args)))
+                QFramework.ERROR(message)
+                allOK = False
+
+    elif not cutbased:
+        appname = QFramework.TQLibrary.getApplicationName().Data()
+        QFramework.ERROR("no analysis script given, please use '{:s}.MVA: myAnalysis' to import and execute some python script 'MVA/myAnalysis.py'. it should contain a function 'runMVA(...)' that will receive a readily prepared sample folder at your disposal".format(appname))
+
+    if config.getTagBoolDefault("printObservables",False):
+        QFramework.TQObservable.printObservables()
+
+    if (config.hasTagString("memoryGraph")):
+        gROOT.SetBatch(True)
+        memGraph = QFramework.TQLibrary.getMemoryGraph()
+        memFileName = config.getTagStringDefault("memoryGraph","memoryUsage.pdf")
+        QFramework.TQStringUtils.ensureTrailingText(memFileName,".pdf")
+        memCanvas = QFramework.TQHistogramUtils.applyATLASstyle(memGraph,"Internal",0.2,0.9,0.9,"timestamp","rss [byte]")
+        memCanvas.SaveAs(memFileName.Data())
+
 
 
 
@@ -356,6 +420,7 @@ def main(config):
     # write the sample folder to disk
     # TODO: if we are running in debug mode, should call output file a different name, something like debug.root
     #       Put this in writeSampleFolder method?
+    # TODO: write alternate output file if cutbased or MVA analysis fails
     common.writeSampleFolder(config, samples)
 
     if config.hasUnreadKeys("!.*"):
@@ -363,6 +428,10 @@ def main(config):
 
     # write and print some performance information like memory usage and runtime
     common.printExecutionStatistics(config)
+
+    #Let the user know how heavy this run was:
+    # TODO: put this in printExecutionStatistics?
+    QFramework.INFO("This analysis run used up to {:.2f} MiB of memory (RSS).".format(QFramework.TQUtils.getPeakRSS()/1024./1024.))
 
     #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # TODO: still necessary?
@@ -380,6 +449,7 @@ if __name__ == "__main__":
     import QFramework
     import ROOT
     import importlib
+    import imp
 
     # use the argument parser to read the command line arguments and config options from the config file
     config = common.getConfigOptions(parser.parse_args())

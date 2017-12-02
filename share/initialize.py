@@ -21,7 +21,7 @@ def main(config):
     initialize.initializeSampleFolder(config, samples)
 
     # apply post-initialize patches as given by the config
-    #common.patchSampleFolder(config.getTagVStandardString("postInit_patches"), samples)
+    common.patchSampleFolder(config.getTagVStandardString("postInit_patches"), samples)
 
     # TODO: do we want to use a purgeSamples flag to allow the user to choose whether or not to purge?
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
