@@ -50,7 +50,7 @@ IF(${AnalysisBase_FOUND})
 
   # generate the LinkDef.h 
   execute_process(
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --verbose --python ${CAFExamplePython} --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --loadpackage --verbose --python ${CAFExamplePython} --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
     )
     
   # use the standard ROOT method of dictionary generation
