@@ -127,14 +127,36 @@ def main(config):
 
     # load all the analysis jobs - booking histograms, event counters for cutflows, and much more
     # return a boolean for determining whether or not analysis is cutbased
-    cutbased = analyze.bookAnalysisJobs(config, cuts)
+    analyze.bookAnalysisJobs(config, cuts)
 
+    # TODO: won't need this forever, just until modularization is finished
+    runtime = config.getFolder("runtime+")
+    cutbased = runtime.getTagBoolDefault("cutbased", False)
+
+    # TODO: should this go in one fo the methods?
     if config.getTagBoolDefault("printCuts",cutbased):
         cuts.printCut();
 
     if customobservables or config.getTagBoolDefault("printObservables"):
         QFramework.INFO("custom observables were defined - this is the list of known observables:")
         QFramework.TQTreeObservable.printObservables()
+
+    # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
+    visitor = analyze.createSampleVisitor(config, cuts)
+
+    if not robust and not dummy:
+        # perform any pre-processing of the sample folder for handling of systematic uncertainties
+        # this step is likely to be highly analysis-dependent, so this is just an example implementation
+        analyze.prepareSystematicsExample(config, samples, visitor)
+
+    # TODO: put this in prepareSystematicsExample method?
+    # possibly print how the folder looks like now
+    if config.getTagBoolDefault("showChannels",False):
+        QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
+        samples.printContents("r2dt")
+
+    # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
+    analyze.bookAlgorithms(config, visitor)
 
     # flag indicating to run analysis in debug mode
     debug = CLI.getTagBoolDefault("debug",False)
@@ -393,22 +415,7 @@ def main(config):
 
 
 
-    # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
-    visitor = analyze.createSampleVisitor(config)
 
-    if not robust and not dummy:
-        # perform any pre-processing of the sample folder for handling of systematic uncertainties
-        # this step is likely to be highly analysis-dependent, so this is just an example implementation
-        analyze.prepareSystematicsExample(config, samples, visitor)
-
-    # TODO: put this in prepareSystematicsExample method?
-    # possibly print how the folder looks like now
-    if config.getTagBoolDefault("showChannels",False):
-        QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
-        samples.printContents("r2dt")
-
-    # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
-    analyze.bookAlgorithms(config, visitor)
 
     # execute analysis, visiting every sample and running over every event
     # this step might take a VERY LONG time
