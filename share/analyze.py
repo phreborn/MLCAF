@@ -146,7 +146,7 @@ def main(config):
         # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
         visitor = analyze.createSampleVisitor(config, cuts)
 
-        # TODO: does systematics go here?
+        # TODO: do systematics really go here?
         #       or should they go above if cutbased (like in runAnalysis, without the use yet of visitor) so that they can be set even if cutbased = false (MVA only analysis)
         # if not robust and not dummy:
         #     # perform any pre-processing of the sample folder for handling of systematic uncertainties
@@ -173,62 +173,6 @@ def main(config):
             maxEvents = 100
         else:
             maxEvents = config.getTagIntegerDefault("maxEvents",-1)
-
-        if not config.getTagBoolDefault("useMultiChannelVisitor",False) or robust or dummy:
-            # book any algorithms
-            for algorithm in config.getTagVString("algorithms"):
-                QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
-                loader = str(algorithm.Data())
-                QFramework.START("l.","adding algorithms from '{:s}'".format(loader))
-                try:
-                    addalgorithms = importlib.import_module("algorithms."+loader)
-                    added = addalgorithms.addAlgorithms(visitor,config)
-                    if added:
-                        QFramework.END(QFramework.TQMessageStream.OK)
-                    else:
-                        QFramework.END(QFramework.TQMessageStream.FAIL)
-                        QFramework.BREAK("unable to properly setup custom algorithms")
-                except IOError:
-                    QFramework.END(QFramework.TQMessageStream.FAIL)
-                    QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
-        else:
-            #add algorithms (encapsulated in 'try' as older versions of CAFCore do not support this)
-            for algorithm in config.getTagVString("algorithms"):
-                QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
-                loader = str(algorithm.Data())
-                QFramework.START("l.","adding algorithms from '{:s}'".format(loader))
-                try:
-                    addalgorithms = importlib.import_module("algorithms."+loader)
-                    try:
-                        added = addalgorithms.addAlgorithms(visitor,config)
-                    except AttributeError:
-                        QFramework.END(QFramework.TQMessageStream.FAIL)
-                        QFramework.BREAK("cannot schedule algorithms when using the TQMultiChannelAnalysisSampleVisitor with your current version of CAFCore. "
-                                         "This feature is expected to be available starting from release 17.08.x")
-                    if added:
-                        QFramework.END(QFramework.TQMessageStream.OK)
-                    else:
-                        QFramework.END(QFramework.TQMessageStream.FAIL)
-                        QFramework.BREAK("unable to properly setup custom algorithms")
-                except IOError:
-                    QFramework.END(QFramework.TQMessageStream.FAIL)
-                    QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
-
-            # TODO: these two lines are also done in bookAnalysisJobs
-            xAODdumpingConfig = QFramework.TQTaggable()
-            dumpXAODs = (xAODdumpingConfig.importTagsWithoutPrefix(config,"xAODdumping.") > 0)
-
-            jobID = CLI.getTagStringDefault("jobID","analyze")
-
-            #add xAODskimmingAlgorithm if requested (only for MCASV as we'd have event duplications otherwise!)
-            #note: if we ever implement an option to limit the number of channels executed at the same time we must ensure this does not run in such a configuration!!!!
-            if dumpXAODs:
-                xAODskimmingAlg = QFramework.TQxAODskimmingAlgorithm()
-                xAODskimmingAlg.SetName("xAODdumper")
-                xAODskimmingAlg.setOutputDir( xAODdumpingConfig.getTagStringDefault("outputDir","CAFxAODs") )
-                xAODskimmingAlg.setFilePrefix(jobID+"_")
-                if config.hasTag("nameTagName") : xAODskimmingAlg.setPrefix( config.getTagStringDefault( ROOT.TString("aliases.")+config.getTagStringDefault("nameTagName",""), "" ) )
-                visitor.addAlgorithm( xAODskimmingAlg )
 
         cloneObservablesSmart = False
         if config.getTagBoolDefault("reduceMCVObservables",False):
@@ -438,7 +382,6 @@ if __name__ == "__main__":
     import sys
     import QFramework
     import ROOT
-    import importlib
     import imp
 
     # use the argument parser to read the command line arguments and config options from the config file
