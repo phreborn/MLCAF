@@ -142,6 +142,7 @@ def main(config):
         QFramework.INFO("custom observables were defined - this is the list of known observables:")
         QFramework.TQTreeObservable.printObservables()
 
+    # run the cutbased analysis
     if cutbased:
         # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
         visitor = analyze.createSampleVisitor(config, cuts)
@@ -162,17 +163,17 @@ def main(config):
         # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
         analyze.bookAlgorithms(config, visitor)
 
+        # execute analysis, visiting every sample and running over every event
+        # this step might take a VERY LONG time
+        #nEvents = analyze.executeAnalysis(config, samples, visitor)
+        nsamples = analyze.executeAnalysis(config, samples, visitor)
+
     # flag indicating to run analysis in debug mode
     debug = CLI.getTagBoolDefault("debug",False)
 
-    # run the cutbased analysis
     mcvchannels = []
     analysisError = "" #setting this to a non-empty string will supress writing the regular output file and write an alternative file with the value of this string
     if cutbased:
-        if debug:
-            maxEvents = 100
-        else:
-            maxEvents = config.getTagIntegerDefault("maxEvents",-1)
 
         cloneObservablesSmart = False
         if config.getTagBoolDefault("reduceMCVObservables",False):
@@ -185,85 +186,6 @@ def main(config):
         if  cloneObservablesSmart:
             for channel in mcvchannels:
                 QFramework.TQObservable.getManager().cloneActiveSet(channel)
-
-        downmerge   = CLI.getTagBoolDefault("downmerge",False)
-        downmergeTo = CLI.getTagStandardStringDefault("downmergeTo","")
-
-        # proceed with analysis
-        appname = QFramework.TQLibrary.getApplicationName().Data()
-        visitor.setVisitTraceID(appname)
-        if maxEvents > 0:
-            QFramework.WARN("setting maximum number of events per sample to {:d}".format(maxEvents))
-            visitor.setMaxEvents(maxEvents)
-        QFramework.TQLibrary.allowRedirection(False)
-        timer = ROOT.TStopwatch()
-        nsamples = 0
-        if pathselect:
-            paths = ROOT.TString(pathselect)
-        else:
-            # Read in sample folder restrictions and convert to a single comma-
-            # separated string, the same format as it would be passed in via CLI.
-            # Can't use `join` since this is a vector<TString>
-            # Can't read in the field as a single string with getTagString,
-            # perhaps since it has commas
-            paths = ""
-            for path in config.getTagVString("restrict"):
-                paths += path.Data() + ","
-            paths = ROOT.TString(paths[:-1])
-        if paths.Length() != 0:
-            if not dummy:
-                nsamples = samples.visitSampleFolders(visitor,paths)
-                QFramework.TQLibrary.recordMemory()
-                QFramework.TQObservable.clearAll()
-                QFramework.TQLibrary.recordMemory()
-                if downmerge or downmergeTo:
-                    downmergeTargets = downmergeTo
-                    if not downmergeTargets:
-                        downmergeTargets = paths
-                    samples.setTag(".generalize.histograms",True,downmergeTargets)
-                    samples.setTag(".generalize.cutflow",True,downmergeTargets)
-            else:
-                QFramework.WARN("dummy run, skipping execution of cutbased analysis on paths '{:s}'".format(pathselect))
-        else:
-            if not dummy:
-                #nsamples = samples.visitMe(visitor)
-                QFramework.TQLibrary.recordMemory()
-            else:
-                QFramework.WARN("dummy run, skipping execution of cutbased analysis on root sample folder")
-        if nsamples > 0:
-            if downmerge or downmergeTo:
-                samples.generalizeObjects(".generalize")
-            timer.Stop()
-            if config.getTagBoolDefault("checkRun",True):
-                if dummy:
-                    allevents = QFramework.TQCounter("dummy",0,0,0)
-                else:
-                    allevents = samples.getCounter(".",cuts.GetName())
-                if allevents:
-                    raw = allevents.getRawCounter()
-                else:
-                    raw = 0
-                time = timer.RealTime()
-
-                QFramework.INFO("finished cutbased analysis run over {:d} events in {:d} samples after {:.2f}s ({:.1f} Hz)".format(raw,nsamples,time,float(raw)/time))
-
-            # debugging printout
-            if config.getTagBoolDefault("printCounterValues",False):
-                samples.printListOfCounters()
-            printhists = config.getTagVString("printHistogramsASCII")
-            for hist in printhists:
-                h = samples.getHistogram(".",hist)
-                if h:
-                    QFramework.TQHistogramUtils.printHistogramASCII(h)
-                else:
-                    QFramework.ERROR("unable to access histogram '{:s}'".format(hist))
-
-        else:
-            #QFramework.ERROR("execution of analysis failed, no samples were visited successfully.")
-            QFramework.ERROR("execution of analysis finished but might have failed, no samples were visited successfully (they might simply be empty).")
-            analysisError = "execution of analysis finished but might have failed, no samples were visited successfully (they might simply be empty)."
-            #don't quit just now, but instead we'll write an alternative output file later which basically states "job didn't crash but there is a small chance something went wrong"
-            #quit()
 
     # TODO: provide a defaultConfig for the path to cuts
     # attach the definitions to the info folder
@@ -343,10 +265,6 @@ def main(config):
 
 
 
-
-    # execute analysis, visiting every sample and running over every event
-    # this step might take a VERY LONG time
-    nEvents = analyze.executeAnalysis(config, samples, visitor)
 
     # train any multivariate classifiers
     analyze.trainMVA(config, samples, cuts)
