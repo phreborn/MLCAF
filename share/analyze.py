@@ -126,10 +126,11 @@ def main(config):
     cuts = analyze.loadCuts(config)
 
     # load all the analysis jobs - booking histograms, event counters for cutflows, and much more
-    # return a boolean for determining whether or not analysis is cutbased
+    # stores a boolean in config for determining whether or not analysis is cutbased
+    # (yes if no MVA detected or at least 1 analysis job is booked)
     analyze.bookAnalysisJobs(config, cuts)
 
-    # TODO: won't need this forever, just until modularization is finished
+    # cutbased bool set in bookAnalysisJobs above
     runtime = config.getFolder("runtime+")
     cutbased = runtime.getTagBoolDefault("cutbased", False)
 
@@ -141,22 +142,25 @@ def main(config):
         QFramework.INFO("custom observables were defined - this is the list of known observables:")
         QFramework.TQTreeObservable.printObservables()
 
-    # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
-    visitor = analyze.createSampleVisitor(config, cuts)
+    if cutbased:
+        # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
+        visitor = analyze.createSampleVisitor(config, cuts)
 
-    if not robust and not dummy:
-        # perform any pre-processing of the sample folder for handling of systematic uncertainties
-        # this step is likely to be highly analysis-dependent, so this is just an example implementation
-        analyze.prepareSystematicsExample(config, samples, visitor)
+        # TODO: does systematics go here?
+        #       or should they go above if cutbased (like in runAnalysis, without the use yet of visitor) so that they can be set even if cutbased = false (MVA only analysis)
+        # if not robust and not dummy:
+        #     # perform any pre-processing of the sample folder for handling of systematic uncertainties
+        #     # this step is likely to be highly analysis-dependent, so this is just an example implementation
+        #     analyze.prepareSystematicsExample(config, samples, visitor)
 
-    # TODO: put this in prepareSystematicsExample method?
-    # possibly print how the folder looks like now
-    if config.getTagBoolDefault("showChannels",False):
-        QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
-        samples.printContents("r2dt")
+        # # TODO: put this in prepareSystematicsExample method?
+        # # possibly print how the folder looks like now
+        # if config.getTagBoolDefault("showChannels",False):
+        #     QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
+        #     samples.printContents("r2dt")
 
-    # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
-    analyze.bookAlgorithms(config, visitor)
+        # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
+        analyze.bookAlgorithms(config, visitor)
 
     # flag indicating to run analysis in debug mode
     debug = CLI.getTagBoolDefault("debug",False)
@@ -171,10 +175,6 @@ def main(config):
             maxEvents = config.getTagIntegerDefault("maxEvents",-1)
 
         if not config.getTagBoolDefault("useMultiChannelVisitor",False) or robust or dummy:
-            # using regular analysis sample visitor (default)
-            visitor = QFramework.TQAnalysisSampleVisitor()
-            visitor.setVerbose(True)
-            visitor.setBaseCut(cuts)
             # book any algorithms
             for algorithm in config.getTagVString("algorithms"):
                 QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
@@ -192,10 +192,6 @@ def main(config):
                     QFramework.END(QFramework.TQMessageStream.FAIL)
                     QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
         else:
-            # using fast MultiChannel analysis sample visitor
-            visitor = QFramework.TQMultiChannelAnalysisSampleVisitor()
-            visitor.setVerbose(True)
-            visitor.setTagDouble("progressInterval",config.getTagDoubleDefault("progressInterval",5.))
             #add algorithms (encapsulated in 'try' as older versions of CAFCore do not support this)
             for algorithm in config.getTagVString("algorithms"):
                 QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
@@ -233,19 +229,6 @@ def main(config):
                 xAODskimmingAlg.setFilePrefix(jobID+"_")
                 if config.hasTag("nameTagName") : xAODskimmingAlg.setPrefix( config.getTagStringDefault( ROOT.TString("aliases.")+config.getTagStringDefault("nameTagName",""), "" ) )
                 visitor.addAlgorithm( xAODskimmingAlg )
-
-            # TODO: will need to go in systematics section, find a way to propagate it also to here
-            # after adding systematics above, will be a set of channels which includes all systematics
-            mcasvchannels = set([ c for c in channels ])
-
-            cutlist = []
-            for channel in mcasvchannels:
-                cut = cuts.getClone()
-                cutlist.append(cut)
-                visitor.addChannel(channel,cut)
-                mcvchannels.append(channel)
-            if config.getTagBoolDefault("showChannels",False):
-                visitor.printChannels()
 
         cloneObservablesSmart = False
         if config.getTagBoolDefault("reduceMCVObservables",False):
