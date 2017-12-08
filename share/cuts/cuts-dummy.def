@@ -6,6 +6,7 @@
 
 +CutChannels {
   # to use the per-event event weights poperly, use "Weight" as .weightExpression here
-  <.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_$(weightname):$(cand)", .title="Channel Selection">
+  #<.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_$(weightname):$(cand)", .title="Channel Selection">
+  <.cutExpression = "$(fitsChannel)", .weightExpression = 1, .title="Channel Selection">
 
  }
