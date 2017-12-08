@@ -65,7 +65,8 @@ def main(config):
         samples = common.loadSampleFolder(config)
 
     # check writeability of the output destination to discover typos ahead of time
-    common.testWriteSampleFolder(config, samples)
+    # TODO: test writing the sample folder is causing folder splitting to not work correctly
+    #common.testWriteSampleFolder(config, samples)
 
     # remove the data folder if not desired
     if not config.getTagBoolDefault("doData",True):
@@ -126,9 +127,15 @@ def main(config):
     cuts = analyze.loadCuts(config)
 
     # load all the analysis jobs - booking histograms, event counters for cutflows, and much more
-    # return a boolean for determining whether or not analysis is cutbased
-    cutbased = analyze.bookAnalysisJobs(config, cuts)
+    # stores a boolean in config for determining whether or not analysis is cutbased
+    # (yes if no MVA detected or at least 1 analysis job is booked)
+    analyze.bookAnalysisJobs(config, cuts)
 
+    # cutbased bool set in bookAnalysisJobs above
+    runtime = config.getFolder("runtime+")
+    cutbased = runtime.getTagBoolDefault("cutbased", False)
+
+    # TODO: should this go in one fo the methods?
     if config.getTagBoolDefault("printCuts",cutbased):
         cuts.printCut();
 
@@ -136,94 +143,38 @@ def main(config):
         QFramework.INFO("custom observables were defined - this is the list of known observables:")
         QFramework.TQTreeObservable.printObservables()
 
+    # run the cutbased analysis
+    if cutbased:
+        # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
+        visitor = analyze.createSampleVisitor(config, cuts)
+
+        # TODO: do systematics really go here?
+        #       or should they go above if cutbased (like in runAnalysis, without the use yet of visitor) so that they can be set even if cutbased = false (MVA only analysis)
+        # if not robust and not dummy:
+        #     # perform any pre-processing of the sample folder for handling of systematic uncertainties
+        #     # this step is likely to be highly analysis-dependent, so this is just an example implementation
+        #     analyze.prepareSystematicsExample(config, samples, visitor)
+
+        # # TODO: put this in prepareSystematicsExample method?
+        # # possibly print how the folder looks like now
+        # if config.getTagBoolDefault("showChannels",False):
+        #     QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
+        #     samples.printContents("r2dt")
+
+        # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
+        analyze.bookAlgorithms(config, visitor)
+
+        # execute analysis, visiting every sample and running over every event
+        # this step might take a VERY LONG time
+        #nEvents = analyze.executeAnalysis(config, samples, visitor)
+        nsamples = analyze.executeAnalysis(config, samples, visitor)
+
     # flag indicating to run analysis in debug mode
     debug = CLI.getTagBoolDefault("debug",False)
 
-    # run the cutbased analysis
     mcvchannels = []
     analysisError = "" #setting this to a non-empty string will supress writing the regular output file and write an alternative file with the value of this string
     if cutbased:
-        if debug:
-            maxEvents = 100
-        else:
-            maxEvents = config.getTagIntegerDefault("maxEvents",-1)
-
-        if not config.getTagBoolDefault("useMultiChannelVisitor",False) or robust or dummy:
-            # using regular analysis sample visitor (default)
-            visitor = QFramework.TQAnalysisSampleVisitor()
-            visitor.setVerbose(True)
-            visitor.setBaseCut(cuts)
-            # book any algorithms
-            for algorithm in config.getTagVString("algorithms"):
-                QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
-                loader = str(algorithm.Data())
-                QFramework.START("l.","adding algorithms from '{:s}'".format(loader))
-                try:
-                    addalgorithms = importlib.import_module("algorithms."+loader)
-                    added = addalgorithms.addAlgorithms(visitor,config)
-                    if added:
-                        QFramework.END(QFramework.TQMessageStream.OK)
-                    else:
-                        QFramework.END(QFramework.TQMessageStream.FAIL)
-                        QFramework.BREAK("unable to properly setup custom algorithms")
-                except IOError:
-                    QFramework.END(QFramework.TQMessageStream.FAIL)
-                    QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
-        else:
-            # using fast MultiChannel analysis sample visitor
-            visitor = QFramework.TQMultiChannelAnalysisSampleVisitor()
-            visitor.setVerbose(True)
-            visitor.setTagDouble("progressInterval",config.getTagDoubleDefault("progressInterval",5.))
-            #add algorithms (encapsulated in 'try' as older versions of CAFCore do not support this)
-            for algorithm in config.getTagVString("algorithms"):
-                QFramework.TQStringUtils.removeTrailingText(algorithm,".py")
-                loader = str(algorithm.Data())
-                QFramework.START("l.","adding algorithms from '{:s}'".format(loader))
-                try:
-                    addalgorithms = importlib.import_module("algorithms."+loader)
-                    try:
-                        added = addalgorithms.addAlgorithms(visitor,config)
-                    except AttributeError:
-                        QFramework.END(QFramework.TQMessageStream.FAIL)
-                        QFramework.BREAK("cannot schedule algorithms when using the TQMultiChannelAnalysisSampleVisitor with your current version of CAFCore. "
-                                         "This feature is expected to be available starting from release 17.08.x")
-                    if added:
-                        QFramework.END(QFramework.TQMessageStream.OK)
-                    else:
-                        QFramework.END(QFramework.TQMessageStream.FAIL)
-                        QFramework.BREAK("unable to properly setup custom algorithms")
-                except IOError:
-                    QFramework.END(QFramework.TQMessageStream.FAIL)
-                    QFramework.BREAK("unable to open file 'algorithms/{:s}.py' - please double-check!".format(loader))
-
-            # TODO: these two lines are also done in bookAnalysisJobs
-            xAODdumpingConfig = QFramework.TQTaggable()
-            dumpXAODs = (xAODdumpingConfig.importTagsWithoutPrefix(config,"xAODdumping.") > 0)
-
-            jobID = CLI.getTagStringDefault("jobID","analyze")
-
-            #add xAODskimmingAlgorithm if requested (only for MCASV as we'd have event duplications otherwise!)
-            #note: if we ever implement an option to limit the number of channels executed at the same time we must ensure this does not run in such a configuration!!!!
-            if dumpXAODs:
-                xAODskimmingAlg = QFramework.TQxAODskimmingAlgorithm()
-                xAODskimmingAlg.SetName("xAODdumper")
-                xAODskimmingAlg.setOutputDir( xAODdumpingConfig.getTagStringDefault("outputDir","CAFxAODs") )
-                xAODskimmingAlg.setFilePrefix(jobID+"_")
-                if config.hasTag("nameTagName") : xAODskimmingAlg.setPrefix( config.getTagStringDefault( ROOT.TString("aliases.")+config.getTagStringDefault("nameTagName",""), "" ) )
-                visitor.addAlgorithm( xAODskimmingAlg )
-
-            # TODO: will need to go in systematics section, find a way to propagate it also to here
-            # after adding systematics above, will be a set of channels which includes all systematics
-            mcasvchannels = set([ c for c in channels ])
-
-            cutlist = []
-            for channel in mcasvchannels:
-                cut = cuts.getClone()
-                cutlist.append(cut)
-                visitor.addChannel(channel,cut)
-                mcvchannels.append(channel)
-            if config.getTagBoolDefault("showChannels",False):
-                visitor.printChannels()
 
         cloneObservablesSmart = False
         if config.getTagBoolDefault("reduceMCVObservables",False):
@@ -237,142 +188,18 @@ def main(config):
             for channel in mcvchannels:
                 QFramework.TQObservable.getManager().cloneActiveSet(channel)
 
-        downmerge   = CLI.getTagBoolDefault("downmerge",False)
-        downmergeTo = CLI.getTagStandardStringDefault("downmergeTo","")
-
-        # proceed with analysis
-        appname = QFramework.TQLibrary.getApplicationName().Data()
-        visitor.setVisitTraceID(appname)
-        if maxEvents > 0:
-            QFramework.WARN("setting maximum number of events per sample to {:d}".format(maxEvents))
-            visitor.setMaxEvents(maxEvents)
-        QFramework.TQLibrary.allowRedirection(False)
-        timer = ROOT.TStopwatch()
-        nsamples = 0
-        if pathselect:
-            paths = ROOT.TString(pathselect)
-        else:
-            # Read in sample folder restrictions and convert to a single comma-
-            # separated string, the same format as it would be passed in via CLI.
-            # Can't use `join` since this is a vector<TString>
-            # Can't read in the field as a single string with getTagString,
-            # perhaps since it has commas
-            paths = ""
-            for path in config.getTagVString("restrict"):
-                paths += path.Data() + ","
-            paths = ROOT.TString(paths[:-1])
-        if paths.Length() != 0:
-            if not dummy:
-                nsamples = samples.visitSampleFolders(visitor,paths)
-                QFramework.TQLibrary.recordMemory()
-                QFramework.TQObservable.clearAll()
-                QFramework.TQLibrary.recordMemory()
-                if downmerge or downmergeTo:
-                    downmergeTargets = downmergeTo
-                    if not downmergeTargets:
-                        downmergeTargets = paths
-                    samples.setTag(".generalize.histograms",True,downmergeTargets)
-                    samples.setTag(".generalize.cutflow",True,downmergeTargets)
-            else:
-                QFramework.WARN("dummy run, skipping execution of cutbased analysis on paths '{:s}'".format(pathselect))
-        else:
-            if not dummy:
-                #nsamples = samples.visitMe(visitor)
-                QFramework.TQLibrary.recordMemory()
-            else:
-                QFramework.WARN("dummy run, skipping execution of cutbased analysis on root sample folder")
-        if nsamples > 0:
-            if downmerge or downmergeTo:
-                samples.generalizeObjects(".generalize")
-            timer.Stop()
-            if config.getTagBoolDefault("checkRun",True):
-                if dummy:
-                    allevents = QFramework.TQCounter("dummy",0,0,0)
-                else:
-                    allevents = samples.getCounter(".",cuts.GetName())
-                if allevents:
-                    raw = allevents.getRawCounter()
-                else:
-                    raw = 0
-                time = timer.RealTime()
-
-                QFramework.INFO("finished cutbased analysis run over {:d} events in {:d} samples after {:.2f}s ({:.1f} Hz)".format(raw,nsamples,time,float(raw)/time))
-
-            # debugging printout
-            if config.getTagBoolDefault("printCounterValues",False):
-                samples.printListOfCounters()
-            printhists = config.getTagVString("printHistogramsASCII")
-            for hist in printhists:
-                h = samples.getHistogram(".",hist)
-                if h:
-                    QFramework.TQHistogramUtils.printHistogramASCII(h)
-                else:
-                    QFramework.ERROR("unable to access histogram '{:s}'".format(hist))
-
-        else:
-            #QFramework.ERROR("execution of analysis failed, no samples were visited successfully.")
-            QFramework.ERROR("execution of analysis finished but might have failed, no samples were visited successfully (they might simply be empty).")
-            analysisError = "execution of analysis finished but might have failed, no samples were visited successfully (they might simply be empty)."
-            #don't quit just now, but instead we'll write an alternative output file later which basically states "job didn't crash but there is a small chance something went wrong"
-            #quit()
-
     # TODO: provide a defaultConfig for the path to cuts
     # attach the definitions to the info folder
     if not cuts.dumpToFolder(samples.getFolder("info/cuts+")):
         QFramework.ERROR("unable to attach cuts to info folder")
 
-    # run the multivariate analysis
+    # train any multivariate classifiers
     mvascriptnames = config.getTagVString("MVA")
-    mvaOK = False
     if len(mvascriptnames)>0:
-        for mvaconfig in mvascriptnames:
-            mvascriptname = ROOT.TString()
-            QFramework.TQStringUtils.readUpTo(mvaconfig,mvascriptname,"(")
-            QFramework.TQStringUtils.removeLeadingText(mvaconfig,"(")
-            QFramework.TQStringUtils.removeTrailingText(mvaconfig,")")
-            path = QFramework.TQFolder.concatPaths("MVA",mvascriptname).Data() + ".py"
-            if (mvaconfig):
-                QFramework.INFO("now running analysis '{:s}' with options '{:s}'".format(mvascriptname,mvaconfig))
-            else:
-                QFramework.INFO("now running analysis '{:s}'".format(mvascriptname))
-            allOK = True
-
-        try:
-            myMVA = imp.load_source("myMVA",path)
-        except IOError:
-            QFramework.CRITICAL("unable to open file '{:s}' - please double-check!".format(path))
-            allOK = False
-
-        if allOK:
-            try:
-                QFramework.TQUtils.ensureDirectory("weights")
-                tqmva = QFramework.TQMVA(samples)
-                tqmva.setBaseCut(cuts)
-                tqmva.setName(mvascriptname)
-                tqmva.setTitle(mvascriptname)
-                tqmva.setAliases(aliases)
-                tqmva.importTags(mvaconfig,False)
-                timer = ROOT.TStopwatch()
-                if not dummy:
-                    retval = myMVA.runMVA(tqmva)
-                else:
-                    retval = True
-                    QFramework.WARN("dummy run, skipping execution of MVA analysis '{:s}'".format(tqmva.GetName()))
-                timer.Stop()
-                if retval:
-                    QFramework.INFO("analysis '{:s}' complete after {:.2f}s, output written to '{:s}'!".format(mvascriptname,timer.RealTime(),tqmva.getTagStringDefault("outputFileName","<unknown file>")))
-                    mvaOK = True
-                else:
-                    QFramework.WARN("analysis '{:s}' returned '{:s}' - please double-check!".format(mvascript,str(retval)))
-            except Exception as ex:
-                template = "An exception of type '{0}' occured: {1!s}"
-                message = template.format(type(ex).__name__, ",".join(map(str,ex.args)))
-                QFramework.ERROR(message)
-                allOK = False
-
+        analyze.trainMVA(config, samples, cuts)
     elif not cutbased:
         appname = QFramework.TQLibrary.getApplicationName().Data()
-        QFramework.ERROR("no analysis script given, please use '{:s}.MVA: myAnalysis' to import and execute some python script 'MVA/myAnalysis.py'. it should contain a function 'runMVA(...)' that will receive a readily prepared sample folder at your disposal".format(appname))
+        QFramework.ERROR("no analysis script given, please use 'MVA: myAnalysis' under the [{:s}] section to import and execute some python script 'MVA/myAnalysis.py'. it should contain a function 'runMVA(...)' that will receive a readily prepared sample folder at your disposal".format(appname))
 
     if config.getTagBoolDefault("printObservables",False):
         QFramework.TQObservable.printObservables()
@@ -384,38 +211,6 @@ def main(config):
         QFramework.TQStringUtils.ensureTrailingText(memFileName,".pdf")
         memCanvas = QFramework.TQHistogramUtils.applyATLASstyle(memGraph,"Internal",0.2,0.9,0.9,"timestamp","rss [byte]")
         memCanvas.SaveAs(memFileName.Data())
-
-
-
-
-
-
-
-
-
-    # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
-    visitor = analyze.createSampleVisitor(config)
-
-    if not robust and not dummy:
-        # perform any pre-processing of the sample folder for handling of systematic uncertainties
-        # this step is likely to be highly analysis-dependent, so this is just an example implementation
-        analyze.prepareSystematicsExample(config, samples, visitor)
-
-    # TODO: put this in prepareSystematicsExample method?
-    # possibly print how the folder looks like now
-    if config.getTagBoolDefault("showChannels",False):
-        QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
-        samples.printContents("r2dt")
-
-    # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
-    analyze.bookAlgorithms(config, visitor)
-
-    # execute analysis, visiting every sample and running over every event
-    # this step might take a VERY LONG time
-    nEvents = analyze.executeAnalysis(config, samples, visitor)
-
-    # train any multivariate classifiers
-    analyze.trainMVA(config, samples, cuts)
 
     # write the sample folder to disk
     # TODO: if we are running in debug mode, should call output file a different name, something like debug.root
@@ -437,10 +232,6 @@ def main(config):
     # TODO: still necessary?
     ROOT.xAOD.ClearTransientTrees()
 
-    # TODO: remove, just for debugging!
-    #print "Exiting successfully!"
-    #sys.exit(0)
-
 if __name__ == "__main__":
     # create a pre-configured argument parser
     parser = analyze.DefaultArgumentParser()
@@ -448,7 +239,6 @@ if __name__ == "__main__":
     import sys
     import QFramework
     import ROOT
-    import importlib
     import imp
 
     # use the argument parser to read the command line arguments and config options from the config file
