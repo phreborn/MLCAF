@@ -172,21 +172,9 @@ def main(config):
     # flag indicating to run analysis in debug mode
     debug = CLI.getTagBoolDefault("debug",False)
 
-    mcvchannels = []
     analysisError = "" #setting this to a non-empty string will supress writing the regular output file and write an alternative file with the value of this string
     if cutbased:
-
-        cloneObservablesSmart = False
-        if config.getTagBoolDefault("reduceMCVObservables",False):
-            try:
-                from CAFExample.SmartObservableCloning import cloneSetSmart
-                cloneObservablesSmart = True
-            except ImportError:
-                cloneObservablesSmart = False
-                QFramework.ERROR("smart observable cloning unavailable, skipping")
-        if  cloneObservablesSmart:
-            for channel in mcvchannels:
-                QFramework.TQObservable.getManager().cloneActiveSet(channel)
+        pass
 
     # TODO: provide a defaultConfig for the path to cuts
     # attach the definitions to the info folder
