@@ -151,12 +151,16 @@ def main(config):
         # TODO: Temporary hack only!
         #       Do this properly once systematics are incorporated!
         #       (also being set even for single channel visitor for simplicity)
-        subfolders = samples.getListOfSampleFolders("?")
-        for c in channels:
-            for sf in subfolders:
-                f = sf.getSampleFolder(c)
-                if not f: continue
-                f.setTagString(".mcasv.channel",f.getTagStringDefault("channel",""))
+        #
+        #       Instead, just set these flags in the analyze style file...TypeError when running in dummy mode:
+        #       Iteration over non-sequence in "for sf in subfolders:"
+        #
+        # subfolders = samples.getListOfSampleFolders("?")
+        # for c in channels:
+        #     for sf in subfolders:
+        #         f = sf.getSampleFolder(c)
+        #         if not f: continue
+        #         f.setTagString(".mcasv.channel",f.getTagStringDefault("channel",""))
 
         # TODO: do systematics really go here?
         #       or should they go above if cutbased (like in runAnalysis, without the use yet of visitor) so that they can be set even if cutbased = false (MVA only analysis)
@@ -192,6 +196,29 @@ def main(config):
     if config.getTagBoolDefault("printObservables",False):
         QFramework.TQObservable.printObservables()
 
+    # retrieve variables that have been set to determine a successful analysis
+    # successful by default, error if analysisError has a value or mvaOK is false
+    analysisError = runtime.getTagStringDefault("analysisError","")
+    mvaOK = runtime.getTagBoolDefault("mvaOK",len(mvascriptnames))
+
+    # write the sample folder to disk
+    if len(analysisError) == 0 or mvaOK:
+        common.writeSampleFolder(config, samples)
+    else: #write alternative output file (the analysis didn't crash but there is something the user should check!
+        # TODO: make this another method in common.py? probably
+        # TODO: fix TString/std::string mess
+        if CLI.getTagBoolDefault("debug",False):
+            outfilename = ROOT.TString("debug.root")
+        else:
+            outfilename = config.getTagStringDefault("outputFile","")
+        altFileName = outfilename
+        # TODO: is removeTrailingText doing the right thing? ".root" is still in output file name
+        QFramework.TQStringUtils.removeTrailingText(ROOT.TString(altFileName),".root")
+        altFileName.Append(".isDone")
+        with open(altFileName.Data(),'w') as f :
+            f.write(analysisError.Data() if isinstance(analysisError,ROOT.TString) else analysisError)
+            QFramework.WARN("No regular output sample file has been written but the analysis completed without fatal errors. Please check '{:s}' for information on potential errors".format(altFileName.Data()))
+
     if (config.hasTagString("memoryGraph")):
         gROOT.SetBatch(True)
         memGraph = QFramework.TQLibrary.getMemoryGraph()
@@ -199,12 +226,6 @@ def main(config):
         QFramework.TQStringUtils.ensureTrailingText(memFileName,".pdf")
         memCanvas = QFramework.TQHistogramUtils.applyATLASstyle(memGraph,"Internal",0.2,0.9,0.9,"timestamp","rss [byte]")
         memCanvas.SaveAs(memFileName.Data())
-
-    # write the sample folder to disk
-    # TODO: if we are running in debug mode, should call output file a different name, something like debug.root
-    #       Put this in writeSampleFolder method?
-    # TODO: write alternate output file if cutbased or MVA analysis fails
-    common.writeSampleFolder(config, samples)
 
     if config.hasUnreadKeys("!.*"):
         QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))

@@ -1,4 +1,7 @@
 
+<.mcasv.channel = "ee"> @ /?/ee;
+<.mcasv.channel = "mm"> @ /?/mm;
+
 # Run1Scheme Identifiers
 
 <isBottomLeptonic = false> @ /.;
