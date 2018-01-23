@@ -60,7 +60,7 @@ def main(config):
     # TODO: put dummy sample folder retrieval also in loadSampleFolder? It would get the config saved for free
     # load the sample folder from disk
     if dummy:
-        samples = TQSampleFolder("test")
+        samples = QFramework.TQSampleFolder("test")
     else:
         samples = common.loadSampleFolder(config)
 
@@ -118,7 +118,7 @@ def main(config):
         samples.setTagBool("restrict",True,pathselect)
         samples.purgeWithoutTag("~restrict")
         if not samples.getListOfSampleFolders("?"):
-            QFramework.BREAK("sample folder empty after purge - something is wrong!") 
+            QFramework.BREAK("sample folder empty after purge - something is wrong!")
 
     # load all the observables that allow access of the physics-content of your samples
     customobservables = analyze.loadObservables(config)
@@ -148,6 +148,16 @@ def main(config):
         # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
         visitor = analyze.createSampleVisitor(config, cuts)
 
+        # TODO: Temporary hack only!
+        #       Do this properly once systematics are incorporated!
+        #       (also being set even for single channel visitor for simplicity)
+        subfolders = samples.getListOfSampleFolders("?")
+        for c in channels:
+            for sf in subfolders:
+                f = sf.getSampleFolder(c)
+                if not f: continue
+                f.setTagString(".mcasv.channel",f.getTagStringDefault("channel",""))
+
         # TODO: do systematics really go here?
         #       or should they go above if cutbased (like in runAnalysis, without the use yet of visitor) so that they can be set even if cutbased = false (MVA only analysis)
         # if not robust and not dummy:
@@ -169,13 +179,6 @@ def main(config):
         #nEvents = analyze.executeAnalysis(config, samples, visitor)
         nsamples = analyze.executeAnalysis(config, samples, visitor)
 
-    # flag indicating to run analysis in debug mode
-    debug = CLI.getTagBoolDefault("debug",False)
-
-    analysisError = "" #setting this to a non-empty string will supress writing the regular output file and write an alternative file with the value of this string
-    if cutbased:
-        pass
-
     # TODO: provide a defaultConfig for the path to cuts
     # attach the definitions to the info folder
     if not cuts.dumpToFolder(samples.getFolder("info/cuts+")):
@@ -185,9 +188,6 @@ def main(config):
     mvascriptnames = config.getTagVString("MVA")
     if len(mvascriptnames)>0:
         analyze.trainMVA(config, samples, cuts)
-    elif not cutbased:
-        appname = QFramework.TQLibrary.getApplicationName().Data()
-        QFramework.ERROR("no analysis script given, please use 'MVA: myAnalysis' under the [{:s}] section to import and execute some python script 'MVA/myAnalysis.py'. it should contain a function 'runMVA(...)' that will receive a readily prepared sample folder at your disposal".format(appname))
 
     if config.getTagBoolDefault("printObservables",False):
         QFramework.TQObservable.printObservables()
