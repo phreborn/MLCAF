@@ -233,10 +233,6 @@ def main(config):
     # write and print some performance information like memory usage and runtime
     common.printExecutionStatistics(config)
 
-    #Let the user know how heavy this run was:
-    # TODO: put this in printExecutionStatistics?
-    QFramework.INFO("This analysis run used up to {:.2f} MiB of memory (RSS).".format(QFramework.TQUtils.getPeakRSS()/1024./1024.))
-
     #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # TODO: still necessary?
     ROOT.xAOD.ClearTransientTrees()
