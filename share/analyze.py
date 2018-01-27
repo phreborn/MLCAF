@@ -6,11 +6,6 @@ from CommonAnalysisHelpers import common,analyze
 def main(config):
     """execute your analysis according to the given configuration (can be created from a config file)"""
 
-    CLI = config.getFolder("CLI+")
-
-    if CLI.getTagIntegerDefault("width",0):
-        QFramework.TQLibrary.setConsoleWidth(CLI.getTagInteger("width"))
-
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
 
@@ -19,6 +14,11 @@ def main(config):
         ROOT.StatusCode.enableFailure()
     except AttributeError:
         pass
+
+    CLI = config.getFolder("CLI+")
+
+    if CLI.getTagIntegerDefault("width",0):
+        QFramework.TQLibrary.setConsoleWidth(CLI.getTagInteger("width"))
 
     # TODO: make a get aliases method? aliases also loaded during cut creation and analysis job booking
     # load the aliases from the config file
