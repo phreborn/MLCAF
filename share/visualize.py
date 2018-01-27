@@ -14,10 +14,8 @@ def main(config):
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
-    ####################################################################
-    # TODO: implement the actual function content
-    ####################################################################
-    
+    outputdir = visualize.getOutputDirName(config)
+
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
     
