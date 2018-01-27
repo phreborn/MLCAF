@@ -14,7 +14,13 @@ def main(config):
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
+    # location to dump results
     outputdir = visualize.getOutputDirName(config)
+
+    # retrieve properties of channels provided in config
+    channelsDict = visualize.getDictOfChannels(config)
+
+    # TODO: check that all channels specified in channelsDict is actually found in samples
 
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
