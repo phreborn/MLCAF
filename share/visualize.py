@@ -22,6 +22,9 @@ def main(config):
 
     # TODO: check that all channels specified in channelsDict is actually found in samples
 
+
+    #reader = visualize.initializeSampleDataReader(samples)
+
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
     
