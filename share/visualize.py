@@ -15,7 +15,7 @@ def main(config):
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
     # location to dump results
-    outputdir = visualize.getOutputDirName(config)
+    outputdir = visualize.getOutputDir(config)
 
     # retrieve properties of channels provided in config
     channelsDict = visualize.getDictOfChannels(config)
@@ -43,6 +43,12 @@ def main(config):
 
     # print a cutflow for each combination of processes and cuts defined in the config for each channel
     visualize.printCutflows(config, reader, summary, channelsDict, outputdir)
+
+    #
+    visualize.printEventLists(config, reader, channelsDict, outputdir)
+
+    # 
+    visualize.makePlots(config, reader, summary, channelsDict, outputdir)
 
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)

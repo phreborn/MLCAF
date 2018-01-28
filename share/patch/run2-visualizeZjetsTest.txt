@@ -1,0 +1,1 @@
+<style.default.title = "Zjets Powheg", style.default.histLineColor = 1, style.default.histFillColor = 15> @ /bkg/?/Zjets/Powheg/Nominal;
