@@ -57,7 +57,7 @@ def main(config):
     common.writeSampleFolder(config, samples)
 
     # finalize the summary document
-    finalizeSummaryDocument(summary)
+    visualize.finalizeSummaryDocument(summary)
 
     QFramework.INFO("all done!")
 
