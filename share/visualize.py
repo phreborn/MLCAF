@@ -25,6 +25,9 @@ def main(config):
     # initialize object which will read the results from the sample folder
     reader = visualize.initializeSampleDataReader(config, samples)
 
+    if config.getTagString("fakeData.source",fakedata):
+        visualize.generateFakeData(config)
+
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
     
