@@ -44,11 +44,14 @@ def main(config):
     # print a cutflow for each combination of processes and cuts defined in the config for each channel
     visualize.printCutflows(config, reader, summary, channelsDict, outputdir)
 
-    #
+    # print event level quantities defined by the user
     visualize.printEventLists(config, reader, channelsDict, outputdir)
 
-    # 
+    # make all of the plots with the processes stacked which are requested by the user
     visualize.makePlots(config, reader, summary, channelsDict, outputdir)
+
+    # make a selection of advanced plots to more easily compare specific processes defined by the user
+    visualize.makeComparisonPlots(config, reader, outputdir)
 
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
