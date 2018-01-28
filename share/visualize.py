@@ -25,8 +25,14 @@ def main(config):
     # initialize object which will read the results from the sample folder
     reader = visualize.initializeSampleDataReader(config, samples)
 
-    if config.getTagString("fakeData.source",fakedata):
+    if config.getTagStringDefault("fakeData.source",""):
         visualize.generateFakeData(config)
+
+    # apply patches as given by the config
+    common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
+
+    # calculate normalization factors based on a series of config files and save this information in the sample folder
+    visualize.generateNormalizationFactors(config, samples)
 
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
