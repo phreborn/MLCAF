@@ -38,6 +38,9 @@ def main(config):
     # create a document which will summarize all of the results
     summary = visualize.createSummaryDocument(samples, outputdir)
 
+    # create a diagram summarizing the cuts and add a cut overview section to the summary file
+    visualize.createCutDiagram(config, samples, summary, outputdir)
+
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
     
