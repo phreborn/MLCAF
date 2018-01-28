@@ -25,6 +25,7 @@ def main(config):
     # initialize object which will read the results from the sample folder
     reader = visualize.initializeSampleDataReader(config, samples)
 
+    # generate fake data if requested
     if config.getTagStringDefault("fakeData.source",""):
         visualize.generateFakeData(config)
 
@@ -33,6 +34,9 @@ def main(config):
 
     # calculate normalization factors based on a series of config files and save this information in the sample folder
     visualize.generateNormalizationFactors(config, samples)
+
+    # create a document which will summarize all of the results
+    summary = visualize.createSummaryDocument(samples, outputdir)
 
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
