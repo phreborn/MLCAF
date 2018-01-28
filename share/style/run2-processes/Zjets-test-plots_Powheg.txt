@@ -1,0 +1,10 @@
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/bottomLeptonic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/bottomHadronic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/charmLeptonic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/charmHadronic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/strangeLeptonic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/strangeHadronic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/lightLeptonic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/lightHadronic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/otherLeptonic", .isBackground = true
+.path = "bkg/$(lepch)/Zjets/Powheg/Run1Scheme/otherHadronic", .isBackground = true

@@ -38,8 +38,11 @@ def main(config):
     # create a document which will summarize all of the results
     summary = visualize.createSummaryDocument(samples, outputdir)
 
-    # create a diagram summarizing the cuts and add a cut overview section to the summary file
+    # create a diagram summarizing the cuts
     visualize.createCutDiagram(config, samples, summary, outputdir)
+
+    # print a cutflow for each combination of processes and cuts defined in the config for each channel
+    visualize.printCutflows(config, reader, summary, channelsDict, outputdir)
 
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
