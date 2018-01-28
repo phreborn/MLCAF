@@ -55,6 +55,15 @@ def main(config):
 
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
+
+    # finalize the summary document
+    finalizeSummaryDocument(summary)
+
+    QFramework.INFO("all done!")
+
+    # TODO: Put this part also into it's own method as well (under common)? Same for other scripts
+    if config.hasUnreadKeys("!.*"):
+        QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))
     
 if __name__ == "__main__":
     # create a pre-configures argument parser
