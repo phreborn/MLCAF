@@ -29,9 +29,6 @@ def main(config):
     if config.getTagStringDefault("fakeData.source",""):
         visualize.generateFakeData(config)
 
-    # apply patches as given by the config
-    common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
-
     # calculate normalization factors based on a series of config files and save this information in the sample folder
     visualize.generateNormalizationFactors(config, samples)
 
@@ -66,6 +63,7 @@ def main(config):
         QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))
     
 if __name__ == "__main__":
+
     # create a pre-configures argument parser
     parser = visualize.DefaultArgumentParser()
 

@@ -238,6 +238,7 @@ def main(config):
     ROOT.xAOD.ClearTransientTrees()
 
 if __name__ == "__main__":
+
     # create a pre-configured argument parser
     parser = analyze.DefaultArgumentParser()
 
