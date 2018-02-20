@@ -15,5 +15,4 @@
 <isData = true, isMC = false, variation="nominal"> @ data; # for data,revert the data/MC tags
 <isData = false, isMC = true, variation="nominal"> @ sig,bkg;
 <isVjets = false> @ sig,bkg,data;
-<isVjets = true> @ /bkg/?/Zjets;
-<isVjets = true> @ /bkg/?/Wjets;
+<isVjets = true> @ /bkg/?/Zjets

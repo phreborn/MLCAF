@@ -1,0 +1,13 @@
+# -*- mode: tqfolder -*-
+# to get proper syntax highlighting and indentation when using emacs,
+# add the following line to your .emacs file:
+#   (load-file "$TQPATH/share/tqfolder.el")
+
++CutChannels {
+  <.cutExpression = "$(fitsChannel)", .weightExpression = "[eventweight]", .title="Channel Selection">
+
+  +CutVgammaVjet_overlap {
+  	<.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+  } #End: CutVgammaVjet_overlap
+} #End: CutChannels

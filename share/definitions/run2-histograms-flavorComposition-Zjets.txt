@@ -1,4 +1,0 @@
-
-TH1F('Mll', '', 60, 60., 120.) << ( $(Mll)/1000. : 'Dilepton mass [GeV]' );
-
-@CutChannels: Mll;

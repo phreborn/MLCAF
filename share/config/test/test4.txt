@@ -1,2 +1,0 @@
-# -*- mode: tqfolder -*-
-<override = 4, test4 = true>

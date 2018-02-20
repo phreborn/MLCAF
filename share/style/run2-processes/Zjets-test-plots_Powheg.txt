@@ -1,1 +1,0 @@
-.path = "bkg/$(lepch)/Zjets/Powheg/Nominal", .isBackground = true
