@@ -6,8 +6,4 @@
 +CutChannels {
   <.cutExpression = "$(fitsChannel)", .weightExpression = "[eventweight]", .title="Channel Selection">
 
-  +CutVgammaVjet_overlap {
-  	<.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
-
-  } #End: CutVgammaVjet_overlap
 } #End: CutChannels
