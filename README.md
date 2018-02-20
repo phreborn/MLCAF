@@ -34,7 +34,7 @@ Running a test
 
 ```bash
 cd ../CAFExample/share
-./prepare.py config/test/run2-ZjetsTest.cfg
-./initialize.py config/test/run2-ZjetsTest.cfg
-./analyze.py config/test/run2-ZjetsTest.cfg
+./prepare.py config/run2-ZjetsFF-Example.cfg
+./initialize.py config/run2-ZjetsFF-Example.cfg
+./analyze.py config/run2-ZjetsFF-Example.cfg
 ```
