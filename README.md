@@ -29,8 +29,8 @@ source ../CAFExample/CAFCore/cafsetup.sh
 make -j4
 ```
 
-Running a test
---------------
+Running an example analysis
+----------------------------
 
 ```bash
 cd ../CAFExample/share
