@@ -37,4 +37,5 @@ cd ../CAFExample/share
 ./prepare.py config/run2-ZjetsFF-Example.cfg
 ./initialize.py config/run2-ZjetsFF-Example.cfg
 ./analyze.py config/run2-ZjetsFF-Example.cfg
+./visualize.py config/run2-ZjetsFF-Example.cfg
 ```
