@@ -251,7 +251,9 @@ if __name__ == "__main__":
 
     # TODO: Do we still need this line?
     #get rid of command line arguments since ROOT is very greedy here (and tends to choke from it!)
-    sys.argv = []
+    #sys.argv = []
+    #This should do it properly without forcing argv to be empty 
+    ROOT.PyConfig.IgnoreCommandLineOptions = True
 
     # call the main function
     main(config)
