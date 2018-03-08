@@ -34,8 +34,8 @@ Running an example analysis
 
 ```bash
 cd ../CAFExample/share
-./prepare.py config/run2-prepare-ZjetsFF-Example.cfg
-./initialize.py config/run2-initialize-ZjetsFF-Example.cfg
-./analyze.py config/run2-analyze-ZjetsFF-Example.cfg
-./visualize.py config/run2-visualize-ZjetsFF-Example.cfg
+./prepare.py config/master/run2-prepare-ZjetsFF-Example.cfg
+./initialize.py config/master/run2-initialize-ZjetsFF-Example.cfg
+./analyze.py config/master/run2-analyze-ZjetsFF-Example.cfg
+./visualize.py config/master/run2-visualize-ZjetsFF-Example.cfg
 ```
