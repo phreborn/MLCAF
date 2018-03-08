@@ -212,8 +212,7 @@ def main(config):
         else:
             outfilename = config.getTagStringDefault("outputFile","")
         altFileName = outfilename
-        # TODO: is removeTrailingText doing the right thing? ".root" is still in output file name
-        QFramework.TQStringUtils.removeTrailingText(ROOT.TString(altFileName),".root")
+        QFramework.TQStringUtils.removeTrailingText(altFileName,".root")
         altFileName.Append(".isDone")
         with open(altFileName.Data(),'w') as f :
             f.write(analysisError.Data() if isinstance(analysisError,ROOT.TString) else analysisError)
