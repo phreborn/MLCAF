@@ -12,10 +12,10 @@ Preface
 
 In the end, all data-processing classes in the CAF have to somehow
 extract their data from the tree. This data extraction is handled by
-the TQObservable class - always. Independently of whether you are
+the `TQObservable` class - always. Independently of whether you are
 applying a `TQCut`, or if you want to fill a histogram with a
-TQHistoMakerAnalysisJob, or if you are making an event list with a
-TQEventlistAnalysisJob, or if you are using a `TQMVA` - the numerical
+`TQHistoMakerAnalysisJob`, or if you are making an event list with a
+`TQEventlistAnalysisJob`, or if you are using a `TQMVA` - the numerical
 values of variables will always be retrieved via an instance of
 `TQObservable`.
 
@@ -77,7 +77,7 @@ Also other, more fance types of `TQObservable` exist:
      in such a way that they enclose an unquoted string. Each segment
      enclosed in such brackets will be interpreted as the name of some
      other observable, which will be evaluated and inserted in this
-     expression at runtime. Please not that TQMultiObservable does not
+     expression at runtime. Please not that `TQMultiObservable` does not
      provide any direct data access, which means that you shall not
      use any branch names in this expression directly, but only other
      observable names.
@@ -88,28 +88,28 @@ Also other, more fance types of `TQObservable` exist:
      useful, you might want to study the section on MVA integration.
 
    * `TQCPDecorationObservable` is a `xAOD::TEvent` based observable
-     (inheriting from TQEventObservable) that is capable of reading
-     auxdata members of xAOD::CompositeParticle and or any part of
+     (inheriting from `TQEventObservable`) that is capable of reading
+     auxdata members of `xAOD::CompositeParticle` and or any part of
      such. You may use these observables with expressions like
-     CPFD:ContainerName[0].part(1).part(2).part(3):memberName, where
+     `CPFD:ContainerName[0].part(1).part(2).part(3):memberName`, where
      you may go to arbitrary depth in dereferencing levels by calling
      parts - also zero occurences are allowed, allowed to directly
      read decorations of the composite particle in the container.
 
    * `TQHistogramObservable` is an observable intended for using
-     binned weights from histograms. It can be used with TH1, TH2 and
-     TH3 histograms. It provides the bin content of the histogram
+     binned weights from histograms. It can be used with `TH1`, `TH2` and
+     `TH3` histograms. It provides the bin content of the histogram
      based on the values of other observables. The number of other
      observables is equal to the dimension of the histogram, i.e. each
      axis of the histogram corresponds to one observable. It can be
      used with expressions like
      `TH1Map:myFile.root:myHist([observable1])` or
      `TH3Map:myFile.root:myHist([observable1],[observable2],[observable3])`. This
-     loads a histogram named 'myHist' from a file 'myFile.root' (it is
+     loads a histogram named `myHist` from a file 'myFile.root' (it is
      technically reloaded for every sample, so sample dependent
-     expressions using the usual $(myTag) syntax are possible) and
-     maps the value(s) returned by the observable(s) 'observable1'
-     ('observable2' and 'observable3') to the corresponding bin
+     expressions using the usual `$(myTag)` syntax are possible) and
+     maps the value(s) returned by the observable(s) `observable1`
+     (`observable2` and `observable3`) to the corresponding bin
      content obtained from the histogram 'myHist'. The observables are
      assigned to the x-,y- and z-axis in the order they are
      specified. It is up to the user to ensure that this axis
@@ -124,17 +124,17 @@ Also other, more fance types of `TQObservable` exist:
    * `TQFilterObservable` is an observable intended for rejecting
      certain values returned by one observable based on the response
      of a second observable. It can be used with expressions like
-     Filter(firstObservable,secondObservable). The TQFilterObservable
+     `Filter(firstObservable,secondObservable)`. The `TQFilterObservable`
      is a vector observable, i.e., it can return zero or more
      values. A value from the first ('value') observable is suppressed
      if the second ('cut') observable evaluates to zero (think of the
      boolean 'false'). It supports three configurations of (value,
-     cut) observables: (scalar, scalar), (vector,scalar),
+     cut) observables: (scalar, scalar), (vector,scalar), and
      (vector,vector). The first case was essentially just explained. A
      fairly straight forward generalization is given by the second
      case where either the entire value vector passes or no value
      passes. A particularity is given by the third case (vector,
-     vector) : This variant enforces the number of evaluations of the
+     vector): This variant enforces the number of evaluations of the
      two observables to be equal, each entry of the value vector is
      forwarded if the corresponding entry of the cut vector evaluates
      to non-zero.
@@ -167,21 +167,21 @@ please consider the product of two vector observables via the
 TQMultiObservable with an expression `[vec1] * [vec2]` which will
 behave as a vector observable with the same length as the
 subobservables and values obtained as the element wise product of the
-values of "vec1" and "vec2". As a consequence, it is enforced that the
+values of `vec1` and `vec2`. As a consequence, it is enforced that the
 length of vector observables combined in such a way are equal (an
 error is raised otherwise, i.e., your analysis will crash). Scalar
 observables are implicitly expanded to match the length of the vector
 observables used alongside. (This behavior was chosen with
 object-related studies in mind; to calculate the standard scalar
 product of two vector observables one should use an expression like
-VecSUM( [vec1] * [vec2] ).)
+`VecSUM( [vec1] * [vec2] )`.)
 
 Writing your own observable and using it
 --------------------
 
 All of this magic works because the observables are simply identified
 by the expressions you provide. After an observable is constructed,
-the framework does not care anymore what type of TQTreeObservable it
+the framework does not care anymore what type of `TQObservable` it
 is handling. This especially allows anybody using the framework to
 implement custom observables in regular `C++` and inject them into the
 framework. To achieve, all you need to do is the following:
