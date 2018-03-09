@@ -88,6 +88,7 @@ can be rather specific to a particular NF Calculator:
 			    <path = "bkg/[ee+mm]/QCD">
 		    }
     }
+    
     ```
 * TQNFCalculator: provides a set of different methods explained inline in the example. For options already explained in previous examples, please see these for more verbose comments.
     ```
