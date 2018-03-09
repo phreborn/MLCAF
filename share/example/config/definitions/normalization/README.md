@@ -1,4 +1,4 @@
-#Data Driven Normalization
+Data Driven Normalization
 =========================
 
 Several methods to extract normalization factors (NFs) are available 
@@ -39,8 +39,7 @@ explicitly listed (see examples below).
 
 Existing NF calculation methods are described in the following, options 
 can be rather specific to a particular NF Calculator:
-* TQABCDCalculator: computes a NF scaling the yields in region A (usually the signal region)
-    is equal to A=B*C/D.
+* TQABCDCalculator: computes a NF scaling the yields in region A (usually the signal region) is equal to A=B*C/D.
     ```
     +VBFABCD {
 	    <verbosity=5>
@@ -149,8 +148,8 @@ can be rather specific to a particular NF Calculator:
 			    <name = "CutZControl_2jetincl">
 		    }
 	    }
-	
     }
+    
     ```
 * TQNFManualSetter: this "calculator" allows to set manually/externally derived NFs and uncertainties. For options already explained in previous examples, please see these for more verbose comments.
     ```
@@ -237,7 +236,7 @@ can be rather specific to a particular NF Calculator:
       }
     }
     ```
-  * TQNFTop1jetEstimator: computes a NF according to the top+1jet normalization strategy in the [HWW Run1 analysis](http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2013-13/)
+* TQNFTop1jetEstimator: computes a NF according to the top+1jet normalization strategy in the [HWW Run1 analysis](http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2013-13/)
     ```
     +TOP1JET {
 	    <verbosity=5>
