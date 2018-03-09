@@ -44,7 +44,10 @@ def main(config):
         QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))
     #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # TODO: still necessary?
-    ROOT.xAOD.ClearTransientTrees()
+    try:
+        ROOT.xAOD.ClearTransientTrees()
+    except AttributeError:
+        pass
 
 if __name__ == "__main__":
 
