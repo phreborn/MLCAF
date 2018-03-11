@@ -1,0 +1,8 @@
+
+# MadGraph Ztautau
+
+361512  /bkg/$(channel)/Zjets/MadGraph/tt
+
+# Powheg ggF signal
+
+345324  /sig/$(channel)/mh125/ggf/
