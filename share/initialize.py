@@ -1,6 +1,5 @@
 #!/bin/env python
 
-# TODO: importing QFramework up here removes custom help when running './initialize.py -h'
 from CommonAnalysisHelpers import common,initialize
 
 def main(config):
@@ -40,8 +39,9 @@ def main(config):
 
     if config.hasUnreadKeys("!.*"):
         QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))
+
     #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
-    # TODO: still necessary?
+    # Update: still necessary in 21.2.4
     try:
         ROOT.xAOD.ClearTransientTrees()
     except AttributeError:

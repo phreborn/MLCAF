@@ -1,6 +1,5 @@
 #!/bin/env python
 
-# TODO: importing QFramework up here removes custom help when running './initialize.py -h'
 from CommonAnalysisHelpers import common,analyze
 
 def main(config):
@@ -229,7 +228,7 @@ def main(config):
     common.printExecutionStatistics(config)
 
     #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
-    # TODO: still necessary?
+    # Update: still necessary in 21.2.4
     try:
         ROOT.xAOD.ClearTransientTrees()
     except AttributeError:
