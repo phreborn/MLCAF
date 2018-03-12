@@ -29,7 +29,6 @@ def main(config):
     if config.getTagBoolDefault("purgeSamples",False):
         common.reduceSampleFolder(config, samples)
 
-    # TODO: do we want this here as well as for prepare step?
     # produce some output for the user to have a look at the result
     QFramework.INFO("please investigate the top-level structure of your sample folder to make sure everything is in place!")
     samples.printContents(config.getTagStringDefault("printFolderTags","r1dt"))
@@ -41,7 +40,7 @@ def main(config):
     common.printUnreadKeys(config)
 
     # temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
-    # Update: still necessary in 21.2.4
+    # update: still necessary in 21.2.4
     try:
         ROOT.xAOD.ClearTransientTrees()
     except AttributeError:
@@ -58,10 +57,7 @@ if __name__ == "__main__":
     # use the argument parser to read the command line arguments and config options from the config file
     config = common.getConfigOptions(parser.parse_args())
 
-    #get rid of command line arguments since ROOT is very greedy here (and tends to choke from it!)
-    #import sys
-    #sys.argv = []
-    #This should do it properly without forcing argv to be empty 
+    # ignore command line arguments since ROOT is very greedy here (and tends to choke from it!) 
     ROOT.PyConfig.IgnoreCommandLineOptions = True
 
     # call the main function    

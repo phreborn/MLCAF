@@ -72,10 +72,7 @@ if __name__ == "__main__":
     # use the argument parser to read the command line arguments and config options from the config file
     config = common.getConfigOptions(parser.parse_args())
 
-    #get rid of command line arguments since ROOT is very greedy here (and tends to choke from it!)
-    #import sys
-    #sys.argv = []
-    #This should do it properly without forcing argv to be empty 
+    # ignore command line arguments since ROOT is very greedy here (and tends to choke from it!)
     ROOT.PyConfig.IgnoreCommandLineOptions = True
 
     # TODO: This was in readAnalysis, is this still needed?
