@@ -221,13 +221,13 @@ def main(config):
         memCanvas = QFramework.TQHistogramUtils.applyATLASstyle(memGraph,"Internal",0.2,0.9,0.9,"timestamp","rss [byte]")
         memCanvas.SaveAs(memFileName.Data())
 
-    if config.hasUnreadKeys("!.*"):
-        QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))
+    # print any keys which were not read during the job
+    common.printUnreadKeys(config)
 
     # write and print some performance information like memory usage and runtime
     common.printExecutionStatistics(config)
 
-    #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
+    # temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # Update: still necessary in 21.2.4
     try:
         ROOT.xAOD.ClearTransientTrees()

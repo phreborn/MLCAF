@@ -58,9 +58,8 @@ def main(config):
 
     QFramework.INFO("all done!")
 
-    # TODO: Put this part also into it's own method as well (under common)? Same for other scripts
-    if config.hasUnreadKeys("!.*"):
-        QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))
+    # print any keys which were not read during the job
+    common.printUnreadKeys(config)
     
 if __name__ == "__main__":
 

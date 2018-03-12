@@ -37,10 +37,10 @@ def main(config):
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
 
-    if config.hasUnreadKeys("!.*"):
-        QFramework.WARN("the following config keys were not read: "+(",".join([ key.GetName() for key in  config.getListOfUnreadKeys("!.*") ])))
+    # print any keys which were not read during the job
+    common.printUnreadKeys(config)
 
-    #temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
+    # temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # Update: still necessary in 21.2.4
     try:
         ROOT.xAOD.ClearTransientTrees()
