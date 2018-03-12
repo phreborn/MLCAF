@@ -50,15 +50,8 @@ def main(config):
         except:
             pass
 
-    # flag indicating to run a dummy analysis
-    dummy = CLI.getTagBoolDefault("dummy",False)
-
-    # TODO: put dummy sample folder retrieval also in loadSampleFolder? It would get the config saved for free
     # load the sample folder from disk
-    if dummy:
-        samples = QFramework.TQSampleFolder("test")
-    else:
-        samples = common.loadSampleFolder(config)
+    samples = common.loadSampleFolder(config)
 
     # check writeability of the output destination to discover typos ahead of time
     # TODO: test writing the sample folder is causing folder splitting to not work correctly
@@ -71,6 +64,8 @@ def main(config):
 
     # flag indicating to run a robust analysis
     robust = CLI.getTagBoolDefault("robust",False)
+    # flag indicating to run a dummy analysis
+    dummy = CLI.getTagBoolDefault("dummy",False)
 
     if not robust and not dummy:
         # remove the channels that are not scheduled
