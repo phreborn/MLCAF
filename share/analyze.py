@@ -244,7 +244,6 @@ if __name__ == "__main__":
     # create a pre-configured argument parser
     parser = analyze.DefaultArgumentParser()
 
-    import sys
     import QFramework
     import ROOT
     import imp
@@ -252,8 +251,8 @@ if __name__ == "__main__":
     # use the argument parser to read the command line arguments and config options from the config file
     config = common.getConfigOptions(parser.parse_args())
 
-    # TODO: Do we still need this line?
     #get rid of command line arguments since ROOT is very greedy here (and tends to choke from it!)
+    #import sys
     #sys.argv = []
     #This should do it properly without forcing argv to be empty 
     ROOT.PyConfig.IgnoreCommandLineOptions = True
