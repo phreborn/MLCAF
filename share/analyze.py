@@ -9,7 +9,6 @@ def main(config):
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
 
-    # TODO: still need this?
     try:
         ROOT.StatusCode.enableFailure()
     except AttributeError:
@@ -25,22 +24,20 @@ def main(config):
     aliases = QFramework.TQTaggable()
     aliases.importTagsWithoutPrefix(config,"cutParameters.")
     aliases.importTagsWithoutPrefix(config,"aliases.")
-    # TODO: understand why we need this
     QFramework.TQMVAObservable.globalAliases.importTags(aliases)
 
     # read the channel definitions
     channels = config.getTagVString("channels")
 
-    # TODO: load correct library
     # load MVA libraries if required
-    # if config.getTagBoolDefault("loadMVA",True):
-    #     try:
-    #         libMVA = analyze.loadLibMVA(config)
-    #     except Exception as ex:
-    #         libMVA = False
-    #         template = "An exception of type '{0}' occured: {1!s}"
-    #         message = template.format(type(ex).__name__, ",".join(ex.args))
-    #         QFramework.ERROR(message)
+    if config.getTagBoolDefault("loadMVA",True):
+        try:
+            libMVA = analyze.loadLibMVA(config)
+        except Exception as ex:
+            libMVA = False
+            template = "An exception of type '{0}' occured: {1!s}"
+            message = template.format(type(ex).__name__, ",".join(ex.args))
+            QFramework.ERROR(message)
 
     # set some global properties
     if not config.getTagBoolDefault("useTransientTree",True):
@@ -135,7 +132,6 @@ def main(config):
     runtime = config.getFolder("runtime+")
     cutbased = runtime.getTagBoolDefault("cutbased", False)
 
-    # TODO: should this go in one fo the methods?
     if config.getTagBoolDefault("printCuts",cutbased):
         cuts.printCut();
 
