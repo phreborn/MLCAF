@@ -21,6 +21,7 @@ Building the project
 ---------------------
 
 ```bash
+mkdir output
 mkdir build
 cd build
 asetup 21.2.4,AnalysisBase

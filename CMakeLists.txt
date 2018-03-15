@@ -1,6 +1,6 @@
 #########################################################################################################
 # Package: CAFExample## #################################################################################
-cmake_minimum_required( VERSION 2.8 )
+cmake_minimum_required( VERSION 2.8.12 )
 
 # Declare the package name:
 project( CAFExample )
@@ -11,6 +11,28 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 else()
   set(HAS_PARENT 1)
 endif()
+
+# write a setup script
+set(SETUPANALYSIS ${CMAKE_CURRENT_SOURCE_DIR}/setupAnalysis.sh)
+get_filename_component(PARENT_OF_BINARY_DIR ${CMAKE_BINARY_DIR} DIRECTORY)
+file(WRITE ${SETUPANALYSIS} "#!/bin/bash\n")  
+file(APPEND ${SETUPANALYSIS} "# this is an auto-generated setup script\n\n")
+file(APPEND ${SETUPANALYSIS} "export HWWEXECUTABLES=\"${CMAKE_CURRENT_SOURCE_DIR}/share\"\n")
+
+file(APPEND ${SETUPANALYSIS} "# Add paths from $HWWEXECUTABLES to $PATH (while avoiding duplicates)\n")
+file(APPEND ${SETUPANALYSIS} "for directory in `echo $HWWEXECUTABLES | tr \":\" \" \"` ; do\n")
+file(APPEND ${SETUPANALYSIS} "\t# Remove trailing slash\n")
+file(APPEND ${SETUPANALYSIS} "\tdir=\${directory%/}\n")
+file(APPEND ${SETUPANALYSIS} "\t# If $dir is not in $PATH yet, add it at the end.\n")
+file(APPEND ${SETUPANALYSIS} "\tif ! `echo $PATH | tr \":\" \"\\n\" | grep -q $dir` ; then\n")
+file(APPEND ${SETUPANALYSIS} "\t\texport PATH=$PATH:$dir\n")
+file(APPEND ${SETUPANALYSIS} "\tfi\n")
+file(APPEND ${SETUPANALYSIS} "done\n\n")
+
+file(APPEND ${SETUPANALYSIS} "#if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setupAutoComplete.sh ]; then\n#\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setupAutoComplete.sh\n#fi\n")
+file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh\nelse\n\texport HWWOUTPUTDIRECTORY=\"${PARENT_OF_BINARY_DIR}/output/\"\nfi\n")
+file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/cafsetup.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/cafsetup.sh\nfi\n")
+
 
 # we try to discover if we are compiling inside an ASG environment or not
 find_package( AnalysisBase QUIET) 
