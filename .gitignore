@@ -2,3 +2,4 @@
 Root/LinkDef.h
 python/__init__.py
 setOutput.sh
+setupAnalysis.sh

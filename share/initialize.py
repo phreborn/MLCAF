@@ -8,8 +8,11 @@ def main(config):
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nInitializing Analysis ROOT File\n"))
 
+    # create a path manager
+    pathManager = QFramework.TQPathManager()
+    
     # load the sample folder from disk
-    samples = common.loadSampleFolder(config)
+    samples = common.loadSampleFolder(config, pathManager)
 
     # TODO: Add testWriteSampleFolder to initialize step as well? probably should
 
@@ -34,7 +37,7 @@ def main(config):
     samples.printContents(config.getTagStringDefault("printFolderTags","r1dt"))
 
     # write the sample folder to disk
-    common.writeSampleFolder(config, samples)
+    common.writeSampleFolder(config, samples, pathManager)
 
     # print any keys which were not read during the job
     common.printUnreadKeys(config)

@@ -26,7 +26,7 @@ mkdir build
 cd build
 asetup 21.2.4,AnalysisBase
 cmake ../CAFExample
-source ../CAFExample/CAFCore/cafsetup.sh
+source ../CAFExample/setupAnalysis.sh
 make -j4
 ```
 

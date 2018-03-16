@@ -8,12 +8,15 @@ def main(config):
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nPreparing Analysis ROOT File\n"))
 
+    # create a path manager
+    pathManager = QFramework.TQPathManager()
+    
     # create a new sample folder
     samples = common.createSampleFolder(config)
 
     # make sure that sample folder is writable before we go any further
     # TODO: test writing the sample folder is causing folder splitting to not work correctly
-    #common.testWriteSampleFolder(config, samples)
+    #common.testWriteSampleFolder(config, samples, pathManager)
 
     # add the monte carlo as given by the cross section file
     prepare.addMonteCarlo(config, samples)
@@ -37,7 +40,7 @@ def main(config):
     samples.printContents(config.getTagStringDefault("printFolderTags","r1dt"))
 
     # write the sample folder to disk
-    common.writeSampleFolder(config, samples)
+    common.writeSampleFolder(config, samples, pathManager)
 
     # print any keys which were not read during the job
     common.printUnreadKeys(config)

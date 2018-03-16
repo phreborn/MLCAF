@@ -8,6 +8,9 @@ def main(config):
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
 
+    # create a path manager
+    pathManager = QFramework.TQPathManager()
+    
     try:
         ROOT.StatusCode.enableFailure()
     except AttributeError:
@@ -51,11 +54,11 @@ def main(config):
             pass
 
     # load the sample folder from disk
-    samples = common.loadSampleFolder(config)
+    samples = common.loadSampleFolder(config, pathManager)
 
     # check writeability of the output destination to discover typos ahead of time
     # TODO: test writing the sample folder is causing folder splitting to not work correctly
-    #common.testWriteSampleFolder(config, samples)
+    #common.testWriteSampleFolder(config, samples, pathManager)
 
     # remove the data folder if not desired
     if not config.getTagBoolDefault("doData",True):
@@ -193,7 +196,7 @@ def main(config):
 
     # write the sample folder to disk
     if len(analysisError) == 0 or mvaOK:
-        common.writeSampleFolder(config, samples)
+        common.writeSampleFolder(config, samples, pathManager)
     else: #write alternative output file (the analysis didn't crash but there is something the user should check!
         # TODO: make this another method in common.py? probably
         # TODO: fix TString/std::string mess
