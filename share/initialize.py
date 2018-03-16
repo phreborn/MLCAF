@@ -9,7 +9,7 @@ def main(config):
     print(QFramework.TQStringUtils.makeBoldWhite("\nInitializing Analysis ROOT File\n"))
 
     # create a path manager
-    pathManager = QFramework.TQPathManager()
+    pathManager = QFramework.TQPathManager(False)
     
     # load the sample folder from disk
     samples = common.loadSampleFolder(config, pathManager)
