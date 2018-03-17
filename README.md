@@ -40,3 +40,8 @@ cd ../CAFExample/share
 ./analyze.py nTuple/config/master/analyze-ZjetsFF-Example.cfg
 ./visualize.py nTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
+
+Alternatively, you can also run the analysis from any other folder by executing:
+```bash
+prepare.py nTuple/config/master/prepare-ZjetsFF-Example.cfg
+```

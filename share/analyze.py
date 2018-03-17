@@ -9,7 +9,7 @@ def main(config):
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
 
     # create a path manager
-    pathManager = QFramework.TQPathManager(False)
+    pathManager = QFramework.TQPathManager(True)
     
     try:
         ROOT.StatusCode.enableFailure()
