@@ -69,7 +69,7 @@ def main(config):
 
     if not robust and not dummy:
         # remove the channels that are not scheduled
-        pattern = config.getTagStringDefault("channelFolderPattern","?/?/$(channel)")
+        pattern = config.getTagStringDefault("channelFolderPattern","?/$(channel)")
         QFramework.TQFolder.getPathTail(pattern)
 
         for sf in samples.getListOfSampleFolders(QFramework.TQFolder.concatPaths(pattern, "?")):
