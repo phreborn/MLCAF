@@ -1,3 +1,13 @@
 *.pyc
 Root/LinkDef.h
 python/__init__.py
+build
+*.tex
+*.pdf
+*.log
+*.aux
+*.jpg
+*.png
+*~
+#*#
+.asetup.save
