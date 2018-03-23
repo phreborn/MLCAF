@@ -19,3 +19,5 @@ build:
     - cd ../build
     - cmake ../CAFExample
     - make
+    - cd ../
+    - source build/*/setup.sh
