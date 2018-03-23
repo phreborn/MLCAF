@@ -1,5 +1,17 @@
 # Dummy CI
 
 testjob1:
+  variables:
+    ATLAS_LOCAL_ROOT_BASE: /cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
+    GIT_SUBMODULE_STRATEGY: recursive
+    GIT_SSL_NO_VERIFY: "true"
   script:
     - ls
+    - set +e
+    - source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh
+    - set -e
+    - mkdir ../build
+    - cd ../build
+    - asetup AnalysisBase,21.2.23,here
+    - cmake ../CAFExample
+    - make
