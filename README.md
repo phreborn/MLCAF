@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.cern.ch/atlas-caf/CAFExample/badges/master/pipeline.svg)](https://gitlab.cern.ch/atlas-caf/CAFExample/commits/master)
+
 Example CAFCore Analysis
 =========================
 
