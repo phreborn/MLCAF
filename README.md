@@ -25,14 +25,18 @@ Building the project
 ```bash
 mkdir build
 cd build
-asetup 21.2.4,AnalysisBase
+asetup AnalysisBase,21.2.4
 cmake ../CAFExample
 source ../CAFExample/CAFCore/cafsetup.sh
 make -j4
 ```
 
-Running an example analysis
-----------------------------
+Running an example analysis on flat nTuples
+-------------------------------------------
+
+The following scripts will (very quickly) run over a selection of flat nTuples to reproduce the cutflow and some visualized results for a Zjets Fake Factor estimate. It is not meant to describe the bare minimum configuration needed for producing results (that's what the dummy example provided in the near future will be for).
+Similarly, a full-blown analysis is likely to include a host of custom observables which are calculated on-the-fly during runtime and for many more events (all quantities in this case have been pre-computed).
+Rather, it is simply meant to showcase how fast results can be obtained once the uninteresting events have been skimmed away and the necessary quantities are already available directly in the TTree.
 
 ```bash
 cd ../CAFExample/share
