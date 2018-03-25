@@ -1,0 +1,20 @@
+
+stages:
+  - build
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SSL_NO_VERIFY: "true"
+  FROM: atlas/analysisbase:21.2.23
+
+build:
+  image: atlas/analysisbase:21.2.23
+  stage: build
+  script:
+    - source /home/atlas/release_setup.sh
+    - mkdir ../build
+    - cd ../build
+    - cmake ../CAFExample
+    - make -j4
+    - cd ../
+    - source build/*/setup.sh
