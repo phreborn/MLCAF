@@ -137,17 +137,20 @@ For more complex operations, additional commands are available
                                     #becomes empty by the previous deletion 
                                     #starting with the deletion of 'someFolder'
     ```
+    
     Wildcards in folder names/paths are supported.
 * Moving a folder to a different location:
     ```
     $move("oldPath/oldFolderName>>newPath/::newFolderName);
     ```
+    
     The part after the '::' is the new name of the moved folder. If omitted the 
     name will be unchanged.
 * Copying a folder:
     ```
     $copy("oldPath/oldFolderName>>newPath/::newFolderName);
     ```
+    
     This works analogously to '$move' but creates a copy of the source folder
     and all of its content (including subfolders).
 
@@ -187,6 +190,7 @@ For more complex operations, additional commands are available
     ```
     $write("myfile.txt"); #internally calls TQFolder::exportToTextFile
     ```
+    
 * Another TQFolder patch file can included in the current scope using
     ```
     $include("someOtherFile.txt");
@@ -207,6 +211,7 @@ For more complex operations, additional commands are available
       <tagB="this will not be applied">
     }
     ```
+    
     If the argument of ```$escape()``` is not empty the interpretation of the 
     remaining lines of a block is only skipped if the name of the name of the 
     current folder matches the argument, e.g., 
