@@ -1,6 +1,7 @@
 
 stages:
   - build
+  - docker
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
@@ -18,3 +19,12 @@ build:
     - make -j4
     - cd ../
     - source build/*/setup.sh
+
+build_image:
+  stage: docker
+  tags:
+    - docker-image-build
+  script:
+    - ignore
+
+
