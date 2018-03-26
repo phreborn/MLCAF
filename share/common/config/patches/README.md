@@ -158,21 +158,30 @@ For more complex operations, additional commands are available
     The ```$modify``` command allows to perform more sophisticated changes to
     the values of tags than just setting/overriding them:
     ```
-    $modify(tag='myKey', operator='=', value=1.25, path='sig/em/mh125/*', filter='s', create=true, override=false);
+    $modify(tag='myKey', operator='=', value=1.25, path='sig/em/mh125/*', 
+          filter='s', create=true, override=false);
     # creates a tag with name 'myKey' on all folders 
     # - matching the specified path and 
     # - are of the type indicated by the filter 
     # (here: TQSample; note: a TQSample is always also a TQSampleFolder!)
     # The tag will be assigned the value 1.25 in this example.
     # Options with default values are path="" (defaults to current folder), 
-    # filter="" (defaults to no filter), create=false (only existing tags will be modified by default), 
-    # override=true/false (existing tags are overridden by default if creation of new tags is disabled), 
-    # force=false (if set to true existing tags of a different type but same name will be replaced).
-    # Required arguments are tag, operator and value. Valid operators depend on the type of the value argument:
+    # filter="" (defaults to no filter), create=false (only existing tags will be 
+    # modified by default), 
+    # override=true/false (existing tags are overridden by default if creation 
+    # of new tags is disabled), 
+    # force=false (if set to true existing tags of a different type but same 
+    # name will be replaced).
+    # Required arguments are tag, operator and value. 
+    # Valid operators depend on the type of the value argument:
     # string: '=' (set), '+' (append) '-' (remove from end if matching)
     # double/int: '=' (set), '+', '-', '*', '/' (newTagValue = oldTagValue value)
-    # bool: '=' (set), '!=', '==' (compare tag to value argument), '&&', '||' (combine tag and value argument)
-    # for numeric, non-boolean values the operator can be prefixed with '!' in order to exchange the roles of old (existing) and new tag (passed to $modify). # for string tags prefixing '!' to the operators '+' and '-' prepends to / removes from the front of the existing tag 
+    # bool: '=' (set), '!=', '==' (compare tag to value argument), '&&', '||' 
+    # (combine tag and value argument)
+    # for numeric, non-boolean values the operator can be prefixed with '!' in 
+    # order to exchange the roles of old (existing) and new tag (passed to $modify). 
+    # for string tags prefixing '!' to the operators '+' and '-' prepends to / 
+    # removes from the front of the existing tag 
     ```
 
 * Creating folders of a specific type (TQSampleFolder or TQSample): see [above](usage:-creating-new-tqfolders)
