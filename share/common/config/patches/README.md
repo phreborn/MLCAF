@@ -91,11 +91,12 @@ Depending on the use case either of the two following examples can be more
 convenient:
 ```
 #place the two tags 'myKey' (string valued) and 'myOtherKey' (double valued) at some/path:
-<myKey="myStringValue",myOtherKey=42.> @some/path; 
+<myKey="myStringValue", myOtherKey=42. ,someBool=true> @some/path; 
 #equivalently:
 @some/path {
-  <myKey="myStringValue",myOtherKey=42.>
+  <myKey="myStringValue", myOtherKey=42. ,someBool=true>
 }
+#available types of tags: int, double, string, bool
 ```
 Please note that this will only deposit the tags and their values at the 
 specified location. The interpretation of the repective tag is then up to some
