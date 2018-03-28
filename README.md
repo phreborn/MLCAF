@@ -45,3 +45,15 @@ cd ../CAFExample/share
 ./analyze.py nTuple/config/master/analyze-ZjetsFF-Example.cfg
 ./visualize.py nTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
+
+On Every Login
+--------------
+
+Navigate to the working directory and
+
+```bash
+setupATLAS
+cd build
+asetup --restore
+source ../CAFCore/cafsetup.sh
+```
