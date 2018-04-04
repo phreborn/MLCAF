@@ -14,17 +14,15 @@ build:
   stage: build
   script:
     - source /home/atlas/release_setup.sh
-    - mkdir ../build
-    - cd ../build
-    - cmake ../CAFExample
+    - mkdir build
+    - cd build
+    - cmake ..
     - make -j4
-    - cd ../
-    - source build/*/setup.sh
   artifacts:
     expire_in: 1d
     untracked: true
     paths:
-      - ../build
+      - build
       - CAFCore/cafsetup.sh
 
 run:
