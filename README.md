@@ -40,10 +40,10 @@ Rather, it is simply meant to showcase how fast results can be obtained once the
 
 ```bash
 cd ../CAFExample/share
-./prepare.py nTuple/config/master/prepare-ZjetsFF-Example.cfg
-./initialize.py nTuple/config/master/initialize-ZjetsFF-Example.cfg
-./analyze.py nTuple/config/master/analyze-ZjetsFF-Example.cfg
-./visualize.py nTuple/config/master/visualize-ZjetsFF-Example.cfg
+./prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
+./initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
+./analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
+./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
 
 On Every Login
