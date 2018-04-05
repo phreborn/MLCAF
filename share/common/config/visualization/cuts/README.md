@@ -52,4 +52,6 @@ using the *process* options '.path1' (->numerator) and '.path2' (->denominator).
 Tips & Tricks
 --------------------
 
+Lines starting with a '#' are considered as comments and simply ignored.
+
 
