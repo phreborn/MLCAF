@@ -34,7 +34,7 @@ run:
     - pwd
     - mkdir -p ~/.ssh
     - source ~/.bashrc || echo ignore alrb
-    - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH"
+    - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH
     - klist
     - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
     - cat ~/.ssh/config
