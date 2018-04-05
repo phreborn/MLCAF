@@ -54,5 +54,5 @@ systematic variations are treated similar to channels, which is a very
 useful design, because systematic variations are often saved in
 separate files and/or can often be processed in parallel in much the
 same way as channels are. Now, it also becomes apparent why there is a
-separate column `datapath`, because for data, there are of course no
+separate column `datapath`, because for data, there are usually no
 systematic variations.
