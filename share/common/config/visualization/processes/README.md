@@ -19,7 +19,8 @@ settings). Typical lines read:
 .path="bkg/$(channel)/Zjets", .name = "Zjets", .title="Z/DY", .isBackground=true
 
 The '$(channel)' placeholder will be replaced by segments defined for the 
-respective channel, e.g., 'ee', 'mm' or '\[ee+mm\]'.
+respective channel, e.g., 'ee', 'mm' or '\[ee+mm\]'. See also the 
+['config/channels'](../../channels/README.md) README.
 
 The various options that can be used here include:
 * '.path': sets the path inside the SampleFolder that should be used for this
