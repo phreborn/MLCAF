@@ -1,6 +1,7 @@
 
 stages:
   - build
+  - run
   - docker
 
 variables:
@@ -13,12 +14,45 @@ build:
   stage: build
   script:
     - source /home/atlas/release_setup.sh
-    - mkdir ../build
-    - cd ../build
-    - cmake ../CAFExample
+    - mkdir build
+    - cd build
+    - cmake ..
     - make -j4
-    - cd ../
-    - source build/*/setup.sh
+  artifacts:
+    expire_in: 1d
+    untracked: true
+    paths:
+      - build
+      - CAFCore/cafsetup.sh
+
+run:
+  image: atlas/analysisbase:21.2.23
+  stage: run
+  dependencies:
+    - build
+  before_script:
+    - pwd
+    - mkdir -p ~/.ssh
+    - source ~/.bashrc || echo ignore alrb
+    - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH
+    - klist
+    - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+    - cat ~/.ssh/config
+  script:
+    - source /home/atlas/release_setup.sh
+    - source CAFCore/cafsetup.sh
+    - cd share
+    - ./prepare.py nTuple/config/master/prepare-ZjetsFF-Example.cfg
+    - ./initialize.py nTuple/config/master/initialize-ZjetsFF-Example.cfg
+    - ./analyze.py nTuple/config/master/analyze-ZjetsFF-Example.cfg
+    - ./visualize.py nTuple/config/master/visualize-ZjetsFF-Example.cfg
+  artifacts:
+    paths:
+      - share/sampleFolders
+      - share/results
+    name: "share_${CI_JOB_NAME}"
+    expire_in: 3 mos
+
 
 build_image:
   stage: docker
