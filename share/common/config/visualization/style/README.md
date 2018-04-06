@@ -18,6 +18,8 @@ The vast majority of such style settings can be applied using the syntax
 which would place to 'tags' on all parts of the SampleFolder structure matching
 ```bkg/?/Zjets```.
 
+
+
 Advanced
 -----------------------
 For a more complete documentation of the TQFolder syntax used in Style files,
