@@ -72,7 +72,10 @@ def main(config):
 
     if not robust and not dummy:
         # remove the channels that are not scheduled
-        for sf in samples.getListOfSampleFolders("?/?"):
+        pattern = config.getTagStringDefault("channelFolderPattern","?/$(channel)")
+        QFramework.TQFolder.getPathTail(pattern)
+
+        for sf in samples.getListOfSampleFolders(QFramework.TQFolder.concatPaths(pattern, "?")):
             found = False
             for c in channels:
                 if QFramework.TQStringUtils.equal(sf.getName(),c):
@@ -84,7 +87,7 @@ def main(config):
 
         # check if all requested channels are present
         for c in channels:
-            if not samples.getSampleFolder(QFramework.TQFolder.concatPaths("?",c)):
+            if not samples.getSampleFolder(QFramework.TQFolder.concatPaths(pattern,c)):
                 QFramework.BREAK("channel '{:s}' was requested, but is not present in input!".format(c))
 
     # apply patches as given by the config

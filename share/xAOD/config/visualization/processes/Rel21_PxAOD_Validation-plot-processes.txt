@@ -1,3 +1,3 @@
-#.path = "sig/$(lepch)/mh125/vbf", .name = "vbf", .isSignal = true
+#.path = "sig/$(channel)/mh125/vbf", .name = "vbf", .isSignal = true
 # pretend vbf is background for validation (only plotting signal is somehow not supported)
-.path = "sig/$(lepch)/mh125/vbf", .name = "vbf", .isBackground = true
+.path = "sig/$(channel)/mh125/vbf", .name = "vbf", .isBackground = true

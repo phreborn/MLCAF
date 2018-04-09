@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.cern.ch/atlas-caf/CAFExample/badges/master/pipeline.svg)](https://gitlab.cern.ch/atlas-caf/CAFExample/commits/master)
+
 Example CAFCore Analysis
 =========================
 
@@ -24,24 +26,41 @@ Building the project
 mkdir output
 mkdir build
 cd build
-asetup 21.2.4,AnalysisBase
+asetup AnalysisBase,21.2.4
 cmake ../CAFExample
 source ../CAFExample/setupAnalysis.sh
 make -j4
 ```
 
-Running an example analysis
-----------------------------
+Running an example analysis on flat nTuples
+-------------------------------------------
+
+The following scripts will (very quickly) run over a selection of flat nTuples to reproduce the cutflow and some visualized results for a Zjets Fake Factor estimate. It is not meant to describe the bare minimum configuration needed for producing results (that's what the dummy example provided in the near future will be for).
+Similarly, a full-blown analysis is likely to include a host of custom observables which are calculated on-the-fly during runtime and for many more events (all quantities in this case have been pre-computed).
+Rather, it is simply meant to showcase how fast results can be obtained once the uninteresting events have been skimmed away and the necessary quantities are already available directly in the TTree.
 
 ```bash
 cd ../CAFExample/share
-./prepare.py nTuple/config/master/prepare-ZjetsFF-Example.cfg
-./initialize.py nTuple/config/master/initialize-ZjetsFF-Example.cfg
-./analyze.py nTuple/config/master/analyze-ZjetsFF-Example.cfg
-./visualize.py nTuple/config/master/visualize-ZjetsFF-Example.cfg
+./prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg 
+./initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
+./analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
+./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
 
-Alternatively, you can also run the analysis from any other folder by executing:
+Instead of going into the share folder, you can also run the analysis from any other folder. The config files still have to be specified relative to the share folder:
 ```bash
-prepare.py nTuple/config/master/prepare-ZjetsFF-Example.cfg
+prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
+```
+
+On Every Login
+--------------
+
+Navigate to the working directory and
+
+```bash
+setupATLAS
+cd build
+asetup --restore
+source ../CAFCore/cafsetup.sh
+>>>>>>> master
 ```
