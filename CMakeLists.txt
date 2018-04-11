@@ -17,10 +17,10 @@ set(SETUPANALYSIS ${CMAKE_CURRENT_SOURCE_DIR}/setupAnalysis.sh)
 get_filename_component(PARENT_OF_BINARY_DIR ${CMAKE_BINARY_DIR} DIRECTORY)
 file(WRITE ${SETUPANALYSIS} "#!/bin/bash\n")  
 file(APPEND ${SETUPANALYSIS} "# this is an auto-generated setup script\n\n")
-file(APPEND ${SETUPANALYSIS} "export HWWEXECUTABLES=\"${CMAKE_CURRENT_SOURCE_DIR}/share\"\n")
+file(APPEND ${SETUPANALYSIS} "export CAFANALYSISSHARE=\"${CMAKE_CURRENT_SOURCE_DIR}/share\"\n")
 
-file(APPEND ${SETUPANALYSIS} "# Add paths from $HWWEXECUTABLES to $PATH (while avoiding duplicates)\n")
-file(APPEND ${SETUPANALYSIS} "for directory in `echo $HWWEXECUTABLES | tr \":\" \" \"` ; do\n")
+file(APPEND ${SETUPANALYSIS} "# Add paths from $CAFANALYSISSHARE to $PATH (while avoiding duplicates)\n")
+file(APPEND ${SETUPANALYSIS} "for directory in `echo $CAFANALYSISSHARE | tr \":\" \" \"` ; do\n")
 file(APPEND ${SETUPANALYSIS} "\t# Remove trailing slash\n")
 file(APPEND ${SETUPANALYSIS} "\tdir=\${directory%/}\n")
 file(APPEND ${SETUPANALYSIS} "\t# If $dir is not in $PATH yet, add it at the end.\n")
@@ -30,7 +30,7 @@ file(APPEND ${SETUPANALYSIS} "\tfi\n")
 file(APPEND ${SETUPANALYSIS} "done\n\n")
 
 file(APPEND ${SETUPANALYSIS} "#if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setupAutoComplete.sh ]; then\n#\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setupAutoComplete.sh\n#fi\n")
-file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh\nelse\n\texport HWWOUTPUTDIRECTORY=\"${PARENT_OF_BINARY_DIR}/output/\"\nfi\n")
+file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh\nelse\n\texport CAFOUTPUTDIR=\"${PARENT_OF_BINARY_DIR}/output/\"\nfi\n")
 file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/cafsetup.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/cafsetup.sh\nfi\n")
 
 

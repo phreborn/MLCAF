@@ -28,11 +28,11 @@ _hww_config_files(){
     fi
 
 
-    # Check if $command is in $HWWEXECUTABLES. If not, exit the script.
+    # Check if $command is in $CAFANALYSISSHARE. If not, exit the script.
     
     commandInExecutables=0
-    # Loop over all directories in $HWWEXECUTABLES
-    for directory in `echo $HWWEXECUTABLES | tr ":" " "`; do
+    # Loop over all directories in $CAFANALYSISSHARE
+    for directory in `echo $CAFANALYSISSHARE | tr ":" " "`; do
 	# resolve leading "~/" and symbolic links
 	dir="${directory/#\~/$HOME}"
 # doesn't work on all operating system (i.e. doesn't work on Mac)
@@ -48,13 +48,13 @@ _hww_config_files(){
 	    # If number of slashes in trailing path is zero, $command
 	    # must be in the same directory as $dir.
 	    if [ ${#slashes} -eq 0 ] ; then
-		# The executable is located in $HWWEXECUTABLES
+		# The executable is located in $CAFANALYSISSHARE
 		commandInExecutables=1
 	    fi
 	fi
     done
 
-    # Jump out of function, if executable is not in $HWWEXECUTABLES
+    # Jump out of function, if executable is not in $CAFANALYSISSHARE
     if [ $commandInExecutables -eq 0 ] ; then
 	return 0
     fi
