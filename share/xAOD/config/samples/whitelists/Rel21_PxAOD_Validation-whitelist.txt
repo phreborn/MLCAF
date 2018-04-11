@@ -3,18 +3,16 @@
 
 # MadGraph Ztautau
 
-#361512 $*_s*
-
 #361512
 
 # Powheg ggF signal
 
-#345324 $*_s*
+341079
 
 #345324
 
 # vbf signal
 
-#341080
+341080
 
-345323
+#345323
