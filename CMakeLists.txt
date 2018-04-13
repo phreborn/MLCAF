@@ -25,8 +25,6 @@ file(GLOB CAFExampleSources Root/*.cxx)
 file(GLOB CAFExampleHeaders CAFExample/*.h)
 file(GLOB CAFExampleTests test/*.py)
 
-message(${CAFExampleHeaders})
-
 IF(${AnalysisBase_FOUND})
   # this is ASG compilation, we don't need to do anything
 
