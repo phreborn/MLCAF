@@ -47,7 +47,7 @@ your channel configuration file, the systematics for each channel will
 be automatically picked up by the plotter. If you don't like that You
 can then select which one of them will be used with the flag
 
-   visualize.plotter.errors.showSys: default
+    plotter.errors.showSys: default
 
 You can also apply systematics to a cutflow by putting the tag
 `.includeSysError="mylabel"` into your cutflow process definition
