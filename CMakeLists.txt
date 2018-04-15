@@ -30,7 +30,7 @@ file(APPEND ${SETUPANALYSIS} "\tfi\n")
 file(APPEND ${SETUPANALYSIS} "done\n\n")
 
 file(APPEND ${SETUPANALYSIS} "#if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setupAutoComplete.sh ]; then\n#\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setupAutoComplete.sh\n#fi\n")
-file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setOutput.sh\nelse\n\texport CAFOUTPUTDIR=\"${PARENT_OF_BINARY_DIR}/output/\"\nfi\n")
+file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/setCAFOutputDir.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/setCAFOutputDir.sh\nelse\n\texport CAFOUTPUTDIR=\"${PARENT_OF_BINARY_DIR}/output/\"\nfi\n")
 file(APPEND ${SETUPANALYSIS} "if [ -f ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/cafsetup.sh ]; then \n\tsource ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/cafsetup.sh\nfi\n")
 
 

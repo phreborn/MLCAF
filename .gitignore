@@ -1,7 +1,7 @@
 *.pyc
 Root/LinkDef.h
 python/__init__.py
-setOutput.sh
+setCAFOutputDir.sh
 setupAnalysis.sh
 build
 *.tex
