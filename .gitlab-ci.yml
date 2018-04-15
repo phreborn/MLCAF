@@ -40,7 +40,7 @@ run:
     - cat ~/.ssh/config
   script:
     - source /home/atlas/release_setup.sh
-    - source CAFCore/cafsetup.sh
+    - source setupAnalysis.sh
     - cd share
     - ./prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
     - ./initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
@@ -48,8 +48,8 @@ run:
     - ./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
   artifacts:
     paths:
-      - share/sampleFolders
-      - share/results
+      - $CAFOUTPUTDIR/sampleFolders
+      - $CAFOUTPUTDIR/results
     name: "share_${CI_JOB_NAME}"
     expire_in: 3 mos
 
