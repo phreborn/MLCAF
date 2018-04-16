@@ -1,7 +1,7 @@
-systematicsBands
+MVA
 =========================
 
-May physics analyses use multivariate techniques to improve their
+Many physics analyses use multivariate techniques to improve their
 sensitivity. A default way to do this in the context of a `ROOT`-based
 analysis would be the `TMVA` interface, which supports amongst many
 other techniques also the very popular *boosted decision trees*.

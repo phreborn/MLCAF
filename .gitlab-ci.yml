@@ -12,6 +12,8 @@ variables:
 build:
   image: atlas/analysisbase:21.2.23
   stage: build
+  tags:
+    - k8s
   script:
     - source /home/atlas/release_setup.sh
     - mkdir build
@@ -19,7 +21,7 @@ build:
     - cmake ..
     - make -j4
   artifacts:
-    expire_in: 1d
+    expire_in: 3d
     untracked: true
     paths:
       - build
@@ -28,6 +30,8 @@ build:
 run:
   image: atlas/analysisbase:21.2.23
   stage: run
+  tags:
+    - k8s
   dependencies:
     - build
   before_script:

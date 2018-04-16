@@ -9,7 +9,7 @@ the *systematicsBands* file. These are instances of `TQFolder` saved
 in `ROOT` files that can contain either total yield uncertainties, or
 shape uncertainty histograms, or both.
 
-Usage
+Format
 --------------------
 
 The standard way a *systematicsBand* file should look like is a `ROOT`
@@ -29,9 +29,62 @@ file with a content like the following:
     }
     ...
 
+Creation
+--------------------
+
 These files can be generated with the class `TQSystematicsHandler`
 based on an input sample folder that contains the systematic
-variations.
+variations. A script to enable creation of these files called
+*generateSystematicsBands.py* is provided in the *tools* directory. In
+order to use this script, you will need a configuration file defining
+your systematic uncertainties. This file might look like this:
+
+    # -*- mode: tqfolder -*-
+    +Variations {
+        # sfSystematics
+        +MyVariationDown {
+            <Variation = "_MyVariation_Down">
+        }
+        +MyVariationUp {
+            <Variation = "_Myvariation_Up">
+        }
+        ...
+    }
+    
+    +Systematics {
+    	  +MySystematic {
+    	    <Down = "MyVariationDown", Up = "MyVariationUp">
+    	  }
+        ...
+    }
+
+If your variations all exist as parts of the same sample folder, for
+example, in a pattern like this
+
+    bkg/
+      em/
+      me/
+      em_MyVariation_down/
+      me_MyVariation_down/
+      em_MyVariation_up/
+      me_MyVariation_up/
+
+you could have this automatically resolved by calling
+
+   python generateSystematicsBands.py --input samples.root:samples --pathPattern "bkg/[em\$(Variation)+me\$(Variation)]]"
+
+If, on the other hand, your variations, exist is different files like this
+
+   samples.root
+   samples_MyVariation_Up.root
+   samples_MyVariation_Down.root
+
+you could want to call
+
+   python generateSystematicsBands.py --input samples\$(Variation).root:samples --pathPattern "bkg/[em+me]"
+
+Usage
+--------------------
 
 Once you have obtained a *systematicsBands* file, you can easily use
 it to have the systematic uncertainty band added to your plots, using
