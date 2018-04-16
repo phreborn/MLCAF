@@ -45,7 +45,7 @@ def main(config):
         QFramework.TQSample.gUseAthenaAccessMode = True
     if config.getTagBoolDefault("loadStore",True):
         try:
-            store = xAOD.TStore()
+            store = ROOT.xAOD.TStore()
             store.setActive()
         except:
             pass
@@ -212,7 +212,7 @@ def main(config):
             QFramework.WARN("No regular output sample file has been written but the analysis completed without fatal errors. Please check '{:s}' for information on potential errors".format(altFileName.Data()))
 
     if (config.hasTagString("memoryGraph")):
-        gROOT.SetBatch(True)
+        ROOT.gROOT.SetBatch(True)
         memGraph = QFramework.TQLibrary.getMemoryGraph()
         memFileName = config.getTagStringDefault("memoryGraph","memoryUsage.pdf")
         QFramework.TQStringUtils.ensureTrailingText(memFileName,".pdf")
