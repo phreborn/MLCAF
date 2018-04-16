@@ -1,3 +1,4 @@
 #.path = "sig/$(channel)/mh125/vbf", .name = "vbf", .isSignal = true
-# pretend vbf is background for validation (only plotting signal is somehow not supported)
+# pretend ggf + vbf are background for validation (only plotting signal is somehow not supported)
+.path = "sig/$(channel)/mh125/ggf", .name = "ggf", .isBackground = true
 .path = "sig/$(channel)/mh125/vbf", .name = "vbf", .isBackground = true
