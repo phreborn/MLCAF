@@ -13,7 +13,7 @@ build:
   image: atlas/analysisbase:21.2.23
   stage: build
   tags:
-    - k8s
+    - cvmfs
   script:
     - source /home/atlas/release_setup.sh
     - mkdir build
@@ -31,7 +31,7 @@ run:
   image: atlas/analysisbase:21.2.23
   stage: run
   tags:
-    - k8s
+    - cvmfs
   dependencies:
     - build
   before_script:
