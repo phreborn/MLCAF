@@ -100,12 +100,12 @@ def main(args):
     
 if __name__ == "__main__":
   # parse the CLI arguments
-  parser = argparse.ArgumentParser(description='Create a systematics ranking and systematics.root file')
+  parser = argparse.ArgumentParser(description='Create a systematics ranking and systematics.root file',formatter_class=argparse.ArgumentDefaultsHelpFormatter)
   parser.add_argument('--input', '-i', metavar='samples.root:samples', type=str, help='name of the input sample folder', dest="inputFile",required=True)
   parser.add_argument('--systematics',  metavar='systematics.txt', type=str, help='text file with all systematics defined', dest="systematicsList",default="config/statistics/systematics-all.txt")
   parser.add_argument('--output', '-o', metavar='systematics.root', type=str, help='name of the output file', dest="outputFile", default="systematics.root")
   parser.add_argument('--tables', metavar='rankings', type=str, help='output directory for the systematics ranking tables', dest="outputRankings",default="rankings")
-  parser.add_argument('--pathPattern', metavar='bkg/[em\$(Variation)+me\$(Variation)]', type=str, help='pattern for the systematics paths', dest="pathPattern",default="bkg/[em$(Variation)+me$(Variation)]")
+  parser.add_argument('--pathPattern', metavar="/some/path", type=str, help='pattern for the systematics paths', dest="pathPattern",default="bkg/[em$(Variation)+me$(Variation)]")
   g = parser.add_mutually_exclusive_group(required=True)
   g.add_argument('--usecuts', metavar='cut', type=str, help='list of cuts to produce systematics at', dest="cuts",nargs="+", default=[])
   g.add_argument('--reloadcuts', action="store_true", help='use all cuts from the /info/cuts folder', dest="reloadcuts")
@@ -113,9 +113,9 @@ if __name__ == "__main__":
   parser.add_argument('--verbose', '-v', action="store_const", const=True, default=False, help='provide the user with verbose output')
   args = parser.parse_args()
   sys.argv = []
-  from QFramework import * 
-  from ROOT import *
+  from QFramework import TQLibrary
+  import ROOT
   pair = ROOT.std.pair('TString','TString')
   TQLibrary.getQLibrary().setApplicationName("createSystematics")
-  gROOT.SetBatch(True)
+  ROOT.gROOT.SetBatch(True)
   main(args)
