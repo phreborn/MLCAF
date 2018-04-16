@@ -21,7 +21,7 @@ build:
     - cmake ..
     - make -j4
   artifacts:
-    expire_in: 1d
+    expire_in: 3d
     untracked: true
     paths:
       - build
