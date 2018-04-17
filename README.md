@@ -46,9 +46,13 @@ cd ../CAFExample/share
 ./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
 
-Instead of going into the share folder, you can also run the analysis from any other folder. The config files still have to be specified relative to the share folder:
+Alternatively, the analysis scripts above can also be run from an arbitrary directory. The config files still have to be specified relative to the share folder:
 ```bash
+cd any/location/
 prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
+initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
+analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
+visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
 
 On Every Login
