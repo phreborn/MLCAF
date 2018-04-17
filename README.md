@@ -23,10 +23,9 @@ Building the project
 ---------------------
 
 ```bash
-mkdir output
-mkdir build
+mkdir build output
 cd build
-asetup AnalysisBase,21.2.4
+asetup AnalysisBase,21.2.23
 cmake ../CAFExample
 source ../CAFExample/setupAnalysis.sh
 make -j4
@@ -41,7 +40,7 @@ Rather, it is simply meant to showcase how fast results can be obtained once the
 
 ```bash
 cd ../CAFExample/share
-./prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg 
+./prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
 ./initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
 ./analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
 ./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
@@ -62,5 +61,4 @@ setupATLAS
 cd build
 asetup --restore
 source ../CAFCore/cafsetup.sh
->>>>>>> master
 ```
