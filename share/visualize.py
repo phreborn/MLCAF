@@ -14,6 +14,10 @@ def main(config):
     # load the sample folder from disk
     samples = common.loadSampleFolder(config, pathManager)
 
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
+    common.testWriteSampleFolder(config, samples, pathManager)
+
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 

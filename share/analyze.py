@@ -56,9 +56,9 @@ def main(config):
     # load the sample folder from disk
     samples = common.loadSampleFolder(config, pathManager)
 
-    # check writeability of the output destination to discover typos ahead of time
-    # TODO: test writing the sample folder is causing folder splitting to not work correctly
-    #common.testWriteSampleFolder(config, samples, pathManager)
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
+    common.testWriteSampleFolder(config, samples, pathManager)
 
     # remove the data folder if not desired
     if not config.getTagBoolDefault("doData",True):

@@ -14,9 +14,9 @@ def main(config):
     # create a new sample folder
     samples = common.createSampleFolder(config)
 
-    # make sure that sample folder is writable before we go any further
-    # TODO: test writing the sample folder is causing folder splitting to not work correctly
-    #common.testWriteSampleFolder(config, samples, pathManager)
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
+    common.testWriteSampleFolder(config, samples, pathManager)
 
     # add the monte carlo as given by the cross section file
     prepare.addMonteCarlo(config, samples)

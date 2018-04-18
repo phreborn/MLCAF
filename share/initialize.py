@@ -14,7 +14,9 @@ def main(config):
     # load the sample folder from disk
     samples = common.loadSampleFolder(config, pathManager)
 
-    # TODO: Add testWriteSampleFolder to initialize step as well? probably should
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
+    common.testWriteSampleFolder(config, samples, pathManager)
 
     # apply pre-initialize patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("preInit_patches"), samples)
