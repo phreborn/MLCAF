@@ -11,7 +11,8 @@ def main(config):
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
 
-    # make sure that sample folder is writable before we go any further
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
     common.testWriteSampleFolder(config, samples)
 
     # apply pre-initialize patches as given by the config

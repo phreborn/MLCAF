@@ -53,7 +53,8 @@ def main(config):
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
 
-    # check writeability of the output destination to discover typos ahead of time
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
     common.testWriteSampleFolder(config, samples)
 
     # remove the data folder if not desired
