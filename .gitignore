@@ -2,6 +2,8 @@
 Root/LinkDef.h
 python/__init__.py
 build
+share/sampleFolders
+share/results
 *.tex
 *.pdf
 *.log
