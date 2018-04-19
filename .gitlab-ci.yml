@@ -46,7 +46,7 @@ run:
     - mkdir output
   script:
     - source /home/atlas/release_setup.sh
-    - source setupAnalysis.sh
+    - source setup/setupAnalysis.sh
     - cd share
     - ./prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
     - ./initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
