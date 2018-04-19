@@ -24,8 +24,11 @@ def main(config):
     #  - compute the corresponding normalization factor for each sample
     initialize.initializeMonteCarlo(config, samples)
 
-    # add all the data to the sample folder
-    initialize.addData(config, samples)
+    # if the initialize step is parallelized,
+    # it's nice to have a flag to be able to optionally attempt to add the data
+    if config.getTagBoolDefault("addData",True):
+        # add all the data to the sample folder
+        initialize.addData(config, samples)
 
     # apply post-initialize patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("postInit_patches"), samples)
