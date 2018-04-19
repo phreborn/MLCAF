@@ -27,7 +27,7 @@ mkdir build output
 cd build
 asetup AnalysisBase,21.2.23
 cmake ../CAFExample
-source ../CAFExample/setupAnalysis.sh
+source ../CAFExample/setup/setupAnalysis.sh
 make -j4
 ```
 
@@ -64,5 +64,5 @@ Navigate to the working directory and
 setupATLAS
 cd build
 asetup --restore
-source ../CAFCore/cafsetup.sh
+source ../CAFCore/setup/setupAnalysis.sh
 ```
