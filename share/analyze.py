@@ -7,9 +7,6 @@ def main(config):
 
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
-
-    # create a path manager
-    pathManager = QFramework.TQPathManager(True)
     
     try:
         ROOT.StatusCode.enableFailure()
@@ -54,11 +51,11 @@ def main(config):
             pass
 
     # load the sample folder from disk
-    samples = common.loadSampleFolder(config, pathManager)
+    samples = common.loadSampleFolder(config)
 
     # make sure that the sample folder is writable before we go any further
     # helps to discover typos ahead of time
-    common.testWriteSampleFolder(config, samples, pathManager)
+    common.testWriteSampleFolder(config, samples)
 
     # remove the data folder if not desired
     if not config.getTagBoolDefault("doData",True):
@@ -199,7 +196,7 @@ def main(config):
 
     # write the sample folder to disk
     if len(analysisError) == 0 or mvaOK:
-        common.writeSampleFolder(config, samples, pathManager)
+        common.writeSampleFolder(config, samples)
     else: #write alternative output file (the analysis didn't crash but there is something the user should check!
         # TODO: make this another method in common.py? probably
         # TODO: fix TString/std::string mess

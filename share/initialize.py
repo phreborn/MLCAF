@@ -7,16 +7,13 @@ def main(config):
 
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nInitializing Analysis ROOT File\n"))
-
-    # create a path manager
-    pathManager = QFramework.TQPathManager(True)
     
     # load the sample folder from disk
-    samples = common.loadSampleFolder(config, pathManager)
+    samples = common.loadSampleFolder(config)
 
     # make sure that the sample folder is writable before we go any further
     # helps to discover typos ahead of time
-    common.testWriteSampleFolder(config, samples, pathManager)
+    common.testWriteSampleFolder(config, samples)
 
     # apply pre-initialize patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("preInit_patches"), samples)
@@ -39,7 +36,7 @@ def main(config):
     samples.printContents(config.getTagStringDefault("printFolderTags","r1dt"))
 
     # write the sample folder to disk
-    common.writeSampleFolder(config, samples, pathManager)
+    common.writeSampleFolder(config, samples)
 
     # print any keys which were not read during the job
     common.printUnreadKeys(config)

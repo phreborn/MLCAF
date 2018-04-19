@@ -8,15 +8,12 @@ def main(config):
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nVisualizing Analysis ROOT File\n"))
 
-    # create a path manager
-    pathManager = QFramework.TQPathManager(True)
-    
     # load the sample folder from disk
-    samples = common.loadSampleFolder(config, pathManager)
+    samples = common.loadSampleFolder(config)
 
     # make sure that the sample folder is writable before we go any further
     # helps to discover typos ahead of time
-    common.testWriteSampleFolder(config, samples, pathManager)
+    common.testWriteSampleFolder(config, samples)
 
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
@@ -40,25 +37,25 @@ def main(config):
     visualize.generateNormalizationFactors(config, samples)
 
     # create a document which will summarize all of the results
-    summary = visualize.createSummaryDocument(samples, outputdir, pathManager)
+    summary = visualize.createSummaryDocument(samples, outputdir)
 
     # create a diagram summarizing the cuts
-    visualize.createCutDiagram(config, samples, summary, outputdir, pathManager)
+    visualize.createCutDiagram(config, samples, summary, outputdir)
 
     # print a cutflow for each combination of processes and cuts defined in the config for each channel
-    visualize.printCutflows(config, reader, summary, channelsDict, outputdir, pathManager)
+    visualize.printCutflows(config, reader, summary, channelsDict, outputdir)
 
     # print event level quantities defined by the user
-    visualize.printEventLists(config, reader, channelsDict, outputdir, pathManager)
+    visualize.printEventLists(config, reader, channelsDict, outputdir)
 
     # make all of the plots with the processes stacked which are requested by the user
-    visualize.makePlots(config, reader, summary, channelsDict, outputdir, pathManager)
+    visualize.makePlots(config, reader, summary, channelsDict, outputdir)
 
     # make a selection of advanced plots to more easily compare specific processes defined by the user
-    visualize.makeComparisonPlots(config, reader, outputdir, pathManager)
+    visualize.makeComparisonPlots(config, reader, outputdir)
 
     # write the sample folder to disk
-    common.writeSampleFolder(config, samples, pathManager)
+    common.writeSampleFolder(config, samples)
 
     # finalize the summary document
     visualize.finalizeSummaryDocument(summary)
