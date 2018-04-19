@@ -3,7 +3,8 @@
 from CommonAnalysisHelpers import common,initialize
 
 def main(config):
-    """initialize the sample folder for your analysis according to the given configuration (can be created from a config file)"""
+    """initialize the sample folder for your analysis according to the given configuration (can be created from a config file)
+    by linking the MC input files to samples, determining their normalization, and adding the data input files"""
 
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nInitializing Analysis ROOT File\n"))
@@ -18,10 +19,13 @@ def main(config):
     # apply pre-initialize patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("preInit_patches"), samples)
 
-    # run the initialization
-    #  - collect meta-information including the sum-of-weights from the files
+    # run the monte carlo initialization
+    #  - collect meta-information including the sum-of-weights from the input files
     #  - compute the corresponding normalization factor for each sample
-    initialize.initializeSampleFolder(config, samples)
+    initialize.initializeMonteCarlo(config, samples)
+
+    # add all the data to the sample folder
+    initialize.addData(config, samples)
 
     # apply post-initialize patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("postInit_patches"), samples)
@@ -46,7 +50,7 @@ def main(config):
     try:
         ROOT.xAOD.ClearTransientTrees()
     except AttributeError:
-        pass    
+        pass
 
 if __name__ == "__main__":
 
