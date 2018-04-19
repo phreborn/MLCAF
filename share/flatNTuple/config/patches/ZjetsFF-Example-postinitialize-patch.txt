@@ -11,7 +11,6 @@
 <isSubE=true, isSubM=false> @ ?/ee,?/me;
 <isSubE=false, isSubM=true> @ ?/em,?/mm;
 <wildcarded = true> @ ?/?; # we usually don't care about the channel-part of the path
-<usemcweights = true> @ sig,bkg; # we want to apply mc event weights on MC samples
 <usemcweights = false> @ data; # we don't want to apply any weights on data samples
 <isData = true, isMC = false, variation="nominal"> @ data; # for data,revert the data/MC tags
 <isData = false, isMC = true, variation="nominal"> @ sig,bkg;
