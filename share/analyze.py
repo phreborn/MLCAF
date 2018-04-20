@@ -7,7 +7,7 @@ def main(config):
 
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
-
+    
     try:
         ROOT.StatusCode.enableFailure()
     except AttributeError:

@@ -8,7 +8,7 @@ def main(config):
 
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nInitializing Analysis ROOT File\n"))
-
+    
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
 

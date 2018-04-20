@@ -23,11 +23,11 @@ Building the project
 ---------------------
 
 ```bash
-mkdir build
+mkdir build output
 cd build
-asetup AnalysisBase,21.2.4
+asetup AnalysisBase,21.2.23
 cmake ../CAFExample
-source ../CAFExample/CAFCore/cafsetup.sh
+source ../CAFExample/setup/setupAnalysis.sh
 make -j4
 ```
 
@@ -46,6 +46,15 @@ cd ../CAFExample/share
 ./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
 
+Alternatively, the analysis scripts above can also be run from an arbitrary directory. The config files still have to be specified relative to the share folder:
+```bash
+cd any/location/
+prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
+initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
+analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
+visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
+```
+
 On Every Login
 --------------
 
@@ -55,5 +64,5 @@ Navigate to the working directory and
 setupATLAS
 cd build
 asetup --restore
-source ../CAFCore/cafsetup.sh
+source ../CAFCore/setup/setupAnalysis.sh
 ```
