@@ -1,6 +1,6 @@
 #########################################################################################################
 # Package: CAFExample## #################################################################################
-cmake_minimum_required( VERSION 2.8 )
+cmake_minimum_required( VERSION 2.8.12 )
 
 # Declare the package name:
 project( CAFExample )
@@ -11,6 +11,10 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 else()
   set(HAS_PARENT 1)
 endif()
+
+# write a setup script
+execute_process(
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore)
 
 # we try to discover if we are compiling inside an ASG environment or not
 find_package( AnalysisBase QUIET) 
@@ -24,8 +28,6 @@ set(CAFExamplePython ${PROJECT_SOURCE_DIR}/python/__init__.py)
 file(GLOB CAFExampleSources Root/*.cxx)
 file(GLOB CAFExampleHeaders CAFExample/*.h)
 file(GLOB CAFExampleTests test/*.py)
-
-message(${CAFExampleHeaders})
 
 IF(${AnalysisBase_FOUND})
   # this is ASG compilation, we don't need to do anything

@@ -3,7 +3,8 @@
 from CommonAnalysisHelpers import common,prepare
 
 def main(config):
-    """create the sample folder for your analysis according to the given configuration (can be created from a config file)"""
+    """create the sample folder for your analysis according to the given configuration (can be created from a config file)
+    by populating it with a selection of DSIDs chosen from a cross section file"""
     
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nPreparing Analysis ROOT File\n"))
@@ -11,19 +12,17 @@ def main(config):
     # create a new sample folder
     samples = common.createSampleFolder(config)
 
-    # make sure that sample folder is writable before we go any further
-    # TODO: test writing the sample folder is causing folder splitting to not work correctly
-    #common.testWriteSampleFolder(config, samples)
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
+    common.testWriteSampleFolder(config, samples)
 
-    # add the monte carlo as given by the cross section file
+    # add the monte carlo to the sample folder as given by the cross section file
+    # no actual input files will be linked yet
     prepare.addMonteCarlo(config, samples)
-
-    # add all the data
-    prepare.addData(config, samples)
 
     # if requested, print the XSection information
     if config.getTagBoolDefault("printXsec",False):
-        prepare.printXSecParser(samples)
+        common.printXSecParser(samples)
 
     # make sure we have at least something in the sample folder
     if samples.isEmpty():

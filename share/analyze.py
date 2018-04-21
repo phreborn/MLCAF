@@ -7,7 +7,7 @@ def main(config):
 
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
-
+    
     try:
         ROOT.StatusCode.enableFailure()
     except AttributeError:
@@ -45,7 +45,7 @@ def main(config):
         QFramework.TQSample.gUseAthenaAccessMode = True
     if config.getTagBoolDefault("loadStore",True):
         try:
-            store = xAOD.TStore()
+            store = ROOT.xAOD.TStore()
             store.setActive()
         except:
             pass
@@ -53,9 +53,9 @@ def main(config):
     # load the sample folder from disk
     samples = common.loadSampleFolder(config)
 
-    # check writeability of the output destination to discover typos ahead of time
-    # TODO: test writing the sample folder is causing folder splitting to not work correctly
-    #common.testWriteSampleFolder(config, samples)
+    # make sure that the sample folder is writable before we go any further
+    # helps to discover typos ahead of time
+    common.testWriteSampleFolder(config, samples)
 
     # remove the data folder if not desired
     if not config.getTagBoolDefault("doData",True):
@@ -212,7 +212,7 @@ def main(config):
             QFramework.WARN("No regular output sample file has been written but the analysis completed without fatal errors. Please check '{:s}' for information on potential errors".format(altFileName.Data()))
 
     if (config.hasTagString("memoryGraph")):
-        gROOT.SetBatch(True)
+        ROOT.gROOT.SetBatch(True)
         memGraph = QFramework.TQLibrary.getMemoryGraph()
         memFileName = config.getTagStringDefault("memoryGraph","memoryUsage.pdf")
         QFramework.TQStringUtils.ensureTrailingText(memFileName,".pdf")

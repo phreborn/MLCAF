@@ -6,6 +6,7 @@
 # Powheg ggF signal
 
 345324  /sig/$(channel)/mh125/ggf/
+341079  /sig/$(channel)/mh125/ggf/
 
 # vbf signal
 

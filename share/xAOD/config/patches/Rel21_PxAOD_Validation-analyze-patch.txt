@@ -1,3 +1,5 @@
+# -*- mode: tqfolder -*-
+
 # Should eventually be created on the fly in the analyze script (helpful when including systematics)
 # but for now just set explicitly here
 <.mcasv.channel = "me"> @ /?/me;

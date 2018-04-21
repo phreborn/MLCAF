@@ -1,7 +1,11 @@
 *.pyc
 Root/LinkDef.h
 python/__init__.py
+setCAFOutputDir.sh
+setupAnalysis.sh
 build
+share/sampleFolders
+share/results
 *.tex
 *.pdf
 *.log
