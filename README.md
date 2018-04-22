@@ -64,5 +64,5 @@ Navigate to the working directory and
 setupATLAS
 cd build
 asetup --restore
-source ../CAFCore/setup/setupAnalysis.sh
+source ../CAFExample/setup/setupAnalysis.sh
 ```
