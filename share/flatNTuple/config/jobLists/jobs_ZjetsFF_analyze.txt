@@ -1,0 +1,12 @@
+#jobs file for CAFExample
+!memory=1000.
+!time=5
+!queue=express
+bkg/?/diboson
+bkg/?/top
+bkg/?/Zjets_Powheg
+bkg/?/Zjets_Alpgen
+bkg/?/Zjets_Sherpa2p2p1
+bkg/?/Vgamma
+bkg/?/triboson
+data/?/
