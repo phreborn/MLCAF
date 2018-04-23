@@ -11,14 +11,14 @@ pythonScripts="prepare.py initialize.py analyze.py visualize.py"
 # ending in ".cfg" to the auto-complete suggestions.
 _analysis_config_files(){
 
-    command=$1
-    thisWord=$2
-    previousWord=$3
+    local command=$1
+    local thisWord=$2
+    local previousWord=$3
 
     # Check if $command is known
     # If $command does not point to an executable, exit script
     
-    pathToCommand=$(which $command 2>/dev/null)
+    local pathToCommand=$(which $command 2>/dev/null)
     # resolve leading "~/" and symbolic links
     pathToCommand="${pathToCommand/#\~/$HOME}"
     if [ ! -x "$pathToCommand" ] ; then
@@ -30,11 +30,11 @@ _analysis_config_files(){
     
     # Check if $command is in $CAFANALYSISSHARE. If not, exit the script.
 
-    CAFAnalysisShare="./"
-    commandInExecutables=0
+    local CAFAnalysisShare="./"
+    local commandInExecutables=0
     for directory in $CAFANALYSISSHARE ; do
 	# resolve leading "~/" and symbolic links
-	dir="${directory/#\~/$HOME}"
+	local dir="${directory/#\~/$HOME}"
 	if [[ $dir != *"/" ]] ; then
 	    dir=$dir/
 	fi
@@ -47,8 +47,8 @@ _analysis_config_files(){
 
 	# Check if $command is in $dir or one of its subdirectories.
 	if [[ $pathToCommand == "$dir"* ]] ; then
-	    trailingPath=${pathToCommand/$dir/}
-	    slashes=${trailingPath//[^\/]}
+	    local trailingPath=${pathToCommand/$dir/}
+	    local slashes=${trailingPath//[^\/]}
 	    # If number of slashes in trailing path is zero, $command
 	    # must be in the same directory as $dir.
 	    if [ ${#slashes} -eq 0 ] ; then
@@ -69,7 +69,7 @@ _analysis_config_files(){
     # going to be added to the standard suggestions.
 
     # Find the directory by cutting after the last "/"
-    thisDir=""
+    local thisDir=""
     if [[ $thisWord == *"/"* ]] ; then
 	thisDir=`echo $thisWord | rev | cut -d "/" -f2- | rev`
 	if [[ $thisDir != "" ]] ; then
@@ -77,21 +77,21 @@ _analysis_config_files(){
 	fi
     fi
 
-    listOfFiles=""
-    listOfDirs=""
+    local listOfFiles=""
+    local listOfDirs=""
     
-    configMasterCompletion=""
+    local configMasterCompletion=""
 
     # CAFAnalysisShare has format "path/one/:path/two/:path/three/"
     for path in $CAFAnalysisShare ; do
 	
-	thisPath="$path$thisDir"
+	local thisPath="$path$thisDir"
 	# if [[ $thisDir != "" ]] ; then
 	#     thisPath+="/"
 	# fi
 	
-	listOfFiles_new=`ls -a $thisPath 2>/dev/null |grep ".cfg$" | tr '\r\n' ':'`
-	listOfDirs_new=`ls -ad $thisPath*/ 2>/dev/null | tr '\r\n' ':'`
+	local listOfFiles_new=`ls -a $thisPath 2>/dev/null |grep ".cfg$" | tr '\r\n' ':'`
+	local listOfDirs_new=`ls -ad $thisPath*/ 2>/dev/null | tr '\r\n' ':'`
 	
 	for file in $listOfFiles_new  ; do
 
@@ -100,7 +100,7 @@ _analysis_config_files(){
 		# listOfFiles+=${file/$path/}
 		listOfFiles+=$thisDir$file
 	    fi
-	    listOfFiles+=" :"
+	    listOfFiles+=":"
 	done
 	for dir in $listOfDirs_new  ; do
 	    if [[ $listOfDirs != "" ]] ; then
@@ -109,7 +109,9 @@ _analysis_config_files(){
 	    # cut off the absolute part of all suggestions and save in listOfDirs
 	    listOfDirs+=${dir/$path/}
 	done
-	listOfDirs="$thisDir../:$listOfDirs"
+	if [[ $thisDir == "" ]] || [[ $thisDir == "../" ]] ; then
+	    listOfDirs="$thisDir../:$listOfDirs"
+	fi
 	# # test if there is a subdirectory "config/master". if yes, write it into configMasterCompletion. use it. otherwise, compile normal completions.
 	# for dir in $listOfDirs ; do
 	#     if [[ $dir == *"config/" ]] ; then
@@ -131,7 +133,7 @@ _analysis_config_files(){
     
     
     #listOfFiles ends with ":".
-    fullCompletions="$listOfFiles$listOfDirs"
+    local fullCompletions="$listOfFiles$listOfDirs"
     fullCompletions=`echo $fullCompletions | tr ":" " "`
     unset IFS
 
@@ -142,16 +144,23 @@ _analysis_config_files(){
     # Compgen reduces the list to the words starting with $thisWord
     COMPREPLY=( $(compgen -W "$fullCompletions" -- "$thisWord") )
 
+    
+    
     # echo "${COMPREPLY[@]}"
 #    unset COMPREPLY
     
-    leadingCharFirst=""
-    allLeadingAreSame=0
-    echo ""
-    for entry in "${COMPREPLY[@]}" ; do
-    	echo "entry               : $entry"
-    	entryWithoutThisWord=${entry/#$thisWord/}
-    	echo "entryWithoutThisWord: $entryWithoutThisWord"
+    local leadingCharFirst=""
+    local allLeadingAreSame=0
+    # echo ""
+    
+    for (( i=0; i<${#COMPREPLY[@]}; i++)) ; do
+	entry=${COMPREPLY[$i]}
+	if [[ $entry != *"/" ]] ; then
+	    COMPREPLY[$i]="$entry "
+	fi
+    	# echo "entry               : $entry"
+    	local entryWithoutThisWord=${entry/#$thisWord/}
+    	# echo "entryWithoutThisWord: $entryWithoutThisWord"
     	if [[ $leadingCharFirst == "" ]] ; then
     	    leadingCharFirst="${entryWithoutThisWord:0:1}"
     	else
@@ -169,8 +178,6 @@ _analysis_config_files(){
     	# echo "COMPREPLY:      ${COMPREPLY[@]}"
     fi
     
-    echo ""
-    echo ""
     return 0
 }
 
