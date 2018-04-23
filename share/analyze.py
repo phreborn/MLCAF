@@ -130,6 +130,7 @@ def main(config):
     cutbased = runtime.getTagBoolDefault("cutbased", False)
 
     if config.getTagBoolDefault("printCuts",cutbased):
+        QFramework.INFO("cuts to visit samples with:")
         cuts.printCut();
 
     if customobservables or config.getTagBoolDefault("printObservables"):
