@@ -16,7 +16,7 @@ _analysis_config_files(){
     # 1: like 0, but complete "config/master/" when found
     # 2: like 0, but match files with beginning of script name
     # 3: combines 1 and 2
-    local option=3
+    local option=0
     
     local command=$1
     local thisWord=$2
