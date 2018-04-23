@@ -1,6 +1,7 @@
 #!/bin/env python
 
 from CommonAnalysisHelpers import common,submit
+import os
 
 def main(args):
     """submit your analysis to a batch system"""
@@ -8,6 +9,9 @@ def main(args):
     config = common.getConfigOptions(args, "analyze")
     #the lazy way to get all the needed instructions to ensure the environment on the batch node behaves like your current analysis setup:
     setup = submit.getSetupCommand(args)
+    #run the setup script for our analysis (CAFExample), should this be moved to submit.getSetupCommand ?
+    setupPath = os.environ['CAFANALYSISSETUP']
+    if len(setupPath)>0: setup.append("source "+setupPath)
     
     outputFileNameTemplate="{output}/unmerged_{globalIdentifier}/unmerged_{{identifier}}.root".format(output=args.output, globalIdentifier=args.identifier)
     
@@ -19,7 +23,7 @@ def main(args):
     #note: this method is somewhat targeted at the analyze.py step/ written with that one in mind
     taskList = submit.makeSmartTaskList(args, args.jobs, config, templateCommand, maxSampleCount=args.maxSampleCount, maxSampleSize=args.maxSampleSize, setup=setup, inputs=[], outputs=[outputFileNameTemplate])
     ctrl = submit.guessSubmissionController()
-    ctrl.submitTasks(args,taskList,verbose=False)
+    ctrl.submitTasks(args,taskList,verbose=True)
     print "Done"
     
 
