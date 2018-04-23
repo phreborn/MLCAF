@@ -24,7 +24,7 @@ if __name__ == "__main__":
     with open(scriptPath, "w") as f:
         f.write("#!/bin/bash\n")
         f.write("# this is an auto-generated setup script\n\n")
-
+        
         # Create environment variable for location of executables (separate
         # multiple paths with ":")
         f.write("export CAFANALYSISSHARE=\""+args.sourceDir+"/share\"\n")
@@ -44,3 +44,12 @@ if __name__ == "__main__":
         f.write("#if [ -f "+args.setupDir+"/setupAutoComplete.sh ]; then\n#\tsource "+args.setupDir+"/setupAutoComplete.sh\n#fi\n")
         f.write("if [ -f "+args.setupDir+"/setCAFOutputDir.sh ]; then \n\tsource "+args.setupDir+"/setCAFOutputDir.sh\nfi\n")
         f.write("if [ -f "+args.CAFCoreDir+"/cafsetup.sh ]; then \n\tsource "+args.CAFCoreDir+"/cafsetup.sh\nfi\n")
+        #add the path to this script (overwriting what might have been set by cafsetup.sh !) :
+        f.write("\n#export path to this script for easier re-setup, e.g., for batch submission\n")
+        f.write("export CAFANALYSISSETUP="+scriptPath+"\n")
+        
+        
+        
+        
+        
+        
