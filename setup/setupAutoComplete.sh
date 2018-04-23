@@ -11,6 +11,13 @@ pythonScripts="prepare.py initialize.py analyze.py visualize.py"
 # ending in ".cfg" to the auto-complete suggestions.
 _analysis_config_files(){
 
+
+    # 0: search relative to ./ and $CAFANALYSISSHARE
+    # 1: like 0, but complete "config/master/" when found
+    # 2: like 0, but match files with beginning of script name
+    # 3: combines 1 and 2
+    local option=3
+    
     local command=$1
     local thisWord=$2
     local previousWord=$3
@@ -112,22 +119,55 @@ _analysis_config_files(){
 	if [[ $thisDir == "" ]] || [[ $thisDir == "../" ]] ; then
 	    listOfDirs="$thisDir../:$listOfDirs"
 	fi
-	# # test if there is a subdirectory "config/master". if yes, write it into configMasterCompletion. use it. otherwise, compile normal completions.
-	# for dir in $listOfDirs ; do
-	#     if [[ $dir == *"config/" ]] ; then
-	# 	listOfDirsInConfig="`ls -ad $thisPath$dir | tr '\r\n' ':'`
-	# 	for dirInConfig in $listOfDirsInConfig ; do
-	# 	    if [[ $dirInConfig == *"config/master/" ]] ; then
-	# 		configMasterCompletion=$thisWord$dir"master"
-	# 		if [[ $listOfFiles == "" ]] ; then
-	# 		    COMPREPLY=( $(compgen -W "$configMasterCompletion" -- $thisWord) )
-	#                   unset IFS
-	# 		    return 0
-	# 		fi
-	# 	    fi
-	# 	done
-	#     fi
-	# done
+
+
+	
+	if [ "$option" -ge 2 ] ; then
+	    local listOfFilesTmp=$listOfFiles
+	    listOfFiles=""
+	    for file in $listOfFilesTmp ; do
+		if [[ $listOfFiles != "" ]] ; then
+		    listOfFiles+=":"
+		fi
+		if [[ "${file/$thisDir/}" == "${command/".py"/}"* ]] ; then
+		    listOfFiles+=$file
+		fi
+	    done
+	fi
+
+	# test if there is a subdirectory "config/master". if yes, write it into configMasterCompletion. use it. otherwise, compile normal completions.
+
+	if [ "$option" -eq 1 ] || [ "$option" -eq 3 ] ; then
+	    for dir in $listOfDirs ; do
+		if [[ $listOfFiles == "" ]] ; then
+		    if [[ $dir == *"config/" ]] ; then
+			listOfDirsInConfig=`ls -ad $path$dir*/ | tr '\r\n' ':'`
+			for dirInConfig in $listOfDirsInConfig ; do
+			    if [[ $dirInConfig == *"config/master/" ]] ; then
+				configMasterCompletion=$dir"master/"
+				unset IFS
+				COMPREPLY=( $(compgen -W "$configMasterCompletion" -- $thisWord) )
+				if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
+				    return 0
+				fi
+				IFS=:
+			    fi
+			done
+		    elif [[ $dir == *"master/" ]] ; then
+			local tmp="./"
+			local absolutePath=${path/#$tmp/"$PWD/"}
+			if [[ $absolutePath$dir == *"config/master/" ]] ; then
+			    unset IFS
+			    COMPREPLY=( $(compgen -W "$dir" -- $thisWord) )
+			    if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
+				return 0
+			    fi
+			    IFS=:
+			fi
+		    fi
+		fi
+	    done
+	fi
     done
 
     
@@ -136,15 +176,10 @@ _analysis_config_files(){
     local fullCompletions="$listOfFiles$listOfDirs"
     fullCompletions=`echo $fullCompletions | tr ":" " "`
     unset IFS
-
-    # echo ""
-    # echo "fullCompletions: $fullCompletions"
-    # echo "thisWord       : $thisWord"
     
     # Compgen reduces the list to the words starting with $thisWord
     COMPREPLY=( $(compgen -W "$fullCompletions" -- "$thisWord") )
 
-    
     
     # echo "${COMPREPLY[@]}"
 #    unset COMPREPLY
