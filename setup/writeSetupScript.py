@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
         # Source other scripts
         f.write("if [ -f "+args.setupDir+"/setupAutoComplete.sh ]; then\n\tsource "+args.setupDir+"/setupAutoComplete.sh\nfi\n")
-        f.write("if [ -f "+args.setupDir+"/setCAFOutputDir.sh ]; then \n\tsource "+args.setupDir+"/setCAFOutputDir.sh\nfi\n")
+        f.write("if [ -f "+args.setupDir+"/setupLocal.sh ]; then \n\tsource "+args.setupDir+"/setupLocal.sh\nfi\n")
         f.write("if [ -f "+args.CAFCoreDir+"/cafsetup.sh ]; then \n\tsource "+args.CAFCoreDir+"/cafsetup.sh\nfi\n")
         #add the path to this script (overwriting what might have been set by cafsetup.sh !) :
         f.write("\n#export path to this script for easier re-setup, e.g., for batch submission\n")

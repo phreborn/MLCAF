@@ -1,8 +1,8 @@
 *.pyc
 Root/LinkDef.h
 python/__init__.py
-setCAFOutputDir.sh
-setupAnalysis.sh
+setup/setupLocal.sh
+setup/setupAnalysis.sh
 build
 share/sampleFolders
 share/results

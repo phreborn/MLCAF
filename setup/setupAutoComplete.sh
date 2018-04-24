@@ -19,15 +19,24 @@ _analysis_config_files(){
 
 
     ##################################################################
-    # temporary for testing purposes: additional options
+    # Option for auto-complete mode. "option=0" is set by default.
+    # It is overwritten by $CAFAUTOCOMPLETEOPT.
     #
     # 0: search relative to ./ and $CAFANALYSISSHARE
     # 1: like 0, but complete "config/master/" when found
     # 2: like 0, but match files with beginning of script name
     # 3: combines 1 and 2
+    #
     local option=0
     #
     ##################################################################
+
+    # If $CAFAUTOCOMPLETEOPT is integer between 0 and 3, overwrite
+    # $option.
+    local re='^[0-3]$'
+    if [[ "$CAFAUTOCOMPLETEOPT" =~ $re ]] ; then
+	option=$CAFAUTOCOMPLETEOPT
+    fi
 
     
     local command=$1
