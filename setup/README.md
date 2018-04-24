@@ -1,7 +1,7 @@
 Setup
 =========================
 
-To prepare your terminal to execute CAF, you must execute the file `setupAnalysis.sh` with the following command:
+To prepare your terminal to run CAF, you must execute the file `setupAnalysis.sh` with the following command:
 
 ```bash
 source setupAnalysis.sh
@@ -36,7 +36,7 @@ To filter the suggestions even further, you can set the environment variable `$C
 
 ### Save settings for next time ###
 
-When you set up your analysis, the script `setupLocal.sh` is executed. This is the place, where you want to define environment variables that should be set every time you set up CAF. This file is not version-controlled. You can copy and modify the following example:
+When you set up your analysis, the script `setupLocal.sh` (in your `setup/` directory) is executed. This is the place, where you want to define environment variables that should be set every time you set up CAF. This file is not version-controlled. You can copy and modify the following example.
 
 ```bash
 #!/bin/bash
