@@ -41,7 +41,7 @@ if __name__ == "__main__":
         f.write("done\n\n")
 
         # Source other scripts
-        f.write("#if [ -f "+args.setupDir+"/setupAutoComplete.sh ]; then\n#\tsource "+args.setupDir+"/setupAutoComplete.sh\n#fi\n")
+        f.write("if [ -f "+args.setupDir+"/setupAutoComplete.sh ]; then\n\tsource "+args.setupDir+"/setupAutoComplete.sh\nfi\n")
         f.write("if [ -f "+args.setupDir+"/setCAFOutputDir.sh ]; then \n\tsource "+args.setupDir+"/setCAFOutputDir.sh\nfi\n")
         f.write("if [ -f "+args.CAFCoreDir+"/cafsetup.sh ]; then \n\tsource "+args.CAFCoreDir+"/cafsetup.sh\nfi\n")
         #add the path to this script (overwriting what might have been set by cafsetup.sh !) :
