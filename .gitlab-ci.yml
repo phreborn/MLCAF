@@ -42,8 +42,6 @@ run:
     - klist
     - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
     - cat ~/.ssh/config
-    - echo -e '#!/bin/bash\n\nexport CAFOUTPUTDIR="$PWD/output"\n' > setCAFOutputDir.sh
-    - mkdir output
   script:
     - source /home/atlas/release_setup.sh
     - source setup/setupAnalysis.sh
@@ -54,8 +52,8 @@ run:
     - ./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
   artifacts:
     paths:
-      - output/sampleFolders
-      - output/results
+      - share/sampleFolders
+      - share/results
     name: "share_${CI_JOB_NAME}"
     expire_in: 3 mos
 
