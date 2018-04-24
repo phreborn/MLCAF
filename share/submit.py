@@ -23,7 +23,7 @@ def main(args):
     #note: this method is somewhat targeted at the analyze.py step/ written with that one in mind
     taskList = submit.makeSmartTaskList(args, args.jobs, config, templateCommand, maxSampleCount=args.maxSampleCount, maxSampleSize=args.maxSampleSize, setup=setup, inputs=[], outputs=[outputFileNameTemplate])
     ctrl = submit.guessSubmissionController()
-    ctrl.submitTasks(args,taskList,verbose=True)
+    ctrl.submitTasks(args,taskList)
     print "Done"
     
 
