@@ -50,12 +50,10 @@ run:
     - ./initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
     - ./analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
     - ./visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
-    - ls -lah
-    - du -h
   artifacts:
     paths:
-      - sampleFolders
-      - results
+      - share/sampleFolders
+      - share/results
     name: "share_${CI_JOB_NAME}"
     expire_in: 3 mos
 
