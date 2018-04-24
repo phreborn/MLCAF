@@ -177,10 +177,8 @@ def main(config):
         #nEvents = analyze.executeAnalysis(config, samples, visitor)
         nsamples = analyze.executeAnalysis(config, samples, visitor)
 
-    # TODO: provide a defaultConfig for the path to cuts
-    # attach the definitions to the info folder
-    if not cuts.dumpToFolder(samples.getFolder("info/cuts+")):
-        QFramework.ERROR("unable to attach cuts to info folder")
+    # attach the cut definitions to the sample folder
+    common.storeCuts(cuts, samples)
 
     # train any multivariate classifiers
     mvascriptnames = config.getTagVString("MVA")
