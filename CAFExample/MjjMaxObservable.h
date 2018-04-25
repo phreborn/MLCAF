@@ -3,11 +3,11 @@
 #define __MJJMAXOBSERVABLE__
 #include "CAFxAODUtils/TQEventObservable.h"
 
-#ifndef __CINT__
-#ifdef ASG_RELEASE
+// #ifndef __CINT__
+// #ifdef ASG_RELEASE
 #include "xAODParticleEvent/CompositeParticleContainer.h"
-#endif
-#endif
+// #endif
+// #endif
 
 class MjjMaxObservable : public TQEventObservable {
 protected:
@@ -19,15 +19,15 @@ protected:
   // for example, use
   // mutable CompositeParticleContainer const * mCand = 0;
 
-TString mCandName = "";
+  TString mCandName = "";
 
-#ifndef __CINT__
-#ifdef ASG_RELEASE
+// #ifndef __CINT__
+// #ifdef ASG_RELEASE
 
 mutable xAOD::CompositeParticleContainer const * mCand = 0;
 
-#endif
-#endif
+// #endif
+// #endif
 
 public:
   virtual double getValue() const override;
