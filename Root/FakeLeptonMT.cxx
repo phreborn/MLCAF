@@ -57,7 +57,7 @@ double FakeLeptonMT::getValue() const {
   // here, you should calculate your return value
   // of course, you can use other data members of your observable at any time
   /* example block for TTreeFormula method:
-  const double retval = this->fFormula->Eval(0.);
+     const double retval = this->fFormula->EvalInstance();
   */
   /* exmple block for TTree::SetBranchAddress method:
   const double retval = this->fBranch1 + this->fBranch2;
@@ -83,7 +83,7 @@ bool FakeLeptonMT::initializeSelf(){
 
   // if you want to use a TTreeFormula, can may construct it here
   /* example block for TTreeFormula method:
-  this->fFormula = new TTreeFormula("branch1 + branch2",this->fTree);
+  this->fFormula = new TTreeFormula("myFormula", "branch1 + branch2",this->fTree);
   */
   
   // create string expression that calculates fakelepton MT
@@ -95,10 +95,9 @@ bool FakeLeptonMT::initializeSelf(){
   TString MT_squared = "2*fakecandLep_pt*metObj_met*(1-cos("+deltaPhi+"))";
   TString MT = "sqrt("+MT_squared+")";
 
-  // DEBUGclass("Configured expression: %s", MT.Data());
+  DEBUGclass("Configured expression: %s", MT.Data());
 
   this->fFormula = new TTreeFormula("transvserse_mass", MT.Data(), this->fTree);
-  // this->fFormula = new TTreeFormula("transvserse_mass", "fakecandLep_pt", this->fTree);
   
   return true;
 }
