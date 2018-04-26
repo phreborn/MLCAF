@@ -8,7 +8,8 @@
     +CutLeptonsPt {
         <.cutExpression = " [ZcandLep0_pt] > 15000 && [ZcandLep1_pt] > 15000 && [fakecandLep_pt] > 15000", .title = "lep $p_T > 15$ GeV">
         +CutWZVeto {
-            <.cutExpression = "[PassWZVeto]", .title = "WZ veto">
+            #<.cutExpression = "[PassWZVeto]", .title = "WZ veto">
+            <.cutExpression = "[FakeLeptonMT] < 50000", .title = "WZ veto">
 
 
             +CutFakeEl {
