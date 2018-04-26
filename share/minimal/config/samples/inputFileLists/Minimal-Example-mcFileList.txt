@@ -1,0 +1,1 @@
+root://eosuser.cern.ch//eos/user/d/dshope/forCAFExample/minimal_example/vbf_nominal_345323_s.root

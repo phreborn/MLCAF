@@ -8,7 +8,7 @@
 # Names of python scripts that need config files. Auto-complete
 # will only work for these scripts and only if they are in the
 # $CAFANALYSISSHARE directory.
-pythonScripts="prepare.py initialize.py analyze.py visualize.py"
+pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py"
 
 
 # This function gets executed if tab-complete is requested for the
