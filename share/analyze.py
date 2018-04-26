@@ -140,7 +140,7 @@ def main(config):
     # run the cutbased analysis
     if cutbased:
         # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
-        visitor = analyze.createSampleVisitor(config, cuts)
+        visitor = analyze.createAnalysisSampleVisitor(config, cuts)
 
         # TODO: Temporary hack only!
         #       Do this properly once systematics are incorporated!
