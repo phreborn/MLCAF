@@ -1,2 +1,0 @@
-root://eosuser.cern.ch//eos/user/d/dshope/forCAFExample/Rel21_PxAOD_Validation/PAOD.341079_s.ggfA.root
-root://eosuser.cern.ch//eos/user/d/dshope/forCAFExample/Rel21_PxAOD_Validation/PAOD.341080_s.vbf.root
