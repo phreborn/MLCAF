@@ -1,4 +1,8 @@
 
+##########################################################################
+# preamble
+##########################################################################
+
 stages:
   - build
   - run
@@ -9,11 +13,22 @@ variables:
   GIT_SSL_NO_VERIFY: "true"
   FROM: atlas/analysisbase:21.2.23
 
-build:
+##########################################################################
+# job defaults
+
+.base: &base
   image: atlas/analysisbase:21.2.23
-  stage: build
   tags:
     - k8s
+
+##########################################################################
+# job definitions
+##########################################################################
+# stage: build
+
+compile:
+  <<: *base
+  stage: build
   script:
     - source /home/atlas/release_setup.sh
     - mkdir build
@@ -27,13 +42,42 @@ build:
       - build
       - CAFCore/cafsetup.sh
 
-run:
-  image: atlas/analysisbase:21.2.23
+##########################################################################
+# stage: run
+
+run_minimal:
+  <<: *base
   stage: run
-  tags:
-    - k8s
   dependencies:
-    - build
+    - compile
+  before_script:
+    - pwd
+    - mkdir -p ~/.ssh
+    - source ~/.bashrc || echo ignore alrb
+    - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH
+    - klist
+    - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+    - cat ~/.ssh/config
+  script:
+    - source /home/atlas/release_setup.sh
+    - source setup/setupAnalysis.sh
+    - cd share
+    - ./prepare.py minimal/config/master/prepare-Minimal-Example.cfg
+    - ./initialize.py minimal/config/master/initialize-Minimal-Example.cfg
+    - ./analyze.py minimal/config/master/analyze-Minimal-Example.cfg
+    - ./visualize.py minimal/config/master/visualize-Minimal-Example.cfg
+  artifacts:
+    paths:
+      - share/sampleFolders
+      - share/results
+    name: "share_${CI_JOB_NAME}"
+    expire_in: 3 mos
+
+run_flatNTuple:
+  <<: *base
+  stage: run
+  dependencies:
+    - compile
   before_script:
     - pwd
     - mkdir -p ~/.ssh
@@ -57,6 +101,8 @@ run:
     name: "share_${CI_JOB_NAME}"
     expire_in: 3 mos
 
+##########################################################################
+# stage: docker
 
 build_image:
   stage: docker
