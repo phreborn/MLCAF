@@ -38,9 +38,9 @@ TObjArray* FakeLeptonMT::getBranchNames() const {
 
   // add the branch names needed by your observable here, e.g.
   bnames->Add(new TObjString("fakecandLep_pt"));
-  // bnames->Add(new TObjString("fakecandLep_phi"));
-  // bnames->Add(new TObjString("metObj_met"));
-  // bnames->Add(new TObjString("metObj_phi"));
+  bnames->Add(new TObjString("fakecandLep_phi"));
+  bnames->Add(new TObjString("metObj_met"));
+  bnames->Add(new TObjString("metObj_phi"));
   
   return bnames;
 }
@@ -87,18 +87,18 @@ bool FakeLeptonMT::initializeSelf(){
   */
   
   // create string expression that calculates fakelepton MT
-  // TString fakeCandLep_phi = "fakecandLep_phi";
-  // TString metObj_met = "metObj_met";
-  // TString metObj_phi = "metObj_phi";
+  TString fakeCandLep_phi = "fakecandLep_phi";
+  TString metObj_met = "metObj_met";
+  TString metObj_phi = "metObj_phi";
   
-  // TString deltaPhi = "TVector2::Phi_mpi_pi( fabs("+fakeCandLep_phi+" - "+metObj_phi+") )";
-  // TString MT_squared = "2*fakeCandLep_pt*metObj_met*(1-cos("+deltaPhi+"))";
-  // TString MT = "sqrt("+MT_squared+")";
+  TString deltaPhi = "TVector2::Phi_mpi_pi( fabs("+fakeCandLep_phi+" - "+metObj_phi+") )";
+  TString MT_squared = "2*fakecandLep_pt*metObj_met*(1-cos("+deltaPhi+"))";
+  TString MT = "sqrt("+MT_squared+")";
 
   // DEBUGclass("Configured expression: %s", MT.Data());
 
-  // this->fFormula = new TTreeFormula("transvserse_mass", MT.Data(), this->fTree);
-  this->fFormula = new TTreeFormula("transvserse_mass", "fakecandLep_pt", this->fTree);
+  this->fFormula = new TTreeFormula("transvserse_mass", MT.Data(), this->fTree);
+  // this->fFormula = new TTreeFormula("transvserse_mass", "fakecandLep_pt", this->fTree);
   
   return true;
 }
