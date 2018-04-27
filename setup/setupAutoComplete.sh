@@ -11,41 +11,12 @@
 pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py"
 
 
-# This function gets executed if tab-complete is requested for the
-# python scripts listed above. It creates auto-complete suggestions
-# from the current directory and $CAFANALYSISSHARE. Files ending
-# with ".cfg" and directories are suggested.
-_analysis_config_files(){
-
-
-    ##################################################################
-    # Option for auto-complete mode. "option=0" is set by default.
-    # It is overwritten by $CAFAUTOCOMPLETEOPT.
-    #
-    # 0: search relative to ./ and $CAFANALYSISSHARE
-    # 1: like 0, but complete "config/master/" when found
-    # 2: like 0, but match files with beginning of script name
-    # 3: combines 1 and 2
-    #
-    local option=0
-    #
-    ##################################################################
-
-    # If $CAFAUTOCOMPLETEOPT is integer between 0 and 3, overwrite
-    # $option.
-    local re='^[0-3]$'
-    if [[ "$CAFAUTOCOMPLETEOPT" =~ $re ]] ; then
-	option=$CAFAUTOCOMPLETEOPT
-    fi
-
-    
+_CAFdoAutoCompletion(){
     local command=$1
-    local thisWord=$2
-    local previousWord=$3
-
-
     # Check if $command is known. If it does not point to an
     # executable, exit script.
+
+    IFS=:
     
     local pathToCommand=$(which $command 2>/dev/null)
     # resolve leading "~/" and symbolic links
@@ -54,49 +25,62 @@ _analysis_config_files(){
 	return 0
     fi
 
-    # Set internal field separator (unset at the end)
-    IFS=:
+    local CAFAnalysisShare=""
     
-
     # Check if $command is in $CAFANALYSISSHARE. If not, exit the script.
-
-    local CAFAnalysisShare="./"
     local commandInExecutables=0
     for directory in $CAFANALYSISSHARE ; do
-	# resolve leading "~/" and symbolic links
-	local dir="${directory/#\~/$HOME}"
-	if [[ $dir != *"/" ]] ; then
-	    dir=$dir/
-	fi
-	if [[ $CAFAnalysisShare != "" ]] ; then
-	    CAFAnalysisShare+=":"
-	fi
-	CAFAnalysisShare+="$dir"
-	# The following two if statements are a messed up way of
-	# Checking that $command points to a script in $dir.
+    	# resolve leading "~/" and symbolic links
+    	local dir="${directory/#\~/$HOME}"
+    	if [[ $dir != *"/" ]] ; then
+    	    dir="$dir/"
+    	fi
+    	if [[ $CAFAnalysisShare != "" ]] ; then
+    	    CAFAnalysisShare+=":"
+    	fi
+    	CAFAnalysisShare+="$dir"
+    	# The following two if statements are a messed up way of
+    	# Checking that $command points to a script in $dir.
 
-	# Check if $command is in $dir or one of its subdirectories.
-	if [[ $pathToCommand == "$dir"* ]] ; then
-	    local trailingPath=${pathToCommand/$dir/}
-	    local slashes=${trailingPath//[^\/]}
-	    # If number of slashes in trailing path is zero, $command
-	    # must be in the same directory as $dir.
-	    if [ ${#slashes} -eq 0 ] ; then
-		# The executable is located in $CAFANALYSISSHARE
-		commandInExecutables=1
-	    fi
-	fi
+    	# Check if $command is in $dir or one of its subdirectories.
+    	if [[ $pathToCommand == "$dir"* ]] ; then
+    	    local trailingPath=${pathToCommand/$dir/}
+    	    local slashes=${trailingPath//[^\/]}
+    	    # If number of slashes in trailing path is zero, $command
+    	    # must be in the same directory as $dir.
+    	    if [ ${#slashes} -eq 0 ] ; then
+    		# The executable is located in $CAFANALYSISSHARE
+    		commandInExecutables=1
+    	    fi
+    	fi
     done
+
+    echo $CAFAnalysisShare
+    unset IFS
+    return $commandInExecutables
+}
+
+
+_CAFFindPossibleCompletions(){
+    local thisDir=$1
+    local CAFAnalysisShare=$2
+    local option=$3
+    local immediateCompleteStr=$4
+
+    # echo ""
+    # echo "_CAFFindPossibleCompletions called with arguments:"
+    # echo "thisDir              : $thisDir"
+    # echo "CAFAnalysisShare     : $CAFAnalysisShare"
+    # echo "option               : $option"
+    # echo "immediateCompleteStr : $immediateCompleteStr"
+
     
-    # Jump out, if executable is not in $CAFANALYSISSHARE
-    if [ $commandInExecutables -eq 0 ] ; then
-	unset IFS
-	return 0
-    fi
-    
-    
-    # Now, do the actual magic. Create a list of completions that are
-    # going to be added to the standard suggestions.
+    IFS=:
+
+    #todo filter filenames for ending like this: |grep ".cfg$"
+    #todo filter filenames starting with same name as config
+    #todo find out if parent directory makes sense (in case of "/", there is none)
+    #todo implement completion of arbitrary immediateCompleteStr
 
     # The following variables are used:
     # path     : Location that is searched for completions. This
@@ -107,113 +91,137 @@ _analysis_config_files(){
     # thisPath : Combines the two previous variables: $path$thisDir
 
 
-
-    # Find $thisDir by cutting after the last "/"
-    local thisDir=""
-    if [[ $thisWord == *"/"* ]] ; then
-	thisDir=`echo $thisWord | rev | cut -d "/" -f2- | rev`
-	if [[ $thisDir != "" ]] ; then
-	    thisDir+="/"
-	fi
-    fi
-
     # These two variables hold all files and directories that will be
     # used as possible matches for auto-completion. They are relative
     # to $path.
+    
     local listOfFiles=""
     local listOfDirs=""
-    
+
     for path in $CAFAnalysisShare ; do
 	local thisPath="$path$thisDir"
 
 	# Contains all filenames in $thisPath.
-	local listOfFiles_new=`ls -a $thisPath 2>/dev/null |grep ".cfg$" | tr '\r\n' ':'`
+	local listOfFiles_new=`ls -ap $thisPath 2>/dev/null | tr '\r\n' ':'`
 	# Contains absolute paths of directories in $thisPath
 	local listOfDirs_new=`ls -ad $thisPath*/ 2>/dev/null | tr '\r\n' ':'`
-	
 
 	for file in $listOfFiles_new  ; do
-	    if [[ file != "" ]] ; then
-		listOfFiles+=$thisDir$file
+	    if [[ "$file" != *"/" ]] ; then
+		if [[ $file != "" ]] ; then
+		    if [[ $listOfFiles != "" ]] ; then
+			listOfFiles+=":"
+		    fi
+		    listOfFiles+=$thisDir$file
+		fi
 	    fi
-	    listOfFiles+=":"
 	done
 	for dir in $listOfDirs_new  ; do
-	    if [[ $listOfDirs != "" ]] ; then
-		listOfDirs+=":"
+	    if [[ $dir != "" ]] && [[ $dir != "./" ]] && [[ $dir != "../" ]] ; then
+		if [[ $listOfDirs != "" ]] ; then
+		    listOfDirs+=":"
+		fi
+		# cut off the absolute part of all suggestions
+		listOfDirs+=${dir/$path/}
 	    fi
-	    # cut off the absolute part of all suggestions
-	    listOfDirs+=${dir/$path/}
 	done
 
 	# Only add the parent directory if useful
-	if [[ $thisDir == "" ]] || [[ $thisDir == "../" ]] ; then
-	    listOfDirs="$thisDir../:$listOfDirs"
-	fi
+	# if [[ $thisDir == "" ]] || [[ $thisDir == *"../" ]] ; then
+	#     if [[ $listOfDirs == "" ]] ; then
+	# 	listOfDirs="$thisDir../"
+	#     else
+	# 	listOfDirs="$thisDir../:$listOfDirs"
+	#     fi
+	# fi
 
 
-	# Additional filter: Finds only config files starting with
-	# the the same name as the python script.
-	if [ "$option" -ge 2 ] ; then
-	    local listOfFilesTmp=$listOfFiles
-	    listOfFiles=""
-	    for file in $listOfFilesTmp ; do
-		if [[ $listOfFiles != "" ]] ; then
-		    listOfFiles+=":"
-		fi
-		if [[ "${file/$thisDir/}" == "${command/".py"/}"* ]] ; then
-		    listOfFiles+=$file
-		fi
-	    done
-	fi
-
-	# Additional filter: If there is a directory "config/master/",
-	# complete it immediately and don't show other options.
-	if [ "$option" -eq 1 ] || [ "$option" -eq 3 ] ; then
-	    for dir in $listOfDirs ; do
-		if [[ $listOfFiles == "" ]] ; then
-		    if [[ $dir == *"config/" ]] ; then
-			listOfDirsInConfig=`ls -ad $path$dir*/ | tr '\r\n' ':'`
-			for dirInConfig in $listOfDirsInConfig ; do
-			    if [[ $dirInConfig == *"config/master/" ]] ; then
-				local tmp=$dir"master/"
-				unset IFS
-				COMPREPLY=( $(compgen -W "$tmp" -- $thisWord) )
-				if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
-				    return 0
-				fi
-				IFS=:
-			    fi
-			done
-		    elif [[ $dir == *"master/" ]] ; then
-			local tmp="./"
-			local absolutePath=${path/#$tmp/"$PWD/"}
-			if [[ $absolutePath$dir == *"config/master/" ]] ; then
-			    unset IFS
-			    COMPREPLY=( $(compgen -W "$dir" -- $thisWord) )
-			    if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
-				return 0
-			    fi
-			    IFS=:
-			fi
-		    fi
-		fi
-	    done
-	fi
+	# # Additional filter: If there is a directory "config/master/",
+	# # complete it immediately and don't show other options.
+	# if [ "$option" -eq 1 ] || [ "$option" -eq 3 ] ; then
+	#     for dir in $listOfDirs ; do
+	# 	if [[ $listOfFiles == "" ]] ; then
+	# 	    if [[ $dir == *"config/" ]] ; then
+	# 		listOfDirsInConfig=`ls -ad $path$dir*/ | tr '\r\n' ':'`
+	# 		for dirInConfig in $listOfDirsInConfig ; do
+	# 		    if [[ $dirInConfig == *"config/master/" ]] ; then
+	# 			local tmp=$dir"master/"
+	# 			unset IFS
+	# 			COMPREPLY=( $(compgen -W "$tmp" -- $thisWord) )
+	# 			if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
+	# 			    return 0
+	# 			fi
+	# 			IFS=:
+	# 		    fi
+	# 		done
+	# 	    elif [[ $dir == *"master/" ]] ; then
+	# 		local tmp="./"
+	# 		local absolutePath=${path/#$tmp/"$PWD/"}
+	# 		if [[ $absolutePath$dir == *"config/master/" ]] ; then
+	# 		    unset IFS
+	# 		    COMPREPLY=( $(compgen -W "$dir" -- $thisWord) )
+	# 		    if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
+	# 			return 0
+	# 		    fi
+	# 		    IFS=:
+	# 		fi
+	# 	    fi
+	# 	fi
+	#     done
+	# fi
     done
 
     
-    
     # Combine the possible completions
-    local fullCompletions="$listOfFiles$listOfDirs"
-    fullCompletions=`echo $fullCompletions | tr ":" " "`
+
+    echo "$listOfFiles:$listOfDirs"
     unset IFS
+    return 0
+
+}
+
+# This function gets executed if tab-complete is requested for the
+# python scripts listed above. It creates auto-complete suggestions
+# from the current directory and $CAFANALYSISSHARE. Files ending
+# with ".cfg" and directories are suggested.
+_CAFRegularComplete(){
+    local command=$1
+    local thisWord=$2
+    local previousWord=$3
+    local thisDir=$4
+    local CAFAnalysisShare=$5
+    local option=$6
+
+    
+    # echo ""
+    # echo "_CAFRegularComplete called with arguments:"
+    # echo "command          : $command"
+    # echo "thisWord         : $thisWord"
+    # echo "previousWord     : $previousWord"
+    # echo "thisDir          : $thisDir"
+    # echo "CAFAnalysisShare : $CAFAnalysisShare"
+    # echo "option           : $option"
+
+    # Now, do the actual magic. Create a list of completions that are
+    # going to be added to the standard suggestions.
+
+    local immediateCompleteStr="master/config/"
+
+    local fullCompletions="$(_CAFFindPossibleCompletions "$thisDir" "$CAFAnalysisShare" "$option" "$immediateCompleteStr")"
+
+    # echo ""
+    # echo "$fullCompletions"
+    
+    fullCompletions=`echo $fullCompletions | tr ":" " "`
     
     # Compgen reduces the list to the words starting with $thisWord.
     # The variable COMPGEN will be used to print suggestions.
     COMPREPLY=( $(compgen -W "$fullCompletions" -- "$thisWord") )
 
+    #todo continue here
     
+    # echo $COMPREPLY
+    return 0
     # Auto-completion works without the following lines. But it shows
     # the completions relative to $path. This behaviour is unfamiliar
     # to a user. The next lines check if auto-completion will find a
@@ -253,6 +261,65 @@ _analysis_config_files(){
     return 0
 }
 
+_CAFSubmitComplete(){
+    local command=$1
+    local thisWord=$2
+    local previousWord=$3
+    local thisDir=$4
+    local CAFAnalysisShare=$5
+    local option=$6
+}
+
+_CAFAutoComplete(){
+    ##################################################################
+    # Option for auto-complete mode. "option=0" is set by default.
+    # It is overwritten by $CAFAUTOCOMPLETEOPT.
+    #
+    # 0: search relative to ./ and $CAFANALYSISSHARE
+    # 1: like 0, but complete "config/master/" when found
+    # 2: like 0, but match files with beginning of script name
+    # 3: combines 1 and 2
+    #
+    local option=0
+    #
+    ##################################################################
+    
+    local command=$1
+    local thisWord=$2
+    local previousWord=$3
+
+
+    # Don't do auto-completion if $command is not in CAFANALYSISSHARE
+    local CAFAnalysisShare=".:"
+    CAFAnalysisShare+=$(_CAFdoAutoCompletion $command)
+    local statusCode=$?
+    if [ $statusCode -eq 0 ] ; then
+	return 0
+    fi
+
+    # If $CAFAUTOCOMPLETEOPT is integer between 0 and 3, overwrite
+    # $option.
+    local re='^[0-3]$'
+    if [[ "$CAFAUTOCOMPLETEOPT" =~ $re ]] ; then
+	option=$CAFAUTOCOMPLETEOPT
+    fi
+
+    # Find $thisDir by cutting after the last "/"
+    local thisDir=""
+    if [[ $thisWord == *"/"* ]] ; then
+	thisDir=`echo $thisWord | rev | cut -d "/" -f2- | rev`
+	if [[ $thisDir != "" ]] ; then
+	    thisDir+="/"
+	fi
+    fi
+    
+    if [ $command == "submit.py" ] ; then
+	_CAFSubmitComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
+	return 0
+    fi
+    _CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
+    return 0
+}
 
 # Add all $pythonScripts to the list of commands that need
 # auto-complete. If any of them invokes auto-complete, the
@@ -260,6 +327,8 @@ _analysis_config_files(){
 
 IFS=" "
 for script in $pythonScripts ; do
-    complete -o nospace -F _analysis_config_files $script
+    complete -o nospace -F _CAFAutoComplete $script
 done
+#todo write complete for batch scripts
+unset pythonScripts
 unset IFS
