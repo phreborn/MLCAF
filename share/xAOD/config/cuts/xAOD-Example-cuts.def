@@ -5,7 +5,20 @@
 #   (load-file "$TQPATH/share/tqfolder.el")
 
 +CutChannels {
-  # to use the per-event event weights poperly, use "Weight" as .weightExpression here
-  <.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_$(weightname):$(cand)", .title="Channel Selection">
+    # to use the per-event event weights poperly, use "Weight" as .weightExpression here
+    <.cutExpression = "$(fitsChannel)", .weightExpression = "1", .title="Channel Selection">
 
+    +CutVgammaVjet_overlap {
+        <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+
+        +CutOtherLep {
+            <.cutExpression = "$(lllFinalState)", .title = "lll final state">
+
+            # find the fake index by finding the most optimal Z-boson pair
+            +CutZMass{
+                <.cutExpression = "[ZBosonPairFakeIndex]==3 || [ZBosonPairFakeIndex]==2 || [ZBosonPairFakeIndex]==1", .title = "Z-tagging">
+
+            } #End: CutZMass
+        } #End: CutOtherLep
+    } #End: CutVgammaVjet_overlap
 } #End: CutChannels
