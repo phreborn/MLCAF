@@ -7,22 +7,22 @@ def addObservables(config):
   #======================
   #===== import trigger config, needed by trigger observables
   try:
-    from xAOD.observables import HWWTrigConfig as hwwtrigconf
+    from CAFExample import HWWTriggerConfig as hwwtriggerconfig
   except:
-    ERROR("Couldn't import HWWTrigConfig")
+    ERROR("Couldn't import HWWTriggerConfig")
     return False
 
 
   ### which triggers to use and for what periods are specified in the HWWTrigConfig.py snippet
   # only single-lepton triggers
-  triggerConfigsSingleLepOnly = hwwtrigconf.getTrigConfigVector()
+  triggerConfigsSingleLepOnly = hwwtriggerconfig.getTrigConfigVector()
 
   #======================
   #===== import lepton ID helper snippet, wil pass object to observable
   try:
-    import HWWLepIDHelper as hwwLepIDHelper
+    from CAFExample import HWWLepIDHelper as hwwLepIDHelper
   except:
-    ERROR("Couldn't import HWWLeptonIDHelper")
+    ERROR("Couldn't import HWWLepIDHelper")
     return False
 
   #lepTag = config.getTagStringDefault("lepIDSelectionTag","VH")

@@ -18,6 +18,11 @@
             +CutZMass{
                 <.cutExpression = "[ZBosonPairFakeIndex]==3 || [ZBosonPairFakeIndex]==2 || [ZBosonPairFakeIndex]==1", .title = "Z-tagging">
 
+                # make sure all leptons are above 15 GeV
+                +CutLeptonsPt {
+                    <.cutExpression = " $(lep0).pt() > 15000 && $(lep1).pt() > 15000 && $(otherPart0).pt() > 15000", .title = "lep $p_T > 15$ GeV">
+
+                } #End: CutLeptonsPt
             } #End: CutZMass
         } #End: CutOtherLep
     } #End: CutVgammaVjet_overlap

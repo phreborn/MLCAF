@@ -520,9 +520,7 @@ def getLepIDHelper(selection_key):
   # other observables should call this class and pass
   # the returned object through their constructor
 
-  from CAFExample import HWWLeptonIDHelper
-
-  lepIDHelper = HWWLeptonIDHelper()
+  lepIDHelper = ROOT.HWW.HWWLeptonIDHelper()
 
   selection_key = str(selection_key)
   # check that given key actually exists
