@@ -1,6 +1,8 @@
 from QFramework import *
 from ROOT import *
 
+from CAFExample import HWWZBosonPairFakeIndex
+
 def addObservables(config):
 
   INFO("adding Z boson pairing fake index observable")
@@ -28,7 +30,7 @@ def addObservables(config):
   #lepTag = config.getTagStringDefault("lepIDSelectionTag","VH")
   lepTag = config.getTagStringDefault("lepIDZCandSelectionTag","2L")
   lepIDHelper = hwwLepIDHelper.getLepIDHelper(lepTag)
-  INFO("in HWWZBosonPairFakeIndex: Using lepton ID selection '{}' (see observables/HWWLepIDHelper.py for details)".format(lepTag))
+  INFO("in HWWZBosonPairFakeIndex: Using lepton ID selection '{}' (see CAFExample/python/HWWLepIDHelper.py for details)".format(lepTag))
 
 
   hwwZbosonPairFakeIndex = HWWZBosonPairFakeIndex("ZBosonPairFakeIndex", triggerConfigsSingleLepOnly, lepIDHelper)
