@@ -92,10 +92,10 @@ run_flatNTuple:
     - source setup/setupAnalysis.sh
     - mkdir run
     - cd run
-    - prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
-    - initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
-    - analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
-    - visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
+    - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
+    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg
+    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg
+    - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
   artifacts:
     paths:
       - run/sampleFolders
