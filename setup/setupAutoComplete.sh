@@ -62,13 +62,15 @@ _CAFdoAutoCompletion(){
 
 
 _CAFFindPossibleCompletions(){
-    local thisDir=$1
-    local CAFAnalysisShare=$2
-    local option=$3
-    local immediateCompleteStr=$4
+    local thisWord=$1
+    local thisDir=$2
+    local CAFAnalysisShare=$3
+    local option=$4
+    local immediateCompleteStr=$5
 
     # echo ""
     # echo "_CAFFindPossibleCompletions called with arguments:"
+    # echo "thisWord             : $thisWord"
     # echo "thisDir              : $thisDir"
     # echo "CAFAnalysisShare     : $CAFAnalysisShare"
     # echo "option               : $option"
@@ -77,7 +79,6 @@ _CAFFindPossibleCompletions(){
     
     IFS=:
 
-    #todo filter filenames for ending like this: |grep ".cfg$"
     #todo filter filenames starting with same name as config
     #todo find out if parent directory makes sense (in case of "/", there is none)
     #todo implement completion of arbitrary immediateCompleteStr
@@ -172,62 +173,27 @@ _CAFFindPossibleCompletions(){
     done
 
     
-    # Combine the possible completions
-
-    echo "$listOfFiles:$listOfDirs"
     unset IFS
-    return 0
-
-}
-
-# This function gets executed if tab-complete is requested for the
-# python scripts listed above. It creates auto-complete suggestions
-# from the current directory and $CAFANALYSISSHARE. Files ending
-# with ".cfg" and directories are suggested.
-_CAFRegularComplete(){
-    local command=$1
-    local thisWord=$2
-    local previousWord=$3
-    local thisDir=$4
-    local CAFAnalysisShare=$5
-    local option=$6
-
-    
-    # echo ""
-    # echo "_CAFRegularComplete called with arguments:"
-    # echo "command          : $command"
-    # echo "thisWord         : $thisWord"
-    # echo "previousWord     : $previousWord"
-    # echo "thisDir          : $thisDir"
-    # echo "CAFAnalysisShare : $CAFAnalysisShare"
-    # echo "option           : $option"
-
-    # Now, do the actual magic. Create a list of completions that are
-    # going to be added to the standard suggestions.
-
-    local immediateCompleteStr="master/config/"
-
-    local fullCompletions="$(_CAFFindPossibleCompletions "$thisDir" "$CAFAnalysisShare" "$option" "$immediateCompleteStr")"
-
-    # echo ""
-    # echo "$fullCompletions"
-    
-    fullCompletions=`echo $fullCompletions | tr ":" " "`
+    fullCompletions=`echo "$listOfFiles:$listOfDirs" | tr ":" " "`
     
     # Compgen reduces the list to the words starting with $thisWord.
     # The variable COMPGEN will be used to print suggestions.
     COMPREPLY=( $(compgen -W "$fullCompletions" -- "$thisWord") )
 
-    #todo continue here
-    
-    # echo $COMPREPLY
     return 0
+}
+
+
+_CAFShortenPath(){
     # Auto-completion works without the following lines. But it shows
     # the completions relative to $path. This behaviour is unfamiliar
     # to a user. The next lines check if auto-completion will find a
     # (sub)string to complete. In that case, don't change $COMPREPLY
     # and complete the match. If there is no match, show the more in-
     # tuitive suggestions by removing the relative path $thisDir.
+
+    local thisWord=$1
+    local thisDir=$2
     
     local leadingCharFirst=""
     local allLeadingAreSame=0
@@ -257,7 +223,81 @@ _CAFRegularComplete(){
     if [ $allLeadingAreSame -eq 1 ] ; then
     	COMPREPLY=("${COMPREPLY[@]/#$thisDir/}")
     fi
+
+}
+
+_CAFFilterFileExtensions(){
+    local extensions="$1"
+    local filteredReply=""
+    local max=${#COMPREPLY[@]}
+    local newIndex=0
+    IFS=:
+    for (( i=0; i<$max; i++)) ; do
+	entry="${COMPREPLY[$i]}"
+	# echo ""
+	# echo "$i: $entry"
+	local removeEntry=1
+	if [[ "$entry" == *"/" ]] ; then
+	    removeEntry=0
+	fi
+	for extension in $extensions ; do
+	    if [[ "$entry" == *"$extension" ]] ; then
+		removeEntry=0
+	    fi
+	done
+	if [[ "$removeEntry" -eq 0 ]] ; then
+	    if [[ "$newIndex" -lt "$i" ]] ; then
+		COMPREPLY[newIndex]=${COMPREPLY[i]}
+		unset COMPREPLY[i]
+	    fi
+	    newIndex="$[ $newIndex+1 ]"
+	else
+	    unset COMPREPLY[i]
+	fi
+    done
+    # echo ""
+    # echo "Summary (number of entries=${#COMPREPLY[@]})"
+    # for (( i=0; i<$max; i++)) ; do
+    # 	echo "$i: ${COMPREPLY[$i]}"
+    # done
+    unset IFS
+}
+
+_CAFFilterFileBeginning(){
+
+
+}
+
+# This function gets executed if tab-complete is requested for the
+# python scripts listed above. It creates auto-complete suggestions
+# from the current directory and $CAFANALYSISSHARE. Files ending
+# with ".cfg" and directories are suggested.
+_CAFRegularComplete(){
+    local command=$1
+    local thisWord=$2
+    local previousWord=$3
+    local thisDir=$4
+    local CAFAnalysisShare=$5
+    local option=$6
+
     
+    # echo ""
+    # echo "_CAFRegularComplete called with arguments:"
+    # echo "command          : $command"
+    # echo "thisWord         : $thisWord"
+    # echo "previousWord     : $previousWord"
+    # echo "thisDir          : $thisDir"
+    # echo "CAFAnalysisShare : $CAFAnalysisShare"
+    # echo "option           : $option"
+
+    # Now, do the actual magic. Create a list of completions that are
+    # going to be added to the standard suggestions.
+
+    _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "master/config/"
+    _CAFFilterFileExtensions ".cfg"
+    _CAFFilterFileBeginning "$option"
+    _CAFShortenPath "$thisWord" "$thisDir"
+
     return 0
 }
 
@@ -268,6 +308,7 @@ _CAFSubmitComplete(){
     local thisDir=$4
     local CAFAnalysisShare=$5
     local option=$6
+    #todo
 }
 
 _CAFAutoComplete(){
@@ -289,11 +330,22 @@ _CAFAutoComplete(){
     local previousWord=$3
 
 
-    # Don't do auto-completion if $command is not in CAFANALYSISSHARE
-    local CAFAnalysisShare=".:"
+    # Find $thisDir by cutting after the last "/"
+    local thisDir=""
+    if [[ $thisWord == *"/"* ]] ; then
+	thisDir=`echo $thisWord | rev | cut -d "/" -f2- | rev`
+	if [[ $thisDir != "" ]] ; then
+	    thisDir+="/"
+	fi
+    fi
+
+    # Do normal auto-completion if $command is not in CAFANALYSISSHARE
+    local CAFAnalysisShare="./:"
     CAFAnalysisShare+=$(_CAFdoAutoCompletion $command)
     local statusCode=$?
     if [ $statusCode -eq 0 ] ; then
+	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "./" "0"
+	_CAFShortenPath "$thisWord" "$thisDir"
 	return 0
     fi
 
@@ -303,20 +355,12 @@ _CAFAutoComplete(){
     if [[ "$CAFAUTOCOMPLETEOPT" =~ $re ]] ; then
 	option=$CAFAUTOCOMPLETEOPT
     fi
-
-    # Find $thisDir by cutting after the last "/"
-    local thisDir=""
-    if [[ $thisWord == *"/"* ]] ; then
-	thisDir=`echo $thisWord | rev | cut -d "/" -f2- | rev`
-	if [[ $thisDir != "" ]] ; then
-	    thisDir+="/"
-	fi
-    fi
     
     if [ $command == "submit.py" ] ; then
 	_CAFSubmitComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
 	return 0
     fi
+    
     _CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
     return 0
 }
