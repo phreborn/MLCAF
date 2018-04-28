@@ -79,8 +79,6 @@ _CAFFindPossibleCompletions(){
     
     IFS=:
 
-    #todo filter filenames starting with same name as config
-    #todo find out if parent directory makes sense (in case of "/", there is none)
     #todo implement completion of arbitrary immediateCompleteStr
 
     # The following variables are used:
@@ -183,8 +181,13 @@ _CAFFindPossibleCompletions(){
     return 0
 }
 
-
 _CAFShortenPath(){
+    local path="$1"
+    shortenedPath=`echo $path | rev | cut -d "/" -f1 - | rev`
+    echo $shortenedPath
+}
+
+_CAFShortenCompreply(){
     # Auto-completion works without the following lines. But it shows
     # the completions relative to $path. This behaviour is unfamiliar
     # to a user. The next lines check if auto-completion will find a
@@ -226,9 +229,10 @@ _CAFShortenPath(){
 
 }
 
-_CAFFilterFileExtensions(){
-    local extensions="$1"
-    local filteredReply=""
+_CAFFilterFiles(){
+    local prefices="$1"
+    local extensions="$2"
+
     local max=${#COMPREPLY[@]}
     local newIndex=0
     IFS=:
@@ -239,13 +243,35 @@ _CAFFilterFileExtensions(){
 	local removeEntry=1
 	if [[ "$entry" == *"/" ]] ; then
 	    removeEntry=0
-	fi
-	for extension in $extensions ; do
-	    if [[ "$entry" == *"$extension" ]] ; then
+	else
+	    local extensionMissing=1
+	    local prefixMissing=1
+	    if [[ "$extensions" == "" ]] ; then
+		extensionMissing=0
+	    else
+		for extension in $extensions ; do
+		    if [[ "$entry" == *"$extension" ]] ; then
+			extensionMissing=0
+		    fi
+		done
+	    fi
+	    if [[ "$extensionMissing" -eq 0 ]] ; then
+		if [[ "$prefices" == "" ]] ; then
+		    prefixMissing=0
+		else
+		    for prefix in $prefices ; do
+			local entryShortened=`echo $entry | rev | cut -d "/" -f1 - | rev`
+			if [[ "$entryShortened" == "$prefix"* ]] ; then
+			    prefixMissing=0
+			fi
+		    done
+		fi
+	    fi
+	    if [ "$extensionMissing" -eq 0 ] && [ "$prefixMissing" -eq 0 ] ; then
 		removeEntry=0
 	    fi
-	done
-	if [[ "$removeEntry" -eq 0 ]] ; then
+	fi
+	if [ "$removeEntry" -eq 0 ] ; then
 	    if [[ "$newIndex" -lt "$i" ]] ; then
 		COMPREPLY[newIndex]=${COMPREPLY[i]}
 		unset COMPREPLY[i]
@@ -263,10 +289,6 @@ _CAFFilterFileExtensions(){
     unset IFS
 }
 
-_CAFFilterFileBeginning(){
-
-
-}
 
 # This function gets executed if tab-complete is requested for the
 # python scripts listed above. It creates auto-complete suggestions
@@ -280,6 +302,10 @@ _CAFRegularComplete(){
     local CAFAnalysisShare=$5
     local option=$6
 
+    local prefices=""
+    if [ "$option" -gt 1 ] ; then
+	prefices="${command/%.py/}"
+    fi
     
     # echo ""
     # echo "_CAFRegularComplete called with arguments:"
@@ -294,9 +320,8 @@ _CAFRegularComplete(){
     # going to be added to the standard suggestions.
 
     _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "master/config/"
-    _CAFFilterFileExtensions ".cfg"
-    _CAFFilterFileBeginning "$option"
-    _CAFShortenPath "$thisWord" "$thisDir"
+    _CAFFilterFiles "$prefices" ".cfg"
+    _CAFShortenCompreply "$thisWord" "$thisDir"
 
     return 0
 }
@@ -345,7 +370,7 @@ _CAFAutoComplete(){
     local statusCode=$?
     if [ $statusCode -eq 0 ] ; then
 	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "./" "0"
-	_CAFShortenPath "$thisWord" "$thisDir"
+	_CAFShortenCompreply "$thisWord" "$thisDir"
 	return 0
     fi
 
