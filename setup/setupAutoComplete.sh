@@ -97,6 +97,21 @@ _CAFFindPossibleCompletions(){
     local listOfFiles=""
     local listOfDirs=""
 
+    local slashes="${immediateCompleteStr//[^\/]}/"
+    local immediateCompleteDirs=()
+    local arrayIndex=0
+    for (( i=0; i<${#slashes}; i++)) ; do
+	iPlusOne="$[ i+1 ]"
+	tmp=`echo $immediateCompleteStr |rev| cut -d "/" -f$iPlusOne -|rev`
+	if [[ "$tmp" != "" ]] ; then
+	    if [ "$i" -gt 0 ] ; then
+		tmp="$tmp/"
+	    fi
+	    immediateCompleteDirs[arrayIndex]=$tmp
+	    arrayIndex="$[ arrayIndex+1 ]"
+	fi
+    done
+
     for path in $CAFAnalysisShare ; do
 	local thisPath="$path$thisDir"
 
@@ -105,6 +120,8 @@ _CAFFindPossibleCompletions(){
 	# Contains absolute paths of directories in $thisPath
 	local listOfDirs_new=`ls -ad $thisPath*/ 2>/dev/null | tr '\r\n' ':'`
 
+	local foundInThisPath=()
+	
 	for file in $listOfFiles_new  ; do
 	    if [[ "$file" != *"/" ]] ; then
 		if [[ $file != "" ]] ; then
@@ -112,6 +129,7 @@ _CAFFindPossibleCompletions(){
 			listOfFiles+=":"
 		    fi
 		    listOfFiles+=$thisDir$file
+		    foundInThisPath+=("$thisDir$file")
 		fi
 	    fi
 	done
@@ -122,6 +140,7 @@ _CAFFindPossibleCompletions(){
 		fi
 		# cut off the absolute part of all suggestions
 		listOfDirs+=${dir/$path/}
+		foundInThisPath+=("${dir/$path/}")
 	    fi
 	done
 
@@ -134,10 +153,55 @@ _CAFFindPossibleCompletions(){
 	#     fi
 	# fi
 
+	# Additional filter: If there is a directory "config/master/",
+	# complete it immediately and don't show other options.
+	# echo ""
+	# echo "path: $path"
+	if [ "$option" -eq 1 ] || [ "$option" -eq 3 ] ; then
+	    for (( i=0;i<${#immediateCompleteDirs[@]};i++ )) ; do
+		# echo "    $i: ${immediateCompleteDirs[i]}"
+		for file in "${foundInThisPath[@]}" ; do
+		    # echo "        file: $file"
+		    # echo "        cmpW: ${immediateCompleteDirs[i]}"
+		    if [[ "$file" == *"${immediateCompleteDirs[i]}" ]] ; then
+			local tmp=""
+			# check entire path before match
+			for (( ii=0;ii<"$[ i+1 ]";ii++ )) ; do
+			    tmp+="${immediateCompleteDirs[ii]}"
+			done
+			# echo "            compare: *$tmp, ${path/#.\//$PWD/}$file"
+			if [[ "${path/#.\//$PWD/}$file" == *"$tmp" ]] ; then
+			    tmp="$file"
+			    local ranUntilTheEnd=1
+			    for (( ii="$[ i+1 ]";ii<${#immediateCompleteDirs[@]};ii++ )) ; do
+				# echo "            $ii: ${immediateCompleteDirs[ii]}"
+				ranUntilTheEnd=1
+				tmpBefore="$tmp"
+				tmpFiles=`ls -ap "$path$tmp" 2>/dev/null | tr '\r\n' ':'`
+				for tmpFile in $tmpFiles ; do
+				    # echo "                $tmpFile"
+				    if [[ "$tmpFile" == "${immediateCompleteDirs[ii]}" ]] && [[ "$tmp" == "$tmpBefore" ]] ; then
+					# echo "                    added $tmpFile"
+					tmp="$tmp$tmpFile"
+				    fi
+				done
+				if [[ "$tmp" == "$tmpBefore" ]] ; then
+				    ii=${#immediateCompleteDirs[@]}
+				    ranUntilTheEnd=0
+				fi
+			    done
+			    if [ "$ranUntilTheEnd" -eq 1 ] ; then
+				# echo "match found: $tmp"
+				COMPREPLY="$tmp"
+				return 0
+			    fi
+			fi
+		    fi
+		done
+	    done
+	fi
 
-	# # Additional filter: If there is a directory "config/master/",
-	# # complete it immediately and don't show other options.
-	# if [ "$option" -eq 1 ] || [ "$option" -eq 3 ] ; then
+	    
 	#     for dir in $listOfDirs ; do
 	# 	if [[ $listOfFiles == "" ]] ; then
 	# 	    if [[ $dir == *"config/" ]] ; then
