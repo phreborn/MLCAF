@@ -12,20 +12,28 @@ pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py"
 
 
 _CAFdoAutoCompletion(){
+    ##################################################################
+    # This function has two purposes:
+    # 1. Its return value indicates if the invoking python script
+    #    is in $CAFANALYSIS (i.e. if auto-completion should be used).
+    # 2. It returns a concatenated and formatted (with tailing "/")
+    #    list of directories to search possible completions in.
+    #
+    ##################################################################
+
     local command=$1
-    # Check if $command is known. If it does not point to an
-    # executable, exit script.
+    local CAFAnalysisShare=""
 
     IFS=:
     
+    # Check if $command is known. If it does not point to an
+    # executable, exit script.
     local pathToCommand=$(which $command 2>/dev/null)
     # resolve leading "~/" and symbolic links
     pathToCommand="${pathToCommand/#\~/$HOME}"
     if [ ! -x "$pathToCommand" ] ; then
 	return 0
     fi
-
-    local CAFAnalysisShare=""
     
     # Check if $command is in $CAFANALYSISSHARE. If not, exit the script.
     local commandInExecutables=0
@@ -62,6 +70,19 @@ _CAFdoAutoCompletion(){
 
 
 _CAFFindPossibleCompletions(){
+    ##################################################################
+    # This function finds possible suggestions for completion by
+    # listing and modifying the files and directories in
+    # $CAFAnalysisShare (separated by ":").
+    #
+    # All matching files and directories are written into $COMPREPLY.
+    # If option = 1 or 3 are chosen, a completion is immediately exe-
+    # cuted when the substring $immediateCompleteStr is found. The
+    # user is not given any options, even if there would be useful
+    # ones.
+    #
+    ##################################################################
+
     local thisWord=$1
     local thisDir=$2
     local CAFAnalysisShare=$3
@@ -77,7 +98,6 @@ _CAFFindPossibleCompletions(){
     # echo "immediateCompleteStr : $immediateCompleteStr"
 
     
-    IFS=:
 
     # The following variables are used:
     # path     : Location that is searched for completions. This
@@ -88,13 +108,14 @@ _CAFFindPossibleCompletions(){
     # thisPath : Combines the two previous variables: $path$thisDir
 
 
-    # These two variables hold all files and directories that will be
-    # used as possible matches for auto-completion. They are relative
-    # to $path.
+    IFS=:
 
+    # The content of these two variables will be used for auto-compl.
     local listOfFiles=""
     local listOfDirs=""
 
+    # Store the $immediateCompleteStr in an array
+    # ($immediateCompleteDirs) to simplify looping. 
     local slashes="${immediateCompleteStr//[^\/]}/"
     local immediateCompleteDirs=()
     local arrayIndex=0
@@ -110,6 +131,8 @@ _CAFFindPossibleCompletions(){
 	fi
     done
 
+    # Loop over all paths in $CAFAnalysisShare. These are used as
+    # base location for auto-completion.
     for path in $CAFAnalysisShare ; do
 	local thisPath="$path$thisDir"
 
@@ -118,6 +141,8 @@ _CAFFindPossibleCompletions(){
 	# Contains absolute paths of directories in $thisPath
 	local listOfDirs_new=`ls -ad $thisPath*/ 2>/dev/null | tr '\r\n' ':'`
 
+	# All directories and files found in this $path. Used to find
+	# $immediateCompleteStr later.
 	local foundInThisPath=()
 
 	for file in $listOfFiles_new  ; do
@@ -132,66 +157,68 @@ _CAFFindPossibleCompletions(){
 	    fi
 	done
 	for dir in $listOfDirs_new ; do
+	    # Filter "./" and "../" out.
 	    if [[ $dir != "" ]] && [[ $dir != "./" ]] && [[ $dir != "../" ]] ; then
 		if [[ $listOfDirs != "" ]] ; then
 		    listOfDirs+=":"
 		fi
-		# cut off the absolute part of all suggestions
+		# Cut off the absolute part of all suggestions
 		listOfDirs+=${dir/$path/}
 		foundInThisPath+=("${dir/$path/}")
 	    fi
 	done
 
-	# Only add the parent directory if useful
-	# if [[ $thisDir == "" ]] || [[ $thisDir == *"../" ]] ; then
-	#     if [[ $listOfDirs == "" ]] ; then
-	# 	listOfDirs="$thisDir../"
-	#     else
-	# 	listOfDirs="$thisDir../:$listOfDirs"
-	#     fi
-	# fi
 
-	# Additional filter: If there is a directory "config/master/",
-	# complete it immediately and don't show other options.
-	# echo ""
-	# echo "path: $path"
+	# The following part is only used to find and match
+	# $immediateCompleteStr in one of the auto-complete paths. If
+	# it is found, return this as only suggestion.
 	if [ "$option" -eq 1 ] || [ "$option" -eq 3 ] ; then
 	    for (( i=0;i<${#immediateCompleteDirs[@]};i++ )) ; do
-		# echo "    $i: ${immediateCompleteDirs[i]}"
 		for file in "${foundInThisPath[@]}" ; do
-		    # echo "        file: $file"
-		    # echo "        cmpW: ${immediateCompleteDirs[i]}"
+		    
+		    # Check if any completion matches any part of the
+		    # auto-complete string.
 		    if [[ "$file" == *"${immediateCompleteDirs[i]}" ]] ; then
 			local tmp=""
-			# check entire path before match
+
+			# Check if this completion matches the entire
+			# parent auto-complete string.
 			for (( ii=0;ii<"$[ i+1 ]";ii++ )) ; do
 			    tmp+="${immediateCompleteDirs[ii]}"
 			done
-			# echo "            compare: *$tmp, ${path/#.\//$PWD/}$file"
 			if [[ "${path/#.\//$PWD/}$file" == *"$tmp" ]] ; then
-			    tmp="$file"
+
+			    # Check if this completion matches the
+			    # entire subordinate auto-complete string
+			    # step by step (counter $ii).
+			    matchedPart="$file"
 			    local ranUntilTheEnd=1
 			    for (( ii="$[ i+1 ]";ii<${#immediateCompleteDirs[@]};ii++ )) ; do
-				# echo "            $ii: ${immediateCompleteDirs[ii]}"
 				ranUntilTheEnd=1
-				tmpBefore="$tmp"
-				tmpFiles=`ls -ap "$path$tmp" 2>/dev/null | tr '\r\n' ':'`
+				matchedPartPrev="$matchedPart"
+				tmpFiles=`ls -ap "$path$matchedPart" 2>/dev/null | tr '\r\n' ':'`
 				for tmpFile in $tmpFiles ; do
-				    # echo "                $tmpFile"
-				    if [[ "$tmpFile" == "${immediateCompleteDirs[ii]}" ]] && [[ "$tmp" == "$tmpBefore" ]] ; then
-					# echo "                    added $tmpFile"
-					tmp="$tmp$tmpFile"
+				    if [[ "$tmpFile" == "${immediateCompleteDirs[ii]}" ]] && [[ "$matchedPart" == "$matchedPartPrev" ]] ; then
+
+					# Found another matching directory.
+					matchedPart="$matchedPart$tmpFile"
 				    fi
 				done
-				if [[ "$tmp" == "$tmpBefore" ]] ; then
+
+				# Only if a matching directory is found in every for-
+				# iteration, consider this match.
+				if [[ "$matchedPart" == "$matchedPartPrev" ]] ; then
 				    ii=${#immediateCompleteDirs[@]}
 				    ranUntilTheEnd=0
 				fi
 			    done
+
+			    # If a suggestion has been found and it also matches the
+			    # last part of $thisWord, use it as exclusive suggestion.
 			    if [ "$ranUntilTheEnd" -eq 1 ] ; then
-				tmp=( $(compgen -W "$tmp" -- "$thisWord") )
-				if [[ "$tmp" != "" ]] ; then
-				    COMPREPLY="$tmp"
+				matchedPart=( $(compgen -W "$matchedPart" -- "$thisWord") )
+				if [[ "$matchedPart" != "" ]] ; then
+				    COMPREPLY="$matchedPart"
 				    return 0
 				fi
 			    fi
@@ -213,21 +240,15 @@ _CAFFindPossibleCompletions(){
     return 0
 }
 
-_CAFShortenPath(){
-    local path="$1"
-    shortenedPath=`echo $path | rev | cut -d "/" -f1 - | rev`
-    echo $shortenedPath
-}
 
 _CAFShortenCompreply(){
     ##################################################################
     # This function is called at the end, when all possible
-    # have been created and auto-completion would work without it.
-    # But completions would be shown relative to the current
-    # directory (or equivalently relative to $CAFANALYSISSHARE).
+    # completions have been created. Current completions are relative
+    # to the current directory (or equivalently $CAFANALYSISSHARE).
     # It is nicer to remove the leading path for user-friendliness.
     # But only do it, if suggestions are actually shown (i.e. the
-    # current word cannot be completed automatically.
+    # current word is not completed automatically).
     #
     # This function checks if auto-completion will find a (sub)string
     # to complete. In that case, it does not change $COMPREPLY and
@@ -361,11 +382,6 @@ _CAFRegularComplete(){
     local CAFAnalysisShare=$5
     local option=$6
 
-    local prefixes=""
-    if [ "$option" -gt 1 ] ; then
-	prefixes="${command/%.py/}"
-    fi
-    
     # echo ""
     # echo "_CAFRegularComplete called with arguments:"
     # echo "command          : $command"
@@ -375,9 +391,11 @@ _CAFRegularComplete(){
     # echo "CAFAnalysisShare : $CAFAnalysisShare"
     # echo "option           : $option"
 
-    # Now, do the actual magic. Create a list of completions that are
-    # going to be added to the standard suggestions.
-
+    local prefixes=""
+    if [ "$option" -gt 1 ] ; then
+	prefixes="${command/%.py/}"
+    fi
+    
     _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "config/master/"
     _CAFFilterFiles "$prefixes" ".cfg"
     _CAFShortenCompreply "$thisWord" "$thisDir"
