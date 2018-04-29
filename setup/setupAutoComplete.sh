@@ -220,12 +220,21 @@ _CAFShortenPath(){
 }
 
 _CAFShortenCompreply(){
-    # Auto-completion works without the following lines. But it shows
-    # the completions relative to $path. This behaviour is unfamiliar
-    # to a user. The next lines check if auto-completion will find a
-    # (sub)string to complete. In that case, don't change $COMPREPLY
-    # and complete the match. If there is no match, show the more in-
+    ##################################################################
+    # This function is called at the end, when all possible
+    # have been created and auto-completion would work without it.
+    # But completions would be shown relative to the current
+    # directory (or equivalently relative to $CAFANALYSISSHARE).
+    # It is nicer to remove the leading path for user-friendliness.
+    # But only do it, if suggestions are actually shown (i.e. the
+    # current word cannot be completed automatically.
+    #
+    # This function checks if auto-completion will find a (sub)string
+    # to complete. In that case, it does not change $COMPREPLY and
+    # complete the match. If there is no match, it shows the more in-
     # tuitive suggestions by removing the relative path $thisDir.
+    #
+    ##################################################################
 
     local thisWord=$1
     local thisDir=$2
@@ -262,20 +271,33 @@ _CAFShortenCompreply(){
 }
 
 _CAFFilterFiles(){
+    ##################################################################
+    # This function manipulates the content of the global variable
+    # $COMPREPLY. It removes all filenames, which do not start with
+    # any of the prefixes (first argument) and do not end with any of
+    # the extensions (second argument). Different prefixes and
+    # extensions are separated by ":". This function does NOT filter
+    # directories, only filenames.
+    #
+    ##################################################################
+    
     local prefixes="$1"
     local extensions="$2"
 
+    # Two indices help to ensure that no empty spaces are created in
+    # the array $COMPREPLY.
+    
     local max=${#COMPREPLY[@]}
     local newIndex=0
     IFS=:
     for (( i=0; i<$max; i++)) ; do
 	entry="${COMPREPLY[$i]}"
-	# echo ""
-	# echo "$i: $entry"
 	local removeEntry=1
+	# Directories are not removed
 	if [[ "$entry" == *"/" ]] ; then
 	    removeEntry=0
 	else
+	    # Check if one of the extensions or prefixes are there.
 	    local extensionMissing=1
 	    local prefixMissing=1
 	    if [[ "$extensions" == "" ]] ; then
@@ -292,6 +314,8 @@ _CAFFilterFiles(){
 		    prefixMissing=0
 		else
 		    for prefix in $prefixes ; do
+			# For prefixes, the leading path is removed
+			# to get the beginning of the filename.
 			local entryShortened=`echo $entry | rev | cut -d "/" -f1 - | rev`
 			if [[ "$entryShortened" == "$prefix"* ]] ; then
 			    prefixMissing=0
@@ -299,10 +323,12 @@ _CAFFilterFiles(){
 		    done
 		fi
 	    fi
+	    # Entry is only kept if prefix AND extension are matched.
 	    if [ "$extensionMissing" -eq 0 ] && [ "$prefixMissing" -eq 0 ] ; then
 		removeEntry=0
 	    fi
 	fi
+	# Store entries such that no empty spots in arrayare created.
 	if [ "$removeEntry" -eq 0 ] ; then
 	    if [[ "$newIndex" -lt "$i" ]] ; then
 		COMPREPLY[newIndex]=${COMPREPLY[i]}
@@ -313,20 +339,21 @@ _CAFFilterFiles(){
 	    unset COMPREPLY[i]
 	fi
     done
-    # echo ""
-    # echo "Summary (number of entries=${#COMPREPLY[@]})"
-    # for (( i=0; i<$max; i++)) ; do
-    # 	echo "$i: ${COMPREPLY[$i]}"
-    # done
     unset IFS
 }
 
 
-# This function gets executed if tab-complete is requested for the
-# python scripts listed above. It creates auto-complete suggestions
-# from the current directory and $CAFANALYSISSHARE. Files ending
-# with ".cfg" and directories are suggested.
+
 _CAFRegularComplete(){
+    ##################################################################
+    # This function gets executed if auto-completion for the regular
+    # CAF execution scripts.
+    #
+    # In all cases, completion suggestions for the config file are
+    # given.
+    #
+    ##################################################################
+
     local command=$1
     local thisWord=$2
     local previousWord=$3
@@ -359,6 +386,20 @@ _CAFRegularComplete(){
 }
 
 _CAFSubmitComplete(){
+    ##################################################################
+    # This function gets executed if auto-completion for "submit.py"
+    # is requested.
+    #
+    # If the previous word in the command line is not an option (i.e.
+    # does not start with "-"), suggest completion for config file.
+    #
+    # If the previous word is "--jobs", find the submission options.
+    #
+    # Otherwise (previous word is an option), find standard
+    # completion.
+    #
+    ##################################################################
+
     local command=$1
     local thisWord=$2
     local previousWord=$3
@@ -381,24 +422,32 @@ _CAFSubmitComplete(){
 
 _CAFAutoComplete(){
     ##################################################################
-    # Option for auto-complete mode. "option=0" is set by default.
-    # It is overwritten by $CAFAUTOCOMPLETEOPT.
+    # This function gets called when auto-completion for a script is
+    # invoked.
     #
-    # 0: search relative to ./ and $CAFANALYSISSHARE
-    # 1: like 0, but complete "config/master/" when found
-    # 2: like 0, but match files with beginning of script name
-    # 3: combines 1 and 2
+    # The function checks if the python command is known and if it
+    # points to a file in $CAFANALYSISSHARE. If not, create the
+    # standard auto-complete options using the functions in this
+    # file (it would be nicer to use the system auto-complete).
     #
-    local option=0
+    # Auto-completion is by default run in the mode "option=0". This
+    # is overwritten by $CAFAUTOCOMPLETEOPT. For behaviour of modes,
+    # look in README.md file.
+    #
+    # If statements distinguish between different python scripts and
+    # call the respective functions, where the auto-complete
+    # procedure is defined.
     #
     ##################################################################
 
     local command=$1
     local thisWord=$2
     local previousWord=$3
+    local option=0
 
 
-    # Find $thisDir by cutting after the last "/"
+    # Find the directory of the path that the user has already typed
+    # in the command line: $thisDir.
     local thisDir=""
     if [[ $thisWord == *"/"* ]] ; then
 	thisDir=`echo $thisWord | rev | cut -d "/" -f2- | rev`
@@ -407,7 +456,7 @@ _CAFAutoComplete(){
 	fi
     fi
 
-    # Do normal auto-completion if $command is not in CAFANALYSISSHARE
+    # Do standard auto-completion if $command is not in CAFANALYSISSHARE
     local CAFAnalysisShare="./:"
     CAFAnalysisShare+=$(_CAFdoAutoCompletion $command)
     local statusCode=$?
@@ -417,7 +466,7 @@ _CAFAutoComplete(){
 	return 0
     fi
 
-    # If $CAFAUTOCOMPLETEOPT is integer between 0 and 3, overwrite
+    # If $CAFAUTOCOMPLETEOPT is an integer between 0 and 3, overwrite
     # $option.
     local re='^[0-3]$'
     if [[ "$CAFAUTOCOMPLETEOPT" =~ $re ]] ; then
@@ -432,9 +481,9 @@ _CAFAutoComplete(){
     return 0
 }
 
-# Add all $pythonScripts to the list of commands that need
-# auto-complete. If any of them invokes auto-complete, the
-# analysis_config_files function gets called.
+
+# Add all $pythonScripts to the list of commands that use auto-completion. If
+# any of them invokes auto-complete, the function _CAFAutoComplete gets called.
 
 IFS=" "
 for script in $pythonScripts ; do
