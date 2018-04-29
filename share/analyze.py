@@ -104,12 +104,13 @@ def main(config):
     if config.getTagBoolDefault("purgeSamples",False):
         common.reduceSampleFolder(config, samples)
 
-    pathselect = CLI.getTagStandardStringDefault("pathselect","")
+    pathselect = CLI.getTagVStandardString("pathselect")
 
     # TODO: put this in the reduceSampleFolder method as well?
     # if requested, purge samples (even more)
-    if config.getTagBoolDefault("purgeRemainder",False) and not QFramework.TQStringUtils.equal(pathselect,""):
-        samples.setTagBool("restrict",True,pathselect)
+    if config.getTagBoolDefault("purgeRemainder",False) and pathselect.size() > 0:
+        for path in pathselect:
+            samples.setTagBool("restrict",True,path)
         samples.purgeWithoutTag("~restrict")
         if not samples.getListOfSampleFolders("?"):
             QFramework.BREAK("sample folder empty after purge - something is wrong!")
