@@ -79,8 +79,6 @@ _CAFFindPossibleCompletions(){
     
     IFS=:
 
-    #todo implement completion of arbitrary immediateCompleteStr
-
     # The following variables are used:
     # path     : Location that is searched for completions. This
     #            variable loops over the working directory and
@@ -102,9 +100,9 @@ _CAFFindPossibleCompletions(){
     local arrayIndex=0
     for (( i=0; i<${#slashes}; i++)) ; do
 	iPlusOne="$[ i+1 ]"
-	tmp=`echo $immediateCompleteStr |rev| cut -d "/" -f$iPlusOne -|rev`
+	tmp=`echo $immediateCompleteStr | cut -d "/" -f$iPlusOne -`
 	if [[ "$tmp" != "" ]] ; then
-	    if [ "$i" -gt 0 ] ; then
+	    if [ "$i" -lt "$[ ${#slashes}-1 ]" ] ; then
 		tmp="$tmp/"
 	    fi
 	    immediateCompleteDirs[arrayIndex]=$tmp
@@ -191,9 +189,11 @@ _CAFFindPossibleCompletions(){
 				fi
 			    done
 			    if [ "$ranUntilTheEnd" -eq 1 ] ; then
-				# echo "match found: $tmp"
-				COMPREPLY="$tmp"
-				return 0
+				tmp=( $(compgen -W "$tmp" -- "$thisWord") )
+				if [[ "$tmp" != "" ]] ; then
+				    COMPREPLY="$tmp"
+				    return 0
+				fi
 			    fi
 			fi
 		    fi
@@ -383,7 +383,7 @@ _CAFRegularComplete(){
     # Now, do the actual magic. Create a list of completions that are
     # going to be added to the standard suggestions.
 
-    _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "master/config/"
+    _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "config/master/"
     _CAFFilterFiles "$prefices" ".cfg"
     _CAFShortenCompreply "$thisWord" "$thisDir"
 
