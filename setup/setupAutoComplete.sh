@@ -91,7 +91,7 @@ _CAFFindPossibleCompletions(){
     # These two variables hold all files and directories that will be
     # used as possible matches for auto-completion. They are relative
     # to $path.
-    
+
     local listOfFiles=""
     local listOfDirs=""
 
@@ -119,7 +119,7 @@ _CAFFindPossibleCompletions(){
 	local listOfDirs_new=`ls -ad $thisPath*/ 2>/dev/null | tr '\r\n' ':'`
 
 	local foundInThisPath=()
-	
+
 	for file in $listOfFiles_new  ; do
 	    if [[ "$file" != *"/" ]] ; then
 		if [[ $file != "" ]] ; then
@@ -131,7 +131,7 @@ _CAFFindPossibleCompletions(){
 		fi
 	    fi
 	done
-	for dir in $listOfDirs_new  ; do
+	for dir in $listOfDirs_new ; do
 	    if [[ $dir != "" ]] && [[ $dir != "./" ]] && [[ $dir != "../" ]] ; then
 		if [[ $listOfDirs != "" ]] ; then
 		    listOfDirs+=":"
@@ -200,38 +200,6 @@ _CAFFindPossibleCompletions(){
 		done
 	    done
 	fi
-
-	    
-	#     for dir in $listOfDirs ; do
-	# 	if [[ $listOfFiles == "" ]] ; then
-	# 	    if [[ $dir == *"config/" ]] ; then
-	# 		listOfDirsInConfig=`ls -ad $path$dir*/ | tr '\r\n' ':'`
-	# 		for dirInConfig in $listOfDirsInConfig ; do
-	# 		    if [[ $dirInConfig == *"config/master/" ]] ; then
-	# 			local tmp=$dir"master/"
-	# 			unset IFS
-	# 			COMPREPLY=( $(compgen -W "$tmp" -- $thisWord) )
-	# 			if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
-	# 			    return 0
-	# 			fi
-	# 			IFS=:
-	# 		    fi
-	# 		done
-	# 	    elif [[ $dir == *"master/" ]] ; then
-	# 		local tmp="./"
-	# 		local absolutePath=${path/#$tmp/"$PWD/"}
-	# 		if [[ $absolutePath$dir == *"config/master/" ]] ; then
-	# 		    unset IFS
-	# 		    COMPREPLY=( $(compgen -W "$dir" -- $thisWord) )
-	# 		    if [ "${#COMPREPLY[@]}" -ge 1 ] ; then
-	# 			return 0
-	# 		    fi
-	# 		    IFS=:
-	# 		fi
-	# 	    fi
-	# 	fi
-	#     done
-	# fi
     done
 
     
@@ -294,7 +262,7 @@ _CAFShortenCompreply(){
 }
 
 _CAFFilterFiles(){
-    local prefices="$1"
+    local prefixes="$1"
     local extensions="$2"
 
     local max=${#COMPREPLY[@]}
@@ -320,10 +288,10 @@ _CAFFilterFiles(){
 		done
 	    fi
 	    if [[ "$extensionMissing" -eq 0 ]] ; then
-		if [[ "$prefices" == "" ]] ; then
+		if [[ "$prefixes" == "" ]] ; then
 		    prefixMissing=0
 		else
-		    for prefix in $prefices ; do
+		    for prefix in $prefixes ; do
 			local entryShortened=`echo $entry | rev | cut -d "/" -f1 - | rev`
 			if [[ "$entryShortened" == "$prefix"* ]] ; then
 			    prefixMissing=0
@@ -366,9 +334,9 @@ _CAFRegularComplete(){
     local CAFAnalysisShare=$5
     local option=$6
 
-    local prefices=""
+    local prefixes=""
     if [ "$option" -gt 1 ] ; then
-	prefices="${command/%.py/}"
+	prefixes="${command/%.py/}"
     fi
     
     # echo ""
@@ -384,7 +352,7 @@ _CAFRegularComplete(){
     # going to be added to the standard suggestions.
 
     _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "config/master/"
-    _CAFFilterFiles "$prefices" ".cfg"
+    _CAFFilterFiles "$prefixes" ".cfg"
     _CAFShortenCompreply "$thisWord" "$thisDir"
 
     return 0
@@ -397,7 +365,18 @@ _CAFSubmitComplete(){
     local thisDir=$4
     local CAFAnalysisShare=$5
     local option=$6
-    #todo
+
+    if [[ "$previousWord" != "-"* ]] ; then
+	_CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "config/master/"
+	_CAFFilterFiles "" ".cfg"
+    elif [[ "$previousWord" == "--jobs" ]] ; then
+	_CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "config/jobLists/"
+	_CAFFilterFiles "" ".txt"
+    else
+	_CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "0" ""
+    fi
+    _CAFShortenCompreply "$thisWord" "$thisDir"
+    return 0
 }
 
 _CAFAutoComplete(){
@@ -413,7 +392,7 @@ _CAFAutoComplete(){
     local option=0
     #
     ##################################################################
-    
+
     local command=$1
     local thisWord=$2
     local previousWord=$3
@@ -444,13 +423,12 @@ _CAFAutoComplete(){
     if [[ "$CAFAUTOCOMPLETEOPT" =~ $re ]] ; then
 	option=$CAFAUTOCOMPLETEOPT
     fi
-    
+
     if [ $command == "submit.py" ] ; then
 	_CAFSubmitComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
-	return 0
+    else
+	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
     fi
-    
-    _CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
     return 0
 }
 
@@ -462,6 +440,5 @@ IFS=" "
 for script in $pythonScripts ; do
     complete -o nospace -F _CAFAutoComplete $script
 done
-#todo write complete for batch scripts
 unset pythonScripts
 unset IFS
