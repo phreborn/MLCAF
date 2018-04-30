@@ -1,4 +1,0 @@
-# -*- mode: tqfolder -*-
-
-<style.default.title = "ggF", style.default.histLineColor = 632, style.default.histFillColor = 632> @ /sig/?/mh125/ggf/;
-<style.default.title = "VBF", style.default.histLineColor = 600, style.default.histFillColor = 600> @ /sig/?/mh125/vbf/;
