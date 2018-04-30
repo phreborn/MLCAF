@@ -115,6 +115,10 @@ def main(config):
         if not samples.getListOfSampleFolders("?"):
             QFramework.BREAK("sample folder empty after purge - something is wrong!")
 
+    # perform any pre-processing of the sample folder for handling of systematic uncertainties
+    # this step is likely to be highly analysis-dependent, so this is just an example implementation
+    analyze.prepareSystematicsExample(config, samples)
+
     # load all the observables that allow access of the physics-content of your samples
     customobservables = analyze.loadObservables(config)
 
@@ -142,33 +146,6 @@ def main(config):
     if cutbased:
         # create an analysis sample visitor that will successively visit all the samples and execute the analysis when used
         visitor = analyze.createAnalysisSampleVisitor(config, cuts)
-
-        # TODO: Temporary hack only!
-        #       Do this properly once systematics are incorporated!
-        #       (also being set even for single channel visitor for simplicity)
-        #
-        #       Instead, just set these flags in the analyze style file...TypeError when running in dummy mode:
-        #       Iteration over non-sequence in "for sf in subfolders:"
-        #
-        # subfolders = samples.getListOfSampleFolders("?")
-        # for c in channels:
-        #     for sf in subfolders:
-        #         f = sf.getSampleFolder(c)
-        #         if not f: continue
-        #         f.setTagString(".mcasv.channel",f.getTagStringDefault("channel",""))
-
-        # TODO: do systematics really go here?
-        #       or should they go above if cutbased (like in runAnalysis, without the use yet of visitor) so that they can be set even if cutbased = false (MVA only analysis)
-        # if not robust and not dummy:
-        #     # perform any pre-processing of the sample folder for handling of systematic uncertainties
-        #     # this step is likely to be highly analysis-dependent, so this is just an example implementation
-        #     analyze.prepareSystematicsExample(config, samples, visitor)
-
-        # # TODO: put this in prepareSystematicsExample method?
-        # # possibly print how the folder looks like now
-        # if config.getTagBoolDefault("showChannels",False):
-        #     QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
-        #     samples.printContents("r2dt")
 
         # book algorithms that will be executed on the events before any cuts are applied or analysis jobs are executed
         analyze.bookAlgorithms(config, visitor)
