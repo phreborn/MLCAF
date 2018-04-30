@@ -10,10 +10,15 @@ Cloning the project
 
 ```bash
 setupATLAS
-lsetup git # needed for 'git submodule update --remote'
+lsetup git
 mkdir AnalysisExample
 cd AnalysisExample
-git clone --recursive ssh://git@gitlab.cern.ch:7999/atlas-caf/CAFExample.git
+# kerberos
+git clone --recursive https://:@gitlab.cern.ch:8443/atlas-caf/CAFExample.git
+# ssh
+#git clone --recursive ssh://git@gitlab.cern.ch:7999/atlas-caf/CAFExample.git
+# https
+#git clone --recursive https://gitlab.cern.ch/atlas-caf/CAFExample.git
 cd CAFExample
 git submodule update --remote
 cd ..
