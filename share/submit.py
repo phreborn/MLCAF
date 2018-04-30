@@ -32,6 +32,7 @@ if __name__ == "__main__":
     # create a pre-configured argument parser (some parts of the backend code rely on certain arguments being available, this does *NOT* mean that you need to specify each argument explicitly though)
     parser = submit.MinimalArgumentParser(executable="analyze.py")
     #add a few more specific arguments to the argparser:
+    parser.add_argument("config",type=str,nargs="+",metavar="config.cfg",help="config to be submitted",default=[])
     parser.add_argument('--jobs', default='flatNTuple/config/jobLists/jobs_ZjetsFF_analyze.txt', help='name of the queue to submit to')
     parser.add_argument('-o','--options',dest='options',type=str,nargs="+",default=[],metavar="key=value",help="changes to be made to the configuration")
     parser.add_argument('--maxSampleSize', default=-1, type=float, help='split jobs such that each job processes only so many input files that their cummulative size is below this value (in MB)')
