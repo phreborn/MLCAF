@@ -26,11 +26,29 @@ variables:
 ##########################################################################
 # stage: build
 
-compile:
+asg_compile:
   <<: *base
   stage: build
   script:
     - source /home/atlas/release_setup.sh
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make -j4
+  artifacts:
+    expire_in: 3d
+    untracked: true
+    paths:
+      - build
+      - CAFCore/cafsetup.sh
+
+standalone_compile:
+  <<: *base
+  stage: build
+  script:
+   script:
+    - set +e && lsetup root; set -e
+    - export CXX=$(which g++)
     - mkdir build
     - cd build
     - cmake ..
@@ -49,7 +67,7 @@ run_minimal:
   <<: *base
   stage: run
   dependencies:
-    - compile
+    - asg_compile
   before_script:
     - pwd
     - mkdir -p ~/.ssh
@@ -78,7 +96,7 @@ run_flatNTuple:
   <<: *base
   stage: run
   dependencies:
-    - compile
+    - asg_compile
   before_script:
     - pwd
     - mkdir -p ~/.ssh
