@@ -62,8 +62,9 @@ def main(config):
 
     QFramework.INFO("all done!")
 
+    # TODO: this doesn't work as intended for now
     # print any keys which were not read during the job
-    common.printUnreadKeys(config)
+    #common.printUnreadKeys(config)
     
 if __name__ == "__main__":
 

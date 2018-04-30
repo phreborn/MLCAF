@@ -45,8 +45,9 @@ def main(config):
     # write the sample folder to disk
     common.writeSampleFolder(config, samples)
 
+    # TODO: this doesn't work as intended for now
     # print any keys which were not read during the job
-    common.printUnreadKeys(config)
+    #common.printUnreadKeys(config)
 
     # temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # update: still necessary in 21.2.4
