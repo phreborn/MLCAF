@@ -46,7 +46,6 @@ standalone_compile:
   <<: *base
   stage: build
   script:
-   script:
     - set +e && lsetup root; set -e
     - export CXX=$(which g++)
     - mkdir build
