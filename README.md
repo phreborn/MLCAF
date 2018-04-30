@@ -13,12 +13,19 @@ setupATLAS
 lsetup git
 mkdir AnalysisExample
 cd AnalysisExample
-# kerberos
+
+# There are a few different protocol options for cloning the project, which are all provided at the top of the main page of the repository.
+# Kerberos is typically recommended if it is available (e.g. lxplus) since it does not require a username or password when interacting with remote repositories.
+# ssh acts similarly, but requires a bit of initial setup
+# https is usually the most robust, but always requres a username and password
+
+# Kerberos
 git clone --recursive https://:@gitlab.cern.ch:8443/atlas-caf/CAFExample.git
 # ssh
 #git clone --recursive ssh://git@gitlab.cern.ch:7999/atlas-caf/CAFExample.git
 # https
 #git clone --recursive https://gitlab.cern.ch/atlas-caf/CAFExample.git
+
 cd CAFExample
 git submodule update --remote
 cd ..
