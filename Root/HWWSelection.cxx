@@ -1,5 +1,7 @@
 #include "CAFExample/HWWSelection.h"
 
+// this is an xAOD helper class
+
 // ClassImp(Selection)
 // ClassImp(PtSelection)
 // ClassImpT(AuxDataSelection, 1)

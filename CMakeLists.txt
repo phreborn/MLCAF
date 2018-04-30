@@ -12,10 +12,6 @@ else()
   set(HAS_PARENT 1)
 endif()
 
-# write a setup script
-execute_process(
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore)
-
 # we try to discover if we are compiling inside an ASG environment or not
 find_package( AnalysisBase QUIET) 
 
@@ -24,13 +20,22 @@ find_package( ROOT COMPONENTS Core Matrix RooFitCore Minuit2)
 
 # set some variables for easier handling
 set(CAFExampleLinkDef ${PROJECT_SOURCE_DIR}/Root/LinkDef.h)
-set(CAFExamplePython ${PROJECT_SOURCE_DIR}/python/__init__.py)
-file(GLOB CAFExampleSources Root/*.cxx)
-file(GLOB CAFExampleHeaders CAFExample/*.h)
+file(GLOB CAFExamplePython python/*.py) #note: this does not include __init__.py since it's not generated yet!
+list(APPEND CAFExamplePython ${PROJECT_SOURCE_DIR}/python/__init__.py)
 file(GLOB CAFExampleTests test/*.py)
 
 IF(${AnalysisBase_FOUND})
   # this is ASG compilation, we don't need to do anything
+  file(GLOB CAFExampleSources Root/*.cxx)
+  file(GLOB CAFExampleHeaders CAFExample/*.h)
+
+  # generate the LinkDef.h 
+  execute_process(
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    )
+
+  # write a setup script
+  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore)
 
   # Set up the usage of CTest:
   IF(NOT ${HAS_PARENT})
@@ -50,11 +55,6 @@ IF(${AnalysisBase_FOUND})
   # register this as a package to ASG
   atlas_subdir( CAFExample )
 
-  # generate the LinkDef.h 
-  execute_process(
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --loadpackage --verbose --python ${CAFExamplePython} --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
-    )
-    
   # use the standard ROOT method of dictionary generation
   atlas_add_root_dictionary( CAFExample CAFExampleCintDict
     ROOT_HEADERS ${CAFExampleHeaders} ${CAFExampleLinkDef}
@@ -92,11 +92,50 @@ else()
   message( "compiling CAFExample in standalone mode" )
   set(WITHOUT_ASG ON )
 
+  file(GLOB CAFExampleSourcesAll Root/*.cxx )
+  file(GLOB CAFExampleHeadersAll CAFExample/*.h )
+  execute_process(COMMAND grep -L xAOD ${CAFExampleSourcesAll} OUTPUT_VARIABLE CAFExampleSourcesTMP )
+  execute_process(COMMAND grep -L xAOD ${CAFExampleHeadersAll} OUTPUT_VARIABLE CAFExampleHeadersTMP )
+  string(REGEX REPLACE "[ \r\n]+" ";" CAFExampleSources ${CAFExampleSourcesTMP})
+  string(REGEX REPLACE "[ \r\n]+" ";" CAFExampleHeaders ${CAFExampleHeadersTMP})
+
+  # generate the LinkDef.h 
+  execute_process(
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    )
+
   # set general CMake settings
   set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
   set(CMAKE_DISABLE_SOURCE_CHANGES  OFF)  
   set(CMAKE_VERBOSE_MAKEFILE OFF)
   set(CMAKE_COLOR_MAKEFILE   ON)
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
+  set(CAFExamplePythonDir ${CMAKE_CURRENT_BINARY_DIR}/CAFExample)
+  execute_process(COMMAND mkdir -p ${CAFExamplePythonDir})
+  foreach(module ${CAFExamplePython})
+    execute_process(COMMAND ln -sf ${module} ${CAFExamplePythonDir})
+  endforeach()
+
+  # write a setup script
+  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore --binDir ${CMAKE_CURRENT_BINARY_DIR})
+
+  # register all the files and directories
+  include_directories ("${PROJECT_SOURCE_DIR}")
+  include_directories ("${PROJECT_SOURCE_DIR}/CAFCore/QFramework")
+  include_directories ("${PROJECT_SOURCE_DIR}/CAFCore/SFramework")
+  include_directories ("${ROOT_INCLUDE_DIRS}")
+
+  # generate the dictionary source code
+  include(${ROOT_USE_FILE})
+  ROOT_GENERATE_DICTIONARY(G__CAFExample ${CAFExampleHeaders} LINKDEF ${CAFExampleLinkDef})
+
+  # register the shared object to include both sources and dictionaries
+  add_library( CAFExample SHARED ${CAFExampleSources} G__CAFExample.cxx)
+
+  # link everything together at the end
+  target_link_libraries( CAFExample ${ROOT_LIBRARIES} )
 
   # require ROOT
   find_package( ROOT REQUIRED )

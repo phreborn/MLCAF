@@ -9,6 +9,7 @@ def parseArguments():
     parser.add_argument("sourceDir", help="absolute path of source directory", type=str)
     parser.add_argument("setupDir", help="absolute path of setup directory", type=str)
     parser.add_argument("CAFCoreDir", help="absolute path of CAFCore directory", type=str)
+    parser.add_argument("--binDir",help="absolute path of binary directory", type=str,required=False,default=None)
     args = parser.parse_args()
     return args
 
@@ -46,6 +47,9 @@ if __name__ == "__main__":
         f.write("if [ -f "+args.CAFCoreDir+"/cafsetup.sh ]; then \n\tsource "+args.CAFCoreDir+"/cafsetup.sh\nfi\n")
         #add the path to this script (overwriting what might have been set by cafsetup.sh !) :
         f.write("\n#export path to this script for easier re-setup, e.g., for batch submission\n")
+        if args.binDir: 
+            f.write("export PYTHONPATH=$PYTHONPATH:"+args.binDir+"\n")            
+            f.write("export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"+args.binDir+"\n")            
         f.write("export CAFANALYSISSETUP="+scriptPath+"\n")
         
         
