@@ -1,6 +1,8 @@
 from QFramework import *
 from ROOT import *
 
+from CAFExample import HWWEventWeight
+
 import os
 workdir = ""
 if os.getenv("ROOTCOREBIN") :
