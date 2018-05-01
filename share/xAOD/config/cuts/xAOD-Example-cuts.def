@@ -6,7 +6,7 @@
 
 +CutChannels {
     # to use the per-event event weights poperly, use "Weight" as .weightExpression here
-    <.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_nominal:$(cand)", .title="Channel Selection">
+    <.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_$(weightname):$(cand)", .title="Channel Selection">
     +CutVgammaVjet_overlap {
         <.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
         +CutOtherLep {
