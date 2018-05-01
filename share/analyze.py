@@ -196,8 +196,9 @@ def main(config):
         memCanvas = QFramework.TQHistogramUtils.applyATLASstyle(memGraph,"Internal",0.2,0.9,0.9,"timestamp","rss [byte]")
         memCanvas.SaveAs(memFileName.Data())
 
+    # TODO: this doesn't work as intended for now
     # print any keys which were not read during the job
-    common.printUnreadKeys(config)
+    #common.printUnreadKeys(config)
 
     # write and print some performance information like memory usage and runtime
     common.printExecutionStatistics(config)
