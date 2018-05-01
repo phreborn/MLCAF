@@ -19,9 +19,9 @@ def addObservables(config):
     ERROR("Couldn't import HWWLepIDHelper")
     return False
 
-  lepIDSelectionTag = config.getTagStringDefault("lepIDSelectionTag","VH")
+  lepIDSelectionTag = config.getTagStringDefault("lepIDSelectionTag","2L")
   lepIDHelper = hwwLepIDHelper.getLepIDHelper(lepIDSelectionTag)
-  INFO("in HWWLeptonIDObservable: Using lepton ID selection '{}' (see observables/HWWLepIDHelper.py for details)".format(lepIDSelectionTag))
+  INFO("in HWWLeptonIDObservable: Using lepton ID selection '{}' (see CAFExample/python/HWWLepIDHelper.py for details)".format(lepIDSelectionTag))
 
   INFO("adding HWWLeptonIDObservable")
   #=== The integers must match the correct modes inside HWWLeptonIDObservable.cxx
