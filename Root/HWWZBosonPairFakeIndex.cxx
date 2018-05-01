@@ -3,7 +3,7 @@
 
 
 // uncomment the following line to enable debug printouts
-//  #define _DEBUG_
+// #define _DEBUG_
 // you can perform debug printouts with statements like this
 // DEBUG("error number %d occurred",someInteger);
 
@@ -208,9 +208,9 @@ double HWWZBosonPairFakeIndex::getValue() const {
   // value retrieval function, called on every event for every cut and histogram
   DEBUGclass("entering getValue() function");
 
-  // the TQEventObservable only works in ASG_RELEASE RootCore, hence
+  // the TQEventObservable only works in an ASG environment which HAS_XAOD, hence
   // we encapsulate the implementation in an ifdef/ifndef block
-  #ifndef ASG_RELEASE
+  #ifndef HAS_XAOD
   #warning "using plain ROOT compilation scheme - please add '-DASG_RELEASE' to your packages 'Makefile.RootCore'"
   return std::numeric_limits<double>::quiet_NaN();
   #else

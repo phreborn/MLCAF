@@ -36,12 +36,12 @@ double MjjMaxObservable::getValue() const {
   // value retrieval function, called on every event for every cut and histogram
   DEBUGclass("entering function");
 
-  // the TQEventObservable only works in ASG_RELEASE RootCore, hence
+  // the TQEventObservable only works in an ASG environment which HAS_XAOD, hence
   // we encapsulate the implementation in an ifdef/ifndef block
-  // #ifndef ASG_RELEASE
-  // #warning "using plain ROOT compilation scheme - please add '-DASG_RELEASE' to your packages 'Makefile.RootCore'"
-  // return std::numeric_limits<double>::quiet_NaN();
-  // #else
+  #ifndef HAS_XAOD
+  #warning "using plain ROOT compilation scheme - please add '-DASG_RELEASE' to your packages 'Makefile.RootCore'"
+  return std::numeric_limits<double>::quiet_NaN();
+  #else
   // in the rest of this function, you should retrieve the data and calculate your return value
   // here is the place where most of your custom code should go
   // a couple of comments should guide you through the process
@@ -103,7 +103,7 @@ double MjjMaxObservable::getValue() const {
 
   DEBUGclass("returning");
   return retval;
-  // #endif
+  #endif
 }
 //______________________________________________________________________________________________
 
