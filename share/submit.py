@@ -15,7 +15,7 @@ def main(args):
     
     outputFileNameTemplate="{output}/unmerged_{globalIdentifier}/unmerged_{{identifier}}.root".format(output=args.output, globalIdentifier=args.identifier)
     
-    templateCommand="analyze.py {config} --restrict {{restrict}} --jobID {{identifier}} --options outputFile={outFileTemplate} ".format(config=",".join(args.config), outFileTemplate=outputFileNameTemplate)
+    templateCommand="analyze.py {config} --restrict {{restrict}} --jobID {{identifier}} --options outputFile={outFileTemplate} {{options}}".format(config=",".join(args.config), outFileTemplate=outputFileNameTemplate)
     
     templateCommand += " ".join(args.options) #forward options from command line to individual jobs
     
