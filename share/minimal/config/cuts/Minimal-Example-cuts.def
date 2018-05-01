@@ -7,5 +7,5 @@
     <.cutExpression = 1, .weightExpression = "[weight]", .title="Channel Selection">
     +CutMjj {
     	<.cutExpression = "[mjj] > 600000.", .title="$m_{jj} > 600$ GeV">
-    } #End: CutVBFMjj
+    } #End: CutMjj
 } #End: CutChannels
