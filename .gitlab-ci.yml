@@ -22,6 +22,7 @@ variables:
 
 .asg_setup: &asg_setup
   before_script:
+    - if [ -z "$KRB_USERNAME" ]; then exit 0; fi
     - source /home/atlas/release_setup.sh
     - pwd
     - mkdir -p ~/.ssh
