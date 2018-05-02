@@ -21,32 +21,32 @@ counters are organized and stored in TQFolders.
 
 In this tutorial, we will work on an
 example completely detached from CAF. This tutorial builds a tree structure of
-animals (no even close to real taxonomy). This approach underlines the
+animals (not even close to real taxonomy). This approach underlines the
 versatility of the syntax and helps to focus on the actual syntax instead of
 being distracted by all the details of a real physics cut file.
 
 # Basic `TQFolder` syntax
 We want to create a tree structure containing information about animals. The
-base folder should be called "Animals". the sub folders "Mammals", "Birds" and
+base folder should be called "Animals". The sub folders "Mammals", "Birds" and
 "Reptiles" should also contain a third layer of sub folders. The desired
 structure is illustrated below.
 
 ```
 Animals
  |- Mammals
-     |- Dog
-     |- Cat
-     |- Fox
+ |   |- Dog
+ |   |- Cat
+ |   |- Fox
  |- Birds
-     |- Eagle
-     |- Mockingbird
+ |   |- Eagle
+ |   |- Mockingbird
  |- Reptiles
      |- Turtle
      |- Lizard
 ```
 
- The standard way to define a folder in TQFolder syntax is by using the `+FolderName {
-Content }` syntax, where `FolderName` is an arbitrary name, `Content` content
+The standard way to define a folder in TQFolder syntax is by using the `+FolderName { Content }`
+syntax, where `FolderName` is an arbitrary name, `Content` content
 is a placeholder for the contents of a folder. We can create the file
 `animals.tqfolder` and add 
 
@@ -104,7 +104,7 @@ tags `tagName1="value"`, `tagName2=42`, `tagName3="other_value"` and
 }
 ```
 
-Tags can be defined in separate `<>` brackets or join them in one pair separated by a comma.
+Tags can be defined in separate `<>` brackets or joined in one pair and separated by a comma.
 
 <!-- Check that the tag example is correct. -->
 <!-- console
@@ -113,7 +113,7 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('tag_exampl
 ```
 -->
 
-As an example we would like to annotated the our animal tree with tags to
+As an example we would like to annotate our animal tree with tags to
 indicate the animals skin type (`skin` tag), whether they are vegetarian (tag
 `vegetarian`) and their approximate global population.
 
@@ -168,22 +168,22 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('animals.tq
 ```
 -->
 
-Wait. There are tags attached to parent folders, like `skin` attched to
+Wait. There are tags attached to parent folders, like `skin` attached to
 `Mammel`, but the `population` tags are attached to the leaf notes?  Are all
 Mammals non-vegetarian? We will see
 in the next chapter why this structure is useful. In short, it prevents us from
-repeating tags, if they apply for all the child folders.
+repeating tags if they apply for all the child folders.
 
 So far, we have seen the standard way of defining a full TQFolder tree. There
 are alternative methods for setting tags and creating folders. The alternative
 syntax can be used to modify or extend an existing TQFolder tree. We can modify
-and extend specify folder in the three by addressing them with their path. The
+and extend specific folders in the tree by addressing them with their path. The
 path of the `Mockingbird` folder would be `Animals/Birds/Mockingbird`.
 
-The path can contain the wildcard charachers `?`
-and `*`. The meaning of the two whildcards depend on their use. If they are used
+The path can contain the wildcard characters `?`
+and `*`. The meaning of the two wildcards depend on their use. If they are used
 as a placeholder of a folder name (i.e. between two `/` or between `/` and
-the start/end of the path), `*` matches any number of folder layers (including)
+the start/end of the path), `*` matches any number of folder layers (including
 zero), whereas `?` match exactly one folder layer. For example
 `Animals/?/Ghost` matches `Animals/Mammals/Ghost`, `Animals/Birds/Ghost` or
 `Animals/Reptiles/Ghost`. Multiple matches are possible. On the other hand
@@ -192,10 +192,10 @@ zero), whereas `?` match exactly one folder layer. For example
 
 When the wildcard characters are used as part of a folder name, `*` matches any
 number of characters, whereas `?` matches exactly one character. This means
-M`R*` matches `Rabit` or `Reptiles`, `?at` matches `Rat`, `Cat` or `Bat`.
+`R*` matches `Rabit` or `Reptiles`, `?at` matches `Rat`, `Cat` or `Bat`.
 
-To set tags in an existing TQFolder tree, you can use the `<TagName=Value>
-@FolderPath;` syntax.
+To set tags in an existing TQFolder tree, you can use the `<TagName=Value> @FolderPath;`
+syntax.
 
 Let's say we want add a tag to the `Fox` folder. Append
 <!-- append animals.tqfolder -->
@@ -204,7 +204,7 @@ Let's say we want add a tag to the `Fox` folder. Append
 ```
 to your existing TQFolder definition file.
 
-Furthermore, lets assume that, that we want to add a tags `number_of_legs` tag to all
+Furthermore, lets assume, that we want to add the tag `number_of_legs` tag to all
 the leaf folders. All the animals except birds have 4 legs in our example. This
 means we could use wildcards to add the tag `number_of_legs=4` to all leaf
 folders and then overwrite this value for Birds. Add 
@@ -235,11 +235,11 @@ in order to add a lion.
 }
 ```
 
-This peace of code adds a new folder to the `Mammals` folder. As you see, it is
+This piece of code adds a new folder to the `Mammals` folder. As you see, it is
 possible to create new TQFolders and/or new tags using this method. We are not
-limited to a single folder not limited to a single folder layer. However, we have to
-set the `number_of_legs` tag manually because the `<number_of_legs=4>
-@Animals/?/?;` line is executed before the lion folder existed.
+limited to a single folder nor to a single folder layer. In our example, we have to
+set the `number_of_legs` tag manually because the `<number_of_legs=4> @Animals/?/?;`
+line is executed before the lion folder existed.
 
 This syntax becomes really powerful when we combine it with wildcards. If we are
 charged with the task to add the `Unicron` to the `Mammals`, `Birds` and
@@ -379,7 +379,7 @@ Note how in this version the unicorn and lion is placed in the tree.
 
 The above method only makes sense if we don't have any binary object (like
 `TH1F`) inside our tree. In our case we only had tags. If you want to save and
-load a TQFolder including its objects with
+load a TQFolder including its objects, you should use 
 
 <!-- append load.py -->
 ```
@@ -392,7 +392,7 @@ reloaded.printContents()
 Of course, usually you will exit the python session and start a new one before
 reloading the folder.
 
-You can also open the `tutorial.root` file with ROOT and inspect it with `ls` or
+You can also open the `tutorial.root` file with ROOT and inspect it with `.ls` or
 a `TBrowser`. There should be an item called `animal_tree`. This is our TQFolder
 inside the ROOT file.
 
@@ -407,8 +407,9 @@ $ python load.py
 Loading and saving TQFolders is already cool, but we want to do more. For
 example we want to read and write tags.
 
-For example, assume we want to get the population of turtles programmatically,
-we can retrieve the turtle folder and get the value of the `population` tag.
+For example, assume we want to get the population of turtles programmatically.
+We can retrieve the turtle folder and get the value of the `population` tag by
+using the `getTag...()` methods.
 <!-- append load.py -->
 ```
 turtle = animals.getFolder("Animals/Reptiles/Turtle")
@@ -417,16 +418,17 @@ print population
 ```
 The method `getTagIntegerDefault` returns the tag's value as an integer. If the
 tag is not found, it returns the given default value, here `-1`. There are a
-couple of other methods to retrieve string, booleans, lists (a.k.a. vector
-tags), etc. Type `animals.getTag` and pres `Tab` to trigger the auto completion.
-`getTagStandardStringDefault, getTagString, getTagStringDefault, getTagVBool,
-getTagVDouble, getTagVInt, getTagVInteger, getTagAsString,
-getTagVStandardString, getTagBool, getTagVString, getTagBoolDefault,
-getTagDefault, getTagDouble, getTagDoubleDefault, getTagInteger,
-getTagIntegerDefault, getTagList, getTagListLength`.
+couple of other methods to retrieve strings, booleans, lists (a.k.a. vector
+tags), etc. Type `animals.getTag` and press `Tab` to trigger the auto completion.
+The list should include
+`getTagStandardStringDefault`, `getTagString`, `getTagStringDefault`,
+`getTagVBool`, `getTagVDouble`, `getTagVInt`, `getTagVInteger`,
+`getTagAsString`, `getTagVStandardString`, `getTagBool`, `getTagVString`,
+`getTagBoolDefault`, `getTagDefault`, `getTagDouble`, `getTagDoubleDefault`,
+`getTagInteger`, `getTagIntegerDefault`, `getTagList` and `getTagListLength`.
 
 When using the `getTagIntegerDefault` method, we can't distinguish the cases
-when the tag value is equal to the default, or the tag is non-existent. We check
+when the tag value is equal to the default, or the tag is non-existent. We can check
 whether a tag exists with
 
 <!-- append load.py -->
@@ -436,11 +438,10 @@ print turtle.hasTag("population")
 which in this case prints `True`.
 
 
-To modify existing or add new tags, we can use the method `setTag("tagName",
-"value")`. The type of
-the tags is deduced form the value you give to the method. Assume we figured out
-that the mammal type unicorn has only three legs. The following lines fix this
-issue.
+To modify existing or add new tags, we can use the method `setTag("tagName", "value")`.
+The type of the tags is deduced form the value you give to the method. Assume
+that we have discovered that the mammal-type unicorn has only three legs. The following
+lines fix this issue.
 
 <!-- append load.py -->
 ```
@@ -450,8 +451,8 @@ mammal_unicorn.printContents(":dt")
 ```
 
 In the beginning, when we annotated the folders with tags, we attached some tags
-to the parents. How does this now work out? Lets say we want to know the skin
-typo of a rabbit. Is there a skin tag for the rabbit?
+to the parents. How does this work out now? Let's say we want to know the skin
+type of a rabbit. Is there a skin tag for the rabbit?
 
 <!-- append load.py -->
 ```
@@ -472,10 +473,11 @@ Instead of using the exact tag name `skin`, we can prefix it with a tilde `~`
 to get the tag at the folder or at any of its parents. The snippet above
 therefore prints `fur`.
 
-This works also the other way round. If you append a tilde to a tag name it will
+This also works the other way round. If you append a tilde to a tag name, it will
 search for the tag at the folder or at any of its children.
 
-> Task: Unicorns have been spotted. Change the population of all unicorns to 1.
+> Task: Unicorns have been spotted. Change the population of all unicorns to 1
+  by using the API.
 
 <!-- Test above python lines. -->
 <!-- console
@@ -517,6 +519,7 @@ definition file is loaded in order to modify an existing TQFolder structure.
 For example, this is  done after Monte Carlo samples have been initialized. This
 allows the use to set tags or move/copy samples around.
 
+
 Back to our example. Lets create a patch file called `patch.tqfolder`.
 
 <!-- write patch.tqfolder -->
@@ -524,10 +527,14 @@ Back to our example. Lets create a patch file called `patch.tqfolder`.
 <population=2> @Animals/Mammals/Unicorn;
 ```
 
+Run `animals.importFromTextFile("patch.tqfolder")`
+to patch our animals with the above file. Instead of loading a file, you can
+pass the TQFolder string directly to `importFromText`.
+
 > Task: It has been discovered that there are exactly two unicorns of all types. Apply
   this modification using a patch file. Wildcards might make things easier.
 
-> Task: Add the dog to the tree using a path file. Make sure that it has the usual tags:
+> Task: Add the dog to the tree using a patch file. Make sure that it has the usual tags:
   `number_of_legs`, `vegetarian`, `skin`, `population`. Some of its parent tags
   might be reusable.
 
@@ -535,8 +542,9 @@ Back to our example. Lets create a patch file called `patch.tqfolder`.
 # Advanced
 So far, all the methods were static. The TQFolder syntax defines functions which
 are executed once the folder is loaded. These function modify the tree structure
-and influence the way the file is parsed. The function are particularly powerful
-in a patch file. All functions start with a `$` sign followed by their name and
+and influence the way the file is parsed. The functions are particularly powerful
+in a patch files where you can change an existing structure. All
+functions start with a `$` sign followed by their name and
 their arguments in parenthesis.
 
 All the subsections in this chapter cover a single function. The chapters assume
@@ -629,13 +637,13 @@ $copy("Animals/Mammals/Hummingbird >> Animals/Birds::Pidgin");
 The `create` method creates a new `TQFolder` or `TQSampleFolder`. The function
 takes the two named arguments `path` and `type`.  The type can be either "f" or
 "folder" to create a `TQFolder`, or it can be "sf" or "samplefolder" to create a
-`TQSampleFolder`. Parent folder are created automatically if missing.
+`TQSampleFolder`. Parent folders are created automatically if missing.
 
 ```
 $create(path="path/to/new/folder", type="f or sf");
 ```
 
-> Task: Create a new TQFolder for the mammal zerba.
+> Task: Create a new TQFolder for the mammal zebra.
 
 <!-- console
 ```
@@ -662,7 +670,7 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('create.tqf
 ## $delete
 The `delete` method lets you delete parts of the TQFolder. The `delete` method
 takes a single argument specifying the folder. If the folder is not empty,
-deleting it will fail. To delete non-empty folder  append `!` to the folder
+deleting it will fail. To delete non-empty folders,  append `!` to the folder
 name.
 
 ```
@@ -696,7 +704,7 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('delete.tqf
 ## $escape
 The `escape` method is similar to ignore but takes an optional argument which
 gives it the power of an if statement. Without the optional argument everything
-in the current level of a sample folder is skipped.
+in the current level of a sample folder below the statement is skipped.
 
 <!-- write escape.tqfolder -->
 ```
@@ -747,11 +755,11 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('escape.tqf
 The argument can be prefixed by an `!` which inverts the logic.
 
 The real power of this command becomes obvious when it is combined with `for`
-loops in which case the current  folder name is not hard coded but can be
+loops or wildcards in which case the current  folder name is not hard coded but can be
 different in each iteration.
 
 ## $for
-The `for` command iteraters over numver in a given range. The syntax is as
+The `for` command iterates over numbers in a given range. The syntax is as
 follows:
 ```
 $for(index, start, stop) { ... };
@@ -855,7 +863,7 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('ignore.tqf
 ## $import
 The `import` command allows you to import a TQFolder structure from a root file.
 Assumed that you still have the `tutorial.root` from above, we could import this
-the animal tree into a larger strucutre.
+animal tree into a larger structure.
 
 <!-- write import.tqfolder -->
 ```
@@ -875,15 +883,15 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('import.tqf
 The `include` command is similar to the `import` function. The `include` command
 allows you to include a TQFolder structure from a text
 file as if the file's content is copy-pasted into the TQFolder
-defintion. The syntax for of the function is:
+definition. The syntax for of the function is:
 
 ```
-$include("path_to.file");
+$include("path_to/file");
 ```
 
-> Task: A colleque wants to contribute to the animal tree and wrote the
+> Task: A colleague wants to contribute to the animal tree and wrote the
   definition of a horse. Save the following snipped to the file `horse.tqfolder`
-  and import it in the Mammals folder.
+  and import it in the mammals folder.
 
 <!-- write horse.tqfolder -->
 ```
@@ -916,16 +924,16 @@ are mandatory.
 | Argument | Description |
 |----------|-------------|
 | `tag`    | The name of the tag which should be modified. |
-| `operator` | Can be either of `+-*/=`. This determines the operation the is performed between the existing tag value and the one specfied by the `value` arugment " 
-| `value` | The value use with the operater and the tag's value. |
-| `path`  | Path to the sample folder which on which the modifiction should be performed. |
-| `filter` | The optinal argument tag be `s` or `sf` to limit the application to sample or sample folders, respectively. |
-| `create` | If `true`, creates the tag if non-existant. Existing tags are not touched. |
-| `override` | If `true` and `create=true`, creates tag if non-existant, existing tags are overwritten. |
-| `force` | Can be used if you want to overwrite the type of an existing tag. |
+| `operator` | Can be either of `+-*/=`. This determines the operation that is performed between the existing tag's value and the one specified by the `value` argument.| 
+| `value` | The value used with the operator and the tag's value. |
+| `path`  | Path to the sample folder on which the modification should be performed. |
+| `filter` | The optional argument `filter` can be `s` or `sf` to limit the application to sample or sample folders, respectively. |
+| `create` | If `true`, creates the non-existent tags. Existing tags are not touched. |
+| `override` | If `true` and `create=true`, creates non-existent tags, existing tags are overwritten. |
+| `force` | If `true`, allows you to overwrite the type of an existing tag. |
 
-> Task: The definition of legs have been changed. A the number of legs should be
-  the number of legs at one side of the animal. This means a dog has two legs,
+> Task: The definition of *legs* has been changed. The tag `number_of_legs` should be
+  the number of legs on one side of the animal. This means a dog has two legs,
   an eagle has one leg. Use the `filter` method to apply this change.
 
 <!-- console
@@ -980,8 +988,8 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('move.tqfol
 
 ## $print
 The print method is similar to the `printContents` method. It is executed on the
-TQFOlder where it is written with all the folders defined so far. The print
-methkd takes an optional argument. The optional argument specifies the print
+TQFolder where it is written with all the folders defined so far. The print
+method takes an optional argument. The optional argument specifies the print
 options (the part after the `:` on `printContents`), for example `d`, `t` or
 `r1` , `r2`, ...
 
@@ -1006,11 +1014,11 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('print.tqfo
 
 > Task: Add a `print` statement such that the animals folder is printed before
   the reptiles are added. The printout should contain all tags an all sub
-  folders.
+  folders (except the ones of the reptiles).
 
 ## $printline
-The `printline` function print its argument when the text file is loaded. This
-is useful for debugging complex TQFolder definitions.
+The `printline` function print its argument onto the command line when the text file is loaded. This
+is useful, for example, to debug complex TQFolder definitions.
 
 <!-- write printline.tqfolder -->
 ```
@@ -1031,17 +1039,17 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('printline.
 
 ## $replace
 
-The `replace` method lets you expend the `$(tagName)` placeholders inside the
-tag strings. For example, if we have a tag
+The `replace` method lets you expand `$(tagName)` placeholders inside a
+tag's value. For example, if we have the tag
 ```
 <habitat="Lives in $(location)">
 ```
 which uses another tag `location` inside a tag, `replace` can be used to
 replace `$(location)` with a string.
 
-The functions tags a positions argument which determines which tags should be
-replaced where. It consists of a folder filter string and a tag filter string
-separated by a colon. If the first argument is `"*:*"`, the replacement is
+The function takes a positions argument which determines which tags should be
+replaced. It consists of a folder filter string and a tag filter string
+separated by a colon. If this first argument is `"*:*"`, the replacement is
 applied to all folders an all tags. The first argument is followed by an
 arbitrary number of named arguments which are the key-value pairs for the
 substitution.
@@ -1086,8 +1094,8 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('replace.tq
 
 ## $write
 The `write` command lets your write parts of the TQFolder tree to a text file.
-The method takes the mandatory argument `filename` which is the text file
-destination. The optional argument `target` is the path to the TQFolder you
+The method takes the mandatory argument `filename` which is the destination text file. 
+The optional argument `target` is the path to the TQFolder you
 would like to export. If this is omitted, the current folder is exported.
 
 The following example illustrates how to export the mammals folder.
@@ -1125,7 +1133,7 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('write.tqfo
 ```
 -->
 
-After loading the folder the file `write_out.txt` contains all mammals.
+After loading the above TQFolder, the file `write_out.txt` contains all mammals.
 
 <!-- console_output -->
 ```
