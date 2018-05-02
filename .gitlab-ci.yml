@@ -19,6 +19,11 @@ variables:
   tags:
     - k8s
 
+.standalone: &standalone
+  image: rootproject/root-ubuntu16
+  tags:
+    - k8s
+
 .asg_setup: &asg_setup
   before_script:
     - if [ -z "$KRB_USERNAME" ]; then exit 0; fi
@@ -51,10 +56,15 @@ variables:
     - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg
     - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
 
-.standalone: &standalone
-  image: rootproject/root-ubuntu16
-  tags: 
-    - k8s
+.xAOD_script: &xAOD_script
+  script:
+    - source setup/setupAnalysis.sh
+    - mkdir run
+    - cd run
+    - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
+    - initialize.py xAOD/config/master/initialize-xAOD-Example.cfg
+    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg
+    - visualize.py xAOD/config/master/visualize-xAOD-Example.cfg
 
 ##########################################################################
 # job definitions
@@ -113,6 +123,20 @@ run_flatNTuple:
   <<: *asg
   <<: *asg_setup
   <<: *flatNTuple_script
+  stage: run
+  dependencies:
+    - asg_compile
+  artifacts:
+    paths:
+      - run/sampleFolders
+      - run/results
+    name: "${CI_JOB_NAME}"
+    expire_in: 3 mos
+
+run_xAOD:
+  <<: *asg
+  <<: *asg_setup
+  <<: *xAOD_script
   stage: run
   dependencies:
     - asg_compile
