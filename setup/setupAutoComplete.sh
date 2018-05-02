@@ -183,7 +183,7 @@ _CAFFindPossibleCompletions(){
 
 			# Check if this completion matches the entire
 			# parent auto-complete string.
-			for (( ii=0;ii<"$[ i+1 ]";ii++ )) ; do
+			for ii in {0..$i}; do
 			    tmp+="${immediateCompleteDirs[ii]}"
 			done
 			if [[ "${path/#.\//$PWD/}$file" == *"$tmp" ]] ; then
@@ -193,7 +193,7 @@ _CAFFindPossibleCompletions(){
 			    # step by step (counter $ii).
 			    matchedPart="$file"
 			    local ranUntilTheEnd=1
-			    for (( ii="$[ i+1 ]";ii<${#immediateCompleteDirs[@]};ii++ )) ; do
+			    for ii in {$((expr $i + 1))..${#immediateCompleteDirs[@]}} ; do
 				ranUntilTheEnd=1
 				matchedPartPrev="$matchedPart"
 				tmpFiles=`ls -ap "$path$matchedPart" 2>/dev/null | tr '\r\n' ':'`
