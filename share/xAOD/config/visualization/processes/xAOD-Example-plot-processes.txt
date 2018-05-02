@@ -1,4 +1,3 @@
-.path = "bkg/$(channel)/Zjets_Sherpa2p2p1", .name = "ZjetsSherpa",   .title = "$Z+$jets Sherpa",   .isSignal = true, histLineColor = kRed,    histLineWidth = 3, histLineStyle = 1, histFillStyle = 0
 .path = "bkg/$(channel)/Zjets_Alpgen",      .name = "ZjetsAlpgen",   .title = "$Z+$jets Alpgen",   .isSignal = true, histLineColor = kGreen,  histLineWidth = 3, histLineStyle = 1, histFillStyle = 0
 .path = "bkg/$(channel)/Zjets_Powheg",         .name = "ZjetsPowheg",   .title = "$Z+$jets Powheg",   .isSignal = true, histLineColor = kYellow, histLineWidth = 3, histLineStyle = 1, histFillStyle = 0
 .path = "bkg/$(channel)/Vgamma",                       .name = "Vgamma", .title = "$V+\#gamma$", .isBackground = true, histFillColor = 419, histLineColor = kBlack
