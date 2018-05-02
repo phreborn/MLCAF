@@ -49,8 +49,8 @@ in package: CAFExample
 written to directory: .
 not including expression member
 build this observable now? (y/N) y
-wrote './CAFExample/MjjMaxObservable_test.h'!
-wrote './Root/MjjMaxObservable_test.cxx'!
+wrote './CAFExample/MjjMaxObservable.h'!
+wrote './Root/MjjMaxObservable.cxx'!
 the wizard has detected a LinkDef.h file in the target package - do you want to add an entry for your observable class? (y/N) y
 ```
 We can also directly add our new class to the `LinkDef.h` to ensure that the framework will pick up our new class (although this step might not be necessary, since the link definition file of CAFExample (and CAFCore) is created automatically).
@@ -78,9 +78,9 @@ protected:
   virtual bool initializeSelf() override;
   virtual bool finalizeSelf() override;
 public:
-  MjjMaxObservable_test();
-  MjjMaxObservable_test(const TString& name);
-  virtual ~MjjMaxObservable_test();
+  MjjMaxObservable();
+  MjjMaxObservable(const TString& name);
+  virtual ~MjjMaxObservable();
   ClassDefOverride(MjjMaxObservable, 1);
 
 };
