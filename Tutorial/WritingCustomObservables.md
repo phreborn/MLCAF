@@ -151,10 +151,12 @@ customObservables.snippets: [...all other observables...], MjjMaxObservable
 
 ## Defining histograms/cuts/...
 The observable can now be used to define histograms, cuts, event lists, etc. Let's define a simple histogram with the MjjMax distribution.
-Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add it at the desired cut stages:
+Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add it at the desired cut stages e.g.:
 ```
 TH1F('MjjMax', '', 50, 0., 500.) << ( [MjjMax]*0.001 : 'm_{jj}^{max} [GeV]');
-@CutFakeEl/*: [...other histograms...], MjjMax
+@CutFakeEl/*: [...other histograms...], MjjMax;
+@CutFakeMu/*: [...other histograms...], MjjMax;
+
 ```
 
 ## Running the analysis and looking at newly created histogram
