@@ -10,9 +10,9 @@ RooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby
                 All rights reserved, please read http://roofit.sourceforge.net/license.txt
 ```
 
-# Basic steps to introduce a new observable
-There are three main steps that need to be performed to introduce a new observable to an existing analysis
-1. Create and write the observable class including a source and header file. This is the main part of the observable creation where the actual calculation of the desired quantity will enter.
+# Basic steps to create a new observable 
+There are three main steps that need to be performed to introduce a new observable to an existing analysis:
+1. Create and write the observable class including a source and header file. This is the main part of the observable creation where the actual calculation of the desired quantity will enter. The helper script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) is used for these purposes.
 2. Create dedicated python snippet for instantiating the class and adding it to the observable database.
 3. Implement observable in analysis flow in terms of histograms, cuts, weights, etc.
 
@@ -21,10 +21,10 @@ We want to create a new observable that calculates the transverse mass of every 
 
 TODO: Formula for transverse mass
 
-The new observable class is to be implemented in the [xAOD Example analysis](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/Tutorial/share/xAOD).
+The new observable class is to be implemented in the [xAOD Example analysis](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/Tutorial/share/xAOD). It is assumed that this example analysis was already conducted.
 
 ## The magic wizard.py script
-[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. If we are in the main directory of the CAFExample repository (which we can ensure e.g. with `cd $CAFANALYSISSHARE/../`) we can call the script via
+[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. If you are in the main directory of the CAFExample repository (which you can ensure e.g. with `cd $CAFANALYSISSHARE/../`) you can call the script via
 ```bash
 ./CAFCore/QFramework/share/TQObservable/wizard.py
 ```
@@ -86,14 +86,13 @@ public:
 #endif
 ```
 Three main functions are declared (`initializeSelf()`, `finalizeSelf()` and `getValue()`) that we have to define now in the source file of the observable.
-
-In `initializeSelf()` we will initialize the member variable `mContName` by retrieving the tag from the sample folder (By doing this in the initialize function one prevents from running time costly string parsing functions for each event.).
+In `initializeSelf()` we will initialize the member variable `mContName` by retrieving the tag from the sample folder (By doing this in the initialize function one prevents from running time costly string parsing functions for each event):
 ```c++
 TString CandName = "";
 if(!this->fSample->getTagString("~cand",CandName)) return false;
 this->mCandName = "Event"+CandName;
 ```
-Now we have to implement the actual calculation of the desired quantity that is to be retrieved. Therefore the getValue() function needs to be modified. For our example the following lines should be added:
+Now we have to implement the actual calculation of the quantity that is to be derived. Therefore the `getValue()` function needs to be modified. For our example the following lines should be added:
 ```c++
   // retrieve candidate
   const xAOD::CompositeParticleContainer *cand = 0;
@@ -118,20 +117,15 @@ Now we have to implement the actual calculation of the desired quantity that is 
   const double retval = MjjMax;
   return retval;
 ```
-After implementing the above, the observable is ready be used. We need to recompile by invoking 
-```bash
-cafcompile
-```
-which automatically runs cmake which will register the new observable.
-Once your class is implemented and compiles fine along with the other observable classes we can move on to the next step.
+After implementing the above, the observable should be ready to be compiled. This can be done with `cafcompile`  which invokes an alias and automatically runs cmake to add the new class.
+Once your class compiles fine along with the other observable classes we can move on to the next step.
 
-Note: The line that includes  __DEBUG__ at the top of `MjjMaxObservable.cxx` can be uncommented to enable printouts of the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
+Info: The line at the top of `MjjMaxObservable.cxx` saying `c++// #define _DEBUG__` can be uncommented to enable printouts of the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
 
 ## Creating an observable snippet
-A small python snippet needs to be added for the new observable to the designated observable/ directory which can be specific to the analysis.
-<!-- All observable snippets are located in a designated folder which is specific to the analysis. -->
+A small python snippet needs to be added for the new observable to the designated observable/ of the analysis.
 In the xAOD Example analysis, the observable snippets are located [here](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/xAOD/observables) (If you write an observable that is used by multiple analyses, you should think of creating the observable snippet in [common/](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables).
-The snippet will instantiate the observable class and adds it to the observable database. The python script should look like this:
+The snippet will instantiate the observable class and adds it to the observable database. The python script should have the same name as the observable itself (in our case MjjMaxObservable.py) and can look like this:
 
 ```python
 from QFramework import *
@@ -147,7 +141,8 @@ def addObservables():
         return False
     return True;
 ```
-Then, all we need to do is to list the path to your script in the config file of the [analyze](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) step such that the framework executes your code and adds your observable to the database. This is the relevant part you should add to [analyze-xAOD-Example.cfg](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) is:
+Here, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which is used later.
+All we need to do then, is to list the path to your script in the config file of the analyze step such that the framework executes your code and adds your observable to the database. The relevant part you should add to [analyze-xAOD-Example.cfg](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) is:
 ```
 # add any observables
 customObservables.directories: xAOD/observables
@@ -155,7 +150,8 @@ customObservables.snippets: [...all other observables...], MjjMaxObservable
 ```
 
 ## Defining histograms/cuts/...
-The observable can now be used to define histograms, cuts, event lists, etc. Let's define a simple histogram that reflects the MjjMax distribution. Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add this histogram at the desired cut stages:
+The observable can now be used to define histograms, cuts, event lists, etc. Let's define a simple histogram using the new observable.
+Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add this histogram at the desired cut stages:
 
 ```
 TODO: Add histogram definition and add it to cut
