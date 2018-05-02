@@ -31,6 +31,7 @@ The new observable class is to be implemented in the [xAOD Example analysis](htt
 
 The wizard will ask a couple of questions that we answer as follows
 ```
+Please enter the path to the package you want to create an observable for (default: CAFExample): CAFExample
 What is the name of the observable you would like to create? MjjMaxObservable
 Please specify the type of observable, choose  from {Event,Tree,<empty>}: Event
 Do you want to create a vector observable that can return multiple values? (y/N) N
@@ -141,10 +142,9 @@ def addObservables():
         return False
     return True;
 ```
-Here, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which is used later.
+Here, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which will be used later.
 All we need to do then, is to list the path to your script in the config file of the analyze step such that the framework executes your code and adds your observable to the database. The relevant part you should add to [analyze-xAOD-Example.cfg](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) is:
 ```
-# add any observables
 customObservables.directories: xAOD/observables
 customObservables.snippets: [...all other observables...], MjjMaxObservable
 ```
