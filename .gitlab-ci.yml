@@ -19,6 +19,37 @@ variables:
   tags:
     - k8s
 
+.asg_setup: &asg_setup
+  before_script:
+    - source /home/atlas/release_setup.sh
+    - pwd
+    - mkdir -p ~/.ssh
+    - source ~/.bashrc || echo ignore alrb
+    - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH
+    - klist
+    - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+    - cat ~/.ssh/config
+
+.minimal_script: &minimal_script
+  script:
+    - source setup/setupAnalysis.sh
+    - mkdir run
+    - cd run
+    - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
+    - initialize.py minimal/config/master/initialize-Minimal-Example.cfg
+    - analyze.py minimal/config/master/analyze-Minimal-Example.cfg
+    - visualize.py minimal/config/master/visualize-Minimal-Example.cfg
+
+.flatNTuple_script: &flatNTuple_script
+  script:
+    - source setup/setupAnalysis.sh
+    - mkdir run
+    - cd run
+    - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
+    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg
+    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg
+    - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
+
 .standalone: &standalone
   image: rootproject/root-ubuntu16
   tags: 
@@ -65,26 +96,11 @@ standalone_compile:
 
 run_minimal:
   <<: *asg
+  <<: *asg_setup
+  <<: *minimal_script
   stage: run
   dependencies:
     - asg_compile
-  before_script:
-    - pwd
-    - mkdir -p ~/.ssh
-    - source ~/.bashrc || echo ignore alrb
-    - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH
-    - klist
-    - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-    - cat ~/.ssh/config
-  script:
-    - source /home/atlas/release_setup.sh
-    - source setup/setupAnalysis.sh
-    - mkdir run
-    - cd run
-    - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
-    - initialize.py minimal/config/master/initialize-Minimal-Example.cfg
-    - analyze.py minimal/config/master/analyze-Minimal-Example.cfg
-    - visualize.py minimal/config/master/visualize-Minimal-Example.cfg
   artifacts:
     paths:
       - run/sampleFolders
@@ -94,26 +110,11 @@ run_minimal:
 
 run_flatNTuple:
   <<: *asg
+  <<: *asg_setup
+  <<: *flatNTuple_script
   stage: run
   dependencies:
     - asg_compile
-  before_script:
-    - pwd
-    - mkdir -p ~/.ssh
-    - source ~/.bashrc || echo ignore alrb
-    - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH
-    - klist
-    - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-    - cat ~/.ssh/config
-  script:
-    - source /home/atlas/release_setup.sh
-    - source setup/setupAnalysis.sh
-    - mkdir run
-    - cd run
-    - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
-    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg
-    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg
-    - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
   artifacts:
     paths:
       - run/sampleFolders
