@@ -1,4 +1,3 @@
-
 ##########################################################################
 # preamble
 ##########################################################################
@@ -11,14 +10,18 @@ stages:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SSL_NO_VERIFY: "true"
-  FROM: atlas/analysisbase:21.2.23
 
 ##########################################################################
 # job defaults
 
-.base: &base
+.asg: &asg
   image: atlas/analysisbase:21.2.23
   tags:
+    - k8s
+
+.standalone: &standalone
+  image: rootproject/root-ubuntu16
+  tags: 
     - k8s
 
 ##########################################################################
@@ -27,7 +30,7 @@ variables:
 # stage: build
 
 asg_compile:
-  <<: *base
+  <<: *asg
   stage: build
   script:
     - source /home/atlas/release_setup.sh
@@ -43,11 +46,9 @@ asg_compile:
       - CAFCore/cafsetup.sh
 
 standalone_compile:
-  <<: *base
+  <<: *standalone
   stage: build
   script:
-    - set +e && lsetup root; set -e
-    - export CXX=$(which g++)
     - mkdir build
     - cd build
     - cmake ..
@@ -63,7 +64,7 @@ standalone_compile:
 # stage: run
 
 run_minimal:
-  <<: *base
+  <<: *asg
   stage: run
   dependencies:
     - asg_compile
@@ -92,7 +93,7 @@ run_minimal:
     expire_in: 3 mos
 
 run_flatNTuple:
-  <<: *base
+  <<: *asg
   stage: run
   dependencies:
     - asg_compile
