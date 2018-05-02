@@ -86,14 +86,14 @@ public:
 };
 #endif
 ```
-Three main functions are declared (`initializeSelf()`, `finalizeSelf()` and `getValue()`) that we have to define now in the source file of the observable.
-In `initializeSelf()` we will initialize the member variable `mContName` by retrieving the tag from the sample folder (By doing this in the initialize function one prevents from running time costly string parsing functions for each event):
+Three main functions are declared (`initializeSelf()`, `finalizeSelf()` and `getValue()`) that we have to define in the source file of the observable now.
+In `initializeSelf()` we will initialize the member variable `mContName` by retrieving the tag from the sample folder with the following lines of code (By doing this in the initialize function one prevents from running time costly string parsing functions for each event):
 ```c++
-TString CandName = "";
-if(!this->fSample->getTagString("~cand",CandName)) return false;
-this->mCandName = "Event"+CandName;
+TString ContName = "";
+if(!this->fSample->getTagString("~cand",ContName)) return false;
+this->mContName = "Event"+ContName;
 ```
-Now we have to implement the actual calculation of the quantity that is to be derived. Therefore the `getValue()` function needs to be modified. For our example the following lines should be added:
+Now we have to implement the actual calculation of the quantity that is to be derived. Therefore the `getValue()` function needs to be modified. For our example the following lines should be included:
 ```c++
   // retrieve candidate
   const xAOD::CompositeParticleContainer *cand = 0;
@@ -103,7 +103,7 @@ Now we have to implement the actual calculation of the quantity that is to be de
   }
   // after you have retrieved your data members, you can proceed to calculate the return value
   // probably, you first have to retrieve an element from the container
-  const xAOD::CompositeParticle *Evt = this->mCand->at(0);
+  const xAOD::CompositeParticle *Evt = cand->at(0);
   int nParts = Evt->nParts();
   double MjjMax = 0;
   for ( int i=2; i < nParts; ++i ){
@@ -118,7 +118,7 @@ Now we have to implement the actual calculation of the quantity that is to be de
   const double retval = MjjMax;
   return retval;
 ```
-After implementing the above, the observable should be ready to be compiled. This can be done with `cafcompile`  which invokes an alias and automatically runs cmake to add the new class.
+After implementing the above (don't forget to make potential includes), the observable should be ready to be compiled. This can be done with `cafcompile`  which invokes an alias and automatically runs cmake to add the new class.
 Once your class compiles fine along with the other observable classes we can move on to the next step.
 
 Info: The line at the top of `MjjMaxObservable.cxx` saying `c++// #define _DEBUG__` can be uncommented to enable printouts of the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
@@ -142,7 +142,7 @@ def addObservables():
         return False
     return True;
 ```
-Here, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which will be used later.
+hHere, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which will be used later.
 All we need to do then, is to list the path to your script in the config file of the analyze step such that the framework executes your code and adds your observable to the database. The relevant part you should add to [analyze-xAOD-Example.cfg](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) is:
 ```
 customObservables.directories: xAOD/observables
@@ -150,15 +150,16 @@ customObservables.snippets: [...all other observables...], MjjMaxObservable
 ```
 
 ## Defining histograms/cuts/...
-The observable can now be used to define histograms, cuts, event lists, etc. Let's define a simple histogram using the new observable.
-Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add this histogram at the desired cut stages:
-
+The observable can now be used to define histograms, cuts, event lists, etc. Let's define a simple histogram with the MjjMax distribution.
+Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add it at the desired cut stages:
 ```
-TODO: Add histogram definition and add it to cut
+TH1F('MjjMax', '', 50, 0., 500.) << ( [MjjMax]*0.001 : 'm_{jj}^{max} [GeV]');
+@CutFakeEl/*: [...other histograms...], MjjMax
 ```
 
 ## Running the analysis and looking at newly created histogram
-If the analysis is executed (you only have to perform the analysis step) and everything was correctly implemented, the new histogram should appear in the output sample folder. It is assumed that you already learned how to run a complete analysis, so you are left here with trying that out on your own.
+If the analysis is executed (you only have to perform the analysis step) and everything was correctly implemented, the new histogram should appear in the output sample folder. It is assumed that you already learned how to run a complete analysis, so you are left here with trying it out on your own.
 
 
-# TQVectorObservables
+# Creating a custom vector observable (Advanced)
+to be continued
