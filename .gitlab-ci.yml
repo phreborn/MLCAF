@@ -5,6 +5,7 @@
 stages:
   - build
   - run
+  - test
   - docker
 
 variables:
@@ -121,6 +122,20 @@ run_flatNTuple:
       - run/results
     name: "${CI_JOB_NAME}"
     expire_in: 3 mos
+
+##########################################################################
+# stage: test
+
+test_tutorial:
+  <<: *standalone
+  stage: test
+  dependencies:
+    - standalone_compile
+  script:
+    - CAFCore/cafsetup.sh 
+    - curl -o /get-pip.py https://bootstrap.pypa.io/get-pip.py
+    - python3 install doxec
+    - doxec Tutorial/*.md
 
 ##########################################################################
 # stage: docker
