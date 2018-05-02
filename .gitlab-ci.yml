@@ -133,7 +133,7 @@ test_tutorial:
   dependencies:
     - standalone_compile
   script:
-    - source CAFCore/cafsetup.sh 
+    - source setup/setupAnalysis.sh
     - curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py
     - sudo python3 ./get-pip.py
     - sudo pip3 install doxec
