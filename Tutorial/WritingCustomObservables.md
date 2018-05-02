@@ -121,7 +121,7 @@ Now we have to implement the actual calculation of the quantity that is to be de
 After implementing the above (don't forget to make potential includes), the observable should be ready to be compiled. This can be done with `cafcompile`  which invokes an alias and automatically runs cmake to add the new class.
 Once your class compiles fine along with the other observable classes we can move on to the next step.
 
-Info: The line at the top of `MjjMaxObservable.cxx` saying `c++// #define _DEBUG__` can be uncommented to enable printouts of the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
+Info: The line at the top of `MjjMaxObservable.cxx` saying `// #define _DEBUG__` can be uncommented to enable printouts of the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
 
 ## Creating an observable snippet
 A small python snippet needs to be added for the new observable to the designated observable/ of the analysis.
