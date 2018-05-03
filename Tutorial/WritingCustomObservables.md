@@ -142,7 +142,7 @@ def addObservables():
         return False
     return True;
 ```
-hHere, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which will be used later.
+Here, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which will be used later.
 All we need to do then, is to list the path to your script in the config file of the analyze step such that the framework executes your code and adds your observable to the database. The relevant part you should add to [analyze-xAOD-Example.cfg](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) is:
 ```
 customObservables.directories: xAOD/observables
@@ -154,14 +154,20 @@ The observable can now be used to define histograms, cuts, event lists, etc. Let
 Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add it at the desired cut stages e.g.:
 ```
 TH1F('MjjMax', '', 50, 0., 500.) << ( [MjjMax]*0.001 : 'm_{jj}^{max} [GeV]');
-@CutFakeEl/*: [...other histograms...], MjjMax;
-@CutFakeMu/*: [...other histograms...], MjjMax;
+@CutChannels/*: MjjMax;
 
 ```
+The second line here books a histogram at the cut CutChannels and all subsequent cuts, respectively.
 
 ## Running the analysis and looking at newly created histogram
-If the analysis is executed (you only have to perform the analysis step) and everything was correctly implemented, the new histogram should appear in the output sample folder. It is assumed that you already learned how to run a complete analysis, so you are left here with trying it out on your own.
+If the analysis is executed (you only have to perform the analyzing step) and everything was correctly implemented, the new histogram should appear in the output sample folder.
+<!-- It is assumed that you have already learned how to run a complete analysis.-->
+You can check this by opening the respective sample folder with `tqroot -sfr sampleFolders/analyzed/samples-analyzed-xAOD-Example.root` and draw one of the histograms with
 
+```
+r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/MjjMax")->Draw("")
+```
+Now, you can also define cuts/cutflows, event lists, etc. with your new observable. 
 
 # Creating a custom vector observable (Advanced)
 to be continued
