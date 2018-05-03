@@ -12,15 +12,12 @@ RooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby
 
 # Basic steps to create a new observable 
 There are three main steps that need to be performed to introduce a new observable to an existing analysis:
-1. Create and write the observable class including a source and header file. This is the main part of the observable creation where the actual calculation of the desired quantity will enter. The helper script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) is used for these purposes.
+1. Create and write the observable class including a source and header file. This is the main part of the observable creation where the actual calculation of the desired quantity will enter. In this hands-on exercise the helper script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) is used for these purposes. In general it is also a good idea to look at already defined observable classes and start from those as a baseline to implement your own observable.
 2. Create dedicated python snippet for instantiating the class and adding it to the observable database.
 3. Implement observable in analysis flow in terms of histograms, cuts, weights, etc.
 
 # Creating the MjjMaxObservable
-We want to create a new observable that calculates the transverse mass of every possible combination of two jets in an event and returns the maximum value. The transverse mass is defined as
-
-TODO: Formula for transverse mass
-
+We want to create a new observable that calculates the invariant mass (called Mjj in the following) for every possible combination of two jets in an event and returns the maximum of those values. 
 The new observable class is to be implemented in the [xAOD Example analysis](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/Tutorial/share/xAOD). It is assumed that this example analysis was already conducted.
 
 ## The magic wizard.py script
@@ -118,10 +115,10 @@ Now we have to implement the actual calculation of the quantity that is to be de
   const double retval = MjjMax;
   return retval;
 ```
-After implementing the above (don't forget to make potential includes), the observable should be ready to be compiled. This can be done with `cafcompile`  which invokes an alias and automatically runs cmake to add the new class.
+After implementing the above (don't forget to make potential includes), the observable should be ready to be compiled. This can be done with `cafcompile`  which invokes an alias and automatically runs cmake and finds the new class.
 Once your class compiles fine along with the other observable classes we can move on to the next step.
 
-Info: The line at the top of `MjjMaxObservable.cxx` saying `// #define _DEBUG__` can be uncommented to enable printouts of the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
+Remark: The line at the top of `MjjMaxObservable.cxx` saying `// #define _DEBUG__` can be uncommented to enable printouts from the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
 
 ## Creating an observable snippet
 A small python snippet needs to be added for the new observable to the designated observable/ of the analysis.
@@ -159,11 +156,10 @@ TH1F('MjjMax', '', 50, 0., 500.) << ( [MjjMax]*0.001 : 'm_{jj}^{max} [GeV]');
 ```
 The second line here books a histogram at the cut CutChannels and all subsequent cuts, respectively.
 
-## Running the analysis and looking at newly created histogram
+## Running the analysis and looking at newly booked histogram
 If the analysis is executed (you only have to perform the analyzing step) and everything was correctly implemented, the new histogram should appear in the output sample folder.
 <!-- It is assumed that you have already learned how to run a complete analysis.-->
 You can check this by opening the respective sample folder with `tqroot -sfr sampleFolders/analyzed/samples-analyzed-xAOD-Example.root` and draw one of the histograms with
-
 ```
 r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/MjjMax")->Draw("")
 ```
