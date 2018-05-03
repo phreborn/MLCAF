@@ -1,4 +1,4 @@
-This document is intended to provide hands-on instructions on how to write a custom observable for the [CAF tutorial](https://indico.cern.ch/event/719951/). General reading on observables can be found in the tutorial and also in the observable [README](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables).
+This document is intended to provide hands-on instructions on how to write a custom observable for the [CAF tutorial](https://indico.cern.ch/event/719951/). General reading on observables can be found in the tutorial and also in the observable [README](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/common/observables).
 
 Prerequesite for the tutorial is a working [CAF](https://gitlab.cern.ch/atlas-caf/CAFCore) installation. You can check this
 by running
