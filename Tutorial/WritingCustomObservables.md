@@ -170,7 +170,7 @@ There is also the possibility to create observables that return multiple values 
 ```
 Do you want to create a vector observable that can return multiple values? (y/N) N
 ```
-New files `CAFExample/YourObservableName.h` and `Root/YourObservableName.cxx` are being created from the wizard. Vector observables have additional functions with respect to simple ``scalar'' functions. You will again find many comments and example blocks in the code that will help you establishing your observable class. At this point you are asked to explore yourself and to implement a working vector observable (You need to follow the same 3 steps as for `scalar` observables). As a suggestion, you might want to create a vector observable returning a list with invariant masses for every two jet combinations. Then, booking a histogram like
+New files `CAFExample/YourObservableName.h` and `Root/YourObservableName.cxx` are being created from the wizard. Vector observables have additional functions with respect to simple scalar functions. You will again find many comments and example blocks in the code that will help you establishing your observable class. At this point you are asked to explore yourself and to implement a working vector observable (You need to follow the same 3 steps as for scalar observables). As a suggestion, you might want to create a vector observable returning a list with invariant masses for every two jet combinations. Then, booking a histogram like
 ```
 TH1F('MjjMaxVec', '', 50, 0., 500.) << ( [VecMAX(MjjMaxVec)]*0.001 : 'm_{jj}^{max} [GeV]');
 ```
