@@ -42,8 +42,8 @@ variables:
     - mkdir run
     - cd run
     - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
-    - initialize.py minimal/config/master/initialize-Minimal-Example.cfg --options prettyPrint=false
-    - analyze.py minimal/config/master/analyze-Minimal-Example.cfg --options prettyPrint=false
+    - initialize.py minimal/config/master/initialize-Minimal-Example.cfg --options prettyPrint=false consoleWidth=80
+    - analyze.py minimal/config/master/analyze-Minimal-Example.cfg --options prettyPrint=false consoleWidth=80
     - visualize.py minimal/config/master/visualize-Minimal-Example.cfg
 
 .flatNTuple_script: &flatNTuple_script
@@ -52,8 +52,8 @@ variables:
     - mkdir run
     - cd run
     - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
-    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg --options prettyPrint=false
-    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg --options prettyPrint=false
+    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg --options prettyPrint=false consoleWidth=80
+    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg --options prettyPrint=false consoleWidth=80
     - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
 
 .xAOD_script: &xAOD_script
@@ -62,8 +62,8 @@ variables:
     - mkdir run
     - cd run
     - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
-    - initialize.py xAOD/config/master/initialize-xAOD-Example.cfg --options prettyPrint=false
-    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg --options prettyPrint=false
+    - initialize.py xAOD/config/master/initialize-xAOD-Example.cfg --options prettyPrint=false consoleWidth=80
+    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg --options prettyPrint=false consoleWidth=80
     - visualize.py xAOD/config/master/visualize-xAOD-Example.cfg
 
 ##########################################################################
