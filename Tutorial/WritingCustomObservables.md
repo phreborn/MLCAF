@@ -51,7 +51,7 @@ wrote './Root/MjjMaxObservable.cxx'!
 the wizard has detected a LinkDef.h file in the target package - do you want to add an entry for your observable class? (y/N) y
 ```
 We can also directly add our new class to the `LinkDef.h` to ensure that the framework will pick up our new class (although this step might not be necessary, since the link definition file of CAFExample (and CAFCore) is created automatically).
-Once we have confirmed that the wizard should build the observable, two new files are created: `CAFExample/MjjMaxObservable.h` and `Root/MjjMaxObservable.h`. The important parts in the files contain comments that guide you through the further process. There are example blocks given that provide very adequate pieces of code which we want to use.
+Once we have confirmed that the wizard should build the observable, two new files are created: `CAFExample/MjjMaxObservable.h` and `Root/MjjMaxObservable.cxx`. The important parts in the files contain comments that guide you through the further process. There are example blocks given that provide very adequate pieces of code which we want to use.
 Let's have a look at `MjjMaxObservable.h` first. You should modify it such that it looks like the following:
 
 ```c++
@@ -168,7 +168,7 @@ Now, you can also define cuts/cutflows, event lists, etc. with your new observab
 # Creating a custom vector observable (Advanced)
 There is also the possibility to create observables that return multiple values per event. This can be useful for a bunch of things, especially in combination with `TQVectorAuxObservables` it will give you the opportunity to manipulate the output of the observable just by modifying a small string in config files later on. Let's do an example. Call the observable script `wizard.py`, answer the questions as above except choosing a different observable name and answering the following question with yes:
 ```
-Do you want to create a vector observable that can return multiple values? (y/N) N
+Do you want to create a vector observable that can return multiple values? (y/N) y
 ```
 New files `CAFExample/YourObservableName.h` and `Root/YourObservableName.cxx` are being created from the wizard. Vector observables have additional functions with respect to simple scalar functions. You will again find many comments and example blocks in the code that will help you establishing your observable class. At this point you are asked to explore yourself and to implement a working vector observable (You need to follow the same 3 steps as for scalar observables). As a suggestion, you might want to create a vector observable returning a list with invariant masses for every two jet combinations. Then, booking a histogram like
 ```
