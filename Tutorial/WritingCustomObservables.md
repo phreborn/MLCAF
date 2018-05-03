@@ -12,7 +12,7 @@ RooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby
 
 # Basic steps to create a new observable 
 There are three main steps that need to be performed to introduce a new observable to an existing analysis:
-1. Create and write the observable class including a source and header file. This is the main part of the observable creation where the actual calculation of the desired quantity will enter. In this hands-on exercise the helper script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) is used for these purposes. In general it is also a good idea to look at already defined observable classes and start from those as a baseline to implement your own observable.
+1. Create and write the observable class including a source and header file. This is the main part of the observable creation where the actual calculation of the desired quantity needs to be implemented. In this hands-on exercise the helper script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) is used for these purposes. In general it is also a good idea to look at already defined observable classes and start from those as a baseline to implement your own observable.
 2. Create dedicated python snippet for instantiating the class and adding it to the observable database.
 3. Implement observable in analysis flow in terms of histograms, cuts, weights, etc.
 
@@ -21,7 +21,7 @@ We want to create a new observable that calculates the invariant mass (called Mj
 The new observable class is to be implemented in the [xAOD Example analysis](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/Tutorial/share/xAOD). It is assumed that this example analysis was already conducted.
 
 ## The magic wizard.py script
-[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. If you are in the main directory of the CAFExample repository (which you can ensure e.g. with `cd $CAFANALYSISSHARE/../`) you can call the script via
+[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. Make sure you are setup (`source setup/setupAnalysis.sh`) and are in the main directory of the CAFExample repository (which you can ensure e.g. with `cd $CAFANALYSISSHARE/../`). Then, you can call the script via
 ```bash
 ./CAFCore/QFramework/share/TQObservable/wizard.py
 ```
@@ -90,7 +90,7 @@ TString ContName = "";
 if(!this->fSample->getTagString("~cand",ContName)) return false;
 this->mContName = "Event"+ContName;
 ```
-Now we have to implement the actual calculation of the quantity that is to be derived. Therefore the `getValue()` function needs to be modified. For our example the following lines should be included:
+Now we have to implement the actual calculation of the quantity that is to be derived. Therefore, the `getValue()` function needs to be modified. For our example the following lines should be included:
 ```c++
   // retrieve candidate
   const xAOD::CompositeParticleContainer *cand = 0;
