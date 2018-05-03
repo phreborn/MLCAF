@@ -196,15 +196,16 @@ Once your class is implemented and compiles fine along with the other
 observable classes, you can write a small python script that
 instantiates your observable class and adds it to the observable
 database. This can look like this:
-
+```python
+    from QFramework import *
     from ROOT import *
-    from libQFramework import *
+
     def addObservables():
       myObs = MyNewFancyObservableClass ( ... )
       if not TQObservable.addObservable(myObs,"FancyObs"):
         return False
     return True
-
+```
 Then, all you need to do is list the path to your script file under
 the config option addObservables to have the framework execute your
 code and add your observable to the database.

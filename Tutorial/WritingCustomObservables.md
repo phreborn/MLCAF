@@ -154,7 +154,7 @@ TH1F('MjjMax', '', 50, 0., 500.) << ( [MjjMax]*0.001 : 'm_{jj}^{max} [GeV]');
 @CutChannels/*: MjjMax;
 
 ```
-The second line here books a histogram at the cut CutChannels and all subsequent cuts, respectively.
+The second line here books a histogram at the cut CutChannels and all subsequent cuts.
 
 ## Running the analysis and looking at newly booked histogram
 If the analysis is executed (you only have to perform the analyzing step) and everything was correctly implemented, the new histogram should appear in the output sample folder.
@@ -166,4 +166,15 @@ r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/MjjMax")->Draw("")
 Now, you can also define cuts/cutflows, event lists, etc. with your new observable. 
 
 # Creating a custom vector observable (Advanced)
-to be continued
+There is also the possibility to create observables that return multiple values per event. This can be useful for a bunch of things, especially in combination with `TQVectorAuxObservables` it will give you the opportunity to manipulate the output of the observable just by modifying a small string in config files later on. Let's do an example. Call the observable script `wizard.py`, answer the questions as above except choosing a different observable name and answering the following question with yes:
+```
+Do you want to create a vector observable that can return multiple values? (y/N) N
+```
+New files `CAFExample/YourObservableName.h` and `Root/YourObservableName.cxx` are being created from the wizard. Vector observables have additional functions with respect to simple ``scalar'' functions. You will again find many comments and example blocks in the code that will help you establishing your observable class. At this point you are asked to explore yourself and to implement a working vector observable (You need to follow the same 3 steps as for `scalar` observables). As a suggestion, you might want to create a vector observable returning a list with invariant masses for every two jet combinations. Then, booking a histogram like
+```
+TH1F('MjjMaxVec', '', 50, 0., 500.) << ( [VecMAX(MjjMaxVec)]*0.001 : 'm_{jj}^{max} [GeV]');
+```
+should give you the same results than for the previously booked histogram with using the `MjjMaxObservable`. You can then also make use of other `TQVectorAuxObservables` such as `VecSUM`, `VecMAX/MIN`, `VecAND` and many more (see [observable README](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables) or simply browse through the [code](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/Root/TQVectorAuxObservable.cxx) for more information).
+
+If you managed to write your vector observable you can also compare it with [MjjVectorObservable](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/Root/MjjVectorObservable.cxx) which should already be available in your CAFExample fork.
+
