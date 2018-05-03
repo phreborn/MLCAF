@@ -169,7 +169,7 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('animals.tq
 -->
 
 Wait. There are tags attached to parent folders, like `skin` attached to
-`Mammel`, but the `population` tags are attached to the leaf notes?  Are all
+`Mammal`, but the `population` tags are attached to the leaf notes?  Are all
 Mammals non-vegetarian? We will see
 in the next chapter why this structure is useful. In short, it prevents us from
 repeating tags if they apply for all the child folders.
@@ -192,7 +192,7 @@ zero), whereas `?` match exactly one folder layer. For example
 
 When the wildcard characters are used as part of a folder name, `*` matches any
 number of characters, whereas `?` matches exactly one character. This means
-`R*` matches `Rabit` or `Reptiles`, `?at` matches `Rat`, `Cat` or `Bat`.
+`R*` matches `Rabbit` or `Reptiles`, `?at` matches `Rat`, `Cat` or `Bat`.
 
 To set tags in an existing TQFolder tree, you can use the `<TagName=Value> @FolderPath;`
 syntax.
