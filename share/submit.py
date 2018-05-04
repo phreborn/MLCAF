@@ -24,7 +24,7 @@ def main(args):
     taskList = submit.makeSmartTaskList(args, args.jobs, config, templateCommand, maxSampleCount=args.maxSampleCount, maxSampleSize=args.maxSampleSize, setup=setup, inputs=[], outputs=[outputFileNameTemplate])
     ctrl = submit.guessSubmissionController()
     ctrl.submitTasks(args,taskList)
-    print "Done"
+    print("Done")
     
 
 if __name__ == "__main__":
