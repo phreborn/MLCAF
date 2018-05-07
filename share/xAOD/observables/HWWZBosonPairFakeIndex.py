@@ -9,28 +9,28 @@ def addObservables(config):
   #======================
   #===== import trigger config, needed by trigger observables
   try:
-    from CAFExample import HWWTriggerConfig as hwwtriggerconfig
+    from CAFExample import TrigConfig
   except:
-    ERROR("Couldn't import HWWTriggerConfig")
+    ERROR("Couldn't import TrigConfig module")
     return False
 
 
   ### which triggers to use and for what periods are specified in the HWWTrigConfig.py snippet
   # only single-lepton triggers
-  triggerConfigsSingleLepOnly = hwwtriggerconfig.getTrigConfigVector()
+  triggerConfigsSingleLepOnly = TrigConfig.getTrigConfigVector()
 
   #======================
   #===== import lepton ID helper snippet, wil pass object to observable
   try:
-    from CAFExample import HWWLepIDHelper as hwwLepIDHelper
+    from CAFExample import LeptonIDHelper
   except:
-    ERROR("Couldn't import HWWLepIDHelper")
+    ERROR("Couldn't import LeptonIDHelper module")
     return False
 
   #lepTag = config.getTagStringDefault("lepIDSelectionTag","VH")
   lepTag = config.getTagStringDefault("lepIDZCandSelectionTag","2L")
-  lepIDHelper = hwwLepIDHelper.getLepIDHelper(lepTag)
-  INFO("in HWWZBosonPairFakeIndex: Using lepton ID selection '{}' (see CAFExample/python/HWWLepIDHelper.py for details)".format(lepTag))
+  lepIDHelper = LeptonIDHelper.getLepIDHelper(lepTag)
+  INFO("in HWWZBosonPairFakeIndex: Using lepton ID selection '{}' (see CAFExample/python/LeptonIDHelper.py for details)".format(lepTag))
 
 
   hwwZbosonPairFakeIndex = HWWZBosonPairFakeIndex("ZBosonPairFakeIndex", triggerConfigsSingleLepOnly, lepIDHelper)
