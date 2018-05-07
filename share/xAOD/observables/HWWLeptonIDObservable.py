@@ -14,14 +14,14 @@ def addObservables(config):
   #======================
   #===== import lepton ID helper snippet, wil pass object to observable
   try:
-    from CAFExample import HWWLepIDHelper as hwwLepIDHelper
+    from CAFExample import LeptonIDHelper
   except:
-    ERROR("Couldn't import HWWLepIDHelper")
+    ERROR("Couldn't import LeptonIDHelper module")
     return False
 
   lepIDSelectionTag = config.getTagStringDefault("lepIDSelectionTag","2L")
-  lepIDHelper = hwwLepIDHelper.getLepIDHelper(lepIDSelectionTag)
-  INFO("in HWWLeptonIDObservable: Using lepton ID selection '{}' (see CAFExample/python/HWWLepIDHelper.py for details)".format(lepIDSelectionTag))
+  lepIDHelper = LeptonIDHelper.getLepIDHelper(lepIDSelectionTag)
+  INFO("in HWWLeptonIDObservable: Using lepton ID selection '{}' (see CAFExample/python/LeptonIDHelper.py for details)".format(lepIDSelectionTag))
 
   INFO("adding HWWLeptonIDObservable")
   #=== The integers must match the correct modes inside HWWLeptonIDObservable.cxx
