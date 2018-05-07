@@ -1,4 +1,4 @@
 [submodule "CAFCore"]
 	path = CAFCore
 	url = ../../atlas-caf/CAFCore
-	branch = CommonAnalysisHelpers
+	branch = master
