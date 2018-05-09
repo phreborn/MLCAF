@@ -15,8 +15,8 @@ def addObservables(config):
   #===== import lepton ID helper snippet, wil pass object to observable
   try:
     from CAFExample import LeptonIDHelper
-  except:
-    ERROR("Couldn't import LeptonIDHelper module")
+  except Exception as error:
+    ERROR("Couldn't import LeptonIDHelper module!\n"+"Message from python:\n"+str(error))
     return False
 
   lepIDSelectionTag = config.getTagStringDefault("lepIDSelectionTag","2L")
