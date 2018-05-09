@@ -10,8 +10,8 @@ def addObservables(config):
   #===== import trigger config, needed by trigger observables
   try:
     from CAFExample import TrigConfig
-  except:
-    ERROR("Couldn't import TrigConfig module")
+  except Exception as error:
+    ERROR("Couldn't import TrigConfig module!\n"+"Message from python:\n"+str(error))
     return False
 
 
@@ -23,8 +23,8 @@ def addObservables(config):
   #===== import lepton ID helper snippet, wil pass object to observable
   try:
     from CAFExample import LeptonIDHelper
-  except:
-    ERROR("Couldn't import LeptonIDHelper module")
+  except Exception as error:
+    ERROR("Couldn't import LeptonIDHelper module!\n"+"Message from python:\n"+str(error))
     return False
 
   #lepTag = config.getTagStringDefault("lepIDSelectionTag","VH")
