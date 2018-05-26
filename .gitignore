@@ -4,8 +4,11 @@ python/__init__.py
 setup/setupLocal.sh
 setup/setupAnalysis.sh
 build
-share/sampleFolders
-share/results
+*/sampleFolders
+*/results
+*/batchOutput
+*/htcondorWorkloadTemp
+*/logs
 *.tex
 *.pdf
 *.log
