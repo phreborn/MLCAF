@@ -243,7 +243,7 @@ selections_VH = Selections("VH")
 
 # electron id
 selections_VH.electron_id = {
-               "author"                  : ["unsigned short", "author", 1, "=="],
+               "author" : ["unsigned short", "author", 1, "=="],
                "d0": ["float", "|d0sig|", 5., "<"],
                "z0": ["float", "|z0*sinTheta|", 0.5, "<"],
                "likelihoodLowPt": [ "char", "isLHTight", 1, "TRUE", True, 0., 25000.],
@@ -254,7 +254,7 @@ selections_VH.electron_id = {
 
 # electron anti-id
 selections_VH.electron_antiid = {
-                   "author"                  : ["unsigned short", "author", 1, "=="],
+                   "author" : ["unsigned short", "author", 1, "=="],
                    "d0": ["float", "|d0sig|", 5., "<"],
                    "z0": ["float", "|z0*sinTheta|", 0.5, "<"],
                    "likelihood": ["char", "isLHLoose", 1, "TRUE"]
@@ -272,7 +272,8 @@ selections_VH.muon_id = {
 selections_VH.muon_antiid = {
            "qualityLowPt": ["int", "Quality", 1, "<=", True, 0., 25000.],
            "qualityHighPt": ["int", "Quality", 1, "<=", True, 25000., 1e9],
-           "d0":            ["float", "|d0sig|",   6., "<"],
+           #"d0":            ["float", "|d0sig|",   6., "<"],
+           "d0":            ["float", "|d0sig|",   15., "<"],
            "z0":            ["float", "|z0*sinTheta|", 0.5, "<"]
            }
 
