@@ -135,7 +135,7 @@ else()
   add_library( CAFExample SHARED ${CAFExampleSources} G__CAFExample.cxx)
 
   # link everything together at the end
-  target_link_libraries( CAFExample ${ROOT_LIBRARIES} )
+  target_link_libraries( CAFExample QFramework SFramework ${ROOT_LIBRARIES} )
 
   # require ROOT
   find_package( ROOT REQUIRED )
