@@ -24,11 +24,16 @@ def main(config):
     if config.getTagBoolDefault("addData",True):
         # add all the data to the sample folder
         initialize.addData(config, samples)
+    else:
+        QFramework.WARN("skipping data addition as requested!")
 
     # run the monte carlo initialization
     #  - collect meta-information including the sum-of-weights from the input files
     #  - compute the corresponding normalization factor for each sample
-    initialize.initializeMonteCarlo(config, samples)
+    if config.getTagBoolDefault("initialize",True):
+        initialize.initializeMonteCarlo(config, samples)
+    else:
+        QFramework.WARN("skipping initialization as requested!")
 
     # apply post-initialize patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("postInit_patches"), samples)
