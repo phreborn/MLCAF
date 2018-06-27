@@ -3,6 +3,12 @@ import sys
 import argparse
 
 def main(args):
+  from QFramework import INFO,BREAK,ERROR,START,END
+  from QFramework import TQSystematicsHandler,TQTaggable,TQFolder
+  from ROOT import TString
+  from ROOT.std import pair as cpair
+  pair = cpair('TString','TString')
+
   INFO("starting to crawl for systematics")
   handler = TQSystematicsHandler ('systematics')
   handler.setTagBool("verbose",True)
@@ -114,8 +120,7 @@ if __name__ == "__main__":
   args = parser.parse_args()
   sys.argv = []
   from QFramework import TQLibrary
-  import ROOT
-  pair = ROOT.std.pair('TString','TString')
   TQLibrary.getQLibrary().setApplicationName("createSystematics")
+  import ROOT
   ROOT.gROOT.SetBatch(True)
   main(args)
