@@ -17,12 +17,12 @@ variables:
 .asg: &asg
   image: atlas/analysisbase:21.2.23
   tags:
-    - k8s
+    - no-runner-9
 
 .standalone: &standalone
   image: rootproject/root-ubuntu16
   tags:
-    - k8s
+    - no-runner-9
 
 .asg_setup: &asg_setup
   before_script:
