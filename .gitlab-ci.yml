@@ -17,12 +17,12 @@ variables:
 .asg: &asg
   image: atlas/analysisbase:21.2.34
   tags:
-    - k8s
+    - runner-9
 
 .standalone: &standalone
   image: rootproject/root-ubuntu16
   tags:
-    - k8s
+    - runner-9
 
 .asg_setup: &asg_setup
   before_script:
@@ -169,6 +169,7 @@ build_image:
   stage: docker
   tags:
     - docker-image-build
+    - runner-9
   script:
     - ignore
 
