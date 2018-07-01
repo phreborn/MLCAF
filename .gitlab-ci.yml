@@ -15,7 +15,7 @@ variables:
 # job defaults
 
 .asg: &asg
-  image: atlas/analysisbase:21.2.23
+  image: atlas/analysisbase:21.2.34
   tags:
     - runner-9
 

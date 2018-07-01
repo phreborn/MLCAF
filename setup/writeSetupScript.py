@@ -26,6 +26,7 @@ if __name__ == "__main__":
         f.write("#!/bin/bash\n")
         f.write("# this is an auto-generated setup script\n\n")
         
+        f.write("export CAFANALYSISBASE=\""+args.sourceDir+"\"\n")
         # Create environment variable for location of executables (separate
         # multiple paths with ":")
         f.write("export CAFANALYSISSHARE=\""+args.sourceDir+"/share\"\n")
