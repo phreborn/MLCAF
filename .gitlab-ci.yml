@@ -18,11 +18,13 @@ variables:
   image: atlas/analysisbase:21.2.34
   tags:
     - runner-9
+    - cvmfs
 
 .standalone: &standalone
   image: rootproject/root-ubuntu16
   tags:
     - runner-9
+    - cvmfs
 
 .asg_setup: &asg_setup
   before_script:
