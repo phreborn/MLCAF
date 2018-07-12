@@ -121,8 +121,8 @@ Once your class compiles fine along with the other observable classes we can mov
 Remark: The line at the top of `MjjMaxObservable.cxx` saying `// #define _DEBUG__` can be uncommented to enable printouts from the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
 
 ## Creating an observable snippet
-A small python snippet needs to be added for the new observable to the designated observable/ of the analysis.
-In the xAOD Example analysis, the observable snippets are located [here](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/xAOD/observables) (If you write an observable that is used by multiple analyses, you should think of creating the observable snippet in [common/](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables).
+A small python snippet needs to be added for the new observable to the designated observable/ folder of the analysis.
+In the xAOD Example analysis, the observable snippets are located [here](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/xAOD/observables) (If you write an observable that is used by multiple analyses, you should think of creating the observable snippet in [common/](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables)).
 The snippet will instantiate the observable class and adds it to the observable database. The python script should have the same name as the observable itself (in our case MjjMaxObservable.py) and can look like this:
 
 ```python
@@ -163,18 +163,19 @@ You can check this by opening the respective sample folder with `tqroot -sfr sam
 ```
 r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/MjjMax")->Draw("")
 ```
-Now, you can also define cuts/cutflows, event lists, etc. with your new observable. 
+If you see a reasonable distribution: Congratulations! You just successfully created your own observable.
+Now, you can do with it what ever you want (define cuts/cutflows, event lists, etc.) and/or create more awesome observable!
 
 # Creating a custom vector observable (Advanced)
 There is also the possibility to create observables that return multiple values per event. This can be useful for a bunch of things, especially in combination with `TQVectorAuxObservables` it will give you the opportunity to manipulate the output of the observable just by modifying a small string in config files later on. Let's do an example. Call the observable script `wizard.py`, answer the questions as above except choosing a different observable name and answering the following question with yes:
 ```
 Do you want to create a vector observable that can return multiple values? (y/N) y
 ```
-New files `CAFExample/YourObservableName.h` and `Root/YourObservableName.cxx` are being created from the wizard. Vector observables have additional functions with respect to simple scalar functions. You will again find many comments and example blocks in the code that will help you establishing your observable class. At this point you are asked to explore yourself and to implement a working vector observable (You need to follow the same 3 steps as for scalar observables). As a suggestion, you might want to create a vector observable returning a list with invariant masses for every two jet combinations. Then, booking a histogram like
+New files `CAFExample/YourObservableName.h` and `Root/YourObservableName.cxx` are being created from the wizard. Vector observables have additional functions compared to simple scalar functions. You will again find many comments and example blocks in the code that will help you establishing your observable class. At this point you are asked to explore yourself and to implement a working vector observable (You need to follow the same 3 steps as for scalar observables). As a suggestion, you might want to create a vector observable returning a list with invariant masses for every two jet combinations. Then, booking a histogram like
 ```
 TH1F('MjjMaxVec', '', 50, 0., 500.) << ( [VecMAX(MjjMaxVec)]*0.001 : 'm_{jj}^{max} [GeV]');
 ```
-should give you the same results than for the previously booked histogram with using the `MjjMaxObservable`. You can then also make use of other `TQVectorAuxObservables` such as `VecSUM`, `VecMAX/MIN`, `VecAND` and many more (see [observable README](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables) or simply browse through the [code](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/Root/TQVectorAuxObservable.cxx) for more information).
+should give you the same results than the previously booked histogram with using the `MjjMaxObservable`. You can then also make use of other `TQVectorAuxObservables` such as `VecSUM`, `VecMAX/MIN`, `VecAND` and many more (see [observable README](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables) or simply browse through the [code](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/Root/TQVectorAuxObservable.cxx) for more information).
 
 If you managed to write your vector observable you can also compare it with [MjjVectorObservable](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/Root/MjjVectorObservable.cxx) which should already be available in your CAFExample fork.
 
