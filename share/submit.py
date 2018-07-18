@@ -12,8 +12,9 @@ def main(args):
     #run the setup script for our analysis (CAFExample), should this be moved to submit.getSetupCommand ?
     setupPath = os.environ['CAFANALYSISSETUP']
     if len(setupPath)>0: setup.append("source "+setupPath)
-    
-    outputFileNameTemplate="{output}/unmerged_{globalIdentifier}/unmerged_{{identifier}}.root".format(output=args.output, globalIdentifier=args.identifier)
+
+    pathManager = QFramework.TQPathManager.getPathManager()
+    outputFileNameTemplate=pathManager.getTargetPath("{output}/unmerged_{globalIdentifier}/unmerged_{{identifier}}.root".format(output=args.output, globalIdentifier=args.identifier))
     
     templateCommand="analyze.py {config} --restrict {{restrict}} --jobID {{identifier}} --options outputFile={outFileTemplate} {{options}}".format(config=",".join(args.config), outFileTemplate=outputFileNameTemplate)
     
