@@ -248,7 +248,6 @@ _CAFFindPossibleCompletions(){
 	fi
     done
 
-    #
     local fullCompletions=""
     for dir in $listOfDirsInDot; do
 	# fullCompletions+=${dir/%\//}":"
@@ -262,7 +261,7 @@ _CAFFindPossibleCompletions(){
 	    fi
 	done
 	if [[ $alreadyThere -eq 0 ]]; then
-	    fullCompletions+=${dir/\//\/\/}":"
+	    fullCompletions+=${dir/%\//\/\/}":"
 	    # append a trailing slash (will be removed again later)
 	    # fullCompletions+=${dir/%\//\/\/}
 	fi
