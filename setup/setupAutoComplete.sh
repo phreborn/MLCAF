@@ -500,7 +500,8 @@ _CAFSubmitComplete(){
     else
 	_CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "0" ""
     fi
-    _CAFShortenCompreply "$thisWord" "$thisDir"
+    _CAFSetNoSpaceOpt
+    _CAFRemoveTrailingSlash
     return 0
 }
 
@@ -546,7 +547,6 @@ _CAFAutoComplete(){
     local statusCode=$?
     if [ $statusCode -eq 0 ] ; then
 	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "./" "0"
-	_CAFShortenCompreply "$thisWord" "$thisDir"
 	return 0
     fi
 
