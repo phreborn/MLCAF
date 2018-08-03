@@ -17,13 +17,11 @@ variables:
 .asg: &asg
   image: atlas/analysisbase:21.2.34
   tags:
-    - runner-9
     - cvmfs
 
 .standalone: &standalone
   image: rootproject/root-ubuntu16
   tags:
-    - runner-9
     - cvmfs
 
 .asg_setup: &asg_setup
@@ -171,7 +169,6 @@ build_image:
   stage: docker
   tags:
     - docker-image-build
-    - runner-9
   script:
     - ignore
 
