@@ -101,6 +101,7 @@ standalone_compile:
     paths:
       - build
       - CAFCore/cafsetup.sh
+      - CAFCore/*/python/__init__.py
 
 ##########################################################################
 # stage: run
