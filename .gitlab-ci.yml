@@ -15,7 +15,7 @@ variables:
 # job defaults
 
 .asg: &asg
-  image: atlas/analysisbase:21.2.34
+  image: atlas/analysisbase:21.2.39
   tags:
     - cvmfs
 
