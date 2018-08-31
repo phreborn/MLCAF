@@ -1,0 +1,56 @@
+# -*- mode: tqfolder -*-
+# this files name is 'cuts.txt'
+
+# This is a cutfile that makes only very basic selections for the GridScanner example
++CutChannels {
+	# to use the per-event event weights properly, use "Weight" as .weightExpression here
+	#<.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_$(weightname):$(channel)", .title="Channel Selection">
+  <.cutExpression = "$(fitsChannel)", .weightExpression = "Weight_$(weightname):$(cand)", .title="Channel Selection">
+	# split up W+jets in electron fake and muon fake
+  # +CutWjetsMuFake{
+  #   <.cutExpression = "{ ( $(doWjetsSplit) && $(isDataDrivenWjets) && $(isWjetsFakeMu) ) ? ( $(isLeadE) ? [subleadLepAntiID] : [leadLepAntiID] )  : 1.}", .title = "W+jets flavour split muon">
+  #   +CutWjetsElFake{
+  #     <.cutExpression = "{ ( $(doWjetsSplit) && $(isDataDrivenWjets) && $(isWjetsFakeEl) ) ? ( $(isLeadE) ? [leadLepAntiID] : [subleadLepAntiID] )  : 1.}", .title = "W+jets flavour split electron">
+	# 		+CutGRL {
+	#    		<.cutExpression = "$(GRLCut)", .title="GRL Selection">
+	#    		+CutJetCleaning {
+	#    			<.cutExpression = "$(JetCleaning)", .title="Jet Cleaning">
+	#    			+CutVgammaVjet_overlap {
+	#    				<.cutExpression = "{ $(isVjets) ? $(Truth_hasFSRPhoton)==0 : 1 }",  .title="Overlap: Vgamma/Vjets">
+	#    				+CutTrigger {
+	#    					<.cutExpression = "$(TriggerSelectionObs)", .title="Trigger Selection">
+	#    					+CutTriggerMatch {
+	#    						<.cutExpression = "$(TriggerMatchingObs)", .title="Trigger Matching">
+  #               +CutScaleFactors {
+  #                 <.cutExpression = "1", .weightExpression = "$(multiLeptonTriggerSF)", .title="Apply Multilepton Trigger SF">
+	   						  +Cut2Leptons{
+	   						  	<.cutExpression = "[$(nOtherElec)] == 0. && [$(nOtherMuon)] == 0.", .title="Only two Leptons">
+	   						  	+CutLeadLeptonPt {
+#	   						  		<.cutExpression = "[$(lep0).pt()] > ( $(isLeadE) || $(is2016RunNumber) ? 25000. : 22000.)", .title="$p_{t}^{lead} > 25/22$ GeV ($e\mu$/$\mu{}e$)">
+	   						  		<.cutExpression = "[$(lep0).pt()] > 22000.", .title="$p_{t}^{\rm lead} > 22$ GeV">
+	   						  	  +CutSubLeadLeptonPt {
+	   						  		  <.cutExpression = "[$(lep1).pt()] > 15000", .title="$p_{t}^{\rm sublead} > 15$">
+	   						  		  +CutOSLeptons {
+	   						  			  <.cutExpression = "$(dilepCharge)==0", .title="OS Leptons", dlcName="">
+#	   						  		  }
+	   						  		  # +CutSSLeptons {
+	   						  			#   <.cutExpression = "$(dilepCharge)!=0", .title="SS Leptons", dlcName="_SS">
+	   						  		  # }
+                          +CutMll$(dlcName) {
+                            <.cutExpression = "$(Mll) >  10000 ", .title="$M_{\ell\ell} > 10$ GeV">
+	   						  	      }
+                    }
+                    }
+	   						  }
+	   					  }
+                }
+#              }
+# 	   				  }
+# 	   			  }
+# 	   		  }
+# 	   	  }
+# 	    }
+#     }
+#   }
+# }
+
