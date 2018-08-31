@@ -1,0 +1,5 @@
+# ttbar
+410503 /bkg/$(channel)/top/ttbar
+
+# vbf
+345323 /sig/$(channel)/mh125/vbf
