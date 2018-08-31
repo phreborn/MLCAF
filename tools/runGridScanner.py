@@ -184,39 +184,6 @@ def createGridScanner(config, evaluator):
 
     # book all variables
     INFO("Booking variables")
-    #variablesUpperScan = config.getTagVString("variablesUpperScan")
-    #variablesLowerScan = config.getTagVString("variablesLowerScan")
-    #variablesSplit = config.getTagVString("variablesSplit")
-    #variablesUpperSwitch = config.getTagVString("variablesUpperSwitch")
-    #variablesLowerSwitch = config.getTagVString("variablesLowerSwitch")
-    #variablesUpperFixed, variablesLowerFixed    = TString(""), TString("")
-    #config.getTagString("variablesUpperFixed", variablesUpperFixed)
-    #config.getTagString("variablesLowerFixed", variablesLowerFixed)
-    #variablesWindowFixed = TString("")
-    #config.getTagString("variablesWindowFixed", variablesWindowFixed)
-
-    #for upper in variablesUpperScan:
-    #    if not TQStringUtils.trim(upper).IsNull(): gridscan.addVariableUpper(upper)
-    #for lower in variablesLowerScan:
-    #    if not TQStringUtils.trim(lower).IsNull(): gridscan.addVariableLower(lower)
-    #for split in variablesSplit:
-    #    if not TQStringUtils.trim(split).IsNull(): gridscan.addVariableSplit(split)
-    #for upperswitch in variablesUpperSwitch:
-    #    if not TQStringUtils.trim(upperswitch).IsNull(): gridscan.addVariableUpperSwitch(upperswitch)
-    #for lowerswitch in variablesLowerSwitch:
-    #    if not TQStringUtils.trim(lowerswitch).IsNull(): gridscan.addVariableLowerSwitch(lowerswitch)
-    #for upperfixed in str(variablesUpperFixed).split(","):
-    #    if TQStringUtils.trim(upperfixed).IsNull(): continue
-    #    name, value = TQStringUtils.trim(upperfixed.split("=")[0]), float(upperfixed.split("=")[1])
-    #    if not TQStringUtils.trim(name).IsNull(): gridscan.addVariableUpperFixed(name, value)
-    #for lowerfixed in str(variablesLowerFixed).split(","):
-    #    if TQStringUtils.trim(lowerfixed).IsNull(): continue
-    #    name, value = TQStringUtils.trim(lowerfixed.split("=")[0]), float(lowerfixed.split("=")[1])
-    #    if not TQStringUtils.trim(name).IsNull(): gridscan.addVariableLowerFixed(name, value)
-    #for windowfixed in str(variablesWindowFixed).split(","):
-    #    if TQStringUtils.trim(windowfixed).IsNull(): continue
-    #    low, name, up = float(windowfixed.split("<")[0]), TQStringUtils.trim(windowfixed.split("<")[1]), float(windowfixed.split("<")[2])
-    #    if not TQStringUtils.trim(name).IsNull(): gridscan.addVariableWindowFixed(name, low, up)
 
     # check for restricted variables ranges
     boundaries = TString("")
@@ -376,7 +343,7 @@ def runScan(config, samples, channel = "[em+me]"):
 
     # Remove results folder from TQFolder before its destructor is called.
     resultsDir.removeObject(results.GetName())
-    # This prevents nasty errors when memory is cleared
+    # This prevents nasty errors at the end of execution when memory is cleared
     # TQFolder is not able to remove/delete objects of type TQGridScanResults
 
     return results
