@@ -113,6 +113,8 @@ _CAFFindPossibleCompletions(){
     # The content of these two variables will be used for auto-compl.
     local listOfFiles=""
     local listOfDirs=""
+    local listOfFilesInDot=""
+    local listOfDirsInDot=""
 
     # Store the $immediateCompleteStr in an array
     # ($immediateCompleteDirs) to simplify looping. 
@@ -148,10 +150,17 @@ _CAFFindPossibleCompletions(){
 	for file in $listOfFiles_new  ; do
 	    if [[ "$file" != *"/" ]] ; then
 		if [[ $file != "" ]] ; then
-		    if [[ $listOfFiles != "" ]] ; then
-			listOfFiles+=":"
+		    if [[ $path == "./" ]] ; then
+			if [[ $listOfFilesInDot != "" ]] ; then
+			    listOfFilesInDot+=":"
+			fi
+			listOfFilesInDot+=$thisDir$file
+		    else
+			if [[ $listOfFiles != "" ]] ; then
+			    listOfFiles+=":"
+			fi
+			listOfFiles+=$thisDir$file
 		    fi
-		    listOfFiles+=$thisDir$file
 		    foundInThisPath+=("$thisDir$file")
 		fi
 	    fi
@@ -159,15 +168,22 @@ _CAFFindPossibleCompletions(){
 	for dir in $listOfDirs_new ; do
 	    # Filter "./" and "../" out.
 	    if [[ $dir != "" ]] && [[ $dir != "./" ]] && [[ $dir != "../" ]] ; then
-		if [[ $listOfDirs != "" ]] ; then
-		    listOfDirs+=":"
+		if [[ $path == "./" ]]; then
+		    if [[ $listOfDirsInDot != "" ]] ; then
+			listOfDirsInDot+=":"
+		    fi
+		    # Cut off the absolute part of all suggestions
+		    listOfDirsInDot+=${dir/$path/}
+		else
+		    if [[ $listOfDirs != "" ]] ; then
+			listOfDirs+=":"
+		    fi
+		    # Cut off the absolute part of all suggestions
+		    listOfDirs+=${dir/$path/}
 		fi
-		# Cut off the absolute part of all suggestions
-		listOfDirs+=${dir/$path/}
 		foundInThisPath+=("${dir/$path/}")
 	    fi
 	done
-
 
 	# The following part is only used to find and match
 	# $immediateCompleteStr in one of the auto-complete paths. If
@@ -219,6 +235,9 @@ _CAFFindPossibleCompletions(){
 				matchedPart=( $(compgen -W "$matchedPart" -- "$thisWord") )
 				if [[ "$matchedPart" != "" ]] ; then
 				    COMPREPLY="$matchedPart"
+				    if [[ $COMPREPLY == *"/" ]]; then
+					COMPREPLY+="/"
+				    fi
 				    return 0
 				fi
 			    fi
@@ -229,13 +248,39 @@ _CAFFindPossibleCompletions(){
 	fi
     done
 
-    
+    local fullCompletions=""
+    for dir in $listOfDirsInDot; do
+	# fullCompletions+=${dir/%\//}":"
+	fullCompletions+="$dir:"
+    done
+    for dir in $listOfDirs; do
+	local alreadyThere=0
+	for dirInDot in $listOfDirsInDot; do
+	    if [[ $dir == $dirInDot ]]; then
+		alreadyThere=1
+	    fi
+	done
+	if [[ $alreadyThere -eq 0 ]]; then
+	    fullCompletions+=${dir/%\//\/\/}":"
+	    # append a trailing slash (will be removed again later)
+	    # fullCompletions+=${dir/%\//\/\/}
+	fi
+    done
+    if [[ "$listOfFilesInDot" != "" ]]; then
+	fullCompletions+="$listOfFilesInDot:"
+    fi
+    if [[ "$listOfFiles" != "" ]]; then
+	fullCompletions+="$listOfFiles:"
+    fi
+    fullCompletions=${fullCompletions/%:/}
     unset IFS
-    fullCompletions=`echo "$listOfFiles:$listOfDirs" | tr ":" " "`
-    
+    fullCompletions=`echo "$fullCompletions" | tr ":" " "`
+    # echo "$fullCompletions"
     # Compgen reduces the list to the words starting with $thisWord.
     # The variable COMPGEN will be used to print suggestions.
     COMPREPLY=( $(compgen -W "$fullCompletions" -- "$thisWord") )
+
+    # echo "compreply: "${COMPREPLY[@]}
 
     return 0
 }
@@ -243,6 +288,12 @@ _CAFFindPossibleCompletions(){
 
 _CAFShortenCompreply(){
     ##################################################################
+    #
+    # Update: This function is not currently used, but works fine.
+    # The same functionality is provided by "-o filenames"
+    #
+    ##################################################################
+    #
     # This function is called at the end, when all possible
     # completions have been created. Current completions are relative
     # to the current directory (or equivalently $CAFANALYSISSHARE).
@@ -363,6 +414,20 @@ _CAFFilterFiles(){
     unset IFS
 }
 
+_CAFSetNoSpaceOpt(){
+    if [[ ${#COMPREPLY[@]} -eq 1 ]]; then
+	if [[ ${COMPREPLY[0]} = *"/" ]]; then
+	    compopt -o nospace
+	fi
+    fi
+}
+
+_CAFRemoveTrailingSlash(){
+    local max=${#COMPREPLY[@]}
+    for (( i=0; i<$max; i++)) ; do
+	COMPREPLY[i]=${COMPREPLY[i]/%\//}
+    done
+}
 
 
 _CAFRegularComplete(){
@@ -398,7 +463,8 @@ _CAFRegularComplete(){
     
     _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "$option" "config/master/"
     _CAFFilterFiles "$prefixes" ".cfg"
-    _CAFShortenCompreply "$thisWord" "$thisDir"
+    _CAFSetNoSpaceOpt
+    _CAFRemoveTrailingSlash
 
     return 0
 }
@@ -434,7 +500,8 @@ _CAFSubmitComplete(){
     else
 	_CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "0" ""
     fi
-    _CAFShortenCompreply "$thisWord" "$thisDir"
+    _CAFSetNoSpaceOpt
+    _CAFRemoveTrailingSlash
     return 0
 }
 
@@ -480,7 +547,6 @@ _CAFAutoComplete(){
     local statusCode=$?
     if [ $statusCode -eq 0 ] ; then
 	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "./" "0"
-	_CAFShortenCompreply "$thisWord" "$thisDir"
 	return 0
     fi
 
@@ -505,7 +571,7 @@ _CAFAutoComplete(){
 
 IFS=" "
 for script in $pythonScripts ; do
-    complete -o nospace -F _CAFAutoComplete $script
+    complete -o filenames -F _CAFAutoComplete $script
 done
 unset pythonScripts
 unset IFS

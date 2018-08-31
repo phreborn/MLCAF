@@ -15,15 +15,13 @@ variables:
 # job defaults
 
 .asg: &asg
-  image: atlas/analysisbase:21.2.34
+  image: atlas/analysisbase:21.2.39
   tags:
-    - runner-9
     - cvmfs
 
 .standalone: &standalone
   image: rootproject/root-ubuntu16
   tags:
-    - runner-9
     - cvmfs
 
 .asg_setup: &asg_setup
@@ -103,6 +101,7 @@ standalone_compile:
     paths:
       - build
       - CAFCore/cafsetup.sh
+      - CAFCore/*/python/__init__.py
 
 ##########################################################################
 # stage: run
@@ -171,7 +170,6 @@ build_image:
   stage: docker
   tags:
     - docker-image-build
-    - runner-9
   script:
     - ignore
 
