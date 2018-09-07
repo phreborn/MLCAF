@@ -59,6 +59,7 @@ Let's have a look at `MjjMaxObservable.h` first. You should modify it such that 
 #ifndef __MJJMAXOBSERVABLE__
 #define __MJJMAXOBSERVABLE__
 #include "CAFxAODUtils/TQEventObservable.h"
+#include "xAODParticleEvent/CompositeParticleContainer.h"
 
 class MjjMaxObservable : public TQEventObservable {
 protected:
