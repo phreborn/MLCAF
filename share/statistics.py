@@ -8,7 +8,7 @@ alias = "buildWorkspace"
 def main(args):
   # print a welcome message
   print(QFramework.TQStringUtils.makeBoldWhite("starting statistical treatment of the analysis results"))
-  configFiles = args.config.split(",")
+  configFiles = args.config
   configs = []
   for configFile in configFiles:
     configFile = configFile.strip()
@@ -33,9 +33,9 @@ def main(args):
     try:
       mgr.run(config)
     except Exception as ex:
-      mgr.getModels().writeToFile("runStatistics.emergency.models.root")
-      mgr.getWorkspaces().writeToFile("runStatistics.emergency.workspaces.root")
-      mgr.getResults().writeToFile("runStatistics.emergency.results.root")
+      mgr.getModels().writeToFile("statistics.emergency.models.root")
+      mgr.getWorkspaces().writeToFile("statistics.emergency.workspaces.root")
+      mgr.getResults().writeToFile("statistics.emergency.results.root")
       extype,exsource,extext = QFramework.parseException(ex)
       QFramework.BREAK("Failed to run statistics manager for config, exception of type '{:s}' occurred: '{:s}'".format(extype,extext))
     QFramework.INFO("Done processing '{:s}'!".format(configFile))
@@ -43,7 +43,7 @@ def main(args):
 if __name__ == "__main__":
   # parse the CLI arguments
   parser = argparse.ArgumentParser(description='Create a workspace for the HSG3 Run2 Analysis.')
-  parser.add_argument('config', metavar='CONFIG', type=str, 
+  parser.add_argument('config', metavar='CONFIG', type=str, nargs="+",
             default="config/buildWorkspace.cfg",
             help='path to the analysis config file to be processed')
   parser.add_argument("--change", metavar='text', type=str, help='changes to apply to the input config file', nargs="*", default=[])
