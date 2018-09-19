@@ -188,7 +188,8 @@ def createGridScanner(config, evaluator):
     # check for restricted variables ranges
     boundaries = TString("")
     if config.getTagString("boundaryList", boundaries):
-        lines = TQStringUtils.readFileLines(boundaries)
+    	boundaryPath = TQPathManager.getPathManager().findFileFromEnvVar(boundaries, "CAFANALYSISSHARE")
+        lines = TQStringUtils.readFileLines(boundaryPath)
         if not lines:
             WARN("Could not open input file {:s} - not applying any boundary conditions!".format(boundaries))
         else:
