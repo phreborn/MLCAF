@@ -358,7 +358,8 @@ def main(args):
     # open the configfile
     cfgname=TString(args.cfgname)
     INFO("Reading configuration for '{:s}' from file '{:s}'".format(alias,cfgname.Data()))
-    configreader = TQConfigReader(alias,cfgname)
+    cfgPath = TQPathManager.getPathManager().findFileFromEnvVar(cfgname, "CAFANALYSISSHARE")
+    configreader = TQConfigReader(alias,cfgPath)
 
     # export the config options to a taggable object
     config = configreader.exportAsTags()
@@ -372,7 +373,8 @@ def main(args):
     # load the sample folder (which contains n-dim histograms)
     sfinfilename = config.getTagStringDefault("inputFile","output/samples-run2-sigscan.root:samples");
     INFO("Loading sample folder '{:s}'".format(sfinfilename.Data()))
-    samples = TQSampleFolder.loadSampleFolder(sfinfilename)
+    sfinfilepath = TQPathManager.getPathManager().getTargetPath(sfinfilename)
+    samples = TQSampleFolder.loadSampleFolder(sfinfilepath)
     if not samples and not dummy:
         BREAK("unable to load sample folder '{:s}' - please check input path".format(sfinfilename))
     # elif not samples:

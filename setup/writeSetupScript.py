@@ -33,11 +33,12 @@ if __name__ == "__main__":
 
         # Add location of executables to $PATH
         f.write("# Add paths from $CAFANALYSISSHARE to $PATH (while avoiding duplicates)\n")
-        f.write("for directory in `echo $CAFANALYSISSHARE | tr \":\" \" \"` ; do\n")
+        f.write("for directory in `echo $CAFANALYSISSHARE:$CAFANALYSISBASE/tools | tr \":\" \" \"` ; do\n")
         f.write("\t# Remove trailing slash\n")
         f.write("\tdir=${directory%/}\n")
         f.write("\t# If $dir is not in $PATH yet, add it at the end.\n")
-        f.write("\tif ! `echo $PATH | tr \":\" \"\\n\" | grep -q $dir` ; then\n")
+        f.write("\techo $PATH | tr ":" "\n" | grep -q $dir\n")
+        f.write("\tif [[ $? -ne 0 ]] ; then\n")
         f.write("\t\texport PATH=$PATH:$dir\n")
         f.write("\tfi\n")
         f.write("done\n\n")
