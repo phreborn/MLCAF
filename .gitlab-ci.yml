@@ -38,6 +38,9 @@ variables:
 
 .minimal_script: &minimal_script
   script:
+    - ls setup/
+    - cmake .
+    - ls setup/
     - source setup/setupAnalysis.sh
     - mkdir run
     - cd run
