@@ -34,6 +34,7 @@ if __name__ == "__main__":
         # Add location of executables to $PATH
         f.write("# Add paths from $CAFANALYSISSHARE to $PATH (while avoiding duplicates)\n")
         f.write("echo $CAFANALYSISSHARE:$CAFANALYSISBASE/tools | tr \":\" \" \"\n")
+        f.write('echo "test" | grep "te"\n')
         f.write("for directory in `echo $CAFANALYSISSHARE:$CAFANALYSISBASE/tools | tr \":\" \" \"` ; do\n")
         f.write("\techo \"directory = $directory\"\n")
         f.write("\t# Remove trailing slash\n")
@@ -44,8 +45,8 @@ if __name__ == "__main__":
         f.write("\techo $PATH\n")
         f.write('\techo "echo \$PATH | tr \\":\\" \\"\\n\\""\n')
         f.write('\techo $PATH | tr ":" "\\n"\n')
-        f.write('\techo "echo \$PATH | tr \\":\\" \\"\\n\\" | grep \$dir"\n')
-        f.write('\techo $PATH | tr ":" "\\n" | grep $dir\n')
+        f.write('\techo "echo \$PATH | tr \\":\\" \\"\\n\\" | grep \\"\$dir\\""\n')
+        f.write('\techo $PATH | tr ":" "\\n" | grep "$dir"\n')
         f.write('\techo "echo \$PATH | tr \\":\\" \\"\\n\\" | grep -q \$dir"\n')
         f.write('\techo $PATH | tr ":" "\\n" | grep -q $dir\n')
         f.write("\tif [[ $? -ne 0 ]] ; then\n")
