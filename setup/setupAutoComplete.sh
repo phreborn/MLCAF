@@ -7,16 +7,18 @@
 
 # Names of python scripts that need config files. Auto-complete
 # will only work for these scripts and only if they are in the
-# $CAFANALYSISSHARE directory.
-pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py"
+# $CAFAutoCompleteDirectories.
+CAFPythonScriptDirectories="$CAFANALYSISSHARE:$CAFANALYSISBASE/tools"
+pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py runGridScanner.py"
 
 
 _CAFdoAutoCompletion(){
     ##################################################################
     # This function has two purposes:
     # 1. Its return value indicates if the invoking python script
-    #    is in $CAFANALYSIS (i.e. if auto-completion should be used).
-    # 2. It returns a concatenated and formatted (with tailing "/")
+    #    is in $CAFPythonScriptDirectories (i.e. if auto-completion
+    #    should be used).
+    # 2. It returns a concatenated and formatted (with trailing "/")
     #    list of directories to search possible completions in.
     #
     ##################################################################
@@ -35,18 +37,15 @@ _CAFdoAutoCompletion(){
 	return 0
     fi
     
-    # Check if $command is in $CAFANALYSISSHARE. If not, exit the script.
+    # Check if $command is in $CAFAutocompleteDirectores.
+    # If not, exit the script.
     local commandInExecutables=0
-    for directory in $CAFANALYSISSHARE ; do
+    for directory in $CAFPythonScriptDirectories ; do
     	# resolve leading "~/" and symbolic links
     	local dir="${directory/#\~/$HOME}"
     	if [[ $dir != *"/" ]] ; then
     	    dir="$dir/"
     	fi
-    	if [[ $CAFAnalysisShare != "" ]] ; then
-    	    CAFAnalysisShare+=":"
-    	fi
-    	CAFAnalysisShare+="$dir"
     	# The following two if statements are a messed up way of
     	# Checking that $command points to a script in $dir.
 
@@ -63,8 +62,20 @@ _CAFdoAutoCompletion(){
     	fi
     done
 
-    echo $CAFAnalysisShare
+    for directory in $CAFANALYSISSHARE ; do
+    	# resolve leading "~/" and symbolic links
+    	local dir="${directory/#\~/$HOME}"
+    	if [[ $dir != *"/" ]] ; then
+    	    dir="$dir/"
+    	fi
+    	if [[ $CAFAnalysisShare != "" ]] ; then
+    	    CAFAnalysisShare+=":"
+    	fi
+    	CAFAnalysisShare+="$dir"
+    done
+
     unset IFS
+    echo $CAFAnalysisShare
     return $commandInExecutables
 }
 
@@ -505,6 +516,46 @@ _CAFSubmitComplete(){
     return 0
 }
 
+_CAFBasicComplete(){
+    ##################################################################
+    # This function gets executed if auto-completion is requested for
+    # a basic file (i.e. nothing special is implemented, but config
+    # files relative to CAFAnalysisShare will be found.
+    #
+    # In all cases, completion suggestions for the config file are
+    # given.
+    #
+    ##################################################################
+
+    local command=$1
+    local thisWord=$2
+    local previousWord=$3
+    local thisDir=$4
+    local CAFAnalysisShare=$5
+    local option=$6
+
+    # echo ""
+    # echo "_CAFBasicComplete called with arguments:"
+    # echo "command          : $command"
+    # echo "thisWord         : $thisWord"
+    # echo "previousWord     : $previousWord"
+    # echo "thisDir          : $thisDir"
+    # echo "CAFAnalysisShare : $CAFAnalysisShare"
+    # echo "option           : $option"
+
+    local prefixes=""
+    if [ "$option" -gt 1 ] ; then
+	prefixes="${command/%.py/}"
+    fi
+
+    _CAFFindPossibleCompletions "$thisWord" "$thisDir" "$CAFAnalysisShare" "0" ""
+    _CAFFilterFiles "$prefixes" ".cfg"
+    _CAFSetNoSpaceOpt
+    _CAFRemoveTrailingSlash
+
+    return 0
+}
+
 _CAFAutoComplete(){
     ##################################################################
     # This function gets called when auto-completion for a script is
@@ -530,6 +581,7 @@ _CAFAutoComplete(){
     local previousWord=$3
     local option=0
 
+    set +e
 
     # Find the directory of the path that the user has already typed
     # in the command line: $thisDir.
@@ -559,6 +611,8 @@ _CAFAutoComplete(){
 
     if [ $command == "submit.py" ] ; then
 	_CAFSubmitComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
+    elif [ $command == "runGridScanner.py" ] ; then
+	_CAFBasicComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
     else
 	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
     fi
