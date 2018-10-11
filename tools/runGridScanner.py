@@ -47,6 +47,10 @@ def plotResults(config, channel):
     gridscan.setTag("histogram.title",plotTitle)
     INFO("Setting plot title to '{:s}'".format(plotTitle))
 
+    signifProfileYTitle = config.getTagDefault("titleFigureOfMerit","Z_{exp}")
+    gridscan.setTag("profile.titleFigureOfMerit", signifProfileYTitle)
+    INFO("Setting plot y-axis title of significance profile to '{:s}'".format(signifProfileYTitle))
+
     minsignificance = config.getTagDoubleDefault("plotMinSignificance", 5)
     INFO("Using significance minimum Z={:f}".format(minsignificance))
     gridscan.setTagDouble("profile.sigMin",minsignificance)
