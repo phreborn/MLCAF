@@ -9,7 +9,7 @@
 # will only work for these scripts and only if they are in the
 # $CAFAutoCompleteDirectories.
 CAFPythonScriptDirectories="$CAFANALYSISSHARE:$CAFANALYSISBASE/tools"
-pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py runGridScanner.py"
+pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py"
 
 
 _CAFdoAutoCompletion(){
