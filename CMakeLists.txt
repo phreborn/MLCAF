@@ -31,7 +31,7 @@ IF(${AnalysisBase_FOUND})
 
   # generate the LinkDef.h 
   execute_process(
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
     )
 
   # write a setup script
@@ -101,7 +101,7 @@ else()
 
   # generate the LinkDef.h 
   execute_process(
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
     )
 
   # set general CMake settings
