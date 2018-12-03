@@ -26,7 +26,7 @@ The new observable class is to be implemented in the [xAOD Example analysis](htt
 ./CAFCore/QFramework/share/TQObservable/wizard.py
 ```
 
-The wizard will ask a couple of questions that we answer as follows
+The wizard will ask a couple of questions that we answer as follows (for more information about these questions, see at the end of this document).
 ```
 Please enter the path to the package you want to create an observable for (default: CAFExample): CAFExample
 What is the name of the observable you would like to create? MjjMaxObservable
@@ -166,7 +166,11 @@ r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/MjjMax")->Draw("")
 ```
 Now, you can also define cuts/cutflows, event lists, etc. with your new observable. 
 
-# Creating a custom vector observable (Advanced)
+# More wizard options (Advanced)
+
+Without talking about the specifics, we answered a few wizard questions with no. Let's see what these questions are about.
+
+## Creating a custom vector observable (Advanced)
 There is also the possibility to create observables that return multiple values per event. This can be useful for a bunch of things, especially in combination with `TQVectorAuxObservables` it will give you the opportunity to manipulate the output of the observable just by modifying a small string in config files later on. Let's do an example. Call the observable script `wizard.py`, answer the questions as above except choosing a different observable name and answering the following question with yes:
 ```
 Do you want to create a vector observable that can return multiple values? (y/N) y
@@ -179,3 +183,10 @@ should give you the same results than for the previously booked histogram with u
 
 If you managed to write your vector observable you can also compare it with [MjjVectorObservable](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/Root/MjjVectorObservable.cxx) which should already be available in your CAFExample fork.
 
+## Expression member variable
+Sometimes you might want to your observable additional information, when you call it. This is what expressions are good for. TODO: more detailed explanation
+
+## Using factories to create observables
+Observable factories are a handy way of creating observables on-the-fly. You don't need an observable snippet and the observable will only be instantiated when it is first called. Let's look at an example.
+
+You want to get the delta eta between the jets `i` and `j`, but you only find out the values of `i` and `j` while running. Then you create a factory that takes as argument a string of the format `DeltaEtaBetweenJets:i,j`. The factory checks if the string starts with `DeltaEtaBetweenJets` and uses the indices `i` and `j` to set up the observable (this is something you have to implement yourself). The advantage is that you will only create this one observable instead of creating one for every combination of i and j.
