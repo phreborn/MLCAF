@@ -170,7 +170,7 @@ Now, you can also define cuts/cutflows, event lists, etc. with your new observab
 
 Without talking about the specifics, we answered a few wizard questions with no. Let's see what these questions are about.
 
-## Creating a custom vector observable (Advanced)
+## Creating a custom vector observable
 There is also the possibility to create observables that return multiple values per event. This can be useful for a bunch of things, especially in combination with `TQVectorAuxObservables` it will give you the opportunity to manipulate the output of the observable just by modifying a small string in config files later on. Let's do an example. Call the observable script `wizard.py`, answer the questions as above except choosing a different observable name and answering the following question with yes:
 ```
 Do you want to create a vector observable that can return multiple values? (y/N) y
