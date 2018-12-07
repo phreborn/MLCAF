@@ -188,7 +188,7 @@ should give you the same results than for the previously booked histogram with u
 If you managed to write your vector observable you can also compare it with [MjjVectorObservable](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/Root/MjjVectorObservable.cxx) which should already be available in your CAFExample fork.
 
 ## Expression member variable
-Sometimes you might want to your observable additional information, when you call it. This is what expressions are good for. TODO: more detailed explanation
+Sometimes you might want to add additional information to your observable, when you call it. This is what expressions are good for. But honestly, expressions are not used frequently and are mostly needed for internal handling. For all intents and purposes, you want to answer no when the wizard asks you.
 
 ## Using factories to create observables
 Observable factories are a handy way of creating observables on-the-fly. You don't need an observable snippet and the observable will only be instantiated when it is first called. Let's look at an example.
