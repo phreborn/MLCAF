@@ -26,3 +26,24 @@ To run the example, enter
 ```
 $ python hello_world.py
 ```
+So lets look at the `hello_world.py` script in more default. The core of the
+script consists of a task object. This object represents a job to be submitted
+to the batch system. The object contains all the job properties like number of
+cores, memory requirements and the payload script.
+
+```python
+task = submit.task("hello_world", "sleep 60; touch hello_world.txt",
+                   memory=args.memory,
+                   ncores=args.ncores,
+                   time=args.time,
+                   setup=submit.getSetupCommand(args),
+                   outputs=["hello_world.txt"])
+```
+
+In order to actually submit the job, we can let the submission helpers guess the
+local batch system and send the task object to it.
+
+```python
+controller = submit.guessSubmissionController()
+controller.submitTasks(args, [task])
+```
