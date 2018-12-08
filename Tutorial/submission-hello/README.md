@@ -1,6 +1,6 @@
 This document is intended as hands-on instructions for the [CAF
 tutorial](https://indico.cern.ch/event/771763/). Since the
-instructions should be self-contained, it can also be used as a offline resource. The only
+instructions should be self-contained, it can also be used as an offline resource. The only
 prerequisite of this tutorial is a working
 [CAF](https://gitlab.cern.ch/atlas-caf/CAFCore) installation. You can check this
 by running
@@ -14,7 +14,8 @@ RooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby
 ```
 
 This part of the tutorial illustrates the submission functionality of the common analysis
-helpers. The [example script](hello_world.py) `hello_world.py` submits a single job to local
+helpers. The [example script](hello_world.py) `hello_world.py` submits a single
+job to the local
 batch system. The submission code searches the current environment to find a
 suitable batch system. If no batch system is found, it runs the jobs locally as a
 sub-process.
@@ -28,7 +29,7 @@ $ python hello_world.py
 ```
 So lets look at the `hello_world.py` script in more default. The core of the
 script consists of a task object. This object represents a job to be submitted
-to the batch system. The object contains all the job properties like number of
+to the batch system. The object contains all the job properties like the number of
 cores, memory requirements and the payload script.
 
 ```python

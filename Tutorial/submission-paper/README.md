@@ -20,21 +20,21 @@ comprises the following steps
 
  1. **Creation of pseudo-random data**:
     The final paper should contain nice histograms whose events are drawn from a
-    multivariate gaussian. The first step reads in a [configuration
+    multivariate Gaussian. The first step reads in a [configuration
     file](config.yml) and draws pairs of numbers $(x, y)$ from the multivariate
-    distribution. The configuratino defines the properties of the multivariate
-    distribution. The paris of numbers are writte to a file called
-    `scatter_data.txt`. Everytime the configuraiton is changed, we should rerun
+    distribution. The configuration defines the properties of the multivariate
+    distribution. The pairs of numbers are written to a file called
+    `scatter_data.txt`. Every time the configuration is changed, we should rerun
     the first step, in order to have an up-to-date version of the scatter-data.
 
   2. **Creation of histograms**:
-    The next steps consists of three scripts which read the `scatter_data.txt`
+    The next step consists of three scripts which read the `scatter_data.txt`
     file and create plots in PDF format. The scripts do not depend on each
-    other, so we can run them in parallel. Everytime the scatter data file is
+    other, so we can run them in parallel. Every time the scatter data file is
     changed, we want to rerun this stage.
 
   3. **Compile paper**:
-    The last step consist of a single `pdflatex` command with converts the
+    The last step consists of a single `pdflatex` command with converts the
     `paper.txt` draft into the final PDF-file. Our paper contains the plots
     from the previous stage. If the plots change, we should recompile the PDF.
 
@@ -72,10 +72,10 @@ The submission helpers are able to deal with this sort of dependency graph. To
 be more precise, the submission helpers were specifically made to work on such
 a structure.
 
-In the [previous example](../submission-hello) you have already seen how to
+In the [previous example](../submission-hello), you have already seen how to
 create a task object and how to instruct the local batch system to work on the
 a single task. If the tasks have dependencies, submitting the task to the batch
-system means, submitting all its dependencies as all (if all necessary).
+system means, submitting all its dependencies as wall (if necessary).
 
 > TasK: The file `submit_paper.py` contains a skeleton of a script to submit this kind
   of graph. Work on the three parts marked with `TODO`
