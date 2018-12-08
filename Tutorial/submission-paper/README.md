@@ -43,8 +43,8 @@ execute them sequentially or with a [Makefile](.Makefile) on the local machine,
 but for the sake of this tutorial, we will set up a submission script, such that
 the individual steps are submitted to the batch system.
 
-Have a look at the individual scripts and run them to see what they do. Also,
-have a look at the LaTeX document and try to compile it.
+> Task: Have a look at the individual scripts and run them to see what they do. Also,
+  have a look at the LaTeX document and try to compile it.
 
   - (`create_scatter_data.py`)[create_scatter_data.py] Reads the configuration
     file, draws x- and y-values form the random distribution and stores the
