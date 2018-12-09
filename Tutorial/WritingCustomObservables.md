@@ -11,24 +11,25 @@ RooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby
 ```
 
 # Basic steps to create a new observable 
-There are three main steps that need to be performed to introduce a new observable to an existing analysis:
+There are four steps that need to be performed to introduce a new observable to an existing analysis:
 1. Create and write the observable class including a source and header file. This is the main part of the observable creation where the actual calculation of the desired quantity needs to be implemented. In this hands-on exercise the helper script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) is used for these purposes. In general it is also a good idea to look at already defined observable classes and start from those as a baseline to implement your own observable.
 2. Create dedicated python snippet for instantiating the class and adding it to the observable database.
-3. Implement observable in analysis flow in terms of histograms, cuts, weights, etc.
+3. Tell your analysis where to find the python snippet.
+4. Implement observable in analysis flow in terms of histograms, cuts, weights, etc.
 
 # Creating the MjjMaxObservable
 We want to create a new observable that calculates the invariant mass (called Mjj in the following) for every possible combination of two jets in an event and returns the maximum of those values. 
-The new observable class is to be implemented in the [xAOD Example analysis](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/Tutorial/share/xAOD). It is assumed that this example analysis was already conducted.
+The new observable class is to be implemented in the existing [xAOD Example analysis](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/Tutorial/share/xAOD).
 
 ## The magic wizard.py script
-[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. Make sure you are setup (`source setup/setupAnalysis.sh`) and are in the main directory of the CAFExample repository (which you can ensure e.g. with `cd $CAFANALYSISSHARE/../`). Then, you can call the script via
+[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. Make sure you are setup (`source setup/setupAnalysis.sh`) and are in the main directory of the CAFExample repository (which you can ensure e.g. with `cd $CAFANALYSISBASE`). Then, you can call the script via
 ```bash
 ./CAFCore/QFramework/share/TQObservable/wizard.py
 ```
 
-The wizard will ask a couple of questions that we answer as follows
+The wizard will ask a couple of questions that we answer as follows (for more information about these questions, see at the end of this document).
 ```
-Please enter the path to the package you want to create an observable for (default: CAFExample): CAFExample
+Should the observable wizard put the files into your current working directory (leave empty) or into some package (type package name)? CAFExample
 What is the name of the observable you would like to create? MjjMaxObservable
 Please specify the type of observable, choose  from {Event,Tree,<empty>}: Event
 Do you want to create a vector observable that can return multiple values? (y/N) N
@@ -84,14 +85,14 @@ public:
 };
 #endif
 ```
-Three main functions are declared (`initializeSelf()`, `finalizeSelf()` and `getValue()`) that we have to define in the source file of the observable now.
-In `initializeSelf()` we will initialize the member variable `mContName` by retrieving the tag from the sample folder with the following lines of code (By doing this in the initialize function one prevents from running time costly string parsing functions for each event):
+Three main functions are already declared (`initializeSelf()`, `finalizeSelf()` and `getValue()`). Now, we will go in the source file of the observable and implement them.
+In `initializeSelf()` we will initialize the container name `mContName` by retrieving the tag from the sample folder with the following lines of code. We put this piece of code in the `initializeSelf()` method, because it only needs to be initialized once per sample. This way, we avoid costly string parsing once per event:
 ```c++
 TString ContName = "";
 if(!this->fSample->getTagString("~cand",ContName)) return false;
 this->mContName = "Event"+ContName;
 ```
-Now we have to implement the actual calculation of the quantity that is to be derived. Therefore, the `getValue()` function needs to be modified. For our example the following lines should be included:
+Now we have to implement the actual calculation of the desired quantity. This has to be executed for every event, so we will put the code in the `getValue()` method. For our example the following lines should be included:
 ```c++
   // retrieve candidate
   const xAOD::CompositeParticleContainer *cand = 0;
@@ -122,9 +123,9 @@ Once your class compiles fine along with the other observable classes we can mov
 Remark: The line at the top of `MjjMaxObservable.cxx` saying `// #define _DEBUG__` can be uncommented to enable printouts from the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
 
 ## Creating an observable snippet
-A small python snippet needs to be added for the new observable to the designated observable/ of the analysis.
-In the xAOD Example analysis, the observable snippets are located [here](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/xAOD/observables) (If you write an observable that is used by multiple analyses, you should think of creating the observable snippet in [common/](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables).
-The snippet will instantiate the observable class and adds it to the observable database. The python script should have the same name as the observable itself (in our case MjjMaxObservable.py) and can look like this:
+A small python snippet needs to be added to create your new observable during the analysis.
+In the xAOD Example analysis, the observable snippets are located [here](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/xAOD/observables) (If you write an observable that is used by multiple analyses, you consider creating the observable snippet in [common/](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/common/observables).
+The snippet will instantiate the observable class and add it to the observable database. The python script should have the same name as the observable itself (in our case MjjMaxObservable.py) and can look like this:
 
 ```python
 from QFramework import *
@@ -140,8 +141,10 @@ def addObservables():
         return False
     return True;
 ```
-Here, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable to `MjjMax`, which will be used later.
-All we need to do then, is to list the path to your script in the config file of the analyze step such that the framework executes your code and adds your observable to the database. The relevant part you should add to [analyze-xAOD-Example.cfg](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) is:
+Here, calling the constructor of the new observable class with `MjjMaxObservable("MjjMax")` will set the name of the observable instance to `MjjMax`. This is the name that we will use later in the analysis to get the value of the observable.
+
+## Tell analysis about the python snippet
+Next, we need to list the path to your script in the config file of the analyze step so that the framework can find the code and execute it. The relevant part you should add to [analyze-xAOD-Example.cfg](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/master/analyze-xAOD-Example.cfg) is:
 ```
 customObservables.directories: xAOD/observables
 customObservables.snippets: [...all other observables...], MjjMaxObservable
@@ -149,24 +152,29 @@ customObservables.snippets: [...all other observables...], MjjMaxObservable
 
 ## Defining histograms/cuts/...
 The observable can now be used to define histograms, cuts, event lists, etc. Let's define a simple histogram with the MjjMax distribution.
-Therefore we add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add it at the desired cut stages e.g.:
+We add a new histogram definition in the appropriate [histogram definition file](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/share/xAOD/config/histograms/xAOD-Example-histograms.txt) and add it at the desired cut stages e.g.:
 ```
-TH1F('MjjMax', '', 50, 0., 500.) << ( [MjjMax]*0.001 : 'm_{jj}^{max} [GeV]');
-@CutChannels/*: MjjMax;
+TH1F('hist_MjjMax', '', 50, 0., 500.) << ( [MjjMax]*0.001 : 'm_{jj}^{max} [GeV]');
+@CutChannels/*: hist_MjjMax;
 
 ```
-The second line here books a histogram at the cut CutChannels and all subsequent cuts.
+The first line defines a new histogram with a syntax reminiscent of a ROOT `TH1` constructor. In the second part of the line, we call our observable `[MjjMax]` with the name that we gave to the constructor in the python snippet. The square brackets indicate that this is an observable.
+The second line books the histogram at the cut `CutChannels` and all subsequent cuts (indicated by `/*`). We could have given the histogram the same name as the observable, which probably makes things easier. But to understand what the different identifiers mean, we appended a `hist_` to the observable name.
 
 ## Running the analysis and looking at newly booked histogram
-If the analysis is executed (you only have to perform the analyzing step) and everything was correctly implemented, the new histogram should appear in the output sample folder.
+If the analysis is executed (you only have to perform the analyze step) and everything was correctly implemented, the new histogram should appear in the output sample folder.
 <!-- It is assumed that you have already learned how to run a complete analysis.-->
 You can check this by opening the respective sample folder with `tqroot -sfr sampleFolders/analyzed/samples-analyzed-xAOD-Example.root` and draw one of the histograms with
 ```
-r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/MjjMax")->Draw("")
+r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/hist_MjjMax")->Draw("")
 ```
 Now, you can also define cuts/cutflows, event lists, etc. with your new observable. 
 
-# Creating a custom vector observable (Advanced)
+# More wizard options (Advanced)
+
+Without talking about the specifics, we answered a few wizard questions with no. Let's see what these questions are about.
+
+## Creating a custom vector observable
 There is also the possibility to create observables that return multiple values per event. This can be useful for a bunch of things, especially in combination with `TQVectorAuxObservables` it will give you the opportunity to manipulate the output of the observable just by modifying a small string in config files later on. Let's do an example. Call the observable script `wizard.py`, answer the questions as above except choosing a different observable name and answering the following question with yes:
 ```
 Do you want to create a vector observable that can return multiple values? (y/N) y
@@ -179,3 +187,12 @@ should give you the same results than for the previously booked histogram with u
 
 If you managed to write your vector observable you can also compare it with [MjjVectorObservable](https://gitlab.cern.ch/atlas-caf/CAFExample/blob/master/Root/MjjVectorObservable.cxx) which should already be available in your CAFExample fork.
 
+## Expression member variable
+Sometimes you might want to add additional information to your observable, when you call it. This is what expressions are good for. But honestly, expressions are not used frequently and are mostly needed for internal handling. For all intents and purposes, you want to answer no when the wizard asks you.
+
+## Using factories to create observables
+Observable factories are a handy way of creating observables on-the-fly. You don't need an observable snippet and the observable will only be instantiated when it is first called. Let's look at an example.
+
+You want to calculate the delta eta between the jets `i` and `j`, but you only know the values of `i` and `j` during runtime. Then you create an observable with a factory that takes as argument a string of the format `DeltaEtaBetweenJets:i,j`. The factory checks if the string starts with `DeltaEtaBetweenJets`. If it does, it creates an observable and uses the indices `i` and `j` to select the correct jets (this is something you have to implement yourself). The advantage is that you will only create this one observable instead of creating one for every combination of i and j.
+
+In the internals of CAF, factories are used all the time. For example when you combine observables in the fashion `[Observable1 * Observable2]`. The factory of the `TQMultiObservable` looks for square brackets with any non-number character in between. If it finds at least one such occurrence the factory instantiates a `TQMultiObservable` from the expression in question.
