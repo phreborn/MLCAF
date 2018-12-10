@@ -27,7 +27,7 @@ To run the example, enter
 ```
 $ python hello_world.py
 ```
-So lets look at the `hello_world.py` script in more default. The core of the
+So lets look at the `hello_world.py` script in more detail. The core of the
 script consists of a task object. This object represents a job to be submitted
 to the batch system. The object contains all the job properties like the number of
 cores, memory requirements and the payload script.
