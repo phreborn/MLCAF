@@ -95,3 +95,6 @@ paper using batch jobs.
 
 > Task: Change the setting in `config.yml` and check which jobs are resubmitted.
   Add the `--checktimestamp` argument and see how the result changes.
+
+> Task: Run the `submit_paper.py` script with the `--submit local` argument and
+  see what happens.
