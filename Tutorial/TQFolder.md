@@ -14,13 +14,13 @@ RooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby
 ```
 
 The `TQFolder` syntax is a versatile syntax to define annotated trees. Several
-utility methods allows the definition and manipulation of larges trees in a few
+utility methods allow the definition and manipulation of large trees in a few
 lines. The syntax and TQFolders are used in several places in CAF. For examples
-the cuts file is written in TQFolder syntax, all the samples, histograms and
+the cuts file is written in TQFolder syntax; all the samples, histograms and
 counters are organized and stored in TQFolders.
 
 In this tutorial, we will work on an
-example completely detached from CAF. This tutorial builds a tree structure of
+example completely detached from a real-life physics analysis. This tutorial builds a tree structure of
 animals (not even close to real taxonomy). This approach underlines the
 versatility of the syntax and helps to focus on the actual syntax instead of
 being distracted by all the details of a real physics cut file.
@@ -46,7 +46,7 @@ Animals
 ```
 
 The standard way to define a folder in TQFolder syntax is by using the `+FolderName { Content }`
-syntax, where `FolderName` is an arbitrary name, `Content` content
+syntax, where `FolderName` is an arbitrary name, `Content` 
 is a placeholder for the contents of a folder. We can create the file
 `animals.tqfolder` and add 
 
@@ -104,7 +104,7 @@ tags `tagName1="value"`, `tagName2=42`, `tagName3="other_value"` and
 }
 ```
 
-Tags can be defined in separate `<>` brackets or joined in one pair and separated by a comma.
+Multiple tags can be defined in separate `<>` brackets or joined in one pair and separated by a comma.
 
 <!-- Check that the tag example is correct. -->
 <!-- console

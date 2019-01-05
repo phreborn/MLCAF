@@ -18,7 +18,8 @@ def main(args):
     
     templateCommand="analyze.py {config} --restrict {{restrict}} --jobID {{identifier}} --options outputFile={outFileTemplate} {{options}}".format(config=",".join(args.config), outFileTemplate=outputFileNameTemplate)
     
-    templateCommand += " ".join(args.options) #forward options from command line to individual jobs
+    if args.options:
+        templateCommand += " " + " ".join(args.options) #forward options from command line to individual jobs
     
     #convenience method to make a somewhat smart splitting of jobs (the maxSampleCount and maxSampleSize arguments allow to control the splitting into sub-jobs. This can yield a significant improvement in turn-over time!):
     #note: this method is somewhat targeted at the analyze.py step/ written with that one in mind
