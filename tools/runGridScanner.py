@@ -9,25 +9,12 @@ import re
 # sample folder created
 alias = "runGridScanner"
 
-def plotResults(config, channel):
-
-    dictionary = TQTaggable()
-    chname = TQStringUtils.makeValidIdentifier(channel)
-    evalMode = config.getTagDefault("evaluator","simple")
-    evalMode.ToLower()
-    evname = TQStringUtils.makeValidIdentifier(evalMode);
-    dictionary.setTagString("CH",             channel);
-    dictionary.setTagString("LEPCH",        channel);
-    dictionary.setTagString("CHANNEL",    chname);
-    dictionary.setTagString("EVAL",         evname);
-    dictionary.setTagString("EVALUATOR",evname);
-    dictionary.setTagString("eval",         evname);
-    dictionary.setTagString("evaluator",evname);
+def plotResults(config, dictionary):
 
     rootfname = dictionary.replaceInText(config.getTagDefault("outputFile","results.root"));
 
     INFO("Reading input file for making plots: {:s}".format(rootfname))
-    results = TQFolder.loadFolder(str(rootfname)+":results")
+    results = TQFolder.loadFolder(dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)"))
 
     if not results:
         print("[WARNING] cannot open file %s. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname))
@@ -94,7 +81,7 @@ def plotResults(config, channel):
     #    gridscan.plotAndSaveAllSignificanceProfiles    (plotDir,sn)
     #    #gridscan.plotAndSaveAllSignificanceProfiles2D(plotDir,sn)
 
-def createSignificanceEvaluator(config, dictionary, channel, samples):
+def createSignificanceEvaluator(config, dictionary, samples):
     # use code from createSignificanceEvaluator.cxx
     if not config:
         BREAK("ERROR: aborting evaluation, invalid configuration!")
@@ -109,10 +96,8 @@ def createSignificanceEvaluator(config, dictionary, channel, samples):
 
     str_signal = dictionary.replaceInText(config.getTagDefault("simple.signal","/sig/$(LEPCH)/mh125/ggf"))
     str_background = dictionary.replaceInText(config.getTagDefault("simple.background", "/bkg"))
-
-    INFO("Creating {:s} significance evaluator for channel {:s}".format(evalMode.Data(), channel.Data()))
-    INFO("With signal: {:s} and background: {:s}".format(str_signal.Data(), str_background.Data()))
-
+    INFO("Definition for signal: {:s} and background: {:s}".format(str_signal.Data(), str_background.Data()))
+    
     # get nominal sample folder
     nominal = TQSampleFolder()
     if samples:
@@ -284,20 +269,18 @@ def parseRange(string):
         nSteps = int(splitBounds[2])
         return lower if not upper else (lower, upper, nSteps)
 
-def runScan(config, samples, channel = "[em+me]"):
+def runScan(config, samples, dictionary):
 
     if not samples:
         INFO("Running in dummy mode")
     INFO("Found {:s}".format(samples.getTagStringDefault(".key", samples.getName())))
 
-    dictionary = TQTaggable()
-    chname = TQStringUtils.makeValidIdentifier(channel)
     evalMode = config.getTagDefault("evaluator","simple")
     evalMode.ToLower()
     evname = TQStringUtils.makeValidIdentifier(evalMode);
-    dictionary.setTagString("LEPCH",        channel);
 
-    evaluator = createSignificanceEvaluator(config, dictionary, channel, samples)
+    INFO("Creating {:s} significance evaluator for channel {:s}".format(evalMode.Data(), dictionary.replaceInText("$(LEPCH)")))
+    evaluator = createSignificanceEvaluator(config, dictionary, samples)
     if not evaluator:
         BREAK("significance evaluator could not be created!")
 
@@ -334,17 +317,15 @@ def runScan(config, samples, channel = "[em+me]"):
     INFO("Top points are:")
     results.printPoints(min(10, nPoints))
 
-    # save to a root file
-    resultsDir = TQFolder("results")
-    resultsDir.addObject(results)
-
+    # save to a root file (overwrites existing object)
+    resultsDir = TQFolder(dictionary.replaceInText("results_$(LEPCHNAME)"))
+    resultsDir.addObject(results, ".!")
     outFile = config.getTagDefault("outputFile","results.root")
     INFO("Saving results to {:s}".format(outFile))
-
     TQUtils.ensureDirectoryForFile(outFile);
     if samples:
-       resultsDir.SaveAs(outFile.Data());
-
+      resultsDir.writeToFile(outFile.Data(), False) 
+    
     # Remove results folder from TQFolder before its destructor is called.
     resultsDir.removeObject(results.GetName())
     # This prevents nasty errors at the end of execution when memory is cleared
@@ -357,7 +338,7 @@ def main(args):
         TQLibrary.setConsoleWidth(args.width)
 
     # print a welcome message
-    print(TQStringUtils.makeBoldWhite("Running significance scan"))
+    print(TQStringUtils.makeBoldWhite("Running Gridscanner"))
 
     # open the configfile
     cfgname=TString(args.cfgname)
@@ -391,14 +372,17 @@ def main(args):
 
     channels = config.getTagVString("scanChannels")
     for ch in channels:
-        # TODO: Outputfilename handling if size(channels) > 1!
+        dictionary = TQTaggable()
+        dictionary.setTagString("LEPCH", ch);
+        chname = TQStringUtils.makeValidIdentifier(ch)
+        dictionary.setTagString("LEPCHNAME", chname)
         rootfname = config.getTagDefault("outputFile","results.root")
-        results = TQFolder.loadFolder(str(rootfname)+":results")
+        results = TQFolder.loadFolder(dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)"))
         if not results:
             WARN("File with gridscan results not found, running gridscanner first!")
-            runScan(config, samples, ch)
+            runScan(config, samples, dictionary)
         else: # output file already present, top points can be printed
-          INFO("Found previous gridscan results here: "+str(rootfname)+":results. Reading its contents now!")
+          INFO("Found previous gridscan results for channel "+ch+" here: "+str(rootfname)+":results. Reading its contents now!")
           INFO("Top points are:")
           jobname = config.getTagDefault("nDimHistName","gridscan")
           gridscanResults = results.getObject(jobname)
@@ -406,11 +390,11 @@ def main(args):
           gridscanResults.printPoints(min(10, nPoints))
         if results and args.forceScan:
             INFO("File with gridscan results found but scan is forced by command-line argument!")
-            runScan(config, samples, ch)
+            runScan(config, samples, dictionary)
         elif results and args.plotInputs:
           WARN("Although you specified the --plotInputs argument this feature is not executed. The output of a previous gridscan was found and the inputs can only be plotted during a scan of the grid. To ensure a scan (and thus the plotting of the input distributions) you can add the additional command-line argument --forceScan")
         if args.plotResults:
-          plotResults(config, ch)
+          plotResults(config, dictionary)
 
 
     INFO("Gridscanner successfully executed!")
