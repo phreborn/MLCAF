@@ -25,7 +25,8 @@ if __name__ == "__main__":
     with open(scriptPath, "w") as f:
         f.write("#!/bin/bash\n")
         f.write("# this is an auto-generated setup script\n\n")
-        
+
+        f.write("storeOptions=\"$-\"\n")
         f.write("export CAFANALYSISBASE=\""+args.sourceDir+"\"\n")
         # Create environment variable for location of executables (separate
         # multiple paths with ":")
@@ -33,17 +34,19 @@ if __name__ == "__main__":
 
         # Add location of executables to $PATH
         f.write("# Add paths from $CAFANALYSISSHARE to $PATH (while avoiding duplicates)\n")
+        f.write("set +e\n")
         f.write("for directory in `echo $CAFANALYSISSHARE:$CAFANALYSISBASE/tools | tr \":\" \" \"` ; do\n")
         f.write("\t# Remove trailing slash\n")
         f.write("\tdir=${directory%/}\n")
         f.write("\t# If $dir is not in $PATH yet, add it at the end.\n")
-        f.write("set +e\n")
         f.write('\techo $PATH | tr ":" "\\n" | grep -q $dir\n')
         f.write("\tif [[ $? -ne 0 ]] ; then\n")
         f.write("\t\texport PATH=$PATH:$dir\n")
         f.write("\tfi\n")
-        f.write("done\n\n")
-        f.write("set -e\n")
+        f.write("done\n")
+        f.write("if [[ \"$storeOptions\" == *\"e\"* ]] ; then\n")
+        f.write("\tset -e\n")
+        f.write("fi\n\n")
 
         # Source other scripts
         f.write("if [ -f "+args.setupDir+"/setupAutoComplete.sh ]; then\n\tsource "+args.setupDir+"/setupAutoComplete.sh\nfi\n")
