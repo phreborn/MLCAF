@@ -301,7 +301,6 @@ def runScan(config, samples, channel = "[em+me]"):
     if not evaluator:
         BREAK("significance evaluator could not be created!")
 
-    
     gridscan = createGridScanner(config, evaluator)
     if not gridscan:
         BREAK("gridscanner could not be created!")
@@ -392,15 +391,27 @@ def main(args):
 
     channels = config.getTagVString("scanChannels")
     for ch in channels:
-        if not args.plotResults:
+        # TODO: Outputfilename handling if size(channels) > 1!
+        rootfname = config.getTagDefault("outputFile","results.root")
+        results = TQFolder.loadFolder(str(rootfname)+":results")
+        if not results:
+            WARN("File with gridscan results not found, running gridscanner first!")
             runScan(config, samples, ch)
-        else:
-            rootfname = config.getTagDefault("outputFile","results.root")
-            results = TQFolder.loadFolder(str(rootfname)+":results")
-            if not results:
-                WARN("File with gridscan results not found, running gridscanner first!")
-                runScan(config, samples, ch)
-            plotResults(config, ch)
+        else: # output file already present, top points can be printed
+          INFO("Found previous gridscan results here: "+str(rootfname)+":results. Reading its contents now!")
+          INFO("Top points are:")
+          jobname = config.getTagDefault("nDimHistName","gridscan")
+          gridscanResults = results.getObject(jobname)
+          nPoints = gridscanResults.points().size()
+          gridscanResults.printPoints(min(10, nPoints))
+        if results and args.forceScan:
+            INFO("File with gridscan results found but scan is forced by command-line argument!")
+            runScan(config, samples, ch)
+        elif results and args.plotInputs:
+          WARN("Although you specified the --plotInputs argument this feature is not executed. The output of a previous gridscan was found and the inputs can only be plotted during a scan of the grid. To ensure a scan (and thus the plotting of the input distributions) you can add the additional command-line argument --forceScan")
+        if args.plotResults:
+          plotResults(config, ch)
+
 
     INFO("Gridscanner successfully executed!")
 
@@ -414,6 +425,8 @@ if __name__ == "__main__":
                         help='After scanning through the cuts call the plotting function')
     parser.add_argument('--plotInputs', action="store_const", const=True, default=False,
                         help='Plot all dimensions of multidimensional input histogram')
+    parser.add_argument('--forceScan', action="store_const", const=True, default=False,
+                        help='Ensure a scan of the grid even when previous output file is present')
     parser.add_argument('--width', dest="width", type=int, default=0, help="Console width for printouts")
     args = parser.parse_args()
     #get rid of command line arguments since ROOT is very greedy here (and tends to choke from it!)
