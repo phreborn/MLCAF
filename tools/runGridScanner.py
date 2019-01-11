@@ -314,7 +314,7 @@ def runScan(config, samples, dictionary):
 
     TQUtils.ensureDirectoryForFile(outPath);
     if samples:
-       resultsDir.SaveAs(outPath.Data(), False);
+       resultsDir.writeToFile(outPath.Data(), False);
     # Remove results folder from TQFolder before its destructor is called.
     resultsDir.removeObject(results.GetName())
     # This prevents nasty errors at the end of execution when memory is cleared
