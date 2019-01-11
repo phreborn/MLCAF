@@ -31,7 +31,7 @@ To filter the suggestions even further, you can set the environment variable `$C
 |---------------------|-----------------------|
 |0| (default) Auto-completion as described above.|
 |1| Like 0, but if directories like `config/master/` are found, they are completed immediately. Other, possibly useful, suggestions are ignored.|
-|2| Like 0, but only files are suggested, whose beginning matches the title of the python script.|
+|2| Like 0, but only files are suggested, whose beginning matches the name of the python script.|
 |3| Combines 1 and 2. |
 
 ### Save settings for next time ###

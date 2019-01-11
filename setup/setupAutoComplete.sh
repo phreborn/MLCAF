@@ -9,7 +9,7 @@
 # will only work for these scripts and only if they are in the
 # $CAFAutoCompleteDirectories.
 CAFPythonScriptDirectories="$CAFANALYSISSHARE:$CAFANALYSISBASE/tools"
-pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py"
+pythonScripts="prepare.py initialize.py analyze.py visualize.py submit.py runGridScanner.py"
 
 
 _CAFdoAutoCompletion(){
@@ -62,7 +62,7 @@ _CAFdoAutoCompletion(){
     	fi
     done
 
-    for directory in $CAFANALYSISSHARE ; do
+    for directory in $CAFPythonScriptDirectories ; do
     	# resolve leading "~/" and symbolic links
     	local dir="${directory/#\~/$HOME}"
     	if [[ $dir != *"/" ]] ; then
@@ -520,7 +520,7 @@ _CAFBasicComplete(){
     ##################################################################
     # This function gets executed if auto-completion is requested for
     # a basic file (i.e. nothing special is implemented, but config
-    # files relative to CAFAnalysisShare will be found.
+    # files relative to CAFAnalysisShare will be found).
     #
     # In all cases, completion suggestions for the config file are
     # given.
@@ -597,6 +597,7 @@ _CAFAutoComplete(){
     local CAFAnalysisShare="./:"
     CAFAnalysisShare+=$(_CAFdoAutoCompletion $command)
     local statusCode=$?
+
     if [ $statusCode -eq 0 ] ; then
 	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "./" "0"
 	return 0
@@ -612,6 +613,10 @@ _CAFAutoComplete(){
     if [ $command == "submit.py" ] ; then
 	_CAFSubmitComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
     elif [ $command == "runGridScanner.py" ] ; then
+	# Gridscanner files don't typically start with "runGridScanner". So disable the filtering of config files here.
+	if [ $option -gt 1 ] ; then
+	    option=$(($option-2))
+	fi
 	_CAFBasicComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
     else
 	_CAFRegularComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
