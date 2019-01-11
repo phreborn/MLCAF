@@ -14,7 +14,9 @@ def plotResults(config, dictionary):
     rootfname = dictionary.replaceInText(config.getTagDefault("outputFile","results.root"));
 
     INFO("Reading input file for making plots: {:s}".format(rootfname))
-    results = TQFolder.loadFolder(dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)"))
+    rootfname = dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)")
+    rootfpath = TQPathManager.getPathManager().getTargetPath(rootfname)
+    results = TQFolder.loadFolder(str(rootfpath)+":results")
 
     if not results:
         print("[WARNING] cannot open file %s. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname))
@@ -306,11 +308,13 @@ def runScan(config, samples, dictionary):
     resultsDir = TQFolder(dictionary.replaceInText("results_$(LEPCHNAME)"))
     resultsDir.addObject(results, ".!")
     outFile = config.getTagDefault("outputFile","results.root")
+    # use target path here because we will read from the same file later
+    outPath = TString(TQPathManager.getPathManager().getTargetPath(outFile))
     INFO("Saving results to {:s}".format(outFile))
-    TQUtils.ensureDirectoryForFile(outFile);
+
+    TQUtils.ensureDirectoryForFile(outPath);
     if samples:
-      resultsDir.writeToFile(outFile.Data(), False) 
-    
+       resultsDir.SaveAs(outPath.Data(), False);
     # Remove results folder from TQFolder before its destructor is called.
     resultsDir.removeObject(results.GetName())
     # This prevents nasty errors at the end of execution when memory is cleared
@@ -362,7 +366,9 @@ def main(args):
         chname = TQStringUtils.makeValidIdentifier(ch)
         dictionary.setTagString("LEPCHNAME", chname)
         rootfname = config.getTagDefault("outputFile","results.root")
-        results = TQFolder.loadFolder(dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)"))
+        rootfname = dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)")
+        rootfpath = TQPathManager.getPathManager().getTargetPath(rootfname)
+        results = TQFolder.loadFolder(rootfpath)
         if not results:
             WARN("File with gridscan results not found, running gridscanner first!")
             runScan(config, samples, dictionary)
@@ -380,7 +386,6 @@ def main(args):
           WARN("Although you specified the --plotInputs argument this feature is not executed. The output of a previous gridscan was found and the inputs can only be plotted during a scan of the grid. To ensure a scan (and thus the plotting of the input distributions) you can add the additional command-line argument --forceScan")
         if args.plotResults:
           plotResults(config, dictionary)
-
 
     INFO("Gridscanner successfully executed!")
 
