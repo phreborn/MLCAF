@@ -86,14 +86,12 @@ def createSignificanceEvaluator(config, dictionary, samples):
     if not config:
         BREAK("ERROR: aborting evaluation, invalid configuration!")
 
-    # retrieve the evaluator mode
-    evalMode = config.getTagDefault("evaluator","simple")
-    evalMode.ToLower()
+    # For now always true
     isSimple = True
-
+    
     verboseEvaluator = config.getTagDefault("evaluator.verbose", False);
     verboseReader = config.getTagDefault("reader.verbose", False);
-
+    
     str_signal = dictionary.replaceInText(config.getTagDefault("simple.signal","/sig/$(LEPCH)/mh125/ggf"))
     str_background = dictionary.replaceInText(config.getTagDefault("simple.background", "/bkg"))
     INFO("Definition for signal: {:s} and background: {:s}".format(str_signal.Data(), str_background.Data()))
@@ -106,29 +104,15 @@ def createSignificanceEvaluator(config, dictionary, samples):
         if not nominal:
             BREAK("no sample folder found")
 
+    # retrieve the figure of merits 
+    fomDefinitions = config.getTagVString("figureOfMerits")
+    
     # create and initialize the evaluator
-    if evalMode == "cl":
-        WARN("Evaluation mode cl is not yet implemented. using poisson instead")
-        evalMode = "poisson"
-    if evalMode == "poisson":
-        poisson = TQPoissonSignificanceEvaluator(nominal, str_signal, str_background)
-        evaluator = poisson
-    elif evalMode == "s/sqrt(b)":
-        simple = TQSimpleSignificanceEvaluator(nominal, str_signal, str_background)
-        evaluator = simple
-    elif evalMode == "s/sqrt(s+b)":
-        simple2 = TQSimpleSignificanceEvaluator2(nominal, str_signal, str_background)
-        evaluator = simple2
-    # the following is not supported for now
-    # elif evalMode == "s/db":
-    #     weighted = TQWeightedSignificanceEvaluator(nominal, str_signal, str_background)
-    #     evaluator = weighted
-    # elif evalMode == "s/sqrt(ds2+db2)":
-    #     weighted2 = TQWeightedSignificanceEvaluator2(nominal, str_signal, str_background)
-    #     evaluator = weighted2
-    else:
-        simple = TQSimpleSignificanceEvaluator(nominal, str_signal, str_background)
-        evaluator = simple
+    simple = TQSignificanceEvaluatorBase(nominal, str_signal, str_background)
+    simple.addFunctionsFOM(fomDefinitions)
+    evaluator = simple
+    
+    # TODO: Incorporate TQCLSignificanceEvaluator here to utilize the likelihood fit in the scan
 
     # configure the evaluator
     # setting cutoff
@@ -310,7 +294,8 @@ def runScan(config, samples, dictionary):
         BREAK("Something went terribly wrong - there are no points! one possible reason for this is that you requested to loop over non-existant variables. check your configuration and validate your input data. afterwards, you may try again.")
 
     INFO("Sorting points")
-    results.sortPoints()
+    indexFOM = config.getTagIntegerDefault("indexFOMForSorting", 0)
+    results.sortPoints(indexFOM)
     INFO("Found {:d} points!".format(nPoints))
     INFO("Significances between {:f} and {:f}".format(results.points()[0].significance(), results.points()[nPoints-1].significance()))
 
