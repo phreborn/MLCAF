@@ -367,7 +367,10 @@ def main(args):
         rootfname = config.getTagDefault("outputFile","results.root")
         rootfname = dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)")
         rootfpath = TQPathManager.getPathManager().getTargetPath(rootfname)
+        # suppress error message from TQFolder, which is expected sometimes
+        TQLibrary.captureStdout()
         results = TQFolder.loadFolder(rootfpath)
+        TQLibrary.restore_stdout()
         if not results:
             WARN("File with gridscan results not found, running gridscanner first!")
             runScan(config, samples, dictionary)
