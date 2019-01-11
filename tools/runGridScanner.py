@@ -16,11 +16,11 @@ def plotResults(config, dictionary):
     INFO("Reading input file for making plots: {:s}".format(rootfname))
     rootfname = dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)")
     rootfpath = TQPathManager.getPathManager().getTargetPath(rootfname)
-    results = TQFolder.loadFolder(str(rootfpath)+":results")
+    results = TQFolder.loadFolder(rootfpath)
 
     if not results:
-        print("[WARNING] cannot open file %s. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname))
-        BREAK("cannot open file %s".format(rootfname))
+        print("[WARNING] cannot open file {:s}. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname.Data()))
+        BREAK("cannot open file {:s}".format(rootfname.Data()))
 
     jobname = config.getTagDefault("nDimHistName","gridscan")
     gridscan = results.getObject(jobname)
