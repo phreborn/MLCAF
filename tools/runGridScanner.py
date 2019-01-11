@@ -311,8 +311,7 @@ def runScan(config, samples, dictionary):
     # use target path here because we will read from the same file later
     outPath = TString(TQPathManager.getPathManager().getTargetPath(outFile))
     INFO("Saving results to {:s}".format(outFile))
-
-    TQUtils.ensureDirectoryForFile(outPath);
+    TQUtils.ensureDirectoryForFile(TQPathManager.getPathManager().getTargetPath(outPath));
     if samples:
        resultsDir.writeToFile(outPath.Data(), False);
     # Remove results folder from TQFolder before its destructor is called.
