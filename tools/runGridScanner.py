@@ -13,9 +13,9 @@ def plotResults(config, dictionary):
 
     rootfname = dictionary.replaceInText(config.getTagDefault("outputFile","results.root"));
 
-    INFO("Reading input file for making plots: {:s}".format(rootfname))
     rootfname = dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)")
     rootfpath = TQPathManager.getPathManager().getTargetPath(rootfname)
+    INFO("Reading input file for making plots: {:s}".format(rootfpath))
     results = TQFolder.loadFolder(rootfpath)
 
     if not results:
@@ -64,7 +64,8 @@ def plotResults(config, dictionary):
         INFO("No tag for baseline cuts found, not showing basecuts in plots")
 
     plotDir = dictionary.replaceInText(config.getTagDefault("plotDirectory","plots/"))
-    if not os.path.exists(plotDir.Data()): os.makedirs(plotDir.Data())
+    plotDir = TString(TQPathManager.getPathManager().getTargetPath(plotDir))
+    TQUtils.ensureDirectoryForFile(plotDir)
     fractions = config.getTagVDouble("cutTopFractions")
     #for f in fractions:
     #    gridscan.plotAndSaveAllHistograms(plotDir,f)
