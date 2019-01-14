@@ -12,8 +12,7 @@ The following commands provide an example of how to utilize the tool. From here 
 ./analyze.py xAOD/config/master/analyze-GridScanner-Example.cfg # takes a while ~10min
 
 # Step 2: Run Gridscanner
-../tools/runGridScanner.py common/config/gridscanner/GridScanner-Example.cfg --plotInputs
-../tools/runGridScanner.py common/config/gridscanner/GridScanner-Example.cfg --plotResults
+../tools/runGridScanner.py common/config/gridscanner/GridScanner-Example.cfg --plotInputs --plotResults
 ```
 
 # More details on the different steps
