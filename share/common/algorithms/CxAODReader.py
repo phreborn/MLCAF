@@ -1,5 +1,5 @@
-from ROOT import *
-from QFramework import *
+from QFramework import ERROR, BREAK
+import ROOT
 
 def addAlgorithms(visitor,config):
   # create a CxAODReader Algorithm
