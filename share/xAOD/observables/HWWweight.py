@@ -1,4 +1,4 @@
-import QFramework
+from QFramework import TQTreeObservable, INFO, ERROR, WARN, BREAK
 import ROOT
 
 from CAFExample import HWWEventWeight
@@ -37,12 +37,12 @@ def addObservables(config):
 
     ## For now enforce not using the PRW tool for PAOD versions >= 11
     if usePRWTool and inputVersion > 9:
-        QFramework.INFO("Using the PRW tool with PAOD versions >= 11 currently not supported, switching it off (i.e. using weights from input file)")
+        INFO("Using the PRW tool with PAOD versions >= 11 currently not supported, switching it off (i.e. using weights from input file)")
         usePRWTool = False
         pass
 
     if useOldTrigWeight and inputVersion > 11:
-        QFramework.INFO("Using the old trigger weight evaluation with PAOD versions >= 11 not possible anymore, switching to new one")
+        INFO("Using the old trigger weight evaluation with PAOD versions >= 11 not possible anymore, switching to new one")
         useOldTrigWeight = False
         pass
 
@@ -102,17 +102,17 @@ def addObservables(config):
                 elif "_1up" in variation:
                     variation = "JET_JvtEfficiency__1up"   # need to change naming to match with PAODs
                 else:
-                    QFramework.ERROR("encountered fJvt variation of unknown type: '{:s}'".format(variation))
+                    ERROR("encountered fJvt variation of unknown type: '{:s}'".format(variation))
             elif "JvtEff" in variation and inputVersion > 9 :
                 varEnum = HWWEventWeight.JVT
             else:
-                QFramework.ERROR("encountered scale factor efficiency variation of unknown type: '{:s}'".format(variation))
+                ERROR("encountered scale factor efficiency variation of unknown type: '{:s}'".format(variation))
 
             if varEnum != HWWEventWeight.NoVar:
                 ok = True
                 WeightObs.setVariation(varEnum,variation)
         elif "PU_" in variation:
-            QFramework.BREAK("Encountered PU scale factor variation of unknown type: '{:s}'. This is probably due to an outdated naming convention. If your naming includes PU_SF, use PRW_DATASF instead!".format(variation))
+            BREAK("Encountered PU scale factor variation of unknown type: '{:s}'. This is probably due to an outdated naming convention. If your naming includes PU_SF, use PRW_DATASF instead!".format(variation))
         elif "qcd_wg1_" in variation:
             varEnum = HWWEventWeight.ggFQCDscale
             #if "mig01" in variation:
@@ -125,7 +125,7 @@ def addObservables(config):
             ok = True
             WeightObs.setVariation(varEnum,variation)
         else:
-            QFramework.ERROR("encountered scale factor variation of unknown type: '{:s}'".format(variation))
+            ERROR("encountered scale factor variation of unknown type: '{:s}'".format(variation))
             pass
 
         ## Switching on the various weights and setting variable names according to config input
@@ -195,9 +195,9 @@ def addObservables(config):
           WeightObs.doBtagWeight(config.getTagBoolDefault("useSubThresholdBTagWeights",True), "effiSF")
     
         ## Add the observable to the list of observables
-        if not ok or not QFramework.TQTreeObservable.addObservable(WeightObs):
-            QFramework.WARN("failed to add weight observable for variation '{:s}'".format(variation))
+        if not ok or not TQTreeObservable.addObservable(WeightObs):
+            WARN("failed to add weight observable for variation '{:s}'".format(variation))
             return False
-        #INFO("adding weights for variation '{:s}' as '{:s}' with expression '{:s}'".format(variation,WeightObs.GetName(),WeightObs.getExpression().Data()))
+        #QFramework.INFO("adding weights for variation '{:s}' as '{:s}' with expression '{:s}'".format(variation,WeightObs.GetName(),WeightObs.getExpression().Data()))
         
     return True
