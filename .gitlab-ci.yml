@@ -23,6 +23,9 @@ variables:
   image: rootproject/root-ubuntu16
   tags:
     - cvmfs
+  before_script:
+    - sudo apt-get update
+    - sudo apt-get -y install libboost-dev
 
 .asg_setup: &asg_setup
   before_script:
