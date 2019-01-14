@@ -162,7 +162,7 @@ def createGridScanner(config, evaluator):
     INFO("Booking variables")
 
     # check for restricted variables ranges
-    boundaries = TString("")
+    boundaries = ROOT.TString("")
     if config.getTagString("boundaryList", boundaries):
     	boundaryPath = TQPathManager.getPathManager().findFileFromEnvVar(boundaries, "CAFANALYSISSHARE")
         lines = TQStringUtils.readFileLines(boundaryPath)
@@ -171,7 +171,7 @@ def createGridScanner(config, evaluator):
         else:
             for l in lines:
                 l.ReplaceAll("\t"," ")
-                lower, upper, split, obsName, buf = TString(""), TString(""), TString(""), TString(""), TString("")
+                lower, upper, split, obsName, buf = ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString("")
 
                 isSplit = not l.Contains("<")
                 if isSplit:
@@ -310,7 +310,7 @@ def runScan(config, samples, dictionary):
     resultsDir.addObject(results, ".!")
     outFile = config.getTagDefault("outputFile","results.root")
     # use target path here because we will read from the same file later
-    outPath = TString(TQPathManager.getPathManager().getTargetPath(outFile))
+    outPath = ROOT.TString(TQPathManager.getPathManager().getTargetPath(outFile))
     INFO("Saving results to {:s}".format(outFile))
     TQUtils.ensureDirectoryForFile(outPath)
     if samples:
@@ -330,7 +330,7 @@ def main(args):
     print(TQStringUtils.makeBoldWhite("Running Gridscanner"))
 
     # open the configfile
-    cfgname=TString(args.cfgname)
+    cfgname=ROOT.TString(args.cfgname)
     INFO("Reading configuration for '{:s}' from file '{:s}'".format(alias,cfgname.Data()))
     cfgPath = TQPathManager.getPathManager().findFileFromEnvVar(cfgname, "CAFANALYSISSHARE")
     configreader = TQConfigReader(alias,cfgPath)
@@ -410,7 +410,7 @@ if __name__ == "__main__":
     sys.argv = []
 
     from QFramework import *
-    from ROOT import *
+    import ROOT
     ROOT.PyConfig.IgnoreCommandLineOptions = True
     TQLibrary.getQLibrary().setApplicationName(alias);
 
