@@ -197,12 +197,14 @@ observable classes, you can write a small python script that
 instantiates your observable class and adds it to the observable
 database. This can look like this:
 ```python
-    from QFramework import *
-    from ROOT import *
-
+    from QFramework import TQObservable, INFO
+    import ROOT
+    from CAFExample import MyNewFancyObservableClass
+    
     def addObservables():
       myObs = MyNewFancyObservableClass ( ... )
       if not TQObservable.addObservable(myObs,"FancyObs"):
+        INFO("failed to add FancyObs Observable!")
         return False
     return True
 ```
