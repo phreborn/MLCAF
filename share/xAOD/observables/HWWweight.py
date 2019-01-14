@@ -1,5 +1,5 @@
-from QFramework import *
-from ROOT import *
+from QFramework import TQTreeObservable, INFO, ERROR, WARN, BREAK
+import ROOT
 
 from CAFExample import HWWEventWeight
 
@@ -136,7 +136,7 @@ def addObservables(config):
         WeightObs.doElectronIDWeight("effiSF"+str(electronID), "effiSF"+str(electronIDLowPt))
         WeightObs.doElectronIsoWeight("effiSFIsoGradient_wrt"+str(electronID), "effiSF"+str(electronIsoLowPt)+"_wrt"+str(electronIDLowPt))
         if inputVersion > 16:
-            muonisosffile = TFile.Open("rootfiles/Iso_HWWIsoIso_Z.root","READ")
+            muonisosffile = ROOT.TFile.Open("rootfiles/Iso_HWWIsoIso_Z.root","READ")
             WeightObs.setMuonIsoScaleFactors(muonisosffile.Get("SF_All"),muonisosffile.Get("SF_sys_All"))
         WeightObs.doMuonIsoWeight()
         if useMuonTTVASF: WeightObs.doMuonTTVAWeight()
@@ -198,6 +198,6 @@ def addObservables(config):
         if not ok or not TQTreeObservable.addObservable(WeightObs):
             WARN("failed to add weight observable for variation '{:s}'".format(variation))
             return False
-        #INFO("adding weights for variation '{:s}' as '{:s}' with expression '{:s}'".format(variation,WeightObs.GetName(),WeightObs.getExpression().Data()))
+        #QFramework.INFO("adding weights for variation '{:s}' as '{:s}' with expression '{:s}'".format(variation,WeightObs.GetName(),WeightObs.getExpression().Data()))
         
     return True

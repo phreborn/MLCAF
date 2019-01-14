@@ -28,8 +28,8 @@ To book multiple algorithms, use a comma-seperated list.
 
 An example for the content of such a snippet can be found in the following:
 ```
-from ROOT import *
-from QFramework import *
+import QFramework
+import ROOT
 
 def addAlgorithms(visitor,config): # this function will be executed when listing
                                    # the containing snippet in the master config
