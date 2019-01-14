@@ -51,6 +51,8 @@ def plotResults(config, dictionary):
     gridscan.setTagString("cutLine2D.text","previous cut value")
     gridscan.setTagDouble("cutLine2D.textScale",1.5)
     gridscan.setTagDouble("cutLine2D.xPos",0.15)
+    gridscan.setTagDouble("style.axis.fontSize",config.getTagDoubleDefault("axisLabelSize", 0.04))
+    gridscan.setTagDouble("style.axis.titleSize",config.getTagDoubleDefault("axisTitleSize", 0.04))
 
     # get baseline cuts
     basecuts = config.getTagVString("drawCuts")
