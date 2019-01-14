@@ -1,5 +1,5 @@
-from QFramework import *
-from ROOT import *
+from QFramework import TQTreeObservable, INFO, ERROR
+import ROOT
 
 from CAFExample import PassWZVeto
 
