@@ -64,7 +64,7 @@ def plotResults(config, dictionary):
         QF.INFO("No tag for baseline cuts found, not showing basecuts in plots")
 
     plotDir = dictionary.replaceInText(config.getTagDefault("plotDirectory","plots/"))
-    plotDir = TString(QF.TQPathManager.getPathManager().getTargetPath(plotDir))
+    plotDir = ROOT.TString(QF.TQPathManager.getPathManager().getTargetPath(plotDir))
     QF.TQUtils.ensureDirectoryForFile(plotDir)
     fractions = config.getTagVDouble("cutTopFractions")
     #for f in fractions:
