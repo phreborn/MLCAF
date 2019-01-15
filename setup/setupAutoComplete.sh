@@ -610,9 +610,9 @@ _CAFAutoComplete(){
 	option=$CAFAUTOCOMPLETEOPT
     fi
 
-    if [ $command == "submit.py" ] ; then
+    if [[ "$command" == *"submit.py" ]] ; then
 	_CAFSubmitComplete "$command" "$thisWord" "$previousWord" "$thisDir" "$CAFAnalysisShare" "$option"
-    elif [ $command == "runGridScanner.py" ] ; then
+    elif [[ "$command" == *"runGridScanner.py" ]] ; then
 	# Gridscanner files don't typically start with "runGridScanner". So disable the filtering of config files here.
 	if [ $option -gt 1 ] ; then
 	    option=$(($option-2))
