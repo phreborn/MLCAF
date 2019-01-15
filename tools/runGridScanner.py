@@ -174,10 +174,9 @@ def createGridScanner(config, evaluator):
             for l in lines:
                 l.ReplaceAll("\t"," ")
                 lower, upper, split, obsName, buf = ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString("")
-
                 isSplit = not l.Contains("<")
                 if isSplit:
-                    # split cuts are denoted by "|"
+                    # split cuts are defined with "|"
                     QF.TQStringUtils.readUpTo(l, obsName, "|")
                     obsName = QF.TQStringUtils.trim(obsName)
                     QF.TQStringUtils.readToken(l, buf, "|")
@@ -185,6 +184,10 @@ def createGridScanner(config, evaluator):
                     rng = parseRange(splitVals)
                     obs = gridscan.getObs(obsName)
                     setCutSplit(obs, rng)
+                    gridscan.hasSplitObs = True
+                    if len(evaluator.FOMDefinitions()) > 1:
+                        QF.ERROR("There is no support for multiple FOMs when a spliting cut is defined! Please choose one figure of merit and rerun!")
+                        exit()
                 else:
                     QF.TQStringUtils.readUpTo(l, buf, "<")
                     lowerRangeOrObsName = QF.TQStringUtils.trim(buf)
@@ -283,7 +286,7 @@ def runScan(config, samples, dictionary):
         
     # before running the gridscan plot the input distributions 
     if args.plotInputs:
-        QF.INFO("Plotting input observables")
+        QF.INFO("Plotting input observables for the first defined region!")
         gridscan.plotInputHistogramProjections(config)
   
     # now run the gridscan
