@@ -19,41 +19,46 @@ def plotResults(config, dictionary):
     results = QF.TQFolder.loadFolder(rootfpath)
 
     if not results:
-        print("[WARNING] cannot open file {:s}. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname.Data()))
-        BREAK("cannot open file {:s}".format(rootfname.Data()))
+        QF.WARN("cannot open file {:s}. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname.Data()))
+        QF.BREAK("cannot open file {:s}".format(rootfname.Data()))
 
     jobname = config.getTagDefault("nDimHistName","gridscan")
-    gridscan = results.getObject(jobname)
-    if not gridscan:
-        BREAK("cannot obtain gridscanner with name: {:s}".format(jobname))
+    gridscanResults = results.getObject(jobname)
+    if not gridscanResults:
+        QF.BREAK("cannot obtain gridscanner with name: {:s}".format(jobname))
 
     plotFormat = config.getTagDefault("plotFormat","pdf")
-    gridscan.importTags(config)
-    gridscan.setTag("ext",plotFormat)
+    gridscanResults.importTags(config)
+    gridscanResults.setTag("ext",plotFormat)
 
     plotTitle = config.getTagDefault("plotTitle","$(VAR)")
-    gridscan.setTag("profile.title",plotTitle)
-    gridscan.setTag("histogram.title",plotTitle)
+    gridscanResults.setTag("profile.title",plotTitle)
+    gridscanResults.setTag("histogram.title",plotTitle)
     QF.INFO("Setting plot title to '{:s}'".format(plotTitle))
 
+    # Get index of figure of merit that should be plotted
+    indexFOMForPlotting = config.getTagIntegerDefault("indexFOMForPlotting", 0)
+    gridscanResults.setFOMIndexForPlotting(indexFOMForPlotting)
+    QF.INFO("Choosing the figure of merit with the name {:s} for plotting".format(gridscanResults.FOMDefinitions[indexFOMForPlotting]))
+    
     signifProfileYTitle = config.getTagDefault("titleFigureOfMerit","Z_{exp}")
-    gridscan.setTag("profile.titleFigureOfMerit", signifProfileYTitle)
+    gridscanResults.setTag("profile.titleFigureOfMerit", signifProfileYTitle)
     QF.INFO("Setting plot y-axis title of significance profile to '{:s}'".format(signifProfileYTitle))
 
     minsignificance = config.getTagDoubleDefault("plotMinSignificance", 5)
     QF.INFO("Using significance minimum Z={:f}".format(minsignificance))
-    gridscan.setTagDouble("profile.sigMin",minsignificance)
+    gridscanResults.setTagDouble("profile.sigMin",minsignificance)
 
-    gridscan.setTagBool("profile.showmax",True)
-    gridscan.setTagBool("style.drawATLAS",False)
-    gridscan.setTagString("labels.atlas.text","work in progress")
-    gridscan.setTagDouble("labels.atlas.scale",1.0)
-    gridscan.setTagString("cutLine2D.text","previous cut value")
-    gridscan.setTagDouble("cutLine2D.textScale",1.5)
-    gridscan.setTagDouble("cutLine2D.xPos",0.15)
-    gridscan.setTagDouble("style.axis.fontSize",config.getTagDoubleDefault("axisLabelSize", 0.04))
-    gridscan.setTagDouble("style.axis.titleSize",config.getTagDoubleDefault("axisTitleSize", 0.04))
-
+    gridscanResults.setTagBool("profile.showmax",True)
+    gridscanResults.setTagBool("style.drawATLAS",False)
+    gridscanResults.setTagString("labels.atlas.text","work in progress")
+    gridscanResults.setTagDouble("labels.atlas.scale",1.0)
+    gridscanResults.setTagString("cutLine2D.text","previous cut value")
+    gridscanResults.setTagDouble("cutLine2D.textScale",1.5)
+    gridscanResults.setTagDouble("cutLine2D.xPos",0.15)
+    gridscanResults.setTagDouble("style.axis.fontSize",config.getTagDoubleDefault("axisLabelSize", 0.04))
+    gridscanResults.setTagDouble("style.axis.titleSize",config.getTagDoubleDefault("axisTitleSize", 0.04))
+    
     # get baseline cuts
     basecuts = config.getTagVString("drawCuts")
     if len(basecuts)>0:
@@ -61,30 +66,32 @@ def plotResults(config, dictionary):
         for b in basecuts:
             histname = QF.TQStringUtils.trim(b.split("=")[0])
             cutval = float(b.split("=")[1])
-            gridscan.setTagDouble("cut."+str(histname), cutval)
+            gridscanResults.setTagDouble("cut."+str(histname), cutval)
     else:
         QF.INFO("No tag for baseline cuts found, not showing basecuts in plots")
 
     plotDir = dictionary.replaceInText(config.getTagDefault("plotDirectory","plots/"))
-    plotDir = ROOT.TString(QF.TQPathManager.getPathManager().getTargetPath(plotDir))
-    QF.TQUtils.ensureDirectoryForFile(plotDir)
+    chname = QF.TQStringUtils.makeValidIdentifier(dictionary.replaceInText("$(LEPCH)"))
+    if len(config.getTagVString("scanChannels")) > 1:
+      QF.TQStringUtils.removeTrailing(plotDir, "/")
+      plotDir = plotDir+"-"+chname
     fractions = config.getTagVDouble("cutTopFractions")
     #for f in fractions:
-    #    gridscan.plotAndSaveAllHistograms(plotDir,f)
-    #    # gridscan.plotAndSaveAllHistograms2D(plotDir,f)
+    #    gridscanResults.plotAndSaveAllHistograms(plotDir,f)
+    #    # gridscanResults.plotAndSaveAllHistograms2D(plotDir,f)
     #numbers = config.getTagVInteger("cutTopNumbers")
     #for n in numbers:
-    #    gridscan.plotAndSaveAllHistograms    (plotDir,n)
-    #    #gridscan.plotAndSaveAllHistograms2D(plotDir,n)
+    #    gridscanResults.plotAndSaveAllHistograms    (plotDir,n)
+    #    #gridscanResults.plotAndSaveAllHistograms2D(plotDir,n)
     sigTopFractions = config.getTagVDouble("sigTopFractions")
     for sf in sigTopFractions:
-        gridscan.plotAndSaveAllSignificanceProfiles(sf, "")
-        #gridscan.plotAndSaveAllSignificanceProfiles2D(plotDir,sf)
+        gridscanResults.plotAndSaveAllSignificanceProfiles(sf, "", plotDir)
+        #gridscanResults.plotAndSaveAllSignificanceProfiles2D(plotDir,sf)
 
     #sigTopNumbers = config.getTagVInteger("sigTopNumbers")
     #for sn in sigTopNumbers:
-    #    gridscan.plotAndSaveAllSignificanceProfiles    (plotDir,sn)
-    #    #gridscan.plotAndSaveAllSignificanceProfiles2D(plotDir,sn)
+    #    gridscanResults.plotAndSaveAllSignificanceProfiles    (plotDir,sn)
+    #    #gridscanResults.plotAndSaveAllSignificanceProfiles2D(plotDir,sn)
 
 def createSignificanceEvaluator(config, dictionary, samples):
     # use code from createSignificanceEvaluator.cxx
@@ -98,7 +105,7 @@ def createSignificanceEvaluator(config, dictionary, samples):
     verboseReader = config.getTagDefault("reader.verbose", False);
     
     str_signal = dictionary.replaceInText(config.getTagDefault("simple.signal","/sig/$(LEPCH)/mh125/ggf"))
-    str_background = dictionary.replaceInText(config.getTagDefault("simple.background", "/bkg"))
+    str_background = dictionary.replaceInText(config.getTagDefault("simple.background", "/bkg/$(LEPCH)"))
     QF.INFO("Definition for signal: {:s} and background: {:s}".format(str_signal.Data(), str_background.Data()))
     
     # get nominal sample folder
@@ -118,7 +125,7 @@ def createSignificanceEvaluator(config, dictionary, samples):
     evaluator = simple
     
     # TODO: Incorporate TQCLSignificanceEvaluator here to utilize the likelihood fit in the scan
-
+    
     # configure the evaluator
     # setting cutoff
     cutoff = config.getTagDefault("cutoff",0.0)
