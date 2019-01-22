@@ -9,50 +9,54 @@ import re
 # sample folder created
 alias = "runGridScanner"
 
-def plotResults(config, dictionary):
-
-    rootfname = dictionary.replaceInText(config.getTagDefault("outputFile","results.root"));
-
+def loadGridScanResults(config, dictionary):
+    
+    rootfname = dictionary.replaceInText(config.getTagDefault("outputFile","results.root"))
     rootfname = dictionary.replaceInText(str(rootfname)+":results_$(LEPCHNAME)")
     rootfpath = QF.TQPathManager.getPathManager().getTargetPath(rootfname)
-    QF.INFO("Reading input file for making plots: {:s}".format(rootfpath))
+    QF.INFO("Reading input file for making input plots: {:s}".format(rootfpath))
     results = QF.TQFolder.loadFolder(rootfpath)
 
     if not results:
-        print("[WARNING] cannot open file {:s}. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname.Data()))
-        BREAK("cannot open file {:s}".format(rootfname.Data()))
+        QF.WARN("cannot open file {:s}. Maybe you have forgotten to run the optimization first to produce the file".format(rootfname.Data()))
+        QF.BREAK("cannot open file {:s}".format(rootfname.Data()))
 
     jobname = config.getTagDefault("nDimHistName","gridscan")
-    gridscan = results.getObject(jobname)
-    if not gridscan:
-        BREAK("cannot obtain gridscanner with name: {:s}".format(jobname))
+    gridscanResults = results.getObject(jobname)
+    if not gridscanResults:
+        QF.BREAK("cannot obtain gridscanner with name: {:s}".format(jobname))
+        
+    return gridscanResults
 
+def plotInputDistributions(config, dictionary):
+    
+    gridscanResults = loadGridScanResults(config, dictionary)
+    
+    chname = ROOT.TString()
+    dictionary.getTagString("LEPCHNAME", chname)
+    gridscanResults.plotInputDistributions(config, chname)
+    
+
+def plotResults(config, dictionary):
+
+    gridscanResults = loadGridScanResults(config, dictionary)
+    
     plotFormat = config.getTagDefault("plotFormat","pdf")
-    gridscan.importTags(config)
-    gridscan.setTag("ext",plotFormat)
+    gridscanResults.importTags(config)
+    gridscanResults.setTag("ext",plotFormat)
 
     plotTitle = config.getTagDefault("plotTitle","$(VAR)")
-    gridscan.setTag("profile.title",plotTitle)
-    gridscan.setTag("histogram.title",plotTitle)
+    gridscanResults.setTag("profile.title",plotTitle)
+    gridscanResults.setTag("histogram.title",plotTitle)
     QF.INFO("Setting plot title to '{:s}'".format(plotTitle))
 
-    signifProfileYTitle = config.getTagDefault("titleFigureOfMerit","Z_{exp}")
-    gridscan.setTag("profile.titleFigureOfMerit", signifProfileYTitle)
+    signifProfileYTitle = config.getTagDefault("profile.titleFigureOfMerit","Z_{exp}")
+    gridscanResults.setTag("profile.titleFigureOfMerit", signifProfileYTitle)
+    
     QF.INFO("Setting plot y-axis title of significance profile to '{:s}'".format(signifProfileYTitle))
 
-    minsignificance = config.getTagDoubleDefault("plotMinSignificance", 5)
+    minsignificance = config.getTagDoubleDefault("profile.plotMinSignificance", 5)
     QF.INFO("Using significance minimum Z={:f}".format(minsignificance))
-    gridscan.setTagDouble("profile.sigMin",minsignificance)
-
-    gridscan.setTagBool("profile.showmax",True)
-    gridscan.setTagBool("style.drawATLAS",False)
-    gridscan.setTagString("labels.atlas.text","work in progress")
-    gridscan.setTagDouble("labels.atlas.scale",1.0)
-    gridscan.setTagString("cutLine2D.text","previous cut value")
-    gridscan.setTagDouble("cutLine2D.textScale",1.5)
-    gridscan.setTagDouble("cutLine2D.xPos",0.15)
-    gridscan.setTagDouble("style.axis.fontSize",config.getTagDoubleDefault("axisLabelSize", 0.04))
-    gridscan.setTagDouble("style.axis.titleSize",config.getTagDoubleDefault("axisTitleSize", 0.04))
 
     # get baseline cuts
     basecuts = config.getTagVString("drawCuts")
@@ -61,35 +65,39 @@ def plotResults(config, dictionary):
         for b in basecuts:
             histname = QF.TQStringUtils.trim(b.split("=")[0])
             cutval = float(b.split("=")[1])
-            gridscan.setTagDouble("cut."+str(histname), cutval)
+            gridscanResults.setTagDouble("cut."+str(histname), cutval)
     else:
         QF.INFO("No tag for baseline cuts found, not showing basecuts in plots")
 
     plotDir = dictionary.replaceInText(config.getTagDefault("plotDirectory","plots/"))
+    chname = QF.TQStringUtils.makeValidIdentifier(dictionary.replaceInText("$(LEPCH)"))
+    if len(config.getTagVString("scanChannels")) > 1:
+      QF.TQStringUtils.removeTrailing(plotDir, "/")
+      plotDir = plotDir+"-"+chname
     plotDir = ROOT.TString(QF.TQPathManager.getPathManager().getTargetPath(plotDir))
     QF.TQUtils.ensureDirectoryForFile(plotDir)
     fractions = config.getTagVDouble("cutTopFractions")
     #for f in fractions:
-    #    gridscan.plotAndSaveAllHistograms(plotDir,f)
-    #    # gridscan.plotAndSaveAllHistograms2D(plotDir,f)
+    #    gridscanResults.plotAndSaveAllHistograms(plotDir,f)
+    #    # gridscanResults.plotAndSaveAllHistograms2D(plotDir,f)
     #numbers = config.getTagVInteger("cutTopNumbers")
     #for n in numbers:
-    #    gridscan.plotAndSaveAllHistograms    (plotDir,n)
-    #    #gridscan.plotAndSaveAllHistograms2D(plotDir,n)
-    sigTopFractions = config.getTagVDouble("sigTopFractions")
+    #    gridscanResults.plotAndSaveAllHistograms    (plotDir,n)
+    #    #gridscanResults.plotAndSaveAllHistograms2D(plotDir,n)
+    sigTopFractions = config.getTagVDouble("profile.sigTopFractions")
     for sf in sigTopFractions:
-        gridscan.plotAndSaveAllSignificanceProfiles(sf, "")
-        #gridscan.plotAndSaveAllSignificanceProfiles2D(plotDir,sf)
+        gridscanResults.plotAndSaveAllSignificanceProfiles(sf, "", plotDir)
+        #gridscanResults.plotAndSaveAllSignificanceProfiles2D(plotDir,sf)
 
     #sigTopNumbers = config.getTagVInteger("sigTopNumbers")
     #for sn in sigTopNumbers:
-    #    gridscan.plotAndSaveAllSignificanceProfiles    (plotDir,sn)
-    #    #gridscan.plotAndSaveAllSignificanceProfiles2D(plotDir,sn)
+    #    gridscanResults.plotAndSaveAllSignificanceProfiles    (plotDir,sn)
+    #    #gridscanResults.plotAndSaveAllSignificanceProfiles2D(plotDir,sn)
 
-def createSignificanceEvaluator(config, dictionary, samples):
+def createSignificanceEvaluator(config, dictionary, sampleFolder):
     # use code from createSignificanceEvaluator.cxx
     if not config:
-        BREAK("ERROR: aborting evaluation, invalid configuration!")
+        QF.BREAK("ERROR: aborting evaluation, invalid configuration!")
 
     # For now always true
     isSimple = True
@@ -101,23 +109,45 @@ def createSignificanceEvaluator(config, dictionary, samples):
     str_background = dictionary.replaceInText(config.getTagDefault("simple.background", "/bkg"))
     QF.INFO("Definition for signal: {:s} and background: {:s}".format(str_signal.Data(), str_background.Data()))
     
-    # get nominal sample folder
-    nominal = QF.TQSampleFolder()
-    if samples:
-        nominal = samples
-        #TQListUtils.findInListByTag(samples, ".key", "samples")
-        if not nominal:
-            BREAK("no sample folder found")
-
     # retrieve the figure of merits 
     fomDefinitions = config.getTagVString("figureOfMerits")
     
     # create and initialize the evaluator
-    simple = QF.TQSignificanceEvaluatorBase(nominal, str_signal, str_background)
-    simple.addFunctionsFOM(fomDefinitions)
-    evaluator = simple
-    
-    # TODO: Incorporate TQCLSignificanceEvaluator here to utilize the likelihood fit in the scan
+    if isSimple:
+      simple = QF.TQSignificanceEvaluatorBase(sampleFolder, str_signal, str_background)
+      simple.addFunctionsFOM(fomDefinitions)
+      evaluator = simple
+    else:
+      # TODO: Incorporate TQCLSignificanceEvaluator here to utilize the likelihood fit in the scan
+      variableOfInterest = config.getTagStringDefault("cl.variableOfInterest","MT")
+      
+      # tmpFileName = config.getTagStringDefault("cl.tmpFileName","")
+      # combinedFit = config.getTagBoolDefault("cl.combinedFit",false)
+      # clConfigFileName =    config.getTagStringDefault("cl.config","config/cl/2011_eemm.txt")
+      # clExportFileName =    config.getTagStringDefault("cl.exportSampleFolderFileName","")
+      # clImportFileName =    config.getTagStringDefault("cl.importSignificanceFileName","")
+      # clEvaluationCommand = config.getTagStringDefault("cl.externalEvaluationCommand","")
+      # allowRecycling =        config.getTagBoolDefault("cl.recycle",false)
+      # clEvaluationMode =    config.getTagStringDefault("cl.mode","internal")
+      
+      import SFramework
+      cl = SFramework.TSCLSignificanceEvaluator(sampleFolder, variableOfInterest)
+      ########### Code works...
+      QF.BREAK("Up until here and not further!")
+
+    # Discussion about giving TSCLSignificanceEvaluator multiple sample folders for initializing:
+    # Probably this is deprecated and comes from the fact that the gridscan objects were stored in multiple sample
+    # folders! This is however not really clear! Maybe multiple folders (physical root files) are needed because otherwise the
+    # inputs get too large! Keep the relevant code in runGridScanner_backup.py for now and try to start
+    # with one sampleFolder only that holds the variations we want to run over!
+
+    # If you look at the sample folder definition here:
+    # https://svnweb.cern.ch/trac/atlasoff/browser/PhysicsAnalysis/HiggsPhys/HSG3/WWDileptonAnalysisCode/HWWAnalysisCode/trunk/analysis/GridScan/config/cl/vbf/default_eemm.txt
+    # one sees that each sample folder corresponded to one systematic variation!
+      
+
+    # retrieve the figure of merits 
+    fomDefinitions = config.getTagVString("figureOfMerits")
 
     # configure the evaluator
     # setting cutoff
@@ -143,12 +173,15 @@ def createSignificanceEvaluator(config, dictionary, samples):
 def createGridScanner(config, evaluator):
     # code from createGridScanner.cxx
     if not config:
-        BREAK("ERROR: aborting evaluation, invalid configuration!")
+        QF.BREAK("ERROR: aborting evaluation, invalid configuration!")
 
     QF.INFO("Setting up gridscanner")
     jobname = config.getTagDefault("nDimHistName", "gridscan")
     gridscan = QF.TQGridScanner(jobname, evaluator)
 
+    # import config tags to gridscanner
+    gridscan.importTags(config)
+    
     # evalMode = config.getTagDefault("evaluator", "simple").ToLower()
     verbose = config.getTagDefault("verbose", True)
     gridscan.setVerbose(verbose)
@@ -162,7 +195,7 @@ def createGridScanner(config, evaluator):
 
     # book all variables
     QF.INFO("Booking variables")
-
+    
     # check for restricted variables ranges
     boundaries = ROOT.TString("")
     if config.getTagString("boundaryList", boundaries):
@@ -261,33 +294,35 @@ def parseRange(string):
         nSteps = int(splitBounds[2])
         return lower if not upper else (lower, upper, nSteps)
 
-def runScan(config, samples, dictionary):
+def runScan(config, sampleFolder, dictionary):
 
-    if not samples:
+    if not sampleFolder:
         QF.INFO("Running in dummy mode")
-    QF.INFO("Found {:s}".format(samples.getTagStringDefault(".key", samples.getName())))
+    QF.INFO("Found sample folder with name '{:s}'".format(sampleFolder.getTagStringDefault(".key", sampleFolder.getName())))
 
     evalMode = config.getTagDefault("evaluator","simple")
     evalMode.ToLower()
     evname = QF.TQStringUtils.makeValidIdentifier(evalMode);
 
     QF.INFO("Creating {:s} significance evaluator for channel {:s}".format(evalMode.Data(), dictionary.replaceInText("$(LEPCH)")))
-    evaluator = createSignificanceEvaluator(config, dictionary, samples)
+    evaluator = createSignificanceEvaluator(config, dictionary, sampleFolder)
     if not evaluator:
-        BREAK("significance evaluator could not be created!")
+        QF.BREAK("significance evaluator could not be created!")
 
     gridscan = createGridScanner(config, evaluator)
     if not gridscan:
-        BREAK("gridscanner could not be created!")
+        QF.BREAK("gridscanner could not be created!")
+    gridscan.extractInputHistogramProjections()
 
-    if not samples:
+    if not sampleFolder:
         # for dummy mode only, not yet implemented!
         QF.WARN("Dummy mode is not yet implemented, the following steps might fail")
         
-    # before running the gridscan plot the input distributions 
-    if args.plotInputs:
+    # before running the gridscan plot the input distributions (useful for debugging)
+    # Inputs will be also plotted later by using the args.plotInputs argument
+    if args.dumpInputs:
         QF.INFO("Plotting input observables for the first defined region!")
-        gridscan.plotInputHistogramProjections(config)
+        gridscan.dumpInputHistogramProjections(config)
   
     # now run the gridscan
     QF.INFO("Initiating scan")
@@ -299,7 +334,7 @@ def runScan(config, samples, dictionary):
     # type(results) = TQGridScanResults()
     nPoints = results.points().size()
     if nPoints < 1:
-        BREAK("Something went terribly wrong - there are no points! one possible reason for this is that you requested to loop over non-existant variables. check your configuration and validate your input data. afterwards, you may try again.")
+        QF.BREAK("Something went terribly wrong - there are no points! one possible reason for this is that you requested to loop over non-existant variables. check your configuration and validate your input data. afterwards, you may try again.")
 
     QF.INFO("Sorting points")
     indexFOM = config.getTagIntegerDefault("indexFOMForSorting", 0)
@@ -308,7 +343,7 @@ def runScan(config, samples, dictionary):
     QF.INFO("Significances between {:f} and {:f}".format(results.points()[0].significance(), results.points()[nPoints-1].significance()))
 
     QF.INFO("Top points are:")
-    results.printPoints(min(10, nPoints))
+    results.printPoints(min(config.getTagIntegerDefault("numberOfPointsPrinted", 10), nPoints))
 
     # save to a root file (overwrites existing object)
     resultsDir = QF.TQFolder(dictionary.replaceInText("results_$(LEPCHNAME)"))
@@ -318,7 +353,7 @@ def runScan(config, samples, dictionary):
     outPath = ROOT.TString(QF.TQPathManager.getPathManager().getTargetPath(outFile))
     QF.INFO("Saving results to {:s}".format(outFile))
     QF.TQUtils.ensureDirectoryForFile(outPath)
-    if samples:
+    if sampleFolder:
        resultsDir.writeToFile(outPath.Data(), False);
     # Remove results folder from TQFolder before its destructor is called.
     resultsDir.removeObject(results.GetName())
@@ -343,7 +378,7 @@ def main(args):
     # export the config options to a taggable object
     config = configreader.exportAsTags()
     if not config:
-        BREAK("unable to retrieve configuration from file '{:s}' - please check the filename".format(cfgname))
+        QF.BREAK("unable to retrieve configuration from file '{:s}' - please check the filename".format(cfgname))
     config.resetReadFlags()
 
     # check if dummy run is active (dummy Run not yet supported)
@@ -351,16 +386,16 @@ def main(args):
 
     # load the sample folder (which contains n-dim histograms)
     sfinfilename = config.getTagStringDefault("inputFile","output/samples-run2-sigscan.root:samples");
-    QF.INFO("Loading sample folder '{:s}'".format(sfinfilename.Data()))
     sfinfilepath = QF.TQPathManager.getPathManager().getTargetPath(sfinfilename)
-    samples = QF.TQSampleFolder.loadSampleFolder(sfinfilepath)
-    if not samples and not dummy:
-        BREAK("unable to load sample folder '{:s}' - please check input path".format(sfinfilename))
-    # elif not samples:
-    # samples = QF.TQSampleFolder("test")
+    QF.INFO("Loading sample folder '{:s}'".format(sfinfilename.Data()))
+    sampleFolder = QF.TQSampleFolder.loadSampleFolder(sfinfilepath)
+    if not sampleFolder and not dummy:
+        QF.BREAK("Unable to load sample folder '{:s}' - please check input path!".format(sfinfilename))
+    # elif not sampleFolder:
+    # sampleFolder = QF.TQSampleFolder("test")
 
     # write the configuration to the info/config subfolder
-    info = samples.getFolder("info/config/runSignificanceScan+")
+    info = sampleFolder.getFolder("info/config/runSignificanceScan+")
     info.setInfoTags()
     config.exportTags(info)
 
@@ -379,7 +414,7 @@ def main(args):
         QF.TQLibrary.restore_stdout()
         if not results:
             QF.WARN("File with gridscan results not found, running gridscanner first!")
-            runScan(config, samples, dictionary)
+            runScan(config, sampleFolder, dictionary)
         else: # output file already present, top points can be printed
           QF.INFO("Found previous gridscan results for channel "+ch+" here: "+str(rootfname)+":results. Reading its contents now!")
           QF.INFO("Top points are:")
@@ -389,9 +424,9 @@ def main(args):
           gridscanResults.printPoints(min(10, nPoints))
         if results and args.forceScan:
             QF.INFO("File with gridscan results found but scan is forced by command-line argument!")
-            runScan(config, samples, dictionary)
-        elif results and args.plotInputs:
-          QF.WARN("Although you specified the --plotInputs argument this feature is not executed. The output of a previous gridscan was found and the inputs can only be plotted during a scan of the grid. To ensure a scan (and thus the plotting of the input distributions) you can add the additional command-line argument --forceScan")
+            runScan(config, sampleFolder, dictionary)
+        if args.plotInputs:
+          plotInputDistributions(config, dictionary)
         if args.plotResults:
           plotResults(config, dictionary)
 
@@ -407,6 +442,8 @@ if __name__ == "__main__":
                         help='After scanning through the cuts call the plotting function')
     parser.add_argument('--plotInputs', action="store_const", const=True, default=False,
                         help='Plot all dimensions of multidimensional input histogram')
+    parser.add_argument('--dumpInputs', action="store_const", const=True, default=False,
+                        help='Plot all dimensions of multidimensional input histogram before the scan is done! Only necessary for debugging; in most cases the --plotInputs argument should be enough!')
     parser.add_argument('--forceScan', action="store_const", const=True, default=False,
                         help='Ensure a scan of the grid even when previous output file is present')
     parser.add_argument('--width', dest="width", type=int, default=0, help="Console width for printouts")
