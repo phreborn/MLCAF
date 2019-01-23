@@ -24,7 +24,7 @@ def loadGridScanResults(config, dictionary):
     jobname = config.getTagDefault("nDimHistName","gridscan")
     gridscanResults = results.getObject(jobname)
     if not gridscanResults:
-        QF.BREAK("cannot obtain gridscanner with name: {:s}".format(jobname))
+        QF.BREAK("Cannot obtain gridscanner with name: {:s}".format(jobname))
         
     return gridscanResults
 
@@ -36,7 +36,6 @@ def plotInputDistributions(config, dictionary):
     dictionary.getTagString("LEPCHNAME", chname)
     gridscanResults.plotInputDistributions(config, chname)
     
-
 def plotResults(config, dictionary):
 
     gridscanResults = loadGridScanResults(config, dictionary)
@@ -50,14 +49,19 @@ def plotResults(config, dictionary):
     gridscanResults.setTag("histogram.title",plotTitle)
     QF.INFO("Setting plot title to '{:s}'".format(plotTitle))
 
+    # Get index of figure of merit that should be plotted
+    indexFOMForPlotting = config.getTagIntegerDefault("indexFOMForPlotting", 0)
+    gridscanResults.setFOMIndexForPlotting(indexFOMForPlotting)
+    QF.INFO("Choosing the figure of merit with the name {:s} for plotting".format(gridscanResults.FOMDefinitions[indexFOMForPlotting]))
+    
     signifProfileYTitle = config.getTagDefault("profile.titleFigureOfMerit","Z_{exp}")
     gridscanResults.setTag("profile.titleFigureOfMerit", signifProfileYTitle)
-    
+
     QF.INFO("Setting plot y-axis title of significance profile to '{:s}'".format(signifProfileYTitle))
 
     minsignificance = config.getTagDoubleDefault("profile.plotMinSignificance", 5)
     QF.INFO("Using significance minimum Z={:f}".format(minsignificance))
-
+    
     # get baseline cuts
     basecuts = config.getTagVString("drawCuts")
     if len(basecuts)>0:
@@ -70,18 +74,21 @@ def plotResults(config, dictionary):
         QF.INFO("No tag for baseline cuts found, not showing basecuts in plots")
 
     plotDir = dictionary.replaceInText(config.getTagDefault("plotDirectory","plots/"))
+    
     chname = QF.TQStringUtils.makeValidIdentifier(dictionary.replaceInText("$(LEPCH)"))
     if len(config.getTagVString("scanChannels")) > 1:
       QF.TQStringUtils.removeTrailing(plotDir, "/")
       plotDir = plotDir+"-"+chname
     plotDir = ROOT.TString(QF.TQPathManager.getPathManager().getTargetPath(plotDir))
     QF.TQUtils.ensureDirectoryForFile(plotDir)
+
     fractions = config.getTagVDouble("cutTopFractions")
     #for f in fractions:
     #    gridscanResults.plotAndSaveAllHistograms(plotDir,f)
     #    # gridscanResults.plotAndSaveAllHistograms2D(plotDir,f)
     #numbers = config.getTagVInteger("cutTopNumbers")
     #for n in numbers:
+
     #    gridscanResults.plotAndSaveAllHistograms    (plotDir,n)
     #    #gridscanResults.plotAndSaveAllHistograms2D(plotDir,n)
     sigTopFractions = config.getTagVDouble("profile.sigTopFractions")
@@ -106,7 +113,7 @@ def createSignificanceEvaluator(config, dictionary, sampleFolder):
     verboseReader = config.getTagDefault("reader.verbose", False);
     
     str_signal = dictionary.replaceInText(config.getTagDefault("simple.signal","/sig/$(LEPCH)/mh125/ggf"))
-    str_background = dictionary.replaceInText(config.getTagDefault("simple.background", "/bkg"))
+    str_background = dictionary.replaceInText(config.getTagDefault("simple.background", "/bkg/$(LEPCH)"))
     QF.INFO("Definition for signal: {:s} and background: {:s}".format(str_signal.Data(), str_background.Data()))
     
     # retrieve the figure of merits 
@@ -145,7 +152,6 @@ def createSignificanceEvaluator(config, dictionary, sampleFolder):
     # https://svnweb.cern.ch/trac/atlasoff/browser/PhysicsAnalysis/HiggsPhys/HSG3/WWDileptonAnalysisCode/HWWAnalysisCode/trunk/analysis/GridScan/config/cl/vbf/default_eemm.txt
     # one sees that each sample folder corresponded to one systematic variation!
       
-
     # retrieve the figure of merits 
     fomDefinitions = config.getTagVString("figureOfMerits")
 
