@@ -75,10 +75,10 @@ IF(${AnalysisBase_FOUND})
   atlas_install_python_modules( python/*.py )
 
   # check if we have any test cases
-  if(${CAFExampleTests})   
+  if(CAFExampleTests)   
     # register your test cases from the "test" folder
     find_package(PythonInterp REQUIRED)
-    foreach(TestScript test)
+    foreach(TestScript ${CAFExampleTests})
       get_filename_component(TestName ${TestScript} NAME_WE)
       atlas_add_test( ${TestName} SCRIPT ${TestScript} )
     endforeach()
