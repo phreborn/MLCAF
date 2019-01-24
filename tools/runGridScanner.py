@@ -192,17 +192,26 @@ def createGridScanner(config, evaluator):
     boundaryFilePath = QF.TQPathManager.getPathManager().findFileFromEnvVar(boundaries, "CAFANALYSISSHARE")
     lines = QF.TQStringUtils.readFileLines(boundaryFilePath) # This already ignores lines with '#'
     if not lines: QF.BREAK("Could not open input file with bounday list '{:s}'. Please check your configuration and try again. Aborting now...".format(boundaryFilePath))
-    obsList = [ROOT.TString(str(l).split(None, 1)[0].strip()) for l in lines]
-    # Add final discriminant if defined and not already in obsList
-    finalDiscriminantName = ROOT.TString("")
-    if config.getTagString("simple.axisToEvaluate", finalDiscriminantName):
-        if not finalDiscriminantName in obsList: obsList.append(finalDiscriminantName)
-    # Convert python list to ROOT TList to parse to gridscanner
     obsToScan = ROOT.TList()
-    for obs in obsList: obsToScan.Add(ROOT.TObjString(obs.Data()))
+    if config.getTagBoolDefault("discardUnusedObservables", True):
+        QF.INFO("Discarding dimensions of multidimensional histogram that are not used!")
+        obsList = []
+        for l in lines:
+            obsName = str(l).split()[0].strip()
+            # if the token contains characters, it's an observable name            
+            if not re.match("^[a-zA-Z]", obsName):
+                obsName = str(l).split()[-1].strip()
+            obsList.append(ROOT.TString(obsName))
+            
+        # Add final discriminant if defined and not already in obsList
+        finalDiscriminantName = ROOT.TString("")
+        if config.getTagString("simple.axisToEvaluate", finalDiscriminantName):
+            if not finalDiscriminantName in obsList: obsList.append(finalDiscriminantName)
+            # Convert python list to ROOT TList to parse to gridscanner
+        for obs in obsList: obsToScan.Add(ROOT.TObjString(obs.Data()))
 
     # Create gridscanner
-    gridscan = QF.TQGridScanner(jobname, evaluator) #, obsToScan)
+    gridscan = QF.TQGridScanner(jobname, evaluator, obsToScan)
 
     # import config tags to gridscanner
     gridscan.importTags(config)
