@@ -202,7 +202,7 @@ def createGridScanner(config, evaluator):
     for obs in obsList: obsToScan.Add(ROOT.TObjString(obs.Data()))
 
     # Create gridscanner
-    gridscan = QF.TQGridScanner(jobname, evaluator, obsToScan)
+    gridscan = QF.TQGridScanner(jobname, evaluator) #, obsToScan)
 
     # import config tags to gridscanner
     gridscan.importTags(config)
