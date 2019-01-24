@@ -183,7 +183,26 @@ def createGridScanner(config, evaluator):
 
     QF.INFO("Setting up gridscanner")
     jobname = config.getTagDefault("nDimHistName", "gridscan")
-    gridscan = QF.TQGridScanner(jobname, evaluator)
+    
+    boundaries = ROOT.TString("")
+    if not config.getTagString("boundaryList", boundaries):
+        QF.BREAK("No boundaryList tag found! Please specify the tag 'boundaryList' in your main config!")
+
+    # Get file with boundaries and retrieve observables to scan
+    boundaryFilePath = QF.TQPathManager.getPathManager().findFileFromEnvVar(boundaries, "CAFANALYSISSHARE")
+    lines = QF.TQStringUtils.readFileLines(boundaryFilePath) # This already ignores lines with '#'
+    if not lines: QF.BREAK("Could not open input file with bounday list '{:s}'. Please check your configuration and try again. Aborting now...".format(boundaryFilePath))
+    obsList = [ROOT.TString(str(l).split(None, 1)[0].strip()) for l in lines]
+    # Add final discriminant if defined and not already in obsList
+    finalDiscriminantName = ROOT.TString("")
+    if config.getTagString("simple.axisToEvaluate", finalDiscriminantName):
+        if not finalDiscriminantName in obsList: obsList.append(finalDiscriminantName)
+    # Convert python list to ROOT TList to parse to gridscanner
+    obsToScan = ROOT.TList()
+    for obs in obsList: obsToScan.Add(ROOT.TObjString(obs.Data()))
+
+    # Create gridscanner
+    gridscan = QF.TQGridScanner(jobname, evaluator, obsToScan)
 
     # import config tags to gridscanner
     gridscan.importTags(config)
@@ -203,67 +222,51 @@ def createGridScanner(config, evaluator):
     QF.INFO("Booking variables")
     
     # check for restricted variables ranges
-    boundaries = ROOT.TString("")
-    if config.getTagString("boundaryList", boundaries):
-    	boundaryPath = QF.TQPathManager.getPathManager().findFileFromEnvVar(boundaries, "CAFANALYSISSHARE")
-        lines = QF.TQStringUtils.readFileLines(boundaryPath)
-        if not lines:
-            QF.WARN("Could not open input file {:s} - not applying any boundary conditions!".format(boundaries))
+    for l in lines:
+        l.ReplaceAll("\t"," ")
+        lower, upper, split, obsName, buf = ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString("")
+        isSplit = not l.Contains("<")
+        if isSplit:
+            # split cuts are defined with "|"
+            QF.TQStringUtils.readUpTo(l, obsName, "|")
+            obsName = QF.TQStringUtils.trim(obsName)
+            QF.TQStringUtils.readToken(l, buf, "|")
+            splitVals = QF.TQStringUtils.trim(l)
+            rng = parseRange(splitVals)
+            obs = gridscan.getObs(obsName)
+            setCutSplit(obs, rng)
+            gridscan.hasSplitObs = True
+            if len(evaluator.FOMDefinitions()) > 1:
+                QF.ERROR("There is no support for multiple FOMs when a spliting cut is defined! Please choose one figure of merit and rerun!")
+                exit()
         else:
-            for l in lines:
-                l.ReplaceAll("\t"," ")
-                lower, upper, split, obsName, buf = ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString(""), ROOT.TString("")
-                isSplit = not l.Contains("<")
-                if isSplit:
-                    # split cuts are defined with "|"
-                    QF.TQStringUtils.readUpTo(l, obsName, "|")
+            QF.TQStringUtils.readUpTo(l, buf, "<")
+            lowerRangeOrObsName = QF.TQStringUtils.trim(buf)
+            # if the token contains characters, it's an observable name
+            if re.match("^[a-zA-Z]", str(lowerRangeOrObsName)):
+                obsName = lowerRangeOrObsName
+                hasUpperBound = True
+            else:
+                lowerRange = parseRange(lowerRangeOrObsName)
+                QF.TQStringUtils.readToken(l, buf, "<")
+                # switch cuts are denoted by "<|"
+                isSwitchCut = l[0] == "|"
+                if isSwitchCut: QF.TQStringUtils.readToken(l, buf, "|")
+                hasUpperBound = l.Contains("<")
+                if hasUpperBound:
+                    QF.TQStringUtils.readUpTo(l, obsName, "<")
                     obsName = QF.TQStringUtils.trim(obsName)
-                    QF.TQStringUtils.readToken(l, buf, "|")
-                    splitVals = QF.TQStringUtils.trim(l)
-                    rng = parseRange(splitVals)
-                    obs = gridscan.getObs(obsName)
-                    setCutSplit(obs, rng)
-                    gridscan.hasSplitObs = True
-                    if len(evaluator.FOMDefinitions()) > 1:
-                        QF.ERROR("There is no support for multiple FOMs when a spliting cut is defined! Please choose one figure of merit and rerun!")
-                        exit()
                 else:
-                    QF.TQStringUtils.readUpTo(l, buf, "<")
-                    lowerRangeOrObsName = QF.TQStringUtils.trim(buf)
-                    # if the token contains characters, it's an observable name
-                    if re.match("^[a-zA-Z]", str(lowerRangeOrObsName)):
-                        obsName = lowerRangeOrObsName
-                        hasUpperBound = True
-                    else:
-                        lowerRange = parseRange(lowerRangeOrObsName)
-                        QF.TQStringUtils.readToken(l, buf, "<")
-                        # switch cuts are denoted by "<|"
-                        isSwitchCut = l[0] == "|"
-                        if isSwitchCut: QF.TQStringUtils.readToken(l, buf, "|")
-                        hasUpperBound = l.Contains("<")
-                        if hasUpperBound:
-                            QF.TQStringUtils.readUpTo(l, obsName, "<")
-                            obsName = QF.TQStringUtils.trim(obsName)
-                        else:
-                            obsName = QF.TQStringUtils.trim(l)
-                        obs = gridscan.getObs(obsName)
-                        setCutLower(obs, lowerRange, isSwitchCut)
-                    if hasUpperBound:
-                        obs = gridscan.getObs(obsName)
-                        QF.TQStringUtils.readToken(l, buf, "<")
-                        isSwitchCut = l[0] == "|"
-                        if isSwitchCut: QF.TQStringUtils.readToken(l, buf, "|")
-                        upperRange = parseRange(QF.TQStringUtils.trim(l))
-                        setCutUpper(obs, upperRange, isSwitchCut)
-
-
-    # reduce the size of the multidimensional histogram
-    # by applying all fixed cuts and reject these axis in the following.
-    # this will lead to an improved performance when running the scan.
-    #axisToEvaluate = config.getTagStringDefault("simple.axisToEvaluate", "MT")
-    #QF.INFO("setting {:s} as the axis where significance is computed".format(axisToEvaluate))
-    #gridscan.updateEvaluatorHists(axisToEvaluate)
-    # TODO: Check/Reimplement the above
+                    obsName = QF.TQStringUtils.trim(l)
+                obs = gridscan.getObs(obsName)
+                setCutLower(obs, lowerRange, isSwitchCut)
+            if hasUpperBound:
+                obs = gridscan.getObs(obsName)
+                QF.TQStringUtils.readToken(l, buf, "<")
+                isSwitchCut = l[0] == "|"
+                if isSwitchCut: QF.TQStringUtils.readToken(l, buf, "|")
+                upperRange = parseRange(QF.TQStringUtils.trim(l))
+                setCutUpper(obs, upperRange, isSwitchCut)
 
     return gridscan
 
@@ -311,6 +314,7 @@ def runScan(config, sampleFolder, dictionary):
     evname = QF.TQStringUtils.makeValidIdentifier(evalMode);
 
     QF.INFO("Creating {:s} significance evaluator for channel {:s}".format(evalMode.Data(), dictionary.replaceInText("$(LEPCH)")))
+    
     evaluator = createSignificanceEvaluator(config, dictionary, sampleFolder)
     if not evaluator:
         QF.BREAK("significance evaluator could not be created!")
