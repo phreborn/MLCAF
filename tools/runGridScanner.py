@@ -118,11 +118,14 @@ def createSignificanceEvaluator(config, dictionary, sampleFolder):
     
     # retrieve the figure of merits 
     fomDefinitions = config.getTagVString("figureOfMerits")
+    fomDefinitionParameters = None
+    if config.hasTag("figureOfMeritParameters"):
+      fomDefinitionParameters = config.getTagVDouble("figureOfMeritParameters")
     
     # create and initialize the evaluator
     if isSimple:
       simple = QF.TQSignificanceEvaluatorBase(sampleFolder, str_signal, str_background)
-      simple.addFunctionsFOM(fomDefinitions)
+      simple.addFunctionsFOM(fomDefinitions, fomDefinitionParameters)
       evaluator = simple
     else:
       # TODO: Incorporate TQCLSignificanceEvaluator here to utilize the likelihood fit in the scan
@@ -323,7 +326,6 @@ def runScan(config, sampleFolder, dictionary):
     evname = QF.TQStringUtils.makeValidIdentifier(evalMode);
 
     QF.INFO("Creating {:s} significance evaluator for channel {:s}".format(evalMode.Data(), dictionary.replaceInText("$(LEPCH)")))
-    
     evaluator = createSignificanceEvaluator(config, dictionary, sampleFolder)
     if not evaluator:
         QF.BREAK("significance evaluator could not be created!")
