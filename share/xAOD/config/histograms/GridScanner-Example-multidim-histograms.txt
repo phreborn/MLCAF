@@ -1,4 +1,5 @@
 # histogram definitions for multidimensional histograms
+# for usage add tag 'multidimHistograms' with this filename to analyze config.
 # currently supported are THnSparseF and THnSparseD objects
 #
 # SYNTAX:
