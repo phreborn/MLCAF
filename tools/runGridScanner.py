@@ -145,16 +145,6 @@ def createSignificanceEvaluator(config, dictionary, sampleFolder):
       ########### Code works...
       QF.BREAK("Up until here and not further!")
 
-    # Discussion about giving TSCLSignificanceEvaluator multiple sample folders for initializing:
-    # Probably this is deprecated and comes from the fact that the gridscan objects were stored in multiple sample
-    # folders! This is however not really clear! Maybe multiple folders (physical root files) are needed because otherwise the
-    # inputs get too large! Keep the relevant code in runGridScanner_backup.py for now and try to start
-    # with one sampleFolder only that holds the variations we want to run over!
-
-    # If you look at the sample folder definition here:
-    # https://svnweb.cern.ch/trac/atlasoff/browser/PhysicsAnalysis/HiggsPhys/HSG3/WWDileptonAnalysisCode/HWWAnalysisCode/trunk/analysis/GridScan/config/cl/vbf/default_eemm.txt
-    # one sees that each sample folder corresponded to one systematic variation!
-      
     # retrieve the figure of merits 
     fomDefinitions = config.getTagVString("figureOfMerits")
 
