@@ -1,0 +1,100 @@
+#ifndef __EventSelectionObs_base__
+#define __EventSelectionObs_base__
+#include "QFramework/TQTreeObservable.h"
+#include "TTreeFormula.h"
+#include "Htautau2015/EventSelection_leplep_default.h"
+
+template < typename selection >
+class EventSelectionObs_base {
+    public:
+        EventSelectionObs_base();
+        EventSelectionObs_base(const TString& expression);
+        virtual ~EventSelectionObs_base();
+        virtual double getValue() const;
+        ClassDef(EventSelectionObs_base<selection>,1);
+    protected:
+        selection * ovl;
+        bool debug;
+
+
+        TString fExpression = "";
+
+        TTreeFormula *m_event_number;
+        TTreeFormula *m_run_number;
+
+        bool jetIndexMode    = false;
+        bool elIndexMode     = false;
+        bool muIndexMode     = false;
+        bool tauIndexMode    = false;
+        bool leptonIndexMode = false;
+
+        bool jetNMode    = false;
+        bool elNMode     = false;
+        bool muNMode     = false;
+        bool tauNMode    = false;
+        bool leptonNMode = false;
+
+        int jetIndex    = -1;
+        int elIndex     = -1;
+        int muIndex     = -1;
+        int tauIndex    = -1;
+        int leptonIndex = -1;
+
+        bool triggerWeightMode=false;
+        bool leptonWeightMode=false;
+        bool isTriggeredMCMode=false;
+        bool isTriggeredDataMode=false;
+};
+
+class EventSelectionObs_leplep_default : public TQTreeObservable {
+protected:
+  // put here any data members your class might need
+public:
+  virtual double getValue() const override;
+  virtual TObjArray* getBranchNames() const override;
+protected:
+  virtual bool initializeSelf() override;
+  virtual bool finalizeSelf() override;
+protected:
+  TString fExpression = "";
+  EventSelectionObs_base <EventSelection_leplep_default> * EventSelectionObs;
+public:
+  virtual bool hasExpression() const override;
+  virtual const TString& getExpression() const override;
+  virtual void setExpression(const TString& expr) override;
+
+  EventSelectionObs_leplep_default();
+  EventSelectionObs_leplep_default(const TString& expression);
+  virtual ~EventSelectionObs_leplep_default();
+public:
+  bool parseExpression(const TString& expr);
+  void clearParsedExpression();
+
+  virtual TString getActiveExpression() const override;
+
+  ClassDef(EventSelectionObs_leplep_default, 1);
+
+
+};
+
+//class EventSelectionObs_leplep_default: public TQTreeObservable {
+//    public:
+//        EventSelectionObs_leplep_default(const TString &expression);
+//        ~EventSelectionObs_leplep_default();
+//        virtual double getValue() const override;
+//        virtual bool hasExpression() const override;
+//        virtual const TString& getExpression() const override;
+//        virtual void setExpression(const TString& expr) override;
+//        bool parseExpression( const TString& expr);
+//        virtual TObjArray* getBranchNames() const override;
+//        void clearParsedExpression();
+//        virtual TString getActiveExpression() const override;
+//        ClassDef(EventSelectionObs_leplep_default,1);
+//    protected:
+//        TString fExpression = "";
+//        virtual bool initializeSelf() override;
+//        virtual bool finalizeSelf () override;
+//        EventSelectionObs_base <EventSelection_leplep_default> * EventSelectionObs;
+//};
+
+#endif

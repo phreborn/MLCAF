@@ -27,7 +27,7 @@ file(GLOB CAFExampleTests test/*.py)
 IF(${AnalysisBase_FOUND})
   # this is ASG compilation, we don't need to do anything
   file(GLOB CAFExampleSources Root/*.cxx)
-  file(GLOB CAFExampleHeaders CAFExample/*.h)
+  file(GLOB CAFExampleHeaders Htautau/*.h)
 
   # generate the LinkDef.h 
   execute_process(
@@ -93,7 +93,7 @@ else()
   set(WITHOUT_ASG ON )
 
   file(GLOB CAFExampleSourcesAll Root/*.cxx )
-  file(GLOB CAFExampleHeadersAll CAFExample/*.h )
+  file(GLOB CAFExampleHeadersAll Htautau/*.h )
   execute_process(COMMAND grep -L xAOD ${CAFExampleSourcesAll} OUTPUT_VARIABLE CAFExampleSourcesTMP )
   execute_process(COMMAND grep -L xAOD ${CAFExampleHeadersAll} OUTPUT_VARIABLE CAFExampleHeadersTMP )
   string(REGEX REPLACE "[ \r\n]+" ";" CAFExampleSources ${CAFExampleSourcesTMP})
