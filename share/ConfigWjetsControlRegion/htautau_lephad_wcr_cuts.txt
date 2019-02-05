@@ -1,0 +1,10 @@
+.name=CutBveto1pOSPassID
+.name=CutBveto3pOSPassID
+.name=CutBveto1pOSFailID
+.name=CutBveto3pOSFailID
+
+
+.name=CutBtag1pSSPassID
+.name=CutBtag3pSSPassID
+.name=CutBtag1pSSFailID
+.name=CutBtag3pSSFailID

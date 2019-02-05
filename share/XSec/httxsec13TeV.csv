@@ -1,0 +1,383 @@
+SampleID,category,xsectioninpb,kfactor,filterefficiency,xsecunc
+################################################################################################################
+# ttbar
+410000, PowhegPythiaEvtGen_P2012_ttbar_hdamp172p5_nonallhad,696.12, 1.1949, 0.543,1.
+410003, PowhegPythiaEvtGen_P2012_ttbar_hdamp172p5_nonallhad,696.12, 1.1949, 0.543,1.
+
+
+################################################################################################################
+# single top
+410011,  PowhegPythiaEvtGen_P2012_singletop_tchan_lept_top,       43.739,  1.,      1.,      1.
+410012,  PowhegPythiaEvtGen_P2012_singletop_tchan_lept_antitop,   25.778,  1.,      1.,      1.
+
+410013,  PowhegPythiaEvtGen_P2012_Wt_inclusive_top,               34.009,  1.,      1.,      1.
+410014,  PowhegPythiaEvtGen_P2012_Wt_inclusive_antitop,           33.989,  1.,      1.,      1.
+410015,  PowhegPythiaEvtGen_P2012_Wt_dilepton_top,                3.5835,  1.,      1.,      1.
+410016,  PowhegPythiaEvtGen_P2012_Wt_dilepton_antitop,            3.5814,  1.,      1.,      1.
+
+# Filtered samples -- efficiencies from evgen preparation (AMI is wrong)
+407018,  PowhegPythiaEvtGen_P2012CT10_Wt_inclusive_top_HT500,     34.009,  1.,      0.0884612,       1.
+407019,  PowhegPythiaEvtGen_P2012CT10_Wt_inclusive_top_MET200,    34.009,  1.,      0.0112825,       1.
+407020,  PowhegPythiaEvtGen_P2012CT10_Wt_inclusive_tbar_HT500,    33.989,  1.,      0.0884152,       1.
+407021,  PowhegPythiaEvtGen_P2012CT10_Wt_inclusive_tbar_MET200,   33.989,  1.,      0.0112591,       1.
+
+410025,  PowhegPythiaEvtGen_P2012_SingleTopSchan_noAllHad_top,      2.0517,  1.,      1.,      1.
+410026,  PowhegPythiaEvtGen_P2012_SingleTopSchan_noAllHad_antitop, 1.,2615,  1.,      1.,      1.
+
+410064,  PowhegPythiaEvtGen_P2012_Wt_DS_dilepton_top,     3.4133,  1.,054,   1.,      1.
+410065,  PowhegPythiaEvtGen_P2012_Wt_DS_dilepton_antitop, 3.409,   1.,054,   1.,      1.
+
+################################################################################################################
+# Powheg inclusive W
+361100, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu,    11306., 1.0172, 1., 1.
+361101, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu,   11306., 1.0172, 1., 1.
+361102, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu,  11306., 1.0172, 1., 1.
+361103, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminusenu,   8282.6, 1.0358, 1., 1.
+361104, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminusmunu,  8282.6, 1.0358, 1., 1.
+361105, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminustaunu, 8282.6, 1.0358, 1., 1.
+################################################################################################################
+# Powheg inclusive Z
+361106, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee,     1901.2, 1.026, 1., 1.
+361107, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zmumu,   1901.2, 1.026, 1., 1.
+361108, PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau, 1901.2, 1.026, 1., 1.
+
+# ggH lh high mass 
+342305, ggHlh200,  1.,  1.0,  0.4564,  1. 
+342310, ggHlh300,  1.,  1.0,  0.4564,  1.
+342314, ggHlh400,  1.,  1.0,  0.4564,  1.
+342316, ggHlh500,  1.,  1.0,  0.4564,  1.
+342318, ggHlh600,  1.,  1.0,  0.4564,  1.
+342320, ggHlh700,  1.,  1.0,  0.4564,  1.
+342322, ggHlh800,  1.,  1.0,  0.4564,  1.
+342326, ggHlh1000, 1.,  1.0,  0.4564,  1.
+342330, ggHlh1200, 1.,  1.0,  0.4564,  1.
+342336, ggHlh1500, 1.,  1.0,  0.4564,  1.
+
+# bbH lh high mass 
+341858, bbHlh200,  1.,  1.0,  0.4564,  1. 
+341860, bbHlh300,  1.,  1.0,  0.4564,  1.
+341862, bbHlh400,  1.,  1.0,  0.4564,  1.
+341863, bbHlh500,  1.,  1.0,  0.4564,  1.
+341864, bbHlh600,  1.,  1.0,  0.4564,  1.
+341865, bbHlh700,  1.,  1.0,  0.4564,  1.
+341866, bbHlh800,  1.,  1.0,  0.4564,  1.
+341868, bbHlh1000, 1.,  1.0,  0.4564,  1.
+341870, bbHlh1200, 1.,  1.0,  0.4564,  1.
+341873, bbHlh1500, 1.,  1.0,  0.4564,  1.
+
+
+# ggH hh high mass 
+341437, ggH200_w1_tautauhh,   1.,  1.0,  0.4194,  1. 
+341438, ggH400_w5_tautauhh,   1.,  1.0,  0.4194,  1.
+341439, ggH600_w10_tautauhh,  1.,  1.0,  0.4194,  1.
+341440, ggH1000_w30_tautauhh, 1.,  1.0,  0.4194,  1.
+# bbH hh high mass 
+341875, bbH200_yb2_tautauhh,  1.,  1.0,  0.4194,  1.
+341879, bbH400_yb2_tautauhh,  1.,  1.0,  0.4194,  1.
+341885, bbH1000_yb2_tautauhh, 1.,  1.0,  0.4194,  1.
+
+# ggH125 
+341123, ggH125_tautaulh, 1.26644,  1.0,  0.4564,  1.
+#
+#161555, ggH, 0.34412, 1.00000, 0.122630,ggH125_tautaull 
+#161566, ggH, 1.26644, 1.00000, 0.455440,ggH125_tautaulh 
+#161577, ggH, 1.16519, 1.00000, 0.421200,ggH125_tautauhh 
+#
+#161595, VBF, 0.02937, 1.00000, 0.123310,VBFH125_tautaull 
+#161617, VBF, 0.09943, 1.00000, 0.422950,VBFH125_tautauhh 
+#161635, VH, 0.01081, 1.00000, 0.123160,WH125_tautaull 
+#161646, VH, 0.03979, 1.00000, 0.455670,WH125_tautaulh 
+#161657, VH, 0.03661, 1.00000, 0.422070,WH125_tautauhh 
+#161675, VH, 0.00681, 1.00000, 0.122320,ZH125_tautaull 
+#161686, VH, 0.02508, 1.00000, 0.455560,ZH125_tautaulh 
+#161697, VH, 0.02307, 1.00000, 0.421500,ZH125_tautauhh 
+#
+
+361063, Sherpa_CT10_llll,          12.583,   1.0, 1.0,     1.0
+361064, Sherpa_CT10_lllvSFMinus,   1.8446,   1.0, 1.0,     1.0
+361065, Sherpa_CT10_lllvOFMinus,   3.6235,   1.0, 1.0,     1.0
+361066, Sherpa_CT10_lllvSFPlus,    2.5656,   1.0, 1.0,     1.0
+361067, Sherpa_CT10_lllvOFPlus,    5.0169,   1.0, 1.0,     1.0
+361068, Sherpa_CT10_llvv,          14.022,   1.0, 1.0,     1.0
+361069, Sherpa_CT10_llvvjj_ss_EW4, 0.025765, 1.0, 1.0,     1.0
+361081, Sherpa_CT10_WplvWmqq,      25.995,   1.0, 1.0,     1.0
+361082, Sherpa_CT10_WpqqWmlv,      25.974,   1.0, 1.0,     1.0
+361083, Sherpa_CT10_WlvZqq,        12.543,   1.0, 1.0,     1.0
+361084, Sherpa_CT10_WqqZll,        3.7583,   1.0, 1.0,     1.0
+361085, Sherpa_CT10_WqqZvv,        7.4151,   1.0, 1.0,     1.0
+361086, Sherpa_CT10_ZqqZll,        16.59,    1.0, 0.14253, 1.0
+361087, Sherpa_CT10_ZqqZvv,        16.492,   1.0, 0.28096, 1.0
+
+
+### Powheg mass sliced DY and W samples
+301000,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_120M180,           17.4780000, 1.00, 1.,  1.,
+301001,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_180M250,           2.9212000,  1.00, 1.,  1.,
+301002,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_250M400,           1.0820000,  1.00, 1.,  1.,
+301003,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_400M600,           0.1955000,  1.00, 1.,  1.,
+301004,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_600M800,           0.0374010,  1.00, 1.,  1.,
+301005,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_800M1000,          0.0106070,  1.00, 1.,  1.,
+301006,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1000M1250,         0.0042582,  1.00, 1.,  1.,
+301007,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1250M1500,         0.0014219,  1.00, 1.,  1.,
+301008,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1500M1750,         0.0005452,  1.00, 1.,  1.,
+301009,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1750M2000,         0.0002299,  1.00, 1.,  1.,
+301010,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2000M2250,         0.0001039,  1.00, 1.,  1.,
+301011,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2250M2500,         0.0000494,  1.00, 1.,  1.,
+301012,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2500M2750,         0.0000245,  1.00, 1.,  1.,
+301013,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2750M3000,         0.0000125,  1.00, 1.,  1.,
+301014,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_3000M3500,         0.0000100,  1.00, 1.,  1.,
+301015,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_3500M4000,         0.0000029,  1.00, 1.,  1.,
+301016,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_4000M4500,         0.0000009,  1.00, 1.,  1.,
+301017,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_4500M5000,         0.0000003,  1.00, 1.,  1.,
+301018,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_5000M,             0.0000001,  1.00, 1.,  1.,
+301020,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_120M180,         17.478000,  1.00, 1.,  1.,
+301021,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_180M250,         2.9212000,  1.00, 1.,  1.,
+301022,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_250M400,         1.0820000,  1.00, 1.,  1.,
+301023,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_400M600,         0.1955000,  1.00, 1.,  1.,
+301024,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_600M800,         0.0373990,  1.00, 1.,  1.,
+301025,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_800M1000,        0.0106070,  1.00, 1.,  1.,
+301026,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1000M1250,       0.0042582,  1.00, 1.,  1.,
+301027,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1250M1500,       0.0014219,  1.00, 1.,  1.,
+301028,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1500M1750,       0.0005452,  1.00, 1.,  1.,
+301029,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1750M2000,       0.0002299,  1.00, 1.,  1.,
+301030,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2000M2250,       0.0001039,  1.00, 1.,  1.,
+301031,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2250M2500,       0.0000494,  1.00, 1.,  1.,
+301032,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2500M2750,       0.0000245,  1.00, 1.,  1.,
+301033,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2750M3000,       0.0000125,  1.00, 1.,  1.,
+301034,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_3000M3500,       0.0000100,  1.00, 1.,  1.,
+301035,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_3500M4000,       0.0000029,  1.00, 1.,  1.,
+301036,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_4000M4500,       0.0000009,  1.00, 1.,  1.,
+301037,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_4500M5000,       0.0000003,  1.00, 1.,  1.,
+301038,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_5000M,           0.0000001,  1.00, 1.,  1.,
+301040,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_120M180,       17.4800000, 1.00, 1.,  1.,
+301041,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_180M250,       2.9209000,  1.00, 1.,  1.,
+301042,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_250M400,       1.0820000,  1.00, 1.,  1.,
+301043,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_400M600,       0.1955000,  1.00, 1.,  1.,
+301044,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_600M800,       0.0374010,  1.00, 1.,  1.,
+301045,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_800M1000,      0.0106070,  1.00, 1.,  1.,
+301046,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1000M1250,     0.0042584,  1.00, 1.,  1.,
+301047,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1250M1500,     0.0014220,  1.00, 1.,  1.,
+301048,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1500M1750,     0.0005452,  1.00, 1.,  1.,
+301049,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1750M2000,     0.0002299,  1.00, 1.,  1.,
+301050,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2000M2250,     0.0001039,  1.00, 1.,  1.,
+301051,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2250M2500,     0.0000494,  1.00, 1.,  1.,
+301052,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2500M2750,     0.0000245,  1.00, 1.,  1.,
+301053,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2750M3000,     0.0000125,  1.00, 1.,  1.,
+301054,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3000M3500,     0.0000100,  1.00, 1.,  1.,
+301055,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3500M4000,     0.0000029,  1.00, 1.,  1.,
+301056,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4000M4500,     0.0000009,  1.00, 1.,  1.,
+301057,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4500M5000,     0.0000003,  1.00, 1.,  1.,
+301058,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_5000M,         0.0000001,  1.00, 1.,  1.,
+301060,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_120M180,       32.0530000, 1.00, 1.,  1.,
+301061,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_180M250,       5.0029000,  1.00, 1.,  1.,
+301062,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_250M400,       1.7543000,  1.00, 1.,  1.,
+301063,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_400M600,       0.3123500,  1.00, 1.,  1.,
+301064,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_600M800,       0.0607930,  1.00, 1.,  1.,
+301065,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_800M1000,      0.0176680,  1.00, 1.,  1.,
+301066,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_1000M1250,     0.0072895,  1.00, 1.,  1.,
+301067,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_1250M1500,     0.0025071,  1.00, 1.,  1.,
+301068,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_1500M1750,     0.0009863,  1.00, 1.,  1.,
+301069,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_1750M2000,     0.0004245,  1.00, 1.,  1.,
+301070,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_2000M2250,     0.0001946,  1.00, 1.,  1.,
+301071,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_2250M2500,     0.0000933,  1.00, 1.,  1.,
+301072,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_2500M2750,     0.0000463,  1.00, 1.,  1.,
+301073,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_2750M3000,     0.0000235,  1.00, 1.,  1.,
+301074,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_3000M3500,     0.0000185,  1.00, 1.,  1.,
+301075,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_3500M4000,     0.0000051,  1.00, 1.,  1.,
+301076,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_4000M4500,     0.0000014,  1.00, 1.,  1.,
+301077,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_4500M5000,     0.0000004,  1.00, 1.,  1.,
+301078,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusenu_5000M,         0.0000002,  1.00, 1.,  1.,
+301080,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_120M180,        22.1980000, 1.00, 1.,  1.,
+301081,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_180M250,        3.2852000,  1.00, 1.,  1.,
+301082,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_250M400,        1.0832000,  1.00, 1.,  1.,
+301083,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_400M600,        0.1754100,  1.00, 1.,  1.,
+301084,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_600M800,        0.0309800,  1.00, 1.,  1.,
+301085,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_800M1000,       0.0082865,  1.00, 1.,  1.,
+301086,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_1000M1250,      0.0031594,  1.00, 1.,  1.,
+301087,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_1250M1500,      0.0010029,  1.00, 1.,  1.,
+301088,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_1500M1750,      0.0003681,  1.00, 1.,  1.,
+301089,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_1750M2000,      0.0001495,  1.00, 1.,  1.,
+301090,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_2000M2250,      0.0000653,  1.00, 1.,  1.,
+301091,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_2250M2500,      0.0000302,  1.00, 1.,  1.,
+301092,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_2500M2750,      0.0000145,  1.00, 1.,  1.,
+301093,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_2750M3000,      0.0000073,  1.00, 1.,  1.,
+301094,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_3000M3500,      0.0000057,  1.00, 1.,  1.,
+301095,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_3500M4000,      0.0000016,  1.00, 1.,  1.,
+301096,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_4000M4500,      0.0000005,  1.00, 1.,  1.,
+301097,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_4500M5000,      0.0000001,  1.00, 1.,  1.,
+301098,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminenu_5000M,          0.0000001,  1.00, 1.,  1.,
+301100,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_120M180,      32.0530000, 1.00, 1.,  1.,
+301101,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_180M250,      5.0029000,  1.00, 1.,  1.,
+301102,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_250M400,      1.7543000,  1.00, 1.,  1.,
+301103,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_400M600,      0.3123500,  1.00, 1.,  1.,
+301104,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_600M800,      0.0607930,  1.00, 1.,  1.,
+301105,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_800M1000,     0.0176680,  1.00, 1.,  1.,
+301106,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_1000M1250,    0.0072895,  1.00, 1.,  1.,
+301107,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_1250M1500,    0.0025071,  1.00, 1.,  1.,
+301108,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_1500M1750,    0.0009863,  1.00, 1.,  1.,
+301109,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_1750M2000,    0.0004246,  1.00, 1.,  1.,
+301110,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_2000M2250,    0.0001946,  1.00, 1.,  1.,
+301111,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_2250M2500,    0.0000933,  1.00, 1.,  1.,
+301112,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_2500M2750,    0.0000463,  1.00, 1.,  1.,
+301113,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_2750M3000,    0.0000235,  1.00, 1.,  1.,
+301114,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_3000M3500,    0.0000185,  1.00, 1.,  1.,
+301115,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_3500M4000,    0.0000051,  1.00, 1.,  1.,
+301116,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_4000M4500,    0.0000014,  1.00, 1.,  1.,
+301117,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_4500M5000,    0.0000004,  1.00, 1.,  1.,
+301118,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplusmunu_5000M,        0.0000002,  1.00, 1.,  1.,
+301120,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_120M180,       22.1980000, 1.00, 1.,  1.,
+301121,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_180M250,       3.2853000,  1.00, 1.,  1.,
+301122,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_250M400,       1.0832000,  1.00, 1.,  1.,
+301123,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_400M600,       0.1754100,  1.00, 1.,  1.,
+301124,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_600M800,       0.0309800,  1.00, 1.,  1.,
+301125,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_800M1000,      0.0082865,  1.00, 1.,  1.,
+301126,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_1000M1250,     0.0031594,  1.00, 1.,  1.,
+301127,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_1250M1500,     0.0010029,  1.00, 1.,  1.,
+301128,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_1500M1750,     0.0003681,  1.00, 1.,  1.,
+301129,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_1750M2000,     0.0001495,  1.00, 1.,  1.,
+301130,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_2000M2250,     0.0000653,  1.00, 1.,  1.,
+301131,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_2250M2500,     0.0000302,  1.00, 1.,  1.,
+301132,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_2500M2750,     0.0000145,  1.00, 1.,  1.,
+301133,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_2750M3000,     0.0000073,  1.00, 1.,  1.,
+301134,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_3000M3500,     0.0000057,  1.00, 1.,  1.,
+301135,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_3500M4000,     0.0000016,  1.00, 1.,  1.,
+301136,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_4000M4500,     0.0000005,  1.00, 1.,  1.,
+301137,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_4500M5000,     0.0000001,  1.00, 1.,  1.,
+301138,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wminmunu_5000M,         0.0000001,  1.00, 1.,  1.,
+301140,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_120M180,     32.0530000, 1.00, 1.,  1.,
+301141,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_180M250,     5.0029000,  1.00, 1.,  1.,
+301142,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_250M400,     1.7543000,  1.00, 1.,  1.,
+301143,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_400M600,     0.3123500,  1.00, 1.,  1.,
+301144,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_600M800,     0.0607930,  1.00, 1.,  1.,
+301145,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_800M1000,    0.0176680,  1.00, 1.,  1.,
+301146,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_1000M1250,   0.0072895,  1.00, 1.,  1.,
+301147,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_1250M1500,   0.0025071,  1.00, 1.,  1.,
+301148,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_1500M1750,   0.0009863,  1.00, 1.,  1.,
+301149,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_1750M2000,   0.0004246,  1.00, 1.,  1.,
+301150,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_2000M2250,   0.0001946,  1.00, 1.,  1.,
+301151,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_2250M2500,   0.0000933,  1.00, 1.,  1.,
+301152,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_2500M2750,   0.0000463,  1.00, 1.,  1.,
+301153,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_2750M3000,   0.0000235,  1.00, 1.,  1.,
+301154,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_3000M3500,   0.0000185,  1.00, 1.,  1.,
+301155,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_3500M4000,   0.0000051,  1.00, 1.,  1.,
+301156,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_4000M4500,   0.0000014,  1.00, 1.,  1.,
+301157,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_4500M5000,   0.0000004,  1.00, 1.,  1.,
+301158,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wplustaunu_5000M,       0.0000002,  1.00, 1.,  1.,
+301160,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_120M180,      22.1980000, 1.00, 1.,  1.,
+301161,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_180M250,      3.2852000,  1.00, 1.,  1.,
+301162,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_250M400,      1.0832000,  1.00, 1.,  1.,
+301163,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_400M600,      0.1754100,  1.00, 1.,  1.,
+301164,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_600M800,      0.0309800,  1.00, 1.,  1.,
+301165,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_800M1000,     0.0082865,  1.00, 1.,  1.,
+301166,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_1000M1250,    0.0031594,  1.00, 1.,  1.,
+301167,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_1250M1500,    0.0010029,  1.00, 1.,  1.,
+301168,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_1500M1750,    0.0003681,  1.00, 1.,  1.,
+301169,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_1750M2000,    0.0001495,  1.00, 1.,  1.,
+301170,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_2000M2250,    0.0000653,  1.00, 1.,  1.,
+301171,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_2250M2500,    0.0000302,  1.00, 1.,  1.,
+301172,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_2500M2750,    0.0000145,  1.00, 1.,  1.,
+301173,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_2750M3000,    0.0000073,  1.00, 1.,  1.,
+301174,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_3000M3500,    0.0000057,  1.00, 1.,  1.,
+301175,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_3500M4000,    0.0000016,  1.00, 1.,  1.,
+301176,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_4000M4500,    0.0000005,  1.00, 1.,  1.,
+301177,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_4500M5000,    0.0000001,  1.00, 1.,  1.,
+301178,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Wmintaunu_5000M,        0.0000001,  1.00, 1.,  1.,
+
+361420 , Sherpa_CT10_Ztautau_Pt0_70_CVetoBVeto                               , 2205             , 0.9012                  , 0.7785          , 1.       , Sherpa                  
+361421 , Sherpa_CT10_Ztautau_Pt0_70_CFilterBVeto                             , 2205             , 0.9012                  , 0.1422          , 1.       , Sherpa                  
+361422 , Sherpa_CT10_Ztautau_Pt0_70_BFilter                                  , 2205             , 0.9012                  , 0.0795          , 1.       , Sherpa                  
+361423 , Sherpa_CT10_Ztautau_Pt70_140_CVetoBVeto                             , 76.03            , 0.9012                  , 0.6480          , 1.       , Sherpa                  
+361424 , Sherpa_CT10_Ztautau_Pt70_140_CFilterBVeto                           , 76.03            , 0.9012                  , 0.2198          , 1.       , Sherpa                  
+361425 , Sherpa_CT10_Ztautau_Pt70_140_BFilter                                , 76.03            , 0.9012                  , 0.1309          , 1.       , Sherpa                  
+361426 , Sherpa_CT10_Ztautau_Pt140_280_CVetoBVeto                            , 11.64            , 0.9012                  , 0.6139          , 1.       , Sherpa                  
+361427 , Sherpa_CT10_Ztautau_Pt140_280_CFilterBVeto                          , 11.64            , 0.9012                  , 0.2426          , 1.       , Sherpa                  
+361428 , Sherpa_CT10_Ztautau_Pt140_280_BFilter                               , 11.64            , 0.9012                  , 0.1468          , 1.       , Sherpa                  
+361429 , Sherpa_CT10_Ztautau_Pt280_500_CVetoBVeto                            , 0.7646           , 0.9012                  , 0.5836          , 1.       , Sherpa                  
+361430 , Sherpa_CT10_Ztautau_Pt280_500_CFilterBVeto                          , 0.7646           , 0.9012                  , 0.2632          , 1.       , Sherpa                  
+361431 , Sherpa_CT10_Ztautau_Pt280_500_BFilter                               , 0.7646           , 0.9012                  , 0.1594          , 1.       , Sherpa                  
+361432 , Sherpa_CT10_Ztautau_Pt500_700_CVetoBVeto                            , 0.04628          , 0.9012                  , 0.5692          , 1.       , Sherpa                  
+361433 , Sherpa_CT10_Ztautau_Pt500_700_CFilterBVeto                          , 0.04628          , 0.9012                  , 0.2692          , 1.       , Sherpa                  
+361434 , Sherpa_CT10_Ztautau_Pt500_700_BFilter                               , 0.04628          , 0.9012                  , 0.1718          , 1.       , Sherpa                  
+361435 , Sherpa_CT10_Ztautau_Pt700_1000_CVetoBVeto                           , 0.008079         , 0.9012                  , 0.5625          , 1.       , Sherpa                  
+361436 , Sherpa_CT10_Ztautau_Pt700_1000_CFilterBVeto                         , 0.008079         , 0.9012                  , 0.2958          , 1.       , Sherpa                  
+361437 , Sherpa_CT10_Ztautau_Pt700_1000_BFilter                              , 0.008079         , 0.9012                  , 0.1806          , 1.       , Sherpa                  
+361438 , Sherpa_CT10_Ztautau_Pt1000_2000_CVetoBVeto                          , 0.001062         , 0.9012                  , 0.5499          , 1.       , Sherpa                  
+361439 , Sherpa_CT10_Ztautau_Pt1000_2000_CFilterBVeto                        , 0.001062         , 0.9012                  , 0.3135          , 1.       , Sherpa                  
+361440 , Sherpa_CT10_Ztautau_Pt1000_2000_BFilter                             , 0.001062         , 0.9012                  , 0.1861          , 1.       , Sherpa                  
+361441 , Sherpa_CT10_Ztautau_Pt2000_E_CMS_CVetoBVeto                         , 4.234e-06        , 0.9012                  , 0.4874          , 1.       , Sherpa                  
+361442 , Sherpa_CT10_Ztautau_Pt2000_E_CMS_CFilterBVeto                       , 4.234e-06        , 0.9012                  , 0.3078          , 1.       , Sherpa                  
+361443 , Sherpa_CT10_Ztautau_Pt2000_E_CMS_BFilter                            , 4.234e-06        , 0.9012                  , 0.2048          , 1.       , Sherpa   
+
+
+
+361300, Sherpa_CT10_Wenu_Pt0_70_CVetoBVeto             ,  21283             , 0.90824   ,    0.890724 , 1., sherpa 
+361301, Sherpa_CT10_Wenu_Pt0_70_CFilterBVeto           ,  21381             , 0.90824   ,    0.04929  , 1., sherpa
+361302, Sherpa_CT10_Wenu_Pt0_70_BFilter                ,  21385             , 0.90824   ,    0.059786 , 1., sherpa
+361303, Sherpa_CT10_Wenu_Pt70_140_CVetoBVeto           ,  633.67            , 0.90824   ,    0.728829 , 1., sherpa
+361304, Sherpa_CT10_Wenu_Pt70_140_CFilterBVeto         ,  632.29            , 0.90824   ,    0.176811 , 1., sherpa
+361305, Sherpa_CT10_Wenu_Pt70_140_BFilter              ,  631.59            , 0.90824   ,    0.096681 , 1., sherpa
+361306, Sherpa_CT10_Wenu_Pt140_280_CVetoBVeto          ,  90.163            , 0.90824   ,    0.681554 , 1., sherpa
+361307, Sherpa_CT10_Wenu_Pt140_280_CFilterBVeto        ,  90.039            , 0.90824   ,    0.205907 , 1., sherpa
+361308, Sherpa_CT10_Wenu_Pt140_280_BFilter             ,  90.129            , 0.90824   ,    0.112284 , 1., sherpa
+361309, Sherpa_CT10_Wenu_Pt280_500_CVetoBVeto          ,  5.761             , 0.99913   ,    0.652724 , 1., sherpa
+361310, Sherpa_CT10_Wenu_Pt280_500_CFilterBVeto        ,  5.7609            , 0.99913   ,    0.221526 , 1., sherpa
+361311, Sherpa_CT10_Wenu_Pt280_500_BFilter             ,  5.7139            , 0.99913   ,    0.130994 , 1., sherpa
+361312, Sherpa_CT10_Wenu_Pt500_700_CVetoBVeto          ,  0.35581           , 0.99913   ,    0.631749 , 1., sherpa
+361313, Sherpa_CT10_Wenu_Pt500_700_CFilterBVeto        ,  0.34385           , 0.99913   ,    0.243561 , 1., sherpa
+361314, Sherpa_CT10_Wenu_Pt500_700_BFilter             ,  0.34646           , 0.99913   ,    0.155229 , 1., sherpa
+361315, Sherpa_CT10_Wenu_Pt700_1000_CVetoBVeto         ,  0.060538          , 0.99913   ,    0.60962  , 1., sherpa
+361316, Sherpa_CT10_Wenu_Pt700_1000_CFilterBVeto       ,  0.060838          , 0.99913   ,    0.202801 , 1., sherpa
+361317, Sherpa_CT10_Wenu_Pt700_1000_BFilter            ,  0.062642          , 0.99913   ,    0.168701 , 1., sherpa
+361318, Sherpa_CT10_Wenu_Pt1000_2000_CVetoBVeto        ,  0.0079207         , 0.99913   ,    0.629245 , 1., sherpa
+361319, Sherpa_CT10_Wenu_Pt1000_2000_CFilterBVeto      ,  0.0081198         , 0.99913   ,    0.237991 , 1., sherpa
+361320, Sherpa_CT10_Wenu_Pt1000_2000_BFilter           ,  0.0080036         , 0.99913   ,    0.173096 , 1., sherpa
+361321, Sherpa_CT10_Wenu_Pt2000_E_CMS_CVetoBVeto       ,  3.08E-05          , 0.99913   ,    0.638441 , 1., sherpa
+361322, Sherpa_CT10_Wenu_Pt2000_E_CMS_CFilterBVeto     ,  3.11E-05          , 0.99913   ,    0.272781 , 1., sherpa
+361323, Sherpa_CT10_Wenu_Pt2000_E_CMS_BFilter          ,  3.12E-05          , 0.99913   ,    0.165186 , 1., sherpa
+361324, Sherpa_CT10_Wmunu_Pt0_70_CVetoBVeto            ,  21392             , 0.9083    ,    0.89251  , 1., sherpa
+361325, Sherpa_CT10_Wmunu_Pt0_70_CFilterBVeto          ,  21380             , 0.9083    ,    0.04737  , 1., sherpa
+361326, Sherpa_CT10_Wmunu_Pt0_70_BFilter               ,  21371             , 0.9083    ,    0.05971  , 1., sherpa
+361327, Sherpa_CT10_Wmunu_Pt70_140_CVetoBVeto          ,  634.1             , 0.9083    ,    0.728418 , 1., sherpa
+361328, Sherpa_CT10_Wmunu_Pt70_140_CFilterBVeto        ,  632.54            , 0.9083    ,    0.175047 , 1., sherpa
+361329, Sherpa_CT10_Wmunu_Pt70_140_BFilter             ,  632.79            , 0.9083    ,    0.096687 , 1., sherpa
+361330, Sherpa_CT10_Wmunu_Pt140_280_CVetoBVeto         ,  89.868            , 0.9083    ,    0.68415  , 1., sherpa
+361331, Sherpa_CT10_Wmunu_Pt140_280_CFilterBVeto       ,  90.077            , 0.9083    ,    0.203512 , 1., sherpa
+361332, Sherpa_CT10_Wmunu_Pt140_280_BFilter            ,  90.204            , 0.9083    ,    0.112541 , 1., sherpa
+361333, Sherpa_CT10_Wmunu_Pt280_500_CVetoBVeto         ,  5.7812            , 0.99913   ,    0.653631 , 1., sherpa
+361334, Sherpa_CT10_Wmunu_Pt280_500_CFilterBVeto       ,  5.7437            , 0.99913   ,    0.22252  , 1., sherpa
+361335, Sherpa_CT10_Wmunu_Pt280_500_BFilter            ,  5.7292            , 0.99913   ,    0.130709 , 1., sherpa
+361336, Sherpa_CT10_Wmunu_Pt500_700_CVetoBVeto         ,  0.35302           , 0.99913   ,    0.631109 , 1., sherpa
+361337, Sherpa_CT10_Wmunu_Pt500_700_CFilterBVeto       ,  0.3456            , 0.99913   ,    0.23984  , 1., sherpa
+361338, Sherpa_CT10_Wmunu_Pt500_700_BFilter            ,  0.34814           , 0.99913   ,    0.163529 , 1., sherpa
+361339, Sherpa_CT10_Wmunu_Pt700_1000_CVetoBVeto        ,  0.061501          , 0.99913   ,    0.632602 , 1., sherpa
+361340, Sherpa_CT10_Wmunu_Pt700_1000_CFilterBVeto      ,  0.061643          , 0.99913   ,    0.227699 , 1., sherpa
+361341, Sherpa_CT10_Wmunu_Pt700_1000_BFilter           ,  0.06015           , 0.99913   ,    0.16014  , 1., sherpa
+361342, Sherpa_CT10_Wmunu_Pt1000_2000_CVetoBVeto       ,  0.0079016         , 0.99913   ,    0.59789  , 1., sherpa
+361343, Sherpa_CT10_Wmunu_Pt1000_2000_CFilterBVeto     ,  0.0079128         , 0.99913   ,    0.236425 , 1., sherpa
+361344, Sherpa_CT10_Wmunu_Pt1000_2000_BFilter          ,  0.0078579         , 0.99913   ,    0.159623 , 1., sherpa
+361345, Sherpa_CT10_Wmunu_Pt2000_E_CMS_CVetoBVeto      ,  3.09E-05          , 0.99913   ,    0.617928 , 1., sherpa
+361346, Sherpa_CT10_Wmunu_Pt2000_E_CMS_CFilterBVeto    ,  3.18E-05          , 0.99913   ,    0.267917 , 1., sherpa
+361347, Sherpa_CT10_Wmunu_Pt2000_E_CMS_BFilter         ,  3.46E-05          , 0.99913   ,    0.192802 , 1., sherpa
+361348, Sherpa_CT10_Wtaunu_Pt0_70_CVetoBVeto           ,  21386             , 0.9083    ,    0.891411 , 1., sherpa
+361349, Sherpa_CT10_Wtaunu_Pt0_70_CFilterBVeto         ,  21378             , 0.9083    ,    0.048706 , 1., sherpa
+361350, Sherpa_CT10_Wtaunu_Pt0_70_BFilter              ,  21386             , 0.9083    ,    0.059683 , 1., sherpa
+361351, Sherpa_CT10_Wtaunu_Pt70_140_CVetoBVeto         ,  635.56            , 0.9083    ,    0.726079 , 1., sherpa
+361352, Sherpa_CT10_Wtaunu_Pt70_140_CFilterBVeto       ,  634.01            , 0.9083    ,    0.176273 , 1., sherpa
+361353, Sherpa_CT10_Wtaunu_Pt70_140_BFilter            ,  633               , 0.9083    ,    0.095733 , 1., sherpa
+361354, Sherpa_CT10_Wtaunu_Pt140_280_CVetoBVeto        ,  90.013            , 0.9083    ,    0.683964 , 1., sherpa
+361355, Sherpa_CT10_Wtaunu_Pt140_280_CFilterBVeto      ,  90.209            , 0.9083    ,    0.204983 , 1., sherpa
+361356, Sherpa_CT10_Wtaunu_Pt140_280_BFilter           ,  90.169            , 0.9083    ,    0.11307  , 1., sherpa
+361357, Sherpa_CT10_Wtaunu_Pt280_500_CVetoBVeto        ,  5.7931            , 0.99913   ,    0.647441 , 1., sherpa
+361358, Sherpa_CT10_Wtaunu_Pt280_500_CFilterBVeto      ,  5.7831            , 0.99913   ,    0.218875 , 1., sherpa
+361359, Sherpa_CT10_Wtaunu_Pt280_500_BFilter           ,  5.7491            , 0.99913   ,    0.132548 , 1., sherpa
+361360, Sherpa_CT10_Wtaunu_Pt500_700_CVetoBVeto        ,  0.3451            , 0.99913   ,    0.628862 , 1., sherpa
+361361, Sherpa_CT10_Wtaunu_Pt500_700_CFilterBVeto      ,  0.35372           , 0.99913   ,    0.230541 , 1., sherpa
+361362, Sherpa_CT10_Wtaunu_Pt500_700_BFilter           ,  0.34668           , 0.99913   ,    0.159453 , 1., sherpa
+361363, Sherpa_CT10_Wtaunu_Pt700_1000_CVetoBVeto       ,  0.060864          , 0.99913   ,    0.627393 , 1., sherpa
+361364, Sherpa_CT10_Wtaunu_Pt700_1000_CFilterBVeto     ,  0.060497          , 0.99913   ,    0.220035 , 1., sherpa
+361365, Sherpa_CT10_Wtaunu_Pt700_1000_BFilter          ,  0.060693          , 0.99913   ,    0.155527 , 1., sherpa
+361366, Sherpa_CT10_Wtaunu_Pt1000_2000_CVetoBVeto      ,  0.0079324         , 0.99913   ,    0.60711  , 1., sherpa
+361367, Sherpa_CT10_Wtaunu_Pt1000_2000_CFilterBVeto    ,  0.0078888         , 0.99913   ,    0.237999 , 1., sherpa
+361368, Sherpa_CT10_Wtaunu_Pt1000_2000_BFilter         ,  0.0080228         , 0.99913   ,    0.175976 , 1., sherpa
+361369, Sherpa_CT10_Wtaunu_Pt2000_E_CMS_CVetoBVeto     ,  3.34E-05          , 0.99913   ,    0.545399 , 1., sherpa
+361370, Sherpa_CT10_Wtaunu_Pt2000_E_CMS_CFilterBVeto   ,  3.05E-05          , 0.99913   ,    0.242272 , 1., sherpa
+361371, Sherpa_CT10_Wtaunu_Pt2000_E_CMS_BFilter        ,  3.20E-05          , 0.99913   ,    0.196031 , 1., sherpa

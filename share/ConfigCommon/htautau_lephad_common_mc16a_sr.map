@@ -1,0 +1,172 @@
+# -*- mode:tqfolder -*-
+
+#Diboson Sherpa
+363355 /mc16a/$(channel)/Diboson
+363356 /mc16a/$(channel)/Diboson
+363357 /mc16a/$(channel)/Diboson
+363358 /mc16a/$(channel)/Diboson
+363359 /mc16a/$(channel)/Diboson
+363360 /mc16a/$(channel)/Diboson
+363489 /mc16a/$(channel)/Diboson
+364250 /mc16a/$(channel)/Diboson
+364253 /mc16a/$(channel)/Diboson
+364254 /mc16a/$(channel)/Diboson
+364255 /mc16a/$(channel)/Diboson
+
+#Z+jets
+361106	/mc16a/$(channel)/Zee
+361107	/mc16a/$(channel)/Zmumu
+361108	/mc16a/$(channel)/Ztautau
+
+#DYee
+301000	/mc16a/$(channel)/Zee
+301001	/mc16a/$(channel)/Zee
+301002	/mc16a/$(channel)/Zee
+301003	/mc16a/$(channel)/Zee
+301004	/mc16a/$(channel)/Zee
+301005	/mc16a/$(channel)/Zee
+301006	/mc16a/$(channel)/Zee
+301007	/mc16a/$(channel)/Zee
+301008	/mc16a/$(channel)/Zee
+301009	/mc16a/$(channel)/Zee
+301010	/mc16a/$(channel)/Zee
+301011	/mc16a/$(channel)/Zee
+301012	/mc16a/$(channel)/Zee
+301013	/mc16a/$(channel)/Zee
+301014	/mc16a/$(channel)/Zee
+301015	/mc16a/$(channel)/Zee
+301016	/mc16a/$(channel)/Zee
+301017	/mc16a/$(channel)/Zee
+301018	/mc16a/$(channel)/Zee
+
+#DYmumu
+301020	/mc16a/$(channel)/Zmumu
+301021	/mc16a/$(channel)/Zmumu
+301022	/mc16a/$(channel)/Zmumu
+301023	/mc16a/$(channel)/Zmumu
+301024	/mc16a/$(channel)/Zmumu
+301025	/mc16a/$(channel)/Zmumu
+301026	/mc16a/$(channel)/Zmumu
+301027	/mc16a/$(channel)/Zmumu
+301028	/mc16a/$(channel)/Zmumu
+301029	/mc16a/$(channel)/Zmumu
+301030	/mc16a/$(channel)/Zmumu
+301031	/mc16a/$(channel)/Zmumu
+301032	/mc16a/$(channel)/Zmumu
+301033	/mc16a/$(channel)/Zmumu
+301034	/mc16a/$(channel)/Zmumu
+301035	/mc16a/$(channel)/Zmumu
+301036	/mc16a/$(channel)/Zmumu
+301037	/mc16a/$(channel)/Zmumu
+301038	/mc16a/$(channel)/Zmumu
+
+#DYtautau
+301040	/mc16a/$(channel)/Ztautau
+301041	/mc16a/$(channel)/Ztautau
+301042	/mc16a/$(channel)/Ztautau
+301043	/mc16a/$(channel)/Ztautau
+301044	/mc16a/$(channel)/Ztautau
+301045	/mc16a/$(channel)/Ztautau
+301046	/mc16a/$(channel)/Ztautau
+301047	/mc16a/$(channel)/Ztautau
+301048	/mc16a/$(channel)/Ztautau
+301049	/mc16a/$(channel)/Ztautau
+301050	/mc16a/$(channel)/Ztautau
+301051	/mc16a/$(channel)/Ztautau
+301052	/mc16a/$(channel)/Ztautau
+301053	/mc16a/$(channel)/Ztautau
+301054	/mc16a/$(channel)/Ztautau
+301055	/mc16a/$(channel)/Ztautau
+301056	/mc16a/$(channel)/Ztautau
+301057	/mc16a/$(channel)/Ztautau
+301058	/mc16a/$(channel)/Ztautau
+
+#Wjets Sherpa
+364156 /mc16a/$(channel)/SherpaWjets
+364157 /mc16a/$(channel)/SherpaWjets
+364158 /mc16a/$(channel)/SherpaWjets
+364159 /mc16a/$(channel)/SherpaWjets
+364160 /mc16a/$(channel)/SherpaWjets
+364161 /mc16a/$(channel)/SherpaWjets
+364162 /mc16a/$(channel)/SherpaWjets
+364163 /mc16a/$(channel)/SherpaWjets
+364164 /mc16a/$(channel)/SherpaWjets
+364165 /mc16a/$(channel)/SherpaWjets
+364166 /mc16a/$(channel)/SherpaWjets
+364167 /mc16a/$(channel)/SherpaWjets
+364168 /mc16a/$(channel)/SherpaWjets
+364169 /mc16a/$(channel)/SherpaWjets
+364170 /mc16a/$(channel)/SherpaWjets
+364171 /mc16a/$(channel)/SherpaWjets
+364172 /mc16a/$(channel)/SherpaWjets
+364173 /mc16a/$(channel)/SherpaWjets
+364174 /mc16a/$(channel)/SherpaWjets
+364175 /mc16a/$(channel)/SherpaWjets
+364176 /mc16a/$(channel)/SherpaWjets
+364177 /mc16a/$(channel)/SherpaWjets
+364178 /mc16a/$(channel)/SherpaWjets
+364179 /mc16a/$(channel)/SherpaWjets
+364180 /mc16a/$(channel)/SherpaWjets
+364181 /mc16a/$(channel)/SherpaWjets
+364182 /mc16a/$(channel)/SherpaWjets
+364183 /mc16a/$(channel)/SherpaWjets
+364184 /mc16a/$(channel)/SherpaWjets
+364185 /mc16a/$(channel)/SherpaWjets
+364186 /mc16a/$(channel)/SherpaWjets
+364187 /mc16a/$(channel)/SherpaWjets
+364188 /mc16a/$(channel)/SherpaWjets
+364189 /mc16a/$(channel)/SherpaWjets
+364190 /mc16a/$(channel)/SherpaWjets
+364191 /mc16a/$(channel)/SherpaWjets
+364192 /mc16a/$(channel)/SherpaWjets
+364193 /mc16a/$(channel)/SherpaWjets
+364194 /mc16a/$(channel)/SherpaWjets
+364195 /mc16a/$(channel)/SherpaWjets
+364196 /mc16a/$(channel)/SherpaWjets
+364197 /mc16a/$(channel)/SherpaWjets
+
+#Top PowhegPythia
+410011 /mc16a/$(channel)/Top
+410012 /mc16a/$(channel)/Top
+410013 /mc16a/$(channel)/Top
+410014 /mc16a/$(channel)/Top
+#410015 /mc16a/$(channel)/Top
+#410016 /mc16a/$(channel)/Top
+410025 /mc16a/$(channel)/Top
+410026 /mc16a/$(channel)/Top
+
+# use these two if you want to see
+#jet->tau fake composition
+#410470 /mc16a/$(channel)/Top
+#410471 /mc16a/$(channel)/Top
+
+# use dilepton filter for FF calculation
+# since we are truth-matching anyway
+410472 /mc16a/$(channel)/Top
+
+
+#342300	/siga/$(channel)/ggH125
+#342310	/siga/$(channel)/ggH300
+#342320	/siga/$(channel)/ggH700
+342326	/siga/$(channel)/ggH1000
+#342332	/siga/$(channel)/ggH1300
+#342334	/siga/$(channel)/ggH1400
+#342336	/siga/$(channel)/ggH1500
+#345295	/siga/$(channel)/ggH1750
+#345297	/siga/$(channel)/ggH2000
+#345299	/siga/$(channel)/ggH2250
+#345301	/siga/$(channel)/ggH2500
+
+#341856	/siga/$(channel)/bbH125
+#341857	/siga/$(channel)/bbH150
+#341858	/siga/$(channel)/bbH200
+#341859	/siga/$(channel)/bbH250
+#341860	/siga/$(channel)/bbH300
+#341863	/siga/$(channel)/bbH500
+#341864	/siga/$(channel)/bbH600
+341868	/siga/$(channel)/bbH1000
+#341873	/siga/$(channel)/bbH1500
+#345287	/siga/$(channel)/bbH1750
+#345289	/siga/$(channel)/bbH2000
+#345291	/siga/$(channel)/bbH2250
+#345293	/siga/$(channel)/bbH2500
