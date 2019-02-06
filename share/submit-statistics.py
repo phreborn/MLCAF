@@ -125,7 +125,7 @@ def main(args):
             print("unable to identify argument "+path+" as either config file or directory")
 
     if tasks:
-        ctrl = submit.guessSubmissionController()
+        ctrl = submit.guessSubmissionController(args)
         ctrl.submitTasks(args,tasks)
         print("Done")
     else:
