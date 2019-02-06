@@ -6,9 +6,9 @@ if [ "$1" == "applyff" ]; then
 fi
 
 if [ "$APPLYFF" == "true" ]; then
-  submit.py ConfigFakeLeptonRegion/htautau_lephad_flr_applyff.cfg --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLRapplyff --allowArgChanges
+  submit.py ConfigFakeLeptonRegion/htautau_lephad_flr_applyff.cfg --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLRapplyff --allowArgChanges --submit condor
 else
-  submit.py ConfigFakeLeptonRegion/htautau_lephad_flr.cfg --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLR --allowArgChanges
+  submit.py ConfigFakeLeptonRegion/htautau_lephad_flr.cfg --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLR --allowArgChanges --submit condor
 fi
 
 ####
