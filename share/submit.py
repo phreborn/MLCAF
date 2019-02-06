@@ -24,7 +24,7 @@ def main(args):
     #convenience method to make a somewhat smart splitting of jobs (the maxSampleCount and maxSampleSize arguments allow to control the splitting into sub-jobs. This can yield a significant improvement in turn-over time!):
     #note: this method is somewhat targeted at the analyze.py step/ written with that one in mind
     taskList = submit.makeSmartTaskList(args, args.jobs, config, templateCommand, maxSampleCount=args.maxSampleCount, maxSampleSize=args.maxSampleSize, setup=setup, inputs=[], outputs=[outputFileNameTemplate])
-    ctrl = submit.guessSubmissionController()
+    ctrl = submit.guessSubmissionController(args)
     ctrl.submitTasks(args,taskList)
     print("Done")
     
