@@ -1,5 +1,6 @@
-from QFramework import *
-from ROOT import *
+import QFramework
+import ROOT
+from Htautau import BSMTriggerDecision
 
 def addObservables(config):
 #    myBSMTriggerDecision= BSMTriggerDecision("bsmtriggerdecision")
@@ -11,9 +12,9 @@ def addObservables(config):
 #    print(myBSMTriggerDecision.getExpression())
 #    return True
 #
-    for name in ["" ] :
-        myBSMTriggerDecision= BSMTriggerDecision("bsmtriggerdecision"+name)
-        if not TQTreeObservable.addObservable(myBSMTriggerDecision):
+    for name in [""]:
+        myBSMTriggerDecision = BSMTriggerDecision("bsmtriggerdecision"+name)
+        if not QFramework.TQTreeObservable.addObservable(myBSMTriggerDecision,"BSMTriggerDecision"):
             INFO("failed to add myBSMTriggerDecision observable")
             return False
         print(myBSMTriggerDecision.getExpression())

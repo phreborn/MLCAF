@@ -1,17 +1,15 @@
-from QFramework import *
+import QFramework
 from ROOT import *
 
+from Htautau import ScaleFactor
+
 def addObservables(config):
-
   weightSystematic = config.getTagStringDefault("weightvar","nominal")
-
   names = ["ScaleFactor"]
   names += ["ScaleFactor_%s" % weightSystematic]
   for name in names:
-    myScaleFactor = ScaleFactor(name)
-    if not TQTreeObservable.addObservable(myScaleFactor):
-        INFO("failed to add myScaleFactor observable named as " + name)
+    myObs = ScaleFactor(name)
+    if not QFramework.TQTreeObservable.addObservable(myObs,name):
+        INFO("failed to add " + name + " Observable")
         return False
-    print(myScaleFactor.getExpression())
-
   return True
