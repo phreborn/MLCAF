@@ -1,19 +1,20 @@
-APPLYFF=false
+# add "applyff" as argument to executing this script to run over applyff
 
-SUBMIT=bsub
-if [ $USER == zorbas ]; then
-  SUBMIT=condor_qsub
+APPLYFF="false"
+if [ "$1" == "applyff" ]; then
+  APPLYFF="true"
 fi
 
-python submitAnalysis.py --submit $SUBMIT --queue medium --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLR --downmerge --memory 0.01 ConfigFakeLeptonRegion/htautau_lephad_flr.cfg
-
-if [ $APPLYFF == true ]; then
-  python submitAnalysis.py --submit $SUBMIT --queue medium --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLRapplyff --downmerge --memory 0.01 ConfigFakeLeptonRegion/htautau_lephad_flr_applyff.cfg
+if [ "$APPLYFF" == "true" ]; then
+  submit.py ConfigFakeLeptonRegion/htautau_lephad_flr_applyff.cfg --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLRapplyff --allowArgChanges
+else
+  submit.py ConfigFakeLeptonRegion/htautau_lephad_flr.cfg --jobs ConfigFakeLeptonRegion/jobsFLR.txt --identifier FLR --allowArgChanges
 fi
 
 ####
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with
-#tqmerge -o output/htautau_lephad_flr/nominal.root -t runAnalysis -Sum output/unmerged_FLR/*.root
-#tqmerge -o output/htautau_lephad_flr/nominal_applyff.root -t runAnalysis -Sum output/unmerged_FLRapplyff/*.root
+echo "Merge with:"
+echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_flr-nominal.root -t analyze batchOutput/unmerged_FLR/*.root"
+echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_flr_applyff-nominal.root -t analyze batchOutput/unmerged_FLRapplyff/*.root"

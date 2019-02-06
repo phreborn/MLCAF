@@ -1,3 +1,4 @@
+!memory=1024
 # all samples needed in the analysis:
 
 # data takes longest, so split channels
