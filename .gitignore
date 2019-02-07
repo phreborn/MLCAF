@@ -8,6 +8,7 @@ build
 */results
 */batchOutput
 */htcondorWorkloadTemp
+*/submissionWorkloadTemp
 */logs
 *.tex
 *.pdf
