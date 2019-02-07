@@ -17,7 +17,7 @@ def addObservables(config):
         if not QFramework.TQTreeObservable.addObservable(myBSMTriggerDecision,"BSMTriggerDecision"):
             INFO("failed to add myBSMTriggerDecision observable")
             return False
-        print(myBSMTriggerDecision.getExpression())
+#        print(myBSMTriggerDecision.getExpression())
 
    # for name in ["data"] :
    #     myBSMTriggerDecision= BSMTriggerDecision("bsmtriggerdecision"+name)

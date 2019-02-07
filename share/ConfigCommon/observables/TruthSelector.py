@@ -7,6 +7,6 @@ def addObservables(config):
         if not TQTreeObservable.addObservable(myTruthSelector):
             INFO("failed to add myTruthSelector observable")
             return False
-        print(myTruthSelector.getExpression()) 
+#        print(myTruthSelector.getExpression()) 
 
     return True
