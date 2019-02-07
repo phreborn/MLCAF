@@ -1,8 +1,7 @@
-prepare.py ConfigFakeLeptonRegion/htautau_lephad_wcr_mc16a.cfg
-prepare.py ConfigFakeLeptonRegion/htautau_lephad_wcr_mc16c.cfg
+prepare.py ConfigWjetsControlRegion/htautau_lephad_wcr_mc16a.cfg
+prepare.py ConfigWjetsControlRegion/htautau_lephad_wcr_mc16c.cfg
 
-initialize.py ConfigFakeLeptonRegion/htautau_lephad_wcr_mc16a.cfg
-initialize.py ConfigFakeLeptonRegion/htautau_lephad_wcr_mc16c.cfg
+initialize.py ConfigWjetsControlRegion/htautau_lephad_wcr_mc16a.cfg
+initialize.py ConfigWjetsControlRegion/htautau_lephad_wcr_mc16c.cfg
 
 tqmerge -o sampleFolders/initialized/samples-initialized-htautau_lephad_wcr.root -t initialize sampleFolders/initialized/samples-initialized-htautau_lephad_wcr_mc16*.root
-
