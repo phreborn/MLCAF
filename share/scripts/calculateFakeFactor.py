@@ -1916,7 +1916,7 @@ if __name__=='__main__':
     if region == 'WCR':
         sFile = 'output/htautau_lephad_wcr/nominal.root'
     elif region == 'FLCR':
-        sFile = 'output/htautau_lephad_flr/nominal.root'
+        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_flr-nominal.root'
     elif region == 'WCRcontid':
         sFile = 'output/htautau_lephad_wcr_contid/nominal.root'
     elif region == 'WCRdphiCorr':
