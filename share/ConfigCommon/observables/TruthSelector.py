@@ -1,12 +1,10 @@
-from QFramework import *
-from ROOT import *
+import QFramework
+import ROOT
+from Htautau import TruthSelector
 
 def addObservables(config):
-    for name in ["" ] :
-        myTruthSelector= TruthSelector("TruthSelector"+name)
-        if not TQTreeObservable.addObservable(myTruthSelector):
-            INFO("failed to add myTruthSelector observable")
-            return False
-#        print(myTruthSelector.getExpression()) 
-
+    myObs = TruthSelector("TruthSelector")
+    if not QFramework.TQTreeObservable.addObservable(myObs,"TruthSelector"):
+        INFO("failed to add TruthSelector Observable!")
+        return False
     return True
