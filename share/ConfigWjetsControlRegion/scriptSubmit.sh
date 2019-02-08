@@ -1,5 +1,7 @@
 # add "contid" as argument to executing this script to run over contid
 
+DATE=`date '+%Y%m%d%H%M%S'`
+
 CONTID="false"
 if [ "$1" == "contid" ]; then
   CONTID="true"
@@ -8,7 +10,7 @@ fi
 if [ "$CONTID" == "true" ]; then
   submit.py ConfigWjetsControlRegion/htautau_lephad_wcr_contid.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier WCRcontid --allowArgChanges --submit condor
 else
-  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier WCR --allowArgChanges --submit condor
+  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier ${DATE}_WCR --allowArgChanges --submit condor
 fi
 
 ####
