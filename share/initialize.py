@@ -27,6 +27,9 @@ def main(config):
     else:
         QFramework.WARN("skipping data addition as requested!")
 
+    # apply preMC-initialize patches as given by the config
+    common.patchSampleFolder(config.getTagVStandardString("preMCInit_patches"), samples)
+
     # run the monte carlo initialization
     #  - collect meta-information including the sum-of-weights from the input files
     #  - compute the corresponding normalization factor for each sample
