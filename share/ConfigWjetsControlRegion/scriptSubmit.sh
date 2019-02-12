@@ -8,15 +8,15 @@ if [ "$1" == "contid" ]; then
 fi
 
 if [ "$CONTID" == "true" ]; then
-  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr_contid.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier WCRcontid --allowArgChanges --submit condor
+  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr_contid.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier WCRcontid_${DATE} --allowArgChanges --submit condor
+  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr_contid-nominal.root -t analyze batchOutput/unmerged_WCRcontid_${DATE}/*.root"
 else
-  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier ${DATE}_WCR --allowArgChanges --submit condor
+  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier WCR_${DATE} --allowArgChanges --submit condor
+  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr-nominal.root -t analyze batchOutput/unmerged_WCR_${DATE}/*.root"
 fi
 
 ####
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with
-echo "Merge with:"
-echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr-nominal.root -t analyze batchOutput/unmerged_WCR/*.root"
-echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr_contid-nominal.root -t analyze batchOutput/unmerged_WCRcontid/*.root"
+#echo "Merge with:"
