@@ -6,6 +6,8 @@ def main(args):
   samples = QFramework.TQSampleFolder.loadSampleFolder(args.inputFile)
   if not samples:
     raise RuntimeError("unable to open input sample folder "+args.inputFile)
+  for patch in args.patches:
+    samples.importFromTextFile(patch)
   reader = QFramework.TQSampleDataReader(samples)
 
   tags = QFramework.TQTaggable()
@@ -37,7 +39,8 @@ if __name__ == "__main__":
   parser.add_argument('--input', '-i', metavar='samples.root:samples', type=str, help='name of the input sample folder', dest="inputFile",required=True)
   parser.add_argument('--output', '-o', metavar='systematics.root', type=str, help='name of the output file', dest="outputFile", required=True)
   parser.add_argument('--paths', nargs="+", metavar="/path/to/contribution", type=str, help='list of paths to be exported',required=True)
-  parser.add_argument('--tags', nargs="+", metavar="key=value", type=str, help='list of tags to be passed along',required=False)
+  parser.add_argument('--tags', nargs="+", metavar="key=value", type=str, help='list of tags to be passed along',required=False, default=[])
+  parser.add_argument('--patches', nargs="+", metavar="patch.txt", type=str, help='list of patches to be loaded',required=False, default=[])
   import sys
 
   args = parser.parse_args()
