@@ -16,6 +16,7 @@ build
 *.aux
 *.jpg
 *.png
+*.root
 *~
 #*#
 .asetup.save
