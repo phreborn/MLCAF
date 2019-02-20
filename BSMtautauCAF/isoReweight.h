@@ -2,7 +2,7 @@
 #ifndef __ISOREWEIGHT__
 #define __ISOREWEIGHT__
 
-#include "Htautau/LepHadObservable.h"
+#include "BSMtautauCAF/LepHadObservable.h"
 
 class isoReweight : public LepHadObservable {
 protected:

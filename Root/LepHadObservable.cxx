@@ -1,4 +1,4 @@
-#include "Htautau/LepHadObservable.h"
+#include "BSMtautauCAF/LepHadObservable.h"
 
 // uncomment the following line to enable debug printouts
 //#define _DEBUG_

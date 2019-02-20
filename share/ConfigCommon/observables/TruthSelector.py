@@ -1,6 +1,6 @@
 import QFramework
 import ROOT
-from Htautau import TruthSelector
+from BSMtautauCAF import TruthSelector
 
 def addObservables(config):
     myObs = TruthSelector("TruthSelector")

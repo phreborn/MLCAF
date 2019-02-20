@@ -1,7 +1,7 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
 #ifndef __SCALEFACTORAUTO__
 #define __SCALEFACTORAUTO__
-#include "Htautau/LepHadObservable.h"
+#include "BSMtautauCAF/LepHadObservable.h"
 
 #include <tuple>
 #include <bitset>

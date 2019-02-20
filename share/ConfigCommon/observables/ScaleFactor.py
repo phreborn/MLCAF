@@ -1,6 +1,6 @@
 import QFramework
 import ROOT
-from Htautau import ScaleFactor
+from BSMtautauCAF import ScaleFactor
 
 def addObservables(config):
     weightSystematic = config.getTagStringDefault("weightvar","nominal")

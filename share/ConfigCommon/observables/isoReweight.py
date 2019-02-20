@@ -1,6 +1,6 @@
 import QFramework
 import ROOT
-from Htautau import isoReweight
+from BSMtautauCAF import isoReweight
 
 def addObservables(config):
     variation = config.getTagStringDefault("isovar","nominal")

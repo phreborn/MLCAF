@@ -1,4 +1,4 @@
-#include "Htautau/BSMTriggerDecision.h"
+#include "BSMtautauCAF/BSMTriggerDecision.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts

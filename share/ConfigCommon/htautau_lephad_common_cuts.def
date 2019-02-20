@@ -2,7 +2,7 @@
 
 ################################################################
 ##
-##  Common cuts for BSM Htautau LepHad
+##  Common cuts for BSMtautau LepHad
 ##
 ##  The first cut CutChannel selects channel based on what is
 ##      requested in config file.

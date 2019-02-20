@@ -1,6 +1,6 @@
 import QFramework
 import ROOT
-from Htautau import BSMTriggerDecision
+from BSMtautauCAF import BSMTriggerDecision
 
 def addObservables(config):
     #variation = config.getTagStringDefault("variation","nominal")
