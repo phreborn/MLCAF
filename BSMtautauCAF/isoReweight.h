@@ -111,33 +111,6 @@ protected:
   TH1F* h_ff_flr_ehad_dphi4_1tag_pt_up = 0;
   TH1F* h_ff_flr_ehad_dphi4_1tag_pt_down = 0;
 
-
-  TH1F* h_ff_flr_muhad_dphi1_0tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi1_0tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi1_0tag_pt_down = 0;
-  TH1F* h_ff_flr_muhad_dphi2_0tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi2_0tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi2_0tag_pt_down = 0;
-  TH1F* h_ff_flr_muhad_dphi3_0tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi3_0tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi3_0tag_pt_down = 0;
-  TH1F* h_ff_flr_muhad_dphi4_0tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi4_0tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi4_0tag_pt_down = 0;
-
-  TH1F* h_ff_flr_muhad_dphi1_1tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi1_1tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi1_1tag_pt_down = 0;
-  TH1F* h_ff_flr_muhad_dphi2_1tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi2_1tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi2_1tag_pt_down = 0;
-  TH1F* h_ff_flr_muhad_dphi3_1tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi3_1tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi3_1tag_pt_down = 0;
-  TH1F* h_ff_flr_muhad_dphi4_1tag_pt = 0;
-  TH1F* h_ff_flr_muhad_dphi4_1tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_dphi4_1tag_pt_down = 0;
-
   std::vector<TFile*> fileList;
 
 
