@@ -1,6 +1,6 @@
 # -*- mode: tqfolder -*-
 
-### In WCR we want to see separate contributions from fake and true tau,
+### In WFR we want to see separate contributions from fake and true tau,
 ### need to build folders for each truth label.
 ### Also need QCD folder
 
@@ -127,7 +127,7 @@ $copy("mc16*/ehad/Zmumu         >>      mc16*/ehad/::ZmumuJetFake");
 <isJET=true, isInc=false> @/mc16*/?/ZmumuJetFake;
 
 ##
-## do this if you want to include qcd Fakes in WCR.
+## do this if you want to include qcd Fakes in WFR.
 ## Otherwise uncomment:
 #$escape();
 

@@ -1,6 +1,6 @@
 # -*- mode:tqfolder -*-
 
-#$include('ConfigWjetsControlRegion/htautau_lephad_wcr_histograms.txt');
+#$include('configWjetsFakeRegion/htautau_lephad_wfr_histograms.txt');
 ##################################
 
 TH1F('TauPtFFBtag1p'   ,'', {25.,35.,45.,70.,110.,200.})        <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );

@@ -1,7 +1,7 @@
 # -*- mode:tqfolder -*-
 
 # we can use nominal analysis because cont id bins are subsets.
-$include("ConfigWjetsControlRegion/htautau_lephad_wcr_cuts.def");
+$include("configWjetsFakeRegion/htautau_lephad_wfr_cuts.def");
 
 @*/CutBveto1pOSPassID{
     +CutBveto1pBDT1{

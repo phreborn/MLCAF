@@ -8,11 +8,11 @@ if [ "$1" == "contid" ]; then
 fi
 
 if [ "$CONTID" == "true" ]; then
-  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr_contid.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier WCRcontid_${DATE} --allowArgChanges --submit condor
-  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr_contid-nominal.root -t analyze batchOutput/unmerged_WCRcontid_${DATE}/*.root"
+  submit.py configWjetsFakeRegion/htautau_lephad_wfr_contid.cfg --jobs configWjetsFakeRegion/jobsWFR.txt --identifier WFRcontid_${DATE} --allowArgChanges --submit condor
+  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_contid-nominal.root -t analyze batchOutput/unmerged_WFRcontid_${DATE}/*.root"
 else
-  submit.py ConfigWjetsControlRegion/htautau_lephad_wcr.cfg --jobs ConfigWjetsControlRegion/jobsWCR.txt --identifier WCR_${DATE} --allowArgChanges --submit condor
-  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr-nominal.root -t analyze batchOutput/unmerged_WCR_${DATE}/*.root"
+  submit.py configWjetsFakeRegion/htautau_lephad_wfr.cfg --jobs configWjetsFakeRegion/jobsWFR.txt --identifier WFR_${DATE} --allowArgChanges --submit condor
+  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.root -t analyze batchOutput/unmerged_WFR_${DATE}/*.root"
 fi
 
 ####

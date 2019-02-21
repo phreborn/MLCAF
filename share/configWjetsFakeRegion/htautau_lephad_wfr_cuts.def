@@ -2,9 +2,9 @@
 
 ################################################################
 ##
-##  FAKE FACTOR WCR
+##  FAKE FACTOR WFR
 ##
-##  Cuts for Wjet CR FF.
+##  Cuts for Wjet FR FF.
 ##  MC subtraction is made only with truth matched events, so
 ##      use inclusive samples and truth match them.
 ##  Use separate truth matching for studies and plotting.
@@ -12,7 +12,7 @@
 ##      SS for btag, OS for bveto.
 #################################################################
 
-$include("ConfigCommon/htautau_lephad_common_cuts.def");
+$include("configCommon/htautau_lephad_common_cuts.def");
 
 @*/CutBase{
     +CutTruth{
