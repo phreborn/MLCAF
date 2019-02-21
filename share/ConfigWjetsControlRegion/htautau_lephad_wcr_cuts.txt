@@ -1,3 +1,7 @@
+.name=CutBase
+.name=CutTruth
+.name=CutAll
+
 .name=CutBveto1pOSPassID
 .name=CutBveto3pOSPassID
 .name=CutBveto1pOSFailID

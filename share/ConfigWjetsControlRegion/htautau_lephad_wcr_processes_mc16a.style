@@ -24,7 +24,7 @@
 ################################################
 #.name="W+jets TT",                      .path="/mc16a/$(channel)/SherpaWjetsTruthTau",             .isBackground=true,     histFillColor=kYellow-7,       histFillStyle=1001,     title="W+jets (true \tau)"
 #.name="W+jets TL",                      .path="/mc16a/$(channel)/SherpaWjetsLepFake",              .isBackground=true,     histFillColor=kYellow-5,        histFillStyle=1001,     title="W+jets (l\rightarrow\tau)"
-.name="W+jets JET",                     .path="/mc16a/$(channel)/SherpaWjetsJetFake",              .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title="W+jets (jet\rightarrow\tau)"
+.name="W+jets JET",                     .path="/mc16a/$(channel)/SherpaWjetsJetFake",              .isBackground=true,     histFillColor=kYellow,        histFillStyle=1001,     title="W+jets (jet\rightarrow\tau)"
 #.name="Top TT",                         .path="/mc16a/$(channel)/TopTruthTau",                     .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top (true \tau)",  .showRaw = false
 #.name="Top TL",                         .path="/mc16a/$(channel)/TopLepFake",                      .isBackground=true,     histFillColor=kBlue-6,          histFillStyle=1001,     title = "Top (l\rightarrow\tau)",  .showRaw = false
 .name="Top JET",                        .path="/mc16a/$(channel)/TopJetFake",                      .isBackground=true,     histFillColor=kBlue-9,          histFillStyle=1001,     title = "Top (jet\rightarrow\tau)",  .showRaw = false

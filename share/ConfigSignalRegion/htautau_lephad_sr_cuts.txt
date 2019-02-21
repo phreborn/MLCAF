@@ -1,3 +1,7 @@
+.name=CutBase
+.name=CutTruth
+.name=CutAll
+
 .name=CutBveto1p
 .name=CutBveto3p
 .name=CutBtag1p

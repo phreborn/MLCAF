@@ -17,8 +17,8 @@
 <isSig=true> @/sig*/?;
 
 # tags to identify which cuts and ffs to apply
-<isAntiISO=false> @ ?/?;
-<isAntiID=false> @ ?/?;
+<isAntiISO=false> @ /?/?;
+<isAntiID=false> @ /?/?;
 
 # at the moment this is just a place holder,
 # later to be used to run syst or maybe removed completely
@@ -27,6 +27,7 @@
 # channel
 <channel="muhad"> @ ?/muhad;
 <channel="ehad"> @ ?/ehad;
+<channel="lephad"> @ ?/lephad;
 
 # not sure how usefull it is
 <wildcarded = true> @ /?/?;
@@ -80,6 +81,7 @@
 ### copy this way (with +::), so the tags in the mc16*/ehad/ folder are copied to temp/ehad folder.
 $copy("mc16*/ehad/ >> temp/+::ehad");
 $copy("mc16*/muhad/ >> temp/+::muhad");
+$copy("mc16*/lephad/ >> temp/+::lephad");
 
 $create(path="/mc16*/ehad/QCDFakes",type="sf");
 $copy("/data/ehad >> /mc16*/ehad/QCDFakes/+::data");
@@ -87,6 +89,9 @@ $copy("/temp/ehad >> /mc16*/ehad/QCDFakes/+::mc");
 $create(path="/mc16*/muhad/QCDFakes",type="sf");
 $copy("/data/muhad >> /mc16*/muhad/QCDFakes/+::data");
 $copy("/temp/muhad >> /mc16*/muhad/QCDFakes/+::mc");
+$create(path="/mc16*/lephad/QCDFakes",type="sf");
+$copy("/data/lephad >> /mc16*/lephad/QCDFakes/+::data");
+$copy("/temp/lephad >> /mc16*/lephad/QCDFakes/+::mc");
 
 ### tag data folder to apply ffs
 <usemcweights=true> @ /mc16*/?/QCDFakes/data;
@@ -109,6 +114,11 @@ $copy("/data/muhad >> /mc16*/muhad/WJETSFakes/+::data");
 $copy("/data/muhad >> /mc16*/muhad/WJETSFakes/QCD/+::data");
 $copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/+::mc");
 $copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/QCD/+::mc");
+$create(path="/mc16*/lephad/WJETSFakes/QCD/",type="sf");
+$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/+::data");
+$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/QCD/+::data");
+$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/+::mc");
+$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/QCD/+::mc");
 
 $delete("temp!");
 

@@ -4,6 +4,8 @@
 LABEL_PROCESS="H#rightarrow#tau_{lep}#tau_{had}"
 LABEL_EHAD="(e#tau_{had})"
 LABEL_MUHAD="(#mu#tau_{had})"
+LABEL_LEPHAD="(#tau_{lep}#tau_{had})"
+
 
 #############################
 ###
