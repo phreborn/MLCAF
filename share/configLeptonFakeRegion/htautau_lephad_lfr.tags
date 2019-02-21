@@ -1,4 +1,5 @@
 # -*- mode: tqfolder -*-
+
 <usemcweights=true> @ /mc16*;
 <isData=false> @/.;
 <isData=true> @/data ;

@@ -1,4 +1,5 @@
-# -*- mode:tqfolder -*-
+# -*- mode: tqfolder -*-
+
 .name="Data",                   .path="/data/$(channel)/data17*",           .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
 #.name="QCDFake", 		.path="/bkg/$(channel)/Fake/data/data17* + /bkg/$(channel)/Fake/mc", 	.isBackground=true, 	histFillColor = kGray+1,	histFillStyle=1001, 	title = "QCDFake"
 ################################################

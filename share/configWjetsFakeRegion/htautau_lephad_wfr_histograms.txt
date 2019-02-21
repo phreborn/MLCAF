@@ -1,5 +1,3 @@
-# -*- mode:tqfolder -*-
-
 ##################################
 ##
 ##  Histos for nominal ploting.
