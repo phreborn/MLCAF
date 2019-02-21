@@ -4,7 +4,7 @@
 # data takes longest, so split channels
 # and additionaly split by file name
 
-# data in wcr
+# data in wfr
 /data/?/data15_D
 /data/?/data15_E
 /data/?/data15_F

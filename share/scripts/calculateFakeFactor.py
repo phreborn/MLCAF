@@ -566,10 +566,10 @@ def calcFakeFactor(background, minBin, maxBin, prongs, histo, category, trigger,
     # integralTauWErr = Double(0.)
     # integralAntiTauWErr = Double(0.)
 
-    # histogramTauW = reader.getHistogram('./bkg/lephad/[WjetsMG+WjetsShEW]','Cut'+category+'Jet'+prongs+trigger+'WCR/'+histo)
+    # histogramTauW = reader.getHistogram('./bkg/lephad/[WjetsMG+WjetsShEW]','Cut'+category+'Jet'+prongs+trigger+'WFR/'+histo)
     # sumTauW = histogramTauW.IntegralAndError(minBin,maxBin,integralTauWErr)
     # sumTauWErr = integralTauWErr
-    # histogramAntiTauW = reader.getHistogram('./bkg/lephad/Fake/mc/[WjetsMG+WjetsShEW]','Cut'+category+'Jet'+prongs+trigger+'WCR/'+histo)
+    # histogramAntiTauW = reader.getHistogram('./bkg/lephad/Fake/mc/[WjetsMG+WjetsShEW]','Cut'+category+'Jet'+prongs+trigger+'WFR/'+histo)
     # sumAntiTauW = -1.*histogramAntiTauW.IntegralAndError(minBin,maxBin,integralAntiTauWErr)
     # sumAntiTauWErr = integralAntiTauWErr
 
@@ -734,8 +734,8 @@ def plotFF(hist,up,down,region, file='', name='someFF'):
     text = ''
     if 'LFR' in name:
         text+='LFR'
-    elif 'WCR' in name:
-        text+='WCR'
+    elif 'WFR' in name:
+        text+='WFR'
 
     if 'ehad' in name:
         text+=' ehad'
@@ -890,7 +890,7 @@ FF calculation algorithm:
     TODO: safety check that histos are got
 '''
 #calcJetFakeFactorFinal('Bveto','CutBvetoPassISO', 'CutBvetoFailISO' 'LeptonEtaELEFF', 'ehad','LFR',0.5)
-# calcJetFakeFactorFinal('WCR', 'CutBvetoPassID', 'CutBvetoFailID', 'TauPtFF1p', 'lephad', 'WCR')
+# calcJetFakeFactorFinal('WFR', 'CutBvetoPassID', 'CutBvetoFailID', 'TauPtFF1p', 'lephad', 'WFR')
 
 ## examples:
 ## category = Bveto
@@ -900,7 +900,7 @@ FF calculation algorithm:
 ## denominator = CutBveto1pOSFailID
 ## histogram = TauPtFFBveto1p
 ## channel = ehad
-## region = WCR
+## region = WFR
 
 def calcJetFakeFactorFinal(category, datapath, bkgpath, nominator, denominator, histogram, channel, region, mcVar=0.1, syslist=[]):
     print '----------------------------------------------------------'
@@ -1220,7 +1220,7 @@ def calcMCFakeFactorFinal(category, nominator, denominator, histogram, channel, 
 
     file.Close()
 
-#calcDphiCorrectionFinal(Bveto, Bveto1pPass, TauMETDphiCorrection, ehad, WCR, mcVar=0.1, mcsamples='?', syslist=[]):
+#calcDphiCorrectionFinal(Bveto, Bveto1pPass, TauMETDphiCorrection, ehad, WFR, mcVar=0.1, mcsamples='?', syslist=[]):
 def calcDphiCorrectionFinal(category, datapath, bkgpath, correctionpath, cut, histogram, channel, region, mcVar=0.1, mcsamples='?', syslist=[]):
     print '----------------------------------------------------------'
     print 'Now running '+region + category+' dphi correction: '+'\t'+channel+'\t'+histogram
@@ -1230,11 +1230,11 @@ def calcDphiCorrectionFinal(category, datapath, bkgpath, correctionpath, cut, hi
     mcsamples = '[SherpaWjets+Top+Ztautau+Zee+Zmumu+Diboson]'
 
   # if qcd:
-  #     qcdfile = 'output/htautau_lephad_wcr_contid/nominal_qcd.root'
+  #     qcdfile = 'output/htautau_lephad_wfr_contid/nominal_qcd.root'
   #     qcdsamples = TQSampleFolder.loadLazySampleFolder(qcdfile+':samples')
   #     qcdreader = TQSampleDataReader(qcdsamples)
 
-  # wjetsfile = 'output/htautau_lephad_wcr_contid/nominal_applyff.root'
+  # wjetsfile = 'output/htautau_lephad_wfr_contid/nominal_applyff.root'
   # wjetssamples = TQSampleFolder.loadLazySampleFolder(wjetsfile+':samples')
   # wjetsreader = TQSampleDataReader(wjetssamples)
 
@@ -1443,7 +1443,7 @@ def calcRQCDFinal(category, datapath, mcpaht, qcddatapath, qcdmcpath, cut, histo
 
 
 
-#calcFakeFactorFinal(['1Prong','3Prong'], 'TauPtVSTauJetBDTScoreTrans', category_list, ['SLT'],['TopCR','QCDCR','ZCR','WCR','SR'])
+#calcFakeFactorFinal(['1Prong','3Prong'], 'TauPtVSTauJetBDTScoreTrans', category_list, ['SLT'],['TopCR','QCDCR','ZCR','WFR','SR'])
 def calcFakeFactorFinal(prongs, histoname, categories, triggers, regions):
 
     for category in categories:
@@ -1884,7 +1884,7 @@ if __name__=='__main__':
     parser.add_option("-t","--table", action="store_true"  ,dest="table"  ,default=False     ,help="dump info in latex table")
     parser.add_option("-i","--info",  action="store_true"  ,dest="info"  ,default=False     ,help="show INFO output")
     parser.add_option("-d","--debug",  action="store_true"  ,dest="debug"  ,default=False     ,help="show DEBUG output")
-    parser.add_option("-f","--file",  type="string"    ,dest="sFile"  ,default="output/htautau_lephad_wcr/nominal_ff.root"    ,help="input file for FF calculation")
+    parser.add_option("-f","--file",  type="string"    ,dest="sFile"  ,default="output/htautau_lephad_wfr/nominal_ff.root"    ,help="input file for FF calculation")
     parser.add_option("-c","--constrain", action="store_true"  ,dest="constrain"  ,default=False     ,help="force R and FF to positive numbers")
 
     (options,args)=parser.parse_args()
@@ -1892,7 +1892,7 @@ if __name__=='__main__':
     import sys
     # argument
     if len(args)==0:
-        print 'You must submit an argument REGION: \n\t WCR; \n\t LFR; \n\t etc.'
+        print 'You must submit an argument REGION: \n\t WFR; \n\t LFR; \n\t etc.'
         sys.exit()
     region = args[0]
 
@@ -1913,21 +1913,21 @@ if __name__=='__main__':
     doConstrain = options.constrain
 
     # decide which file is needed:
-    if region == 'WCR':
-        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr-nominal.root'
+    if region == 'WFR':
+        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.root'
     elif region == 'LFR':
         sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.root'
-    elif region == 'WCRcontid':
-        sFile = 'output/htautau_lephad_wcr_contid/nominal.root'
-    elif region == 'WCRdphiCorr':
-        sFile = 'output/htautau_lephad_wcr/nominal.root'
+    elif region == 'WFRcontid':
+        sFile = 'output/htautau_lephad_wfr_contid/nominal.root'
+    elif region == 'WFRdphiCorr':
+        sFile = 'output/htautau_lephad_wfr/nominal.root'
     #sFile = options.sFile
-    #sFile = 'output/htautau_lephad_wcr/nominal.root'
-    #sFile = 'output/htautau_lephad_wcr_contid/nominal.root'
+    #sFile = 'output/htautau_lephad_wfr/nominal.root'
+    #sFile = 'output/htautau_lephad_wfr_contid/nominal.root'
     #sFile = 'output/htautau_lephad_sswcr_contid/nominal_ff.root'
     #sFile = 'output/htautau_lephad_sswcr/nominal_ff.root'
     #sFile = 'output/htautau_lephad_ssoswcr/nominal_ff.root'
-    #sFile = 'output/htautau_lephad_wcr_contid/nominal.root'
+    #sFile = 'output/htautau_lephad_wfr_contid/nominal.root'
     #sFile = 'output/htautau_lephad_lfr/nominal.root'
     #sFile = 'output/htautau_lephad_lfr/nominal_applyff.root'
     #sFile = 'output/htautau_lephad_qcdcr/nominal_ff.root'
@@ -1949,128 +1949,128 @@ if __name__=='__main__':
     for category in category_list:
         ff_dict[category] = {}
 
-    ###############################calcFakeFactorFinal(['1Prong','3Prong'], 'TauPtVSTauJetBDTScoreTrans', category_list, ['SLT'],'WCR')
+    ###############################calcFakeFactorFinal(['1Prong','3Prong'], 'TauPtVSTauJetBDTScoreTrans', category_list, ['SLT'],'WFR')
 
 
     if options.plot:
-        plot(['1Prong','3Prong'], 'tauPt', category_list, ['SLT'],['TopCR','QCDCR','ZCR','WCR','SR'])
+        plot(['1Prong','3Prong'], 'tauPt', category_list, ['SLT'],['TopCR','QCDCR','ZCR','WFR','SR'])
         #plot(['1Prong','3Prong'], 'tauPt', category_list, ['SLT'],['SR'])
     if options.table:
         dumpValuesinTable()
 
 
-    if region == 'WCR':
+    if region == 'WFR':
         #dataPath = 'data/{:s}/data17*'
         ##bkgPath = 'bkg/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+Fake/data]'
         #bkgPath = 'bkg/{:s}/[Ztautau]'
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'ehad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'muhad', 'WCR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'ehad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'muhad', 'WFR')
 
-        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
-        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'ehad', 'SSWCR')
-        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'muhad', 'SSWCR')
-        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
-        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'ehad', 'SSWCR')
-        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'muhad', 'SSWCR')
+        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
+        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'ehad', 'SSWFR')
+        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'muhad', 'SSWFR')
+        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
+        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'ehad', 'SSWFR')
+        #calcJetFakeFactorFinal('2017Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'muhad', 'SSWFR')
 
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WCR')
-        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WCR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WFR')
+        #calcJetFakeFactorFinal('2017Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WFR')
 
         dataPath = 'data/{:s}/[data15*+data16*]'
         bkgPath = 'mc16a/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+Fake/data/[data15*+data16*]]'
         # lephad 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR15')
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR15')
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR15')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR15')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR15')
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WCR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WFR15')
 
         # ehad 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'ehad', 'WCR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'ehad', 'WFR15')
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'ehad', 'SSWCR15')
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'ehad', 'SSWCR15')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'ehad', 'SSWFR15')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'ehad', 'SSWFR15')
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'ehad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'ehad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'ehad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'ehad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'ehad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'ehad', 'WCR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'ehad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'ehad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'ehad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'ehad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'ehad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'ehad', 'WFR15')
 
         # muhad 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'muhad', 'WCR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'muhad', 'WFR15')
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'muhad', 'SSWCR15')
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'muhad', 'SSWCR15')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'muhad', 'SSWFR15')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'muhad', 'SSWFR15')
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'muhad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'muhad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'muhad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'muhad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'muhad', 'WCR15')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'muhad', 'WCR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'muhad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'muhad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'muhad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'muhad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'muhad', 'WFR15')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'muhad', 'WFR15')
 
         dataPath = 'data/{:s}/[data17*]'
         bkgPath = 'mc16c/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+Fake/data/[data17*]]'
         # lephad
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR17')
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR17')
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR17')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR17')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR17')
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WCR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WFR17')
 
         # ehad
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'ehad', 'WCR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'ehad', 'WFR17')
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'ehad', 'SSWCR17')
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'ehad', 'SSWCR17')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'ehad', 'SSWFR17')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'ehad', 'SSWFR17')
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'ehad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'ehad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'ehad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'ehad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'ehad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'ehad', 'WCR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'ehad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'ehad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'ehad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'ehad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'ehad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'ehad', 'WFR17')
 
         # muhad
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'muhad', 'WCR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'muhad', 'WFR17')
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'muhad', 'SSWCR17')
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'muhad', 'SSWCR17')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'muhad', 'SSWFR17')
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'muhad', 'SSWFR17')
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'muhad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'muhad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'muhad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'muhad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'muhad', 'WCR17')
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'muhad', 'WCR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'muhad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'muhad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'muhad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'muhad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'muhad', 'WFR17')
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'muhad', 'WFR17')
 
 
     elif region == 'LFR':
@@ -2134,57 +2134,57 @@ if __name__=='__main__':
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','LFR17',0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','LFR17',0.2)
 
-    elif region == 'WCRcontid':
+    elif region == 'WFRcontid':
         dataPath = 'data/{:s}'
         bkgPath = 'bkg/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+Fake/data]'
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR15')
 
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR15')
 
-        calcJetFakeFactorFinal('BtagBDT1', dataPath, bkgPath, 'CutBtag1pBDT1', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR15')
-        calcJetFakeFactorFinal('BtagBDT2', dataPath, bkgPath, 'CutBtag1pBDT2', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR15')
-        calcJetFakeFactorFinal('BtagBDT3', dataPath, bkgPath, 'CutBtag1pBDT3', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR15')
-        calcJetFakeFactorFinal('BtagBDT4', dataPath, bkgPath, 'CutBtag1pBDT4', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR15')
+        calcJetFakeFactorFinal('BtagBDT1', dataPath, bkgPath, 'CutBtag1pBDT1', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR15')
+        calcJetFakeFactorFinal('BtagBDT2', dataPath, bkgPath, 'CutBtag1pBDT2', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR15')
+        calcJetFakeFactorFinal('BtagBDT3', dataPath, bkgPath, 'CutBtag1pBDT3', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR15')
+        calcJetFakeFactorFinal('BtagBDT4', dataPath, bkgPath, 'CutBtag1pBDT4', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR15')
 
-        calcJetFakeFactorFinal('BtagBDT1', dataPath, bkgPath, 'CutBtag3pBDT1', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR15')
-        calcJetFakeFactorFinal('BtagBDT2', dataPath, bkgPath, 'CutBtag3pBDT2', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR15')
-        calcJetFakeFactorFinal('BtagBDT3', dataPath, bkgPath, 'CutBtag3pBDT3', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR15')
+        calcJetFakeFactorFinal('BtagBDT1', dataPath, bkgPath, 'CutBtag3pBDT1', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR15')
+        calcJetFakeFactorFinal('BtagBDT2', dataPath, bkgPath, 'CutBtag3pBDT2', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR15')
+        calcJetFakeFactorFinal('BtagBDT3', dataPath, bkgPath, 'CutBtag3pBDT3', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR15')
 
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WCR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT4', dataPath, bkgPath, 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi3', 'lephad', 'WFR15')
 
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WCR15')
-        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WCR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT1', dataPath, bkgPath, 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT2', dataPath, bkgPath, 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi1', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi2', 'lephad', 'WFR15')
+        calcJetFakeFactorFinal('BvetoBDT3', dataPath, bkgPath, 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'lephad', 'WFR15')
 
-    elif region == 'WCRdphiCorr':
+    elif region == 'WFRdphiCorr':
         dataPath = 'data/{:s}'
         bkgPath = 'bkg/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+Fake/data]'
         correctionPath = ''
-        calcDphiCorrectionFinal('Bveto1p', dataPath, bkgPath, correctionPath, 'CutBveto1pPassID', 'TauMETDphiCorrection', 'lephad', 'WCRdphiCorr')
+        calcDphiCorrectionFinal('Bveto1p', dataPath, bkgPath, correctionPath, 'CutBveto1pPassID', 'TauMETDphiCorrection', 'lephad', 'WFRdphiCorr')
 
-    #calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'ehad', 'WCRdphi')
+    #calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'ehad', 'WFRdphi')
     ## function calcRQCDFinal(sensible category tag, data path, mc path, qcd data path, qcd mc path, cut name, histogram, channel, sensible region tag, mc subtraction variation)
     ##calcRQCDFinal('Btag','/AntiID/ehad/data/','/AntiID/ehad/mc/[Top+Ztautau+Diboson+Zee+Zmumu]', '/AntiID/ehad/QCD/data','/AntiID/ehad/QCD/mc/[Top+Ztautau+Diboson+Zee+Zmumu]', '[CutBtag1p+CutBtag3p]','TauPtRQCD', 'ehad','AntiID',0.2)
     ##calcRQCDFinal('Btag','/AntiID/muhad/data/','/AntiID/muhad/mc/[Top+Ztautau+Diboson+Zee+Zmumu]', '/AntiID/muhad/QCD/data','/AntiID/muhad/QCD/mc/[Top+Ztautau+Diboson+Zee+Zmumu]', '[CutBtag1p+CutBtag3p]','TauPtRQCD', 'muhad','AntiID',0.2)
@@ -2220,23 +2220,23 @@ if __name__=='__main__':
     ####
     #<<<<<<< HEAD:share/scripts/calculateFakeFactorContID.py
     ###############################
-    #calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR')
-    #calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR')
-    #calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR')
-    #calcJetFakeFactorFinal('BvetoBDT4', 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR')
+    #calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto1pBDT1', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR')
+    #calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto1pBDT2', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR')
+    #calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto1pBDT3', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR')
+    #calcJetFakeFactorFinal('BvetoBDT4', 'CutBveto1pBDT4', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR')
     #
-    #calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR')
-    #calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR')
-    #calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR')
+    #calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR')
+    #calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR')
+    #calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR')
     #
-    #calcJetFakeFactorFinal('BtagBDT1', 'CutBtag1pBDT1', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
-    #calcJetFakeFactorFinal('BtagBDT2', 'CutBtag1pBDT2', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
-    #calcJetFakeFactorFinal('BtagBDT3', 'CutBtag1pBDT3', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
-    #calcJetFakeFactorFinal('BtagBDT4', 'CutBtag1pBDT4', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
+    #calcJetFakeFactorFinal('BtagBDT1', 'CutBtag1pBDT1', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
+    #calcJetFakeFactorFinal('BtagBDT2', 'CutBtag1pBDT2', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
+    #calcJetFakeFactorFinal('BtagBDT3', 'CutBtag1pBDT3', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
+    #calcJetFakeFactorFinal('BtagBDT4', 'CutBtag1pBDT4', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
     #
-    #calcJetFakeFactorFinal('BtagBDT1', 'CutBtag3pBDT1', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
-    #calcJetFakeFactorFinal('BtagBDT2', 'CutBtag3pBDT2', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
-    #calcJetFakeFactorFinal('BtagBDT3', 'CutBtag3pBDT3', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
+    #calcJetFakeFactorFinal('BtagBDT1', 'CutBtag3pBDT1', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
+    #calcJetFakeFactorFinal('BtagBDT2', 'CutBtag3pBDT2', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
+    #calcJetFakeFactorFinal('BtagBDT3', 'CutBtag3pBDT3', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
     ##############################
     #
     ################################
@@ -2245,96 +2245,96 @@ if __name__=='__main__':
     #### some should not include qcd
     ####
     ################################
-    #calcJetFakeFactorFinal('BtagBDT1', 'CutBtag1pBDT1', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
-    ##calcJetFakeFactorFinal('BtagBDT2', 'CutBtag1pBDT2', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR',False)
-    ##calcJetFakeFactorFinal('BtagBDT3', 'CutBtag1pBDT3', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR',False)
-    ##calcJetFakeFactorFinal('BtagBDT4', 'CutBtag1pBDT4', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR',False)
+    #calcJetFakeFactorFinal('BtagBDT1', 'CutBtag1pBDT1', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
+    ##calcJetFakeFactorFinal('BtagBDT2', 'CutBtag1pBDT2', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR',False)
+    ##calcJetFakeFactorFinal('BtagBDT3', 'CutBtag1pBDT3', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR',False)
+    ##calcJetFakeFactorFinal('BtagBDT4', 'CutBtag1pBDT4', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR',False)
     #
-    ##calcJetFakeFactorFinal('BtagBDT1', 'CutBtag3pBDT1', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
-    ##calcJetFakeFactorFinal('BtagBDT2', 'CutBtag3pBDT2', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
-    ##calcJetFakeFactorFinal('BtagBDT3', 'CutBtag3pBDT3', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
+    ##calcJetFakeFactorFinal('BtagBDT1', 'CutBtag3pBDT1', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
+    ##calcJetFakeFactorFinal('BtagBDT2', 'CutBtag3pBDT2', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
+    ##calcJetFakeFactorFinal('BtagBDT3', 'CutBtag3pBDT3', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
     #################################
     #
-    ##calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WCR')
-    ##calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WCR')
+    ##calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT1', 'CutBveto3pBDT1', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT2', 'CutBveto3pBDT2', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WFR')
+    ##calcJetFakeFactorFinal('BvetoBDT3', 'CutBveto3pBDT3', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WFR')
     #
-    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WCR')
+    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'WFR')
     #=======
     #### the right ones for d-d OS bveto Wjets ff
     ####
-    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR')
-    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WCR')
-    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WCR')
-    #calcJetFakeFactorFinal('BvetoQcdSub', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WCR',True)
-    #calcJetFakeFactorFinal('BvetoQcdSub', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WCR',True)
-    #calcJetFakeFactorFinal('BvetoQcdSub', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WCR',True)
+    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR')
+    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WFR')
+    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WFR')
+    #calcJetFakeFactorFinal('BvetoQcdSub', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR',True)
+    #calcJetFakeFactorFinal('BvetoQcdSub', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WFR',True)
+    #calcJetFakeFactorFinal('BvetoQcdSub', 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WFR',True)
 
-    #calcJetFakeFactorFinal('Bveto', 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WCR')
+    #calcJetFakeFactorFinal('Bveto', 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR')
 
-    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pPassID', 'CutBveto1pFailID', 'TauPtFF1p', 'ehad', 'WCR')
-    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pPassID', 'CutBveto1pFailID', 'TauPtFF1p', 'muhad', 'WCR')
+    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pPassID', 'CutBveto1pFailID', 'TauPtFF1p', 'ehad', 'WFR')
+    #calcJetFakeFactorFinal('Bveto', 'CutBveto1pPassID', 'CutBveto1pFailID', 'TauPtFF1p', 'muhad', 'WFR')
     #>>>>>>> NominalAnalysis:share/scripts/calculateFakeFactor.py
-    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WCR')
-    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WCR')
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'WCR')
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'WCR')
+    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'WFR')
+    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'WFR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'WFR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'WFR')
     #
-    #calcJetFakeFactorFinal('Btag', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
-    #calcJetFakeFactorFinal('Btag', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Bveto', 'CutBveto1pPassID', 'CutBveto1pFailID', 'TauPtFF1p', 'muhad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'SSWCR')
+    #calcJetFakeFactorFinal('Btag', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
+    #calcJetFakeFactorFinal('Btag', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Bveto', 'CutBveto1pPassID', 'CutBveto1pFailID', 'TauPtFF1p', 'muhad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'lephad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'ehad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Bveto', 'CutBveto3pPassID', 'CutBveto3pFailID', 'TauPtFF3p', 'muhad', 'SSWFR')
     #
     ####
     #### the right ones for d-d SS btag Top ff
     ####
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWCR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'lephad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'lephad', 'SSWFR')
     #<<<<<<< HEAD:share/scripts/calculateFakeFactorContID.py
-    ##calcJet2DFakeFactorFinal('Bveto', 'CutBveto', 'TauPtvsBDTFF1p', 'lephad', 'WCR')
-    ##calcJet2DFakeFactorFinal('Bveto', 'CutBveto', 'TauPtvsBDTFF3p', 'lephad', 'WCR')
-    ##calcJet2DFakeFactorFinal('Btag', 'CutBtag', 'TauPtvsBDTFFBtag1p', 'lephad', 'SSWCR')
-    ##calcJet2DFakeFactorFinal('Btag', 'CutBtag', 'TauPtvsBDTFFBtag3p', 'lephad', 'SSWCR')
+    ##calcJet2DFakeFactorFinal('Bveto', 'CutBveto', 'TauPtvsBDTFF1p', 'lephad', 'WFR')
+    ##calcJet2DFakeFactorFinal('Bveto', 'CutBveto', 'TauPtvsBDTFF3p', 'lephad', 'WFR')
+    ##calcJet2DFakeFactorFinal('Btag', 'CutBtag', 'TauPtvsBDTFFBtag1p', 'lephad', 'SSWFR')
+    ##calcJet2DFakeFactorFinal('Btag', 'CutBtag', 'TauPtvsBDTFFBtag3p', 'lephad', 'SSWFR')
     #=======
     #
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'ehad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'ehad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'muhad', 'SSWCR')
-    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'muhad', 'SSWCR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'ehad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'ehad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag1pPassID', 'CutBtag1pFailID', 'TauPtFFBtag1p', 'muhad', 'SSWFR')
+    ##calcJetFakeFactorFinal('Btag', 'CutBtag3pPassID', 'CutBtag3pFailID', 'TauPtFFBtag3p', 'muhad', 'SSWFR')
     #
     #>>>>>>> NominalAnalysis:share/scripts/calculateFakeFactor.py
-    ##calcMCFakeFactorFinal('Btag', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'MCSSWCR')
-    ##calcMCFakeFactorFinal('Btag', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'MCSSWCR')
-    ##calcMCFakeFactorFinal('Btag', 'CutBtag1pOSPassID', 'CutBtag1pOSFailID', 'TauPtFFBtag1p', 'lephad', 'MCOSWCR')
-    ##calcMCFakeFactorFinal('Btag', 'CutBtag3pOSPassID', 'CutBtag3pOSFailID', 'TauPtFFBtag3p', 'lephad', 'MCOSWCR')
+    ##calcMCFakeFactorFinal('Btag', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'lephad', 'MCSSWFR')
+    ##calcMCFakeFactorFinal('Btag', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'lephad', 'MCSSWFR')
+    ##calcMCFakeFactorFinal('Btag', 'CutBtag1pOSPassID', 'CutBtag1pOSFailID', 'TauPtFFBtag1p', 'lephad', 'MCOSWFR')
+    ##calcMCFakeFactorFinal('Btag', 'CutBtag3pOSPassID', 'CutBtag3pOSFailID', 'TauPtFFBtag3p', 'lephad', 'MCOSWFR')
     ##
-    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauTracks', 'lephad', 'MCSSWCR')
-    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauTracks', 'lephad', 'MCSSWCR')
-    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pOSPassID', 'CutBtag1pOSFailID', 'TauTracks', 'lephad', 'MCOSWCR')
-    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pOSPassID', 'CutBtag3pOSFailID', 'TauTracks', 'lephad', 'MCOSWCR')
-    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauMETDphi', 'lephad', 'MCSSWCR')
-    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauMETDphi', 'lephad', 'MCSSWCR')
-    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pOSPassID', 'CutBtag1pOSFailID', 'TauMETDphi', 'lephad', 'MCOSWCR')
-    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pOSPassID', 'CutBtag3pOSFailID', 'TauMETDphi', 'lephad', 'MCOSWCR')
+    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauTracks', 'lephad', 'MCSSWFR')
+    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauTracks', 'lephad', 'MCSSWFR')
+    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pOSPassID', 'CutBtag1pOSFailID', 'TauTracks', 'lephad', 'MCOSWFR')
+    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pOSPassID', 'CutBtag3pOSFailID', 'TauTracks', 'lephad', 'MCOSWFR')
+    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauMETDphi', 'lephad', 'MCSSWFR')
+    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauMETDphi', 'lephad', 'MCSSWFR')
+    ##calcMCFakeFactorFinal('Btag1p', 'CutBtag1pOSPassID', 'CutBtag1pOSFailID', 'TauMETDphi', 'lephad', 'MCOSWFR')
+    ##calcMCFakeFactorFinal('Btag3p', 'CutBtag3pOSPassID', 'CutBtag3pOSFailID', 'TauMETDphi', 'lephad', 'MCOSWFR')
     #
-    ##calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'ehad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'muhad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto3p', 'CutBveto3pPassID', 'TauMETDphiCorrection', 'ehad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto3p', 'CutBveto3pPassID', 'TauMETDphiCorrection', 'muhad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto3p', 'CutBveto3pPassID', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'ehad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'muhad', 'WCRdphi')
+    ##calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'ehad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'muhad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto1p', 'CutBveto1pPassID', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto3p', 'CutBveto3pPassID', 'TauMETDphiCorrection', 'ehad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto3p', 'CutBveto3pPassID', 'TauMETDphiCorrection', 'muhad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto3p', 'CutBveto3pPassID', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'ehad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'muhad', 'WFRdphi')
     #<<<<<<< HEAD:share/scripts/calculateFakeFactorContID.py
-    ##calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
+    ##calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
     #
     ################################
     ####
@@ -2342,26 +2342,26 @@ if __name__=='__main__':
     #### some should not include qcd
     ####
     ################################
-    #calcDphiCorrectionFinal('Bveto1pBDT1', '[CutBveto1pBDT1]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi',False)
-    #calcDphiCorrectionFinal('Bveto1pBDT2', '[CutBveto1pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    #calcDphiCorrectionFinal('Bveto1pBDT3', '[CutBveto1pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi',False)
-    #calcDphiCorrectionFinal('Bveto1pBDT4', 'CutBveto1pBDT4', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    #calcDphiCorrectionFinal('Bveto3pBDT123', '[CutBveto3pBDT1+CutBveto3pBDT2+CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi',False)
+    #calcDphiCorrectionFinal('Bveto1pBDT1', '[CutBveto1pBDT1]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi',False)
+    #calcDphiCorrectionFinal('Bveto1pBDT2', '[CutBveto1pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    #calcDphiCorrectionFinal('Bveto1pBDT3', '[CutBveto1pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi',False)
+    #calcDphiCorrectionFinal('Bveto1pBDT4', 'CutBveto1pBDT4', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    #calcDphiCorrectionFinal('Bveto3pBDT123', '[CutBveto3pBDT1+CutBveto3pBDT2+CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi',False)
     #################################
-    ##calcDphiCorrectionFinal('Bveto3pBDT1', '[CutBveto3pBDT1]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('BvetoBDT2', '[CutBveto1pBDT2+CutBveto3pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto3pBDT2', '[CutBveto3pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('BvetoBDT3', '[CutBveto1pBDT3+CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto3pBDT3', '[CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('BvetoNOqcd3pBDT1', '[CutBveto3pBDT1]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi',False)
-    ##calcDphiCorrectionFinal('BvetoNOqcd3pBDT2', '[CutBveto3pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi',False)
-    ##calcDphiCorrectionFinal('BvetoNOqcd3pBDT3', '[CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi',False)
-    ##calcDphiCorrectionFinal('Bveto1pBDT12', '[CutBveto1pBDT1+CutBveto1pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
-    ##calcDphiCorrectionFinal('Bveto1pBDT34', '[CutBveto1pBDT3+CutBveto1pBDT4]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
+    ##calcDphiCorrectionFinal('Bveto3pBDT1', '[CutBveto3pBDT1]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('BvetoBDT2', '[CutBveto1pBDT2+CutBveto3pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto3pBDT2', '[CutBveto3pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('BvetoBDT3', '[CutBveto1pBDT3+CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto3pBDT3', '[CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('BvetoNOqcd3pBDT1', '[CutBveto3pBDT1]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi',False)
+    ##calcDphiCorrectionFinal('BvetoNOqcd3pBDT2', '[CutBveto3pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi',False)
+    ##calcDphiCorrectionFinal('BvetoNOqcd3pBDT3', '[CutBveto3pBDT3]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi',False)
+    ##calcDphiCorrectionFinal('Bveto1pBDT12', '[CutBveto1pBDT1+CutBveto1pBDT2]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
+    ##calcDphiCorrectionFinal('Bveto1pBDT34', '[CutBveto1pBDT3+CutBveto1pBDT4]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
     #
     #
     #=======
-    #calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
+    #calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'lephad', 'WFRdphi')
     #
     #calcLFRDphiCorrectionFinal('Bveto', 'CutSLBveto', 'LepMETDphiBvetoCorrectionELE', 'ehad', 'LFRdphi')
     #calcLFRDphiCorrectionFinal('Bveto', 'CutSLBveto', 'LepMETDphiBvetoCorrectionMUON', 'muhad', 'LFRdphi')
