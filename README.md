@@ -59,31 +59,31 @@ INFO:
     -   Top-level scripts to run the analysis.
         Follow what they do to discover all the relevant scripts and config files.
 
-    FLCR:
+    LFR:
     #to makeSampleFile, first update the 'dataPaths' and 'mcPaths' relavant for your setup (don't let them be too long or you will see errors) and do
-    $ sh ConfigFakeLeptonRegion/scriptMakeSampleFile.sh
+    $ sh configLeptonFakeRegion/scriptMakeSampleFile.sh
     #to run the event loop, first update the '--submit' for your relavant batch submission system, and do
-    $ sh ConfigFakeLeptonRegion/scriptSubmit.sh
+    $ sh configLeptonFakeRegion/scriptSubmit.sh
     #after all jobs finished, merge
-    $ tqmerge -o output/htautau_lephad_flr/nominal.root -t runAnalysis -Sum output/unmerged_FLR/*.root
+    $ tqmerge -o output/htautau_lephad_lfr/nominal.root -t runAnalysis -Sum output/unmerged_LFR/*.root
     #to make plots do
-    $ python readAnalysis.py ConfigFakeLeptonRegion/htautau_lephad_flr_mc16a.cfg
-    $ python readAnalysis.py ConfigFakeLeptonRegion/htautau_lephad_flr_mc16c.cfg
+    $ python readAnalysis.py configLeptonFakeRegion/htautau_lephad_lfr_mc16a.cfg
+    $ python readAnalysis.py configLeptonFakeRegion/htautau_lephad_lfr_mc16c.cfg
     #to make lepton fake factors do
-    $ python scripts/calculateFakeFactor.py FLCR
+    $ python scripts/calculateFakeFactor.py LFR
 
-    WCR:
+    WFR:
     #to makeSampleFile do
-    $ sh ConfigWjetsControlRegion/scriptMakeSampleFile.sh
+    $ sh configWjetsFakeRegion/scriptMakeSampleFile.sh
     #to run the event loop do
-    $ sh ConfigWjetsControlRegion/scriptSubmit.sh
+    $ sh configWjetsFakeRegion/scriptSubmit.sh
     #after all jobs finished, merge
-    $ tqmerge -o output/htautau_lephad_wcr/nominal.root -t runAnalysis -Sum output/unmerged_WCR/*.root
+    $ tqmerge -o output/htautau_lephad_wfr/nominal.root -t runAnalysis -Sum output/unmerged_WFR/*.root
     #to make plots do
-    $ python readAnalysis.py ConfigWjetsControlRegion/htautau_lephad_wcr_mc16a.cfg
-    $ python readAnalysis.py ConfigWjetsControlRegion/htautau_lephad_wcr_mc16c.cfg
+    $ python readAnalysis.py configWjetsFakeRegion/htautau_lephad_wfr_mc16a.cfg
+    $ python readAnalysis.py configWjetsFakeRegion/htautau_lephad_wfr_mc16c.cfg
     #to make tau fake factors do
-    $ python scripts/calculateFakeFactor.py WCR
+    $ python scripts/calculateFakeFactor.py WFR
 
     SR, VR, TCR, WCR, SSWCR, these regions go into one input/output file because they all use both lepton and tau FFs,
     and therefore have similar strucuture:
@@ -155,20 +155,20 @@ and requires less hardcoding in cuts and histos config files.
 
 ## for nominal plotting, cutflow, study use:
     # config:
-    config/htautau_lephad_wcr.cfg
+    config/htautau_lephad_wfr.cfg
 
     because we want to plot all truth labels but they are not needed for ff calculation,
     so we save time and make things more clear.
 
 ## for ff measurement:
     # config:
-    config/htautau_lephad_wcr_ff.cfg
+    config/htautau_lephad_wfr_ff.cfg
 
     this is only to make Pt histos with proper binning and Pass and Fail cuts.
 
 ## for applying ff to wcr:
     # config:
-    config/htautau_lephad_wcr_applyff.cfg
+    config/htautau_lephad_wfr_applyff.cfg
 
     atm this doesn't include QCD, but studies could be made to show that QCD changes nothing to ff,
     or at least not significantly.

@@ -28,7 +28,7 @@ def addFolders(output, mc, wjets, qcd):
 
 def main():
   handler = TQSystematicsHandler ('systematics')
-  dir = 'output/htautau_lephad_flr/'
+  dir = 'output/htautau_lephad_lfr/'
   #dir = 'output/htautau_lephad_vr/'
   # The name of the TQSampleFolder object within your files
   # Alternatively, you can just use ':*' to have the code grab the first instance of TQSampleFolder that it finds

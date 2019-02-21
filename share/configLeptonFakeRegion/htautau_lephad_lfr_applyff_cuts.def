@@ -2,9 +2,9 @@
 
 ################################################################
 ##
-##  APPLY FF Fake Lepton CR
+##  APPLY FF Lepton FR
 ##
-##  Apply FF in FLCR before any correction.
+##  Apply FF in LFR before any correction.
 ##  Requires a Fake folder structure with tags isFailISO and
 ##      negative weight for mc.
 ##

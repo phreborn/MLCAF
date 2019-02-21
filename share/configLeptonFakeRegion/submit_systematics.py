@@ -43,6 +43,6 @@ if __name__=='__main__':
           if 'var' in sys:
             option = sys
             continue
-          command='bsub -q {:s} python runAnalysis.py ConfigFakeLeptonRegion/htautau_lephad_flr_applyff.cfg --options {:s}:{:s} outputFile:output/htautau_lephad_flr/{:s}_applyff.root'.format(b_queue,option,sys,sys)
+          command='bsub -q {:s} python runAnalysis.py configLeptonFakeRegion/htautau_lephad_lfr_applyff.cfg --options {:s}:{:s} outputFile:output/htautau_lephad_lfr/{:s}_applyff.root'.format(b_queue,option,sys,sys)
           print command
           os.system(command)

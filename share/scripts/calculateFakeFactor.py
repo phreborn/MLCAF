@@ -732,8 +732,8 @@ def plotFF(hist,up,down,region, file='', name='someFF'):
 
     # derive what ff is this
     text = ''
-    if 'FLR' in name:
-        text+='FLCR'
+    if 'LFR' in name:
+        text+='LFR'
     elif 'WCR' in name:
         text+='WCR'
 
@@ -765,7 +765,7 @@ def plotFF(hist,up,down,region, file='', name='someFF'):
 ##  Lepton Fake Factor
 ##
 ############################
-#calcLeptonFakeFactorFinal('Bveto','CutBvetoPassISO', 'CutBvetoFailISO' 'LeptonEtaELEFF', 'ehad','FLR')
+#calcLeptonFakeFactorFinal('Bveto','CutBvetoPassISO', 'CutBvetoFailISO' 'LeptonEtaELEFF', 'ehad','LFR')
 def calcLeptonFakeFactorFinal(category, nominator, denominator, histogram, channel, region, mcsamples='?', syslist=[]):
     print '----------------------------------------------------------'
     print 'Now running '+region+' Fake Factor: '+category+'\t'+histogram+'\t'
@@ -889,7 +889,7 @@ FF calculation algorithm:
 
     TODO: safety check that histos are got
 '''
-#calcJetFakeFactorFinal('Bveto','CutBvetoPassISO', 'CutBvetoFailISO' 'LeptonEtaELEFF', 'ehad','FLR',0.5)
+#calcJetFakeFactorFinal('Bveto','CutBvetoPassISO', 'CutBvetoFailISO' 'LeptonEtaELEFF', 'ehad','LFR',0.5)
 # calcJetFakeFactorFinal('WCR', 'CutBvetoPassID', 'CutBvetoFailID', 'TauPtFF1p', 'lephad', 'WCR')
 
 ## examples:
@@ -1278,9 +1278,9 @@ def calcDphiCorrectionFinal(category, datapath, bkgpath, correctionpath, cut, hi
     file.Close()
 
 
-def calcFLRDphiCorrectionFinal(category, cut, histogram, channel, region, mcVar=0.1, mcsamples='?', syslist=[]):
+def calcLFRDphiCorrectionFinal(category, cut, histogram, channel, region, mcVar=0.1, mcsamples='?', syslist=[]):
     print '----------------------------------------------------------'
-    print 'Now running FLR dphi correction: '+'\t'+histogram+'\t'+channel+'\t'+category
+    print 'Now running LFR dphi correction: '+'\t'+histogram+'\t'+channel+'\t'+category
     print '--------------------------------------------------------\n'
     doMCSys = False
     #mcsamples = '[SherpaWjetsTruthTau+SherpaWjetsLepFake+TopTruthTau+TopLepFake+ZtautauTruthTau+ZtautauLepFake+DibosonTruthTau+DibosonLepFake+ZeeLepFake+ZmumuLepFake]'
@@ -1892,7 +1892,7 @@ if __name__=='__main__':
     import sys
     # argument
     if len(args)==0:
-        print 'You must submit an argument REGION: \n\t WCR; \n\t FLCR; \n\t etc.'
+        print 'You must submit an argument REGION: \n\t WCR; \n\t LFR; \n\t etc.'
         sys.exit()
     region = args[0]
 
@@ -1915,8 +1915,8 @@ if __name__=='__main__':
     # decide which file is needed:
     if region == 'WCR':
         sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wcr-nominal.root'
-    elif region == 'FLCR':
-        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_flr-nominal.root'
+    elif region == 'LFR':
+        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.root'
     elif region == 'WCRcontid':
         sFile = 'output/htautau_lephad_wcr_contid/nominal.root'
     elif region == 'WCRdphiCorr':
@@ -1928,8 +1928,8 @@ if __name__=='__main__':
     #sFile = 'output/htautau_lephad_sswcr/nominal_ff.root'
     #sFile = 'output/htautau_lephad_ssoswcr/nominal_ff.root'
     #sFile = 'output/htautau_lephad_wcr_contid/nominal.root'
-    #sFile = 'output/htautau_lephad_flr/nominal.root'
-    #sFile = 'output/htautau_lephad_flr/nominal_applyff.root'
+    #sFile = 'output/htautau_lephad_lfr/nominal.root'
+    #sFile = 'output/htautau_lephad_lfr/nominal_applyff.root'
     #sFile = 'output/htautau_lephad_qcdcr/nominal_ff.root'
     #sFile = 'output/htautau_lephad_qcdcr/nominal.root'
     #sFile = 'output/htautau_lephad_vr/nominal_rqcd.root'
@@ -2073,35 +2073,35 @@ if __name__=='__main__':
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3pDphi3', 'muhad', 'WCR17')
 
 
-    elif region == 'FLCR':
+    elif region == 'LFR':
         dataPath = 'data/{:s}/[data15*+data16*]'
         #bkgPath = 'mc16a/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson]'#+SherpaWjets]'
         bkgPath = 'mc16a/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+SherpaWjets]'
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','FLR15',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtELEBTAGFF','ehad','FLR15',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtMUONFF','muhad','FLR15',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtMUONFF', 'muhad','FLR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','LFR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtELEBTAGFF','ehad','LFR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtMUONFF','muhad','LFR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtMUONFF', 'muhad','LFR15',0.2)
 	#muhad FFs missing - will try to add them now
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1ELEBVETOFF', 'ehad','FLR15',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2ELEBVETOFF', 'ehad','FLR15',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','FLR15',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4ELEBVETOFF', 'ehad','FLR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1ELEBVETOFF', 'ehad','LFR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2ELEBVETOFF', 'ehad','LFR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','LFR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4ELEBVETOFF', 'ehad','LFR15',0.2)
 
 	#adding muon ffs, but not sure about naming scheme
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1MUONBVETOFF', 'muhad','FLR15',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2MUONBVETOFF', 'muhad','FLR15',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','FLR15',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','FLR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1MUONBVETOFF', 'muhad','LFR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2MUONBVETOFF', 'muhad','LFR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','LFR15',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','LFR15',0.2)
 
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','FLR15',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','FLR15',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3ELEBTAGFF', 'ehad','FLR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','LFR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','LFR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3ELEBTAGFF', 'ehad','LFR15',0.2)
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1MUONBTAGFF', 'muhad','FLR15',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','FLR15',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','FLR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1MUONBTAGFF', 'muhad','LFR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','LFR15',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','LFR15',0.2)
 
 	#now adding 2017
 
@@ -2109,30 +2109,30 @@ if __name__=='__main__':
         #bkgPath = 'mc16c/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson]'#+SherpaWjets]'
         bkgPath = 'mc16c/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+SherpaWjets]'
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','FLR17',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtELEBTAGFF','ehad','FLR17',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtMUONFF','muhad','FLR17',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtMUONFF', 'muhad','FLR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','LFR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtELEBTAGFF','ehad','LFR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtMUONFF','muhad','LFR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtMUONFF', 'muhad','LFR17',0.2)
 
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1ELEBVETOFF', 'ehad','FLR17',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2ELEBVETOFF', 'ehad','FLR17',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','FLR17',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4ELEBVETOFF', 'ehad','FLR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1ELEBVETOFF', 'ehad','LFR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2ELEBVETOFF', 'ehad','LFR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','LFR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4ELEBVETOFF', 'ehad','LFR17',0.2)
 
         #adding muon ffs, but not sure about naming scheme
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1MUONBVETOFF', 'muhad','FLR17',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2MUONBVETOFF', 'muhad','FLR17',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','FLR17',0.2)
-        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','FLR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1MUONBVETOFF', 'muhad','LFR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2MUONBVETOFF', 'muhad','LFR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','LFR17',0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','LFR17',0.2)
 
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','FLR17',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','FLR17',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3ELEBTAGFF', 'ehad','FLR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','LFR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','LFR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3ELEBTAGFF', 'ehad','LFR17',0.2)
 
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1MUONBTAGFF', 'muhad','FLR17',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','FLR17',0.2)
-        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','FLR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1MUONBTAGFF', 'muhad','LFR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','LFR17',0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','LFR17',0.2)
 
     elif region == 'WCRcontid':
         dataPath = 'data/{:s}'
@@ -2363,10 +2363,10 @@ if __name__=='__main__':
     #=======
     #calcDphiCorrectionFinal('Bveto', '[CutBveto3pPassID+CutBveto1pPassID]', 'TauMETDphiCorrection', 'lephad', 'WCRdphi')
     #
-    #calcFLRDphiCorrectionFinal('Bveto', 'CutSLBveto', 'LepMETDphiBvetoCorrectionELE', 'ehad', 'FLRdphi')
-    #calcFLRDphiCorrectionFinal('Bveto', 'CutSLBveto', 'LepMETDphiBvetoCorrectionMUON', 'muhad', 'FLRdphi')
-    #calcFLRDphiCorrectionFinal('Btag', 'CutSLBtag', 'LepMETDphiBtagCorrectionELE', 'ehad', 'FLRdphi')
-    #calcFLRDphiCorrectionFinal('Btag', 'CutSLBtag', 'LepMETDphiBtagCorrectionMUON', 'muhad', 'FLRdphi')
+    #calcLFRDphiCorrectionFinal('Bveto', 'CutSLBveto', 'LepMETDphiBvetoCorrectionELE', 'ehad', 'LFRdphi')
+    #calcLFRDphiCorrectionFinal('Bveto', 'CutSLBveto', 'LepMETDphiBvetoCorrectionMUON', 'muhad', 'LFRdphi')
+    #calcLFRDphiCorrectionFinal('Btag', 'CutSLBtag', 'LepMETDphiBtagCorrectionELE', 'ehad', 'LFRdphi')
+    #calcLFRDphiCorrectionFinal('Btag', 'CutSLBtag', 'LepMETDphiBtagCorrectionMUON', 'muhad', 'LFRdphi')
     #>>>>>>> NominalAnalysis:share/scripts/calculateFakeFactor.py
     #
     ##calcJetFakeFactorFinal('Bveto', 'CutBvetoPassID', 'CutBvetoFailID', 'TauPtFF1p', '[ehad+muhad]', 'QCDCR')
