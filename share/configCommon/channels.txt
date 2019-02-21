@@ -1,6 +1,7 @@
 name path latex datapath
 ehad   ehad$(variation)  ehad  ehad
 muhad   muhad$(variation)  \mu{}had  muhad
+lephad   lephad$(variation)  lephad  lephad
 e   e$(variation)  e  e
 m   m$(variation)  \mu  m
 ee   ee$(variation)  ee  ee
