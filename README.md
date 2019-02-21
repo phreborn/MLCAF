@@ -55,48 +55,49 @@ source ../BSMtautauCAF/setup/setupAnalysis.sh
 Running the analysis
 --------------------
 
-INFO:
-    -   Top-level scripts to run the analysis.
-        Follow what they do to discover all the relevant scripts and config files.
+```bash
+cd ../BSMtautauCAF/share
 
-    LFR:
-    #to makeSampleFile, first update the 'dataPaths' and 'mcPaths' relavant for your setup (don't let them be too long or you will see errors) and do
-    $ sh configLeptonFakeRegion/scriptMakeSampleFile.sh
-    #to run the event loop, first update the '--submit' for your relavant batch submission system, and do
-    $ sh configLeptonFakeRegion/scriptSubmit.sh
-    #after all jobs finished, merge
-    $ tqmerge -o output/htautau_lephad_lfr/nominal.root -t runAnalysis -Sum output/unmerged_LFR/*.root
-    #to make plots do
-    $ python readAnalysis.py configLeptonFakeRegion/htautau_lephad_lfr_mc16a.cfg
-    $ python readAnalysis.py configLeptonFakeRegion/htautau_lephad_lfr_mc16c.cfg
-    #to make lepton fake factors do
-    $ python scripts/calculateFakeFactor.py LFR
+# First update the 'dataPaths' and 'mcPaths' in configCommon/htautau_lephad_common_*_input.cfg relevent for your setup
+# (don't let them be too long or you could see errors)
 
-    WFR:
-    #to makeSampleFile do
-    $ sh configWjetsFakeRegion/scriptMakeSampleFile.sh
-    #to run the event loop do
-    $ sh configWjetsFakeRegion/scriptSubmit.sh
-    #after all jobs finished, merge
-    $ tqmerge -o output/htautau_lephad_wfr/nominal.root -t runAnalysis -Sum output/unmerged_WFR/*.root
-    #to make plots do
-    $ python readAnalysis.py configWjetsFakeRegion/htautau_lephad_wfr_mc16a.cfg
-    $ python readAnalysis.py configWjetsFakeRegion/htautau_lephad_wfr_mc16c.cfg
-    #to make tau fake factors do
-    $ python scripts/calculateFakeFactor.py WFR
+# Lepton Fake Region
+# Prepare and initialize your samples
+source configLeptonFakeRegion/scriptPrepareInitialize.sh
+# Submit the full analysis to a cluster
+source configLeptonFakeRegion/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.root -t analyze batchOutput/unmerged_LFR_*/*.root
+# Visualize plots
+source configLeptonFakeRegion/scriptVisualize.sh
+# Calculate lepton fake factors
+python scripts/calculateFakeFactor.py LFR
 
-    SR, VR, TCR, WCR, SSWCR, these regions go into one input/output file because they all use both lepton and tau FFs,
-    and therefore have similar strucuture:
+# W+jets Fake Region
+# Prepare and initialize your samples
+source configWjetsFakeRegion/scriptPrepareInitialize.sh
+# Submit the full analysis to a cluster
+source configWjetsFakeRegion/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.root -t analyze batchOutput/unmerged_WFR_*/*.root
+# Visualize plots          
+source configWjetsFakeRegion/scriptVisualize.sh
+# Calculate W+jets fake factors
+python scripts/calculateFakeFactor.py WFR
+```
+```
+SR, VR, TCR, WCR, SSWCR, these regions go into one input/output file because they all use both lepton and tau FFs,
+and therefore have similar strucuture:
 
-    #to makeSampleFile do
-    $ sh ConfigSignalRegion/scriptMakeSampleFile.sh
-    #to run the event loop do
-    $ sh ConfigSignalRegion/scriptSubmit.sh
-    #after all jobs finished, merge
-    $ tqmerge -o output/htautau_lephad_sr/nominal_full.root -t runAnalysis -Sum output/unmerged_SignalRegionNominalR21/*
-    #to make plots run this script, which makes plots for all regions
-    $ sh ConfigSignalRegion/scriptReadAnalysis.sh
-
+#to makeSampleFile do
+$ sh ConfigSignalRegion/scriptMakeSampleFile.sh
+#to run the event loop do
+$ sh ConfigSignalRegion/scriptSubmit.sh
+#after all jobs finished, merge
+$ tqmerge -o output/htautau_lephad_sr/nominal_full.root -t runAnalysis -Sum output/unmerged_SignalRegionNominalR21/*
+#to make plots run this script, which makes plots for all regions
+$ sh ConfigSignalRegion/scriptReadAnalysis.sh
+```
 
     ### NOT REVISED FOR R21
     # to run systematics do
