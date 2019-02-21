@@ -9,6 +9,7 @@
 ##      but if taus only then use SF.
 ##
 #################################################################
+
 # include common cut file
 $include("configCommon/htautau_lephad_common_cuts.def");
 
@@ -76,4 +77,3 @@ $include("configCommon/htautau_lephad_common_cuts.def");
             }
         }
     }
-

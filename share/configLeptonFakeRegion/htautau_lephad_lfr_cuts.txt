@@ -1,7 +1,6 @@
 .name=CutBase
 .name=CutAll
 
-
 .name=CutBvetoBDTSLPassISO
 .name=CutBvetoBDTSLFailISO
 .name=CutBtagBDTSLPassISO
