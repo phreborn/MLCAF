@@ -1,22 +1,19 @@
-# add "contid" as argument to executing this script to run over contid
+#!/bin/bash
 
-DATE=`date '+%Y%m%d%H%M%S'`
+# add "applyff"/"contid" as argument to executing this script to run over applyff/contid
 
-CONTID="false"
+REGION="configWjetsFakeRegion"
+JOBS="jobsWFR.txt"
+CONFIG="htautau_lephad_wfr"
+IDENT="WFR"
+
+if [ "$1" == "applyff" ]; then
+  CONFIG="${CONFIG}_applyff"
+  IDENT="${IDENT}applyff"
+fi
 if [ "$1" == "contid" ]; then
-  CONTID="true"
+  CONFIG="${CONFIG}_contid"
+  IDENT="${IDENT}contid"
 fi
 
-if [ "$CONTID" == "true" ]; then
-  submit.py configWjetsFakeRegion/htautau_lephad_wfr_contid.cfg --jobs configWjetsFakeRegion/jobsWFR.txt --identifier WFRcontid_${DATE} --allowArgChanges --submit condor
-  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_contid-nominal.root -t analyze batchOutput/unmerged_WFRcontid_${DATE}/*.root"
-else
-  submit.py configWjetsFakeRegion/htautau_lephad_wfr.cfg --jobs configWjetsFakeRegion/jobsWFR.txt --identifier WFR_${DATE} --allowArgChanges --submit condor
-  echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.root -t analyze batchOutput/unmerged_WFR_${DATE}/*.root"
-fi
-
-####
-
-# use either --merge option (the script will wait for all jobs to finish)
-# or merge yourself with
-#echo "Merge with:"
+source configCommon/scriptSubmit.sh ${REGION} ${CONFIG} ${JOBS} ${IDENT}
