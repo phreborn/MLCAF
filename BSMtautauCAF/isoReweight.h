@@ -23,93 +23,237 @@ protected:
   bool _isData = false;
   TDirectory* m_histoDir = 0;
 
+  const long LIMIT_2016 = 311481;
+  const long LIMIT_2017 = 340453;
+
+
+
   TH1 *h_weight ;
+  // 2015+2016
+  TH1F* h_ff15_flr_ehad_0tag = 0;
+  TH1F* h_ff15_flr_ehad_0tag_up = 0;
+  TH1F* h_ff15_flr_ehad_0tag_down = 0;
 
-  TH1F* h_ff_flr_ehad_0tag = 0;
-  TH1F* h_ff_flr_ehad_0tag_up = 0;
-  TH1F* h_ff_flr_ehad_0tag_down = 0;
+  TH1F* h_ff15_flr_ehad_1tag = 0;
+  TH1F* h_ff15_flr_ehad_1tag_up = 0;
+  TH1F* h_ff15_flr_ehad_1tag_down = 0;
 
-  TH1F* h_ff_flr_ehad_1tag = 0;
-  TH1F* h_ff_flr_ehad_1tag_up = 0;
-  TH1F* h_ff_flr_ehad_1tag_down = 0;
+  TH1F* h_ff15_flr_muhad_0tag_lowpt = 0;
+  TH1F* h_ff15_flr_muhad_0tag_lowpt_up = 0;
+  TH1F* h_ff15_flr_muhad_0tag_lowpt_down = 0;
 
-  TH1F* h_ff_flr_muhad_0tag_lowpt = 0;
-  TH1F* h_ff_flr_muhad_0tag_lowpt_up = 0;
-  TH1F* h_ff_flr_muhad_0tag_lowpt_down = 0;
+  TH1F* h_ff15_flr_muhad_0tag_highpt = 0;
+  TH1F* h_ff15_flr_muhad_0tag_highpt_up = 0;
+  TH1F* h_ff15_flr_muhad_0tag_highpt_down = 0;
 
-  TH1F* h_ff_flr_muhad_0tag_highpt = 0;
-  TH1F* h_ff_flr_muhad_0tag_highpt_up = 0;
-  TH1F* h_ff_flr_muhad_0tag_highpt_down = 0;
+  TH1F* h_ff15_flr_muhad_1tag_lowpt = 0;
+  TH1F* h_ff15_flr_muhad_1tag_lowpt_up = 0;
+  TH1F* h_ff15_flr_muhad_1tag_lowpt_down = 0;
 
-  TH1F* h_ff_flr_muhad_1tag_lowpt = 0;
-  TH1F* h_ff_flr_muhad_1tag_lowpt_up = 0;
-  TH1F* h_ff_flr_muhad_1tag_lowpt_down = 0;
-
-  TH1F* h_ff_flr_muhad_1tag_highpt = 0;
-  TH1F* h_ff_flr_muhad_1tag_highpt_up = 0;
-  TH1F* h_ff_flr_muhad_1tag_highpt_down = 0;
-
-
-  TH1F* h_ff_flr_ehad_0tag_pt = 0;
-  TH1F* h_ff_flr_ehad_0tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_0tag_pt_down = 0;
-
-  TH1F* h_ff_flr_ehad_1tag_pt = 0;
-  TH1F* h_ff_flr_ehad_1tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_1tag_pt_down = 0;
-
-  TH1F* h_ff_flr_muhad_0tag_pt = 0;
-  TH1F* h_ff_flr_muhad_0tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_0tag_pt_down = 0;
-
-  TH1F* h_ff_flr_muhad_1tag_pt = 0;
-  TH1F* h_ff_flr_muhad_1tag_pt_up = 0;
-  TH1F* h_ff_flr_muhad_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_muhad_1tag_highpt = 0;
+  TH1F* h_ff15_flr_muhad_1tag_highpt_up = 0;
+  TH1F* h_ff15_flr_muhad_1tag_highpt_down = 0;
 
 
-  TH1F* h_dphicorr_flr_ehad_0tag = 0;
-  TH1F* h_dphicorr_flr_ehad_0tag_up = 0;
-  TH1F* h_dphicorr_flr_ehad_0tag_down = 0;
+  TH1F* h_ff15_flr_ehad_0tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_0tag_pt_down = 0;
 
-  TH1F* h_dphicorr_flr_muhad_0tag = 0;
-  TH1F* h_dphicorr_flr_muhad_0tag_up = 0;
-  TH1F* h_dphicorr_flr_muhad_0tag_down = 0;
+  TH1F* h_ff15_flr_ehad_1tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_1tag_pt_down = 0;
 
-  TH1F* h_dphicorr_flr_ehad_1tag = 0;
-  TH1F* h_dphicorr_flr_ehad_1tag_up = 0;
-  TH1F* h_dphicorr_flr_ehad_1tag_down = 0;
+  TH1F* h_ff15_flr_muhad_0tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_0tag_pt_down = 0;
 
-  TH1F* h_dphicorr_flr_muhad_1tag = 0;
-  TH1F* h_dphicorr_flr_muhad_1tag_up = 0;
-  TH1F* h_dphicorr_flr_muhad_1tag_down = 0;
+  TH1F* h_ff15_flr_muhad_1tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_1tag_pt_down = 0;
+
+
+  TH1F* h_dphi15corr_flr_ehad_0tag = 0;
+  TH1F* h_dphi15corr_flr_ehad_0tag_up = 0;
+  TH1F* h_dphi15corr_flr_ehad_0tag_down = 0;
+
+  TH1F* h_dphi15corr_flr_muhad_0tag = 0;
+  TH1F* h_dphi15corr_flr_muhad_0tag_up = 0;
+  TH1F* h_dphi15corr_flr_muhad_0tag_down = 0;
+
+  TH1F* h_dphi15corr_flr_ehad_1tag = 0;
+  TH1F* h_dphi15corr_flr_ehad_1tag_up = 0;
+  TH1F* h_dphi15corr_flr_ehad_1tag_down = 0;
+
+  TH1F* h_dphi15corr_flr_muhad_1tag = 0;
+  TH1F* h_dphi15corr_flr_muhad_1tag_up = 0;
+  TH1F* h_dphi15corr_flr_muhad_1tag_down = 0;
 
   float ave_ele_bveto_eta, ave_ele_btag_eta;
 
-  TH1F* h_ff_flr_ehad_dphi1_0tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi1_0tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi1_0tag_pt_down = 0;
-  TH1F* h_ff_flr_ehad_dphi2_0tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi2_0tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi2_0tag_pt_down = 0;
-  TH1F* h_ff_flr_ehad_dphi3_0tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi3_0tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi3_0tag_pt_down = 0;
-  TH1F* h_ff_flr_ehad_dphi4_0tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi4_0tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi4_0tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi1_0tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi1_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi1_0tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi2_0tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi2_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi2_0tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi3_0tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi3_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi3_0tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi4_0tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi4_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi4_0tag_pt_down = 0;
 
-  TH1F* h_ff_flr_ehad_dphi1_1tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi1_1tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi1_1tag_pt_down = 0;
-  TH1F* h_ff_flr_ehad_dphi2_1tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi2_1tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi2_1tag_pt_down = 0;
-  TH1F* h_ff_flr_ehad_dphi3_1tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi3_1tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi3_1tag_pt_down = 0;
-  TH1F* h_ff_flr_ehad_dphi4_1tag_pt = 0;
-  TH1F* h_ff_flr_ehad_dphi4_1tag_pt_up = 0;
-  TH1F* h_ff_flr_ehad_dphi4_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi1_1tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi1_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi1_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi2_1tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi2_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi2_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi3_1tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi3_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi3_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_ehad_dphi4_1tag_pt = 0;
+  TH1F* h_ff15_flr_ehad_dphi4_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_ehad_dphi4_1tag_pt_down = 0;
+
+
+  TH1F* h_ff15_flr_muhad_dphi1_0tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi1_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi1_0tag_pt_down = 0;
+  TH1F* h_ff15_flr_muhad_dphi2_0tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi2_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi2_0tag_pt_down = 0;
+  TH1F* h_ff15_flr_muhad_dphi3_0tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi3_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi3_0tag_pt_down = 0;
+  TH1F* h_ff15_flr_muhad_dphi4_0tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi4_0tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi4_0tag_pt_down = 0;
+
+  TH1F* h_ff15_flr_muhad_dphi1_1tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi1_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi1_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_muhad_dphi2_1tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi2_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi2_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_muhad_dphi3_1tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi3_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi3_1tag_pt_down = 0;
+  TH1F* h_ff15_flr_muhad_dphi4_1tag_pt = 0;
+  TH1F* h_ff15_flr_muhad_dphi4_1tag_pt_up = 0;
+  TH1F* h_ff15_flr_muhad_dphi4_1tag_pt_down = 0;
+
+  // 2017
+  TH1F* h_ff17_flr_ehad_0tag = 0;
+  TH1F* h_ff17_flr_ehad_0tag_up = 0;
+  TH1F* h_ff17_flr_ehad_0tag_down = 0;
+
+  TH1F* h_ff17_flr_ehad_1tag = 0;
+  TH1F* h_ff17_flr_ehad_1tag_up = 0;
+  TH1F* h_ff17_flr_ehad_1tag_down = 0;
+
+  TH1F* h_ff17_flr_muhad_0tag_lowpt = 0;
+  TH1F* h_ff17_flr_muhad_0tag_lowpt_up = 0;
+  TH1F* h_ff17_flr_muhad_0tag_lowpt_down = 0;
+
+  TH1F* h_ff17_flr_muhad_0tag_highpt = 0;
+  TH1F* h_ff17_flr_muhad_0tag_highpt_up = 0;
+  TH1F* h_ff17_flr_muhad_0tag_highpt_down = 0;
+
+  TH1F* h_ff17_flr_muhad_1tag_lowpt = 0;
+  TH1F* h_ff17_flr_muhad_1tag_lowpt_up = 0;
+  TH1F* h_ff17_flr_muhad_1tag_lowpt_down = 0;
+
+  TH1F* h_ff17_flr_muhad_1tag_highpt = 0;
+  TH1F* h_ff17_flr_muhad_1tag_highpt_up = 0;
+  TH1F* h_ff17_flr_muhad_1tag_highpt_down = 0;
+
+
+  TH1F* h_ff17_flr_ehad_0tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_0tag_pt_down = 0;
+
+  TH1F* h_ff17_flr_ehad_1tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_1tag_pt_down = 0;
+
+  TH1F* h_ff17_flr_muhad_0tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_0tag_pt_down = 0;
+
+  TH1F* h_ff17_flr_muhad_1tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_1tag_pt_down = 0;
+
+
+  TH1F* h_dphi17corr_flr_ehad_0tag = 0;
+  TH1F* h_dphi17corr_flr_ehad_0tag_up = 0;
+  TH1F* h_dphi17corr_flr_ehad_0tag_down = 0;
+
+  TH1F* h_dphi17corr_flr_muhad_0tag = 0;
+  TH1F* h_dphi17corr_flr_muhad_0tag_up = 0;
+  TH1F* h_dphi17corr_flr_muhad_0tag_down = 0;
+
+  TH1F* h_dphi17corr_flr_ehad_1tag = 0;
+  TH1F* h_dphi17corr_flr_ehad_1tag_up = 0;
+  TH1F* h_dphi17corr_flr_ehad_1tag_down = 0;
+
+  TH1F* h_dphi17corr_flr_muhad_1tag = 0;
+  TH1F* h_dphi17corr_flr_muhad_1tag_up = 0;
+  TH1F* h_dphi17corr_flr_muhad_1tag_down = 0;
+
+  TH1F* h_ff17_flr_ehad_dphi1_0tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi1_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi1_0tag_pt_down = 0;
+  TH1F* h_ff17_flr_ehad_dphi2_0tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi2_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi2_0tag_pt_down = 0;
+  TH1F* h_ff17_flr_ehad_dphi3_0tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi3_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi3_0tag_pt_down = 0;
+  TH1F* h_ff17_flr_ehad_dphi4_0tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi4_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi4_0tag_pt_down = 0;
+
+  TH1F* h_ff17_flr_ehad_dphi1_1tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi1_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi1_1tag_pt_down = 0;
+  TH1F* h_ff17_flr_ehad_dphi2_1tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi2_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi2_1tag_pt_down = 0;
+  TH1F* h_ff17_flr_ehad_dphi3_1tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi3_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi3_1tag_pt_down = 0;
+  TH1F* h_ff17_flr_ehad_dphi4_1tag_pt = 0;
+  TH1F* h_ff17_flr_ehad_dphi4_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_ehad_dphi4_1tag_pt_down = 0;
+
+
+  TH1F* h_ff17_flr_muhad_dphi1_0tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi1_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi1_0tag_pt_down = 0;
+  TH1F* h_ff17_flr_muhad_dphi2_0tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi2_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi2_0tag_pt_down = 0;
+  TH1F* h_ff17_flr_muhad_dphi3_0tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi3_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi3_0tag_pt_down = 0;
+  TH1F* h_ff17_flr_muhad_dphi4_0tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi4_0tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi4_0tag_pt_down = 0;
+
+  TH1F* h_ff17_flr_muhad_dphi1_1tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi1_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi1_1tag_pt_down = 0;
+  TH1F* h_ff17_flr_muhad_dphi2_1tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi2_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi2_1tag_pt_down = 0;
+  TH1F* h_ff17_flr_muhad_dphi3_1tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi3_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi3_1tag_pt_down = 0;
+  TH1F* h_ff17_flr_muhad_dphi4_1tag_pt = 0;
+  TH1F* h_ff17_flr_muhad_dphi4_1tag_pt_up = 0;
+  TH1F* h_ff17_flr_muhad_dphi4_1tag_pt_down = 0;
 
   std::vector<TFile*> fileList;
 
