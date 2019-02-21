@@ -1,0 +1,15 @@
+.name=CutChannel
+.name=CutTrigger
+.name=CutOS
+.name=CutLeptonPt
+.name=CutLeptonISO
+.name=CutLeptonID
+.name=CutTauPtEta
+.name=CutTauID
+.name=CutDphi
+.name=CutVisMassVeto 
+.name=CutMT
+.name=CutBveto1p
+.name=CutBveto3p
+.name=CutBtag1p
+.name=CutBtag3p
