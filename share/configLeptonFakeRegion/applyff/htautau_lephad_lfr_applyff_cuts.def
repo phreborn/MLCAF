@@ -1,0 +1,50 @@
+# -*- mode:tqfolder -*-
+
+################################################################
+##
+##  APPLY FF Lepton FR
+##
+##  Apply FF in LFR before any correction.
+##  Requires a Fake folder structure with tags isFailISO and
+##      negative weight for mc.
+##
+#################################################################
++CutChannel{
+    <.cutExpression = " ('$(channel)'=='muhad' && lep_0==1) || ('$(channel)'=='ehad' && lep_0==2 ) || ('$(channel)'=='lephad') ", .title="Channel">
+    +CutBase {
+        <.cutExpression = " {$(isData) ? 1 : (($(dsid)==361106 || $(dsid)==361107 || $(dsid)==361108) ? (parent_m < 120 ? 1 : 0) : 1)} ",
+        .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvariation)] }" ,  .title="Base Cut">
+        +CutAll {
+            <.cutExpression = " [bsmtriggerdecision]==1 && [lep_0_id_medium==1 && lep_0_pt > 30] && [n_taus>0 && tau_0_jet_bdt_score_trans<0.01] && [lephad_mt_lep0_met] < 30", .title="All">
+            +CutSL{
+                <.cutExpression = "[(n_electrons+n_muons==1)] && [($(isFailISO)? lep_0_iso_Gradient==0 : lep_0_iso_Gradient==1)]",
+                    .weightExpression = "$(isFailISO)? [isoreweight_$(isovar)]:1",.title="SL">
+                +CutBvetoSL{
+                    <.cutExpression = "n_bjets == 0 ", .title="SLBveto">
+                    }
+                +CutBtagSL{
+                    <.cutExpression = "n_bjets > 0 ", .title="SLBtag">
+                    }
+                }
+            }
+        }
+    }
+
+@*/CutAll{
+    +CutLowBDT{
+        <.cutExpression = "[tau_0_pt>25] && [fabs(tau_0_eta)]<2.3 && [lephad_mt_lep0_met] < 40 && [($(isFailISO)? lep_0_iso_Gradient==0 : lep_0_iso_Gradient==1)]",
+        .weightExpression = "$(isFailISO)? [isoreweight_$(isovar)]:1", .title="LowBDT">
+        +CutBveto1p{
+            <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1", .title="Bveto1p">
+            }
+        +CutBveto3p{
+            <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==3 ", .title="Bveto3p">
+            }
+        +CutBtag1p{
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 ", .title="Btag1p">
+        }
+        +CutBtag3p{
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 ", .title="Btag3p">
+        }
+    }
+}

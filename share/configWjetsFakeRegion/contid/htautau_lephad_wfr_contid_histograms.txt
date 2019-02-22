@@ -1,0 +1,24 @@
+# -*- mode:tqfolder -*-
+
+#$include('configWjetsFakeRegion/htautau_lephad_wfr_histograms.txt');
+##################################
+
+TH1F('TauPtFFBtag1p'   ,'', {25.,35.,45.,70.,110.,200.})        <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+TH1F('TauPtFFBtag3p'   ,'', {25.,35.,45.,55.,70.,200.})         <<   ( [tau_0_n_charged_tracks==3?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto1p'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3p'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( [tau_0_n_charged_tracks==3?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+
+TH1F('TauPtFFBveto1pDphi1'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3pDphi1'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto1pDphi2'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,200.})       <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3pDphi2'   ,'', {25.,30.,34.,39.,45.,52.,60.,70.,90.,200.})           <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto1pDphi3'   ,'', {25.,30.,39.,52.,70.,200.})                           <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3pDphi3'   ,'', {25.,30.,39.,52.,70.,90.,200.})                       <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+
+#@Cut*BDT*/*: LeptonPt,TauPt,LeadingJetPt,TransverseMassLepMET,TauJetBDTScoreTrans,TauMETDphi,LepMETDphi,VisibleMassTauLep,TauMETDphiCorrection,TauJetWidth;
+
+@CutBveto1pBDT*/*,CutBveto1pOSFailID:TauPtFFBveto1p,TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3;
+@CutBveto3pBDT*/*,CutBveto3pOSFailID:TauPtFFBveto3p,TauPtFFBveto3pDphi1,TauPtFFBveto3pDphi2,TauPtFFBveto3pDphi3;
+@CutBtag1pBDT*/*,CutBtag1pSSFailID:TauPtFFBtag1p;
+@CutBtag3pBDT*/*,CutBtag3pSSFailID:TauPtFFBtag3p;
+

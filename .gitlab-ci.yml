@@ -39,35 +39,35 @@ variables:
     - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
     - cat ~/.ssh/config
 
-.minimal_script: &minimal_script
-  script:
-    - source setup/setupAnalysis.sh
-    - mkdir run
-    - cd run
-    - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
-    - initialize.py minimal/config/master/initialize-Minimal-Example.cfg --options lineUpdates=false consoleWidth=160
-    - analyze.py minimal/config/master/analyze-Minimal-Example.cfg --options lineUpdates=false consoleWidth=160
-    - visualize.py minimal/config/master/visualize-Minimal-Example.cfg
+#.minimal_script: &minimal_script
+#  script:
+#    - source setup/setupAnalysis.sh
+#    - mkdir run
+#    - cd run
+#    - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
+#    - initialize.py minimal/config/master/initialize-Minimal-Example.cfg --options lineUpdates=false consoleWidth=160
+#    - analyze.py minimal/config/master/analyze-Minimal-Example.cfg --options lineUpdates=false consoleWidth=160
+#    - visualize.py minimal/config/master/visualize-Minimal-Example.cfg
 
-.flatNTuple_script: &flatNTuple_script
-  script:
-    - source setup/setupAnalysis.sh
-    - mkdir run
-    - cd run
-    - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
-    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg --options lineUpdates=false consoleWidth=160
-    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg --options lineUpdates=false consoleWidth=160
-    - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
+#.flatNTuple_script: &flatNTuple_script
+#  script:
+#    - source setup/setupAnalysis.sh
+#    - mkdir run
+#    - cd run
+#    - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
+#    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg --options lineUpdates=false consoleWidth=160
+#    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg --options lineUpdates=false consoleWidth=160
+#    - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
 
-.xAOD_script: &xAOD_script
-  script:
-    - source setup/setupAnalysis.sh
-    - mkdir run
-    - cd run
-    - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
-    - initialize.py xAOD/config/master/initialize-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160
-    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160
-    - visualize.py xAOD/config/master/visualize-xAOD-Example.cfg
+#.xAOD_script: &xAOD_script
+#  script:
+#    - source setup/setupAnalysis.sh
+#    - mkdir run
+#    - cd run
+#    - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
+#    - initialize.py xAOD/config/master/initialize-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160
+#    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160
+#    - visualize.py xAOD/config/master/visualize-xAOD-Example.cfg
 
 ##########################################################################
 # job definitions
@@ -109,47 +109,47 @@ standalone_compile:
 ##########################################################################
 # stage: run
 
-run_minimal:
-  <<: *asg
-  <<: *asg_setup
-  <<: *minimal_script
-  stage: run
-  dependencies:
-    - asg_compile
-  artifacts:
-    paths:
-      - run/sampleFolders
-      - run/results
-    name: "${CI_JOB_NAME}"
-    expire_in: 3 mos
+#run_minimal:
+#  <<: *asg
+#  <<: *asg_setup
+#  <<: *minimal_script
+#  stage: run
+#  dependencies:
+#    - asg_compile
+#  artifacts:
+#    paths:
+#      - run/sampleFolders
+#      - run/results
+#    name: "${CI_JOB_NAME}"
+#    expire_in: 3 mos
 
-run_flatNTuple:
-  <<: *asg
-  <<: *asg_setup
-  <<: *flatNTuple_script
-  stage: run
-  dependencies:
-    - asg_compile
-  artifacts:
-    paths:
-      - run/sampleFolders
-      - run/results
-    name: "${CI_JOB_NAME}"
-    expire_in: 3 mos
+#run_flatNTuple:
+#  <<: *asg
+#  <<: *asg_setup
+#  <<: *flatNTuple_script
+#  stage: run
+#  dependencies:
+#    - asg_compile
+#  artifacts:
+#    paths:
+#      - run/sampleFolders
+#      - run/results
+#    name: "${CI_JOB_NAME}"
+#    expire_in: 3 mos
 
-run_xAOD:
-  <<: *asg
-  <<: *asg_setup
-  <<: *xAOD_script
-  stage: run
-  dependencies:
-    - asg_compile
-  artifacts:
-    paths:
-      - run/sampleFolders
-      - run/results
-    name: "${CI_JOB_NAME}"
-    expire_in: 3 mos
+#run_xAOD:
+#  <<: *asg
+#  <<: *asg_setup
+#  <<: *xAOD_script
+#  stage: run
+#  dependencies:
+#    - asg_compile
+#  artifacts:
+#    paths:
+#      - run/sampleFolders
+#      - run/results
+#    name: "${CI_JOB_NAME}"
+#    expire_in: 3 mos
 
 ##########################################################################
 # stage: test

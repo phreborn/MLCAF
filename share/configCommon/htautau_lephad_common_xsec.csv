@@ -1,0 +1,238 @@
+SampleID,       process,                        xsectioninpb,           kfactor,        filtefficiency, xsecunc,        generator
+
+410000,         PoPy_P2012_ttb_nonallh,         696.11,                 1.1949,         0.543,          1.,             PowhegPythiaEvtGen
+410011,         PoPy_P2012_st_tchan_lept_top,   43.739,                 1.0094,         1.0,            1.,             PowhegPythiaEvtGen
+410012,         PoPy_P2012_st_tchan_lept_atop,  25.778,                 1.0193,         1.0,            1.,             PowhegPythiaEvtGen
+410013,         PoPy_P2012_Wt_incl_top,         34.009,                 1.0540,         1.0,            1.,             PowhegPythiaEvtGen
+410014,         PoPy_P2012_Wt_incl_atop,        33.989,                 1.0540,         1.0,            1.,             PowhegPythiaEvtGen
+410015,         PoPy_P2012_Wt_dilepton_top,     3.5835,                 1.0540,         1.0,            1.,             PowhegPythiaEvtGen
+410016,         PoPy_P2012_Wt_dilepton_atop,    3.5813,                 1.0540,         1.0,            1.,             PowhegPythiaEvtGen
+410025,         PoPy_P12_STSchan_noAllHad_top,  2.0514,                 1.0048,         1.0,            1.,             PowhegPythiaEvtGen
+410026,         PoPy_P12_STSchan_noAllHad_atop, 1.2615,                 1.0215,         1.0,            1.,             PowhegPythiaEvtGen
+
+410470,         PhPy8EG_A14_ttb_nonallh,        729.77,                 1.1398,         0.5438,         1.,             PowhegPythia8
+410471,         PhPy8EG_A14_ttb_allh,           729.77,                 1.1397,         0.4562,         1.,             PowhegPythia8
+410472,         PhPy8EG_A14_ttb_allh,           729.77,                 1.1398,         0.1055,         1.,             PowhegPythia8
+
+361106,         Zee,                            1901.10,                1.0,            1.0,            1.,             PowhegPythiaEvtGen
+361107,         Zmumu,                          1901.10,                1.0,            1.0,            1.,             PowhegPythiaEvtGen
+361108,         Ztautau,                        1901.10,                1.0,            1.0,            1.,             PowhegPythiaEvtGen
+
+
+####################
+##
+##  SIGNAL
+##
+####################
+342300,         ggH125W02_ttlh,                 1.0,    1.0,    0.45599,        1.,              PowhegPythiaEvtGen
+#30.217 -> this is AMI xsec
+
+342310,         ggH300W2_ttlh,                  1.0,    1.0,    0.45501,        1.,             PowhegPythiaEvtGen
+#6.6586
+
+342320,         ggH700W20_ttlh,                 1.0,    1.0,    0.45387,        1.,             PowhegPythiaEvtGen
+#0.64931
+
+342326,     ggH1000W30_ttlh,        1.0,    1.0,    0.45636,    1.,     PoPy8
+#0.093729
+
+342332,     ggH1300W50_ttlh,        1.0,    1.0,    0.45206,    1.,     PowhegPythiaEvtGen
+#0.016856
+
+342334,     ggH1400W50_ttlh,        1.0,    1.0,    0.45906,    1.,     PowhegPythiaEvtGen
+#0.010001
+
+342336,     ggH1500W60_ttlh,        1.0,    1.0,    0.45371,    1.,     PowhegPythiaEvtGen
+#0.0061076
+
+345295,     ggH1750W70_ttlh,        1.0,    1.0,    0.45514,    1.,     PowhegPythiaEvtGen
+#0.0018686
+
+345297,     ggH2000W80_ttlh,        1.0,    1.0,    0.45723,    1.,     PowhegPythiaEvtGen
+#0.00077934
+
+345299,     ggH2250W90_ttlh,        1.0,    1.0,    0.45798 ,   1.,     PowhegPythiaEvtGen
+#0.00031156
+
+345301,     ggH2500W100_ttlh,       1.0,    1.0,    0.45284 ,   1.,     PowhegPythiaEvtGen
+#0.00013222
+
+
+
+
+
+341856,     bbH125_yb2_ttlh,    1.0,    1.0,    0.45293,    1.,     aMCNloPy8
+#0.42571
+
+341857,     bbH150_yb2_ttlh,    1.0,    1.0,    0.45223,    1.,     aMCNloPy8
+#0.23293
+
+### why this new 150GeV sample??? and why AMI xsec negative???
+#345302,    bbH150_ybyt_ttlh,   1.0,    1.0,    0.45607,    1.,     aMCNloPy8
+# -0.016315
+
+341858,     bbH200_yb2_ttlh,    1.0,    1.0,    0.45212,    1.,     aMCNloPy8
+#0.084724
+
+### why this new 200GeV sample??? and why AMI xsec negative???
+#341925     bbH200_ybyt_ttlh,   1.0,    1.0,    0.45366,    1.,
+# -0.0041985
+
+341859,     bbH250_yb2_ttlh,    1.0,    1.0,    0.45552,    1.,     aMCNloPy8
+#0.036296
+
+341860,     bbH300_yb2_ttlh,    1.0,    1.0,    0.45505,    1.,     aMCNloPy8
+#0.01776
+
+341863,     bbH500_yb2_ttlh,    1.0,    1.0,    0.45591,    1.,     aMCNloPy8
+#0.0019704
+
+341864,     bbH600_yb2_ttlh,    1.0,    1.0,    0.45352,    1.,     aMCNloPy8
+#0.00082831
+
+341868,    bbH1000_yb2_ttlh,    1.0,    1.0,    0.45352,    1.,     aMCNloPy8
+#
+
+341873,     bbH1500_yb2_ttlh,   1.0,    1.0,    0.45317,    1.,     aMCNloPy8
+#5.1018e-06
+
+345287,     bbH1750_yb2_ttlh,   1.0,    1.0,    0.44848,    1.,     aMCNloPy8
+#1.8495e-06
+
+345289,     bbH2000_yb2_ttlh,   1.0,    1.0,    0.45725,    1.,     aMCNloPy8
+# 7.1731e-07
+
+345291,     bbH2250_yb2_ttlh,   1.0,    1.0 0.45671,    1.,     aMCNloPy8
+# 2.9334e-07
+
+345293,     bbH2500_yb2_ttlh,   1.0,    1.0 0.44701,    1.,     aMCNloPy8
+# 1.3219e-07
+
+###########################################
+##      DIBOSON          SHERPA          ##
+###########################################
+363355,         ZqqZvv,                  15.567,          1.0,            0.2797,     1.,     Sh221_PDF30
+363356,         ZqqZll,                  15.561,          1.0,            0.14089,    1.,     Sh221_PDF30
+363357,         WqqZvv,                  6.7874,          1.0,            1.,         1.,     Sh221_PDF30
+363358,         WqqZll,                  3.433,           1.0,            1.,         1.,     Sh221_PDF30
+363359,         WpqqWmlv,                24.71,           1.0,            1.,         1.,     Sh221_PDF30
+363360,         WplvWmqq,                24.725,          1.0,            1.,         1.,     Sh221_PDF30
+363489,         WlvZqq,                  11.42,           1.0,            1.,         1.,     Sh221_PDF30
+
+364250,         llll,                   1.2519,         1.0,            1.,         1.,     Sh_222_PDF30
+364253,         lllv,                   4.5768,         1.0,            1.,         1.,     Sh_222_PDF30
+364254,         llvv,                   12.5,           1.0,            1.,         1.,     Sh_222_PDF30
+364255,         lvvv,                   3.2327,         1.0,            1.,         1.,     Sh_222_PDF30
+
+
+###########################################
+##      W+jets SHERPA 221 PT SLICES      ##
+###########################################
+#cross section: OK
+#efficiency: OK
+364156,         Sh221_PDF30_Wmunu_MHPT0_70_CVetoBVeto,          15317.599,      1.0,    1.0,    1.,     Sherpa
+364157,         Sh221_PDF30_Wmunu_MHPT0_70_CFiltBVet,           2430.6469,      1.0,    1.0,    1.,     Sherpa
+364158,         Sh221_PDF30_Wmunu_MHPT0_70_BFilter,             828.00726,      1.0,    1.0,    1.,     Sherpa
+364159,         Sh221_PDF30_Wmunu_MHPT70_140_CVetoBVeto,        616.45484,      1.0,    1.0,    1.,     Sherpa
+364160,         Sh221_PDF30_Wmunu_MHPT70_140_CFiltBVet,         225.59312,      1.0,    1.0,    1.,     Sherpa
+364161,         Sh221_PDF30_Wmunu_MHPT70_140_BFilter,           76.090421,      1.0,    1.0,    1.,     Sherpa
+364162,         Sh221_PDF30_Wmunu_MHPT140_280_CVetoBVeto,       198.70992,      1.0,    1.0,    1.,     Sherpa
+364163,         Sh221_PDF30_Wmunu_MHPT140_280_CFiltBVet,        96.225235,      1.0,    1.0,    1.,     Sherpa
+364164,         Sh221_PDF30_Wmunu_MHPT140_280_BFilter,          36.346327,      1.0,    1.0,    1.,     Sherpa
+364165,         Sh221_PDF30_Wmunu_MHPT280_500_CVetoBVeto,       38.287025,      1.0,    1.0,    1.,     Sherpa
+364166,         Sh221_PDF30_Wmunu_MHPT280_500_CFiltBVet,        22.391374,      1.0,    1.0,    1.,     Sherpa
+364167,         Sh221_PDF30_Wmunu_MHPT280_500_BFilter,          8.672298,       1.0,    1.0,    1.,     Sherpa
+364168,         Sh221_PDF30_Wmunu_MHPT500_1000,                 14.559791,      1.0,    1.0,    1.,     Sherpa
+364169,         Sh221_PDF30_Wmunu_MHPT1000_E_CMS,               1.1981,         1.0,    1.0,    1.,     Sherpa
+364170,         Sh221_PDF30_Wenu_MHPT0_70_CVetoBVeto,           15323.416,      1.0,    1.0,    1.,     Sherpa
+364171,         Sh221_PDF30_Wenu_MHPT0_70_CFiltBVet,            2430.9690,      1.0,    1.0,    1.,     Sherpa
+364172,         Sh221_PDF30_Wenu_MHPT0_70_BFilter,              832.53798,      1.0,    1.0,    1.,     Sherpa
+364173,         Sh221_PDF30_Wenu_MHPT70_140_CVetoBVeto,         618.5219,       1.0,    1.0,    1.,     Sherpa
+364174,         Sh221_PDF30_Wenu_MHPT70_140_CFiltBVet,          223.63946,      1.0,    1.0,    1.,     Sherpa
+364175,         Sh221_PDF30_Wenu_MHPT70_140_BFilter,            94.862492,      1.0,    1.0,    1.,     Sherpa
+364176,         Sh221_PDF30_Wenu_MHPT140_280_CVetoBVeto,        197.34486,      1.0,    1.0,    1.,     Sherpa
+364177,         Sh221_PDF30_Wenu_MHPT140_280_CFiltBVet,         96.255919,      1.0,    1.0,    1.,     Sherpa
+364178,         Sh221_PDF30_Wenu_MHPT140_280_BFilter,           35.914123,      1.0,    1.0,    1.,     Sherpa
+364179,         Sh221_PDF30_Wenu_MHPT280_500_CVetoBVeto,        38.334377,      1.0,    1.0,    1.,     Sherpa
+364180,         Sh221_PDF30_Wenu_MHPT280_500_CFiltBVet,         22.36999,       1.0,    1.0,    1.,     Sherpa
+364181,         Sh221_PDF30_Wenu_MHPT280_500_BFilter,           9.587542,       1.0,    1.0,    1.,     Sherpa
+364182,         Sh221_PDF30_Wenu_MHPT500_1000,                  14.598599,      1.0,    1.0,    1.,     Sherpa
+364183,         Sh221_PDF30_Wenu_MHPT1000_E_CMS,                1.197421,       1.0,    1.0,    1.,     Sherpa
+364184,         Sh221_PDF30_Wtaunu_MHPT0_70_CVetoBVeto,         15326.245,      1.0,    1.0,    1.,     Sherpa
+364185,         Sh221_PDF30_Wtaunu_MHPT0_70_CFiltBVet,          2444.3548,      1.0,    1.0,    1.,     Sherpa
+364186,         Sh221_PDF30_Wtaunu_MHPT0_70_BFilter,            836.78684,      1.0,    1.0,    1.,     Sherpa
+364187,         Sh221_PDF30_Wtaunu_MHPT70_140_CVetoBVeto,       620.16689,      1.0,    1.0,    1.,     Sherpa
+364188,         Sh221_PDF30_Wtaunu_MHPT70_140_CFiltBVet,        222.64097,      1.0,    1.0,    1.,     Sherpa
+364189,         Sh221_PDF30_Wtaunu_MHPT70_140_BFilter,          95.365521,      1.0,    1.0,    1.,     Sherpa
+364190,         Sh221_PDF30_Wtaunu_MHPT140_280_CVetoBVeto,      197.36670,      1.0,    1.0,    1.,     Sherpa
+364191,         Sh221_PDF30_Wtaunu_MHPT140_280_CFiltBVet,       93.808553,      1.0,    1.0,    1.,     Sherpa
+364192,         Sh221_PDF30_Wtaunu_MHPT140_280_BFilter,         34.25517,       1.0,    1.0,    1.,     Sherpa
+364193,         Sh221_PDF30_Wtaunu_MHPT280_500_CVetoBVeto,      38.34009,       1.0,    1.0,    1.,     Sherpa
+364194,         Sh221_PDF30_Wtaunu_MHPT280_500_CFiltBVet,       22.270132,      1.0,    1.0,    1.,     Sherpa
+364195,         Sh221_PDF30_Wtaunu_MHPT280_500_BFilter,         9.490754,       1.0,    1.0,    1.,     Sherpa
+364196,         Sh221_PDF30_Wtaunu_MHPT500_1000,                14.60248,       1.0,    1.0,    1.,     Sherpa
+364197,         Sh221_PDF30_Wtaunu_MHPT1000_E_CMS,              1.197227,       1.0,    1.0,    1.,     Sherpa
+
+
+###########################################
+##      Z+jets MASSIVE POWHEGPYTHIA8     ##
+###########################################
+#cross section: OK
+#efficiency: OK
+301000,         DYee_120M180,                17.477,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301001,         DYee_180M250,                2.9215,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301002,         DYee_250M400,                1.0819,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301003,         DYee_400M600,                0.19551,           1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301004,         DYee_600M800,                0.037403,          1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301005,         DYee_800M1000,               0.010607,          1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301006,         DYee_1000M1250,              0.0042585,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301007,         DYee_1250M1500,              0.001422,          1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301008,         DYee_1500M1750,              0.00054521,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301009,         DYee_1750M2000,              0.00022991,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301010,         DYee_2000M2250,              0.00010387,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301011,         DYee_2250M2500,              0.0000494,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301012,         DYee_2500M2750,              0.000024452,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301013,         DYee_2750M3000,              0.000012487,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301014,         DYee_3000M3500,              0.000010029,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301015,         DYee_3500M4000,              0.0000029342,      1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301016,         DYee_4000M4500,              0.00000089764,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301017,         DYee_4500M5000,              0.00000028071,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301018,         DYee_5000M,                  0.00000012649,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301020,         DYmumu_120M180,              17.477,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301021,         DYmumu_180M250,              2.9215,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301022,         DYmumu_250M400,              1.0819,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301023,         DYmumu_400M600,              0.1955,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301024,         DYmumu_600M800,              0.037401,          1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301025,         DYmumu_800M1000,             0.010607,          1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301026,         DYmumu_1000M1250,            0.0042582,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301027,         DYmumu_1250M1500,            0.0014219,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301028,         DYmumu_1500M1750,            0.00054521,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301029,         DYmumu_1750M2000,            0.00022991,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301030,         DYmumu_2000M2250,            0.00010387,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301031,         DYmumu_2250M2500,            0.0000494,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301032,         DYmumu_2500M2750,            0.000024452,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301033,         DYmumu_2750M3000,            0.000012487,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301034,         DYmumu_3000M3500,            0.000010027,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301035,         DYmumu_3500M4000,            0.0000029341,      1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301036,         DYmumu_4000M4500,            0.00000089759,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301037,         DYmumu_4500M5000,            0.00000028069,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301038,         DYmumu_5000M,                0.00000012643,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301040,         DYtautau_120M180,            17.476,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301041,         DYtautau_180M250,            2.9213,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301042,         DYtautau_250M400,            1.0819,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301043,         DYtautau_400M600,            0.1955,            1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301044,         DYtautau_600M800,            0.037401,          1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301045,         DYtautau_800M1000,           0.010607,          1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301046,         DYtautau_1000M1250,          0.0042582,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301047,         DYtautau_1250M1500,          0.0014219,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301048,         DYtautau_1500M1750,          0.00054521,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301049,         DYtautau_1750M2000,          0.00022991,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301050,         DYtautau_2000M2250,          0.00010387,        1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301051,         DYtautau_2250M2500,          0.0000494,         1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301052,         DYtautau_2500M2750,          0.000024453,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301053,         DYtautau_2750M3000,          0.000012488,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301054,         DYtautau_3000M3500,          0.000010028,       1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301055,         DYtautau_3500M4000,          0.0000029343,      1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301056,         DYtautau_4000M4500,          0.00000089765,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301057,         DYtautau_4500M5000,          0.00000028073,     1.0,    1.0,     1.,    PowhegPythiaEvtGen
+301058,         DYtautau_5000M,              0.00000012645,     1.0,    1.0,     1.,    PowhegPythiaEvtGen

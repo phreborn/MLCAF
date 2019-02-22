@@ -1,6 +1,0 @@
-.name="CutChannels",             .title="Channel Selection"
-.name="Cut2Leptons",            .title = "Only 2 Leptons"
-.name="CutLeadLeptonPt"
-.name="CutSubLeadLeptonPt"
-.name="CutOSLeptons"
-.name="CutMll"

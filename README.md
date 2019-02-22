@@ -1,9 +1,9 @@
-[![pipeline status](https://gitlab.cern.ch/atlas-caf/CAFExample/badges/master/pipeline.svg)](https://gitlab.cern.ch/atlas-caf/CAFExample/commits/master)
+[![pipeline status](https://gitlab.cern.ch/atlasHBSM/atlas-phys-higgs-mssm-htautau-btag/BSMtautauCAF/badges/master/pipeline.svg)](https://gitlab.cern.ch/atlasHBSM/atlas-phys-higgs-mssm-htautau-btag/BSMtautauCAF/commits/master)
 
-Example CAFCore Analysis
+BSMtautau CAFCore Analysis
 =========================
 
-This repository is meant as an example for how to construct an analysis using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework. In order to begin a new analysis, simply fork this project and modify the scripts and configs which are available here.
+This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.
 
 Cloning the project
 --------------------
@@ -11,8 +11,8 @@ Cloning the project
 ```bash
 setupATLAS
 lsetup git
-mkdir AnalysisExample
-cd AnalysisExample
+mkdir BSMtautauCAF
+cd BSMtautauCAF
 
 # There are a few different protocol options for cloning the project, which are all provided at the top of the main page of the repository.
 # Kerberos is typically recommended if it is available (e.g. lxplus) since it does not require a username or password when interacting with remote repositories.
@@ -20,11 +20,11 @@ cd AnalysisExample
 # https is usually the most robust, but always requres a username and password
 
 # Kerberos
-git clone --recursive https://:@gitlab.cern.ch:8443/atlas-caf/CAFExample.git
+git clone --recursive https://:@gitlab.cern.ch:8443/${USER}/BSMtautauCAF.git
 # ssh
-#git clone --recursive ssh://git@gitlab.cern.ch:7999/atlas-caf/CAFExample.git
+#git clone --recursive ssh://git@gitlab.cern.ch:7999/${USER}/BSMtautauCAF.git
 # https
-#git clone --recursive https://gitlab.cern.ch/atlas-caf/CAFExample.git
+#git clone --recursive https://gitlab.cern.ch/${USER}/BSMtautauCAF.git
 ```
 
 Building the project
@@ -34,65 +34,9 @@ Building the project
 mkdir build run
 cd build
 asetup AnalysisBase,21.2.34
-cmake ../CAFExample
-source ../CAFExample/setup/setupAnalysis.sh
+cmake ../BSMtautauCAF
+source ../BSMtautauCAF/setup/setupAnalysis.sh
 make -j4
-```
-
-Running a minimal example
--------------------------
-
-The following commands will reproduce (in seconds) a minimal example, showcasing the least amount of configuration necessary to produce results by taking a VBF signal MC sample and passing it through a single cut on Mjj while producing one histogram.
-
-```bash
-cd ../CAFExample/share
-./prepare.py minimal/config/master/prepare-Minimal-Example.cfg
-./initialize.py minimal/config/master/initialize-Minimal-Example.cfg
-./analyze.py minimal/config/master/analyze-Minimal-Example.cfg
-./visualize.py minimal/config/master/visualize-Minimal-Example.cfg
-```
-
-Running an example analysis on flat nTuples
--------------------------------------------
-
-The following commands will (very quickly) run over a selection of flat nTuples to reproduce the cutflow and some visualized results for a Zjets Fake Factor analysis. It is not meant to describe the bare minimum configuration needed for producing results (that's what the minimal example above is for).
-Similarly, a full-blown analysis is likely to include a host of custom observables which are calculated on-the-fly during runtime and for many more events (all quantities in this case have been pre-computed).
-Rather, it is simply meant to showcase how fast results can be obtained once the uninteresting events have been skimmed away and the necessary quantities are already available directly in the TTree.
-
-```bash
-cd ../CAFExample/share
-./prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
-./initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg
-./analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg
-./visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
-```
-
-Running an example analysis on xAOD inputs
-------------------------------------------
-
-The following commands will (on order of minutes) run over a selection of xAOD inputs to reproduce the same Zjets Fake Factor analysis as in the flat nTuple example above. A couple of important differences exist between the two variants. First, while the xAODs have been skimmed to cut down on runtime, their events haven't been removed quite as aggressively as in the flat nTuple case - there are still about an order of magnitude more. Secondly, the xAOD analysis showcases in addition the use of a number of custom observables to calculate quantities for on-the-fly use, which again contributes to a slightly longer runtime.
-
-```bash
-cd ../CAFExample/share
-./prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
-./initialize.py xAOD/config/master/initialize-xAOD-Example.cfg
-./analyze.py xAOD/config/master/analyze-xAOD-Example.cfg
-./visualize.py xAOD/config/master/visualize-xAOD-Example.cfg
-```
-
-Running from an arbitrary location
-----------------------------------
-
-Alternatively, each of the analysis scripts above can also be run from an arbitrary directory. The master config files still have to be specified relative to the share folder, although they can be discovered via tab completion:
-
-e.g.
-
-```bash
-cd run/or/any/other/location/
-prepare.py flatNTuple/config/master/prepare-ZjetsFF-Example.cfg
-initialize.py flatNTuple/config/master/initialize-ZjetsFF-Example.cfg
-analyze.py flatNTuple/config/master/analyze-ZjetsFF-Example.cfg
-visualize.py flatNTuple/config/master/visualize-ZjetsFF-Example.cfg
 ```
 
 On Every Login
@@ -105,5 +49,129 @@ setupATLAS
 lsetup git
 cd build
 asetup --restore
-source ../CAFExample/setup/setupAnalysis.sh
+source ../BSMtautauCAF/setup/setupAnalysis.sh
 ```
+
+Running the analysis
+--------------------
+
+```bash
+cd ../BSMtautauCAF/share
+
+# First update the 'dataPaths' and 'mcPaths' in configCommon/htautau_lephad_common_*_input.cfg relevent for your setup
+# (don't let them be too long or you could see errors)
+
+# Lepton Fake Region
+# Prepare and initialize your samples
+source configLeptonFakeRegion/scriptPrepareInitialize.sh
+# Submit the full analysis to a cluster
+source configLeptonFakeRegion/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.root -t analyze batchOutput/unmerged_LFR_*/*.root
+# Visualize plots
+source configLeptonFakeRegion/scriptVisualize.sh
+# Calculate lepton fake factors
+python scripts/calculateFakeFactor.py LFR
+
+# W+jets Fake Region
+# Prepare and initialize your samples
+source configWjetsFakeRegion/scriptPrepareInitialize.sh
+# Submit the full analysis to a cluster
+source configWjetsFakeRegion/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.root -t analyze batchOutput/unmerged_WFR_*/*.root
+# Visualize plots          
+source configWjetsFakeRegion/scriptVisualize.sh
+# Calculate W+jets fake factors
+python scripts/calculateFakeFactor.py WFR
+```
+```
+SR, VR, TCR, WCR, SSWCR, these regions go into one input/output file because they all use both lepton and tau FFs,
+and therefore have similar strucuture:
+
+#to makeSampleFile do
+$ sh ConfigSignalRegion/scriptMakeSampleFile.sh
+#to run the event loop do
+$ sh ConfigSignalRegion/scriptSubmit.sh
+#after all jobs finished, merge
+$ tqmerge -o output/htautau_lephad_sr/nominal_full.root -t runAnalysis -Sum output/unmerged_SignalRegionNominalR21/*
+#to make plots run this script, which makes plots for all regions
+$ sh ConfigSignalRegion/scriptReadAnalysis.sh
+```
+
+    ### NOT REVISED FOR R21
+    # to run systematics do
+    python submit_systematics.py
+    # to make a systematics root file for plotting do
+    python temp_systematics_code.py
+
+
+TODO: 2015-16-17 fake factors:
+    - update isoReweight.cxx and ptReweight.cxx to use appropriate year fake factors;
+    - I only checked W+jets ffs and it looks that all years can be merged;
+    - Need to check lepton ffs;
+
+
+TODO: merging mc16a and mc16c samples:
+    - easiest is to run makeSampleFile.py twice for two MC projects and do tqmerge;
+    - problem arise when merging /data folders; only the first input file will be used;
+    - pseudo-solution do both makeSampleFile.py with full data, in that case full data from the first input file is used;
+        -- problem when copying /data folder for data-driven fake background; full data copied for mc16a and mc16c samples,
+                but only appropriate years are required;
+        ---- proposed solution - figure out how to merge /data folders at the first step.
+
+
+
+TODO: Decide how to calculate FF:
+    - proposed function in the calculateFakeFactor.py script works well;
+        -- calcJetFakeFactorFinal(identifier, dataPath, bkgPath, nominator, denominator, histogram, channel, region, uncertainty)
+        ---- make cosmetic improvements for FF plots.
+
+
+IMPORTANT: systematics are submited with different options via command line:
+    - every systematic produce a separate output file;
+        -- this is mainly due to the requirement of having separate input files for reading different systematic trees in the ntuples,
+                so why not doing the same for all systematics;
+    - When running runAnalysis.py with sys, tell it what to do with command line options, e.g.
+        $ python runAnalysis.py ConfigSignalRegion/htautau-lephad-sr.cfg --options fakevar:FakeShape_WjetsSysDo outputFile:output/htautau_lephad_sr/FakeShape_WjetsSysDo_wjets.root
+    - that way 1 syst = 1 job and 1 root file.
+
+
+
+IMPORTANT: Top samples with dilepton filter contains more statistics because we use truth matching anyway.
+        Be careful to use allhad/nonallhad top samples for QCD regions.
+
+
+
+IMPORTANT: in processes style files can do, e.g. [Zee+Zll] to add folders, [Zee-Zll] to subtract folders, 50*Zee to scale.
+
+
+####################
+### WCR stuff:
+####################
+
+In WCR the sample folder structure is made that truth labels are separate and there are lephad, muhad and ehad channels which are
+executed separately so in config file under runAnalysis.channel write which ones to run over. This takes more time but is more flexible
+and requires less hardcoding in cuts and histos config files.
+
+## for nominal plotting, cutflow, study use:
+    # config:
+    config/htautau_lephad_wfr.cfg
+
+    because we want to plot all truth labels but they are not needed for ff calculation,
+    so we save time and make things more clear.
+
+## for ff measurement:
+    # config:
+    config/htautau_lephad_wfr_ff.cfg
+
+    this is only to make Pt histos with proper binning and Pass and Fail cuts.
+
+## for applying ff to wcr:
+    # config:
+    config/htautau_lephad_wfr_applyff.cfg
+
+    atm this doesn't include QCD, but studies could be made to show that QCD changes nothing to ff,
+    or at least not significantly.
+
+

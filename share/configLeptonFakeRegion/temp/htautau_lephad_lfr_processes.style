@@ -1,0 +1,14 @@
+# -*- mode:tqfolder -*-
+.name="Data",                   .path="/data/$(channel)/[data15*+data16*+data17*]",           .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+#.name="QCDFake", 		.path="/[mc16a+mc16c]/$(channel)/Fake/data/[data15*+data16*+data17*]+/[mc16a+mc16c]/$(channel)/Fake/mc", 	.isBackground=true, 	histFillColor = kGray+1,	histFillStyle=1001, 	title = "QCDFake"
+################################################
+##
+##      Use this for inclusive
+##
+##################################################
+
+.name="W+jets",                 .path="/[mc16a+mc16c]/$(channel)/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
+.name="Top",                    .path="/[mc16a+mc16c]/$(channel)/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
+.name="Z\rightarrow \tau\tau",  .path="/[mc16a+mc16c]/$(channel)/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
+.name="DiBoson",                .path="/[mc16a+mc16c]/$(channel)/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
+.name="Z\rightarrow ll",        .path="/[mc16a+mc16c]/$(channel)/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false

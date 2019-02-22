@@ -1,9 +1,9 @@
 #########################################################################################################
-# Package: CAFExample## #################################################################################
+# Package: BSMtautauCAF## #################################################################################
 cmake_minimum_required( VERSION 2.8.12 )
 
 # Declare the package name:
-project( CAFExample )
+project( BSMtautauCAF )
 
 # check if this is the top-level CMakeLists.txt
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
@@ -19,19 +19,19 @@ find_package( AnalysisBase QUIET)
 find_package( ROOT COMPONENTS Core Matrix RooFitCore Minuit2)
 
 # set some variables for easier handling
-set(CAFExampleLinkDef ${PROJECT_SOURCE_DIR}/Root/LinkDef.h)
-file(GLOB CAFExamplePython python/*.py) #note: this does not include __init__.py since it's not generated yet!
-list(APPEND CAFExamplePython ${PROJECT_SOURCE_DIR}/python/__init__.py)
-file(GLOB CAFExampleTests test/*.py)
+set(BSMtautauCAFLinkDef ${PROJECT_SOURCE_DIR}/Root/LinkDef.h)
+file(GLOB BSMtautauCAFPython python/*.py) #note: this does not include __init__.py since it's not generated yet!
+list(APPEND BSMtautauCAFPython ${PROJECT_SOURCE_DIR}/python/__init__.py)
+file(GLOB BSMtautauCAFTests test/*.py)
 
 IF(${AnalysisBase_FOUND})
   # this is ASG compilation, we don't need to do anything
-  file(GLOB CAFExampleSources Root/*.cxx)
-  file(GLOB CAFExampleHeaders CAFExample/*.h)
+  file(GLOB BSMtautauCAFSources Root/*.cxx)
+  file(GLOB BSMtautauCAFHeaders BSMtautauCAF/*.h)
 
   # generate the LinkDef.h 
   execute_process(
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname BSMtautauCAF --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${BSMtautauCAFLinkDef} --headers ${BSMtautauCAFHeaders}
     )
 
   # write a setup script
@@ -40,7 +40,7 @@ IF(${AnalysisBase_FOUND})
   # Set up the usage of CTest:
   IF(NOT ${HAS_PARENT})
     atlas_ctest_setup() # Set up the project: 
-    atlas_project( CAFExample 1.0.0 
+    atlas_project( BSMtautauCAF 1.0.0 
       USE AnalysisBase ${AnalysisBase_VERSION} ) 
     
     # Generate an environment setup script: 
@@ -53,18 +53,18 @@ IF(${AnalysisBase_FOUND})
   ENDIF()
     
   # register this as a package to ASG
-  atlas_subdir( CAFExample )
+  atlas_subdir( BSMtautauCAF )
 
   # use the standard ROOT method of dictionary generation
-  atlas_add_root_dictionary( CAFExample CAFExampleCintDict
-    ROOT_HEADERS ${CAFExampleHeaders} ${CAFExampleLinkDef}
+  atlas_add_root_dictionary( BSMtautauCAF BSMtautauCAFCintDict
+    ROOT_HEADERS ${BSMtautauCAFHeaders} ${BSMtautauCAFLinkDef}
     EXTERNAL_PACKAGES ROOT
     )
   
   # put everything together to make CMake compile your library
-  atlas_add_library( CAFExample
-    ${CAFExampleHeaders} ${CAFExampleSources} ${CAFExampleCintDict}
-    PUBLIC_HEADERS CAFExample
+  atlas_add_library( BSMtautauCAF
+    ${BSMtautauCAFHeaders} ${BSMtautauCAFSources} ${BSMtautauCAFCintDict}
+    PUBLIC_HEADERS BSMtautauCAF
     PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} 
     LINK_LIBRARIES QFramework CAFxAODUtils PileupReweightingLib MCTruthClassifierLib
     # here go all the libraries corresonding to the packages that you depend on
@@ -75,10 +75,10 @@ IF(${AnalysisBase_FOUND})
   atlas_install_python_modules( python/*.py )
 
   # check if we have any test cases
-  if(CAFExampleTests)   
+  if(BSMtautauCAFTests)   
     # register your test cases from the "test" folder
     find_package(PythonInterp REQUIRED)
-    foreach(TestScript ${CAFExampleTests})
+    foreach(TestScript ${BSMtautauCAFTests})
       get_filename_component(TestName ${TestScript} NAME_WE)
       atlas_add_test( ${TestName} SCRIPT ${TestScript} )
     endforeach()
@@ -89,19 +89,19 @@ IF(${AnalysisBase_FOUND})
   atlas_cpack_setup()
 else()
   # this is standalone compilation, we need to stitch together the project
-  message( "compiling CAFExample in standalone mode" )
+  message( "compiling BSMtautauCAF in standalone mode" )
   set(WITHOUT_ASG ON )
 
-  file(GLOB CAFExampleSourcesAll Root/*.cxx )
-  file(GLOB CAFExampleHeadersAll CAFExample/*.h )
-  execute_process(COMMAND grep -L xAOD ${CAFExampleSourcesAll} OUTPUT_VARIABLE CAFExampleSourcesTMP )
-  execute_process(COMMAND grep -L xAOD ${CAFExampleHeadersAll} OUTPUT_VARIABLE CAFExampleHeadersTMP )
-  string(REGEX REPLACE "[ \r\n]+" ";" CAFExampleSources ${CAFExampleSourcesTMP})
-  string(REGEX REPLACE "[ \r\n]+" ";" CAFExampleHeaders ${CAFExampleHeadersTMP})
+  file(GLOB BSMtautauCAFSourcesAll Root/*.cxx )
+  file(GLOB BSMtautauCAFHeadersAll BSMtautauCAF/*.h )
+  execute_process(COMMAND grep -L xAOD ${BSMtautauCAFSourcesAll} OUTPUT_VARIABLE BSMtautauCAFSourcesTMP )
+  execute_process(COMMAND grep -L xAOD ${BSMtautauCAFHeadersAll} OUTPUT_VARIABLE BSMtautauCAFHeadersTMP )
+  string(REGEX REPLACE "[ \r\n]+" ";" BSMtautauCAFSources ${BSMtautauCAFSourcesTMP})
+  string(REGEX REPLACE "[ \r\n]+" ";" BSMtautauCAFHeaders ${BSMtautauCAFHeadersTMP})
 
   # generate the LinkDef.h 
   execute_process(
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname BSMtautauCAF --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${BSMtautauCAFLinkDef} --headers ${BSMtautauCAFHeaders}
     )
 
   # set general CMake settings
@@ -112,10 +112,10 @@ else()
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
-  set(CAFExamplePythonDir ${CMAKE_CURRENT_BINARY_DIR}/CAFExample)
-  execute_process(COMMAND mkdir -p ${CAFExamplePythonDir})
-  foreach(module ${CAFExamplePython})
-    execute_process(COMMAND ln -sf ${module} ${CAFExamplePythonDir})
+  set(BSMtautauCAFPythonDir ${CMAKE_CURRENT_BINARY_DIR}/BSMtautauCAF)
+  execute_process(COMMAND mkdir -p ${BSMtautauCAFPythonDir})
+  foreach(module ${BSMtautauCAFPython})
+    execute_process(COMMAND ln -sf ${module} ${BSMtautauCAFPythonDir})
   endforeach()
 
   # write a setup script
@@ -129,13 +129,13 @@ else()
 
   # generate the dictionary source code
   include(${ROOT_USE_FILE})
-  ROOT_GENERATE_DICTIONARY(G__CAFExample ${CAFExampleHeaders} LINKDEF ${CAFExampleLinkDef})
+  ROOT_GENERATE_DICTIONARY(G__BSMtautauCAF ${BSMtautauCAFHeaders} LINKDEF ${BSMtautauCAFLinkDef})
 
   # register the shared object to include both sources and dictionaries
-  add_library( CAFExample SHARED ${CAFExampleSources} G__CAFExample.cxx)
+  add_library( BSMtautauCAF SHARED ${BSMtautauCAFSources} G__BSMtautauCAF.cxx)
 
   # link everything together at the end
-  target_link_libraries( CAFExample QFramework SFramework ${ROOT_LIBRARIES} )
+  target_link_libraries( BSMtautauCAF QFramework SFramework ${ROOT_LIBRARIES} )
 
   # require ROOT
   find_package( ROOT REQUIRED )

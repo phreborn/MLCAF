@@ -1,0 +1,24 @@
+# -*- mode:tqfolder -*-
+
+######################################################
+###
+###      Use this for Signal Region
+###
+########################################################
+.name="Data",                   .path="/data/$(channel)/[data17*]",            .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+
+.name="WjetsFake",                 .path="/mc16c/$(channel)/WJETSFakes/data/[data17*]-/mc16c/$(channel)/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]-/mc16c/$(channel)/WJETSFakes/QCD/data/[data17*] ",       .isBackground=true,     histFillColor = kGray,  histFillStyle=1001,     title = "WjetsFake", .includeSysError = syst
+
+### look at mc paths:
+### this subtracts all mc, including SherpaWjets, we might use it for mT N-1 plot where W peak is important;
+#.name="QCDFake",              .path="/mc16c/$(channel)/QCDFakes/data/[data17*] - /mc16c/$(channel)/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu+SherpaWjets]",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+### this subtracts mc without SherpaWjets, we might use it by default;
+.name="QCDFake",               .path="/mc16c/$(channel)/QCDFakes/data/[data17*] - /mc16c/$(channel)/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]",                  .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+### this does not subtract mc, we wight use it for btag regions;
+#.name="QCDFake",              .path="/mc16c/$(channel)/QCDFakes/data/[data17*]",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+
+#.name="W+jets",                 .path="/mc16c/$(channel)/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
+.name="Top",                    .path="/mc16c/$(channel)/[Top]",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false, .includeSysError = syst
+.name="Z\rightarrow \tau\tau",  .path="/mc16c/$(channel)/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false, .includeSysError = syst
+.name="DiBoson",                .path="/mc16c/$(channel)/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false, .includeSysError = syst
+.name="Z\rightarrow ll",        .path="/mc16c/$(channel)/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false, .includeSysError = syst

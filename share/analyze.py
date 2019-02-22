@@ -90,6 +90,10 @@ def main(config):
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
+    # BSMtautauCAF: get myLeptonFF from config
+    myLeptonFF = config.getTagStringDefault("myLeptonFF","mc")
+    samples.setTagString("myLeptonFF", myLeptonFF)
+
     # TODO: do we still want this option?
     # if requested, we initialize the samples from the input lists
     initlists = config.getTagVString("initializerLists")

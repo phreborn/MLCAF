@@ -1,0 +1,27 @@
+# -*- mode: tqfolder -*-
+
+<usemcweights=true> @ /mc16*;
+<isData=false> @/.;
+<isData=true> @/data ;
+
+<weightvariation="nominal"> @ /mc16*;
+<channel="muhad"> @ ?/muhad;
+<channel="ehad"> @ ?/ehad;
+
+<isInc=false> @/mc16*;
+
+<isWjets=false> @/.;
+<isWjets=true, isInc=true> @/mc16*/?/SherpaWjets;
+
+<isDib=false> @/.;
+<isDib=true, isInc=true> @/mc16*/?/Diboson;
+
+<isTop=false> @/.;
+<isTop=true, isInc=true> @/mc16*/?/Top;
+
+<isZtt=false> @/.;
+<isZtt=true, isInc=true> @/mc16*/?/Ztautau;
+
+<isZll=false> @/.;
+<isZll=true, isInc=true> @/mc16*/?/Zee;
+<isZll=true, isInc=true> @/mc16*/?/Zmumu;
