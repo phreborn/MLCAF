@@ -7,7 +7,12 @@ CONFIG="$2"
 JOBS="$3"
 IDENT="$4"
 
-submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT}_${DATE} --allowArgChanges --submit condor
+SUBMIT=""
+if [ "$USER" == "zorbas" ]; then
+   SUBMIT="--submit condor"
+fi
+
+submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT}_${DATE} --allowArgChanges ${SUBMIT}
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with
