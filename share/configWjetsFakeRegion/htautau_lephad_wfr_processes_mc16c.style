@@ -1,5 +1,3 @@
-# -*- mode:tqfolder -*-
-
 .name="Data",                   .path="/data/$(channel)/[data17*]",             .isData=true,           histLineColor=1,                histMarkerStyle = 8,    histMarkerSize = 0.6,   title = "Data", isHistogram = false
 .name="QCDFakes",               .path="/mc16c/$(channel)/Fake/[data/[data17*]+mc]",  .isBackground=true,     histFillColor = kGray+1,        histFillStyle=1001,     title = "QCDFakes"
 #.name="WjetsFake",              .path="/mc16c/$(channel)",                              .isBackground=true,     histFillColor = kGray,          histFillStyle=1001,     title = "WjetsFake"
