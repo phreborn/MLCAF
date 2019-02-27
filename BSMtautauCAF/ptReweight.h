@@ -33,95 +33,95 @@ protected:
 
   // nominal pt parametrization
   // 2015/16
-  TH1F * h_ff15_wcr_1p_0tag = 0;
-  TH1F * h_ff15_wcr_3p_0tag = 0;
-  TH1F * h_ff15_wcr_1p_0tag_up   = 0;
-  TH1F * h_ff15_wcr_3p_0tag_up   = 0;
-  TH1F * h_ff15_wcr_1p_0tag_down = 0;
-  TH1F * h_ff15_wcr_3p_0tag_down = 0;
+  TH1F * h_ff15_wfr_1p_0tag = 0;
+  TH1F * h_ff15_wfr_3p_0tag = 0;
+  TH1F * h_ff15_wfr_1p_0tag_up   = 0;
+  TH1F * h_ff15_wfr_3p_0tag_up   = 0;
+  TH1F * h_ff15_wfr_1p_0tag_down = 0;
+  TH1F * h_ff15_wfr_3p_0tag_down = 0;
 
-  TH1F * h_ff15_wcr_1p_1tag = 0;
-  TH1F * h_ff15_wcr_3p_1tag = 0;
-  TH1F * h_ff15_wcr_1p_1tag_up   = 0;
-  TH1F * h_ff15_wcr_3p_1tag_up   = 0;
-  TH1F * h_ff15_wcr_1p_1tag_down = 0;
-  TH1F * h_ff15_wcr_3p_1tag_down = 0;
+  TH1F * h_ff15_wfr_1p_1tag = 0;
+  TH1F * h_ff15_wfr_3p_1tag = 0;
+  TH1F * h_ff15_wfr_1p_1tag_up   = 0;
+  TH1F * h_ff15_wfr_3p_1tag_up   = 0;
+  TH1F * h_ff15_wfr_1p_1tag_down = 0;
+  TH1F * h_ff15_wfr_3p_1tag_down = 0;
 
   // 2017
-  TH1F * h_ff17_wcr_1p_0tag = 0;
-  TH1F * h_ff17_wcr_3p_0tag = 0;
-  TH1F * h_ff17_wcr_1p_0tag_up   = 0;
-  TH1F * h_ff17_wcr_3p_0tag_up   = 0;
-  TH1F * h_ff17_wcr_1p_0tag_down = 0;
-  TH1F * h_ff17_wcr_3p_0tag_down = 0;
+  TH1F * h_ff17_wfr_1p_0tag = 0;
+  TH1F * h_ff17_wfr_3p_0tag = 0;
+  TH1F * h_ff17_wfr_1p_0tag_up   = 0;
+  TH1F * h_ff17_wfr_3p_0tag_up   = 0;
+  TH1F * h_ff17_wfr_1p_0tag_down = 0;
+  TH1F * h_ff17_wfr_3p_0tag_down = 0;
 
-  TH1F * h_ff17_wcr_1p_1tag = 0;
-  TH1F * h_ff17_wcr_3p_1tag = 0;
-  TH1F * h_ff17_wcr_1p_1tag_up   = 0;
-  TH1F * h_ff17_wcr_3p_1tag_up   = 0;
-  TH1F * h_ff17_wcr_1p_1tag_down = 0;
-  TH1F * h_ff17_wcr_3p_1tag_down = 0;
+  TH1F * h_ff17_wfr_1p_1tag = 0;
+  TH1F * h_ff17_wfr_3p_1tag = 0;
+  TH1F * h_ff17_wfr_1p_1tag_up   = 0;
+  TH1F * h_ff17_wfr_3p_1tag_up   = 0;
+  TH1F * h_ff17_wfr_1p_1tag_down = 0;
+  TH1F * h_ff17_wfr_3p_1tag_down = 0;
 
 
   // pt * dphi parametrization
   // 2015/16
-  TH1F * h_ff15_wcr_1p_dphi1_0tag = 0;
-  TH1F * h_ff15_wcr_1p_dphi1_0tag_up   = 0;
-  TH1F * h_ff15_wcr_1p_dphi1_0tag_down = 0;
+  TH1F * h_ff15_wfr_1p_dphi1_0tag = 0;
+  TH1F * h_ff15_wfr_1p_dphi1_0tag_up   = 0;
+  TH1F * h_ff15_wfr_1p_dphi1_0tag_down = 0;
 
-  TH1F * h_ff15_wcr_1p_dphi2_0tag = 0;
-  TH1F * h_ff15_wcr_1p_dphi2_0tag_up   = 0;
-  TH1F * h_ff15_wcr_1p_dphi2_0tag_down = 0;
+  TH1F * h_ff15_wfr_1p_dphi2_0tag = 0;
+  TH1F * h_ff15_wfr_1p_dphi2_0tag_up   = 0;
+  TH1F * h_ff15_wfr_1p_dphi2_0tag_down = 0;
 
-  TH1F * h_ff15_wcr_1p_dphi3_0tag = 0;
-  TH1F * h_ff15_wcr_1p_dphi3_0tag_up   = 0;
-  TH1F * h_ff15_wcr_1p_dphi3_0tag_down = 0;
+  TH1F * h_ff15_wfr_1p_dphi3_0tag = 0;
+  TH1F * h_ff15_wfr_1p_dphi3_0tag_up   = 0;
+  TH1F * h_ff15_wfr_1p_dphi3_0tag_down = 0;
 
-  TH1F * h_ff15_wcr_3p_dphi1_0tag = 0;
-  TH1F * h_ff15_wcr_3p_dphi1_0tag_up   = 0;
-  TH1F * h_ff15_wcr_3p_dphi1_0tag_down = 0;
+  TH1F * h_ff15_wfr_3p_dphi1_0tag = 0;
+  TH1F * h_ff15_wfr_3p_dphi1_0tag_up   = 0;
+  TH1F * h_ff15_wfr_3p_dphi1_0tag_down = 0;
 
-  TH1F * h_ff15_wcr_3p_dphi2_0tag = 0;
-  TH1F * h_ff15_wcr_3p_dphi2_0tag_up   = 0;
-  TH1F * h_ff15_wcr_3p_dphi2_0tag_down = 0;
+  TH1F * h_ff15_wfr_3p_dphi2_0tag = 0;
+  TH1F * h_ff15_wfr_3p_dphi2_0tag_up   = 0;
+  TH1F * h_ff15_wfr_3p_dphi2_0tag_down = 0;
 
-  TH1F * h_ff15_wcr_3p_dphi3_0tag = 0;
-  TH1F * h_ff15_wcr_3p_dphi3_0tag_up   = 0;
-  TH1F * h_ff15_wcr_3p_dphi3_0tag_down = 0;
+  TH1F * h_ff15_wfr_3p_dphi3_0tag = 0;
+  TH1F * h_ff15_wfr_3p_dphi3_0tag_up   = 0;
+  TH1F * h_ff15_wfr_3p_dphi3_0tag_down = 0;
 
   // 2017
-  TH1F * h_ff17_wcr_1p_dphi1_0tag = 0;
-  TH1F * h_ff17_wcr_1p_dphi1_0tag_up   = 0;
-  TH1F * h_ff17_wcr_1p_dphi1_0tag_down = 0;
+  TH1F * h_ff17_wfr_1p_dphi1_0tag = 0;
+  TH1F * h_ff17_wfr_1p_dphi1_0tag_up   = 0;
+  TH1F * h_ff17_wfr_1p_dphi1_0tag_down = 0;
 
-  TH1F * h_ff17_wcr_1p_dphi2_0tag = 0;
-  TH1F * h_ff17_wcr_1p_dphi2_0tag_up   = 0;
-  TH1F * h_ff17_wcr_1p_dphi2_0tag_down = 0;
+  TH1F * h_ff17_wfr_1p_dphi2_0tag = 0;
+  TH1F * h_ff17_wfr_1p_dphi2_0tag_up   = 0;
+  TH1F * h_ff17_wfr_1p_dphi2_0tag_down = 0;
 
-  TH1F * h_ff17_wcr_1p_dphi3_0tag = 0;
-  TH1F * h_ff17_wcr_1p_dphi3_0tag_up   = 0;
-  TH1F * h_ff17_wcr_1p_dphi3_0tag_down = 0;
+  TH1F * h_ff17_wfr_1p_dphi3_0tag = 0;
+  TH1F * h_ff17_wfr_1p_dphi3_0tag_up   = 0;
+  TH1F * h_ff17_wfr_1p_dphi3_0tag_down = 0;
 
-  TH1F * h_ff17_wcr_3p_dphi1_0tag = 0;
-  TH1F * h_ff17_wcr_3p_dphi1_0tag_up   = 0;
-  TH1F * h_ff17_wcr_3p_dphi1_0tag_down = 0;
+  TH1F * h_ff17_wfr_3p_dphi1_0tag = 0;
+  TH1F * h_ff17_wfr_3p_dphi1_0tag_up   = 0;
+  TH1F * h_ff17_wfr_3p_dphi1_0tag_down = 0;
 
-  TH1F * h_ff17_wcr_3p_dphi2_0tag = 0;
-  TH1F * h_ff17_wcr_3p_dphi2_0tag_up   = 0;
-  TH1F * h_ff17_wcr_3p_dphi2_0tag_down = 0;
+  TH1F * h_ff17_wfr_3p_dphi2_0tag = 0;
+  TH1F * h_ff17_wfr_3p_dphi2_0tag_up   = 0;
+  TH1F * h_ff17_wfr_3p_dphi2_0tag_down = 0;
 
-  TH1F * h_ff17_wcr_3p_dphi3_0tag = 0;
-  TH1F * h_ff17_wcr_3p_dphi3_0tag_up   = 0;
-  TH1F * h_ff17_wcr_3p_dphi3_0tag_down = 0;
+  TH1F * h_ff17_wfr_3p_dphi3_0tag = 0;
+  TH1F * h_ff17_wfr_3p_dphi3_0tag_up   = 0;
+  TH1F * h_ff17_wfr_3p_dphi3_0tag_down = 0;
 
 
   // dphi correction
-  TH1F * h_ff_wcr_1p_1tag_cor = 0;
-  TH1F * h_ff_wcr_3p_1tag_cor = 0;
-  TH1F * h_ff_wcr_1p_1tag_cor_up   = 0;
-  TH1F * h_ff_wcr_3p_1tag_cor_up   = 0;
-  TH1F * h_ff_wcr_1p_1tag_cor_down = 0;
-  TH1F * h_ff_wcr_3p_1tag_cor_down = 0;
+  TH1F * h_ff_wfr_1p_1tag_cor = 0;
+  TH1F * h_ff_wfr_3p_1tag_cor = 0;
+  TH1F * h_ff_wfr_1p_1tag_cor_up   = 0;
+  TH1F * h_ff_wfr_3p_1tag_cor_up   = 0;
+  TH1F * h_ff_wfr_1p_1tag_cor_down = 0;
+  TH1F * h_ff_wfr_3p_1tag_cor_down = 0;
 
   TH1F * h_2015ff_mj_1p_0tag  = 0;
   TH1F * h_2015ff_mj_3p_0tag  = 0;
