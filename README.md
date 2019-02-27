@@ -58,10 +58,11 @@ Running the analysis
 ```bash
 cd ../BSMtautauCAF/share
 
-# First update the 'dataPaths' and 'mcPaths' in configCommon/htautau_lephad_common_*_input.cfg relevent for your setup
-# (don't let them be too long or you could see errors)
+# First update the 'dataPaths' and 'mcPaths' in
+# configCommon/htautau_lephad_common_*_input.cfg
+# relevant for your setup (don't let them be too long or you could see errors)
 
-# Lepton Fake Region
+### Lepton Fake Region
 # Prepare and initialize your samples
 source configLeptonFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
@@ -73,7 +74,7 @@ source configLeptonFakeRegion/scriptVisualize.sh
 # Calculate lepton fake factors
 python scripts/calculateFakeFactor.py LFR
 
-# W+jets Fake Region
+### W+jets Fake Region
 # Prepare and initialize your samples
 source configWjetsFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
@@ -84,19 +85,16 @@ tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.ro
 source configWjetsFakeRegion/scriptVisualize.sh
 # Calculate W+jets fake factors
 python scripts/calculateFakeFactor.py WFR
-```
-```
-SR, VR, TCR, WCR, SSWCR, these regions go into one input/output file because they all use both lepton and tau FFs,
-and therefore have similar strucuture:
 
-#to makeSampleFile do
-$ sh ConfigSignalRegion/scriptMakeSampleFile.sh
-#to run the event loop do
-$ sh ConfigSignalRegion/scriptSubmit.sh
-#after all jobs finished, merge
-$ tqmerge -o output/htautau_lephad_sr/nominal_full.root -t runAnalysis -Sum output/unmerged_SignalRegionNominalR21/*
-#to make plots run this script, which makes plots for all regions
-$ sh ConfigSignalRegion/scriptReadAnalysis.sh
+### Signal Region, Validation Region, W+jets/Top Control Regions
+# Prepare and initialize your samples
+source configSignalControlRegion/scriptPrepareInitialize.sh
+# Submit the full analysis to a cluster
+source configSignalControlRegion/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-nominal.root -t analyze batchOutput/unmerged_SR_*/*.root
+# Visualize plots
+source configSignalControlRegion/scriptVisualize.sh
 ```
 
     ### NOT REVISED FOR R21
