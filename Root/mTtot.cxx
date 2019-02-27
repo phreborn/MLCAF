@@ -126,7 +126,7 @@ bool mTtot::initializeSelf(){
   this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
   this->lephad_dphi = new TTreeFormula( "lephad_dphi", "lephad_dphi", this->fTree);
 
-
+  return true;
 }
 
 //______________________________________________________________________________________________
