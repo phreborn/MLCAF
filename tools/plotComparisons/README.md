@@ -11,7 +11,7 @@ In order to make a new plot comparison you need to do the following:
    2. Adapt the style file 'style-plotComparisons.txt' (or write a new one) to your needs
    3. Run the plotComparison.py script with:
        `python plotComparisons.py <plotCategory>`,
-       where <plotCategory> specifies the desired section in your config file.
+       where `<plotCategory>` specifies the desired section in your config file.
 
 Note, that you can also write your own config and style files and point to them accordingly:
 For pointing to a new config file please specify the '--config' argument when running this script.
