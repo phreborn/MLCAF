@@ -1,3 +1,5 @@
+!memory=1024
+
 # all samples needed in the analysis:
 
 # data takes longest, so split channels
@@ -37,16 +39,16 @@
 /mc16a/?/Zmumu
 /mc16a/?/Ztautau
 /mc16a/?/Top
-/mc16a/ehad/SherpaWjets
-/mc16a/muhad/SherpaWjets
+#/mc16a/ehad/SherpaWjets
+#/mc16a/muhad/SherpaWjets
 
 /mc16c/?/Diboson
 /mc16c/?/Zee
 /mc16c/?/Zmumu
 /mc16c/?/Ztautau
 /mc16c/?/Top
-/mc16c/ehad/SherpaWjets
-/mc16c/muhad/SherpaWjets
+#/mc16c/ehad/SherpaWjets
+#/mc16c/muhad/SherpaWjets
 
 ### Signal
 /siga/?/?
@@ -114,16 +116,16 @@
 /mc16a/?/WJETSFakes/mc/Zmumu
 /mc16a/?/WJETSFakes/mc/Ztautau
 /mc16a/?/WJETSFakes/mc/Top
-/mc16a/ehad/WJETSFakes/mc/SherpaWjets
-/mc16a/muhad/WJETSFakes/mc/SherpaWjets
+#/mc16a/ehad/WJETSFakes/mc/SherpaWjets
+#/mc16a/muhad/WJETSFakes/mc/SherpaWjets
 
 /mc16c/?/WJETSFakes/mc/Diboson
 /mc16c/?/WJETSFakes/mc/Zee
 /mc16c/?/WJETSFakes/mc/Zmumu
 /mc16c/?/WJETSFakes/mc/Ztautau
 /mc16c/?/WJETSFakes/mc/Top
-/mc16c/ehad/WJETSFakes/mc/SherpaWjets
-/mc16c/muhad/WJETSFakes/mc/SherpaWjets
+#/mc16c/ehad/WJETSFakes/mc/SherpaWjets
+#/mc16c/muhad/WJETSFakes/mc/SherpaWjets
 
 
 ### DATA in Anti-ID-Anti-Iso region
@@ -163,16 +165,16 @@
 /mc16a/?/QCDFakes/mc/Zmumu
 /mc16a/?/QCDFakes/mc/Ztautau
 /mc16a/?/QCDFakes/mc/Top
-/mc16a/ehad/QCDFakes/mc/SherpaWjets
-/mc16a/muhad/QCDFakes/mc/SherpaWjets
+#/mc16a/ehad/QCDFakes/mc/SherpaWjets
+#/mc16a/muhad/QCDFakes/mc/SherpaWjets
 
 /mc16c/?/QCDFakes/mc/Diboson
 /mc16c/?/QCDFakes/mc/Zee
 /mc16c/?/QCDFakes/mc/Zmumu
 /mc16c/?/QCDFakes/mc/Ztautau
 /mc16c/?/QCDFakes/mc/Top
-/mc16c/ehad/QCDFakes/mc/SherpaWjets
-/mc16c/muhad/QCDFakes/mc/SherpaWjets
+#/mc16c/ehad/QCDFakes/mc/SherpaWjets
+#/mc16c/muhad/QCDFakes/mc/SherpaWjets
 
 
 /mc16a/?/WJETSFakes/QCD/mc/Diboson
@@ -180,13 +182,13 @@
 /mc16a/?/WJETSFakes/QCD/mc/Zmumu
 /mc16a/?/WJETSFakes/QCD/mc/Ztautau
 /mc16a/?/WJETSFakes/QCD/mc/Top
-/mc16a/ehad/WJETSFakes/QCD/mc/SherpaWjets
-/mc16a/muhad/WJETSFakes/QCD/mc/SherpaWjets
+#/mc16a/ehad/WJETSFakes/QCD/mc/SherpaWjets
+#/mc16a/muhad/WJETSFakes/QCD/mc/SherpaWjets
 
 /mc16c/?/WJETSFakes/QCD/mc/Diboson
 /mc16c/?/WJETSFakes/QCD/mc/Zee
 /mc16c/?/WJETSFakes/QCD/mc/Zmumu
 /mc16c/?/WJETSFakes/QCD/mc/Ztautau
 /mc16c/?/WJETSFakes/QCD/mc/Top
-/mc16c/ehad/WJETSFakes/QCD/mc/SherpaWjets
-/mc16c/muhad/WJETSFakes/QCD/mc/SherpaWjets
+#/mc16c/ehad/WJETSFakes/QCD/mc/SherpaWjets
+#/mc16c/muhad/WJETSFakes/QCD/mc/SherpaWjets

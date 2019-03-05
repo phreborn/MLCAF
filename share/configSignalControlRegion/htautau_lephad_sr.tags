@@ -47,13 +47,13 @@
 
 
 ### use this or similar for additional true-fake-lep structure
-#$copy("mc16*/muhad/Top           >>      mc16*/muhad/+::TopTruthTau");
-#$copy("mc16*/muhad/Top           >>      mc16*/muhad/+::TopElFake");
-#$copy("mc16*/muhad/Top           >>      mc16*/muhad/+::TopMuFake");
+#$copy("mc16*/muhad/Top           >>      mc16*/muhad/::TopTruthTau");
+#$copy("mc16*/muhad/Top           >>      mc16*/muhad/::TopElFake");
+#$copy("mc16*/muhad/Top           >>      mc16*/muhad/::TopMuFake");
 #
-#$copy("mc16*/ehad/Top           >>      mc16*/ehad/+::TopTruthTau");
-#$copy("mc16*/ehad/Top           >>      mc16*/ehad/+::TopElFake");
-#$copy("mc16*/ehad/Top           >>      mc16*/ehad/+::TopMuFake");
+#$copy("mc16*/ehad/Top           >>      mc16*/ehad/::TopTruthTau");
+#$copy("mc16*/ehad/Top           >>      mc16*/ehad/::TopElFake");
+#$copy("mc16*/ehad/Top           >>      mc16*/ehad/::TopMuFake");
 #<isTT=false> @/.;
 #<isTT=true, isInc=false> @/mc16*/?/TopTruthTau;
 #
@@ -78,20 +78,21 @@
 ###
 #########################################################
 ### separate ehad and muhad temp folders because they have different tags.
-### copy this way (with +::), so the tags in the mc16*/ehad/ folder are copied to temp/ehad folder.
-$copy("mc16*/ehad/ >> temp/+::ehad");
-$copy("mc16*/muhad/ >> temp/+::muhad");
-$copy("mc16*/lephad/ >> temp/+::lephad");
+### copy this way (with ::), so the tags in the mc16*/ehad/ folder are copied to temp/ehad folder.
+$create(path="temp",type="sf");
+$copy("mc16*/ehad/ >> temp/::ehad");
+$copy("mc16*/muhad/ >> temp/::muhad");
+$copy("mc16*/lephad/ >> temp/::lephad");
 
 $create(path="/mc16*/ehad/QCDFakes",type="sf");
-$copy("/data/ehad >> /mc16*/ehad/QCDFakes/+::data");
-$copy("/temp/ehad >> /mc16*/ehad/QCDFakes/+::mc");
+$copy("/data/ehad >> /mc16*/ehad/QCDFakes/::data");
+$copy("/temp/ehad >> /mc16*/ehad/QCDFakes/::mc");
 $create(path="/mc16*/muhad/QCDFakes",type="sf");
-$copy("/data/muhad >> /mc16*/muhad/QCDFakes/+::data");
-$copy("/temp/muhad >> /mc16*/muhad/QCDFakes/+::mc");
+$copy("/data/muhad >> /mc16*/muhad/QCDFakes/::data");
+$copy("/temp/muhad >> /mc16*/muhad/QCDFakes/::mc");
 $create(path="/mc16*/lephad/QCDFakes",type="sf");
-$copy("/data/lephad >> /mc16*/lephad/QCDFakes/+::data");
-$copy("/temp/lephad >> /mc16*/lephad/QCDFakes/+::mc");
+$copy("/data/lephad >> /mc16*/lephad/QCDFakes/::data");
+$copy("/temp/lephad >> /mc16*/lephad/QCDFakes/::mc");
 
 ### tag data folder to apply ffs
 <usemcweights=true> @ /mc16*/?/QCDFakes/data;
@@ -105,20 +106,20 @@ $copy("/temp/lephad >> /mc16*/lephad/QCDFakes/+::mc");
 ###
 ###########################################################
 $create(path="/mc16*/ehad/WJETSFakes/QCD/",type="sf");
-$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/+::data");
-$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/QCD/+::data");
-$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/+::mc");
-$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/QCD/+::mc");
+$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/::data");
+$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/QCD/::data");
+$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/::mc");
+$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/QCD/::mc");
 $create(path="/mc16*/muhad/WJETSFakes/QCD/",type="sf");
-$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/+::data");
-$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/QCD/+::data");
-$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/+::mc");
-$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/QCD/+::mc");
+$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/::data");
+$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/QCD/::data");
+$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/::mc");
+$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/QCD/::mc");
 $create(path="/mc16*/lephad/WJETSFakes/QCD/",type="sf");
-$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/+::data");
-$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/QCD/+::data");
-$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/+::mc");
-$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/QCD/+::mc");
+$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/::data");
+$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/QCD/::data");
+$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/::mc");
+$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/QCD/::mc");
 
 $delete("temp!");
 
@@ -135,4 +136,3 @@ $delete("temp!");
 
 ### delete SherpaWjets because we dont use it in the ID regions.
 $delete("mc16*/?/SherpaWjets!");
-

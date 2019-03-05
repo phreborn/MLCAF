@@ -90,9 +90,11 @@ def main(config):
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
-    # BSMtautauCAF: get myLeptonFF from config
+    # BSMtautauCAF: get fake factors from config
     myLeptonFF = config.getTagStringDefault("myLeptonFF","mc")
     samples.setTagString("myLeptonFF", myLeptonFF)
+    myWjetsFF = config.getTagStringDefault("myWjetsFF","mc")
+    samples.setTagString("myWjetsFF", myWjetsFF)
 
     # TODO: do we still want this option?
     # if requested, we initialize the samples from the input lists

@@ -1,4 +1,4 @@
-# -*- mode:tqfolder -*-
+# -*- mode: tqfolder -*-
 
 ################################################################
 ##
@@ -10,7 +10,7 @@
 ##
 #################################################################
 
-$include("ConfigCommon/htautau_lephad_common_cuts.def");
+$include("configCommon/htautau_lephad_common_cuts.def");
 
 # common cuts for (SR, VR, TCR, WCR) X (ID, Anti-ID, Anti-Iso) regions:
 @*/CutBase{

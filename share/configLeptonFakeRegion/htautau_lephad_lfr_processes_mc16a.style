@@ -1,15 +1,17 @@
-# -*- mode: tqfolder -*-
+### Data ###
+.path="||"
+.name="Data", .title="Data", .path="/data/$(channel)/[data15*+data16*]", .isData=true, .isHistogram=false, histLineColor=1, histMarkerStyle=8, histMarkerSize=0.6
 
-.name="Data",                   .path="/data/$(channel)/[data15*+data16*]",           .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
-#.name="QCDFake", 		.path="/bkg/$(channel)/Fake/data/[data15*+data16*] + /bkg/$(channel)/Fake/mc", 	.isBackground=true, 	histFillColor = kGray+1,	histFillStyle=1001, 	title = "QCDFake"
+### Fakes ###
+.path="|"
+#.name="QCDFake", .title="QCDFake", .path="/mc16a/$(channel)/Fake/[data/[data15*+data16*]+mc]", .isBackground=true, histFillColor=kGray+1, histFillStyle=1001
 
-################################################
-##
-##      Use this for inclusive
-##
-##################################################
-.name="W+jets",                 .path="/mc16a/$(channel)/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
-.name="Top",                    .path="/mc16a/$(channel)/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
-.name="Z\rightarrow \tau\tau",  .path="/mc16a/$(channel)/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
-.name="DiBoson",                .path="/mc16a/$(channel)/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
-.name="Z\rightarrow ll",        .path="/mc16a/$(channel)/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
+######################################
+##      Use this for inclusive      ##
+######################################
+.path="|"
+.name="Wjets",   .title="W+jets",                          .path="/mc16a/$(channel)/SherpaWjets", .isBackground=true, histFillColor=kYellow-8, histFillStyle=1001
+.name="Ztautau", .title="Z/\gamma^{*}\rightarrow\tau\tau", .path="/mc16a/$(channel)/Ztautau",     .isBackground=true, histFillColor=kGreen+1,  histFillStyle=1001
+.name="Zll",     .title="Z/\gamma^{*}\rightarrow\ell\ell", .path="/mc16a/$(channel)/[Zee+Zmumu]", .isBackground=true, histFillColor=kRed-6,    histFillStyle=1001
+.name="Top",     .title="Top",                             .path="/mc16a/$(channel)/Top",         .isBackground=true, histFillColor=kBlue,     histFillStyle=1001
+.name="Diboson", .title="Diboson",                         .path="/mc16a/$(channel)/Diboson",     .isBackground=true, histFillColor=kOrange-3, histFillStyle=1001
