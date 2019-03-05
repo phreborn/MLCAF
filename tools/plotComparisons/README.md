@@ -7,9 +7,9 @@ in CAF including a config file for steering this script.
 
 In order to make a new plot comparison you need to do the following:
 
-   -- Adapt the config file 'plotComparisons.cfg' (or write a new one) to your needs
-   -- Adapt the style file 'style-plotComparisons.txt' (or write a new one) to your needs
-   -- Run the plotComparison.py script with:
+   1. Adapt the config file 'plotComparisons.cfg' (or write a new one) to your needs
+   2. Adapt the style file 'style-plotComparisons.txt' (or write a new one) to your needs
+   3. Run the plotComparison.py script with:
        `python plotComparisons.py <plotCategory>`,
        where <plotCategory> specifies the desired section in your config file.
 
