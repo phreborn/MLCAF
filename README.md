@@ -1,5 +1,3 @@
-[![pipeline status](https://gitlab.cern.ch/atlasHBSM/atlas-phys-higgs-mssm-htautau-btag/BSMtautauCAF/badges/master/pipeline.svg)](https://gitlab.cern.ch/atlasHBSM/atlas-phys-higgs-mssm-htautau-btag/BSMtautauCAF/commits/master)
-
 BSMtautau CAFCore Analysis
 =========================
 
