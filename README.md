@@ -56,13 +56,11 @@ cd -
 Running the analysis
 --------------------
 
-Navigate to the working directory and
-
 ```bash
 cd BSMtautauCAF/share
 
 # First update the 'dataPaths' and 'mcPaths' in
-#configCommon/htautau_lephad_common_*_input.cfg
+configCommon/htautau_lephad_common_*_input.cfg
 # relevant for your setup (don't let them be too long or you could see errors)
 ```
 
