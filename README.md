@@ -6,6 +6,8 @@ This repository is meant to construct an analysis for the BSMtautau LepHad chann
 Cloning the project
 --------------------
 
+First ensure you have [forked](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/forks/new) the repository, then
+
 ```bash
 setupATLAS
 lsetup git
