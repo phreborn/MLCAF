@@ -89,8 +89,10 @@ Updating your fork
 Further help can be found at the [ATLAS Git Workflow tutorial](https://atlassoftwaredocs.web.cern.ch/gittutorial/).
 
 ```bash
+cd BSMtautauCAF
 git fetch upstream
 git pull upstream master
+cd -
 ```
 
 Running the analysis
