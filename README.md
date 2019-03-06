@@ -12,8 +12,8 @@ First ensure you have [forked](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BS
 setupATLAS
 lsetup git
 # Set up your work area with any name you want
-mkdir MyWorkDir
-cd MyWorkDir
+mkdir myWorkDir
+cd myWorkDir
 
 # There are a few different protocol options for cloning the project, which are all provided at the top of the main page of the repository.
 # Kerberos is typically recommended if it is available (e.g. lxplus) since it does not require a username or password when interacting with remote repositories.
@@ -26,6 +26,25 @@ git clone --recursive https://:@gitlab.cern.ch:8443/${USER}/BSMtautauCAF.git
 #git clone --recursive ssh://git@gitlab.cern.ch:7999/${USER}/BSMtautauCAF.git
 # https
 #git clone --recursive https://gitlab.cern.ch/${USER}/BSMtautauCAF.git
+
+# While your 'origin' would be set to your fork, you can also set the 'upstream' to the main repository.
+# This way, you are able to pull in the latest updates from the main upstream repository to your fork
+
+cd BSMtautauCAF
+
+# Kerberos
+git remote add upstream https://:@gitlab.cern.ch:8443/atlas-phys-hdbs-htautau/BSMtautauCAF.git
+# ssh
+#git remote add upstream ssh://git@gitlab.cern.ch:7999/atlas-phys-hdbs-htautau/BSMtautauCAF.git
+# https
+#git remote add upstream https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF.git
+
+# You should also avoid working on your master, and instead work from a development branch.
+# This way, you can keep your master synced with the main upstream repository
+
+git checkout -b myDevBranch
+
+cd -
 ```
 
 Building the project
@@ -57,10 +76,21 @@ cd -
 
 Recompiling the project
 -----------------------
+
 If you have edited any `C++` files such as observables, you can quickly recompile the project from any directory using
 
 ```bash
 cafcompile
+```
+
+Updating your fork
+------------------
+
+Further help can be found at the [ATLAS Git Workflow tutorial](https://atlassoftwaredocs.web.cern.ch/gittutorial/).
+
+```bash
+git fetch upstream
+git pull upstream master
 ```
 
 Running the analysis
