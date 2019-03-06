@@ -279,13 +279,13 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 
   addScaleFactor(electron,
     el_eff_iso_low | el_eff_iso_high,
-    "lep_0_NOMINAL_EleEffSF_Isolation_MediumLLH_d0z0_v13_isolGradient");
+    "lep_0_NOMINAL_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
 
   addScaleFactor(electron | el_eff_iso_low,
-    "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_Isolation_MediumLLH_d0z0_v13_isolGradient");
+    "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
 
   addScaleFactor(electron | el_eff_iso_high,
-    "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_Isolation_MediumLLH_d0z0_v13_isolGradient");
+    "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
 
   ////////////////////////////////////////////////////////////////////////////////
   // muon reco efficiency
