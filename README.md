@@ -57,10 +57,12 @@ Running the analysis
 cd ../BSMtautauCAF/share
 
 # First update the 'dataPaths' and 'mcPaths' in
-# configCommon/htautau_lephad_common_*_input.cfg
+#configCommon/htautau_lephad_common_*_input.cfg
 # relevant for your setup (don't let them be too long or you could see errors)
+```
 
-### Lepton Fake Region
+Lepton Fake Region
+```bash
 # Prepare and initialize your samples
 source configLeptonFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
@@ -71,8 +73,10 @@ tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.ro
 source configLeptonFakeRegion/scriptVisualize.sh
 # Calculate lepton fake factors
 python scripts/calculateFakeFactor.py LFR
+```
 
-### W+jets Fake Region
+W+jets Fake Region
+```bash
 # Prepare and initialize your samples
 source configWjetsFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
@@ -83,8 +87,10 @@ tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.ro
 source configWjetsFakeRegion/scriptVisualize.sh
 # Calculate W+jets fake factors
 python scripts/calculateFakeFactor.py WFR
+```
 
-### Signal Region, Validation Region, W+jets/Top Control Regions
+Signal Region, Validation Region, W+jets/Top Control Regions
+```bash
 # Prepare and initialize your samples
 source configSignalControlRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
