@@ -124,14 +124,12 @@
 364197 /mc16a/$(channel)/SherpaWjets
 
 #Top PowhegPythia
-410011 /mc16a/$(channel)/Top
-410012 /mc16a/$(channel)/Top
-410013 /mc16a/$(channel)/Top
-410014 /mc16a/$(channel)/Top
-#410015 /mc16a/$(channel)/Top
-#410016 /mc16a/$(channel)/Top
-410025 /mc16a/$(channel)/Top
-410026 /mc16a/$(channel)/Top
+410644 /mc16a/$(channel)/Top
+410645 /mc16a/$(channel)/Top
+410646 /mc16a/$(channel)/Top
+410647 /mc16a/$(channel)/Top
+410658 /mc16a/$(channel)/Top
+410659 /mc16a/$(channel)/Top
 
 # use these two if you want to see
 #jet->tau fake composition
@@ -140,4 +138,4 @@
 
 # use dilepton filter for FF calculation
 # since we are truth-matching anyway
-410472 /mc16a/$(channel)/Top
+#410472 /mc16a/$(channel)/Top

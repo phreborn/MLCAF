@@ -10,6 +10,13 @@ SampleID,       process,                        xsectioninpb,           kfactor,
 410025,         PoPy_P12_STSchan_noAllHad_top,  2.0514,                 1.0048,         1.0,            1.,             PowhegPythiaEvtGen
 410026,         PoPy_P12_STSchan_noAllHad_atop, 1.2615,                 1.0215,         1.0,            1.,             PowhegPythiaEvtGen
 
+410644,         PoPy8_A14_st_schan_lept_top,    2.027,                  1.0170,         1.0,            1.,             PowhegPythia8
+410645,         PoPy8_A14_st_schan_lept_atop,   1.2674,                 1.0167,         1.0,            1.,             PowhegPythia8
+410646,         PoPy8_A14_Wt_DR_inclusive_top,  37.936,                 0.9450,         1.0,            1.,             PowhegPythia8
+410647,         PoPy8_A14_Wt_DR_inclusive_atop, 37.905,                 0.9457,         1.0,            1.,             PowhegPythia8
+410658,         PhPy8_A14_tchan_BW50_lept_top,  36.996,                 1.1935,         1.0,            1.,             PowhegPythia8
+410659,         PhPy8_A14_tchan_BW50_lept_atop, 22.175,                 1.1849,         1.0,            1.,             PowhegPythia8
+
 410470,         PhPy8EG_A14_ttb_nonallh,        729.77,                 1.1398,         0.5438,         1.,             PowhegPythia8
 410471,         PhPy8EG_A14_ttb_allh,           729.77,                 1.1397,         0.4562,         1.,             PowhegPythia8
 410472,         PhPy8EG_A14_ttb_allh,           729.77,                 1.1398,         0.1055,         1.,             PowhegPythia8
