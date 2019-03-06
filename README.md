@@ -9,8 +9,9 @@ Cloning the project
 ```bash
 setupATLAS
 lsetup git
-mkdir BSMtautauCAF
-cd BSMtautauCAF
+# Set up your work area with any name you want
+mkdir MyWorkDir
+cd MyWorkDir
 
 # There are a few different protocol options for cloning the project, which are all provided at the top of the main page of the repository.
 # Kerberos is typically recommended if it is available (e.g. lxplus) since it does not require a username or password when interacting with remote repositories.
@@ -35,6 +36,7 @@ asetup AnalysisBase,21.2.34
 cmake ../BSMtautauCAF
 source ../BSMtautauCAF/setup/setupAnalysis.sh
 make -j4
+cd -
 ```
 
 On Every Login
@@ -48,20 +50,23 @@ lsetup git
 cd build
 asetup --restore
 source ../BSMtautauCAF/setup/setupAnalysis.sh
+cd -
 ```
 
 Running the analysis
 --------------------
 
+Navigate to the working directory and
+
 ```bash
-cd ../BSMtautauCAF/share
+cd BSMtautauCAF/share
 
 # First update the 'dataPaths' and 'mcPaths' in
 #configCommon/htautau_lephad_common_*_input.cfg
 # relevant for your setup (don't let them be too long or you could see errors)
 ```
 
-Lepton Fake Region
+### Lepton Fake Region
 ```bash
 # Prepare and initialize your samples
 source configLeptonFakeRegion/scriptPrepareInitialize.sh
@@ -75,7 +80,7 @@ source configLeptonFakeRegion/scriptVisualize.sh
 python scripts/calculateFakeFactor.py LFR
 ```
 
-W+jets Fake Region
+### W+jets Fake Region
 ```bash
 # Prepare and initialize your samples
 source configWjetsFakeRegion/scriptPrepareInitialize.sh
@@ -89,7 +94,7 @@ source configWjetsFakeRegion/scriptVisualize.sh
 python scripts/calculateFakeFactor.py WFR
 ```
 
-Signal Region, Validation Region, W+jets/Top Control Regions
+### Signal Region, Validation Region, W+jets/Top Control Regions
 ```bash
 # Prepare and initialize your samples
 source configSignalControlRegion/scriptPrepareInitialize.sh
@@ -101,11 +106,14 @@ tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-nominal.roo
 source configSignalControlRegion/scriptVisualize.sh
 ```
 
-    ### NOT REVISED FOR R21
-    # to run systematics do
-    python submit_systematics.py
-    # to make a systematics root file for plotting do
-    python temp_systematics_code.py
+Old README content
+------------------
+
+### NOT REVISED FOR R21
+#to run systematics do
+python submit_systematics.py
+# to make a systematics root file for plotting do
+python temp_systematics_code.py
 
 
 TODO: 2015-16-17 fake factors:
