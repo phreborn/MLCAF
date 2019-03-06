@@ -55,6 +55,14 @@ source ../BSMtautauCAF/setup/setupAnalysis.sh
 cd -
 ```
 
+Recompiling the project
+-----------------------
+If you have edited any `C++` files such as observables, you can quickly recompile the project from any directory using
+
+```bash
+cafcompile
+```
+
 Running the analysis
 --------------------
 
