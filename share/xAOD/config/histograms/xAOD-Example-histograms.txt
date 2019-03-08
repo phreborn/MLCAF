@@ -5,9 +5,9 @@ TH1F('fakeElectronPt', '', 27, 15., 150.) << ( [$(elFakeAny_pt)]*0.001 : 'el fak
 TH1F('fakeElectronEta', '', 20, -3.0, 3.0) << ([$(elFakeAny_eta)] : 'el fake \#eta');
 TH2F('FakeElecEtaVsPt', '', {15., 20., 25., 35., 1000.},            {0., 1.5, 2.5}) << ( [$(elFakeAny_pt)]/1000 : 'Fake candidate p_{T} [GeV]', abs([$(elFakeAny_eta)])  : 'Fake candidate |\#eta|' );
 
-TH1F('fakeMuonPt', '', 27, 15., 150.) << ( [$(elFakeAny_pt)]*0.001 : 'mu fake p_{T} [GeV]');
-TH1F('fakeMuonEta', '', 20, -3.0, 3.0) << ([$(elFakeAny_eta)] : 'mu fake \#eta');
-TH2F('FakeMuonEtaVsPt', '', {15., 20., 25., 1000.}, {0., 1.05, 2.5}) << ( [$(elFakeAny_pt)]/1000 : 'Fake candidate p_{T} [GeV]', abs([$(elFakeAny_eta)])  : 'Fake candidate |\#eta|' );
+TH1F('fakeMuonPt', '', 27, 15., 150.) << ( [$(muFakeAny_pt)]*0.001 : 'mu fake p_{T} [GeV]');
+TH1F('fakeMuonEta', '', 20, -3.0, 3.0) << ([$(muFakeAny_eta)] : 'mu fake \#eta');
+TH2F('FakeMuonEtaVsPt', '', {15., 20., 25., 1000.}, {0., 1.05, 2.5}) << ( [$(muFakeAny_pt)]/1000 : 'Fake candidate p_{T} [GeV]', abs([$(muFakeAny_eta)])  : 'Fake candidate |\#eta|' );
 
 
 TH1F('invMass', '', 40, 70., 110.) << ( $(invMassOptZTag)*0.001: 'm_{l,l}^{Z} [GeV]' );
