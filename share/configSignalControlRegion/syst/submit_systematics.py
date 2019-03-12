@@ -2,6 +2,7 @@
 
 import os
 import sys
+import glob
 
 #some configurations
 s_queue='medium'
@@ -271,8 +272,11 @@ if __name__=='__main__':
       os.system('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
 
       # copy those files which should not be run over for this particular systematic;
-      for file in l_files:
-        os.system('ln -s ../../{:s}/{:s} batchOutput/unmerged_SRsys_{:s}'.format(s_nominal_dir,file,sys))
+      for files in l_files:
+        l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))
+
+        for file in l_file:
+          os.system('ln -sv ../../{:s}/{:s} batchOutput/unmerged_SRsys_{:s}'.format(s_nominal_dir,file,sys))
 
       # submit makeSampleFile.py for those systematics which need different trees:
       if b_makeSamples and option=='treevariation':
