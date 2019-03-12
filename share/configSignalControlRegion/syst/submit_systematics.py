@@ -4,20 +4,20 @@ import os
 import sys
 
 #some configurations
-s_queue='short'
-s_nominal_dir='output/unmerged_SignalRegion'
-s_config_path='ConfigSignalRegion/htautau_lephad_sr.cfg'
+s_queue='medium'
+s_nominal_dir='batchOutput/unmerged_SR'
+s_config_path='configSignalControlRegion/htautau_lephad_sr.cfg'
 #s_config_path='ConfigSignalRegion/htautau_lephad_srcontid.cfg'
-s_sys_file_path='/data/atlas/phrbmm/mssmNtuples/AODfixSYSntuples/'
+s_sys_file_path='/atlas/zorbas/BSM_TauTau/LepHad/190116/mc/mc16a/sys/'
 #s_sample_prefix='samples-htautau_lephad_sr'
 #s_sample_prefix='samples-htautau_lephad_srcontid'
 
 # if making sample files (for kinematic variation), only this will be performed and no other jobs will be submitted:
 b_makeSamples = False
 # if submitting samples, they won't be merged, because we need to wait for all jobs to finish:
-b_submit = False
+b_submit = True
 # merge samples, but you must make sure that all jobs are finished:
-b_merge = True
+b_merge = False
 
 
 # list of all systematics, comment out the ones you don't want to run:
@@ -50,7 +50,7 @@ l_systematics=[
 #['fakevar',   'FakeFactor_WjetsBveto3pBDT2_1down'],
 #['fakevar',   'FakeFactor_WjetsBveto3pBDT3_1up'],
 #['fakevar',   'FakeFactor_WjetsBveto3pBDT3_1down'],
-#
+
 #['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
 #['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
 #['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
@@ -59,20 +59,20 @@ l_systematics=[
 #['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
 #['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
 #['fakevar',   'FakeFactor_WjetsBveto3p_1down'],
-#
-#['isovar',   'FakeFactor_LepElBveto_1up'],
-#['isovar',   'FakeFactor_LepElBveto_1down'],
-#['isovar',   'FakeFactor_LepElBtag_1up'],
-#['isovar',   'FakeFactor_LepElBtag_1down'],
-#['isovar',   'FakeFactor_LepMuBveto_1up'],
-#['isovar',   'FakeFactor_LepMuBveto_1down'],
-#['isovar',   'FakeFactor_LepMuBtag_1up'],
-#['isovar',   'FakeFactor_LepMuBtag_1down'],
 
-['ttbarweight', 'TTBAR_Radiation_1up'],
-['ttbarweight', 'TTBAR_Radiation_1down'],
-['ttbarweight', 'TTBAR_ShowerUE_1up'],
-['ttbarweight', 'TTBAR_ShowerUE_1down'],
+['isovar',   'FakeFactor_LepElBveto_1up'],
+['isovar',   'FakeFactor_LepElBveto_1down'],
+['isovar',   'FakeFactor_LepElBtag_1up'],
+['isovar',   'FakeFactor_LepElBtag_1down'],
+['isovar',   'FakeFactor_LepMuBveto_1up'],
+['isovar',   'FakeFactor_LepMuBveto_1down'],
+['isovar',   'FakeFactor_LepMuBtag_1up'],
+['isovar',   'FakeFactor_LepMuBtag_1down'],
+
+#['ttbarweight', 'TTBAR_Radiation_1up'],
+#['ttbarweight', 'TTBAR_Radiation_1down'],
+#['ttbarweight', 'TTBAR_ShowerUE_1up'],
+#['ttbarweight', 'TTBAR_ShowerUE_1down'],
 
 
 #['weightvar', 'LPX_KFACTOR_ALPHAS_1down_lpx_kfactor'],
@@ -222,8 +222,7 @@ l_systematics=[
 #['treevariation', 'MET_SoftTrk_ResoPara'],
 #['treevariation', 'MET_SoftTrk_ResoPerp'],
 #['treevariation', 'MET_SoftTrk_ScaleDown'],
-#['treevariation', 'MET_SoftTrk_ScaleUp']
-
+#['treevariation', 'MET_SoftTrk_ScaleUp'],
 ]
 
 if __name__=='__main__':
@@ -237,14 +236,23 @@ if __name__=='__main__':
       l_files = []
       if option=='fakevar':
         # wff sys, dont need mc bkg and qcd
-        l_files.append('*-bkg*')
-        l_files.append('*-QCDFakes*')
-        l_files.append('*-sig*')
+        #l_files.append('unmerged_*_mc16a_ehad_SherpaWjets.root')
+        #l_files.append('unmerged_*_mc16a_muhad_SherpaWjets.root')
+        l_files.append('unmerged_*_mc16a_X_Diboson.root')
+        l_files.append('unmerged_*_mc16a_X_Top.root')
+        l_files.append('unmerged_*_mc16a_X_Z*.root')
+        l_files.append('unmerged_*_mc16a_X_QCDFakes_*.root')
+        l_files.append('unmerged_*_siga_*.root')
       elif option=='isovar':
         # lepton ff sys, dont need mc bkg
-        l_files.append('*-bkg*')
-        l_files.append('*-WJETSFakes-X-data*')
-        l_files.append('*-sig*')
+        #l_files.append('unmerged_*_mc16a_ehad_SherpaWjets.root')
+        #l_files.append('unmerged_*_mc16a_muhad_SherpaWjets.root')
+        l_files.append('unmerged_*_mc16a_X_Diboson.root')
+        l_files.append('unmerged_*_mc16a_X_Top.root')
+        l_files.append('unmerged_*_mc16a_X_Z*.root')
+        l_files.append('unmerged_*_mc16a_X_WJETSFakes_data_*.root')
+        l_files.append('unmerged_*_mc16a_X_WJETSFakes_mc_*.root')
+        l_files.append('unmerged_*_siga_*.root')
       elif option=='weightvar' or option=='treevariation':
         # mc sys, dont need wjets and qcd
         l_files.append('*-WJETSFakes*')
@@ -268,7 +276,7 @@ if __name__=='__main__':
 
       # submit makeSampleFile.py for those systematics which need different trees:
       if b_makeSamples and option=='treevariation':
-        command='bsub python makeSampleFile.py {:s} --options mcPaths:\'{:s}:{:s}\'  sampleFile:\'input/htautau_lephad_sr_{:s}.root:samples\' '.format(s_config_path,s_sys_file_path,sys,sys)
+        command='bsub python makeSampleFile.py {:s} --options mcPaths=\'{:s}:{:s}\' sampleFile=\'input/htautau_lephad_sr_{:s}.root:samples\''.format(s_config_path,s_sys_file_path,sys,sys)
         os.system(command)
 
       if b_makeSamples:
@@ -278,25 +286,27 @@ if __name__=='__main__':
       # submit other samples; use jobsSYS.txt file which does not have data;
       temp_option=''
       if option=='treevariation': # if tree variation, we need to provide different input file:
-        temp_option='inputFile:\'input/htautau_lephad_sr_{:s}.root:samples\''.format(sys)
+        temp_option='inputFile=\'input/htautau_lephad_sr_{:s}.root:samples\''.format(sys)
       elif option=='weightvar': # if sf variation, use nominal branch but sys samples:
-        temp_option='inputFile:\'input/htautau_lephad_sr_sys.root:samples\'   {:s}:{:s}'.format(option,sys)
+        temp_option='inputFile=\'input/htautau_lephad_sr_sys.root:samples\' {:s}={:s}'.format(option,sys)
       else: # if fake variation, use samples with full events, change the name of the tag:
-        temp_option=option+':'+sys
+        temp_option=option+'='+sys
 
-      command='python submitAnalysis.py --options {:s} --submit bsub --queue {:s} --jobs ConfigSignalRegion/jobsSYS.txt --identifier {:s} --downmerge --memory 0.01 {:s}'.format(temp_option,s_queue,sys,s_config_path)
+      #command='analyze.py --options {:s} --submit bsub --queue {:s} --jobs ConfigSignalRegion/jobsSYS.txt --identifier {:s} --downmerge --memory 0.01 {:s}'.format(temp_option,s_queue,sys,s_config_path)
+      command='submit.py {:s} --jobs configSignalControlRegion/syst/jobsSYS-isovar.txt --identifier SRsys_{:s} --allowArgChanges --submit condor --options {:s}'.format(s_config_path,sys,temp_option)
       print command
       os.system(command)
 
   if b_merge and not b_submit:
     # merge nominal
-    command='bsub -q short tqmerge -o output/htautau_lephad_sr_contid/nominal.root -t runAnalysis -Sum {:s}/*'.format(s_nominal_dir)
-    os.system(command)
+    #command='bsub -q short tqmerge -o output/htautau_lephad_sr_contid/nominal.root -t runAnalysis -Sum {:s}/*'.format(s_nominal_dir)
+    #os.system(command)
     # merge systematics
     for systematic in l_systematics:
       option = systematic[0]
       sys = systematic[1]
 
       # we need full sys files in htautau_lephad_sr folder
-      command='bsub -q short tqmerge -o output/htautau_lephad_sr_contid/{:s}.root -t runAnalysis -Sum  output/unmerged_{:s}/*'.format(sys,sys)
+      #command='bsub -q short tqmerge -o output/htautau_lephad_sr_contid/{:s}.root -t runAnalysis -Sum  output/unmerged_{:s}/*'.format(sys,sys)
+      command='tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-{:s}.root -t analyze batchOutput/unmerged_SRsys_{:s}/*.root'.format(sys,sys)
       os.system(command)
