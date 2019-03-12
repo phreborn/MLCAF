@@ -276,7 +276,7 @@ if __name__=='__main__':
         l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))
 
         for file in l_file:
-          os.system('ln -sv ../../{:s}/{:s} batchOutput/unmerged_SRsys_{:s}'.format(s_nominal_dir,file,sys))
+          os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
 
       # submit makeSampleFile.py for those systematics which need different trees:
       if b_makeSamples and option=='treevariation':
