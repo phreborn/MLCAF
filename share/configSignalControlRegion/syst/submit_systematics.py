@@ -268,11 +268,11 @@ if __name__=='__main__':
         l_files.append('*bkg_X_Ztautau*')
 
       # make output folder, the same as the submitAnalysis.py would create;
-      os.system('mkdir output/unmerged_{:s}'.format(sys))
+      os.system('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
 
       # copy those files which should not be run over for this particular systematic;
       for file in l_files:
-        os.system('cp {:s}/{:s} output/unmerged_{:s}'.format(s_nominal_dir,file,sys))
+        os.system('ln -s {:s}/{:s} batchOutput/unmerged_SRsys_{:s}'.format(s_nominal_dir,file,sys))
 
       # submit makeSampleFile.py for those systematics which need different trees:
       if b_makeSamples and option=='treevariation':
