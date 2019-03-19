@@ -16,9 +16,9 @@ s_sys_file_path='/atlas/zorbas/BSM_TauTau/LepHad/190116/mc/mc16a/sys/'
 # if making sample files (for kinematic variation), only this will be performed and no other jobs will be submitted:
 b_makeSamples = False
 # if submitting samples, they won't be merged, because we need to wait for all jobs to finish:
-b_submit = True
+b_submit = False
 # merge samples, but you must make sure that all jobs are finished:
-b_merge = False
+b_merge = True
 
 
 # list of all systematics, comment out the ones you don't want to run:
@@ -52,14 +52,14 @@ l_systematics=[
 #['fakevar',   'FakeFactor_WjetsBveto3pBDT3_1up'],
 #['fakevar',   'FakeFactor_WjetsBveto3pBDT3_1down'],
 
-#['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
-#['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
-#['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
-#['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
-#['fakevar',   'FakeFactor_WjetsBveto1p_1up'],
-#['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
-#['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
-#['fakevar',   'FakeFactor_WjetsBveto3p_1down'],
+['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
+['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
+['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
+['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
+['fakevar',   'FakeFactor_WjetsBveto1p_1up'],
+['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
+['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
+['fakevar',   'FakeFactor_WjetsBveto3p_1down'],
 
 ['isovar',   'FakeFactor_LepElBveto_1up'],
 ['isovar',   'FakeFactor_LepElBveto_1down'],
@@ -292,9 +292,9 @@ if __name__=='__main__':
       if option=='treevariation': # if tree variation, we need to provide different input file:
         temp_option='inputFile=\'input/htautau_lephad_sr_{:s}.root:samples\''.format(sys)
       elif option=='weightvar': # if sf variation, use nominal branch but sys samples:
-        temp_option='inputFile=\'input/htautau_lephad_sr_sys.root:samples\' {:s}={:s}'.format(option,sys)
+        temp_option='inputFile=\'input/htautau_lephad_sr_sys.root:samples\' aliases.{:s}={:s}'.format(option,sys)
       else: # if fake variation, use samples with full events, change the name of the tag:
-        temp_option=option+'='+sys
+        temp_option='aliases.'+option+'='+sys+' '+option+'='+sys
 
       #command='analyze.py --options {:s} --submit bsub --queue {:s} --jobs ConfigSignalRegion/jobsSYS.txt --identifier {:s} --downmerge --memory 0.01 {:s}'.format(temp_option,s_queue,sys,s_config_path)
       command='submit.py {:s} --jobs configSignalControlRegion/syst/jobsSYS-isovar.txt --identifier SRsys_{:s} --allowArgChanges --submit condor --options {:s}'.format(s_config_path,sys,temp_option)

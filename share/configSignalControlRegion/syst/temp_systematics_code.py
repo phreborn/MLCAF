@@ -7,7 +7,7 @@ import os
 pair = ROOT.std.pair('TString','TString')
 channel = 'ehad'
 b_doSys = True
-b_isbtag = False
+b_isbtag = True
 #### NEW!! we don't want to use mc in anti-iso region in btag category,
 #### so we neeed to run this script two times - one for bveto and one for btag and give a bit different
 #### sf paths
@@ -268,7 +268,7 @@ def main():
   # Table.printPlain() to write it as a LaTeX and a CSV file
   for cut in l_cuts:
     table = handler.getTable(cut)
-    table.writeLaTeX(dir+'sys_table'+cut+'.tex')
+    table.writeLaTeX(dir+'sys_table_'+channel+'_'+cut+'.tex')
     table.printPlain()
 
 if __name__ == "__main__":
