@@ -90,16 +90,6 @@ def main(config):
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
-    # TODO: do we still want this option?
-    # if requested, we initialize the samples from the input lists
-    initlists = config.getTagVString("initializerLists")
-    init = QFramework.TQSampleListInitializer(samples)
-    init.setTagString("treeName","CollectionTree")
-    for filelist in initlists:
-        with open(filelist.Data(),'r') as f:
-            for line in f:
-                init.initializeSampleForFile(line) 
-
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
     if config.getTagBoolDefault("purgeSamples",False):
         common.reduceSampleFolder(config, samples)
