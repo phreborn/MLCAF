@@ -380,7 +380,7 @@ if __name__=='__main__':
   if b_merge and not b_submit:
     # merge nominal
     #command='bsub -q short tqmerge -o output/htautau_lephad_sr_contid/nominal.root -t runAnalysis -Sum {:s}/*'.format(s_nominal_dir)
-    if not args.dry: os.system(command)
+    #os.system(command)
     # merge systematics
     for systematic in l_systematics:
       option = systematic[0]
