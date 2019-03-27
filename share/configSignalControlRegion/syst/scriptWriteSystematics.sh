@@ -1,36 +1,36 @@
 #!/bin/bash
 
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag False --systype fakevar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag True --systype fakevar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag False --systype fakevar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag True --systype fakevar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag False --systype fakevar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag True --systype fakevar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype fakevar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype fakevar --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype fakevar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype fakevar --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype fakevar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype fakevar --isbtag
 
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag False --systype isovar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag True --systype isovar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag False --systype isovar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag True --systype isovar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag False --systype isovar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag True --systype isovar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype isovar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype isovar --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype isovar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype isovar --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype isovar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype isovar --isbtag
 
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag False --systype ttbarweight
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag True --systype ttbarweight
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag False --systype ttbarweight
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag True --systype ttbarweight
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag False --systype ttbarweight
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag True --systype ttbarweight
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype ttbarweight
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype ttbarweight --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype ttbarweight
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype ttbarweight --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype ttbarweight
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype ttbarweight --isbtag
 
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag False --systype weightvar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag True --systype weightvar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag False --systype weightvar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag True --systype weightvar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag False --systype weightvar
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag True --systype weightvar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype weightvar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype weightvar --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype weightvar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype weightvar --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype weightvar
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype weightvar --isbtag
 
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag False --systype treevariation
-python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --isbtag True --systype treevariation
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag False --systype treevariation
-python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --isbtag True --systype treevariation
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag False --systype treevariation
-python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --isbtag True --systype treevariation
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype treevariation
+python configSignalControlRegion/syst/temp_systematics_code.py --channel ehad --systype treevariation --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype treevariation
+python configSignalControlRegion/syst/temp_systematics_code.py --channel muhad --systype treevariation --isbtag
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype treevariation
+python configSignalControlRegion/syst/temp_systematics_code.py --channel lephad --systype treevariation --isbtag

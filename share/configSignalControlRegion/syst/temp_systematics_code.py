@@ -7,17 +7,17 @@ import argparse
 parser = argparse.ArgumentParser(description='process systematics script')
 parser.add_argument('--channel', default='lephad',
                     help='channel to run over (ehad, muhad, lephad)')
-parser.add_argument('--isbtag', default=False,
+parser.add_argument('--isbtag', action='store_true',
                     help='apply btag corrections or not')
 parser.add_argument('--systype', default='none',
                     help='select which type of systematic to process')
-parser.add_argument('--doSys', default=True,
+parser.add_argument('--nosys', action='store_true',
                     help='dry run or not')
 args = parser.parse_args()
 
 pair = ROOT.std.pair('TString','TString')
 channel = args.channel
-b_doSys = args.doSys
+b_doSys = not args.nosys
 b_isbtag = args.isbtag
 #### NEW!! we don't want to use mc in anti-iso region in btag category,
 #### so we neeed to run this script two times - one for bveto and one for btag and give a bit different
@@ -52,6 +52,8 @@ else:
 #    'CutBveto3pBDT2',
 #    'CutBveto3pBDT3',
     ]
+
+print(channel, b_isbtag, args.systype)
 
 def main():
   handler = TQSystematicsHandler ('systematics')
@@ -302,18 +304,16 @@ def main():
 
   # Export the systematics to an instance of TQFolder and write the 'yellow-band' to file
   systematics = handler.exportSystematics()
+  bchannel='bveto'
   if b_isbtag:
-    systematics.writeToFile(dir+channel+'_btag_'+option+'_systematics.root',True,0)
-  else:
-    systematics.writeToFile(dir+channel+'_bveto_'+option+'_systematics.root',True,0)
+    bchannel='btag'
+  systematics.writeToFile(dir+'sys_band_'+channel+'_'+bchannel+'_'+option+'.root',True,0)
   # Produce a table with the ranking of systematic uncertainties at some cut stage table
   # Table.printPlain() to write it as a LaTeX and a CSV file
   for cut in l_cuts:
     table = handler.getTable(cut)
-    if b_isbtag:
-      table.writeLaTeX(dir+'sys_table_'+channel+'_btag_'+option+'_'+cut+'.tex')
-    else:
-      table.writeLaTeX(dir+'sys_table_'+channel+'_bveto_'+option+'_'+cut+'.tex')
+    table.writeLaTeX(dir+'sys_table_'+channel+'_'+bchannel+'_'+option+'_'+cut+'.tex')
+    print(cut)
     table.printPlain()
 
 if __name__ == "__main__":

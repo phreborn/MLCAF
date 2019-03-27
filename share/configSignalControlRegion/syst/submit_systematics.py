@@ -17,15 +17,15 @@ s_sys_file_path='/atlas/zorbas/BSM_TauTau/LepHad/190116/mc/mc16a/sys/'
 
 # introduce argument parser
 parser = argparse.ArgumentParser(description='submit systematics script')
-parser.add_argument('--makeSamples', default=False,
+parser.add_argument('--makeSamples', action='store_true',
                     help='if making sample files (for kinematic variation), only this will be performed and no other jobs will be submitted')
-parser.add_argument('--submit', default=False,
+parser.add_argument('--submit', action='store_true',
                     help='if submitting samples, they wont be merged, because we need to wait for all jobs to finish')
-parser.add_argument('--merge', default=False,
+parser.add_argument('--merge', action='store_true',
                     help='merge samples, but you must make sure that all jobs are finished')
 parser.add_argument('--systype', default='none',
                     help='select which type of systematic to process')
-parser.add_argument('--dry', default=False,
+parser.add_argument('--dry', action='store_true',
                     help='dont run any os system processes')
 args = parser.parse_args()
 
