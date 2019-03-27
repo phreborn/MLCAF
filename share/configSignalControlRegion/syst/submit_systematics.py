@@ -353,9 +353,9 @@ if __name__=='__main__':
       # submit other samples; use jobsSYS.txt file which does not have data;
       temp_option=''
       if option=='treevariation': # if tree variation, we need to provide different input file:
-        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-{:s}.root'".format(sys)
+        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-{:s}.root'".format(sys)
       elif option=='weightvar': # if sf variation, use nominal branch but sys samples:
-        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
+        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
       else: # if fake variation, use samples with full nominal events, change the name of the tag:
         temp_option='aliases.'+option+'='+sys+' '+option+'='+sys
 
