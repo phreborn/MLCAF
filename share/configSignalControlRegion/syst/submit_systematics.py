@@ -17,14 +17,16 @@ s_sys_file_path='/atlas/zorbas/BSM_TauTau/LepHad/190116/mc/mc16a/sys/'
 
 # introduce argument parser
 parser = argparse.ArgumentParser(description='submit systematics script')
-parser.add_argument('-mk', '--makeSamples', default=False,
+parser.add_argument('--makeSamples', default=False,
                     help='if making sample files (for kinematic variation), only this will be performed and no other jobs will be submitted')
-parser.add_argument('-sb', '--submit', default=False,
+parser.add_argument('--submit', default=False,
                     help='if submitting samples, they wont be merged, because we need to wait for all jobs to finish')
-parser.add_argument('-mg', '--merge', default=False,
+parser.add_argument('--merge', default=False,
                     help='merge samples, but you must make sure that all jobs are finished')
-parser.add_argument('-sy', '--systype', default='none',
+parser.add_argument('--systype', default='none',
                     help='select which type of systematic to process')
+parser.add_argument('--dry', default=True,
+                    help='dont run any os system processes')
 args = parser.parse_args()
 
 # now instead we use the argparser to control our options
@@ -276,15 +278,30 @@ if __name__=='__main__':
       # use sys samples, but only look at nominal branch here
       if args.systype=='weightvar':
         command1="prepare.py {:s} --options mcPaths='{:s}:NOMINAL' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-NOMINAL.root'".format(s_config_path_mc16a,s_sys_file_path)
-        os.system(command1)
+        print(command1)
+        if not args.dry: os.system(command1)
         command2="initialize.py {:s} --options mcPaths='{:s}:NOMINAL' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-NOMINAL.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-NOMINAL.root'".format(s_config_path_mc16a,s_sys_file_path)
-        os.system(command2)
+        print(command2)
+        if not args.dry: os.system(command2)
         # if making sample files: continue, because we don't want to submit jobs before we have inputs ready;
         sys.exit()
 
     for systematic in l_systematics:
       option = systematic[0]
       sys = systematic[1]
+
+      # submit makeSampleFile.py for those systematics which need different trees:
+      if b_makeSamples:
+        if option=='treevariation':
+          #command='bsub python makeSampleFile.py {:s} --options mcPaths=\'{:s}:{:s}\' sampleFile=\'input/htautau_lephad_sr_{:s}.root:samples\''.format(s_config_path,s_sys_file_path,sys,sys)
+          command1="prepare.py {:s} --options mcPaths='{:s}:{:s}' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-{:s}.root'".format(s_config_path_mc16a,s_sys_file_path,sys,sys)
+          print(command1)
+          if not args.dry: os.system(command1)
+          command2="initialize.py {:s} --options mcPaths='{:s}:{:s}' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-{:s}.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-{:s}.root'".format(s_config_path_mc16a,s_sys_file_path,sys,sys,sys)
+          print(command2)
+          if not args.dry: os.system(command2)
+        # if making sample files: continue, because we don't want to submit jobs before we have inputs ready;
+        continue
 
       # make list of which files needs to be copied:
       l_files = []
@@ -322,25 +339,16 @@ if __name__=='__main__':
         #l_files.append('unmerged_*_mc16a_muhad_SherpaWjets.root')
 
       # make output folder, the same as the submitAnalysis.py would create;
-      os.system('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
+      print('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
+      if not args.dry: os.system('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
 
       # copy those files which should not be run over for this particular systematic;
       for files in l_files:
         l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))
 
         for file in l_file:
-          os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
-
-      # submit makeSampleFile.py for those systematics which need different trees:
-      if b_makeSamples:
-        if option=='treevariation':
-          #command='bsub python makeSampleFile.py {:s} --options mcPaths=\'{:s}:{:s}\' sampleFile=\'input/htautau_lephad_sr_{:s}.root:samples\''.format(s_config_path,s_sys_file_path,sys,sys)
-          command1="prepare.py {:s} --options mcPaths='{:s}:{:s}' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-{:s}.root'".format(s_config_path_mc16a,s_sys_file_path,sys,sys)
-          os.system(command1)
-          command2="initialize.py {:s} --options mcPaths='{:s}:{:s}' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-{:s}.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-{:s}.root'".format(s_config_path_mc16a,s_sys_file_path,sys,sys,sys)
-          os.system(command2)
-        # if making sample files: continue, because we don't want to submit jobs before we have inputs ready;
-        continue
+          print('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
+          if not args.dry: os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
 
       # submit other samples; use jobsSYS.txt file which does not have data;
       temp_option=''
@@ -366,13 +374,13 @@ if __name__=='__main__':
 
       #command='analyze.py --options {:s} --submit bsub --queue {:s} --jobs ConfigSignalRegion/jobsSYS.txt --identifier {:s} --downmerge --memory 0.01 {:s}'.format(temp_option,s_queue,sys,s_config_path)
       command='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --submit condor --options {:s}'.format(s_config_path,jobs_file,sys,temp_option)
-      print command
-      os.system(command)
+      print(command)
+      if not args.dry: os.system(command)
 
   if b_merge and not b_submit:
     # merge nominal
     #command='bsub -q short tqmerge -o output/htautau_lephad_sr_contid/nominal.root -t runAnalysis -Sum {:s}/*'.format(s_nominal_dir)
-    #os.system(command)
+    if not args.dry: os.system(command)
     # merge systematics
     for systematic in l_systematics:
       option = systematic[0]
@@ -381,4 +389,5 @@ if __name__=='__main__':
       # we need full sys files in htautau_lephad_sr folder
       #command='bsub -q short tqmerge -o output/htautau_lephad_sr_contid/{:s}.root -t runAnalysis -Sum  output/unmerged_{:s}/*'.format(sys,sys)
       command='tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-{:s}.root -t analyze batchOutput/unmerged_SRsys_{:s}/*.root'.format(sys,sys)
-      os.system(command)
+      print(command)
+      if not args.dry: os.system(command)
