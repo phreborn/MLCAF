@@ -2,12 +2,21 @@
 from QFramework import *
 from ROOT import *
 import os
+import argparse
 
+parser = argparse.ArgumentParser(description='process systematics script')
+parser.add_argument('--channel', default='lephad',
+                    help='channel to run over (ehad, muhad, lephad)')
+parser.add_argument('--isbtag', default=False,
+                    help='apply btag corrections or not')
+parser.add_argument('--doSys', default=True,
+                    help='dry run or not')
+args = parser.parse_args()
 
 pair = ROOT.std.pair('TString','TString')
-channel = 'ehad'
-b_doSys = True
-b_isbtag = True
+channel = args.channel
+b_doSys = args.doSys
+b_isbtag = args.isbtag
 #### NEW!! we don't want to use mc in anti-iso region in btag category,
 #### so we neeed to run this script two times - one for bveto and one for btag and give a bit different
 #### sf paths
@@ -97,6 +106,9 @@ def main():
   ['isovar',   'FakeFactor_LepMuBveto_1up',   'FakeFactor_LepMuBveto_1down'],
   ['isovar',   'FakeFactor_LepMuBtag_1up',    'FakeFactor_LepMuBtag_1down'],
 
+  ['ttbarweight', 'TTBAR_Radiation_1up', 'TTBAR_Radiation_1down'],
+  ['ttbarweight', 'TTBAR_ShowerUE_1up',  'TTBAR_ShowerUE_1down'],
+
 #  ['weightvar', 'LPX_KFACTOR_ALPHAS_1down_lpx_kfactor', 'LPX_KFACTOR_ALPHAS_1up_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor', 'LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor'],
@@ -132,12 +144,12 @@ def main():
 #  ['weightvar', 'el_eff_reco_low',    'el_eff_reco_high'],
 #  ['weightvar', 'el_eff_trigger_low', 'el_eff_trigger_high'],
 #
-#  ['weightvar', 'tau_eff_reco_total_low',         'tau_eff_reco_total_high'],
-#  ['weightvar', 'tau_eff_reco_highpt_low',        'tau_eff_reco_highpt_high'],
-#  ['weightvar', 'tau_eff_eleolr_trueelectron_low','tau_eff_eleolr_trueelectron_high'],
-#  ['weightvar', 'tau_eff_eleolr_truehadtau_low',  'tau_eff_eleolr_truehadtau_high'],
-#  ['weightvar', 'tau_eff_jetid_total_low', 'tau_eff_jetid_total_high'],
-#  ['weightvar', 'tau_eff_jetid_highpt_low', 'tau_eff_jetid_highpt_high'],
+  ['weightvar', 'tau_eff_reco_total_low',         'tau_eff_reco_total_high'],
+  ['weightvar', 'tau_eff_reco_highpt_low',        'tau_eff_reco_highpt_high'],
+  ['weightvar', 'tau_eff_eleolr_trueelectron_low','tau_eff_eleolr_trueelectron_high'],
+  ['weightvar', 'tau_eff_eleolr_truehadtau_low',  'tau_eff_eleolr_truehadtau_high'],
+  ['weightvar', 'tau_eff_jetid_total_low', 'tau_eff_jetid_total_high'],
+  ['weightvar', 'tau_eff_jetid_highpt_low', 'tau_eff_jetid_highpt_high'],
 #
 #  ['weightvar', 'btag_b_0_low', 'btag_b_0_high'],
 #  ['weightvar', 'btag_b_1_low', 'btag_b_1_high'],
@@ -172,9 +184,9 @@ def main():
 #  ['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
 #  ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
 #  ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
-#  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down',   'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
-#  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down',     'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
-#  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down',      'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
+  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down',   'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
+  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down',     'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
+  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down',      'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
 #  ['treevariation', 'JET_EtaIntercalibration_NonClosure_1up', 'JET_EtaIntercalibration_NonClosure_1down'],
 #  ['treevariation', 'JET_GroupedNP_1_1up', 'JET_GroupedNP_1_1down'],
 #  ['treevariation', 'JET_GroupedNP_2_1up', 'JET_GroupedNP_2_1down'],
