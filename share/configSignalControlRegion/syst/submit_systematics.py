@@ -25,7 +25,7 @@ parser.add_argument('--merge', default=False,
                     help='merge samples, but you must make sure that all jobs are finished')
 parser.add_argument('--systype', default='none',
                     help='select which type of systematic to process')
-parser.add_argument('--dry', default=True,
+parser.add_argument('--dry', default=False,
                     help='dont run any os system processes')
 args = parser.parse_args()
 
