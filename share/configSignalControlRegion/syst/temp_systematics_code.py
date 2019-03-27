@@ -9,6 +9,8 @@ parser.add_argument('--channel', default='lephad',
                     help='channel to run over (ehad, muhad, lephad)')
 parser.add_argument('--isbtag', default=False,
                     help='apply btag corrections or not')
+parser.add_argument('--systype', default='none',
+                    help='select which type of systematic to process')
 parser.add_argument('--doSys', default=True,
                     help='dry run or not')
 args = parser.parse_args()
@@ -80,12 +82,18 @@ def main():
   handler.setTagBool("lazy",True)
 
   # here we use similar list as in submit systematics, but we have to group them:
-  l_systematics=[
+  # lets instead separate out the systematic types into sublists, and append them to the grand list on request
+  # so first initialise the grand list of systematics
+  l_systematics=[]
+
+  l_fakevars=[
   ['fakevar',   'FakeFactor_WjetsBtag1p_1up',    'FakeFactor_WjetsBtag1p_1down'],
   ['fakevar',   'FakeFactor_WjetsBtag3p_1up',    'FakeFactor_WjetsBtag3p_1down'],
   ['fakevar',   'FakeFactor_WjetsBveto1p_1up',   'FakeFactor_WjetsBveto1p_1down'],
   ['fakevar',   'FakeFactor_WjetsBveto3p_1up',   'FakeFactor_WjetsBveto3p_1down'],
+  ]
 
+  l_bdt_fakevars=[
 #  ['fakevar',   'FakeFactor_WjetsBtag1pBDT1_1up',   'FakeFactor_WjetsBtag1pBDT1_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBtag1pBDT2_1up',   'FakeFactor_WjetsBtag1pBDT2_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBtag1pBDT3_1up',   'FakeFactor_WjetsBtag1pBDT3_1down'],
@@ -100,15 +108,21 @@ def main():
 #  ['fakevar',   'FakeFactor_WjetsBveto3pBDT1_1up',   'FakeFactor_WjetsBveto3pBDT1_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBveto3pBDT2_1up',   'FakeFactor_WjetsBveto3pBDT2_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBveto3pBDT3_1up',   'FakeFactor_WjetsBveto3pBDT3_1down'],
+  ]
 
+  l_isovars=[
   ['isovar',   'FakeFactor_LepElBveto_1up',   'FakeFactor_LepElBveto_1down'],
   ['isovar',   'FakeFactor_LepElBtag_1up',    'FakeFactor_LepElBtag_1down'],
   ['isovar',   'FakeFactor_LepMuBveto_1up',   'FakeFactor_LepMuBveto_1down'],
   ['isovar',   'FakeFactor_LepMuBtag_1up',    'FakeFactor_LepMuBtag_1down'],
+  ]
 
+  l_ttbarweights=[
   ['ttbarweight', 'TTBAR_Radiation_1up', 'TTBAR_Radiation_1down'],
   ['ttbarweight', 'TTBAR_ShowerUE_1up',  'TTBAR_ShowerUE_1down'],
+  ]
 
+  l_weightvars=[
 #  ['weightvar', 'LPX_KFACTOR_ALPHAS_1down_lpx_kfactor', 'LPX_KFACTOR_ALPHAS_1up_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor', 'LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor'],
@@ -171,7 +185,9 @@ def main():
 #  ['weightvar', 'jet_jvteff_low', 'jet_jvteff_high'],
 #
 #  ['weightvar', 'pu_prw_high', 'pu_prw_low'],
-#
+  ]
+
+  l_treevariations=[
 #  # below the systematic must be actual tree name in ntuples
 #  ['treevariation', 'MUON_ID_1down', 'MUON_ID_1up'],
 #  ['treevariation', 'MUON_MS_1down', 'MUON_MS_1up'],
@@ -197,6 +213,20 @@ def main():
 #  ['treevariation', 'MET_SoftTrk_ResoPerp'],
 #  ['treevariation', 'MET_SoftTrk_ScaleDown', 'MET_SoftTrk_ScaleUp'],
   ]
+
+  # now we add the systematic sublists we want to run over into the grand list
+  # this is controlled by the arg parser, so I can run the show from an external submission script
+  if args.systype == "fakevar":
+      l_systematics.extend(l_fakevars)
+  if args.systype == "isovar":
+      l_systematics.extend(l_isovars)
+  if args.systype == "ttbarweight":
+      l_systematics.extend(l_ttbarweights)
+  if args.systype == "weightvar":
+      l_systematics.extend(l_weightvars)
+  if args.systype == "treevariation":
+      l_systematics.extend(l_treevariations)
+
 
   for sysline in l_systematics:
     option = sysline[0]
@@ -273,14 +303,17 @@ def main():
   # Export the systematics to an instance of TQFolder and write the 'yellow-band' to file
   systematics = handler.exportSystematics()
   if b_isbtag:
-    systematics.writeToFile(dir+channel+'_btag_systematics.root',True,0)
+    systematics.writeToFile(dir+channel+'_btag_'+option+'_systematics.root',True,0)
   else:
-    systematics.writeToFile(dir+channel+'_bveto_systematics.root',True,0)
+    systematics.writeToFile(dir+channel+'_bveto_'+option+'_systematics.root',True,0)
   # Produce a table with the ranking of systematic uncertainties at some cut stage table
   # Table.printPlain() to write it as a LaTeX and a CSV file
   for cut in l_cuts:
     table = handler.getTable(cut)
-    table.writeLaTeX(dir+'sys_table_'+channel+'_'+cut+'.tex')
+    if b_isbtag:
+      table.writeLaTeX(dir+'sys_table_'+channel+'_btag_'+option+'_'+cut+'.tex')
+    else:
+      table.writeLaTeX(dir+'sys_table_'+channel+'_bveto_'+option+'_'+cut+'.tex')
     table.printPlain()
 
 if __name__ == "__main__":
