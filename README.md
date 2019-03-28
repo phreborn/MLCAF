@@ -136,6 +136,7 @@ python scripts/calculateFakeFactor.py WFR
 
 ### Signal Region, Validation Region, W+jets/Top Control Regions
 ```bash
+# Prepare and initialize your samples
 source configSignalControlRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
 source configSignalControlRegion/scriptSubmit.sh
