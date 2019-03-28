@@ -146,16 +146,22 @@ tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-nominal.roo
 source configSignalControlRegion/scriptVisualize.sh
 ```
 
+### Systematics (Signal Region, Validation Region, W+jets/Top Control Regions)
+```bash
+# Prepare and initialize your samples
+source configSignalControlRegion/syst/scriptPrepareInitializeSystematics.sh
+# Submit the full analysis to a cluster
+source configSignalControlRegion/syst/scriptSubmitSystematics.sh
+# After all cluster jobs have finished, merge the output
+source configSignalControlRegion/syst/scriptMergeSystematics.sh
+# Write the systematics to band files and tables
+source configSignalControlRegion/syst/scriptWriteSystematics.sh
+# Re-visualize plots
+source configSignalControlRegion/scriptVisualize.sh
+```
+
 Old README content
 ------------------
-
-### NOT REVISED FOR R21
-#to run systematics do
-python submit_systematics.py
-# to make a systematics root file for plotting do
-python temp_systematics_code.py
-
-
 TODO: 2015-16-17 fake factors:
     - update isoReweight.cxx and ptReweight.cxx to use appropriate year fake factors;
     - I only checked W+jets ffs and it looks that all years can be merged;
