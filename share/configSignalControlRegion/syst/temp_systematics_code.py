@@ -2,12 +2,23 @@
 from QFramework import *
 from ROOT import *
 import os
+import argparse
 
+parser = argparse.ArgumentParser(description='process systematics script')
+parser.add_argument('--channel', default='lephad',
+                    help='channel to run over (ehad, muhad, lephad)')
+parser.add_argument('--isbtag', action='store_true',
+                    help='apply btag corrections or not')
+parser.add_argument('--systype', default='none',
+                    help='select which type of systematic to process')
+parser.add_argument('--nosys', action='store_true',
+                    help='dry run or not')
+args = parser.parse_args()
 
 pair = ROOT.std.pair('TString','TString')
-channel = 'ehad'
-b_doSys = True
-b_isbtag = True
+channel = args.channel
+b_doSys = not args.nosys
+b_isbtag = args.isbtag
 #### NEW!! we don't want to use mc in anti-iso region in btag category,
 #### so we neeed to run this script two times - one for bveto and one for btag and give a bit different
 #### sf paths
@@ -42,6 +53,8 @@ else:
 #    'CutBveto3pBDT3',
     ]
 
+print(channel, b_isbtag, args.systype)
+
 def main():
   handler = TQSystematicsHandler ('systematics')
   dir = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-'
@@ -71,12 +84,18 @@ def main():
   handler.setTagBool("lazy",True)
 
   # here we use similar list as in submit systematics, but we have to group them:
-  l_systematics=[
+  # lets instead separate out the systematic types into sublists, and append them to the grand list on request
+  # so first initialise the grand list of systematics
+  l_systematics=[]
+
+  l_fakevars=[
   ['fakevar',   'FakeFactor_WjetsBtag1p_1up',    'FakeFactor_WjetsBtag1p_1down'],
   ['fakevar',   'FakeFactor_WjetsBtag3p_1up',    'FakeFactor_WjetsBtag3p_1down'],
   ['fakevar',   'FakeFactor_WjetsBveto1p_1up',   'FakeFactor_WjetsBveto1p_1down'],
   ['fakevar',   'FakeFactor_WjetsBveto3p_1up',   'FakeFactor_WjetsBveto3p_1down'],
+  ]
 
+  l_bdt_fakevars=[
 #  ['fakevar',   'FakeFactor_WjetsBtag1pBDT1_1up',   'FakeFactor_WjetsBtag1pBDT1_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBtag1pBDT2_1up',   'FakeFactor_WjetsBtag1pBDT2_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBtag1pBDT3_1up',   'FakeFactor_WjetsBtag1pBDT3_1down'],
@@ -91,12 +110,21 @@ def main():
 #  ['fakevar',   'FakeFactor_WjetsBveto3pBDT1_1up',   'FakeFactor_WjetsBveto3pBDT1_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBveto3pBDT2_1up',   'FakeFactor_WjetsBveto3pBDT2_1down'],
 #  ['fakevar',   'FakeFactor_WjetsBveto3pBDT3_1up',   'FakeFactor_WjetsBveto3pBDT3_1down'],
+  ]
 
+  l_isovars=[
   ['isovar',   'FakeFactor_LepElBveto_1up',   'FakeFactor_LepElBveto_1down'],
   ['isovar',   'FakeFactor_LepElBtag_1up',    'FakeFactor_LepElBtag_1down'],
   ['isovar',   'FakeFactor_LepMuBveto_1up',   'FakeFactor_LepMuBveto_1down'],
   ['isovar',   'FakeFactor_LepMuBtag_1up',    'FakeFactor_LepMuBtag_1down'],
+  ]
 
+  l_ttbarweights=[
+  ['ttbarweight', 'TTBAR_Radiation_1up', 'TTBAR_Radiation_1down'],
+  ['ttbarweight', 'TTBAR_ShowerUE_1up',  'TTBAR_ShowerUE_1down'],
+  ]
+
+  l_weightvars=[
 #  ['weightvar', 'LPX_KFACTOR_ALPHAS_1down_lpx_kfactor', 'LPX_KFACTOR_ALPHAS_1up_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor', 'LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor'],
@@ -132,12 +160,12 @@ def main():
 #  ['weightvar', 'el_eff_reco_low',    'el_eff_reco_high'],
 #  ['weightvar', 'el_eff_trigger_low', 'el_eff_trigger_high'],
 #
-#  ['weightvar', 'tau_eff_reco_total_low',         'tau_eff_reco_total_high'],
-#  ['weightvar', 'tau_eff_reco_highpt_low',        'tau_eff_reco_highpt_high'],
-#  ['weightvar', 'tau_eff_eleolr_trueelectron_low','tau_eff_eleolr_trueelectron_high'],
-#  ['weightvar', 'tau_eff_eleolr_truehadtau_low',  'tau_eff_eleolr_truehadtau_high'],
-#  ['weightvar', 'tau_eff_jetid_total_low', 'tau_eff_jetid_total_high'],
-#  ['weightvar', 'tau_eff_jetid_highpt_low', 'tau_eff_jetid_highpt_high'],
+  ['weightvar', 'tau_eff_reco_total_low',         'tau_eff_reco_total_high'],
+  ['weightvar', 'tau_eff_reco_highpt_low',        'tau_eff_reco_highpt_high'],
+  ['weightvar', 'tau_eff_eleolr_trueelectron_low','tau_eff_eleolr_trueelectron_high'],
+  ['weightvar', 'tau_eff_eleolr_truehadtau_low',  'tau_eff_eleolr_truehadtau_high'],
+  ['weightvar', 'tau_eff_jetid_total_low', 'tau_eff_jetid_total_high'],
+  ['weightvar', 'tau_eff_jetid_highpt_low', 'tau_eff_jetid_highpt_high'],
 #
 #  ['weightvar', 'btag_b_0_low', 'btag_b_0_high'],
 #  ['weightvar', 'btag_b_1_low', 'btag_b_1_high'],
@@ -159,7 +187,9 @@ def main():
 #  ['weightvar', 'jet_jvteff_low', 'jet_jvteff_high'],
 #
 #  ['weightvar', 'pu_prw_high', 'pu_prw_low'],
-#
+  ]
+
+  l_treevariations=[
 #  # below the systematic must be actual tree name in ntuples
 #  ['treevariation', 'MUON_ID_1down', 'MUON_ID_1up'],
 #  ['treevariation', 'MUON_MS_1down', 'MUON_MS_1up'],
@@ -172,9 +202,9 @@ def main():
 #  ['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
 #  ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
 #  ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
-#  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down',   'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
-#  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down',     'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
-#  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down',      'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
+  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down',   'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
+  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down',     'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
+  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down',      'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
 #  ['treevariation', 'JET_EtaIntercalibration_NonClosure_1up', 'JET_EtaIntercalibration_NonClosure_1down'],
 #  ['treevariation', 'JET_GroupedNP_1_1up', 'JET_GroupedNP_1_1down'],
 #  ['treevariation', 'JET_GroupedNP_2_1up', 'JET_GroupedNP_2_1down'],
@@ -185,6 +215,20 @@ def main():
 #  ['treevariation', 'MET_SoftTrk_ResoPerp'],
 #  ['treevariation', 'MET_SoftTrk_ScaleDown', 'MET_SoftTrk_ScaleUp'],
   ]
+
+  # now we add the systematic sublists we want to run over into the grand list
+  # this is controlled by the arg parser, so I can run the show from an external submission script
+  if args.systype == "fakevar":
+      l_systematics.extend(l_fakevars)
+  if args.systype == "isovar":
+      l_systematics.extend(l_isovars)
+  if args.systype == "ttbarweight":
+      l_systematics.extend(l_ttbarweights)
+  if args.systype == "weightvar":
+      l_systematics.extend(l_weightvars)
+  if args.systype == "treevariation":
+      l_systematics.extend(l_treevariations)
+
 
   for sysline in l_systematics:
     option = sysline[0]
@@ -260,15 +304,16 @@ def main():
 
   # Export the systematics to an instance of TQFolder and write the 'yellow-band' to file
   systematics = handler.exportSystematics()
+  bchannel='bveto'
   if b_isbtag:
-    systematics.writeToFile(dir+channel+'_btag_systematics.root',True,0)
-  else:
-    systematics.writeToFile(dir+channel+'_bveto_systematics.root',True,0)
+    bchannel='btag'
+  systematics.writeToFile(dir+'sys_band_'+channel+'_'+bchannel+'_'+option+'.root',True,0)
   # Produce a table with the ranking of systematic uncertainties at some cut stage table
   # Table.printPlain() to write it as a LaTeX and a CSV file
   for cut in l_cuts:
     table = handler.getTable(cut)
-    table.writeLaTeX(dir+'sys_table_'+channel+'_'+cut+'.tex')
+    table.writeLaTeX(dir+'sys_table_'+channel+'_'+bchannel+'_'+option+'_'+cut+'.tex')
+    print(cut)
     table.printPlain()
 
 if __name__ == "__main__":

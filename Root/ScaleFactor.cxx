@@ -406,10 +406,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     "tau_0_NOMINAL_TauEffSF_selection");
 
   addScaleFactor(tau_eff_eleolr_trueele_low,
-    "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_TOTAL_1down_TauEffSF_selection");
+    "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1down_TauEffSF_selection");
 
   addScaleFactor(tau_eff_eleolr_trueele_high,
-    "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_TOTAL_1up_TauEffSF_selection");
+    "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1up_TauEffSF_selection");
 
   Condition tau_eff_eleolr_truehadtau_low = registerVariation("tau_eff_eleolr_truehadtau_low");
   Condition tau_eff_eleolr_truehadtau_high = registerVariation("tau_eff_eleolr_truehadtau_high");
@@ -436,10 +436,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     "tau_0_NOMINAL_TauEffSF_JetBDTmedium");
 
   addScaleFactor(tau_eff_jetid_total_low,
-    "tau_0_TAUS_TRUEHADTAU_EFF_JETID_TOTAL_1down_TauEffSF_JetBDTmedium");
+    "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1down_TauEffSF_JetBDTmedium");
 
   addScaleFactor(tau_eff_jetid_total_high,
-    "tau_0_TAUS_TRUEHADTAU_EFF_JETID_TOTAL_1up_TauEffSF_JetBDTmedium");
+    "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1up_TauEffSF_JetBDTmedium");
 
   addScaleFactor(tau_eff_jetid_highpt_low,
     "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1down_TauEffSF_JetBDTmedium");
