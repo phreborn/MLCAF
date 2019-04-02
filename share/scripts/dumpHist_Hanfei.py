@@ -25,49 +25,50 @@ sfName = "samples" # samples or systematics
 datasets = args.datasets
 channel = args.channel
 basepath = "." #basepath in sample folder to get list of histograms from
-#sflist = ["{:s}/{:s}/Top/".format(datasets,channel),
-#          "{:s}/{:s}/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/Zmumu/".format(datasets,channel),
-#          "{:s}/{:s}/Ztautau/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/data/?/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Top/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Zmumu/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Ztautau/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/data/?/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Top/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Zmumu/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Ztautau/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/data/?/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Top/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(datasets,channel)]
-sflist = ["{:s}/{:s}/?/".format(datasets,channel)]
+sflist = ["{:s}/{:s}/Top/".format(datasets,channel),
+          "{:s}/{:s}/Diboson/".format(datasets,channel),
+          "{:s}/{:s}/Zee/".format(datasets,channel),
+          "{:s}/{:s}/Zmumu/".format(datasets,channel),
+          "{:s}/{:s}/Ztautau/".format(datasets,channel),
+          "{:s}/{:s}/QCDFakes/data/?/".format(datasets,channel),
+          "{:s}/{:s}/QCDFakes/mc/Diboson/".format(datasets,channel),
+          "{:s}/{:s}/QCDFakes/mc/Top/".format(datasets,channel),
+          "{:s}/{:s}/QCDFakes/mc/Zee/".format(datasets,channel),
+          "{:s}/{:s}/QCDFakes/mc/Zmumu/".format(datasets,channel),
+          "{:s}/{:s}/QCDFakes/mc/Ztautau/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/data/?/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/mc/Diboson/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/mc/Top/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/mc/Zee/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/mc/Zmumu/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/mc/Ztautau/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/QCD/data/?/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/QCD/mc/Diboson/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/QCD/mc/Top/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(datasets,channel)]
+#sflist = ["{:s}/{:s}/?/".format(datasets,channel)]
 
 #some definitions for what to do:
 
 varDict = {
-#"MuonPt"                                             : "MuonPt",                                              
-#"MuonEta"                                            : "MuonEta",                                              
-#"MuonPhi"                                            : "MuonPhi",                                              
+"MuonPt"                                             : "MuonPt",                                              
+"MuonEta"                                            : "MuonEta",                                              
+"MuonPhi"                                            : "MuonPhi",                                              
 "TauPt"                                              : "TauPt",                                               
 "LeptonPt"                                           : "LeptonPt",                                               
 "TauMETDphi"                                              : "TauMETDphi",                                               
 "LepMETDphi"                                              : "LepMETDphi",                                               
-#"TauEta"                                             : "TauEta",                                               
-#"TauPhi"                                             : "TauPhi",                                               
-#"SumCosDPhi"                                         : "SumCosDPhi",                                          
-#"MET"                                                : "MET",                                                 
-#"MT"                                                 : "MT",                                                  
-#"tauNTracks"                                         : "tauNTracks",                                         
-#"taunwidetrk"                                        : "taunwidetrk",                                         
-                                                     
+"bvetoMTTOT"                                               : "bvetoMTTOT",
+"btagMTTOT"                                               : "btagMTTOT",
+"TauEta"                                             : "TauEta",                                               
+"TauPhi"                                             : "TauPhi",                                               
+"SumCosDPhi"                                         : "SumCosDPhi",                                          
+"MET"                                                : "MET",                                                 
+"MT"                                                 : "MT",                                                  
+"tauNTracks"                                         : "tauNTracks",                                         
+"taunwidetrk"                                        : "taunwidetrk",                                                                                              
 }
 
 catDict = {
@@ -99,6 +100,8 @@ def setHistName(path, orgHistName,inputfile):
   print inputfile
   if inputfile != "nominal":
     inputfilenamelist=inputfile.split("_")
+    inputfilenamevar=inputfilenamelist[-1]
+    inputfilename=inputfile.replace("_"+inputfilenamevar, "")
   #if "mvis" not in distname : 
   #  print "not", distname
   #  return ""
@@ -149,7 +152,7 @@ def setHistName(path, orgHistName,inputfile):
 
   histOutName=histOutName+"_"+Tags+"_0ptv_"+Channel+"_"+varDict[distname]
   if inputfile != "nominal":
-    histOutName+="_ATLAS_"+inputfilenamelist[0]+"_"+inputfilenamelist[1]+"__"+inputfilenamelist[2]
+    histOutName+="_ATLAS_"+inputfilename+"__"+inputfilenamevar
 
   return [histOutName, histOutFileName]
 
@@ -184,9 +187,11 @@ def main(args):
   # get the input file name
   s_file = args.inputfilepath
   inputfilenamelist=s_file.split("/")
-  inputfilename=inputfilenamelist[2]
+  inputfilename=inputfilenamelist[-1]
   inputfilelist=inputfilename.split(".")
-  inputfile=inputfilelist[0]
+  inputfilebasename=inputfilelist[0]
+  inputfilebasenamelist=inputfilebasename.split("-")
+  inputfile=inputfilebasenamelist[-1]
 
   os.system('mkdir -p dumpHist/{:s}/{:s}/{:s}'.format(inputfile,datasets,channel))
 
@@ -241,7 +246,7 @@ def main(args):
       #do to hist what ever you want :)
       hist.Print()
 
-      ouptfilename = histOutName[1]
+      ouptfilename = histOutName[1].replace("?","X")
       ouptfilename += ".root"
       outfile = TFile.Open( "dumpHist/{:s}/{:s}/{:s}/".format(inputfile,datasets,channel)+ouptfilename,"RECREATE")
       #outfile = TFile.Open(outfilepath.Data(),"RECREATE")
