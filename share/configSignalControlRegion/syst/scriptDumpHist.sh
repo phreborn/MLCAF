@@ -12,6 +12,6 @@ done
 # hadd histograms to common files
 for campaign in mc16a; do
     for cut in sr1pBtag sr1pBveto sr3pBtag sr3pBveto tcr1pBtag tcr3pBtag; do
-        hadd -n 11 -f dumpHist/${campaign}_${cut}.root dumpHist/*/${campaign}/*/${campaign}_*_${cut}_*.root
+        hadd -n 11 -f dumpHist/${campaign}_${cut}.root dumpHist/*/${campaign}/*/*_*_${cut}_*_*.root
     done
 done

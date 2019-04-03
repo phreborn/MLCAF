@@ -27,20 +27,23 @@ datasets_data = "?"
 datasets_sig = "siga"
 if datasets == "mc16a":
     datasets_data = "[data15*+data16*]"
+    datasets_name = "data1516"
     datasets_sig = "siga"
 if datasets == "mc16c" or datasets == "mc16d":
     datasets_data = "[data17*]"
+    datasets_name = "data17"
     datasets_sig = "sigc"
 if datasets == "mc16e":
     datasets_data = "[data18*]"
+    datasets_name = "data18"
     datasets_sig = "sige"
 
 channel = args.channel
 basepath = "." #basepath in sample folder to get list of histograms from
 sflist = [
-#          "{:s}/{:s}/bbH1000/".format(datasets_sig,channel),
-#          "{:s}/{:s}/ggH1000/".format(datasets_sig,channel),
-#          "data/{:s}/{:s}/".format(channel,datasets_data),
+          "{:s}/{:s}/bbH1000/".format(datasets_sig,channel),
+          "{:s}/{:s}/ggH1000/".format(datasets_sig,channel),
+          "data/{:s}/{:s}/".format(channel,datasets_data),
           "{:s}/{:s}/Top/".format(datasets,channel),
           "{:s}/{:s}/Diboson/".format(datasets,channel),
 #          "{:s}/{:s}/Zee/".format(datasets,channel),
@@ -135,12 +138,12 @@ def setHistName(path, orgHistName,inputfile):
   
   histOutName=""
   histOutName0=""
-#  if ( pathlist[0] == "{:s}".format(datasets) or pathlist[0] == "{:s}".format(datasets_sig)) and pathlist[0] != "data":
+  if ( pathlist[0] == "{:s}".format(datasets) or pathlist[0] == "{:s}".format(datasets_sig)) and pathlist[0] != "data":
 #    if pathlist[0] == "{:s}".format(datasets_sig):
 #        histOutName0+="{:s}_".format(datasets)
 #    else:
 #        histOutName0+=pathlist[0]+"_"
-  if  pathlist[0] == "{:s}".format(datasets) and pathlist[0] != "data":
+#  if  pathlist[0] == "{:s}".format(datasets) and pathlist[0] != "data":
     histOutName0+=pathlist[0]+"_"
 #    if pathlist[2] != "QCDFakes" and pathlist[2] != "WJETSFakes": 
     if pathlist[2] == "[Zee+Zmumu]":
@@ -163,7 +166,8 @@ def setHistName(path, orgHistName,inputfile):
 #          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
 #       elif pathlist[4] == "mc": 
 #          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]+"_"+pathlist[5] 
-  else :
+  else:
+    histOutName0+=datasets_name+"_"
     histOutName+="data"
 
   if pathlist[1] == "ehad":
@@ -176,10 +180,11 @@ def setHistName(path, orgHistName,inputfile):
   elif "Bveto" in namelist[0]:
     Tags = "0tag0jet"
 
-  if pathlist[0] == "data": 
-    histOutFileName=histOutName+"_"
-  else:
-    histOutFileName=histOutName0+histOutName+"_"
+  #if pathlist[0] == "data":
+  #  histOutFileName=histOutName+"_"
+  #else:
+  #  histOutFileName=histOutName0+histOutName+"_"
+  histOutFileName=histOutName0+histOutName+"_"
 
   histOutFileName+=catDict[ namelist[0] ]
   histOutFileName+="_"+pathlist[1]+"_"
@@ -251,7 +256,13 @@ def main(args):
       print histname
       distname = namelist.pop()
       print distname
+      pathlist = path.split("/")
+      print(pathlist)
 
+      if pathlist[0] == "data" and inputfile != "nominal":
+          print("no systematics for data")
+          continue
+    
       if findHist(path, hname.GetString()) is 0 : 
         print " not the wanted histogram "
         continue
