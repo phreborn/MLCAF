@@ -53,8 +53,7 @@
 /bkg/?/c16a/Zmumu
 /bkg/?/c16a/Ztautau
 /bkg/?/c16a/Top
-/bkg/ehad/c16a/SherpaWjets
-/bkg/muhad/c16a/SherpaWjets
+/bkg/?/c16a/SherpaWjets
 
 ### c16d ###
 /bkg/?/c16d/Diboson
@@ -62,8 +61,7 @@
 /bkg/?/c16d/Zmumu
 /bkg/?/c16d/Ztautau
 /bkg/?/c16d/Top
-/bkg/ehad/c16d/SherpaWjets
-/bkg/muhad/c16d/SherpaWjets
+/bkg/?/c16d/SherpaWjets
 
 ### c16e ###
 /bkg/?/c16e/Diboson
@@ -71,8 +69,7 @@
 /bkg/?/c16e/Zmumu
 /bkg/?/c16e/Ztautau
 /bkg/?/c16e/Top
-/bkg/ehad/c16e/SherpaWjets
-/bkg/muhad/c16e/SherpaWjets
+/bkg/?/c16e/SherpaWjets
 
 
 ##### fakes #####
@@ -100,8 +97,7 @@
 #/bkg/?/c16a/Fake/mc/Zmumu
 #/bkg/?/c16a/Fake/mc/Ztautau
 #/bkg/?/c16a/Fake/mc/Top
-#/bkg/ehad/c16a/Fake/mc/SherpaWjets
-#/bkg/muhad/c16a/Fake/mc/SherpaWjets
+#/bkg/?/c16a/Fake/mc/SherpaWjets
 
 ### c16d ###
 #/bkg/?/c16d/Fake/data/data17_B
@@ -118,8 +114,7 @@
 #/bkg/?/c16d/Fake/mc/Zmumu
 #/bkg/?/c16d/Fake/mc/Ztautau
 #/bkg/?/c16d/Fake/mc/Top
-#/bkg/ehad/c16d/Fake/mc/SherpaWjets
-#/bkg/muhad/c16d/Fake/mc/SherpaWjets
+#/bkg/?/c16d/Fake/mc/SherpaWjets
 
 ### c16e ###
 #/bkg/?/c16e/Fake/data/data18_B
@@ -138,5 +133,4 @@
 #/bkg/?/c16e/Fake/mc/Zmumu
 #/bkg/?/c16e/Fake/mc/Ztautau
 #/bkg/?/c16e/Fake/mc/Top
-#/bkg/ehad/c16e/Fake/mc/SherpaWjets
-#/bkg/muhad/c16e/Fake/mc/SherpaWjets
+#/bkg/?/c16e/Fake/mc/SherpaWjets
