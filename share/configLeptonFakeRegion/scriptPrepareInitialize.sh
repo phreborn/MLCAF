@@ -1,7 +1,4 @@
-prepare.py configLeptonFakeRegion/htautau_lephad_lfr_mc16a.cfg
-prepare.py configLeptonFakeRegion/htautau_lephad_lfr_mc16c.cfg
+#!/bin/bash
 
-initialize.py configLeptonFakeRegion/htautau_lephad_lfr_mc16a.cfg
-initialize.py configLeptonFakeRegion/htautau_lephad_lfr_mc16c.cfg
-
-tqmerge -o sampleFolders/initialized/samples-initialized-htautau_lephad_lfr.root -t initialize sampleFolders/initialized/samples-initialized-htautau_lephad_lfr_mc16*.root
+prepare.py configLeptonFakeRegion/htautau_lephad_lfr.cfg
+initialize.py configLeptonFakeRegion/htautau_lephad_lfr.cfg
