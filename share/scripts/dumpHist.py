@@ -151,8 +151,10 @@ def setHistName(path, orgHistName,inputfile):
         histOutName+="Zll"
     #elif pathlist[2] == "Ztautau":
         #histOutName+="ZplusJets"
+    elif "bbH" in pathlist[2] or "ggH" in pathlist[2]:
+        histOutName+=pathlist[2].replace("H", "Hlh")
     else:
-       histOutName+=pathlist[2]
+        histOutName+=pathlist[2]
 #    elif pathlist[2] == "QCDFakes" and pathlist[3] == "data":
 #       histOutName+=pathlist[2]+"_"+pathlist[3]
 #    elif pathlist[2] == "QCDFakes" and pathlist[3] == "mc":
@@ -174,6 +176,9 @@ def setHistName(path, orgHistName,inputfile):
     Channel = "ElHad"
   elif pathlist[1] == "muhad":
     Channel = "MuHad"
+
+  if "TCR" in namelist[0]:
+    Channel+="Tcr"
 
   if "Btag" in namelist[0]:
     Tags = "1tag0jet"
