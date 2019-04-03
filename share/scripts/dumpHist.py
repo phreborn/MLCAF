@@ -147,10 +147,10 @@ def setHistName(path, orgHistName,inputfile):
     histOutName0+=pathlist[0]+"_"
 #    if pathlist[2] != "QCDFakes" and pathlist[2] != "WJETSFakes": 
     if pathlist[2] == "[Zee+Zmumu]":
-        #histOutName+="DYZ"
-        histOutName+="Zll"
-    #elif pathlist[2] == "Ztautau":
-        #histOutName+="ZplusJets"
+        histOutName+="DYZ"
+        #histOutName+="Zll"
+    elif pathlist[2] == "Ztautau":
+        histOutName+="ZplusJets"
     elif "bbH" in pathlist[2] or "ggH" in pathlist[2]:
         histOutName+=pathlist[2].replace("H", "Hlh")
     else:
