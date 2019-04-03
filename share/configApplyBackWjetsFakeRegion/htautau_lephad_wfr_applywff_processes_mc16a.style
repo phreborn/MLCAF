@@ -1,0 +1,66 @@
+# -*- mode:tqfolder -*-
+
+.name="Data",                   .path="/data/$(channel)/[data15*+data16*]",             .isData=true,           histLineColor=1,                histMarkerStyle = 8,    histMarkerSize = 0.6,   title = "Data", isHistogram = false
+
+
+################################################
+##
+##      Use this for inclusive
+##
+################################################
+.name="Top",                    .path="/mc16a/$(channel)/Top",             				.isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
+.name="Z\rightarrow \tau\tau",  .path="/mc16a/$(channel)/Ztautau",         				.isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
+.name="DiBoson",                .path="/mc16a/$(channel)/Diboson",         				.isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
+.name="Z\rightarrow ll",        .path="/mc16a/$(channel)/[Zee+Zmumu]",     				.isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
+
+################################################
+##
+##      Use this for fake parts
+##
+################################################
+
+
+
+.name="QCDFakes",               .path="/mc16a/$(channel)/QCDFakes/[data/[data15*+data16*]]",  .isBackground=true,     histFillColor = kGray+1,        histFillStyle=1001,     title = "QCDFakes"
+.name="WjetsFake",                 .path="/mc16a/$(channel)/WJETSFakes/data/[data15*+data16*]-/mc16a/$(channel)/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]-/mc16a/$(channel)/WJETSFakes/QCD/data/[data15*+data16*] ",       .isBackground=true,  histFillColor = kGray,  histFillStyle=1001,     title = "WjetsFake"
+
+
+
+
+################################################
+##
+##      Use this for all separate labels
+##
+################################################
+#.name="Top JET",                        .path="/mc16a/$(channel)/TopJetFake",                      .isBackground=true,     histFillColor=kBlue-9,          histFillStyle=1001,     title = "Top (jet\rightarrow\tau)",  .showRaw = false
+#.name="Z\rightarrow \tau\tau JET",      .path="/mc16a/$(channel)/ZtautauJetFake",                  .isBackground=true,     histFillColor=kGreen-9,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau (jet\rightarrow\tau)", .showRaw = false,
+#.name="Diboson JET",                    .path="/mc16a/$(channel)/DibosonJetFake",                  .isBackground=true,     histFillColor=kOrange-4,        histFillStyle=1001,     title = "Diboson (jet\rightarrow\tau)", .showRaw = false
+#.name="Z\rightarrow ll JET",            .path="/mc16a/$(channel)/[ZeeJetFake+ZmumuJetFake]",       .isBackground=true,     histFillColor=kRed-9,           histFillStyle=1001,     title = "Z\rightarrow ll (jet\rightarrow\tau)", .showRaw = false
+
+
+################################################
+##
+##      Use this for some contracted labels
+##
+################################################
+#.name="W+jets TT",                      .path="/mc16a/?/SherpaWjetsTruthTau",             .isBackground=true,     histFillColor=kYellow-7,       histFillStyle=1001,     title="W+jets (true \tau)"
+#.name="W+jets JET",                     .path="/mc16a/?/SherpaWjetsJetFake",              .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title="W+jets (jet\rightarrow\tau)"
+#.name="Top TT",                         .path="/mc16a/?/TopTruthTau",                     .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top (true \tau)",  .showRaw = false
+#.name="Top TL",                         .path="/mc16a/?/TopLepFake",                      .isBackground=true,     histFillColor=kBlue-6,          histFillStyle=1001,     title = "Top (l\rightarrow\tau)",  .showRaw = false
+#.name="Top JET",                        .path="/mc16a/?/TopJetFake",                      .isBackground=true,     histFillColor=kBlue-9,          histFillStyle=1001,     title = "Top (jet\rightarrow\tau)",  .showRaw = false
+#.name="Z\rightarrow \tau\tau TT",       .path="/mc16a/?/[ZtautauTruthTau+DibosonTruthTau]",                 .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau, Diboson (true \tau)", .showRaw = false,
+#.name="Z\rightarrow \tau\tau JET",      .path="/mc16a/?/[ZtautauJetFake+ZeeJetFake+ZmumuJetFake+DibosonJetFake]",    .isBackground=true,     histFillColor=kGreen-9,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau/ll, Diboson (jet\rightarrow\tau)", .showRaw = false,
+#.name="Z\rightarrow ll TL",             .path="/mc16a/?/[ZeeLepFake+ZmumuLepFake+DibosonLepFake+SherpaWjetsLepFake+ZtautauLepFake]",       .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow \tau\tau/ll, Diboson, W+jets (l\rightarrow\tau)", .showRaw = false
+
+
+#################################################
+###
+###      Use this for qcd composition
+###
+#################################################
+#.name="Data",                   .path="/mc16a/$(channel)/Fake/data/[data15*+data16*]",.isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+#.name="W+jets",                 .path="-1*/mc16a/$(channel)/Fake/mc/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
+#.name="Top",                    .path="-1*/mc16a/$(channel)/Fake/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
+#.name="Z\rightarrow \tau\tau",  .path="-1*/mc16a/$(channel)/Fake/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
+#.name="DiBoson",                .path="-1*/mc16a/$(channel)/Fake/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
+#.name="Z\rightarrow ll",        .path="-1*/mc16a/$(channel)/Fake/mc/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false

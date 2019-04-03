@@ -2,12 +2,10 @@
 
 # add "applyff"/"contid" as argument to executing this script to run over applyff/contid
 
-REGION="configLeptonFakeRegion"
-JOBS="jobsLFR.txt"
-CONFIG="htautau_lephad_lfr"
-IDENT="LFR"
-
-#GROUP="atlas"
+REGION="configApplyBackWjetsFakeRegion"
+JOBS="jobsWFR.txt"
+CONFIG="htautau_lephad_wfr_applywff"
+IDENT="WFRapplywff"
 
 if [ "$1" == "applyff" ]; then
   CONFIG="${CONFIG}_applyff"
@@ -19,4 +17,3 @@ if [ "$1" == "contid" ]; then
 fi
 
 source configCommon/scriptSubmit.sh ${REGION} ${CONFIG} ${JOBS} ${IDENT}
-#source configCommon/scriptSubmit.sh ${REGION} ${CONFIG} ${JOBS} ${IDENT} ${GROUP}

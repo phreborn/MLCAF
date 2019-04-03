@@ -9,6 +9,7 @@ build
 */batchOutput
 */htcondorWorkloadTemp
 */submissionWorkloadTemp
+*/jobslist.txt
 */logs
 *.tex
 *.pdf

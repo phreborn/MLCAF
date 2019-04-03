@@ -1,0 +1,60 @@
+# -*- mode:tqfolder -*-
+
+################################################################
+##
+##  Basic cuts for Fake Lepton CR.
+##
+##  Application of ScaleFactor is not entirely logical because
+##      if there is no tau then SF=0. If we use jets, dont apply full SF,
+##      but if taus only then use SF.
+##
+#################################################################
+# include common cut file
+$include("ConfigCommon/htautau_lephad_common_cuts.def");
+
+@*/CutBase{
+       +CutAll{
+           <.cutExpression = " lep_0_id_medium==1 && lep_0_p4.Pt()>30  && lephad_mt_lep0_met<30 && ($(isFailISO) ? lep_0_iso_Gradient==0 : lep_0_iso_Gradient==1)",.weightExpression = "$(isFailISO)? [isoreweight_$(isovar)]:1", .title="All">
+           }
+    }
+
+@*/CutAll{
+    +CutSingleLepton{
+        <.cutExpression = " [(n_electrons+n_muons==1) && ( (n_bjets>0 && (n_taus+n_jets)>1) || (n_bjets==0 && (n_taus+n_jets)>0) )] && [n_taus_loose]==0 ",
+        .weightExpression = "{ $(isData) ? 1 : [weight_mc*NOMINAL_pileup_combined_weight] }" ,.title="SL">
+        +CutBvetoSLPassISO{
+           <.cutExpression = "n_bjets == 0 ", .title="BvetoSLPassISO">
+           }
+        +CutBtagSLPassISO{
+           <.cutExpression = "n_bjets > 0 ", .title="BtagSLPassISO">
+           }
+        }
+    }
+
+
+
+@*/CutAll{
+    +CutBDT{
+        <.cutExpression = "tau_0_jet_bdt_score_trans<0.01 && n_taus>0 ",
+         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvariation)] }",.title="BDT">
+        +CutBvetoBDTPassISO{
+            <.cutExpression = " n_bjets == 0 ", .title="BvetoBDTPassISO">
+            }
+        +CutBtagBDTPassISO{
+            <.cutExpression = " n_bjets > 0 ", .title="BtagBDTPassISO">
+            }
+        }
+    }
+
+@*/CutBDT{
+    +CutBDTSL{
+        <.cutExpression = "(n_electrons+n_muons)==1",.title="BDTSL">
+        +CutBvetoBDTSLPassISO{
+            <.cutExpression = "n_bjets == 0 ", .title="BvetoBDTSLPassISO">
+            }
+        +CutBtagBDTSLPassISO{
+            <.cutExpression = "n_bjets > 0 ", .title="BtagBDTSLPassISO">
+            }
+        }
+    }
+
