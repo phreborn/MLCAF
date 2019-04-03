@@ -6,8 +6,8 @@ JOBS="$3"
 IDENT="$4"
 
 SUBMIT=""
-if [ "${HOSTNAME}" == *".shef.ac.uk" ]; then
-   SUBMIT="--submit condor"
+if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
+  SUBMIT="--submit condor"
 fi
 
 submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges ${SUBMIT}
