@@ -6,7 +6,7 @@ JOBS="$3"
 IDENT="$4"
 
 SUBMIT=""
-if [ "$USER" == "zorbas" ]; then
+if [ "$SITE_NAME" == "UKI-NORTHGRID-SHEF-HEP" ]; then
    SUBMIT="--submit condor"
 fi
 
