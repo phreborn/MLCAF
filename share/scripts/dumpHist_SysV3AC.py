@@ -28,60 +28,60 @@ l_systematics=[
 ['isovar',   'FakeFactor_LepMuBtag_1up'],
 ['isovar',   'FakeFactor_LepMuBtag_1down'],
 
-['weightvar', 'LPX_KFACTOR_ALPHAS_1down_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_ALPHAS_1up_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_1down_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_1up_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EV1_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EV2_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EV3_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EV4_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EV5_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EV6_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EV7_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EW_1down_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PDF_EW_1up_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PI_1down_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_PI_1up_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_SCALE_W_1down_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_SCALE_W_1up_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor'],
-['weightvar', 'LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_ALPHAS_1down_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_ALPHAS_1up_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_1down_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_1up_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EV1_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EV2_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EV3_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EV4_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EV5_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EV6_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EV7_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EW_1down_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PDF_EW_1up_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PI_1down_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_PI_1up_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_SCALE_W_1down_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_SCALE_W_1up_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor'],
+#['weightvar', 'LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor'],
 
-['weightvar', 'mu_eff_stat_low'],
-['weightvar', 'mu_eff_stat_high'],
-['weightvar', 'mu_eff_statlowpt_low'],
-['weightvar', 'mu_eff_statlowpt_high'],
-['weightvar', 'mu_eff_sys_low'],
-['weightvar', 'mu_eff_sys_high'],
-['weightvar', 'mu_eff_syslowpt_low'],
-['weightvar', 'mu_eff_syslowpt_high'],
-['weightvar', 'mu_eff_trigstat_low'],
-['weightvar', 'mu_eff_trigstat_high'],
-['weightvar', 'mu_eff_trigsys_low'],
-['weightvar', 'mu_eff_trigsys_high'],
-['weightvar', 'mu_eff_isostat_low'],
-['weightvar', 'mu_eff_isostat_high'],
-['weightvar', 'mu_eff_isosys_low'],
-['weightvar', 'mu_eff_isosys_high'],
-['weightvar', 'mu_eff_ttvastat_low'],
-['weightvar', 'mu_eff_ttvastat_high'],
-['weightvar', 'mu_eff_ttvasys_low'],
-['weightvar', 'mu_eff_ttvasys_high'],
+#['weightvar', 'mu_eff_stat_low'],
+#['weightvar', 'mu_eff_stat_high'],
+#['weightvar', 'mu_eff_statlowpt_low'],
+#['weightvar', 'mu_eff_statlowpt_high'],
+#['weightvar', 'mu_eff_sys_low'],
+#['weightvar', 'mu_eff_sys_high'],
+#['weightvar', 'mu_eff_syslowpt_low'],
+#['weightvar', 'mu_eff_syslowpt_high'],
+#['weightvar', 'mu_eff_trigstat_low'],
+#['weightvar', 'mu_eff_trigstat_high'],
+#['weightvar', 'mu_eff_trigsys_low'],
+#['weightvar', 'mu_eff_trigsys_high'],
+#['weightvar', 'mu_eff_isostat_low'],
+#['weightvar', 'mu_eff_isostat_high'],
+#['weightvar', 'mu_eff_isosys_low'],
+#['weightvar', 'mu_eff_isosys_high'],
+#['weightvar', 'mu_eff_ttvastat_low'],
+#['weightvar', 'mu_eff_ttvastat_high'],
+#['weightvar', 'mu_eff_ttvasys_low'],
+#['weightvar', 'mu_eff_ttvasys_high'],
 
-['weightvar', 'el_eff_id_low'],
-['weightvar', 'el_eff_id_high'],
-['weightvar', 'el_eff_iso_low'],
-['weightvar', 'el_eff_iso_high'],
-['weightvar', 'el_eff_reco_low'],
-['weightvar', 'el_eff_reco_high'],
-['weightvar', 'el_eff_trigger_low'],
-['weightvar', 'el_eff_trigger_high'],
+#['weightvar', 'el_eff_id_low'],
+#['weightvar', 'el_eff_id_high'],
+#['weightvar', 'el_eff_iso_low'],
+#['weightvar', 'el_eff_iso_high'],
+#['weightvar', 'el_eff_reco_low'],
+#['weightvar', 'el_eff_reco_high'],
+#['weightvar', 'el_eff_trigger_low'],
+#['weightvar', 'el_eff_trigger_high'],
 
 ['weightvar', 'tau_eff_reco_total_low'],
 ['weightvar', 'tau_eff_reco_total_high'],
@@ -96,92 +96,90 @@ l_systematics=[
 ['weightvar', 'tau_eff_jetid_highpt_low', 'tau_eff_jetid_pthighpt_low'],
 ['weightvar', 'tau_eff_jetid_highpt_high', 'tau_eff_jetid_pthighpt_high'],
 
-['weightvar', 'btag_b_0_low'],
-['weightvar', 'btag_b_0_high'],
-['weightvar', 'btag_b_1_low'],
-['weightvar', 'btag_b_1_high'],
-['weightvar', 'btag_b_2_low'],
-['weightvar', 'btag_b_2_high'],
+#['weightvar', 'btag_b_0_low'],
+#['weightvar', 'btag_b_0_high'],
+#['weightvar', 'btag_b_1_low'],
+#['weightvar', 'btag_b_1_high'],
+#['weightvar', 'btag_b_2_low'],
+#['weightvar', 'btag_b_2_high'],
 
-['weightvar', 'btag_c_0_low'],
-['weightvar', 'btag_c_0_high'],
-['weightvar', 'btag_c_1_low'],
-['weightvar', 'btag_c_1_high'],
-['weightvar', 'btag_c_2_low'],
-['weightvar', 'btag_c_2_high'],
+#['weightvar', 'btag_c_0_low'],
+#['weightvar', 'btag_c_0_high'],
+#['weightvar', 'btag_c_1_low'],
+#['weightvar', 'btag_c_1_high'],
+#['weightvar', 'btag_c_2_low'],
+#['weightvar', 'btag_c_2_high'],
 
-['weightvar', 'btag_light_0_low'],
-['weightvar', 'btag_light_0_high'],
-['weightvar', 'btag_light_1_low'],
-['weightvar', 'btag_light_1_high'],
-['weightvar', 'btag_light_2_low'],
-['weightvar', 'btag_light_2_high'],
-['weightvar', 'btag_light_3_low'],
-['weightvar', 'btag_light_3_high'],
-['weightvar', 'btag_light_4_low'],
-['weightvar', 'btag_light_4_high'],
+#['weightvar', 'btag_light_0_low'],
+#['weightvar', 'btag_light_0_high'],
+#['weightvar', 'btag_light_1_low'],
+#['weightvar', 'btag_light_1_high'],
+#['weightvar', 'btag_light_2_low'],
+#['weightvar', 'btag_light_2_high'],
+#['weightvar', 'btag_light_3_low'],
+#['weightvar', 'btag_light_3_high'],
+#['weightvar', 'btag_light_4_low'],
+#['weightvar', 'btag_light_4_high'],
 
-['weightvar', 'btag_extrapolation_low'],
-['weightvar', 'btag_extrapolation_high'],
-['weightvar', 'btag_extrapolation_from_charm_low'],
-['weightvar', 'btag_extrapolation_from_charm_high'],
+#['weightvar', 'btag_extrapolation_low'],
+#['weightvar', 'btag_extrapolation_high'],
+#['weightvar', 'btag_extrapolation_from_charm_low'],
+#['weightvar', 'btag_extrapolation_from_charm_high'],
 
-['weightvar', 'jet_jvteff_low'],
-['weightvar', 'jet_jvteff_high'],
+#['weightvar', 'jet_jvteff_low'],
+#['weightvar', 'jet_jvteff_high'],
 
-['weightvar', 'pu_prw_high'],
-['weightvar', 'pu_prw_low'],
+#['weightvar', 'pu_prw_high'],
+#['weightvar', 'pu_prw_low'],
 
 # below the systematic must be actual tree name in ntuples
-['treevariation', 'MUON_ID_1down'],
-['treevariation', 'MUON_ID_1up'],
-['treevariation', 'MUON_MS_1down'],
-['treevariation', 'MUON_MS_1up'],
-['treevariation', 'MUON_SAGITTA_RESBIAS_1down'],
-['treevariation', 'MUON_SAGITTA_RESBIAS_1up'],
-['treevariation', 'MUON_SAGITTA_RHO_1down'],
-['treevariation', 'MUON_SAGITTA_RHO_1up'],
-['treevariation', 'MUON_SCALE_1down'],
-['treevariation', 'MUON_SCALE_1up'],
-['treevariation', 'EG_RESOLUTION_ALL_1down'],
-['treevariation', 'EG_RESOLUTION_ALL_1up'],
-['treevariation', 'EG_SCALE_ALLCORR_1down'],
-['treevariation', 'EG_SCALE_ALLCORR_1up'],
-['treevariation', 'EG_SCALE_E4SCINTILLATOR_1down'],
-['treevariation', 'EG_SCALE_E4SCINTILLATOR_1up'],
-['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down'],
-['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
+#['treevariation', 'MUON_ID_1down'],
+#['treevariation', 'MUON_ID_1up'],
+#['treevariation', 'MUON_MS_1down'],
+#['treevariation', 'MUON_MS_1up'],
+#['treevariation', 'MUON_SAGITTA_RESBIAS_1down'],
+#['treevariation', 'MUON_SAGITTA_RESBIAS_1up'],
+#['treevariation', 'MUON_SAGITTA_RHO_1down'],
+#['treevariation', 'MUON_SAGITTA_RHO_1up'],
+#['treevariation', 'MUON_SCALE_1down'],
+#['treevariation', 'MUON_SCALE_1up'],
+#['treevariation', 'EG_RESOLUTION_ALL_1down'],
+#['treevariation', 'EG_RESOLUTION_ALL_1up'],
+#['treevariation', 'EG_SCALE_ALLCORR_1down'],
+#['treevariation', 'EG_SCALE_ALLCORR_1up'],
+#['treevariation', 'EG_SCALE_E4SCINTILLATOR_1down'],
+#['treevariation', 'EG_SCALE_E4SCINTILLATOR_1up'],
+#['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down'],
+#['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
+#['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down'],
+#['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
+#['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down'],
+#['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
 ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down'],
 ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
 ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down'],
 ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
 ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down'],
 ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_1up'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_1down'],
-['treevariation', 'JET_GroupedNP_1_1up'],
-['treevariation', 'JET_GroupedNP_1_1down'],
-['treevariation', 'JET_GroupedNP_2_1up'],
-['treevariation', 'JET_GroupedNP_2_1down'],
-['treevariation', 'JET_GroupedNP_3_1up'],
-['treevariation', 'JET_GroupedNP_3_1down'],
-['treevariation', 'JET_JER_SINGLE_NP_1up'],
-['treevariation', 'JET_TILECORR_Uncertainty_1down'],
-['treevariation', 'JET_TILECORR_Uncertainty_1up'],
-['treevariation', 'MET_SoftTrk_ResoPara'],
-['treevariation', 'MET_SoftTrk_ResoPerp'],
-['treevariation', 'MET_SoftTrk_ScaleDown'],
-['treevariation', 'MET_SoftTrk_ScaleUp']
-
+#['treevariation', 'JET_EtaIntercalibration_NonClosure_1up'],
+#['treevariation', 'JET_EtaIntercalibration_NonClosure_1down'],
+#['treevariation', 'JET_GroupedNP_1_1up'],
+#['treevariation', 'JET_GroupedNP_1_1down'],
+#['treevariation', 'JET_GroupedNP_2_1up'],
+#['treevariation', 'JET_GroupedNP_2_1down'],
+#['treevariation', 'JET_GroupedNP_3_1up'],
+#['treevariation', 'JET_GroupedNP_3_1down'],
+#['treevariation', 'JET_JER_SINGLE_NP_1up'],
+#['treevariation', 'JET_TILECORR_Uncertainty_1down'],
+#['treevariation', 'JET_TILECORR_Uncertainty_1up'],
+#['treevariation', 'MET_SoftTrk_ResoPara'],
+#['treevariation', 'MET_SoftTrk_ResoPerp'],
+#['treevariation', 'MET_SoftTrk_ScaleDown'],
+#['treevariation', 'MET_SoftTrk_ScaleUp'],
 ]
 
 
 def getTaggingHistogramName(tagname,histname):
-
   tagging=''
   histogram=''
   if 'Bveto' in tagname:
@@ -252,7 +250,7 @@ def collectHistograms(mcfile,name=''):
     for c, cname in s_cat.iteritems():
       for ch, chname in s_ch.iteritems():
         tagging, histogram = getTaggingHistogramName(c,c)
-        hist = reader.getHistogram('/data/{:s}'.format(ch),'{:s}/{:s}'.format(c,histogram))
+        hist = reader.getHistogram('/data/{:s}/[data15*+data16*]'.format(ch),'{:s}/{:s}'.format(c,histogram))
         hist.SetName('{:s}_{:s}_0ptv_{:s}_MTtot{:s}'.format('data',tagging,chname,sysname))
         hist.Write()
   #get mc
@@ -261,7 +259,7 @@ def collectHistograms(mcfile,name=''):
       for c, cname in s_cat.iteritems():
         for ch, chname in s_ch.iteritems():
           tagging, histogram = getTaggingHistogramName(c,c)
-          hist = reader.getHistogram('/bkg/{:s}/{:s}'.format(ch,s),'{:s}/{:s}'.format(c,histogram))
+          hist = reader.getHistogram('/mc16a/{:s}/{:s}'.format(ch,s),'{:s}/{:s}'.format(c,histogram))
           hist.SetName('{:s}_{:s}_0ptv_{:s}_MTtot{:s}'.format(sname,tagging,chname,sysname))
           hist.Write()
     #get signal
@@ -269,7 +267,7 @@ def collectHistograms(mcfile,name=''):
       for c, cname in s_cat.iteritems():
         for ch, chname in s_ch.iteritems():
           tagging, histogram = getTaggingHistogramName(c,c)
-          hist = reader.getHistogram('/sig/{:s}/{:s}'.format(ch,s),'{:s}/{:s}'.format(c,histogram))
+          hist = reader.getHistogram('/siga/{:s}/{:s}'.format(ch,s),'{:s}/{:s}'.format(c,histogram))
           hist.SetName('{:s}_{:s}_0ptv_{:s}_MTtot{:s}'.format(sname,tagging,chname,sysname))
           hist.Write()
   #get qcd
@@ -283,9 +281,9 @@ def collectHistograms(mcfile,name=''):
         elif ( ('ElAntiIso__1down' in name and ch=='ehad') or ('MuAntiIso__1down' in name and ch=='muhad') ):
           mcvar=1.5
 
-        path_qcd = '/QCDFakes/{:s}/data - {:s}*/QCDFakes/{:s}/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(ch,str(mcvar),ch)
+        path_qcd = '/mc16a/QCDFakes/{:s}/data/[data15*+data16*] - {:s}*/mc16a/QCDFakes/{:s}/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(ch,str(mcvar),ch)
         if '1tag' in tagging:
-          path_qcd = '/QCDFakes/{:s}/data'.format(ch)
+          path_qcd = '/mc16a/QCDFakes/{:s}/data/[data15*+data16*]'.format(ch)
 
         hist = reader.getHistogram(path_qcd,'{:s}/{:s}'.format(c,histogram))
         hist.SetName('{:s}_{:s}_0ptv_{:s}_MTtot{:s}'.format('QCD',tagging,chname,sysname))
@@ -301,7 +299,7 @@ def collectHistograms(mcfile,name=''):
           mcvar=0.9
         elif ('AntiID__1down' in name):
           mcvar=1.1
-        hist = reader.getHistogram('/WJETSFakes/{:s}/data - {:s}*/WJETSFakes/{:s}/bkg/[Top+Ztautau+Zee+Zmumu+Diboson] - /WJETSFakes/{:s}/bkg/QCD/data'.format(ch,str(mcvar),ch,ch),'{:s}/{:s}'.format(c,histogram))
+        hist = reader.getHistogram('/mc16a/WJETSFakes/{:s}/data/[data15*+data16*] - {:s}*/mc16a/WJETSFakes/{:s}/mc/[Top+Ztautau+Zee+Zmumu+Diboson] - /mc16a/WJETSFakes/{:s}/QCD/data/[data15*+data16*]'.format(ch,str(mcvar),ch,ch),'{:s}/{:s}'.format(c,histogram))
         hist.SetName('{:s}_{:s}_0ptv_{:s}_MTtot{:s}'.format('Wjets',tagging,chname,sysname))
         hist.Write()
 
@@ -312,14 +310,15 @@ def collectHistograms(mcfile,name=''):
 
 
 
-dir='output/htautau_lephad_sr/'
+dir='sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-'
 
 outputfile='rootfiles/lephad13TeV.root'
 file = TFile(outputfile,'RECREATE')
 #file = TFile(outputfile,'UPDATE')
+#file = TFile(outputfile,'CREATE')
 
 # here I assume that all samples are in one file
-mcfile=dir+'nominal_full.root'
+mcfile=dir+'nominal.root'
 
 
 file.cd()
@@ -331,7 +330,7 @@ for sysline in l_systematics:
   sys = systematic
   if len(sysline)>2:
     sys=sysline[2]
-  mcfile=dir+systematic+'_full.root'
+  mcfile=dir+systematic+'.root'
 
   if 'Do' in sys or  '_1down' in sys or '_low' in sys:
     sys=sys.replace('Down','').replace('_1down','').replace('_low','').replace('Do','')
@@ -354,7 +353,7 @@ for mcsys in ['ATLAS_MCSub_ElAntiIso__1up',
               'ATLAS_MCSub_AntiID__1up',
               'ATLAS_MCSub_AntiID__1down'
               ]:
-  mcfile=dir+'nominal_full.root'
+  mcfile=dir+'nominal.root'
   sys=mcsys
   file.mkdir(sys)
   file.cd(sys)
@@ -400,7 +399,7 @@ sflist = [
   #"sig/lephad/bbHlh500/",
   #"sig/lephad/bbHlh400/",
   #"sig/lephad/bbHlh350/",
-  "sig/?/bbH300",
+  "siga/?/bbH300",
   #"sig/lephad/bbHlh250/",
   #"sig/lephad/bbHlh200/",
   #"sig/lephad/bbHlh150/",
@@ -418,31 +417,31 @@ sflist = [
   #"sig/lephad/ggHlh500/",
   #"sig/lephad/ggHlh400/",
   #"sig/lephad/ggHlh350/",
-  "sig/?/ggH300",
+  "siga/?/ggH300",
   #"sig/lephad/ggHlh250/",
   #"sig/lephad/ggHlh200/",
   #"sig/lephad/ggHlh150/",
 
-  "bkg/?/Diboson",
+  "mc16a/?/Diboson",
   #"bkg/lephad/dib/",
   #"bkg/lephad/dibTruthTau/",
   #"bkg/lephad/dibLepFake/",
 
-  "bkg/?/Top",
+  "mc16a/?/Top",
   #"bkg/lephad/top/",
   #"bkg/lephad/topTruthTau/",
   #"bkg/lephad/topLepFake/",
 
-  "bkg/?/Ztautau",
+  "mc16a/?/Ztautau",
   #"bkg/lephad/Ztt/",
   #"bkg/lephad/ZttTruthTau/",
   #"bkg/lephad/ZttLepFake/",
-  "bkg/?/[Zee+Zmumu]",
+  "mc16a/?/[Zee+Zmumu]",
 
 
-  "bkg/?/Wjets/",
+  #"mc16a/?/Wjets/",
 
-  "bkg/?/JetFake/",
+  #"mc16a/?/JetFake/",
 
   #"bkg/lephad/JetFake/data/",
   #"bkg/lephad/JetFake/topTruthTau/",
@@ -514,7 +513,7 @@ def setHistName(path, orgHistName):
   #  return ""
 
   histOutName=""
-  if "bkg" in pathlist[0] or "sig" in pathlist[0] :
+  if "mc16a" in pathlist[0] or "siga" in pathlist[0] :
     histOutName+=pathlist[2].replace("Wjets", "Wlv")
     if "JetFake" in pathlist[2] and pathlist[3] is not '' :
       histOutName+=pathlist[3]
