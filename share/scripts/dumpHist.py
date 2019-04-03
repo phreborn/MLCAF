@@ -270,8 +270,11 @@ def main(args):
       print histOutName
       hist.SetNameTitle( histOutName[0], histOutName[0] )
      
-      OutputSystFolderNameList = histOutName[0].split("_")
-      OutputSystFolderName = OutputSystFolderNameList[-5]+"_"+OutputSystFolderNameList[-4]+"_"+OutputSystFolderNameList[-3]+"__"+OutputSystFolderNameList[-1]
+      OutputSystFolderNameListFull = histOutName[0].split("_")
+      OutputSystFolderNameList = OutputSystFolderNameListFull[5:]
+      print(OutputSystFolderNameList)
+      #OutputSystFolderName = OutputSystFolderNameList[-5]+"_"+OutputSystFolderNameList[-4]+"_"+OutputSystFolderNameList[-3]+"__"+OutputSystFolderNameList[-1]
+      OutputSystFolderName = "_".join(OutputSystFolderNameList)
       print OutputSystFolderName
  
       if hist is None: continue
