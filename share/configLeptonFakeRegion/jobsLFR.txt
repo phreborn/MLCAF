@@ -53,8 +53,8 @@
 /bkg/?/c16a/Zmumu
 /bkg/?/c16a/Ztautau
 /bkg/?/c16a/Top
-/bkg/ehad/SherpaWjets
-/bkg/muhad/SherpaWjets
+/bkg/ehad/c16a/SherpaWjets
+/bkg/muhad/c16a/SherpaWjets
 
 ### c16d ###
 /bkg/?/c16d/Diboson

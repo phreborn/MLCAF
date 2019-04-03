@@ -6,7 +6,7 @@ JOBS="$3"
 IDENT="$4"
 
 SUBMIT=""
-if [ "$SITE_NAME" == "UKI-NORTHGRID-SHEF-HEP" ]; then
+if [ "${HOSTNAME}" == *".shef.ac.uk" ]; then
    SUBMIT="--submit condor"
 fi
 
