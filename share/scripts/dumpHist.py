@@ -23,69 +23,93 @@ args = parser.parse_args()
 alias = "plotSystematicsHistograms"
 sfName = "samples" # samples or systematics
 datasets = args.datasets
+datasets_data = "?"
+datasets_sig = "siga"
+if datasets == "mc16a":
+    datasets_data = "[data15*+data16*]"
+    datasets_sig = "siga"
+if datasets == "mc16c" or datasets == "mc16d":
+    datasets_data = "[data17*]"
+    datasets_sig = "sigc"
+if datasets == "mc16e":
+    datasets_data = "[data18*]"
+    datasets_sig = "sige"
+
 channel = args.channel
 basepath = "." #basepath in sample folder to get list of histograms from
-sflist = ["{:s}/{:s}/Top/".format(datasets,channel),
+sflist = [
+#          "{:s}/{:s}/bbH1000/".format(datasets_sig,channel),
+#          "{:s}/{:s}/ggH1000/".format(datasets_sig,channel),
+#          "data/{:s}/{:s}/".format(channel,datasets_data),
+          "{:s}/{:s}/Top/".format(datasets,channel),
           "{:s}/{:s}/Diboson/".format(datasets,channel),
-          "{:s}/{:s}/Zee/".format(datasets,channel),
-          "{:s}/{:s}/Zmumu/".format(datasets,channel),
+#          "{:s}/{:s}/Zee/".format(datasets,channel),
+#          "{:s}/{:s}/Zmumu/".format(datasets,channel),
+          "{:s}/{:s}/[Zee+Zmumu]/".format(datasets,channel),
           "{:s}/{:s}/Ztautau/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/data/?/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/mc/Diboson/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/mc/Top/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/mc/Zee/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/mc/Zmumu/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/mc/Ztautau/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/data/?/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/mc/Diboson/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/mc/Top/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/mc/Zee/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/mc/Zmumu/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/mc/Ztautau/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/QCD/data/?/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/QCD/mc/Diboson/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/QCD/mc/Top/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(datasets,channel)]
+#          "{:s}/{:s}/QCDFakes/data/{:s}/".format(datasets,channel,datasets_data),
+#          "{:s}/{:s}/QCDFakes/mc/Diboson/".format(datasets,channel),
+#          "{:s}/{:s}/QCDFakes/mc/Top/".format(datasets,channel),
+#          "{:s}/{:s}/QCDFakes/mc/Zee/".format(datasets,channel),
+#          "{:s}/{:s}/QCDFakes/mc/Zmumu/".format(datasets,channel),
+#          "{:s}/{:s}/QCDFakes/mc/Ztautau/".format(datasets,channel),
+          "{:s}/{:s}/QCDFakes/data/{:s}/-/{:s}/{:s}/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]".format(datasets,channel,datasets_data,datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/data/{:s}/".format(datasets,channel,datasets_data),
+#          "{:s}/{:s}/WJETSFakes/mc/Diboson/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/mc/Top/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/mc/Zee/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/mc/Zmumu/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/mc/Ztautau/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/QCD/data/?/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/QCD/mc/Diboson/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/QCD/mc/Top/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(datasets,channel),
+#          "{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(datasets,channel),
+          "{:s}/{:s}/WJETSFakes/data/{:s}/-/{:s}/{:s}/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]-/{:s}/{:s}/WJETSFakes/QCD/data/{:s}".format(datasets,channel,datasets_data,datasets,channel,datasets,channel,datasets_data)
+]
 #sflist = ["{:s}/{:s}/?/".format(datasets,channel)]
 
 #some definitions for what to do:
 
 varDict = {
-"MuonPt"                                             : "MuonPt",                                              
-"MuonEta"                                            : "MuonEta",                                              
-"MuonPhi"                                            : "MuonPhi",                                              
-"TauPt"                                              : "TauPt",                                               
-"LeptonPt"                                           : "LeptonPt",                                               
-"TauMETDphi"                                              : "TauMETDphi",                                               
-"LepMETDphi"                                              : "LepMETDphi",                                               
-"bvetoMTTOT"                                               : "bvetoMTTOT",
-"btagMTTOT"                                               : "btagMTTOT",
-"TauEta"                                             : "TauEta",                                               
-"TauPhi"                                             : "TauPhi",                                               
-"SumCosDPhi"                                         : "SumCosDPhi",                                          
-"MET"                                                : "MET",                                                 
-"MT"                                                 : "MT",                                                  
-"tauNTracks"                                         : "tauNTracks",                                         
-"taunwidetrk"                                        : "taunwidetrk",                                                                                              
+#"MuonPt"                                             : "MuonPt",                                              
+#"MuonEta"                                            : "MuonEta",                                              
+#"MuonPhi"                                            : "MuonPhi",                                              
+#"TauPt"                                              : "TauPt",                                               
+#"LeptonPt"                                           : "LeptonPt",                                               
+#"TauMETDphi"                                              : "TauMETDphi",                                               
+#"LepMETDphi"                                              : "LepMETDphi",                                               
+#"bvetoMTTOT"                                               : "bvetoMTTOT",
+#"btagMTTOT"                                               : "btagMTTOT",
+"MTTOT"                                               : "MTtot",
+#"TauEta"                                             : "TauEta",
+#"TauPhi"                                             : "TauPhi",
+#"SumCosDPhi"                                         : "SumCosDPhi",
+#"MET"                                                : "MET",
+#"MT"                                                 : "MT",
+#"tauNTracks"                                         : "tauNTracks",                                         
+#"taunwidetrk"                                        : "taunwidetrk",                                                                                              
 }
 
 catDict = {
-"CutSRBtag1p" : "sr1pBtag",
-"CutSRBtag3p" : "sr3pBtag",
-"CutSRBveto1p" : "sr1pBveto",
-"CutSRBveto3p" : "sr3pBveto",
-"CutWCRBtag1p" : "wcr1pBtag",
-"CutWCRBtag3p" : "wcr3pBtag",
-"CutWCRBveto1p" : "wcr1pBveto",
-"CutWCRBveto3p" : "wcr3pBveto",
-"CutVRBtag1p" : "vr1pBtag",
-"CutVRBtag3p" : "vr3pBtag",
-"CutVRBveto1p" : "vr1pBveto",
-"CutVRBveto3p" : "vr3pBveto",
+"CutBtag1p" : "sr1pBtag",
+"CutBtag3p" : "sr3pBtag",
+"CutBveto1p" : "sr1pBveto",
+"CutBveto3p" : "sr3pBveto",
+#"CutWCRBtag1p" : "wcr1pBtag",
+#"CutWCRBtag3p" : "wcr3pBtag",
+#"CutWCRBveto1p" : "wcr1pBveto",
+#"CutWCRBveto3p" : "wcr3pBveto",
+#"CutVRBtag1p" : "vr1pBtag",
+#"CutVRBtag3p" : "vr3pBtag",
+#"CutVRBveto1p" : "vr1pBveto",
+#"CutVRBveto3p" : "vr3pBveto",
 "CutTCRBtag1p" : "tcr1pBtag",
 "CutTCRBtag3p" : "tcr3pBtag",
+#"[CutBtag1p+CutBtag3p]" : "srBtag",
+#"[CutBveto1p+CutBveto3p]" : "srBveto",
+#"[CutTCRBtag1p+CutTCRBtag3p]" : "tcrBtag",
 }
 
 def setHistName(path, orgHistName,inputfile):
@@ -111,23 +135,34 @@ def setHistName(path, orgHistName,inputfile):
   
   histOutName=""
   histOutName0=""
+#  if ( pathlist[0] == "{:s}".format(datasets) or pathlist[0] == "{:s}".format(datasets_sig)) and pathlist[0] != "data":
+#    if pathlist[0] == "{:s}".format(datasets_sig):
+#        histOutName0+="{:s}_".format(datasets)
+#    else:
+#        histOutName0+=pathlist[0]+"_"
   if  pathlist[0] == "{:s}".format(datasets) and pathlist[0] != "data":
     histOutName0+=pathlist[0]+"_"
-    if pathlist[2] != "QCDFakes" and pathlist[2] != "WJETSFakes": 
+#    if pathlist[2] != "QCDFakes" and pathlist[2] != "WJETSFakes": 
+    if pathlist[2] == "[Zee+Zmumu]":
+        #histOutName+="DYZ"
+        histOutName+="Zll"
+    #elif pathlist[2] == "Ztautau":
+        #histOutName+="ZplusJets"
+    else:
        histOutName+=pathlist[2]
-    elif pathlist[2] == "QCDFakes" and pathlist[3] == "data":
-       histOutName+=pathlist[2]+"_"+pathlist[3]
-    elif pathlist[2] == "QCDFakes" and pathlist[3] == "mc":
-       histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
-    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "data":
-       histOutName+=pathlist[2]+"_"+pathlist[3]
-    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "mc":
-       histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
-    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "QCD":
-       if pathlist[4] == "data":
-          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
-       elif pathlist[4] == "mc": 
-          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]+"_"+pathlist[5] 
+#    elif pathlist[2] == "QCDFakes" and pathlist[3] == "data":
+#       histOutName+=pathlist[2]+"_"+pathlist[3]
+#    elif pathlist[2] == "QCDFakes" and pathlist[3] == "mc":
+#       histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
+#    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "data":
+#       histOutName+=pathlist[2]+"_"+pathlist[3]
+#    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "mc":
+#       histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
+#    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "QCD":
+#       if pathlist[4] == "data":
+#          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
+#       elif pathlist[4] == "mc": 
+#          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]+"_"+pathlist[5] 
   else :
     histOutName+="data"
 
@@ -210,8 +245,6 @@ def main(args):
   for (index,path) in enumerate(sflist):
     for hname in hlist:
       if hname is None: continue 
-      print "path: ",path.split("/")
-      pathlist = path.split("/")
       histname = hname.GetString().Data();
       print histname.split("/")
       namelist = histname.split("/")
@@ -232,7 +265,6 @@ def main(args):
       #  continue
 
       hist = reader.getHistogram(path,hname.GetString(),tags)
-      tmppath = path.replace("?","_")
 
       histOutName=setHistName(path, hname.GetString(),inputfile )
       print histOutName
