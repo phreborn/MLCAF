@@ -17,6 +17,9 @@ build
 *.jpg
 *.png
 *.root
+*.tar
+*.tgz
+*.tar.gz
 *~
 #*#
 .asetup.save
