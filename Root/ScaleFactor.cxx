@@ -163,6 +163,23 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(muon | slt | y2017 | mu_eff_trigsys_high,
     "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
+  // muon slt efficient 2018
+  addScaleFactor(muon | slt | y2018,
+    highpt | mu_eff_trigstat_low | mu_eff_trigstat_high | mu_eff_trigsys_low | mu_eff_trigsys_high,
+    "lep_0_NOMINAL_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+
+  addScaleFactor(muon | slt | y2018 | mu_eff_trigstat_low,
+    "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+
+  addScaleFactor(muon | slt | y2018 | mu_eff_trigstat_high,
+    "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+
+  addScaleFactor(muon | slt | y2018 | mu_eff_trigsys_low,
+     "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+
+  addScaleFactor(muon | slt | y2018 | mu_eff_trigsys_high,
+    "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+
   // muon slt efficiency high pt
    addScaleFactor(muon | slt | highpt,
     mu_eff_trigstat_low | mu_eff_trigstat_high | mu_eff_trigsys_low | mu_eff_trigsys_high,
@@ -756,6 +773,7 @@ double ScaleFactor::getValue() const {
 
   Condition status(variation);
 
+  if (is2018())     { status |= y2018; }
   if (is2017())     { status |= y2017; }
   if (is2016())     { status |= y2016; }
   if (is2015())     { status |= y2015; }

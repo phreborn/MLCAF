@@ -159,10 +159,18 @@ bool LepHadObservable::is2016() const {
 
 //______________________________________________________________________________________________
 bool LepHadObservable::is2017() const {
-  //if (!_use2016) { return false; }
+  //if (!_use2017) { return false; }
 
   long xrn = x_run_number->EvalInstance();
   return xrn > LIMIT_2016 && xrn <= LIMIT_2017;
+}
+
+//______________________________________________________________________________________________
+bool LepHadObservable::is2018() const {
+  //if (!_use2018) { return false; }
+
+  long xrn = x_run_number->EvalInstance();
+  return xrn > LIMIT_2017 && xrn <= LIMIT_2018;
 }
 
 //______________________________________________________________________________________________

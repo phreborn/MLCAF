@@ -52,15 +52,16 @@ protected:
   const Condition y2015 = 1<<0;
   const Condition y2016 = 1<<1;
   const Condition y2017 = 1<<2;
-  const Condition slt   = 1<<3;
-  const Condition tauid = 1<<4;
-  const Condition muon  = 1<<5;
-  const Condition electron  = 1<<6;
-  const Condition sherpa    = 1<<7;
-  const Condition highpt    = 1<<8;
-  const Condition isZ       = 1<<9;
+  const Condition y2018 = 1<<3;
+  const Condition slt   = 1<<4;
+  const Condition tauid = 1<<5;
+  const Condition muon  = 1<<6;
+  const Condition electron  = 1<<7;
+  const Condition sherpa    = 1<<8;
+  const Condition highpt    = 1<<9;
+  const Condition isZ       = 1<<10;
 
-  const Condition nominal = 1<<10;
+  const Condition nominal = 1<<11;
 
   // need to know which samples are Z for lpx kfactor systematics
   bool isZtt = false;

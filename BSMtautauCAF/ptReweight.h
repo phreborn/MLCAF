@@ -25,9 +25,9 @@ protected:
   bool _isData = false;
   TDirectory* m_histoDir = 0;
 
-  const long LIMIT_2016 = 311481;
-  const long LIMIT_2017 = 340453;
-
+  const long LIMIT_2016 = 311563;
+  const long LIMIT_2017 = 341649;
+  const long LIMIT_2018 = 364292;
 
   TH1 *h_weight ;
 
@@ -61,6 +61,21 @@ protected:
   TH1F * h_ff17_wfr_3p_1tag_up   = 0;
   TH1F * h_ff17_wfr_1p_1tag_down = 0;
   TH1F * h_ff17_wfr_3p_1tag_down = 0;
+
+  // 2018
+  TH1F * h_ff18_wfr_1p_0tag = 0;
+  TH1F * h_ff18_wfr_3p_0tag = 0;
+  TH1F * h_ff18_wfr_1p_0tag_up   = 0;
+  TH1F * h_ff18_wfr_3p_0tag_up   = 0;
+  TH1F * h_ff18_wfr_1p_0tag_down = 0;
+  TH1F * h_ff18_wfr_3p_0tag_down = 0;
+
+  TH1F * h_ff18_wfr_1p_1tag = 0;
+  TH1F * h_ff18_wfr_3p_1tag = 0;
+  TH1F * h_ff18_wfr_1p_1tag_up   = 0;
+  TH1F * h_ff18_wfr_3p_1tag_up   = 0;
+  TH1F * h_ff18_wfr_1p_1tag_down = 0;
+  TH1F * h_ff18_wfr_3p_1tag_down = 0;
 
 
   // pt * dphi parametrization
@@ -113,6 +128,31 @@ protected:
   TH1F * h_ff17_wfr_3p_dphi3_0tag = 0;
   TH1F * h_ff17_wfr_3p_dphi3_0tag_up   = 0;
   TH1F * h_ff17_wfr_3p_dphi3_0tag_down = 0;
+
+  // 2018
+  TH1F * h_ff18_wfr_1p_dphi1_0tag = 0;
+  TH1F * h_ff18_wfr_1p_dphi1_0tag_up   = 0;
+  TH1F * h_ff18_wfr_1p_dphi1_0tag_down = 0;
+
+  TH1F * h_ff18_wfr_1p_dphi2_0tag = 0;
+  TH1F * h_ff18_wfr_1p_dphi2_0tag_up   = 0;
+  TH1F * h_ff18_wfr_1p_dphi2_0tag_down = 0;
+
+  TH1F * h_ff18_wfr_1p_dphi3_0tag = 0;
+  TH1F * h_ff18_wfr_1p_dphi3_0tag_up   = 0;
+  TH1F * h_ff18_wfr_1p_dphi3_0tag_down = 0;
+
+  TH1F * h_ff18_wfr_3p_dphi1_0tag = 0;
+  TH1F * h_ff18_wfr_3p_dphi1_0tag_up   = 0;
+  TH1F * h_ff18_wfr_3p_dphi1_0tag_down = 0;
+
+  TH1F * h_ff18_wfr_3p_dphi2_0tag = 0;
+  TH1F * h_ff18_wfr_3p_dphi2_0tag_up   = 0;
+  TH1F * h_ff18_wfr_3p_dphi2_0tag_down = 0;
+
+  TH1F * h_ff18_wfr_3p_dphi3_0tag = 0;
+  TH1F * h_ff18_wfr_3p_dphi3_0tag_up   = 0;
+  TH1F * h_ff18_wfr_3p_dphi3_0tag_down = 0;
 
 
   // dphi correction
