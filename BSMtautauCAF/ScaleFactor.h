@@ -30,9 +30,6 @@ protected:
   std::vector< std::pair<TString, Condition> > variations;
   Condition variation;
 
-  virtual Condition registerVariation(TString name);
-  unsigned int nextBitPosition = 11;
-
   std::vector< std::tuple<Condition, Condition, TString, TTreeFormula*> > branches;
   std::vector< std::tuple<Condition, Condition, const double*> > factors;
 
@@ -62,6 +59,9 @@ protected:
   const Condition isZ       = 1<<10;
 
   const Condition nominal = 1<<11;
+
+  virtual Condition registerVariation(TString name);
+  unsigned int nextBitPosition = 12;
 
   // need to know which samples are Z for lpx kfactor systematics
   bool isZtt = false;
