@@ -83,23 +83,14 @@
 
 # ----------- c16d ----------- #
 ##### data #####
-/data/?/c16d/data15_D
-/data/?/c16d/data15_E
-/data/?/c16d/data15_F
-/data/?/c16d/data15_G
-/data/?/c16d/data15_H
-/data/?/c16d/data15_J
-
-/data/?/c16d/data16_A
-/data/?/c16d/data16_B
-/data/?/c16d/data16_C
-/data/?/c16d/data16_D
-/data/?/c16d/data16_E
-/data/?/c16d/data16_F
-/data/?/c16d/data16_G
-/data/?/c16d/data16_I
-/data/?/c16d/data16_K
-/data/?/c16d/data16_L
+/data/?/c16d/data17_B
+/data/?/c16d/data17_C
+/data/?/c16d/data17_D
+/data/?/c16d/data17_E
+/data/?/c16d/data17_F
+/data/?/c16d/data17_H
+/data/?/c16d/data17_I
+/data/?/c16d/data17_K
 
 
 ##### bkg #####
@@ -132,23 +123,14 @@
 
 ##### fakes #####
 # data in anti-iso region for qcd
-/bkg/?/c16d/Fake/data/data15_D
-/bkg/?/c16d/Fake/data/data15_E
-/bkg/?/c16d/Fake/data/data15_F
-/bkg/?/c16d/Fake/data/data15_G
-/bkg/?/c16d/Fake/data/data15_H
-/bkg/?/c16d/Fake/data/data15_J
-
-/bkg/?/c16d/Fake/data/data16_A
-/bkg/?/c16d/Fake/data/data16_B
-/bkg/?/c16d/Fake/data/data16_C
-/bkg/?/c16d/Fake/data/data16_D
-/bkg/?/c16d/Fake/data/data16_E
-/bkg/?/c16d/Fake/data/data16_F
-/bkg/?/c16d/Fake/data/data16_G
-/bkg/?/c16d/Fake/data/data16_I
-/bkg/?/c16d/Fake/data/data16_K
-/bkg/?/c16d/Fake/data/data16_L
+/bkg/?/c16d/Fake/data/data17_B
+/bkg/?/c16d/Fake/data/data17_C
+/bkg/?/c16d/Fake/data/data17_D
+/bkg/?/c16d/Fake/data/data17_E
+/bkg/?/c16d/Fake/data/data17_F
+/bkg/?/c16d/Fake/data/data17_H
+/bkg/?/c16d/Fake/data/data17_I
+/bkg/?/c16d/Fake/data/data17_K
 
 # bkg in anti-iso region for qcd, should be negligible
 /bkg/?/c16d/Fake/mc/Diboson
@@ -161,23 +143,16 @@
 
 # ----------- c16e ----------- #
 ##### data #####
-/data/?/c16e/data15_D
-/data/?/c16e/data15_E
-/data/?/c16e/data15_F
-/data/?/c16e/data15_G
-/data/?/c16e/data15_H
-/data/?/c16e/data15_J
-
-/data/?/c16e/data16_A
-/data/?/c16e/data16_B
-/data/?/c16e/data16_C
-/data/?/c16e/data16_D
-/data/?/c16e/data16_E
-/data/?/c16e/data16_F
-/data/?/c16e/data16_G
-/data/?/c16e/data16_I
-/data/?/c16e/data16_K
-/data/?/c16e/data16_L
+/data/?/c16e/data18_B
+/data/?/c16e/data18_C
+/data/?/c16e/data18_D
+/data/?/c16e/data18_F
+/data/?/c16e/data18_I
+/data/?/c16e/data18_K
+/data/?/c16e/data18_L
+/data/?/c16e/data18_M
+/data/?/c16e/data18_O
+/data/?/c16e/data18_Q
 
 
 ##### bkg #####
@@ -210,23 +185,16 @@
 
 ##### fakes #####
 # data in anti-iso region for qcd
-/bkg/?/c16e/Fake/data/data15_D
-/bkg/?/c16e/Fake/data/data15_E
-/bkg/?/c16e/Fake/data/data15_F
-/bkg/?/c16e/Fake/data/data15_G
-/bkg/?/c16e/Fake/data/data15_H
-/bkg/?/c16e/Fake/data/data15_J
-
-/bkg/?/c16e/Fake/data/data16_A
-/bkg/?/c16e/Fake/data/data16_B
-/bkg/?/c16e/Fake/data/data16_C
-/bkg/?/c16e/Fake/data/data16_D
-/bkg/?/c16e/Fake/data/data16_E
-/bkg/?/c16e/Fake/data/data16_F
-/bkg/?/c16e/Fake/data/data16_G
-/bkg/?/c16e/Fake/data/data16_I
-/bkg/?/c16e/Fake/data/data16_K
-/bkg/?/c16e/Fake/data/data16_L
+/bkg/?/c16e/Fake/data/data18_B
+/bkg/?/c16e/Fake/data/data18_C
+/bkg/?/c16e/Fake/data/data18_D
+/bkg/?/c16e/Fake/data/data18_F
+/bkg/?/c16e/Fake/data/data18_I
+/bkg/?/c16e/Fake/data/data18_K
+/bkg/?/c16e/Fake/data/data18_L
+/bkg/?/c16e/Fake/data/data18_M
+/bkg/?/c16e/Fake/data/data18_O
+/bkg/?/c16e/Fake/data/data18_Q
 
 # bkg in anti-iso region for qcd, should be negligible
 /bkg/?/c16e/Fake/mc/Diboson
