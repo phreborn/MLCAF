@@ -52,7 +52,7 @@
 <isZll=true, isInc=true> @ /bkg/?/?/Zee;
 <isZll=true, isInc=true> @ /bkg/?/?/Zmumu;
 
-@ bkg/? {
+@ /bkg/? {
     @ ? {
         $copy("SherpaWjets >> ::SherpaWjetsTruthTau");
         $copy("SherpaWjets >> ::SherpaWjetsLepFake");
@@ -72,160 +72,6 @@
         $copy("Zmumu       >> ::ZmumuJetFake");
     }
 }
-
-#$copy("bkg/lephad/c16a/SherpaWjets   >>   bkg/lephad/c16a/::SherpaWjetsTruthTau");
-#$copy("bkg/lephad/c16a/SherpaWjets   >>   bkg/lephad/c16a/::SherpaWjetsLepFake");
-#$copy("bkg/lephad/c16a/SherpaWjets   >>   bkg/lephad/c16a/::SherpaWjetsJetFake");
-#$copy("bkg/lephad/c16a/Diboson    >>      bkg/lephad/c16a/::DibosonTruthTau");
-#$copy("bkg/lephad/c16a/Diboson       >>   bkg/lephad/c16a/::DibosonLepFake");
-#$copy("bkg/lephad/c16a/Diboson       >>   bkg/lephad/c16a/::DibosonJetFake");
-#$copy("bkg/lephad/c16a/Top           >>   bkg/lephad/c16a/::TopTruthTau");
-#$copy("bkg/lephad/c16a/Top           >>   bkg/lephad/c16a/::TopLepFake");
-#$copy("bkg/lephad/c16a/Top        >>      bkg/lephad/c16a/::TopJetFake");
-#$copy("bkg/lephad/c16a/Ztautau    >>      bkg/lephad/c16a/::ZtautauTruthTau");
-#$copy("bkg/lephad/c16a/Ztautau    >>      bkg/lephad/c16a/::ZtautauLepFake");
-#$copy("bkg/lephad/c16a/Ztautau       >>      bkg/lephad/c16a/::ZtautauJetFake");
-#$copy("bkg/lephad/c16a/Zee           >>   bkg/lephad/c16a/::ZeeLepFake");
-#$copy("bkg/lephad/c16a/Zee           >>   bkg/lephad/c16a/::ZeeJetFake");
-#$copy("bkg/lephad/c16a/Zmumu         >>      bkg/lephad/c16a/::ZmumuLepFake");
-#$copy("bkg/lephad/c16a/Zmumu         >>      bkg/lephad/c16a/::ZmumuJetFake");
-
-#$copy("bkg/muhad/c16a/SherpaWjets   >>    bkg/muhad/c16a/::SherpaWjetsTruthTau");
-#$copy("bkg/muhad/c16a/SherpaWjets   >>    bkg/muhad/c16a/::SherpaWjetsLepFake");
-#$copy("bkg/muhad/c16a/SherpaWjets   >>    bkg/muhad/c16a/::SherpaWjetsJetFake");
-#$copy("bkg/muhad/c16a/Diboson     >>      bkg/muhad/c16a/::DibosonTruthTau");
-#$copy("bkg/muhad/c16a/Diboson       >>    bkg/muhad/c16a/::DibosonLepFake");
-#$copy("bkg/muhad/c16a/Diboson       >>    bkg/muhad/c16a/::DibosonJetFake");
-#$copy("bkg/muhad/c16a/Top           >>    bkg/muhad/c16a/::TopTruthTau");
-#$copy("bkg/muhad/c16a/Top           >>    bkg/muhad/c16a/::TopLepFake");
-#$copy("bkg/muhad/c16a/Top         >>      bkg/muhad/c16a/::TopJetFake");
-#$copy("bkg/muhad/c16a/Ztautau     >>      bkg/muhad/c16a/::ZtautauTruthTau");
-#$copy("bkg/muhad/c16a/Ztautau     >>      bkg/muhad/c16a/::ZtautauLepFake");
-#$copy("bkg/muhad/c16a/Ztautau       >>      bkg/muhad/c16a/::ZtautauJetFake");
-#$copy("bkg/muhad/c16a/Zee           >>    bkg/muhad/c16a/::ZeeLepFake");
-#$copy("bkg/muhad/c16a/Zee           >>    bkg/muhad/c16a/::ZeeJetFake");
-#$copy("bkg/muhad/c16a/Zmumu         >>      bkg/muhad/c16a/::ZmumuLepFake");
-#$copy("bkg/muhad/c16a/Zmumu         >>      bkg/muhad/c16a/::ZmumuJetFake");
-
-#$copy("bkg/ehad/c16a/SherpaWjets   >>     bkg/ehad/c16a/::SherpaWjetsTruthTau");
-#$copy("bkg/ehad/c16a/SherpaWjets   >>     bkg/ehad/c16a/::SherpaWjetsLepFake");
-#$copy("bkg/ehad/c16a/SherpaWjets   >>     bkg/ehad/c16a/::SherpaWjetsJetFake");
-#$copy("bkg/ehad/c16a/Diboson      >>      bkg/ehad/c16a/::DibosonTruthTau");
-#$copy("bkg/ehad/c16a/Diboson       >>     bkg/ehad/c16a/::DibosonLepFake");
-#$copy("bkg/ehad/c16a/Diboson       >>     bkg/ehad/c16a/::DibosonJetFake");
-#$copy("bkg/ehad/c16a/Top           >>     bkg/ehad/c16a/::TopTruthTau");
-#$copy("bkg/ehad/c16a/Top           >>     bkg/ehad/c16a/::TopLepFake");
-#$copy("bkg/ehad/c16a/Top          >>      bkg/ehad/c16a/::TopJetFake");
-#$copy("bkg/ehad/c16a/Ztautau      >>      bkg/ehad/c16a/::ZtautauTruthTau");
-#$copy("bkg/ehad/c16a/Ztautau      >>      bkg/ehad/c16a/::ZtautauLepFake");
-#$copy("bkg/ehad/c16a/Ztautau       >>      bkg/ehad/c16a/::ZtautauJetFake");
-#$copy("bkg/ehad/c16a/Zee           >>     bkg/ehad/c16a/::ZeeLepFake");
-#$copy("bkg/ehad/c16a/Zee           >>     bkg/ehad/c16a/::ZeeJetFake");
-#$copy("bkg/ehad/c16a/Zmumu         >>      bkg/ehad/c16a/::ZmumuLepFake");
-#$copy("bkg/ehad/c16a/Zmumu         >>      bkg/ehad/c16a/::ZmumuJetFake");
-
-#$copy("bkg/lephad/c16d/SherpaWjets   >>   bkg/lephad/c16d/::SherpaWjetsTruthTau");
-#$copy("bkg/lephad/c16d/SherpaWjets   >>   bkg/lephad/c16d/::SherpaWjetsLepFake");
-#$copy("bkg/lephad/c16d/SherpaWjets   >>   bkg/lephad/c16d/::SherpaWjetsJetFake");
-#$copy("bkg/lephad/c16d/Diboson    >>      bkg/lephad/c16d/::DibosonTruthTau");
-#$copy("bkg/lephad/c16d/Diboson       >>   bkg/lephad/c16d/::DibosonLepFake");
-#$copy("bkg/lephad/c16d/Diboson       >>   bkg/lephad/c16d/::DibosonJetFake");
-#$copy("bkg/lephad/c16d/Top           >>   bkg/lephad/c16d/::TopTruthTau");
-#$copy("bkg/lephad/c16d/Top           >>   bkg/lephad/c16d/::TopLepFake");
-#$copy("bkg/lephad/c16d/Top        >>      bkg/lephad/c16d/::TopJetFake");
-#$copy("bkg/lephad/c16d/Ztautau    >>      bkg/lephad/c16d/::ZtautauTruthTau");
-#$copy("bkg/lephad/c16d/Ztautau    >>      bkg/lephad/c16d/::ZtautauLepFake");
-#$copy("bkg/lephad/c16d/Ztautau       >>      bkg/lephad/c16d/::ZtautauJetFake");
-#$copy("bkg/lephad/c16d/Zee           >>   bkg/lephad/c16d/::ZeeLepFake");
-#$copy("bkg/lephad/c16d/Zee           >>   bkg/lephad/c16d/::ZeeJetFake");
-#$copy("bkg/lephad/c16d/Zmumu         >>      bkg/lephad/c16d/::ZmumuLepFake");
-#$copy("bkg/lephad/c16d/Zmumu         >>      bkg/lephad/c16d/::ZmumuJetFake");
-
-#$copy("bkg/muhad/c16d/SherpaWjets   >>    bkg/muhad/c16d/::SherpaWjetsTruthTau");
-#$copy("bkg/muhad/c16d/SherpaWjets   >>    bkg/muhad/c16d/::SherpaWjetsLepFake");
-#$copy("bkg/muhad/c16d/SherpaWjets   >>    bkg/muhad/c16d/::SherpaWjetsJetFake");
-#$copy("bkg/muhad/c16d/Diboson     >>      bkg/muhad/c16d/::DibosonTruthTau");
-#$copy("bkg/muhad/c16d/Diboson       >>    bkg/muhad/c16d/::DibosonLepFake");
-#$copy("bkg/muhad/c16d/Diboson       >>    bkg/muhad/c16d/::DibosonJetFake");
-#$copy("bkg/muhad/c16d/Top           >>    bkg/muhad/c16d/::TopTruthTau");
-#$copy("bkg/muhad/c16d/Top           >>    bkg/muhad/c16d/::TopLepFake");
-#$copy("bkg/muhad/c16d/Top         >>      bkg/muhad/c16d/::TopJetFake");
-#$copy("bkg/muhad/c16d/Ztautau     >>      bkg/muhad/c16d/::ZtautauTruthTau");
-#$copy("bkg/muhad/c16d/Ztautau     >>      bkg/muhad/c16d/::ZtautauLepFake");
-#$copy("bkg/muhad/c16d/Ztautau       >>      bkg/muhad/c16d/::ZtautauJetFake");
-#$copy("bkg/muhad/c16d/Zee           >>    bkg/muhad/c16d/::ZeeLepFake");
-#$copy("bkg/muhad/c16d/Zee           >>    bkg/muhad/c16d/::ZeeJetFake");
-#$copy("bkg/muhad/c16d/Zmumu         >>      bkg/muhad/c16d/::ZmumuLepFake");
-#$copy("bkg/muhad/c16d/Zmumu         >>      bkg/muhad/c16d/::ZmumuJetFake");
-
-#$copy("bkg/ehad/c16d/SherpaWjets   >>     bkg/ehad/c16d/::SherpaWjetsTruthTau");
-#$copy("bkg/ehad/c16d/SherpaWjets   >>     bkg/ehad/c16d/::SherpaWjetsLepFake");
-#$copy("bkg/ehad/c16d/SherpaWjets   >>     bkg/ehad/c16d/::SherpaWjetsJetFake");
-#$copy("bkg/ehad/c16d/Diboson      >>      bkg/ehad/c16d/::DibosonTruthTau");
-#$copy("bkg/ehad/c16d/Diboson       >>     bkg/ehad/c16d/::DibosonLepFake");
-#$copy("bkg/ehad/c16d/Diboson       >>     bkg/ehad/c16d/::DibosonJetFake");
-#$copy("bkg/ehad/c16d/Top           >>     bkg/ehad/c16d/::TopTruthTau");
-#$copy("bkg/ehad/c16d/Top           >>     bkg/ehad/c16d/::TopLepFake");
-#$copy("bkg/ehad/c16d/Top          >>      bkg/ehad/c16d/::TopJetFake");
-#$copy("bkg/ehad/c16d/Ztautau      >>      bkg/ehad/c16d/::ZtautauTruthTau");
-#$copy("bkg/ehad/c16d/Ztautau      >>      bkg/ehad/c16d/::ZtautauLepFake");
-#$copy("bkg/ehad/c16d/Ztautau       >>      bkg/ehad/c16d/::ZtautauJetFake");
-#$copy("bkg/ehad/c16d/Zee           >>     bkg/ehad/c16d/::ZeeLepFake");
-#$copy("bkg/ehad/c16d/Zee           >>     bkg/ehad/c16d/::ZeeJetFake");
-#$copy("bkg/ehad/c16d/Zmumu         >>      bkg/ehad/c16d/::ZmumuLepFake");
-#$copy("bkg/ehad/c16d/Zmumu         >>      bkg/ehad/c16d/::ZmumuJetFake");
-
-#$copy("bkg/lephad/c16e/SherpaWjets   >>   bkg/lephad/c16e/::SherpaWjetsTruthTau");
-#$copy("bkg/lephad/c16e/SherpaWjets   >>   bkg/lephad/c16e/::SherpaWjetsLepFake");
-#$copy("bkg/lephad/c16e/SherpaWjets   >>   bkg/lephad/c16e/::SherpaWjetsJetFake");
-#$copy("bkg/lephad/c16e/Diboson    >>      bkg/lephad/c16e/::DibosonTruthTau");
-#$copy("bkg/lephad/c16e/Diboson       >>   bkg/lephad/c16e/::DibosonLepFake");
-#$copy("bkg/lephad/c16e/Diboson       >>   bkg/lephad/c16e/::DibosonJetFake");
-#$copy("bkg/lephad/c16e/Top           >>   bkg/lephad/c16e/::TopTruthTau");
-#$copy("bkg/lephad/c16e/Top           >>   bkg/lephad/c16e/::TopLepFake");
-#$copy("bkg/lephad/c16e/Top        >>      bkg/lephad/c16e/::TopJetFake");
-#$copy("bkg/lephad/c16e/Ztautau    >>      bkg/lephad/c16e/::ZtautauTruthTau");
-#$copy("bkg/lephad/c16e/Ztautau    >>      bkg/lephad/c16e/::ZtautauLepFake");
-#$copy("bkg/lephad/c16e/Ztautau       >>      bkg/lephad/c16e/::ZtautauJetFake");
-#$copy("bkg/lephad/c16e/Zee           >>   bkg/lephad/c16e/::ZeeLepFake");
-#$copy("bkg/lephad/c16e/Zee           >>   bkg/lephad/c16e/::ZeeJetFake");
-#$copy("bkg/lephad/c16e/Zmumu         >>      bkg/lephad/c16e/::ZmumuLepFake");
-#$copy("bkg/lephad/c16e/Zmumu         >>      bkg/lephad/c16e/::ZmumuJetFake");
-
-#$copy("bkg/muhad/c16e/SherpaWjets   >>    bkg/muhad/c16e/::SherpaWjetsTruthTau");
-#$copy("bkg/muhad/c16e/SherpaWjets   >>    bkg/muhad/c16e/::SherpaWjetsLepFake");
-#$copy("bkg/muhad/c16e/SherpaWjets   >>    bkg/muhad/c16e/::SherpaWjetsJetFake");
-#$copy("bkg/muhad/c16e/Diboson     >>      bkg/muhad/c16e/::DibosonTruthTau");
-#$copy("bkg/muhad/c16e/Diboson       >>    bkg/muhad/c16e/::DibosonLepFake");
-#$copy("bkg/muhad/c16e/Diboson       >>    bkg/muhad/c16e/::DibosonJetFake");
-#$copy("bkg/muhad/c16e/Top           >>    bkg/muhad/c16e/::TopTruthTau");
-#$copy("bkg/muhad/c16e/Top           >>    bkg/muhad/c16e/::TopLepFake");
-#$copy("bkg/muhad/c16e/Top         >>      bkg/muhad/c16e/::TopJetFake");
-#$copy("bkg/muhad/c16e/Ztautau     >>      bkg/muhad/c16e/::ZtautauTruthTau");
-#$copy("bkg/muhad/c16e/Ztautau     >>      bkg/muhad/c16e/::ZtautauLepFake");
-#$copy("bkg/muhad/c16e/Ztautau       >>      bkg/muhad/c16e/::ZtautauJetFake");
-#$copy("bkg/muhad/c16e/Zee           >>    bkg/muhad/c16e/::ZeeLepFake");
-#$copy("bkg/muhad/c16e/Zee           >>    bkg/muhad/c16e/::ZeeJetFake");
-#$copy("bkg/muhad/c16e/Zmumu         >>      bkg/muhad/c16e/::ZmumuLepFake");
-#$copy("bkg/muhad/c16e/Zmumu         >>      bkg/muhad/c16e/::ZmumuJetFake");
-
-#$copy("bkg/ehad/c16e/SherpaWjets   >>     bkg/ehad/c16e/::SherpaWjetsTruthTau");
-#$copy("bkg/ehad/c16e/SherpaWjets   >>     bkg/ehad/c16e/::SherpaWjetsLepFake");
-#$copy("bkg/ehad/c16e/SherpaWjets   >>     bkg/ehad/c16e/::SherpaWjetsJetFake");
-#$copy("bkg/ehad/c16e/Diboson      >>      bkg/ehad/c16e/::DibosonTruthTau");
-#$copy("bkg/ehad/c16e/Diboson       >>     bkg/ehad/c16e/::DibosonLepFake");
-#$copy("bkg/ehad/c16e/Diboson       >>     bkg/ehad/c16e/::DibosonJetFake");
-#$copy("bkg/ehad/c16e/Top           >>     bkg/ehad/c16e/::TopTruthTau");
-#$copy("bkg/ehad/c16e/Top           >>     bkg/ehad/c16e/::TopLepFake");
-#$copy("bkg/ehad/c16e/Top          >>      bkg/ehad/c16e/::TopJetFake");
-#$copy("bkg/ehad/c16e/Ztautau      >>      bkg/ehad/c16e/::ZtautauTruthTau");
-#$copy("bkg/ehad/c16e/Ztautau      >>      bkg/ehad/c16e/::ZtautauLepFake");
-#$copy("bkg/ehad/c16e/Ztautau       >>      bkg/ehad/c16e/::ZtautauJetFake");
-#$copy("bkg/ehad/c16e/Zee           >>     bkg/ehad/c16e/::ZeeLepFake");
-#$copy("bkg/ehad/c16e/Zee           >>     bkg/ehad/c16e/::ZeeJetFake");
-#$copy("bkg/ehad/c16e/Zmumu         >>      bkg/ehad/c16e/::ZmumuLepFake");
-#$copy("bkg/ehad/c16e/Zmumu         >>      bkg/ehad/c16e/::ZmumuJetFake");
-
 
 <isTT=false> @/.;
 <isTT=true, isInc=false> @ /bkg/?/?/SherpaWjetsTruthTau;
@@ -262,12 +108,21 @@ $create(path="bkg/?/?/Fake/mc",type="sf");
 <isFailISO=false> @ /.;
 
 ## All MC samples here should be tagged above: isInc=true
-@ data/? {
-    @ ? {
-        $copy("? >> Fake/data");
-    }
-}
-@ bkg/? {
+#@ /data/? {
+#    @ ? {
+#        $copy("? >> /bkg/?/?/Fake/data");
+#    }
+#}
+$copy("data/lephad/c16a/?  >> bkg/lephad/c16a/Fake/data");
+$copy("data/muhad/c16a/?   >> bkg/muhad/c16a/Fake/data");
+$copy("data/ehad/c16a/?    >> bkg/ehad/c16a/Fake/data");
+$copy("data/lephad/c16d/?  >> bkg/lephad/c16d/Fake/data");
+$copy("data/muhad/c16d/?   >> bkg/muhad/c16d/Fake/data");
+$copy("data/ehad/c16d/?    >> bkg/ehad/c16d/Fake/data");
+$copy("data/lephad/c16e/?  >> bkg/lephad/c16e/Fake/data");
+$copy("data/muhad/c16e/?   >> bkg/muhad/c16e/Fake/data");
+$copy("data/ehad/c16e/?    >> bkg/ehad/c16e/Fake/data");
+@ /bkg/? {
     @ ? {
         $copy("Ztautau     >> Fake/mc");
         $copy("Zee         >> Fake/mc");
@@ -277,78 +132,6 @@ $create(path="bkg/?/?/Fake/mc",type="sf");
         $copy("SherpaWjets >> Fake/mc");
     }
 }
-
-#$copy("data/lephad/c16a/?            >>   bkg/lephad/c16a/Fake/data");
-#$copy("bkg/lephad/c16a/Ztautau    >>      bkg/lephad/c16a/Fake/mc");
-#$copy("bkg/lephad/c16a/Zee           >>      bkg/lephad/c16a/Fake/mc");
-#$copy("bkg/lephad/c16a/Zmumu         >>      bkg/lephad/c16a/Fake/mc");
-#$copy("bkg/lephad/c16a/Top           >>      bkg/lephad/c16a/Fake/mc");
-#$copy("bkg/lephad/c16a/Diboson       >>      bkg/lephad/c16a/Fake/mc");
-#$copy("bkg/lephad/c16a/SherpaWjets   >>      bkg/lephad/c16a/Fake/mc");
-
-#$copy("data/muhad/c16a/?             >>   bkg/muhad/c16a/Fake/data");
-#$copy("bkg/muhad/c16a/Ztautau        >>   bkg/muhad/c16a/Fake/mc");
-#$copy("bkg/muhad/c16a/Zee            >>      bkg/muhad/c16a/Fake/mc");
-#$copy("bkg/muhad/c16a/Zmumu          >>      bkg/muhad/c16a/Fake/mc");
-#$copy("bkg/muhad/c16a/Top            >>      bkg/muhad/c16a/Fake/mc");
-#$copy("bkg/muhad/c16a/Diboson        >>      bkg/muhad/c16a/Fake/mc");
-#$copy("bkg/muhad/c16a/SherpaWjets    >>      bkg/muhad/c16a/Fake/mc");
-
-#$copy("data/ehad/c16a/?              >>   bkg/ehad/c16a/Fake/data");
-#$copy("bkg/ehad/c16a/Ztautau         >>   bkg/ehad/c16a/Fake/mc");
-#$copy("bkg/ehad/c16a/Zee             >>      bkg/ehad/c16a/Fake/mc");
-#$copy("bkg/ehad/c16a/Zmumu           >>   bkg/ehad/c16a/Fake/mc");
-#$copy("bkg/ehad/c16a/Top             >>   bkg/ehad/c16a/Fake/mc");
-#$copy("bkg/ehad/c16a/Diboson         >>   bkg/ehad/c16a/Fake/mc");
-#$copy("bkg/ehad/c16a/SherpaWjets     >>   bkg/ehad/c16a/Fake/mc");
-
-#$copy("data/lephad/c16d/?            >>   bkg/lephad/c16d/Fake/data");
-#$copy("bkg/lephad/c16d/Ztautau    >>      bkg/lephad/c16d/Fake/mc");
-#$copy("bkg/lephad/c16d/Zee           >>      bkg/lephad/c16d/Fake/mc");
-#$copy("bkg/lephad/c16d/Zmumu         >>      bkg/lephad/c16d/Fake/mc");
-#$copy("bkg/lephad/c16d/Top           >>      bkg/lephad/c16d/Fake/mc");
-#$copy("bkg/lephad/c16d/Diboson       >>      bkg/lephad/c16d/Fake/mc");
-#$copy("bkg/lephad/c16d/SherpaWjets   >>      bkg/lephad/c16d/Fake/mc");
-
-#$copy("data/muhad/c16d/?             >>   bkg/muhad/c16d/Fake/data");
-#$copy("bkg/muhad/c16d/Ztautau        >>   bkg/muhad/c16d/Fake/mc");
-#$copy("bkg/muhad/c16d/Zee            >>      bkg/muhad/c16d/Fake/mc");
-#$copy("bkg/muhad/c16d/Zmumu          >>      bkg/muhad/c16d/Fake/mc");
-#$copy("bkg/muhad/c16d/Top            >>      bkg/muhad/c16d/Fake/mc");
-#$copy("bkg/muhad/c16d/Diboson        >>      bkg/muhad/c16d/Fake/mc");
-#$copy("bkg/muhad/c16d/SherpaWjets    >>      bkg/muhad/c16d/Fake/mc");
-
-#$copy("data/ehad/c16d/?              >>   bkg/ehad/c16d/Fake/data");
-#$copy("bkg/ehad/c16d/Ztautau         >>   bkg/ehad/c16d/Fake/mc");
-#$copy("bkg/ehad/c16d/Zee             >>      bkg/ehad/c16d/Fake/mc");
-#$copy("bkg/ehad/c16d/Zmumu           >>   bkg/ehad/c16d/Fake/mc");
-#$copy("bkg/ehad/c16d/Top             >>   bkg/ehad/c16d/Fake/mc");
-#$copy("bkg/ehad/c16d/Diboson         >>   bkg/ehad/c16d/Fake/mc");
-#$copy("bkg/ehad/c16d/SherpaWjets     >>   bkg/ehad/c16d/Fake/mc");
-
-#$copy("data/lephad/c16e/?            >>   bkg/lephad/c16e/Fake/data");
-#$copy("bkg/lephad/c16e/Ztautau    >>      bkg/lephad/c16e/Fake/mc");
-#$copy("bkg/lephad/c16e/Zee           >>      bkg/lephad/c16e/Fake/mc");
-#$copy("bkg/lephad/c16e/Zmumu         >>      bkg/lephad/c16e/Fake/mc");
-#$copy("bkg/lephad/c16e/Top           >>      bkg/lephad/c16e/Fake/mc");
-#$copy("bkg/lephad/c16e/Diboson       >>      bkg/lephad/c16e/Fake/mc");
-#$copy("bkg/lephad/c16e/SherpaWjets   >>      bkg/lephad/c16e/Fake/mc");
-
-#$copy("data/muhad/c16e/?             >>   bkg/muhad/c16e/Fake/data");
-#$copy("bkg/muhad/c16e/Ztautau        >>   bkg/muhad/c16e/Fake/mc");
-#$copy("bkg/muhad/c16e/Zee            >>      bkg/muhad/c16e/Fake/mc");
-#$copy("bkg/muhad/c16e/Zmumu          >>      bkg/muhad/c16e/Fake/mc");
-#$copy("bkg/muhad/c16e/Top            >>      bkg/muhad/c16e/Fake/mc");
-#$copy("bkg/muhad/c16e/Diboson        >>      bkg/muhad/c16e/Fake/mc");
-#$copy("bkg/muhad/c16e/SherpaWjets    >>      bkg/muhad/c16e/Fake/mc");
-
-#$copy("data/ehad/c16e/?              >>   bkg/ehad/c16e/Fake/data");
-#$copy("bkg/ehad/c16e/Ztautau         >>   bkg/ehad/c16e/Fake/mc");
-#$copy("bkg/ehad/c16e/Zee             >>      bkg/ehad/c16e/Fake/mc");
-#$copy("bkg/ehad/c16e/Zmumu           >>   bkg/ehad/c16e/Fake/mc");
-#$copy("bkg/ehad/c16e/Top             >>   bkg/ehad/c16e/Fake/mc");
-#$copy("bkg/ehad/c16e/Diboson         >>   bkg/ehad/c16e/Fake/mc");
-#$copy("bkg/ehad/c16e/SherpaWjets     >>   bkg/ehad/c16e/Fake/mc");
 
 
 $modify(tag='.xsp.xSecScale', operator='=',value=1.,path='bkg/?/?/Fake/mc/?',filter='sf',create=true,override=false);
