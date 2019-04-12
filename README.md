@@ -160,6 +160,12 @@ source configSignalControlRegion/syst/scriptWriteSystematics.sh
 source configSignalControlRegion/scriptVisualize.sh
 ```
 
+### Workspace inputs (Signal Region, Top Control Region)
+```bash
+# Dump systematic outputs to standard ROOT files and merge
+source configSignalControlRegion/syst/scriptDumpHist.sh
+```
+
 Old README content
 ------------------
 TODO: 2015-16-17 fake factors:
