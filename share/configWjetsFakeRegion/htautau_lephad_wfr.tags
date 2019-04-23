@@ -108,25 +108,21 @@ $create(path="bkg/?/?/Fake/mc",type="sf");
 <isFailISO=false> @ /.;
 
 ## All MC samples here should be tagged above: isInc=true
-#@ /data/? {
-#    @ ? {
-#        $copy("? >> /bkg/?/?/Fake/data");
-#    }
-#}
-$copy("data/lephad/c16a/?  >> bkg/lephad/c16a/Fake/data");
-$copy("data/muhad/c16a/?   >> bkg/muhad/c16a/Fake/data");
-$copy("data/ehad/c16a/?    >> bkg/ehad/c16a/Fake/data");
-$copy("data/lephad/c16d/?  >> bkg/lephad/c16d/Fake/data");
-$copy("data/muhad/c16d/?   >> bkg/muhad/c16d/Fake/data");
-$copy("data/ehad/c16d/?    >> bkg/ehad/c16d/Fake/data");
-$copy("data/lephad/c16e/?  >> bkg/lephad/c16e/Fake/data");
-$copy("data/muhad/c16e/?   >> bkg/muhad/c16e/Fake/data");
-$copy("data/ehad/c16e/?    >> bkg/ehad/c16e/Fake/data");
-# TRY THIS SOMETIME OR SOMETHING:
-#@ /data/? {
-#    print($(BASEFOLDERNAME))
-#    $copy("../$(BASEFOLDERNAME) >> /bkg/$(BASEFOLDERNAME)/Fake/data");
-#}
+@ /data/lephad {
+    @ ? {
+        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/Fake/data");
+    }
+}
+@ /data/muhad {
+    @ ? {
+        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/Fake/data");
+    }
+}
+@ /data/ehad {
+    @ ? {
+        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/Fake/data");
+    }
+}
 @ /bkg/? {
     @ ? {
         $copy("Ztautau     >> Fake/mc");
@@ -147,3 +143,35 @@ $modify(tag='.xsp.xSecScale', operator='*',value=-1.,path='bkg/?/?/Fake/mc/?',fi
 <isData=true> @ /bkg/?/?/Fake/data;
 <isFailData=true> @ /bkg/?/?/Fake/data;
 <usemcweights=true> @ /bkg/?/?/Fake/data/?;
+
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/DibosonTruthTau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/DibosonLepFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/DibosonJetFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZeeLepFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZeeJetFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZmumuLepFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZmumuJetFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZtautauTruthTau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZtautauLepFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZtautauJetFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/TopTruthTau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/TopLepFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/TopJetFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjetsTruthTau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjetsLepFake;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjetsJetFake;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/SherpaWjets;
