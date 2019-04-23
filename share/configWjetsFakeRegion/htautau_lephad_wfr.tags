@@ -122,6 +122,11 @@ $copy("data/ehad/c16d/?    >> bkg/ehad/c16d/Fake/data");
 $copy("data/lephad/c16e/?  >> bkg/lephad/c16e/Fake/data");
 $copy("data/muhad/c16e/?   >> bkg/muhad/c16e/Fake/data");
 $copy("data/ehad/c16e/?    >> bkg/ehad/c16e/Fake/data");
+# TRY THIS SOMETIME OR SOMETHING:
+#@ /data/? {
+#    print($(BASEFOLDERNAME))
+#    $copy("../$(BASEFOLDERNAME) >> /bkg/$(BASEFOLDERNAME)/Fake/data");
+#}
 @ /bkg/? {
     @ ? {
         $copy("Ztautau     >> Fake/mc");
