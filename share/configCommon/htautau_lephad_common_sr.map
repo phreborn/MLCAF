@@ -1,0 +1,165 @@
+# Diboson (Sherpa)
+363355 /bkg/$(channel)/$(campaign)/Diboson
+363356 /bkg/$(channel)/$(campaign)/Diboson
+363357 /bkg/$(channel)/$(campaign)/Diboson
+363358 /bkg/$(channel)/$(campaign)/Diboson
+363359 /bkg/$(channel)/$(campaign)/Diboson
+363360 /bkg/$(channel)/$(campaign)/Diboson
+363489 /bkg/$(channel)/$(campaign)/Diboson
+364250 /bkg/$(channel)/$(campaign)/Diboson
+364253 /bkg/$(channel)/$(campaign)/Diboson
+364254 /bkg/$(channel)/$(campaign)/Diboson
+364255 /bkg/$(channel)/$(campaign)/Diboson
+
+# Z+jets (PowhegPythia)
+361106 /bkg/$(channel)/$(campaign)/Zee
+361107 /bkg/$(channel)/$(campaign)/Zmumu
+361108 /bkg/$(channel)/$(campaign)/Ztautau
+
+# DYee (PowhegPythia)
+301000 /bkg/$(channel)/$(campaign)/Zee
+301001 /bkg/$(channel)/$(campaign)/Zee
+301002 /bkg/$(channel)/$(campaign)/Zee
+301003 /bkg/$(channel)/$(campaign)/Zee
+301004 /bkg/$(channel)/$(campaign)/Zee
+301005 /bkg/$(channel)/$(campaign)/Zee
+301006 /bkg/$(channel)/$(campaign)/Zee
+301007 /bkg/$(channel)/$(campaign)/Zee
+301008 /bkg/$(channel)/$(campaign)/Zee
+301009 /bkg/$(channel)/$(campaign)/Zee
+301010 /bkg/$(channel)/$(campaign)/Zee
+301011 /bkg/$(channel)/$(campaign)/Zee
+301012 /bkg/$(channel)/$(campaign)/Zee
+301013 /bkg/$(channel)/$(campaign)/Zee
+301014 /bkg/$(channel)/$(campaign)/Zee
+301015 /bkg/$(channel)/$(campaign)/Zee
+301016 /bkg/$(channel)/$(campaign)/Zee
+301017 /bkg/$(channel)/$(campaign)/Zee
+301018 /bkg/$(channel)/$(campaign)/Zee
+
+# DYmumu (PowhegPythia)
+301020 /bkg/$(channel)/$(campaign)/Zmumu
+301021 /bkg/$(channel)/$(campaign)/Zmumu
+301022 /bkg/$(channel)/$(campaign)/Zmumu
+301023 /bkg/$(channel)/$(campaign)/Zmumu
+301024 /bkg/$(channel)/$(campaign)/Zmumu
+301025 /bkg/$(channel)/$(campaign)/Zmumu
+301026 /bkg/$(channel)/$(campaign)/Zmumu
+301027 /bkg/$(channel)/$(campaign)/Zmumu
+301028 /bkg/$(channel)/$(campaign)/Zmumu
+301029 /bkg/$(channel)/$(campaign)/Zmumu
+301030 /bkg/$(channel)/$(campaign)/Zmumu
+301031 /bkg/$(channel)/$(campaign)/Zmumu
+301032 /bkg/$(channel)/$(campaign)/Zmumu
+301033 /bkg/$(channel)/$(campaign)/Zmumu
+301034 /bkg/$(channel)/$(campaign)/Zmumu
+301035 /bkg/$(channel)/$(campaign)/Zmumu
+301036 /bkg/$(channel)/$(campaign)/Zmumu
+301037 /bkg/$(channel)/$(campaign)/Zmumu
+301038 /bkg/$(channel)/$(campaign)/Zmumu
+
+# DYtautau (PowhegPythia)
+301040 /bkg/$(channel)/$(campaign)/Ztautau
+301041 /bkg/$(channel)/$(campaign)/Ztautau
+301042 /bkg/$(channel)/$(campaign)/Ztautau
+301043 /bkg/$(channel)/$(campaign)/Ztautau
+301044 /bkg/$(channel)/$(campaign)/Ztautau
+301045 /bkg/$(channel)/$(campaign)/Ztautau
+301046 /bkg/$(channel)/$(campaign)/Ztautau
+301047 /bkg/$(channel)/$(campaign)/Ztautau
+301048 /bkg/$(channel)/$(campaign)/Ztautau
+301049 /bkg/$(channel)/$(campaign)/Ztautau
+301050 /bkg/$(channel)/$(campaign)/Ztautau
+301051 /bkg/$(channel)/$(campaign)/Ztautau
+301052 /bkg/$(channel)/$(campaign)/Ztautau
+301053 /bkg/$(channel)/$(campaign)/Ztautau
+301054 /bkg/$(channel)/$(campaign)/Ztautau
+301055 /bkg/$(channel)/$(campaign)/Ztautau
+301056 /bkg/$(channel)/$(campaign)/Ztautau
+301057 /bkg/$(channel)/$(campaign)/Ztautau
+301058 /bkg/$(channel)/$(campaign)/Ztautau
+
+# W+jets (Sherpa)
+364156 /bkg/$(channel)/$(campaign)/SherpaWjets
+364157 /bkg/$(channel)/$(campaign)/SherpaWjets
+364158 /bkg/$(channel)/$(campaign)/SherpaWjets
+364159 /bkg/$(channel)/$(campaign)/SherpaWjets
+364160 /bkg/$(channel)/$(campaign)/SherpaWjets
+364161 /bkg/$(channel)/$(campaign)/SherpaWjets
+364162 /bkg/$(channel)/$(campaign)/SherpaWjets
+364163 /bkg/$(channel)/$(campaign)/SherpaWjets
+364164 /bkg/$(channel)/$(campaign)/SherpaWjets
+364165 /bkg/$(channel)/$(campaign)/SherpaWjets
+364166 /bkg/$(channel)/$(campaign)/SherpaWjets
+364167 /bkg/$(channel)/$(campaign)/SherpaWjets
+364168 /bkg/$(channel)/$(campaign)/SherpaWjets
+364169 /bkg/$(channel)/$(campaign)/SherpaWjets
+364170 /bkg/$(channel)/$(campaign)/SherpaWjets
+364171 /bkg/$(channel)/$(campaign)/SherpaWjets
+364172 /bkg/$(channel)/$(campaign)/SherpaWjets
+364173 /bkg/$(channel)/$(campaign)/SherpaWjets
+364174 /bkg/$(channel)/$(campaign)/SherpaWjets
+364175 /bkg/$(channel)/$(campaign)/SherpaWjets
+364176 /bkg/$(channel)/$(campaign)/SherpaWjets
+364177 /bkg/$(channel)/$(campaign)/SherpaWjets
+364178 /bkg/$(channel)/$(campaign)/SherpaWjets
+364179 /bkg/$(channel)/$(campaign)/SherpaWjets
+364180 /bkg/$(channel)/$(campaign)/SherpaWjets
+364181 /bkg/$(channel)/$(campaign)/SherpaWjets
+364182 /bkg/$(channel)/$(campaign)/SherpaWjets
+364183 /bkg/$(channel)/$(campaign)/SherpaWjets
+364184 /bkg/$(channel)/$(campaign)/SherpaWjets
+364185 /bkg/$(channel)/$(campaign)/SherpaWjets
+364186 /bkg/$(channel)/$(campaign)/SherpaWjets
+364187 /bkg/$(channel)/$(campaign)/SherpaWjets
+364188 /bkg/$(channel)/$(campaign)/SherpaWjets
+364189 /bkg/$(channel)/$(campaign)/SherpaWjets
+364190 /bkg/$(channel)/$(campaign)/SherpaWjets
+364191 /bkg/$(channel)/$(campaign)/SherpaWjets
+364192 /bkg/$(channel)/$(campaign)/SherpaWjets
+364193 /bkg/$(channel)/$(campaign)/SherpaWjets
+364194 /bkg/$(channel)/$(campaign)/SherpaWjets
+364195 /bkg/$(channel)/$(campaign)/SherpaWjets
+364196 /bkg/$(channel)/$(campaign)/SherpaWjets
+364197 /bkg/$(channel)/$(campaign)/SherpaWjets
+
+# Top (PowhegPythia)
+410644 /bkg/$(channel)/$(campaign)/Top
+410645 /bkg/$(channel)/$(campaign)/Top
+410646 /bkg/$(channel)/$(campaign)/Top
+410647 /bkg/$(channel)/$(campaign)/Top
+410658 /bkg/$(channel)/$(campaign)/Top
+410659 /bkg/$(channel)/$(campaign)/Top
+# use these two if you want to see jet->tau fake composition
+410470 /bkg/$(channel)/$(campaign)/Top
+410471 /bkg/$(channel)/$(campaign)/Top
+# use dilepton filter for FF calculation since we are truth-matching anyway
+#410472 /bkg/$(channel)/$(campaign)/Top
+
+# Signal (ggH)
+#342300 /sig/$(channel)/$(campaign)/ggH125
+#342310 /sig/$(channel)/$(campaign)/ggH300
+#342320 /sig/$(channel)/$(campaign)/ggH700
+342326 /sig/$(channel)/$(campaign)/ggH1000
+#342332 /sig/$(channel)/$(campaign)/ggH1300
+#342334 /sig/$(channel)/$(campaign)/ggH1400
+#342336 /sig/$(channel)/$(campaign)/ggH1500
+#345295 /sig/$(channel)/$(campaign)/ggH1750
+#345297 /sig/$(channel)/$(campaign)/ggH2000
+#345299 /sig/$(channel)/$(campaign)/ggH2250
+#345301 /sig/$(channel)/$(campaign)/ggH2500
+
+# Signal (bbH)
+#341856 /sig/$(channel)/$(campaign)/bbH125
+#341857 /sig/$(channel)/$(campaign)/bbH150
+#341858 /sig/$(channel)/$(campaign)/bbH200
+#341859 /sig/$(channel)/$(campaign)/bbH250
+#341860 /sig/$(channel)/$(campaign)/bbH300
+#341863 /sig/$(channel)/$(campaign)/bbH500
+#341864 /sig/$(channel)/$(campaign)/bbH600
+341868 /sig/$(channel)/$(campaign)/bbH1000
+#341873 /sig/$(channel)/$(campaign)/bbH1500
+#345287 /sig/$(channel)/$(campaign)/bbH1750
+#345289 /sig/$(channel)/$(campaign)/bbH2000
+#345291 /sig/$(channel)/$(campaign)/bbH2250
+#345293 /sig/$(channel)/$(campaign)/bbH2500
