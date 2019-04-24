@@ -23,7 +23,7 @@
 # channel
 # use separate channels for study.
 # use inclusive in the end, because should be no difference between ehad and muhad.
-<channel="lephad"> @ ?/lephad/?;
+#<channel="lephad"> @ ?/lephad/?;
 <channel="muhad"> @ ?/muhad/?;
 <channel="ehad"> @ ?/ehad/?;
 
@@ -53,22 +53,22 @@
 <isZll=true, isInc=true> @/mc16*/?/Zmumu;
 
 
-$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/::SherpaWjetsTruthTau");
-$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/::SherpaWjetsLepFake");
-$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/::SherpaWjetsJetFake");
-$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/::DibosonTruthTau");
-$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/::DibosonLepFake");
-$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/::DibosonJetFake");
-$copy("mc16*/lephad/Top           >>      mc16*/lephad/::TopTruthTau");
-$copy("mc16*/lephad/Top           >>      mc16*/lephad/::TopLepFake");
-$copy("mc16*/lephad/Top           >>      mc16*/lephad/::TopJetFake");
-$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/::ZtautauTruthTau");
-$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/::ZtautauLepFake");
-$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/::ZtautauJetFake");
-$copy("mc16*/lephad/Zee           >>      mc16*/lephad/::ZeeLepFake");
-$copy("mc16*/lephad/Zee           >>      mc16*/lephad/::ZeeJetFake");
-$copy("mc16*/lephad/Zmumu         >>      mc16*/lephad/::ZmumuLepFake");
-$copy("mc16*/lephad/Zmumu         >>      mc16*/lephad/::ZmumuJetFake");
+#$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/::SherpaWjetsTruthTau");
+#$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/::SherpaWjetsLepFake");
+#$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/::SherpaWjetsJetFake");
+#$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/::DibosonTruthTau");
+#$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/::DibosonLepFake");
+#$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/::DibosonJetFake");
+#$copy("mc16*/lephad/Top           >>      mc16*/lephad/::TopTruthTau");
+#$copy("mc16*/lephad/Top           >>      mc16*/lephad/::TopLepFake");
+#$copy("mc16*/lephad/Top           >>      mc16*/lephad/::TopJetFake");
+#$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/::ZtautauTruthTau");
+#$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/::ZtautauLepFake");
+#$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/::ZtautauJetFake");
+#$copy("mc16*/lephad/Zee           >>      mc16*/lephad/::ZeeLepFake");
+#$copy("mc16*/lephad/Zee           >>      mc16*/lephad/::ZeeJetFake");
+#$copy("mc16*/lephad/Zmumu         >>      mc16*/lephad/::ZmumuLepFake");
+#$copy("mc16*/lephad/Zmumu         >>      mc16*/lephad/::ZmumuJetFake");
 
 $copy("mc16*/muhad/SherpaWjets   >>      mc16*/muhad/::SherpaWjetsTruthTau");
 $copy("mc16*/muhad/SherpaWjets   >>      mc16*/muhad/::SherpaWjetsLepFake");
@@ -139,13 +139,13 @@ $create(path="mc16*/?/Fake/mc",type="sf");
 <isFailISO=false> @/.;
 
 ## All MC samples here should be tagged above: isInc=true
-$copy("data/lephad/?             >>      mc16*/lephad/Fake/data");
-$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/Fake/mc");
-$copy("mc16*/lephad/Zee           >>      mc16*/lephad/Fake/mc");
-$copy("mc16*/lephad/Zmumu         >>      mc16*/lephad/Fake/mc");
-$copy("mc16*/lephad/Top           >>      mc16*/lephad/Fake/mc");
-$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/Fake/mc");
-$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/Fake/mc");
+#$copy("data/lephad/?             >>      mc16*/lephad/Fake/data");
+#$copy("mc16*/lephad/Ztautau       >>      mc16*/lephad/Fake/mc");
+#$copy("mc16*/lephad/Zee           >>      mc16*/lephad/Fake/mc");
+#$copy("mc16*/lephad/Zmumu         >>      mc16*/lephad/Fake/mc");
+#$copy("mc16*/lephad/Top           >>      mc16*/lephad/Fake/mc");
+#$copy("mc16*/lephad/Diboson       >>      mc16*/lephad/Fake/mc");
+#$copy("mc16*/lephad/SherpaWjets   >>      mc16*/lephad/Fake/mc");
 
 $copy("data/muhad/?              >>      mc16*/muhad/Fake/data");
 $copy("mc16*/muhad/Ztautau        >>      mc16*/muhad/Fake/mc");

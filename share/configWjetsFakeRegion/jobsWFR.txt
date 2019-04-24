@@ -41,7 +41,7 @@
 /mc16a/?/Top
 /mc16a/ehad/SherpaWjets
 /mc16a/muhad/SherpaWjets
-/mc16a/lephad/SherpaWjets
+#/mc16a/lephad/SherpaWjets
 
 /mc16c/?/Diboson
 /mc16c/?/Zee
@@ -50,7 +50,7 @@
 /mc16c/?/Top
 /mc16c/ehad/SherpaWjets
 /mc16c/muhad/SherpaWjets
-/mc16c/lephad/SherpaWjets
+#/mc16c/lephad/SherpaWjets
 
 # separate truth matched samples for studies
 #/mc16a/ehad/SherpaWjetsTruthTau
@@ -61,7 +61,7 @@
 /mc16a/muhad/SherpaWjetsJetFake
 #/mc16a/lephad/SherpaWjetsTruthTau
 #/mc16a/lephad/SherpaWjetsLepFake
-/mc16a/lephad/SherpaWjetsJetFake
+#/mc16a/lephad/SherpaWjetsJetFake
 #/mc16a/?/DibosonTruthTau
 #/mc16a/?/DibosonLepFake
 /mc16a/?/DibosonJetFake
@@ -84,7 +84,7 @@
 /mc16c/muhad/SherpaWjetsJetFake
 #/mc16c/lephad/SherpaWjetsTruthTau
 #/mc16c/lephad/SherpaWjetsLepFake
-/mc16c/lephad/SherpaWjetsJetFake
+#/mc16c/lephad/SherpaWjetsJetFake
 #/mc16c/?/DibosonTruthTau
 #/mc16c/?/DibosonLepFake
 /mc16c/?/DibosonJetFake
@@ -136,7 +136,7 @@
 /mc16a/?/Fake/mc/Top
 /mc16a/ehad/Fake/mc/SherpaWjets
 /mc16a/muhad/Fake/mc/SherpaWjets
-/mc16a/lephad/Fake/mc/SherpaWjets
+#/mc16a/lephad/Fake/mc/SherpaWjets
 
 # mc16c in anti-iso region for qcd, should be negligible
 /mc16c/?/Fake/mc/Diboson
@@ -146,4 +146,4 @@
 /mc16c/?/Fake/mc/Top
 /mc16c/ehad/Fake/mc/SherpaWjets
 /mc16c/muhad/Fake/mc/SherpaWjets
-/mc16c/lephad/Fake/mc/SherpaWjets
+#/mc16c/lephad/Fake/mc/SherpaWjets

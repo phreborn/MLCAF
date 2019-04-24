@@ -9,9 +9,10 @@ import argparse
 s_queue='medium'
 s_nominal_dir='batchOutput/unmerged_SR'
 s_config_path='configSignalControlRegion/htautau_lephad_sr.cfg'
-s_config_path_mc16a='configSignalControlRegion/htautau_lephad_sr_mc16a.cfg'
+s_config_path_mc16c='configSignalControlRegion/htautau_lephad_sr_mc16c.cfg'
 #s_config_path='ConfigSignalRegion/htautau_lephad_srcontid.cfg'
-s_sys_file_path='/atlas/zorbas/BSM_TauTau/LepHad/190116/mc/mc16a/sys/'
+#s_sys_file_path='/scratchfs/atlas/yehf/190116/mc/mc16a/sys/'
+s_sys_file_path='/scratchfs/atlas/yehf/190116/mc/mc16d/sys/'
 #s_sample_prefix='samples-htautau_lephad_sr'
 #s_sample_prefix='samples-htautau_lephad_srcontid'
 
@@ -277,10 +278,10 @@ if __name__=='__main__':
     if b_makeSamples:
       # use sys samples, but only look at nominal branch here
       if args.systype=='weightvar':
-        command1="prepare.py {:s} --options mcPaths='{:s}:NOMINAL' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-NOMINAL.root'".format(s_config_path_mc16a,s_sys_file_path)
+        command1="prepare.py {:s} --options mcPaths='{:s}:NOMINAL' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16c-NOMINAL.root'".format(s_config_path_mc16c,s_sys_file_path)
         print(command1)
         if not args.dry: os.system(command1)
-        command2="initialize.py {:s} --options mcPaths='{:s}:NOMINAL' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-NOMINAL.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-NOMINAL.root'".format(s_config_path_mc16a,s_sys_file_path)
+        command2="initialize.py {:s} --options mcPaths='{:s}:NOMINAL' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16c-NOMINAL.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16c-NOMINAL.root'".format(s_config_path_mc16c,s_sys_file_path)
         print(command2)
         if not args.dry: os.system(command2)
         # if making sample files: continue, because we don't want to submit jobs before we have inputs ready;
@@ -294,10 +295,10 @@ if __name__=='__main__':
       if b_makeSamples:
         if option=='treevariation':
           #command='bsub python makeSampleFile.py {:s} --options mcPaths=\'{:s}:{:s}\' sampleFile=\'input/htautau_lephad_sr_{:s}.root:samples\''.format(s_config_path,s_sys_file_path,sys,sys)
-          command1="prepare.py {:s} --options mcPaths='{:s}:{:s}' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-{:s}.root'".format(s_config_path_mc16a,s_sys_file_path,sys,sys)
+          command1="prepare.py {:s} --options mcPaths='{:s}:{:s}' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16c-{:s}.root'".format(s_config_path_mc16c,s_sys_file_path,sys,sys)
           print(command1)
           if not args.dry: os.system(command1)
-          command2="initialize.py {:s} --options mcPaths='{:s}:{:s}' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16a-{:s}.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-{:s}.root'".format(s_config_path_mc16a,s_sys_file_path,sys,sys,sys)
+          command2="initialize.py {:s} --options mcPaths='{:s}:{:s}' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr_mc16c-{:s}.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16c-{:s}.root'".format(s_config_path_mc16c,s_sys_file_path,sys,sys,sys)
           print(command2)
           if not args.dry: os.system(command2)
         # if making sample files: continue, because we don't want to submit jobs before we have inputs ready;
@@ -307,36 +308,36 @@ if __name__=='__main__':
       l_files = []
       if option=='fakevar':
         # wff sys, dont need mc bkg and qcd
-        #l_files.append('unmerged_*_mc16a_ehad_SherpaWjets.root')
-        #l_files.append('unmerged_*_mc16a_muhad_SherpaWjets.root')
-        l_files.append('unmerged_*_mc16a_X_Diboson.root')
-        l_files.append('unmerged_*_mc16a_X_Top.root')
-        l_files.append('unmerged_*_mc16a_X_Z*.root')
-        l_files.append('unmerged_*_mc16a_X_QCDFakes_*.root')
-        l_files.append('unmerged_*_siga_*.root')
+        #l_files.append('unmerged_*_mc16c_ehad_SherpaWjets.root')
+        #l_files.append('unmerged_*_mc16c_muhad_SherpaWjets.root')
+        l_files.append('unmerged_*_mc16c_X_Diboson.root')
+        l_files.append('unmerged_*_mc16c_X_Top.root')
+        l_files.append('unmerged_*_mc16c_X_Z*.root')
+        l_files.append('unmerged_*_mc16c_X_QCDFakes_*.root')
+        l_files.append('unmerged_*_sigc_*.root')
       elif option=='isovar':
         # lepton ff sys, dont need mc bkg
-        #l_files.append('unmerged_*_mc16a_ehad_SherpaWjets.root')
-        #l_files.append('unmerged_*_mc16a_muhad_SherpaWjets.root')
-        l_files.append('unmerged_*_mc16a_X_Diboson.root')
-        l_files.append('unmerged_*_mc16a_X_Top.root')
-        l_files.append('unmerged_*_mc16a_X_Z*.root')
-        l_files.append('unmerged_*_mc16a_X_WJETSFakes_data_*.root')
-        l_files.append('unmerged_*_mc16a_X_WJETSFakes_mc_*.root')
-        l_files.append('unmerged_*_siga_*.root')
+        #l_files.append('unmerged_*_mc16c_ehad_SherpaWjets.root')
+        #l_files.append('unmerged_*_mc16c_muhad_SherpaWjets.root')
+        l_files.append('unmerged_*_mc16c_X_Diboson.root')
+        l_files.append('unmerged_*_mc16c_X_Top.root')
+        l_files.append('unmerged_*_mc16c_X_Z*.root')
+        l_files.append('unmerged_*_mc16c_X_WJETSFakes_data_*.root')
+        l_files.append('unmerged_*_mc16c_X_WJETSFakes_mc_*.root')
+        l_files.append('unmerged_*_sigc_*.root')
       elif option=='weightvar' or option=='treevariation':
         # mc sys, dont need wjets and qcd
-        l_files.append('unmerged_*_mc16a_X_WJETSFakes_*.root')
-        l_files.append('unmerged_*_mc16a_X_QCDFakes_*.root')
+        l_files.append('unmerged_*_mc16c_X_WJETSFakes_*.root')
+        l_files.append('unmerged_*_mc16c_X_QCDFakes_*.root')
         # for this only top needed
       elif option=='ttbarweight':
-        l_files.append('unmerged_*_mc16a_X_WJETSFakes_*.root')
-        l_files.append('unmerged_*_mc16a_X_QCDFakes_*.root')
-        l_files.append('unmerged_*_siga_*.root')
-        l_files.append('unmerged_*_mc16a_X_Diboson.root')
-        l_files.append('unmerged_*_mc16a_X_Z*.root')
-        #l_files.append('unmerged_*_mc16a_ehad_SherpaWjets.root')
-        #l_files.append('unmerged_*_mc16a_muhad_SherpaWjets.root')
+        l_files.append('unmerged_*_mc16c_X_WJETSFakes_*.root')
+        l_files.append('unmerged_*_mc16c_X_QCDFakes_*.root')
+        l_files.append('unmerged_*_sigc_*.root')
+        l_files.append('unmerged_*_mc16c_X_Diboson.root')
+        l_files.append('unmerged_*_mc16c_X_Z*.root')
+        #l_files.append('unmerged_*_mc16c_ehad_SherpaWjets.root')
+        #l_files.append('unmerged_*_mc16c_muhad_SherpaWjets.root')
 
       # make output folder, the same as the submitAnalysis.py would create;
       print('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
@@ -353,24 +354,24 @@ if __name__=='__main__':
       # submit other samples; use jobsSYS.txt file which does not have data;
       temp_option=''
       if option=='treevariation': # if tree variation, we need to provide different input file:
-        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-{:s}.root'".format(sys)
+        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16c-{:s}.root'".format(sys)
       elif option=='weightvar': # if sf variation, use nominal branch but sys samples:
-        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16a-NOMINAL.root' aliases.{:s}={:s} {:s}={:s} aliases.weightvariation={:s} weightvariation={:s}".format(option,sys,option,sys,sys,sys)
+        temp_option="inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr_mc16c-NOMINAL.root' aliases.{:s}={:s} {:s}={:s} aliases.weightvariation={:s} weightvariation={:s}".format(option,sys,option,sys,sys,sys)
       else: # if fake variation, use samples with full nominal events, change the name of the tag:
         temp_option='aliases.'+option+'='+sys+' '+option+'='+sys
 
       # more control over the jobs.txt file, relevant to systematic type:
       jobs_file = ""
       if args.systype == "fakevar":
-        jobs_file = "jobsSYS-fakevar.txt"
+        jobs_file = "jobsSYS-fakevar-mc16c.txt"
       if args.systype == "isovar":
-        jobs_file = "jobsSYS-isovar.txt"
+        jobs_file = "jobsSYS-isovar-mc16c.txt"
       if args.systype == "ttbarweight":
-        jobs_file = "jobsSYS-ttbarweight.txt"
+        jobs_file = "jobsSYS-ttbarweight-mc16c.txt"
       if args.systype == "weightvar":
-        jobs_file = "jobsSYS-weighttreevar.txt"
+        jobs_file = "jobsSYS-weighttreevar-mc16c.txt"
       if args.systype == "treevariation":
-        jobs_file = "jobsSYS-weighttreevar.txt"
+        jobs_file = "jobsSYS-weighttreevar-mc16c.txt"
 
       #command='analyze.py --options {:s} --submit bsub --queue {:s} --jobs ConfigSignalRegion/jobsSYS.txt --identifier {:s} --downmerge --memory 0.01 {:s}'.format(temp_option,s_queue,sys,s_config_path)
       command='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --submit condor --options {:s}'.format(s_config_path,jobs_file,sys,temp_option)

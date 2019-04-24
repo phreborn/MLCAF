@@ -44,8 +44,8 @@
 #/data/?/data18_Q
 
 ### Signal
-/siga/?/?
-/sigc/?/?
+#/siga/?/?
+#/sigc/?/?
 
 
 /mc16a/?/Diboson
@@ -100,7 +100,7 @@
 /mc16a/muhad/SherpaWjetsJetFake
 #/mc16a/lephad/SherpaWjetsTruthTau
 #/mc16a/lephad/SherpaWjetsLepFake
-/mc16a/lephad/SherpaWjetsJetFake
+#/mc16a/lephad/SherpaWjetsJetFake
 #/mc16a/?/DibosonTruthTau
 #/mc16a/?/DibosonLepFake
 /mc16a/?/DibosonJetFake
@@ -123,7 +123,7 @@
 /mc16c/muhad/SherpaWjetsJetFake
 #/mc16c/lephad/SherpaWjetsTruthTau
 #/mc16c/lephad/SherpaWjetsLepFake
-/mc16c/lephad/SherpaWjetsJetFake
+#/mc16c/lephad/SherpaWjetsJetFake
 #/mc16c/?/DibosonTruthTau
 #/mc16c/?/DibosonLepFake
 /mc16c/?/DibosonJetFake

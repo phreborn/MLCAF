@@ -8,8 +8,8 @@ def main():
   print "Submitting jobs by hep_sub"
 
   #print "Cleaning the folder"
-  #os.system("rm submissionWorkloadTemp/*.err.*")
-  #os.system("rm submissionWorkloadTemp/*.out.*")
+  os.system("rm submissionWorkloadTemp/*.err.*")
+  os.system("rm submissionWorkloadTemp/*.out.*")
 
   print "Changing the job script permission"
   os.system("chmod +x submissionWorkloadTemp/*.sh")

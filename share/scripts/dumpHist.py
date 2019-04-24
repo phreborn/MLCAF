@@ -56,7 +56,7 @@ sflist = [
 #          "{:s}/{:s}/QCDFakes/mc/Zee/".format(datasets,channel),
 #          "{:s}/{:s}/QCDFakes/mc/Zmumu/".format(datasets,channel),
 #          "{:s}/{:s}/QCDFakes/mc/Ztautau/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/data/{:s}/-/{:s}/{:s}/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]".format(datasets,channel,datasets_data,datasets,channel),
+          "{:s}/{:s}/QCDFakes/data/{:s}".format(datasets,channel,datasets_data,datasets,channel),
 #          "{:s}/{:s}/WJETSFakes/data/{:s}/".format(datasets,channel,datasets_data),
 #          "{:s}/{:s}/WJETSFakes/mc/Diboson/".format(datasets,channel),
 #          "{:s}/{:s}/WJETSFakes/mc/Top/".format(datasets,channel),
@@ -79,13 +79,19 @@ varDict = {
 #"MuonPt"                                             : "MuonPt",                                              
 #"MuonEta"                                            : "MuonEta",                                              
 #"MuonPhi"                                            : "MuonPhi",                                              
-#"TauPt"                                              : "TauPt",                                               
-#"LeptonPt"                                           : "LeptonPt",                                               
-#"TauMETDphi"                                              : "TauMETDphi",                                               
-#"LepMETDphi"                                              : "LepMETDphi",                                               
-#"bvetoMTTOT"                                               : "bvetoMTTOT",
-#"btagMTTOT"                                               : "btagMTTOT",
-"MTTOT"                                               : "MTtot",
+"bvetoTauPt"                                              : "bvetoTauPt",                                               
+"btagTauPt"                                              : "btagTauPt",                                               
+"bvetoLeptonPt"                                           : "bvetoLeptonPt",                                               
+"btagLeptonPt"                                           : "btagLeptonPt",                                               
+"bvetoTauMETDphi"                                              : "bvetoTauMETDphi",   
+"btagTauMETDphi"                                              : "btagTauMETDphi",   
+"bvetoLepMETDphi"                                              : "bvetoLepMETDphi",  
+"btagLepMETDphi"                                              : "btagLepMETDphi",  
+"bvetoMTTOT"                                               : "bvetoMTTOT",
+"btagMTTOT"                                               : "btagMTTOT",
+"bvetoVisibleMassTauLep"                                 : "bvetoVisibleMassTauLep",
+"btagVisibleMassTauLep"                                     : "btagVisibleMassTauLep",
+#"MTTOT"                                               : "MTtot",
 #"TauEta"                                             : "TauEta",
 #"TauPhi"                                             : "TauPhi",
 #"SumCosDPhi"                                         : "SumCosDPhi",
@@ -96,20 +102,20 @@ varDict = {
 }
 
 catDict = {
-"CutBtag1p" : "sr1pBtag",
-"CutBtag3p" : "sr3pBtag",
-"CutBveto1p" : "sr1pBveto",
-"CutBveto3p" : "sr3pBveto",
+#"CutBtag1p" : "sr1pBtag",
+#"CutBtag3p" : "sr3pBtag",
+#"CutBveto1p" : "sr1pBveto",
+#"CutBveto3p" : "sr3pBveto",
 #"CutWCRBtag1p" : "wcr1pBtag",
 #"CutWCRBtag3p" : "wcr3pBtag",
 #"CutWCRBveto1p" : "wcr1pBveto",
 #"CutWCRBveto3p" : "wcr3pBveto",
 #"CutVRBtag1p" : "vr1pBtag",
 #"CutVRBtag3p" : "vr3pBtag",
-#"CutVRBveto1p" : "vr1pBveto",
-#"CutVRBveto3p" : "vr3pBveto",
-"CutTCRBtag1p" : "tcr1pBtag",
-"CutTCRBtag3p" : "tcr3pBtag",
+"CutVRBveto1p" : "vr1pBveto",
+"CutVRBveto3p" : "vr3pBveto",
+#"CutTCRBtag1p" : "tcr1pBtag",
+#"CutTCRBtag3p" : "tcr3pBtag",
 #"[CutBtag1p+CutBtag3p]" : "srBtag",
 #"[CutBveto1p+CutBveto3p]" : "srBveto",
 #"[CutTCRBtag1p+CutTCRBtag3p]" : "tcrBtag",
@@ -128,7 +134,10 @@ def setHistName(path, orgHistName,inputfile):
   if inputfile != "nominal":
     inputfilenamelist=inputfile.split("_")
     inputfilenamevar=inputfilenamelist[-1]
-    inputfilename=inputfile.replace("_"+inputfilenamevar, "")
+    if inputfilenamevar == "high":
+      inputfilename=inputfile.replace("pt_"+inputfilenamevar, "pt")
+    else:
+      inputfilename=inputfile.replace("_"+inputfilenamevar, "")
   #if "mvis" not in distname : 
   #  print "not", distname
   #  return ""

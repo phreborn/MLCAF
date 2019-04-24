@@ -61,8 +61,8 @@
 /mc16c/muhad/SherpaWjets
 
 #### Signal
-/siga/?/?
-/sigc/?/?
+#/siga/?/?
+#/sigc/?/?
 
 
 ### DATA in ID-Anti-Iso region

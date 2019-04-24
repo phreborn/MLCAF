@@ -12,7 +12,7 @@
 ##      SS for btag, OS for bveto.
 #################################################################
 
-$include("ConfigCommon/htautau_lephad_common_cuts.def");
+$include("configCommon/htautau_lephad_common_cuts.def");
 
 @*/CutBase{
     +CutTruth{

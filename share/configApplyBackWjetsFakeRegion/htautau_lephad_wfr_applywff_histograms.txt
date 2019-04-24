@@ -1,89 +1,66 @@
-# -*- mode:tqfolder -*-
-
 ##################################
 ##
 ##  Histos for nominal ploting.
 ##
 ##################################
-TH1F('LeptonPt','',  {30.,35.,40.,48.,58.,70.,84.,100.,118.,138.,160.,220.,300.})  <<  ( lep_0_p4.Pt() : "p_{T}^{lep} [GeV]" );
-TH1F('LeptonEta','', 25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\#eta^{lep}" );
-TH1F('LeptonPhi','', 32,-3.2,3.2)   <<   ( lep_0_p4.Phi() : "\#phi^{lep}" );
 
-TH1F('TauPt','',  {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<  ( tau_0_p4.Pt() : "p_{T}^{\#tau} [GeV]" );
-TH1F('TauEta','', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
-TH1F('TauPhi','', 32,-3.2,3.2)   <<   ( tau_0_p4.Phi() : "\#phi^{\#tau}" );
+TH1F('LeptonPt','',  {30.,35.,40.,45.,51.,58.,66.,75.,87.,101.,119.,140.,170.,300.})  <<  ( lep_0_p4.Pt() : "p_{T}^{lep} [GeV]" );
+#TH1F('LeptonEta','', 25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\#eta^{lep}" );
+#TH1F('LeptonPhi','', 32,-3.2,3.2)   <<   ( lep_0_p4.Phi() : "\#phi^{lep}" );
+
+TH1F('TauPt','',  {25.,30.,36.,43.,51.,60.,72.,86.,104.,128.,160.,200.,300.})  <<  ( tau_0_p4.Pt() : "p_{T}^{\#tau} [GeV]" );
+#TH1F('TauEta','', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
+#TH1F('TauPhi','', 32,-3.2,3.2)   <<   ( tau_0_p4.Phi() : "\#phi^{\#tau}" );
 
 # jets have one additional bin in phi and eta
 # to put events that have 0 jets, because otherwise
 # they would be stacked as over/underflow bins.
-TH1F('LeadingJetPt','', {0.,10.,20.,25.,31.,38.,46.,55.,65.,76.,88.,102.,120.,144.,170.,300.} )    <<   ( [n_jets>0?(jetPt[0]/1000):1.] : "p_{T}^{lead.jet} [GeV]" );
-TH1F('LeadingJetEta','', 26,-2.7,2.5 )    <<   ( [n_jets>0?jetEta[0]:-2.6] : "\#eta^{lead.jet}" );
-TH1F('LeadingJetPhi','', 33,-3.4,3.2 )    <<   ( [n_jets>0?jetPhi[0]:-3.3] : "\#phi^{lead.jet}" );
+#TH1F('LeadingJetPt','', {0.,10.,20.,25.,31.,38.,46.,55.,65.,76.,88.,102.,120.,144.,170.,300.} )    <<   ( [n_jets>0?(jetPt[0]/1000):1.] : "p_{T}^{lead.jet} [GeV]" );
+#TH1F('LeadingJetEta','', 26,-2.7,2.5 )    <<   ( [n_jets>0?jetEta[0]:-2.6] : "\#eta^{lead.jet}" );
+#TH1F('LeadingJetPhi','', 33,-3.4,3.2 )    <<   ( [n_jets>0?jetPhi[0]:-3.3] : "\#phi^{lead.jet}" );
 
-TH1F('MET'   ,'', {0.,11.,18.,26.,36.,48.,62.,78.,96.,118.,142.,172.,208.,250.,300.})   <<   ( met_reco_p4.Et() : "E_T^{miss} [GeV]" );
-TH1F('METPhi'   ,'', 32,-3.2,3.2)   <<   ( met_reco_p4.Phi() : "\#phi^{met}" );
+#TH1F('MET'   ,'', {0.,11.,18.,26.,36.,48.,62.,78.,96.,118.,142.,172.,208.,250.,300.})   <<   ( met_reco_p4.Et() : "E_T^{miss} [GeV]" );
+#TH1F('METPhi'   ,'', 32,-3.2,3.2)   <<   ( met_reco_p4.Phi() : "\#phi^{met}" );
 
 TH1F('VisibleMassTauLep'   ,'', {50.,60.,65.,70.,75.,80.,85.,90.,95.,100.,106.,113.,121.,130.,140.,152.,166.,182.,200.,220.,250.,290.,350.})   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
+TH1F('TransverseMassLepMET'   ,'', 15, 50,200)   <<   ( lephad_mt_lep0_met : "m_{T} [GeV]" );
+TH1F('TransverseMassTauMET'   ,'', {0.,10.,20.,30.,40.,50.,62.,76.,94.,118.,148.,190.,500.})   <<   ( lephad_mt_lep1_met : "m_{T}^{\#tau\#oplus met} [GeV]" );
 
-TH1F('TransverseMassLepMETSR','', 10, 0,40)   <<   ( lephad_mt_lep0_met : "m_{T} [GeV]" );
-TH1F('TransverseMassLepMETVR','', 10, 40,60)   <<   ( lephad_mt_lep0_met : "m_{T} [GeV]" );
-TH1F('TransverseMassLepMETWCR','', 15, 50,200)   <<   ( lephad_mt_lep0_met : "m_{T} [GeV]" );
-TH1F('TransverseMassLepMETTCR','', 15, 50,200)   <<   ( lephad_mt_lep0_met : "m_{T} [GeV]" );
-
-TH1F('TransverseMassTauMETWCR','', {0.,10.,20.,30.,40.,50.,62.,76.,94.,118.,148.,190.,500.})   <<   ( lephad_mt_lep1_met : "m_{T} [GeV]" );
-TH1F('TransverseMassTauMETTCR','', {0.,10.,20.,30.,40.,50.,62.,76.,94.,118.,148.,190.,500.})   <<   ( lephad_mt_lep1_met : "m_{T} [GeV]" );
-TH1F('TransverseMassTauMETSR','',  {0.,10.,20.,30.,40.,50.,60.,70.,80.,92.,106.,122.,140.,170.,220.,280.,500.})   <<   ( lephad_mt_lep1_met : "m_{T} [GeV]" );
-TH1F('TransverseMassTauMETVR','', {0.,10.,20.,30.,40.,50.,60.,70.,80.,92.,106.,122.,140.,170.,220.,280.,500.})   <<   ( lephad_mt_lep1_met : "m_{T} [GeV]" );
-
-
-TH1F('MTTOT','', {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.}) <<   ( [[lephad_mttot]>599?598:[lephad_mttot]] : "m_{T}^{TOT} [GeV]" );
-
-TH1F('TauMETDphi'   ,'', {0.,1.0,2.0,2.5,3.15})   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
+TH1F('TauMETDphi'   ,'', 15,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
 TH1F('LepMETDphi'   ,'', 15,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" );
 
 
-TH1F('TauMETDphiCorrection'   ,'', {0.,0.4,0.8,1.2,1.6,2.0,2.5,3.15})   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET) correction" );
-TH1F('TauJetWidth','',          60, 0,0.3)   <<   ( tau_0_jet_width : "tau jet width" );
+TH1F('TauMETDphiCorrection'   ,'', {0.,0.4,0.8,1.2,1.6,2.0,2.5,3.2})   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET) correction" );
+#TH1F('TauJetWidth','',          60, 0,0.3)   <<   ( tau_0_jet_width : "tau jet width" );
 
-TH1F('TauJetBDTScoreTrans','',          20, 0,1)   <<   ( tau_0_jet_bdt_score_trans : "BDT score trans" );
-TH1F('mu','', 9, 10, 100)   <<   ( n_actual_int  : "number of interactions per bunch crossing" );
+#TH1F('TauJetBDTScoreTrans','',          20, 0,1)   <<   ( tau_0_jet_bdt_score_trans : "BDT score trans" );
+#TH1F('mu','', 9, 10, 100)   <<   ( n_actual_int  : "number of interactions per bunch crossing" );
 
-TH1F('TauJetBDTScoreTransBinned1p','', {0.,0.05,0.25,0.4,0.6,0.8,1.})   <<   ( tau_0_jet_bdt_score_trans : "BDT score trans binned 1-prong" );
-TH1F('TauJetBDTScoreTransBinned3p','', {0.,0.05,0.40,0.55,0.7,1.})   <<   ( tau_0_jet_bdt_score_trans : "BDT score trans binned 3-prong" );
-
-
-TH1F('TauPtFFBtag1p'   ,'', {25.,35.,45.,70.,110.,200.})        <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBtag3p'   ,'', {25.,35.,45.,55.,70.,200.})         <<   ( [tau_0_n_charged_tracks==3?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto1p'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3p'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( [tau_0_n_charged_tracks==3?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+#TH1F('TauJetBDTScoreTransBinned1p','', {0.,0.05,0.25,0.4,0.6,0.8,1.})   <<   ( tau_0_jet_bdt_score_trans : "BDT score trans binned 1-prong" );
+#TH1F('TauJetBDTScoreTransBinned3p','', {0.,0.05,0.40,0.55,0.7,1.})   <<   ( tau_0_jet_bdt_score_trans : "BDT score trans binned 3-prong" );
 
 
-TH1F('TauPtFFBveto1pDphi1'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( [tau_0_n_charged_tracks==1&&lephad_met_lep1_cos_dphi<1.?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi1'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.})  <<   ( [tau_0_n_charged_tracks==3&&lephad_met_lep1_cos_dphi<1.?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto1pDphi2'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,200.})       <<   ( [tau_0_n_charged_tracks==1&&lephad_met_lep1_cos_dphi>=1.&&lephad_met_lep1_cos_dphi<2.?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi2'   ,'', {25.,30.,34.,39.,45.,52.,60.,70.,90.,200.})           <<   ( [tau_0_n_charged_tracks==3&&lephad_met_lep1_cos_dphi>=1.&&lephad_met_lep1_cos_dphi<2.?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto1pDphi3'   ,'', {25.,30.,39.,52.,70.,200.})                           <<   ( [tau_0_n_charged_tracks==1&&lephad_met_lep1_cos_dphi>=2.&&lephad_met_lep1_cos_dphi<2.5?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi3'   ,'', {25.,30.,39.,52.,70.,90.,200.})                       <<   ( [tau_0_n_charged_tracks==3&&lephad_met_lep1_cos_dphi>=2.&&lephad_met_lep1_cos_dphi<2.5?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto1pDphi4'   ,'', {25.,30.,39.,52.,70.,200.})                           <<   ( [tau_0_n_charged_tracks==1&&lephad_met_lep1_cos_dphi>=2.5&&lephad_met_lep1_cos_dphi<3.15?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi4'   ,'', {25.,30.,39.,52.,70.,90.,200.})                       <<   ( [tau_0_n_charged_tracks==3&&lephad_met_lep1_cos_dphi>=2.5&&lephad_met_lep1_cos_dphi<3.15?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-#TH1F('TauPtFFBveto1pDphi4'   ,'', {25.,27.,110.,300.})                           <<   ( [tau_0_n_charged_tracks==1&&lephad_met_lep1_cos_dphi>=2.5&&lephad_met_lep1_cos_dphi<3.15?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
-#TH1F('TauPtFFBveto3pDphi4'   ,'', {25.,27.,110.,300.})                       <<   ( [tau_0_n_charged_tracks==3&&lephad_met_lep1_cos_dphi>=2.5&&lephad_met_lep1_cos_dphi<3.15?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+TH1F('TauPtFFBtag1p'   ,'', {25.,35.,45.,70.,110.,200.,300.})        <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+TH1F('TauPtFFBtag3p'   ,'', {25.,35.,45.,55.,70.,200.,300.})         <<   ( [tau_0_n_charged_tracks==3?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto1p'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3p'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( [tau_0_n_charged_tracks==3?tau_0_p4.Pt():-1] : "p_{T}^{tau}" );
 
-#TH1F('TauPtFFBveto1pDphi'   ,'', {25.,30.,39.,52.,70.,200.,300.})                           <<   ( {[tau_0_n_charged_tracks]==1?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-#TH1F('TauPtFFBveto3pDphi'   ,'', {25.,30.,39.,52.,70.,90.,200.,300.})                       <<   ( {[tau_0_n_charged_tracks]==3?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
 
-## WCR
-@CutWCRBveto*/*,CutWCRBtag*/*:LeptonPt,LeptonEta,LeptonPhi,\
-                        TauPt,TauEta,TauPhi,\
-                        LeadingJetPt,LeadingJetEta,LeadingJetPhi,\
-                        MET,METPhi,\
-                        VisibleMassTauLep,TransverseMassTauMETWCR,\
-                        TauMETDphi,LepMETDphi,TauMETDphiCorrection,\
-                        TauJetBDTScoreTrans,TauJetWidth,mu,TransverseMassLepMETWCR,MTTOT;
+TH1F('TauPtFFBveto1pDphi1'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3pDphi1'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto1pDphi2'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,200.,300.})       <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3pDphi2'   ,'', {25.,30.,34.,39.,45.,52.,60.,70.,90.,200.,300.})           <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto1pDphi3'   ,'', {25.,30.,39.,52.,70.,200.,300.})                           <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+TH1F('TauPtFFBveto3pDphi3'   ,'', {25.,30.,39.,52.,70.,90.,200.,300.})                       <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
 
-@CutWCRBveto1p*/*:TauPtFFBveto1p,TauJetBDTScoreTransBinned1p,TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3,TauPtFFBveto1pDphi4;
-@CutWCRBveto3p*/*:TauPtFFBveto3p,TauJetBDTScoreTransBinned3p,TauPtFFBveto3pDphi1,TauPtFFBveto3pDphi2,TauPtFFBveto3pDphi3,TauPtFFBveto3pDphi4;
-#@CutWCRBveto1p*/*:TauPtFFBveto1p,TauJetBDTScoreTransBinned1p,TauPtFFBveto1pDphi,TauPtFFBveto1pDphi4;
-#@CutWCRBveto3p*/*:TauPtFFBveto3p,TauJetBDTScoreTransBinned3p,TauPtFFBveto3pDphi,TauPtFFBveto3pDphi4;
-@CutWCRBtag1p*/*:TauPtFFBtag1p,TauJetBDTScoreTransBinned1p;
-@CutWCRBtag3p*/*:TauPtFFBtag3p,TauJetBDTScoreTransBinned3p;
+
+
+@CutWCRBveto*/*,CutWCRBtag*/*:LeptonPt,\
+                        TauPt,\
+                        VisibleMassTauLep,TransverseMassLepMET,TransverseMassTauMET,\
+                        TauMETDphi,LepMETDphi,TauMETDphiCorrection;
+
+@CutWCRBveto1p*/*:TauPtFFBveto1p,TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3;
+@CutWCRBveto3p*/*:TauPtFFBveto3p,TauPtFFBveto3pDphi1,TauPtFFBveto3pDphi2,TauPtFFBveto3pDphi3;
+@CutWCRBtag1p*/*:TauPtFFBtag1p;
+@CutWCRBtag3p*/*:TauPtFFBtag3p;
