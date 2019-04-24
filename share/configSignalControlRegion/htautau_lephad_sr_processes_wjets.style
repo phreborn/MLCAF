@@ -4,7 +4,7 @@
 ###
 ###################################################
 .name="Data",                   .path="/bkg/$(channel)/$(campaign)/WJETSFakes/data",            .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
-#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/SherpaWjets",                    .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
+.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/SherpaWjets",                    .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
 .name="Top",                    .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/Top",                            .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
 .name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/Ztautau",                        .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
 .name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/Diboson",                        .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
