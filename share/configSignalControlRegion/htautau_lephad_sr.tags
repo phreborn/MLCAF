@@ -190,5 +190,36 @@ $create(path="/bkg/?/?/WJETSFakes/QCD/mc",type="sf");
 <usemcweights=true> @ /bkg/?/?/WJETSFakes/?/?;
 #####################################################################
 
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/?;
+
+
 ### delete SherpaWjets because we dont use it in the ID regions.
 $delete("/bkg/?/?/SherpaWjets!");
