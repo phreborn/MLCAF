@@ -119,32 +119,32 @@
 #$delete("temp!");
 
 ### better way of copying fakes through channels and campaigns
-$create(path="/bkg/?/?/QCDFakes/data",type="sf");
+#$create(path="/bkg/?/?/QCDFakes/data",type="sf");
 $create(path="/bkg/?/?/QCDFakes/mc",type="sf");
-$create(path="/bkg/?/?/WJETSFakes/data",type="sf");
+#$create(path="/bkg/?/?/WJETSFakes/data",type="sf");
 $create(path="/bkg/?/?/WJETSFakes/mc",type="sf");
-$create(path="/bkg/?/?/WJETSFakes/QCD/data",type="sf");
+#$create(path="/bkg/?/?/WJETSFakes/QCD/data",type="sf");
 $create(path="/bkg/?/?/WJETSFakes/QCD/mc",type="sf");
 
 @ /data/lephad {
     @ ? {
-        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/QCDFakes/data");
-        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/WJETSFakes/data");
-        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/WJETSFakes/QCD/data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/lephad/$(BASEFOLDERNAME)/QCDFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/lephad/$(BASEFOLDERNAME)/WJETSFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/lephad/$(BASEFOLDERNAME)/WJETSFakes/QCD::data");
     }
 }
 @ /data/muhad {
     @ ? {
-        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/QCDFakes/data");
-        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/WJETSFakes/data");
-        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/WJETSFakes/QCD/data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/muhad/$(BASEFOLDERNAME)/QCDFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/muhad/$(BASEFOLDERNAME)/WJETSFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/muhad/$(BASEFOLDERNAME)/WJETSFakes/QCD::data");
     }
 }
 @ /data/ehad {
     @ ? {
-        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/QCDFakes/data");
-        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/WJETSFakes/data");
-        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/WJETSFakes/QCD/data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/ehad/$(BASEFOLDERNAME)/QCDFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/ehad/$(BASEFOLDERNAME)/WJETSFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/ehad/$(BASEFOLDERNAME)/WJETSFakes/QCD::data");
     }
 }
 @ /bkg/? {
