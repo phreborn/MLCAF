@@ -1,194 +1,299 @@
+# ------------------------------ options ------------------------------ #
 !memory=1024
 
-# all samples needed in the analysis:
 
-# data takes longest, so split channels
-# and additionaly split by file name
+# ------------------------------ samples ------------------------------ #
+# ----------- c16a ----------- #
+##### data #####
+/data/?/c16a/data15_D
+/data/?/c16a/data15_E
+/data/?/c16a/data15_F
+/data/?/c16a/data15_G
+/data/?/c16a/data15_H
+/data/?/c16a/data15_J
 
-### DATA in ID-ISO (SIGNAL) region
-/data/?/data15_D
-/data/?/data15_E
-/data/?/data15_F
-/data/?/data15_G
-/data/?/data15_H
-/data/?/data15_J
-
-/data/?/data16_A
-/data/?/data16_B
-/data/?/data16_C
-/data/?/data16_D
-/data/?/data16_E
-/data/?/data16_F
-/data/?/data16_G
-/data/?/data16_I
-/data/?/data16_K
-/data/?/data16_L
-
-/data/?/data17_B
-/data/?/data17_C
-/data/?/data17_D
-/data/?/data17_E
-/data/?/data17_F
-/data/?/data17_H
-/data/?/data17_I
-/data/?/data17_K
-
-### MC in ID-ISO (SIGNAL) region
-/mc16a/?/Diboson
-/mc16a/?/Zee
-/mc16a/?/Zmumu
-/mc16a/?/Ztautau
-/mc16a/?/Top
-#/mc16a/ehad/SherpaWjets
-#/mc16a/muhad/SherpaWjets
-
-/mc16c/?/Diboson
-/mc16c/?/Zee
-/mc16c/?/Zmumu
-/mc16c/?/Ztautau
-/mc16c/?/Top
-#/mc16c/ehad/SherpaWjets
-#/mc16c/muhad/SherpaWjets
-
-### Signal
-/siga/?/?
-/sigc/?/?
+/data/?/c16a/data16_A
+/data/?/c16a/data16_B
+/data/?/c16a/data16_C
+/data/?/c16a/data16_D
+/data/?/c16a/data16_E
+/data/?/c16a/data16_F
+/data/?/c16a/data16_G
+/data/?/c16a/data16_I
+/data/?/c16a/data16_K
+/data/?/c16a/data16_L
 
 
-### DATA in ID-Anti-Iso region
-/mc16a/?/QCDFakes/data/data15_D
-/mc16a/?/QCDFakes/data/data15_E
-/mc16a/?/QCDFakes/data/data15_F
-/mc16a/?/QCDFakes/data/data15_G
-/mc16a/?/QCDFakes/data/data15_H
-/mc16a/?/QCDFakes/data/data15_J
-/mc16a/?/QCDFakes/data/data16_A
-/mc16a/?/QCDFakes/data/data16_B
-/mc16a/?/QCDFakes/data/data16_C
-/mc16a/?/QCDFakes/data/data16_D
-/mc16a/?/QCDFakes/data/data16_E
-/mc16a/?/QCDFakes/data/data16_F
-/mc16a/?/QCDFakes/data/data16_G
-/mc16a/?/QCDFakes/data/data16_I
-/mc16a/?/QCDFakes/data/data16_K
-/mc16a/?/QCDFakes/data/data16_L
-
-/mc16c/?/QCDFakes/data/data17_B
-/mc16c/?/QCDFakes/data/data17_C
-/mc16c/?/QCDFakes/data/data17_D
-/mc16c/?/QCDFakes/data/data17_E
-/mc16c/?/QCDFakes/data/data17_F
-/mc16c/?/QCDFakes/data/data17_H
-/mc16c/?/QCDFakes/data/data17_I
-/mc16c/?/QCDFakes/data/data17_K
+##### bkg #####
+/bkg/?/c16a/Diboson
+/bkg/?/c16a/Zee
+/bkg/?/c16a/Zmumu
+/bkg/?/c16a/Ztautau
+/bkg/?/c16a/Top
+#/bkg/?/c16a/SherpaWjets
 
 
-### DATA in Anti-ID region
-/mc16a/?/WJETSFakes/data/data15_D
-/mc16a/?/WJETSFakes/data/data15_E
-/mc16a/?/WJETSFakes/data/data15_F
-/mc16a/?/WJETSFakes/data/data15_G
-/mc16a/?/WJETSFakes/data/data15_H
-/mc16a/?/WJETSFakes/data/data15_J
-/mc16a/?/WJETSFakes/data/data16_A
-/mc16a/?/WJETSFakes/data/data16_B
-/mc16a/?/WJETSFakes/data/data16_C
-/mc16a/?/WJETSFakes/data/data16_D
-/mc16a/?/WJETSFakes/data/data16_E
-/mc16a/?/WJETSFakes/data/data16_F
-/mc16a/?/WJETSFakes/data/data16_G
-/mc16a/?/WJETSFakes/data/data16_I
-/mc16a/?/WJETSFakes/data/data16_K
-/mc16a/?/WJETSFakes/data/data16_L
+##### fakes #####
+#### Anti-ISO QCD ####
+### data ###
+/bkg/?/c16a/QCDFakes/data/data15_D
+/bkg/?/c16a/QCDFakes/data/data15_E
+/bkg/?/c16a/QCDFakes/data/data15_F
+/bkg/?/c16a/QCDFakes/data/data15_G
+/bkg/?/c16a/QCDFakes/data/data15_H
+/bkg/?/c16a/QCDFakes/data/data15_J
 
-/mc16c/?/WJETSFakes/data/data17_B
-/mc16c/?/WJETSFakes/data/data17_C
-/mc16c/?/WJETSFakes/data/data17_D
-/mc16c/?/WJETSFakes/data/data17_E
-/mc16c/?/WJETSFakes/data/data17_F
-/mc16c/?/WJETSFakes/data/data17_H
-/mc16c/?/WJETSFakes/data/data17_I
-/mc16c/?/WJETSFakes/data/data17_K
+/bkg/?/c16a/QCDFakes/data/data16_A
+/bkg/?/c16a/QCDFakes/data/data16_B
+/bkg/?/c16a/QCDFakes/data/data16_C
+/bkg/?/c16a/QCDFakes/data/data16_D
+/bkg/?/c16a/QCDFakes/data/data16_E
+/bkg/?/c16a/QCDFakes/data/data16_F
+/bkg/?/c16a/QCDFakes/data/data16_G
+/bkg/?/c16a/QCDFakes/data/data16_I
+/bkg/?/c16a/QCDFakes/data/data16_K
+/bkg/?/c16a/QCDFakes/data/data16_L
 
-### MC in Anti-ID region
-/mc16a/?/WJETSFakes/mc/Diboson
-/mc16a/?/WJETSFakes/mc/Zee
-/mc16a/?/WJETSFakes/mc/Zmumu
-/mc16a/?/WJETSFakes/mc/Ztautau
-/mc16a/?/WJETSFakes/mc/Top
-#/mc16a/ehad/WJETSFakes/mc/SherpaWjets
-#/mc16a/muhad/WJETSFakes/mc/SherpaWjets
+### mc ###
+/bkg/?/c16a/QCDFakes/mc/Diboson
+/bkg/?/c16a/QCDFakes/mc/Zee
+/bkg/?/c16a/QCDFakes/mc/Zmumu
+/bkg/?/c16a/QCDFakes/mc/Ztautau
+/bkg/?/c16a/QCDFakes/mc/Top
+#/bkg/?/c16a/QCDFakes/mc/SherpaWjets
 
-/mc16c/?/WJETSFakes/mc/Diboson
-/mc16c/?/WJETSFakes/mc/Zee
-/mc16c/?/WJETSFakes/mc/Zmumu
-/mc16c/?/WJETSFakes/mc/Ztautau
-/mc16c/?/WJETSFakes/mc/Top
-#/mc16c/ehad/WJETSFakes/mc/SherpaWjets
-#/mc16c/muhad/WJETSFakes/mc/SherpaWjets
+#### Anti-ID W+jets ####
+### data ###
+/bkg/?/c16a/WJETSFakes/data/data15_D
+/bkg/?/c16a/WJETSFakes/data/data15_E
+/bkg/?/c16a/WJETSFakes/data/data15_F
+/bkg/?/c16a/WJETSFakes/data/data15_G
+/bkg/?/c16a/WJETSFakes/data/data15_H
+/bkg/?/c16a/WJETSFakes/data/data15_J
 
+/bkg/?/c16a/WJETSFakes/data/data16_A
+/bkg/?/c16a/WJETSFakes/data/data16_B
+/bkg/?/c16a/WJETSFakes/data/data16_C
+/bkg/?/c16a/WJETSFakes/data/data16_D
+/bkg/?/c16a/WJETSFakes/data/data16_E
+/bkg/?/c16a/WJETSFakes/data/data16_F
+/bkg/?/c16a/WJETSFakes/data/data16_G
+/bkg/?/c16a/WJETSFakes/data/data16_I
+/bkg/?/c16a/WJETSFakes/data/data16_K
+/bkg/?/c16a/WJETSFakes/data/data16_L
 
-### DATA in Anti-ID-Anti-Iso region
-/mc16a/?/WJETSFakes/QCD/data/data15_D
-/mc16a/?/WJETSFakes/QCD/data/data15_E
-/mc16a/?/WJETSFakes/QCD/data/data15_F
-/mc16a/?/WJETSFakes/QCD/data/data15_G
-/mc16a/?/WJETSFakes/QCD/data/data15_H
-/mc16a/?/WJETSFakes/QCD/data/data15_J
-/mc16a/?/WJETSFakes/QCD/data/data16_A
-/mc16a/?/WJETSFakes/QCD/data/data16_B
-/mc16a/?/WJETSFakes/QCD/data/data16_C
-/mc16a/?/WJETSFakes/QCD/data/data16_D
-/mc16a/?/WJETSFakes/QCD/data/data16_E
-/mc16a/?/WJETSFakes/QCD/data/data16_F
-/mc16a/?/WJETSFakes/QCD/data/data16_G
-/mc16a/?/WJETSFakes/QCD/data/data16_I
-/mc16a/?/WJETSFakes/QCD/data/data16_K
-/mc16a/?/WJETSFakes/QCD/data/data16_L
+### mc ###
+/bkg/?/c16a/WJETSFakes/mc/Diboson
+/bkg/?/c16a/WJETSFakes/mc/Zee
+/bkg/?/c16a/WJETSFakes/mc/Zmumu
+/bkg/?/c16a/WJETSFakes/mc/Ztautau
+/bkg/?/c16a/WJETSFakes/mc/Top
+#/bkg/?/c16a/WJETSFakes/mc/SherpaWjets
 
-/mc16c/?/WJETSFakes/QCD/data/data17_B
-/mc16c/?/WJETSFakes/QCD/data/data17_C
-/mc16c/?/WJETSFakes/QCD/data/data17_D
-/mc16c/?/WJETSFakes/QCD/data/data17_E
-/mc16c/?/WJETSFakes/QCD/data/data17_F
-/mc16c/?/WJETSFakes/QCD/data/data17_H
-/mc16c/?/WJETSFakes/QCD/data/data17_I
-/mc16c/?/WJETSFakes/QCD/data/data17_K
+#### Anti-ID W+jets Anti-ISO QCD ####
+### data ###
+/bkg/?/c16a/WJETSFakes/QCD/data/data15_D
+/bkg/?/c16a/WJETSFakes/QCD/data/data15_E
+/bkg/?/c16a/WJETSFakes/QCD/data/data15_F
+/bkg/?/c16a/WJETSFakes/QCD/data/data15_G
+/bkg/?/c16a/WJETSFakes/QCD/data/data15_H
+/bkg/?/c16a/WJETSFakes/QCD/data/data15_J
 
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_A
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_B
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_C
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_D
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_E
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_F
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_G
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_I
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_K
+/bkg/?/c16a/WJETSFakes/QCD/data/data16_L
 
-
-# add if you want to run mc in anti-iso region,
-# which in general should be negligible.
-
-/mc16a/?/QCDFakes/mc/Diboson
-/mc16a/?/QCDFakes/mc/Zee
-/mc16a/?/QCDFakes/mc/Zmumu
-/mc16a/?/QCDFakes/mc/Ztautau
-/mc16a/?/QCDFakes/mc/Top
-#/mc16a/ehad/QCDFakes/mc/SherpaWjets
-#/mc16a/muhad/QCDFakes/mc/SherpaWjets
-
-/mc16c/?/QCDFakes/mc/Diboson
-/mc16c/?/QCDFakes/mc/Zee
-/mc16c/?/QCDFakes/mc/Zmumu
-/mc16c/?/QCDFakes/mc/Ztautau
-/mc16c/?/QCDFakes/mc/Top
-#/mc16c/ehad/QCDFakes/mc/SherpaWjets
-#/mc16c/muhad/QCDFakes/mc/SherpaWjets
+### mc ###
+/bkg/?/c16a/WJETSFakes/QCD/mc/Diboson
+/bkg/?/c16a/WJETSFakes/QCD/mc/Zee
+/bkg/?/c16a/WJETSFakes/QCD/mc/Zmumu
+/bkg/?/c16a/WJETSFakes/QCD/mc/Ztautau
+/bkg/?/c16a/WJETSFakes/QCD/mc/Top
+#/bkg/?/c16a/WJETSFakes/QCD/mc/SherpaWjets
 
 
-/mc16a/?/WJETSFakes/QCD/mc/Diboson
-/mc16a/?/WJETSFakes/QCD/mc/Zee
-/mc16a/?/WJETSFakes/QCD/mc/Zmumu
-/mc16a/?/WJETSFakes/QCD/mc/Ztautau
-/mc16a/?/WJETSFakes/QCD/mc/Top
-#/mc16a/ehad/WJETSFakes/QCD/mc/SherpaWjets
-#/mc16a/muhad/WJETSFakes/QCD/mc/SherpaWjets
+##### sig #####
+/sig/?/c16a/?
 
-/mc16c/?/WJETSFakes/QCD/mc/Diboson
-/mc16c/?/WJETSFakes/QCD/mc/Zee
-/mc16c/?/WJETSFakes/QCD/mc/Zmumu
-/mc16c/?/WJETSFakes/QCD/mc/Ztautau
-/mc16c/?/WJETSFakes/QCD/mc/Top
-#/mc16c/ehad/WJETSFakes/QCD/mc/SherpaWjets
-#/mc16c/muhad/WJETSFakes/QCD/mc/SherpaWjets
+
+# ----------- c16d ----------- #
+##### data #####
+/data/?/c16d/data17_B
+/data/?/c16d/data17_C
+/data/?/c16d/data17_D
+/data/?/c16d/data17_E
+/data/?/c16d/data17_F
+/data/?/c16d/data17_H
+/data/?/c16d/data17_I
+/data/?/c16d/data17_K
+
+
+##### bkg #####
+/bkg/?/c16d/Diboson
+/bkg/?/c16d/Zee
+/bkg/?/c16d/Zmumu
+/bkg/?/c16d/Ztautau
+/bkg/?/c16d/Top
+#/bkg/?/c16d/SherpaWjets
+
+
+##### fakes #####
+#### Anti-ISO QCD ####
+### data ###
+/bkg/?/c16d/QCDFakes/data/data17_B
+/bkg/?/c16d/QCDFakes/data/data17_C
+/bkg/?/c16d/QCDFakes/data/data17_D
+/bkg/?/c16d/QCDFakes/data/data17_E
+/bkg/?/c16d/QCDFakes/data/data17_F
+/bkg/?/c16d/QCDFakes/data/data17_H
+/bkg/?/c16d/QCDFakes/data/data17_I
+/bkg/?/c16d/QCDFakes/data/data17_K
+
+### mc ###
+/bkg/?/c16d/QCDFakes/mc/Diboson
+/bkg/?/c16d/QCDFakes/mc/Zee
+/bkg/?/c16d/QCDFakes/mc/Zmumu
+/bkg/?/c16d/QCDFakes/mc/Ztautau
+/bkg/?/c16d/QCDFakes/mc/Top
+#/bkg/?/c16d/QCDFakes/mc/SherpaWjets
+
+#### Anti-ID W+jets ####
+### data ###
+/bkg/?/c16d/WJETSFakes/data/data17_B
+/bkg/?/c16d/WJETSFakes/data/data17_C
+/bkg/?/c16d/WJETSFakes/data/data17_D
+/bkg/?/c16d/WJETSFakes/data/data17_E
+/bkg/?/c16d/WJETSFakes/data/data17_F
+/bkg/?/c16d/WJETSFakes/data/data17_H
+/bkg/?/c16d/WJETSFakes/data/data17_I
+/bkg/?/c16d/WJETSFakes/data/data17_K
+
+### mc ###
+/bkg/?/c16d/WJETSFakes/mc/Diboson
+/bkg/?/c16d/WJETSFakes/mc/Zee
+/bkg/?/c16d/WJETSFakes/mc/Zmumu
+/bkg/?/c16d/WJETSFakes/mc/Ztautau
+/bkg/?/c16d/WJETSFakes/mc/Top
+#/bkg/?/c16d/WJETSFakes/mc/SherpaWjets
+
+#### Anti-ID W+jets Anti-ISO QCD ####
+### data ###
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_B
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_C
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_D
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_E
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_F
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_H
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_I
+/bkg/?/c16d/WJETSFakes/QCD/data/data17_K
+
+### mc ###
+/bkg/?/c16d/WJETSFakes/QCD/mc/Diboson
+/bkg/?/c16d/WJETSFakes/QCD/mc/Zee
+/bkg/?/c16d/WJETSFakes/QCD/mc/Zmumu
+/bkg/?/c16d/WJETSFakes/QCD/mc/Ztautau
+/bkg/?/c16d/WJETSFakes/QCD/mc/Top
+#/bkg/?/c16d/WJETSFakes/QCD/mc/SherpaWjets
+
+
+##### sig #####
+/sig/?/c16d/?
+
+
+# ----------- c16e ----------- #
+##### data #####
+/data/?/c16e/data18_B
+/data/?/c16e/data18_C
+/data/?/c16e/data18_D
+/data/?/c16e/data18_F
+/data/?/c16e/data18_I
+/data/?/c16e/data18_K
+/data/?/c16e/data18_L
+/data/?/c16e/data18_M
+/data/?/c16e/data18_O
+/data/?/c16e/data18_Q
+
+
+##### bkg #####
+/bkg/?/c16e/Diboson
+/bkg/?/c16e/Zee
+/bkg/?/c16e/Zmumu
+/bkg/?/c16e/Ztautau
+/bkg/?/c16e/Top
+#/bkg/?/c16e/SherpaWjets
+
+
+##### fakes #####
+#### Anti-ISO QCD ####
+### data ###
+/bkg/?/c16e/QCDFakes/data/data18_B
+/bkg/?/c16e/QCDFakes/data/data18_C
+/bkg/?/c16e/QCDFakes/data/data18_D
+/bkg/?/c16e/QCDFakes/data/data18_F
+/bkg/?/c16e/QCDFakes/data/data18_I
+/bkg/?/c16e/QCDFakes/data/data18_K
+/bkg/?/c16e/QCDFakes/data/data18_L
+/bkg/?/c16e/QCDFakes/data/data18_M
+/bkg/?/c16e/QCDFakes/data/data18_O
+/bkg/?/c16e/QCDFakes/data/data18_Q
+
+### mc ###
+/bkg/?/c16e/QCDFakes/mc/Diboson
+/bkg/?/c16e/QCDFakes/mc/Zee
+/bkg/?/c16e/QCDFakes/mc/Zmumu
+/bkg/?/c16e/QCDFakes/mc/Ztautau
+/bkg/?/c16e/QCDFakes/mc/Top
+#/bkg/?/c16e/QCDFakes/mc/SherpaWjets
+
+#### Anti-ID W+jets ####
+### data ###
+/bkg/?/c16e/WJETSFakes/data/data18_B
+/bkg/?/c16e/WJETSFakes/data/data18_C
+/bkg/?/c16e/WJETSFakes/data/data18_D
+/bkg/?/c16e/WJETSFakes/data/data18_F
+/bkg/?/c16e/WJETSFakes/data/data18_I
+/bkg/?/c16e/WJETSFakes/data/data18_K
+/bkg/?/c16e/WJETSFakes/data/data18_L
+/bkg/?/c16e/WJETSFakes/data/data18_M
+/bkg/?/c16e/WJETSFakes/data/data18_O
+/bkg/?/c16e/WJETSFakes/data/data18_Q
+
+### mc ###
+/bkg/?/c16e/WJETSFakes/mc/Diboson
+/bkg/?/c16e/WJETSFakes/mc/Zee
+/bkg/?/c16e/WJETSFakes/mc/Zmumu
+/bkg/?/c16e/WJETSFakes/mc/Ztautau
+/bkg/?/c16e/WJETSFakes/mc/Top
+#/bkg/?/c16e/WJETSFakes/mc/SherpaWjets
+
+#### Anti-ID W+jets Anti-ISO QCD ####
+### data ###
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_B
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_C
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_D
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_F
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_I
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_K
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_L
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_M
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_O
+/bkg/?/c16e/WJETSFakes/QCD/data/data18_Q
+
+### mc ###
+/bkg/?/c16e/WJETSFakes/QCD/mc/Diboson
+/bkg/?/c16e/WJETSFakes/QCD/mc/Zee
+/bkg/?/c16e/WJETSFakes/QCD/mc/Zmumu
+/bkg/?/c16e/WJETSFakes/QCD/mc/Ztautau
+/bkg/?/c16e/WJETSFakes/QCD/mc/Top
+#/bkg/?/c16e/WJETSFakes/QCD/mc/SherpaWjets
+
+
+##### sig #####
+/sig/?/c16e/?
