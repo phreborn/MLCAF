@@ -149,9 +149,26 @@ $create(path="/bkg/?/?/WJETSFakes/QCD/mc",type="sf");
 }
 @ /bkg/? {
     @ ? {
-        $copy("? >> QCDFakes/mc");
-        $copy("? >> WJETSFakes/mc");
-        $copy("? >> WJETSFakes/QCD/mc");
+        $copy("Ztautau     >> QCDFakes/mc");
+        $copy("Zee         >> QCDFakes/mc");
+        $copy("Zmumu       >> QCDFakes/mc");
+        $copy("Top         >> QCDFakes/mc");
+        $copy("Diboson     >> QCDFakes/mc");
+        $copy("SherpaWjets >> QCDFakes/mc");
+
+        $copy("Ztautau     >> WJETSFakes/mc");
+        $copy("Zee         >> WJETSFakes/mc");
+        $copy("Zmumu       >> WJETSFakes/mc");
+        $copy("Top         >> WJETSFakes/mc");
+        $copy("Diboson     >> WJETSFakes/mc");
+        $copy("SherpaWjets >> WJETSFakes/mc");
+
+        $copy("Ztautau     >> WJETSFakes/QCD/mc");
+        $copy("Zee         >> WJETSFakes/QCD/mc");
+        $copy("Zmumu       >> WJETSFakes/QCD/mc");
+        $copy("Top         >> WJETSFakes/QCD/mc");
+        $copy("Diboson     >> WJETSFakes/QCD/mc");
+        $copy("SherpaWjets >> WJETSFakes/QCD/mc");
     }
 }
 
