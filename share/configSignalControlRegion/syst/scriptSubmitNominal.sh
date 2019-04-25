@@ -3,9 +3,9 @@
 # add "applyff"/"contid" as argument to executing this script to run over applyff/contid
 
 REGION="configSignalControlRegion"
-JOBS="syst/jobsSYS.txt --options inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-NOMINAL.root'"
+JOBS="syst/jobsSYS.txt"
 CONFIG="htautau_lephad_sr"
-IDENT="SRsys"
+IDENT="SRsys --options inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-NOMINAL.root'"
 
 if [ "$1" == "applyff" ]; then
   CONFIG="${CONFIG}_applyff"
@@ -16,4 +16,4 @@ if [ "$1" == "contid" ]; then
   IDENT="${IDENT}contid"
 fi
 
-source configCommon/scriptSubmit.sh ${REGION} ${CONFIG} ${JOBS} ${IDENT}
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${JOBS}" "${IDENT}"
