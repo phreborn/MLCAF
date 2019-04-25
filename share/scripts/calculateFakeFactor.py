@@ -1914,9 +1914,9 @@ if __name__=='__main__':
 
     # decide which file is needed:
     if region == 'WFR':
-        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.root'
+        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
     elif region == 'LFR':
-        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.root'
+        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root'
     elif region == 'WFRcontid':
         sFile = 'output/htautau_lephad_wfr_contid/nominal.root'
     elif region == 'WFRdphiCorr':
