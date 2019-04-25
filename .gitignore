@@ -11,6 +11,10 @@ build
 */submissionWorkloadTemp
 */jobslist.txt
 */logs
+*/backups
+*/configFailIDSignalControlRegion
+*/configApplyBackLeptonFakeRegion
+*/configApplyBackWjetsFakeRegion
 *.tex
 *.pdf
 *.log
