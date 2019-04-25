@@ -7,6 +7,8 @@ import argparse
 parser = argparse.ArgumentParser(description='process systematics script')
 parser.add_argument('--channel', default='lephad',
                     help='channel to run over (ehad, muhad, lephad)')
+parser.add_argument('--campaign', default='c16a',
+                    help='campaign to run over (c16a, c16d, c16e)')
 parser.add_argument('--isbtag', action='store_true',
                     help='apply btag corrections or not')
 parser.add_argument('--systype', default='none',
@@ -17,6 +19,7 @@ args = parser.parse_args()
 
 pair = ROOT.std.pair('TString','TString')
 channel = args.channel
+campaign = args.campaign
 b_doSys = not args.nosys
 b_isbtag = args.isbtag
 #### NEW!! we don't want to use mc in anti-iso region in btag category,
@@ -53,7 +56,7 @@ else:
 #    'CutBveto3pBDT3',
     ]
 
-print(channel, b_isbtag, args.systype)
+print(channel, campaign, b_isbtag, args.systype)
 
 def main():
   handler = TQSystematicsHandler ('systematics')
@@ -62,18 +65,18 @@ def main():
   # The name of the TQSampleFolder object within your files
   # Alternatively, you can just use ':*' to have the code grab the first instance of TQSampleFolder that it finds
   sfname = ':samples'
-  nominal_file_path = dir + 'nominal.root' + sfname
+  nominal_file_path = dir + 'NOMINAL.root' + sfname
 
 
-  path_mc = '/mc16a/{:s}/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel)
-  path_wjets_data = '/mc16a/{:s}/WJETSFakes/data/[data15*+data16*]'.format(channel)
-  path_wjets_mc = '/mc16a/{:s}/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel)
-  path_wjets_qcd = '/mc16a/{:s}/WJETSFakes/QCD/data/[data15*+data16*]'.format(channel)
-  path_qcd_data = '/mc16a/{:s}/QCDFakes/data/[data15*+data16*]'.format(channel)
+  path_mc = '/bkg/{:s}/{:s}/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel,campaign)
+  path_wjets_data = '/bkg/{:s}/{:s}/WJETSFakes/data'.format(channel,campaign)
+  path_wjets_mc = '/bkg/{:s}/{:s}/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel,campaign)
+  path_wjets_qcd = '/bkg/{:s}/{:s}/WJETSFakes/QCD/data'.format(channel,campaign)
+  path_qcd_data = '/bkg/{:s}/{:s}/QCDFakes/data'.format(channel,campaign)
   path_qcd_mc = ''
     # different sf paths because we dont use mc in btag anti-iso (qcd bkg)
   if not b_isbtag:
-    path_qcd_mc = '-/mc16a/{:s}/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel)
+    path_qcd_mc = '-/bkg/{:s}/{:s}/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel,campaign)
   path_qcd = path_qcd_data + path_qcd_mc
 
   nominal_sf_path = path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd
@@ -307,12 +310,12 @@ def main():
   bchannel='bveto'
   if b_isbtag:
     bchannel='btag'
-  systematics.writeToFile(dir+'sys_band_'+channel+'_'+bchannel+'_'+option+'.root',True,0)
+  systematics.writeToFile(dir+'sys_band_'+campaign+'_'+channel+'_'+bchannel+'_'+option+'.root',True,0)
   # Produce a table with the ranking of systematic uncertainties at some cut stage table
   # Table.printPlain() to write it as a LaTeX and a CSV file
   for cut in l_cuts:
     table = handler.getTable(cut)
-    table.writeLaTeX(dir+'sys_table_'+channel+'_'+bchannel+'_'+option+'_'+cut+'.tex')
+    table.writeLaTeX(dir+'sys_table_'+campaign+'_'+channel+'_'+bchannel+'_'+option+'_'+cut+'.tex')
     print(cut)
     table.printPlain()
 
