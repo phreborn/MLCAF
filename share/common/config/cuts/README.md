@@ -33,6 +33,23 @@ variables meaning:
    as tags on the sample folder hierarchy. These can be defined in
    `patches` that you can apply to your sample folder at will.
 
+Alternatively cuts can be defined via python snippets in place of TQFolder syntax based files (they need to be listed in the master config just like the TQFolder syntax ones). Their structure is as follows:
+```
+from CommonAnalysisHelpers.analyze import PyCut
+def addCuts(config,baseCut):
+  #the baseCut is just a dummy cut used to add your own cuts.
+  #use += if you want to continue assigning more subsequent cuts
+  baseCut+= PyCut("CutChannels", cut="$(fitsChannel)", weight="Weight_$(weightname):$(cand)", options={".title":"Channel Selection"} )
+  #the next line then adds "CutVgammaVjet_overlap" as a sub-cut of "CutChannels"
+  baseCut+= PyCut("CutVgammaVjet_overlap", cut="{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)==0 : 1 }", options={".title":"Overlap: Vgamma/Vjets"} )
+  #accessing a cut that was defined earlier (e.g. to create a second branch of cuts):
+  cutChannels = baseCut["CutChannels"]
+  cutChannels+= PyCut("CutVgammaVjet_overlap_invert", cut="{ $(isVjets) ? $(Truth_hasFSRPhotonDR01)>0 : 0 }", options={".title":"Inverted Overlap: Vgamma/Vjets"} )
+  #...more manipulation/cut definitions...
+  #if everything went fine, return True
+  return True
+```
+
 Advanced Features
 --------------------
 
