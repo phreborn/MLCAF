@@ -309,33 +309,33 @@ if __name__=='__main__':
       l_files = []
       if option=='fakevar':
         # wff sys, dont need mc bkg and qcd
-        #l_files.append('unmerged_*_bkg_X_c16*_SherpaWjets.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Diboson.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Top.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Z*.root')
-        l_files.append('unmerged_*_bkg_X_c16*_QCDFakes_*.root')
-        l_files.append('unmerged_*_sig_X_c16*_*.root')
+        #l_files.append('unmerged_*_bkg_X_c16?_SherpaWjets.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Diboson.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Top.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_QCDFakes_*.root')
+        l_files.append('unmerged_*_sig_X_c16?_*.root')
       elif option=='isovar':
         # lepton ff sys, dont need mc bkg
-        #l_files.append('unmerged_*_bkg_X_c16*_SherpaWjets.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Diboson.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Top.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Z*.root')
-        l_files.append('unmerged_*_bkg_X_c16*_WJETSFakes_data_*.root')
-        l_files.append('unmerged_*_bkg_X_c16*_WJETSFakes_mc_*.root')
-        l_files.append('unmerged_*_sig_X_c16*_*.root')
+        #l_files.append('unmerged_*_bkg_X_c16?_SherpaWjets.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Diboson.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Top.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_WJETSFakes_data_*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_WJETSFakes_mc_*.root')
+        l_files.append('unmerged_*_sig_X_c16?_*.root')
       elif option=='weightvar' or option=='treevariation':
         # mc sys, dont need wjets and qcd
-        l_files.append('unmerged_*_bkg_X_c16*_WJETSFakes_*.root')
-        l_files.append('unmerged_*_bkg_X_c16*_QCDFakes_*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_WJETSFakes_*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_QCDFakes_*.root')
         # for this only top needed
       elif option=='ttbarweight':
-        l_files.append('unmerged_*_bkg_X_c16*_WJETSFakes_*.root')
-        l_files.append('unmerged_*_bkg_X_c16*_QCDFakes_*.root')
-        l_files.append('unmerged_*_sig_X_c16*_*.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Diboson.root')
-        l_files.append('unmerged_*_bkg_X_c16*_Z*.root')
-        #l_files.append('unmerged_*_bkg_X_c16*_SherpaWjets.root')
+        l_files.append('unmerged_*_bkg_X_c16?_WJETSFakes_*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_QCDFakes_*.root')
+        l_files.append('unmerged_*_sig_X_c16?_*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Diboson.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
+        #l_files.append('unmerged_*_bkg_X_c16?_SherpaWjets.root')
 
       # make output folder, the same as the submitAnalysis.py would create;
       print('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
