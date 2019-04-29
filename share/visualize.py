@@ -13,7 +13,8 @@ def main(config):
 
     # make sure that the sample folder is writable before we go any further
     # helps to discover typos ahead of time
-    common.testWriteSampleFolder(config, samples)
+    if config.hasTagString("outputFile"):
+        common.testWriteSampleFolder(config, samples)
 
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
@@ -55,7 +56,8 @@ def main(config):
     visualize.makeComparisonPlots(config, reader, outputdir)
 
     # write the sample folder to disk
-    common.writeSampleFolder(config, samples)
+    if config.hasTagString("outputFile"):
+        common.writeSampleFolder(config, samples)
 
     # finalize the summary document
     visualize.finalizeSummaryDocument(summary)
