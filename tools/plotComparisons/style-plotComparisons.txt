@@ -1,0 +1,11 @@
+# -*- mode: tqfolder -*-
+
+# Style file to use for plotComparisons.py script
+
+# For available tags see documentation here (especially tags for TQSampleDataReader.cxx):
+# http://atlas-caf.web.cern.ch/tags.html
+
+<style.default.histLineWidth = 3> @ ?;
+
+<label = "PFlow", style.default.histLineColor = 417> @ sig/?/mh125/ggf/345324PFlow;
+<label = "EMTopo", style.default.histLineColor = 2> @ sig/?/mh125/ggf/345324EMTopo;
