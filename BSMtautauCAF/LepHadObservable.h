@@ -20,8 +20,9 @@ protected:
 
  // limit is the number of the last run of that year:
   const long LIMIT_2015 = 284484;
-  const long LIMIT_2016 = 311481;
-  const long LIMIT_2017 = 338349;
+  const long LIMIT_2016 = 311563;
+  const long LIMIT_2017 = 341649;
+  const long LIMIT_2018 = 364292;
 
   bool _isData = false;
   bool _isMC = false;
@@ -30,6 +31,8 @@ protected:
 
   bool _use2015 = true;
   bool _use2016 = true;
+  bool _use2017 = true;
+  bool _use2018 = true;
   bool _useSLT = true;
   bool _useTLT = true;
 
@@ -84,6 +87,7 @@ public:
   bool is2015() const;
   bool is2016() const;
   bool is2017() const;
+  bool is2018() const;
   bool isTauID() const;
   bool isTLT() const;
   bool isSLT() const;

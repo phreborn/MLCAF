@@ -1,77 +1,78 @@
 # -*- mode: tqfolder -*-
 
 # tag folders and copy folders so they won't loose a tag.
-# our samples have 2-level-deep folder structure:
-#	/(data,bkg,sig)/$(channel)/(data15-16-17,Ztautau-Top...,H1000...)
-#	these 2nd-level folders will get tags.
+# our samples have 3-level-deep folder structure:
+#	/(data,bkg,sig)/$(channel)/$(campaign)/(data15-16-17,Ztautau-Top...,H1000...)
+#	these 3rd-level folders will get tags.
 
 # BASIC TAGS:
 # mc weights
-<usemcweights=false> @/?/?;
-<usemcweights=true> @ /mc16*/?,/sig*/?;
+<usemcweights=false> @ /?/?/?;
+<usemcweights=true> @ /bkg/?/?, /sig/?/?;
 # is data
-<isData=false> @/?/?;
-<isData=true> @/data/? ;
+<isData=false> @ /?/?/?;
+<isData=true> @ /data/?/?;
 # is signal
-<isSig=false> @/?/?;
-<isSig=true> @/sig*/?;
+<isSig=false> @ /?/?/?;
+<isSig=true> @ /sig/?/?;
 
 # tags to identify which cuts and ffs to apply
-<isAntiISO=false> @ /?/?;
-<isAntiID=false> @ /?/?;
+<isAntiISO=false> @ /?/?/?;
+<isAntiID=false> @ /?/?/?;
 
 # at the moment this is just a place holder,
 # later to be used to run syst or maybe removed completely
-<weightvariation="nominal"> @ /mc16*/?,/sig*/?;
+<weightvariation="nominal"> @ /bkg/?/?, /sig/?/?;
 
 # channel
-<channel="muhad"> @ ?/muhad;
-<channel="ehad"> @ ?/ehad;
-<channel="lephad"> @ ?/lephad;
+<channel="muhad"> @ /?/muhad;
+<channel="ehad"> @ /?/ehad;
+<channel="lephad"> @ /?/lephad;
 
 # not sure how usefull it is
-<wildcarded = true> @ /?/?;
+<wildcarded = true> @ /?/?/?;
 
 # tag different processes
-<isInc=false> @/mc16*/?;
+<isInc=false> @ /bkg/?/?;
 
 
-<isWjets=false> @/.;
-<isWjets=true, isInc=true> @/mc16*/?/SherpaWjets;
+<isWjets=false> @ /.;
+<isWjets=true, isInc=true> @ /bkg/?/?/SherpaWjets;
 
-<isDib=false> @/.;
-<isDib=true, isInc=true> @/mc16*/?/Diboson;
+<isDib=false> @ /.;
+<isDib=true, isInc=true> @ /bkg/?/?/Diboson;
 
-<isTop=false> @/.;
-<isTop=true, isInc=true> @/mc16*/?/Top;
+<isTop=false> @ /.;
+<isTop=true, isInc=true> @ /bkg/?/?/Top;
 
 
 ### use this or similar for additional true-fake-lep structure
-#$copy("mc16*/muhad/Top           >>      mc16*/muhad/::TopTruthTau");
-#$copy("mc16*/muhad/Top           >>      mc16*/muhad/::TopElFake");
-#$copy("mc16*/muhad/Top           >>      mc16*/muhad/::TopMuFake");
+#@ /bkg/? {
+#    @ ? {
+#        $copy("Top >> ::TopTruthTau");
+#        $copy("Top >> ::TopElFake");
+#        $copy("Top >> ::TopMuFake");
+#    }
+#}
+#<isTT=false> @ /.;
+#<isTT=true, isInc=false> @ /bkg/?/?/TopTruthTau;
 #
-#$copy("mc16*/ehad/Top           >>      mc16*/ehad/::TopTruthTau");
-#$copy("mc16*/ehad/Top           >>      mc16*/ehad/::TopElFake");
-#$copy("mc16*/ehad/Top           >>      mc16*/ehad/::TopMuFake");
-#<isTT=false> @/.;
-#<isTT=true, isInc=false> @/mc16*/?/TopTruthTau;
+#<isTEl=false> @ /.;
+#<isTEl=true, isInc=false> @ /bkg/?/?/TopElFake;
 #
-#<isTEl=false> @/.;
-#<isTEl=true, isInc=false> @/mc16*/?/TopElFake;
-#
-#<isTMu=false> @/.;
-#<isTMu=true, isInc=false> @/mc16*/?/TopMuFake;
+#<isTMu=false> @ /.;
+#<isTMu=true, isInc=false> @ /bkg/?/?/TopMuFake;
 ###
 
-<isZtt=false> @/.;
-<isZtt=true, isInc=true> @/mc16*/?/Ztautau;
+<isZtt=false> @ /.;
+<isZtt=true, isInc=true> @ /bkg/?/?/Ztautau;
 
-<isZll=false> @/.;
-<isZll=true, isInc=true> @/mc16*/?/Zee;
-<isZll=true, isInc=true> @/mc16*/?/Zmumu;
+<isZll=false> @ /.;
+<isZll=true, isInc=true> @ /bkg/?/?/Zee;
+<isZll=true, isInc=true> @ /bkg/?/?/Zmumu;
 
-<isInc=true> @/sig*/?;
+<isInc=true> @ /sig/?/?;
+
 #########################################################
 ###
 ### QCD FOLDER
@@ -79,60 +80,146 @@
 #########################################################
 ### separate ehad and muhad temp folders because they have different tags.
 ### copy this way (with ::), so the tags in the mc16*/ehad/ folder are copied to temp/ehad folder.
-$create(path="temp",type="sf");
-$copy("mc16*/ehad/ >> temp/::ehad");
-$copy("mc16*/muhad/ >> temp/::muhad");
-$copy("mc16*/lephad/ >> temp/::lephad");
+#$create(path="temp",type="sf");
+#$copy("mc16*/ehad/ >> temp/::ehad");
+#$copy("mc16*/muhad/ >> temp/::muhad");
+#$copy("mc16*/lephad/ >> temp/::lephad");
 
-$create(path="/mc16*/ehad/QCDFakes",type="sf");
-$copy("/data/ehad >> /mc16*/ehad/QCDFakes/::data");
-$copy("/temp/ehad >> /mc16*/ehad/QCDFakes/::mc");
-$create(path="/mc16*/muhad/QCDFakes",type="sf");
-$copy("/data/muhad >> /mc16*/muhad/QCDFakes/::data");
-$copy("/temp/muhad >> /mc16*/muhad/QCDFakes/::mc");
-$create(path="/mc16*/lephad/QCDFakes",type="sf");
-$copy("/data/lephad >> /mc16*/lephad/QCDFakes/::data");
-$copy("/temp/lephad >> /mc16*/lephad/QCDFakes/::mc");
-
-### tag data folder to apply ffs
-<usemcweights=true> @ /mc16*/?/QCDFakes/data;
-
-### qcd is re-weighted from anti-iso region
-<isAntiISO=true> @ /mc16*/?/QCDFakes/?;
+#$create(path="/mc16*/ehad/QCDFakes",type="sf");
+#$copy("/data/ehad >> /mc16*/ehad/QCDFakes/::data");
+#$copy("/temp/ehad >> /mc16*/ehad/QCDFakes/::mc");
+#$create(path="/mc16*/muhad/QCDFakes",type="sf");
+#$copy("/data/muhad >> /mc16*/muhad/QCDFakes/::data");
+#$copy("/temp/muhad >> /mc16*/muhad/QCDFakes/::mc");
+#$create(path="/mc16*/lephad/QCDFakes",type="sf");
+#$copy("/data/lephad >> /mc16*/lephad/QCDFakes/::data");
+#$copy("/temp/lephad >> /mc16*/lephad/QCDFakes/::mc");
 
 ###########################################################
 ###
 ### WJETS FOLDER
 ###
 ###########################################################
-$create(path="/mc16*/ehad/WJETSFakes/QCD/",type="sf");
-$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/::data");
-$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/QCD/::data");
-$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/::mc");
-$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/QCD/::mc");
-$create(path="/mc16*/muhad/WJETSFakes/QCD/",type="sf");
-$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/::data");
-$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/QCD/::data");
-$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/::mc");
-$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/QCD/::mc");
-$create(path="/mc16*/lephad/WJETSFakes/QCD/",type="sf");
-$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/::data");
-$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/QCD/::data");
-$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/::mc");
-$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/QCD/::mc");
+#$create(path="/mc16*/ehad/WJETSFakes/QCD/",type="sf");
+#$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/::data");
+#$copy("/data/ehad >> /mc16*/ehad/WJETSFakes/QCD/::data");
+#$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/::mc");
+#$copy("/temp/ehad >> /mc16*/ehad/WJETSFakes/QCD/::mc");
+#$create(path="/mc16*/muhad/WJETSFakes/QCD/",type="sf");
+#$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/::data");
+#$copy("/data/muhad >> /mc16*/muhad/WJETSFakes/QCD/::data");
+#$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/::mc");
+#$copy("/temp/muhad >> /mc16*/muhad/WJETSFakes/QCD/::mc");
+#$create(path="/mc16*/lephad/WJETSFakes/QCD/",type="sf");
+#$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/::data");
+#$copy("/data/lephad >> /mc16*/lephad/WJETSFakes/QCD/::data");
+#$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/::mc");
+#$copy("/temp/lephad >> /mc16*/lephad/WJETSFakes/QCD/::mc");
 
-$delete("temp!");
+#$delete("temp!");
+
+### better way of copying fakes through channels and campaigns
+#$create(path="/bkg/?/?/QCDFakes/data",type="sf");
+$create(path="/bkg/?/?/QCDFakes/mc",type="sf");
+#$create(path="/bkg/?/?/WJETSFakes/data",type="sf");
+$create(path="/bkg/?/?/WJETSFakes/mc",type="sf");
+#$create(path="/bkg/?/?/WJETSFakes/QCD/data",type="sf");
+$create(path="/bkg/?/?/WJETSFakes/QCD/mc",type="sf");
+
+@ /data/lephad {
+    @ ? {
+        $copy("../$(BASEFOLDERNAME) >> /bkg/lephad/$(BASEFOLDERNAME)/QCDFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/lephad/$(BASEFOLDERNAME)/WJETSFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/lephad/$(BASEFOLDERNAME)/WJETSFakes/QCD::data");
+    }
+}
+@ /data/muhad {
+    @ ? {
+        $copy("../$(BASEFOLDERNAME) >> /bkg/muhad/$(BASEFOLDERNAME)/QCDFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/muhad/$(BASEFOLDERNAME)/WJETSFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/muhad/$(BASEFOLDERNAME)/WJETSFakes/QCD::data");
+    }
+}
+@ /data/ehad {
+    @ ? {
+        $copy("../$(BASEFOLDERNAME) >> /bkg/ehad/$(BASEFOLDERNAME)/QCDFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/ehad/$(BASEFOLDERNAME)/WJETSFakes::data");
+        $copy("../$(BASEFOLDERNAME) >> /bkg/ehad/$(BASEFOLDERNAME)/WJETSFakes/QCD::data");
+    }
+}
+@ /bkg/? {
+    @ ? {
+        $copy("Ztautau     >> QCDFakes/mc");
+        $copy("Zee         >> QCDFakes/mc");
+        $copy("Zmumu       >> QCDFakes/mc");
+        $copy("Top         >> QCDFakes/mc");
+        $copy("Diboson     >> QCDFakes/mc");
+        $copy("SherpaWjets >> QCDFakes/mc");
+
+        $copy("Ztautau     >> WJETSFakes/mc");
+        $copy("Zee         >> WJETSFakes/mc");
+        $copy("Zmumu       >> WJETSFakes/mc");
+        $copy("Top         >> WJETSFakes/mc");
+        $copy("Diboson     >> WJETSFakes/mc");
+        $copy("SherpaWjets >> WJETSFakes/mc");
+
+        $copy("Ztautau     >> WJETSFakes/QCD/mc");
+        $copy("Zee         >> WJETSFakes/QCD/mc");
+        $copy("Zmumu       >> WJETSFakes/QCD/mc");
+        $copy("Top         >> WJETSFakes/QCD/mc");
+        $copy("Diboson     >> WJETSFakes/QCD/mc");
+        $copy("SherpaWjets >> WJETSFakes/QCD/mc");
+    }
+}
+
+### tag data folder to apply ffs
+<usemcweights=true> @ /bkg/?/?/QCDFakes/data;
+
+### qcd is re-weighted from anti-iso region
+<isAntiISO=true> @ /bkg/?/?/QCDFakes/?;
 
 ### qcd in anti-id region is re-weighted from anti-iso region
-<isAntiISO=true> @/mc16*/?/WJETSFakes/QCD/?;
+<isAntiISO=true> @ /bkg/?/?/WJETSFakes/QCD/?;
 
 ### wjets are re-weighted from anti-id region
-<isAntiID=true> @ /mc16*/?/WJETSFakes/?;
-<isAntiID=true> @ /mc16*/?/WJETSFakes/?/?;
+<isAntiID=true> @ /bkg/?/?/WJETSFakes/?;
+<isAntiID=true> @ /bkg/?/?/WJETSFakes/?/?;
+
 ### tag data folder to apply ffs
-<usemcweights=true> @/mc16*/?/WJETSFakes/?;
-<usemcweights=true> @/mc16*/?/WJETSFakes/?/?;
+<usemcweights=true> @ /bkg/?/?/WJETSFakes/?;
+<usemcweights=true> @ /bkg/?/?/WJETSFakes/?/?;
 #####################################################################
 
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/QCDFakes/mc/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/mc/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Zee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Zmumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Ztautau;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/Top;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/WJETSFakes/QCD/mc/SherpaWjets;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/?;
+
+
 ### delete SherpaWjets because we dont use it in the ID regions.
-$delete("mc16*/?/SherpaWjets!");
+$delete("/bkg/?/?/SherpaWjets!");

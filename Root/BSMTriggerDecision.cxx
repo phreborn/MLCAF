@@ -46,33 +46,33 @@ TObjArray* BSMTriggerDecision::getBranchNames() const {
   bnames->Add(new TObjString("lep_0_pt"));
   bnames->Add(new TObjString("lep_0"));
 
-  //* 2015 trigger
+  // 2015 trigger
   bnames->Add(new TObjString("HLT_e24_lhmedium_L1EM20VH"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"));
 
   bnames->Add(new TObjString("HLT_e60_lhmedium"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e60_lhmedium"));
 
-  //* 2016 trigger
+  // 2016 trigger
   bnames->Add(new TObjString("HLT_e26_lhtight_nod0_ivarloose"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose"));
 
   bnames->Add(new TObjString("HLT_e60_lhmedium_nod0"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e60_lhmedium_nod0"));
 
-  //* 2015 trigger
+  // 2015 trigger
   bnames->Add(new TObjString("HLT_e120_lhloose"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e120_lhloose"));
 
-  //* 2016 trigger
+  // 2016 trigger
   bnames->Add(new TObjString("HLT_e140_lhloose_nod0"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e140_lhloose_nod0"));
 
-  //* 2015 trigger
+  // 2015 trigger
   bnames->Add(new TObjString("HLT_mu20_iloose_L1MU15"));
   bnames->Add(new TObjString("muTrigMatch_0_HLT_mu20_iloose_L1MU15"));
 
-  //* 2016 trigger
+  // 2016 trigger
   bnames->Add(new TObjString("HLT_mu26_ivarmedium"));
   bnames->Add(new TObjString("muTrigMatch_0_HLT_mu26_ivarmedium"));
 
@@ -111,33 +111,33 @@ double BSMTriggerDecision::getValue() const {
 
   double value_of_lep_0_pt = this->lep_0_pt->EvalInstance();
 
-  //* 2015 trigger
+  // 2015 trigger
   int value_of_HLT_e24_lhmedium_L1EM              = this->HLT_e24_lhmedium_L1EM20VH                ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH = this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH ->EvalInstance();
 
   int value_of_HLT_e60_lhmedium                   = this->HLT_e60_lhmedium                                ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e60_lhmedium    = this->eleTrigMatch_0_HLT_e60_lhmedium                 ->EvalInstance();
 
-  //* 2016 trigger
+  // 2016 trigger
   int value_of_HLT_e26_lhtight_nod0_ivarloose       = this->HLT_e26_lhtight_nod0_ivarloose                ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose = this->eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose ->EvalInstance();
 
   int value_of_HLT_e60_lhmedium_nod0                = this->HLT_e60_lhmedium_nod0                          ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e60_lhmedium_nod0 = this->eleTrigMatch_0_HLT_e60_lhmedium_nod0           ->EvalInstance();
 
-  //* 2015 trigger
+  // 2015 trigger
   int value_of_HLT_e120_lhloose                   = this->HLT_e120_lhloose                                ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e120_lhloose    = this->eleTrigMatch_0_HLT_e120_lhloose                 ->EvalInstance();
 
-  //* 2016 trigger
+  // 2016 trigger
   int value_of_HLT_e140_lhloose_nod0                  = this->HLT_e140_lhloose_nod0                       ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e140_lhloose_nod0   = this->eleTrigMatch_0_HLT_e140_lhloose_nod0        ->EvalInstance();
 
-  //* 2015 trigger
+  // 2015 trigger
   int value_of_HLT_mu20_iloose_L1MU15                 = this->HLT_mu20_iloose_L1MU15               ->EvalInstance();
   int value_of_muTrigMatch_0_HLT_mu20_iloose_L1MU15   = this->muTrigMatch_0_HLT_mu20_iloose_L1MU15 ->EvalInstance();
 
-  //* 2016 trigger
+  // 2016 trigger
   int value_of_HLT_mu26_ivarmedium                 = this->HLT_mu26_ivarmedium               ->EvalInstance();
   int value_of_muTrigMatch_0_HLT_mu26_ivarmedium   = this->muTrigMatch_0_HLT_mu26_ivarmedium ->EvalInstance();
 
@@ -153,13 +153,13 @@ double BSMTriggerDecision::getValue() const {
 
   if(value_of_lep_0==2) {
     if(!Is2016) {
-      //*2015
+      //2015
       passEleTrigLow    = value_of_HLT_e24_lhmedium_L1EM==1 && value_of_eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH==1;
       passEleTrigHigher = value_of_HLT_e120_lhloose==1 && value_of_eleTrigMatch_0_HLT_e120_lhloose==1;
       passEleTrigHigh  = value_of_HLT_e60_lhmedium==1 && value_of_eleTrigMatch_0_HLT_e60_lhmedium==1;
     }
     else{
-      //*2016
+      //2016
       passEleTrigLow    = value_of_HLT_e26_lhtight_nod0_ivarloose==1 && value_of_eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose==1;
       passEleTrigHigher = value_of_HLT_e140_lhloose_nod0==1 && value_of_eleTrigMatch_0_HLT_e140_lhloose_nod0==1;
       passEleTrigHigh   = value_of_HLT_e60_lhmedium_nod0==1 && value_of_eleTrigMatch_0_HLT_e60_lhmedium_nod0==1;
@@ -179,11 +179,11 @@ double BSMTriggerDecision::getValue() const {
     }
     else {
       if(!Is2016) {
-        //*2015
+        //2015
         passMuTrig = value_of_HLT_mu20_iloose_L1MU15==1 && value_of_muTrigMatch_0_HLT_mu20_iloose_L1MU15==1;
       }
       else{
-        //*2016
+        //2016
         passMuTrig = value_of_HLT_mu26_ivarmedium==1 && value_of_muTrigMatch_0_HLT_mu26_ivarmedium==1;
       }
     }

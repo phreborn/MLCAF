@@ -59,6 +59,8 @@ protected:
   TTreeFormula* HLT_mu50               = NULL;
   TTreeFormula* muTrigMatch_0_HLT_mu50 = NULL;
 
+  //* 2017 and 2018 triggers should be the same as 2016
+
 public:
   virtual bool hasExpression() const override;
   virtual const TString& getExpression() const override;

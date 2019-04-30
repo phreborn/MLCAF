@@ -1,47 +1,22 @@
 #!/bin/bash
 
 ### WCR
-visualize.py configSignalControlRegion/htautau_lephad_wcr_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_wcr_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_wcr_wjets_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_wcr_wjets_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_wcr_qcd_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_wcr_qcd_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_wcr_wjetsqcd_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_wcr_wjetsqcd_mc16c.cfg
-
+visualize.py configSignalControlRegion/htautau_lephad_wcr.cfg
+visualize.py configSignalControlRegion/htautau_lephad_wcr_wjets.cfg
+visualize.py configSignalControlRegion/htautau_lephad_wcr_qcd.cfg
+visualize.py configSignalControlRegion/htautau_lephad_wcr_wjetsqcd.cfg
 
 ### TCR
-visualize.py configSignalControlRegion/htautau_lephad_tcr_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_tcr_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_tcr_wjets_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_tcr_wjets_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_tcr_qcd_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_tcr_qcd_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_tcr_wjetsqcd_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_tcr_wjetsqcd_mc16c.cfg
-
+visualize.py configSignalControlRegion/htautau_lephad_tcr.cfg
+visualize.py configSignalControlRegion/htautau_lephad_tcr_wjets.cfg
+visualize.py configSignalControlRegion/htautau_lephad_tcr_qcd.cfg
+visualize.py configSignalControlRegion/htautau_lephad_tcr_wjetsqcd.cfg
 
 ### VR
-visualize.py configSignalControlRegion/htautau_lephad_vr_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_vr_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_vr_wjets_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_vr_wjets_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_vr_qcd_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_vr_qcd_mc16c.cfg
-
-visualize.py configSignalControlRegion/htautau_lephad_vr_wjetsqcd_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_vr_wjetsqcd_mc16c.cfg
-
+visualize.py configSignalControlRegion/htautau_lephad_vr.cfg
+visualize.py configSignalControlRegion/htautau_lephad_vr_wjets.cfg
+visualize.py configSignalControlRegion/htautau_lephad_vr_qcd.cfg
+visualize.py configSignalControlRegion/htautau_lephad_vr_wjetsqcd.cfg
 
 ### SR
-visualize.py configSignalControlRegion/htautau_lephad_sr_mc16a.cfg
-visualize.py configSignalControlRegion/htautau_lephad_sr_mc16c.cfg
+visualize.py configSignalControlRegion/htautau_lephad_sr.cfg

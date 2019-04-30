@@ -9,7 +9,7 @@ parser.add_argument('inputfilepath', metavar='FILEPATH', type=str,
           default="output/htautau_lephad_sr_2D/FakeFactor_LepElBtag_1down.root",
           help='sample file to be used')
 parser.add_argument('datasets', metavar='DATASETS', type=str,
-          default="mc16a",
+          default="c16a",
           help='datasets to be used')
 parser.add_argument('channel', metavar='CHANNEL', type=str,
           default="ehad",
@@ -41,37 +41,37 @@ if datasets == "mc16e":
 channel = args.channel
 basepath = "." #basepath in sample folder to get list of histograms from
 sflist = [
-          "{:s}/{:s}/bbH1000/".format(datasets_sig,channel),
-          "{:s}/{:s}/ggH1000/".format(datasets_sig,channel),
-          "data/{:s}/{:s}/".format(channel,datasets_data),
-          "{:s}/{:s}/Top/".format(datasets,channel),
-          "{:s}/{:s}/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/Zmumu/".format(datasets,channel),
-          "{:s}/{:s}/[Zee+Zmumu]/".format(datasets,channel),
-          "{:s}/{:s}/Ztautau/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/data/{:s}/".format(datasets,channel,datasets_data),
-#          "{:s}/{:s}/QCDFakes/mc/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Top/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Zmumu/".format(datasets,channel),
-#          "{:s}/{:s}/QCDFakes/mc/Ztautau/".format(datasets,channel),
-          "{:s}/{:s}/QCDFakes/data/{:s}/-/{:s}/{:s}/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]".format(datasets,channel,datasets_data,datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/data/{:s}/".format(datasets,channel,datasets_data),
-#          "{:s}/{:s}/WJETSFakes/mc/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Top/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Zmumu/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/mc/Ztautau/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/data/?/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Diboson/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Top/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(datasets,channel),
-#          "{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(datasets,channel),
-          "{:s}/{:s}/WJETSFakes/data/{:s}/-/{:s}/{:s}/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]-/{:s}/{:s}/WJETSFakes/QCD/data/{:s}".format(datasets,channel,datasets_data,datasets,channel,datasets,channel,datasets_data)
+          "sig/{:s}/{:s}/bbH1000/".format(channel,datasets),
+          "sig/{:s}/{:s}/ggH1000/".format(channel,datasets),
+          "data/{:s}/{:s}/".format(channel,datasets),
+          "bkg/{:s}/{:s}/Top/".format(channel,datasets),
+          "bkg/{:s}/{:s}/Diboson/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/Zee/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/Zmumu/".format(channel,datasets),
+          "bkg/{:s}/{:s}/[Zee+Zmumu]/".format(channel,datasets),
+          "bkg/{:s}/{:s}/Ztautau/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/QCDFakes/data/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/QCDFakes/mc/Diboson/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/QCDFakes/mc/Top/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/QCDFakes/mc/Zee/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/QCDFakes/mc/Zmumu/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/QCDFakes/mc/Ztautau/".format(channel,datasets),
+          "bkg/{:s}/{:s}/QCDFakes/[data-mc/[Top+Ztautau+Diboson+Zee+Zmumu]]".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/data/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/mc/Diboson/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/mc/Top/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/mc/Zee/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/mc/Zmumu/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/mc/Ztautau/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/QCD/data/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Diboson/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Top/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(channel,datasets),
+#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(channel,datasets),
+          "bkg/{:s}/{:s}/WJETSFakes/[data-mc/[Top+Ztautau+Diboson+Zee+Zmumu]-QCD/data]".format(channel,datasets)
 ]
-#sflist = ["{:s}/{:s}/?/".format(datasets,channel)]
+#sflist = ["bkg/{:s}/{:s}/?/".format(channel,datasets)]
 
 #some definitions for what to do:
 
@@ -125,7 +125,7 @@ def setHistName(path, orgHistName,inputfile):
   distname = namelist.pop()
   print distname
   print inputfile
-  if inputfile != "nominal":
+  if inputfile != "NOMINAL":
     inputfilenamelist=inputfile.split("_")
     inputfilenamevar=inputfilenamelist[-1]
     inputfilename=inputfile.replace("_"+inputfilenamevar, "")
@@ -138,23 +138,25 @@ def setHistName(path, orgHistName,inputfile):
   
   histOutName=""
   histOutName0=""
-  if ( pathlist[0] == "{:s}".format(datasets) or pathlist[0] == "{:s}".format(datasets_sig)) and pathlist[0] != "data":
+  histOutName0=datasets+"_"
+  histOutName0+=pathlist[0]+"_"
+  if ( pathlist[0] == "bkg" or pathlist[0] == "sig" ) and pathlist[0] != "data":
 #    if pathlist[0] == "{:s}".format(datasets_sig):
 #        histOutName0+="{:s}_".format(datasets)
 #    else:
 #        histOutName0+=pathlist[0]+"_"
 #  if  pathlist[0] == "{:s}".format(datasets) and pathlist[0] != "data":
-    histOutName0+=pathlist[0]+"_"
+#    histOutName0+=pathlist[0]+"_"
 #    if pathlist[2] != "QCDFakes" and pathlist[2] != "WJETSFakes": 
-    if pathlist[2] == "[Zee+Zmumu]":
+    if pathlist[3] == "[Zee+Zmumu]":
         histOutName+="DYZ"
         #histOutName+="Zll"
-    elif pathlist[2] == "Ztautau":
+    elif pathlist[3] == "Ztautau":
         histOutName+="ZplusJets"
-    elif "bbH" in pathlist[2] or "ggH" in pathlist[2]:
-        histOutName+=pathlist[2].replace("H", "Hlh")
+    elif "bbH" in pathlist[3] or "ggH" in pathlist[3]:
+        histOutName+=pathlist[3].replace("H", "Hlh")
     else:
-        histOutName+=pathlist[2]
+        histOutName+=pathlist[3]
 #    elif pathlist[2] == "QCDFakes" and pathlist[3] == "data":
 #       histOutName+=pathlist[2]+"_"+pathlist[3]
 #    elif pathlist[2] == "QCDFakes" and pathlist[3] == "mc":
@@ -169,7 +171,7 @@ def setHistName(path, orgHistName,inputfile):
 #       elif pathlist[4] == "mc": 
 #          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]+"_"+pathlist[5] 
   else:
-    histOutName0+=datasets_name+"_"
+#    histOutName0+=pathlist[0]+"_"
     histOutName+="data"
 
   if pathlist[1] == "ehad":
@@ -196,7 +198,7 @@ def setHistName(path, orgHistName,inputfile):
   histOutFileName+=varDict[distname]
 
   histOutName=histOutName+"_"+Tags+"_0ptv_"+Channel+"_"+varDict[distname]
-  if inputfile != "nominal":
+  if inputfile != "NOMINAL":
     histOutName+="_ATLAS_"+inputfilename+"__"+inputfilenamevar
 
   return [histOutName, histOutFileName]
@@ -264,7 +266,7 @@ def main(args):
       pathlist = path.split("/")
       print(pathlist)
 
-      if pathlist[0] == "data" and inputfile != "nominal":
+      if pathlist[0] == "data" and inputfile != "NOMINAL":
           print("no systematics for data")
           continue
     
@@ -302,11 +304,11 @@ def main(args):
       outfile = TFile.Open( "dumpHist/{:s}/{:s}/{:s}/".format(inputfile,datasets,channel)+ouptfilename,"RECREATE")
       #outfile = TFile.Open(outfilepath.Data(),"RECREATE")
  
-      if inputfile != "nominal" :
+      if inputfile != "NOMINAL" :
         dir_sys = outfile.mkdir( OutputSystFolderName, OutputSystFolderName )
 
       outfile.cd()
-      if inputfile != "nominal" :
+      if inputfile != "NOMINAL" :
         dir_sys.cd()
       hist.Write()
       del hist

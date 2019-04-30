@@ -6,12 +6,12 @@ JOBS="$3"
 IDENT="$4"
 
 SUBMIT=""
-if [ "$USER" == "zorbas" ]; then
-   SUBMIT="--submit condor"
+if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
+  SUBMIT="--submit condor"
 fi
 
 submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges ${SUBMIT}
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with
-echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-${CONFIG}-nominal.root -t analyze batchOutput/unmerged_${IDENT}/*.root"
+echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-${CONFIG}.root -t analyze batchOutput/unmerged_${IDENT}/*.root"
