@@ -1,0 +1,15 @@
+.name=CutBase
+
+#FLCR
+.name=CutAll
+.name=CutSingleLepton
+.name=CutBvetoSLPassISO
+.name=CutBtagSLPassISO
+
+.name=CutBDT
+.name=CutBvetoBDTPassISO
+.name=CutBtagBDTPassISO
+
+.name=CutBDTSL
+.name=CutBvetoBDTSLPassISO
+.name=CutBtagBDTSLPassISO

@@ -1,0 +1,8 @@
+prepare.py configFailIDSignalControlRegion/htautau_lephad_sr_failID_mc16a.cfg
+prepare.py configFailIDSignalControlRegion/htautau_lephad_sr_failID_mc16c.cfg
+
+initialize.py configFailIDSignalControlRegion/htautau_lephad_sr_failID_mc16a.cfg
+initialize.py configFailIDSignalControlRegion/htautau_lephad_sr_failID_mc16c.cfg
+
+tqmerge -o sampleFolders/initialized/samples-initialized-htautau_lephad_sr_failID.root -t initialize sampleFolders/initialized/samples-initialized-htautau_lephad_sr_failID_mc16*.root
+

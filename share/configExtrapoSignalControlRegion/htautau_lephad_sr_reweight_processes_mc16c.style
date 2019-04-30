@@ -1,0 +1,20 @@
+######################################################
+###
+###      Use this for Signal Region
+###
+########################################################
+# BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND
+#.name="Data",                   .path="/data/$(channel)/[data17*]",            .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+# BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND
+# inclusive bkgs
+.name="Top",                    .path="/mc16c/$(channel)/[Top]",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false, .includeSysError = syst
+.name="Z\rightarrow \tau\tau",  .path="/mc16c/$(channel)/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false, .includeSysError = syst
+.name="DiBoson",                .path="/mc16c/$(channel)/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false, .includeSysError = syst
+.name="Z\rightarrow ll",        .path="/mc16c/$(channel)/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false, .includeSysError = syst
+# fakes
+.name="QCDFake",               .path="/mc16c/$(channel)/QCDFakes/data/[data17*]",                  .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+.name="WjetsFake",                 .path="/mc16c/$(channel)/WJETSFakes/data/[data17*]-/mc16c/$(channel)/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]-/mc16c/$(channel)/WJETSFakes/QCD/data/[data17*] ",       .isBackground=true,     histFillColor = kGray,  histFillStyle=1001,     title = "WjetsFake", .includeSysError = syst
+# signal
+.name="ggH1000",       .path="/sigc/$(channel)/ggH1000",   .isSignal=true, title = "ggH 1000GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kMagenta-9, .showRaw = false
+.name="bbH1000",       .path="/sigc/$(channel)/bbH1000",   .isSignal=true, title = "bbH 1000GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kGreen-7, .showRaw = false
+

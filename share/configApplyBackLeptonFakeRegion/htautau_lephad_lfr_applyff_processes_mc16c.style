@@ -1,0 +1,17 @@
+### Data ###
+.path="||"
+.name="Data", .title="Data", .path="/data/$(channel)/[data17*]", .isData=true, .isHistogram=false, histLineColor=1, histMarkerStyle=8, histMarkerSize=0.6
+
+### Fakes ###
+.path="|"
+.name="QCDFake", .title="QCDFake", .path="/mc16c/$(channel)/Fake/[data/[data17*]+mc]", .isBackground=true, histFillColor=kGray+1, histFillStyle=1001
+
+######################################
+##      Use this for inclusive      ##
+######################################
+.path="|"
+.name="Wjets",   .title="W+jets",                          .path="/mc16c/$(channel)/SherpaWjets", .isBackground=true, histFillColor=kYellow-8, histFillStyle=1001
+.name="Ztautau", .title="Z/\gamma^{*}\rightarrow\tau\tau", .path="/mc16c/$(channel)/Ztautau",     .isBackground=true, histFillColor=kGreen+1,  histFillStyle=1001
+.name="Zll",     .title="Z/\gamma^{*}\rightarrow\ell\ell", .path="/mc16c/$(channel)/[Zee+Zmumu]", .isBackground=true, histFillColor=kRed-6,    histFillStyle=1001
+.name="Top",     .title="Top",                             .path="/mc16c/$(channel)/Top",         .isBackground=true, histFillColor=kBlue,     histFillStyle=1001
+.name="Diboson", .title="Diboson",                         .path="/mc16c/$(channel)/Diboson",     .isBackground=true, histFillColor=kOrange-3, histFillStyle=1001
