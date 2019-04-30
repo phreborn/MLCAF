@@ -1,0 +1,47 @@
+#!/bin/bash
+
+### WCR
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_wjets_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_wjets_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_qcd_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_qcd_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_wjetsqcd_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_wcr_wjetsqcd_mc16c.cfg
+
+
+### TCR
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_wjets_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_wjets_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_qcd_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_qcd_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_wjetsqcd_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_tcr_wjetsqcd_mc16c.cfg
+
+
+### VR
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_wjets_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_wjets_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_qcd_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_qcd_mc16c.cfg
+
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_wjetsqcd_mc16a.cfg
+#visualize.py configFailIDSignalControlRegion/htautau_lephad_vr_wjetsqcd_mc16c.cfg
+
+
+### SR
+visualize.py configFailIDSignalControlRegion/htautau_lephad_sr_failID_mc16a.cfg
+visualize.py configFailIDSignalControlRegion/htautau_lephad_sr_failID_mc16c.cfg

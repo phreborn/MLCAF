@@ -95,6 +95,8 @@ def main(config):
     samples.setTagString("myLeptonFF", myLeptonFF)
     myWjetsFF = config.getTagStringDefault("myWjetsFF","mc")
     samples.setTagString("myWjetsFF", myWjetsFF)
+    myExtrapoSF = config.getTagStringDefault("myExtrapoSF","mc")
+    samples.setTagString("myExtrapoSF", myExtrapoSF)
 
     # TODO: do we still want this option?
     # if requested, we initialize the samples from the input lists

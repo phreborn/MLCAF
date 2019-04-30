@@ -1,0 +1,41 @@
+# -*- mode: tqfolder -*-
+<usemcweights=false> @/.;
+<isData=false> @/.;
+<isFailData=false> @/.;
+<isFailISO=false> @/.;
+
+<weightvariation="nominal"> @ /bkg,/sig;
+<channel="muhad"> @ ?/muhad;
+<channel="ehad"> @ ?/ehad;
+
+
+
+$create(path="bkg/?/Fake/data",type="sf");
+$create(path="bkg/?/Fake/mc",type="sf");
+
+$copy("data/muhad/? >> bkg/muhad/Fake/data");
+$copy("bkg/muhad/Ztautau >> bkg/muhad/Fake/mc");
+$copy("bkg/muhad/Zee >> bkg/muhad/Fake/mc");
+$copy("bkg/muhad/Zmumu >> bkg/muhad/Fake/mc");
+$copy("bkg/muhad/Top >> bkg/muhad/Fake/mc");
+$copy("bkg/muhad/Diboson >> bkg/muhad/Fake/mc");
+$copy("bkg/muhad/SherpaWjets >> bkg/muhad/Fake/mc");
+
+$copy("data/ehad/? >> bkg/ehad/Fake/data");
+$copy("bkg/ehad/Ztautau >> bkg/ehad/Fake/mc");
+$copy("bkg/ehad/Zee >> bkg/ehad/Fake/mc");
+$copy("bkg/ehad/Zmumu >> bkg/ehad/Fake/mc");
+$copy("bkg/ehad/Top >> bkg/ehad/Fake/mc");
+$copy("bkg/ehad/Diboson >> bkg/ehad/Fake/mc");
+$copy("bkg/ehad/SherpaWjets >> bkg/ehad/Fake/mc");
+
+$modify(tag='.xsp.xSecScale', operator='=',value=1.,path='bkg/?/Fake/mc/?',filter='sf',create=true,override=false);
+$modify(tag='.xsp.xSecScale', operator='*',value=-1.,path='bkg/?/Fake/mc/?',filter='sf',create=true);
+
+
+<isFailISO=true> @/bkg/?/Fake;
+<isData=true> @/data;
+<isData=true> @/bkg/?/Fake/data;
+<isFailData=true> @/bkg/?/Fake/data;
+<usemcweights=true> @/bkg;
+

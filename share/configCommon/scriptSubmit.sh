@@ -8,6 +8,8 @@ IDENT="$4"
 SUBMIT=""
 if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
   SUBMIT="--submit condor"
+elif [ "$USER" == "yehf" ]; then
+  SUBMIT="--submit hep_sub --account atlas"
 fi
 
 submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges ${SUBMIT}

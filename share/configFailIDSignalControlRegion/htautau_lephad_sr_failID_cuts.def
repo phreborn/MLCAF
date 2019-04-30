@@ -1,0 +1,59 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+##
+##  Full MC and data-driven Fakes cuts in Signal Region.
+##  CutTruth requires that sample folders would be tagged according
+##      to truth labels.
+##  The first cut CutChannel selects channel based on what is
+##      requested in config file.
+##
+#################################################################
+
+$include("configCommon/htautau_lephad_common_cuts.def");
+
+# common cuts for (SR, VR, TCR, WCR) X (ID, Anti-ID, Anti-Iso) regions:
+@*/CutBase{
+    +CutTruth{
+        <.cutExpression = "{ ($(isData)||$(isSig)||$(isAntiISO)||($(isAntiID)&&$(isWjets))) ? 1 :
+                            ( ($(isInc)&&([TruthSelector]==30 || [TruthSelector]==20 || [TruthSelector]==5)) ) }",
+         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvariation)] }", .title="Truth">
+        # || ($(isTT)&&([TruthSelector]==30)) || ($(isTMu)&&([TruthSelector]==20)) || ($(isTEl)&&([TruthSelector]==5))
+        +CutAll{
+            <.cutExpression = " [lep_0_id_medium==1 && lep_0_p4.Pt()>30 && tau_0_p4.Pt()>25 && fabs(tau_0_p4.Eta())<2.3 && lephad_dphi>2.4]",
+             .weightExpression = "$(isTop)? [bsmlephad_topsys_$(ttbarweight)]:1.", .title="All">
+            +CutISO{
+                <.cutExpression = " $(isAntiISO) ? lep_0_iso_Gradient==0 : lep_0_iso_Gradient==1",
+                 .weightExpression = "$(isAntiISO) ? [isoreweight_$(isovar)] : 1", .title="ISO">
+                +CutID{
+                    <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>0.01 && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",
+                    .weightExpression = "$(isAntiID) ? [ptreweight_$(fakevar)] : 1", .title="ID">
+                    +CutOS{
+                        <.cutExpression = "lephad_qxq==-1", .title="OS">
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+# Signal Region
+@*/CutOS{
+    +CutVisMassVeto{
+        <.cutExpression=" lep_0==1? 1 : ( (lephad_p4.M() > 110 || lephad_p4.M() < 80)? 1 : 0 ) ", .title="Vis mass veto">
+        +CutMT{
+            <.cutExpression = "lephad_mt_lep0_met<40.", .title="MT">
+            +CutBveto1p{
+                <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1", .title="Bveto1p">
+                }
+            +CutBtag1p{
+                < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1", .title="Btag1p",>
+                }
+            +CutBveto3p{
+                <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==3", .title="Bveto3p">
+                }
+            +CutBtag3p{
+                < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3", .title="Btag3p",>
+                }
+            }
+        }

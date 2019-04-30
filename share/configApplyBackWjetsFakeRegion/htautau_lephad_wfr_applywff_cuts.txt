@@ -1,0 +1,14 @@
+.name=CutBase
+.name=CutTruth
+.name=CutAll
+.name=CutTop
+.name=CutID
+.name=CutWCRVisMassVeto
+## WCR
+.name=CutWCRMTOS
+.name=CutWCRBveto1pOSPassID
+.name=CutWCRBveto3pOSPassID
+
+.name=CutWCRMTSS
+.name=CutWCRBtag1pSSPassID
+.name=CutWCRBtag3pSSPassID

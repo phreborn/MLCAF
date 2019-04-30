@@ -1,0 +1,14 @@
+# -*- mode:tqfolder -*-
+
+######################################################
+###
+###      Use this for AC Signal Samples
+###
+########################################################
+
+.name="ggH300",			.path="/sig/$(channel)/ggH300",		.isSignal=true,	title = "ggH 300GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kAzure+7, .showRaw = false
+.name="bbH300",			.path="/sig/$(channel)/bbH300",		.isSignal=true,	title = "bbH 300GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kYellow-4, .showRaw = false
+
+.name="ggH1500",		.path="/sig/$(channel)/ggH1500",	.isSignal=true,	title = "ggH 1500GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kMagenta-4, .showRaw = false
+.name="bbH1500",		.path="/sig/$(channel)/bbH1500",	.isSignal=true,	title = "bbH 1500GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kGreen-7, .showRaw = false
+
