@@ -16,7 +16,7 @@
 # systematic weight variation
 <weightvariation="nominal"> @ /.;
 
-# include and categorise each real MC process
+# categorise each inclusive MC process
 <isInc=false> @ /.;
 
 <isZtt=false> @ /.;

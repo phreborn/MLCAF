@@ -1,177 +1,52 @@
 # -*- mode: tqfolder -*-
 
-### In WFR we want to see separate contributions from fake and true tau,
-### need to build folders for each truth label.
-### Also need QCD folder
+# include common post-initialize tags
+$include("configCommon/htautau_lephad_common_postinit.tags");
 
-# BASIC TAGS:
-# mc weights
-<usemcweights=false> @ /?/?/?/?;
-<usemcweights=true> @ /bkg/?/?/?;
+# include ISO fakes tags
+$include("configCommon/htautau_lephad_common_postinit_fakes_iso.tags");
 
-# is data
-<isData=false> @ /bkg/?/?/?;
-<isData=true> @ /data/?/?/?;
+# create /bkg subfolders for MC-driven ID fakes
+$create(path="/bkg/?/?/Fakes/TruthTau", type="sf");
+$create(path="/bkg/?/?/Fakes/LepFake", type="sf");
+$create(path="/bkg/?/?/Fakes/JetFake", type="sf");
 
-# tags to identify which cuts and ffs to apply
-<isAntiISO=false> @ /.;
-
-# at the moment this is just a place holder,
-# later to be used to run syst or maybe removed completely
-<weightvariation="nominal"> @ /bkg/?/?/?, /sig/?/?/?;
-
-# channel
-# use separate channels for study.
-# use inclusive in the end, because should be no difference between ehad and muhad.
-<channel="lephad"> @ ?/lephad/?/?;
-<channel="muhad"> @ ?/muhad/?/?;
-<channel="ehad"> @ ?/ehad/?/?;
-
-# not sure how usefull it is
-<wildcarded = true> @ /?/?/?;
-
-# tag different processes
-<isInc=false> @ /bkg;
-
-# Wjets mc is not used anywhere
-# maybe only in qcd folders
-#$delete("bkg/?/?/SherpaWjets!");
-<isWjets=false> @ /.;
-<isWjets=true, isInc=true> @ /bkg/?/?/SherpaWjets;
-
-<isDib=false> @ /.;
-<isDib=true, isInc=true> @ /bkg/?/?/Diboson;
-
-<isTop=false> @ /.;
-<isTop=true, isInc=true> @ /bkg/?/?/Top;
-
-<isZtt=false> @ /.;
-<isZtt=true, isInc=true> @ /bkg/?/?/Ztautau;
-
-<isZll=false> @ /.;
-<isZll=true, isInc=true> @ /bkg/?/?/Zee;
-<isZll=true, isInc=true> @ /bkg/?/?/Zmumu;
-
+# copy ID fakes from MC, including Wjets
 @ /bkg/? {
     @ ? {
-        $copy("SherpaWjets >> ::SherpaWjetsTruthTau");
-        $copy("SherpaWjets >> ::SherpaWjetsLepFake");
-        $copy("SherpaWjets >> ::SherpaWjetsJetFake");
-        $copy("Diboson     >> ::DibosonTruthTau");
-        $copy("Diboson     >> ::DibosonLepFake");
-        $copy("Diboson     >> ::DibosonJetFake");
-        $copy("Top         >> ::TopTruthTau");
-        $copy("Top         >> ::TopLepFake");
-        $copy("Top         >> ::TopJetFake");
-        $copy("Ztautau     >> ::ZtautauTruthTau");
-        $copy("Ztautau     >> ::ZtautauLepFake");
-        $copy("Ztautau     >> ::ZtautauJetFake");
-        $copy("Zee         >> ::ZeeLepFake");
-        $copy("Zee         >> ::ZeeJetFake");
-        $copy("Zmumu       >> ::ZmumuLepFake");
-        $copy("Zmumu       >> ::ZmumuJetFake");
+        $copy("Ztautau >> Fakes/TruthTau");
+        $copy("Ztautau >> Fakes/LepFake");
+        $copy("Ztautau >> Fakes/JetFake");
+
+        $copy("Zll     >> Fakes/TruthTau");
+        $copy("Zll     >> Fakes/LepFake");
+        $copy("Zll     >> Fakes/JetFake");
+
+        $copy("Top     >> Fakes/TruthTau");
+        $copy("Top     >> Fakes/LepFake");
+        $copy("Top     >> Fakes/JetFake");
+
+        $copy("Diboson >> Fakes/TruthTau");
+        $copy("Diboson >> Fakes/LepFake");
+        $copy("Diboson >> Fakes/JetFake");
+
+        $copy("Wjets   >> Fakes/TruthTau");
+        $copy("Wjets   >> Fakes/LepFake");
+        $copy("Wjets   >> Fakes/JetFake");
     }
 }
 
-<isTT=false> @/.;
-<isTT=true, isInc=false> @ /bkg/?/?/SherpaWjetsTruthTau;
-<isTT=true, isInc=false> @ /bkg/?/?/DibosonTruthTau;
-<isTT=true, isInc=false> @ /bkg/?/?/TopTruthTau;
-<isTT=true, isInc=false> @ /bkg/?/?/ZtautauTruthTau;
+# unmark MC as inclusive
+<isInc=false> @ /bkg/?/?/Fakes/TruthTau/?, /bkg/?/?/Fakes/LepFake/?, /bkg/?/?/Fakes/JetFake/?;
 
-<isTL=false> @/.;
-<isTL=true, isInc=false> @ /bkg/?/?/SherpaWjetsLepFake;
-<isTL=true, isInc=false> @ /bkg/?/?/DibosonLepFake;
-<isTL=true, isInc=false> @ /bkg/?/?/TopLepFake;
-<isTL=true, isInc=false> @ /bkg/?/?/ZtautauLepFake;
-<isTL=true, isInc=false> @ /bkg/?/?/ZeeLepFake;
-<isTL=true, isInc=false> @ /bkg/?/?/ZmumuLepFake;
+# tag truth taus
+<isTT=false> @ /.;
+<isTT=true> @ /bkg/?/?/Fakes/TruthTau;
 
-<isJET=false> @/.;
-<isJET=true, isInc=false> @ /bkg/?/?/SherpaWjetsJetFake;
-<isJET=true, isInc=false> @ /bkg/?/?/DibosonJetFake;
-<isJET=true, isInc=false> @ /bkg/?/?/TopJetFake;
-<isJET=true, isInc=false> @ /bkg/?/?/ZtautauJetFake;
-<isJET=true, isInc=false> @ /bkg/?/?/ZeeJetFake;
-<isJET=true, isInc=false> @ /bkg/?/?/ZmumuJetFake;
+# tag lepton fakes
+<isTL=false> @ /.;
+<isTL=true> @ /bkg/?/?/Fakes/LepFake;
 
-##
-## do this if you want to include qcd Fakes in WFR.
-## Otherwise uncomment:
-#$escape();
-
-
-$create(path="bkg/?/?/Fake/data",type="sf");
-$create(path="bkg/?/?/Fake/mc",type="sf");
-
-<isFailData=false> @ /.;
-<isFailISO=false> @ /.;
-
-## All MC samples here should be tagged above: isInc=true
-@ /data/lephad {
-    @ ? {
-        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/Fake/data");
-    }
-}
-@ /data/muhad {
-    @ ? {
-        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/Fake/data");
-    }
-}
-@ /data/ehad {
-    @ ? {
-        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/Fake/data");
-    }
-}
-@ /bkg/? {
-    @ ? {
-        $copy("Ztautau     >> Fake/mc");
-        $copy("Zee         >> Fake/mc");
-        $copy("Zmumu       >> Fake/mc");
-        $copy("Top         >> Fake/mc");
-        $copy("Diboson     >> Fake/mc");
-        $copy("SherpaWjets >> Fake/mc");
-    }
-}
-
-
-$modify(tag='.xsp.xSecScale', operator='=',value=1.,path='bkg/?/?/Fake/mc/?',filter='sf',create=true,override=false);
-$modify(tag='.xsp.xSecScale', operator='*',value=-1.,path='bkg/?/?/Fake/mc/?',filter='sf',create=true);
-
-
-<isFailISO=true> @ /bkg/?/?/Fake;
-<isData=true> @ /bkg/?/?/Fake/data;
-<isFailData=true> @ /bkg/?/?/Fake/data;
-<usemcweights=true> @ /bkg/?/?/Fake/data/?;
-
-
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Diboson;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zee;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zmumu;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjets;
-
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/DibosonTruthTau;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/DibosonLepFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/DibosonJetFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZeeLepFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZeeJetFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZmumuLepFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZmumuJetFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZtautauTruthTau;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZtautauLepFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/ZtautauJetFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/TopTruthTau;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/TopLepFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/TopJetFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjetsTruthTau;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjetsLepFake;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/SherpaWjetsJetFake;
-
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Diboson;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Zee;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Zmumu;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Ztautau;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/Top;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fake/mc/SherpaWjets;
+# tag jet fakes
+<isJET=false> @ /.;
+<isJET=true> @ /bkg/?/?/Fakes/JetFake;

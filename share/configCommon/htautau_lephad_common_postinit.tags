@@ -20,10 +20,10 @@
 
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau/Z;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau/DY;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/Z/ee;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/Z/mumu;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/DY/ee;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/DY/mumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/ee/Z;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/mumu/Z;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/ee/DY;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/mumu/DY;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Diboson;

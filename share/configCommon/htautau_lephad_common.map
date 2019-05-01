@@ -12,51 +12,51 @@
 364255 /bkg/$(channel)/$(campaign)/Diboson
 
 # Z+jets (PowhegPythia)
-361106 /bkg/$(channel)/$(campaign)/Zll/Z/ee
-361107 /bkg/$(channel)/$(campaign)/Zll/Z/mumu
+361106 /bkg/$(channel)/$(campaign)/Zll/ee/Z
+361107 /bkg/$(channel)/$(campaign)/Zll/mumu/Z
 361108 /bkg/$(channel)/$(campaign)/Ztautau/Z
 
 # DYee (PowhegPythia)
-301000 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301001 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301002 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301003 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301004 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301005 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301006 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301007 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301008 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301009 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301010 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301011 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301012 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301013 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301014 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301015 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301016 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301017 /bkg/$(channel)/$(campaign)/Zll/DY/ee
-301018 /bkg/$(channel)/$(campaign)/Zll/DY/ee
+301000 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301001 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301002 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301003 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301004 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301005 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301006 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301007 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301008 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301009 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301010 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301011 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301012 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301013 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301014 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301015 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301016 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301017 /bkg/$(channel)/$(campaign)/Zll/ee/DY
+301018 /bkg/$(channel)/$(campaign)/Zll/ee/DY
 
 # DYmumu (PowhegPythia)
-301020 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301021 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301022 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301023 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301024 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301025 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301026 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301027 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301028 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301029 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301030 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301031 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301032 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301033 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301034 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301035 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301036 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301037 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
-301038 /bkg/$(channel)/$(campaign)/Zll/DY/mumu
+301020 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301021 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301022 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301023 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301024 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301025 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301026 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301027 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301028 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301029 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301030 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301031 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301032 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301033 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301034 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301035 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301036 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301037 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
+301038 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
 
 # DYtautau (PowhegPythia)
 301040 /bkg/$(channel)/$(campaign)/Ztautau/DY
