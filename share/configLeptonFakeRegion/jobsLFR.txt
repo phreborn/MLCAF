@@ -1,10 +1,10 @@
-# ------------------------------ options ------------------------------
+# ------------------------------ options ------------------------------ #
 !memory=1024
 
 
-# ------------------------------ samples ------------------------------
+# ------------------------------ samples ------------------------------ #
+# ----------- c16a ----------- #
 ##### data #####
-### c16a ###
 /data/?/c16a/data15_D
 /data/?/c16a/data15_E
 /data/?/c16a/data15_F
@@ -23,7 +23,17 @@
 /data/?/c16a/data16_K
 /data/?/c16a/data16_L
 
-### c16d ###
+
+##### bkg #####
+/bkg/?/c16a/Ztautau
+/bkg/?/c16a/Zll
+/bkg/?/c16a/Top
+/bkg/?/c16a/Diboson
+/bkg/?/c16a/Wjets
+
+
+# ----------- c16d ----------- #
+##### data #####
 /data/?/c16d/data17_B
 /data/?/c16d/data17_C
 /data/?/c16d/data17_D
@@ -33,7 +43,17 @@
 /data/?/c16d/data17_I
 /data/?/c16d/data17_K
 
-### c16e ###
+
+##### bkg #####
+/bkg/?/c16d/Ztautau
+/bkg/?/c16d/Zll
+/bkg/?/c16d/Top
+/bkg/?/c16d/Diboson
+/bkg/?/c16d/Wjets
+
+
+# ----------- c16e ----------- #
+##### data #####
 /data/?/c16e/data18_B
 /data/?/c16e/data18_C
 /data/?/c16e/data18_D
@@ -47,90 +67,8 @@
 
 
 ##### bkg #####
-### c16a ###
-/bkg/?/c16a/Diboson
-/bkg/?/c16a/Zee
-/bkg/?/c16a/Zmumu
-/bkg/?/c16a/Ztautau
-/bkg/?/c16a/Top
-/bkg/?/c16a/SherpaWjets
-
-### c16d ###
-/bkg/?/c16d/Diboson
-/bkg/?/c16d/Zee
-/bkg/?/c16d/Zmumu
-/bkg/?/c16d/Ztautau
-/bkg/?/c16d/Top
-/bkg/?/c16d/SherpaWjets
-
-### c16e ###
-/bkg/?/c16e/Diboson
-/bkg/?/c16e/Zee
-/bkg/?/c16e/Zmumu
 /bkg/?/c16e/Ztautau
+/bkg/?/c16e/Zll
 /bkg/?/c16e/Top
-/bkg/?/c16e/SherpaWjets
-
-
-##### fakes #####
-### c16a ###
-#/bkg/?/c16a/Fake/data/data15_D
-#/bkg/?/c16a/Fake/data/data15_E
-#/bkg/?/c16a/Fake/data/data15_F
-#/bkg/?/c16a/Fake/data/data15_G
-#/bkg/?/c16a/Fake/data/data15_H
-#/bkg/?/c16a/Fake/data/data15_J
-
-#/bkg/?/c16a/Fake/data/data16_A
-#/bkg/?/c16a/Fake/data/data16_B
-#/bkg/?/c16a/Fake/data/data16_C
-#/bkg/?/c16a/Fake/data/data16_D
-#/bkg/?/c16a/Fake/data/data16_E
-#/bkg/?/c16a/Fake/data/data16_F
-#/bkg/?/c16a/Fake/data/data16_G
-#/bkg/?/c16a/Fake/data/data16_I
-#/bkg/?/c16a/Fake/data/data16_K
-#/bkg/?/c16a/Fake/data/data16_L
-
-#/bkg/?/c16a/Fake/mc/Diboson
-#/bkg/?/c16a/Fake/mc/Zee
-#/bkg/?/c16a/Fake/mc/Zmumu
-#/bkg/?/c16a/Fake/mc/Ztautau
-#/bkg/?/c16a/Fake/mc/Top
-#/bkg/?/c16a/Fake/mc/SherpaWjets
-
-### c16d ###
-#/bkg/?/c16d/Fake/data/data17_B
-#/bkg/?/c16d/Fake/data/data17_C
-#/bkg/?/c16d/Fake/data/data17_D
-#/bkg/?/c16d/Fake/data/data17_E
-#/bkg/?/c16d/Fake/data/data17_F
-#/bkg/?/c16d/Fake/data/data17_H
-#/bkg/?/c16d/Fake/data/data17_I
-#/bkg/?/c16d/Fake/data/data17_K
-
-#/bkg/?/c16d/Fake/mc/Diboson
-#/bkg/?/c16d/Fake/mc/Zee
-#/bkg/?/c16d/Fake/mc/Zmumu
-#/bkg/?/c16d/Fake/mc/Ztautau
-#/bkg/?/c16d/Fake/mc/Top
-#/bkg/?/c16d/Fake/mc/SherpaWjets
-
-### c16e ###
-#/bkg/?/c16e/Fake/data/data18_B
-#/bkg/?/c16e/Fake/data/data18_C
-#/bkg/?/c16e/Fake/data/data18_D
-#/bkg/?/c16e/Fake/data/data18_F
-#/bkg/?/c16e/Fake/data/data18_I
-#/bkg/?/c16e/Fake/data/data18_K
-#/bkg/?/c16e/Fake/data/data18_L
-#/bkg/?/c16e/Fake/data/data18_M
-#/bkg/?/c16e/Fake/data/data18_O
-#/bkg/?/c16e/Fake/data/data18_Q
-
-#/bkg/?/c16e/Fake/mc/Diboson
-#/bkg/?/c16e/Fake/mc/Zee
-#/bkg/?/c16e/Fake/mc/Zmumu
-#/bkg/?/c16e/Fake/mc/Ztautau
-#/bkg/?/c16e/Fake/mc/Top
-#/bkg/?/c16e/Fake/mc/SherpaWjets
+/bkg/?/c16e/Diboson
+/bkg/?/c16e/Wjets
