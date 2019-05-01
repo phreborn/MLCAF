@@ -1,0 +1,35 @@
+# -*- mode: tqfolder -*-
+
+# post-initialize tags: /data folder has now been initialized, MC samples have now collected weights
+
+# is data
+<isData=false> @ /.;
+<isData=true> @ /data;
+
+# channel (lephad is inclusive)
+<channel="ehad"> @ ?/ehad;
+<channel="muhad"> @ ?/muhad;
+<channel="lephad"> @ ?/lephad;
+
+# wildcard channels for job submission
+<wildcarded = true> @ /data/?, /bkg/?, /sig/?;
+
+# set cutflow counter and histogram pooling higher in the sample folder
+# this also helps to reduce memory consumption
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /data/?/?/?;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau/Z;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau/DY;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/Z/ee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/Z/mumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/DY/ee;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/DY/mumu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Diboson;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/enu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/munu;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/taunu;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/ggH/?;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/bbH/?;
