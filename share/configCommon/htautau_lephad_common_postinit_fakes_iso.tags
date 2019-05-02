@@ -4,8 +4,8 @@
 # as this is post-initialize, the MC samples should already have their weights collected
 
 # create /bkg SampleFolders for ISO fakes
-$create(path="/bkg/?/?/Fakes/ISO/data",type="sf");
-$create(path="/bkg/?/?/Fakes/ISO/mc",type="sf");
+$create(path="/bkg/?/?/Fakes/ISO/data", type="sf");
+$create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
 
 # copy /data into the /bkg/.../Fakes folder
 # currently, this is repeated for manually for each channel - try to find a way to compact this

@@ -27,9 +27,12 @@
 ##### bkg #####
 /bkg/?/c16a/Ztautau
 /bkg/?/c16a/Zll
-/bkg/?/c16a/Top
+/bkg/?/c16a/Top/ttbar
+/bkg/?/c16a/Top/single
 /bkg/?/c16a/Diboson
-/bkg/?/c16a/Wjets
+/bkg/?/c16a/Wjets/enu
+/bkg/?/c16a/Wjets/munu
+/bkg/?/c16a/Wjets/taunu
 
 
 # ----------- c16d ----------- #
@@ -47,9 +50,12 @@
 ##### bkg #####
 /bkg/?/c16d/Ztautau
 /bkg/?/c16d/Zll
-/bkg/?/c16d/Top
+/bkg/?/c16d/Top/ttbar
+/bkg/?/c16d/Top/single
 /bkg/?/c16d/Diboson
-/bkg/?/c16d/Wjets
+/bkg/?/c16d/Wjets/enu
+/bkg/?/c16d/Wjets/munu
+/bkg/?/c16d/Wjets/taunu
 
 
 # ----------- c16e ----------- #
@@ -69,6 +75,9 @@
 ##### bkg #####
 /bkg/?/c16e/Ztautau
 /bkg/?/c16e/Zll
-/bkg/?/c16e/Top
+/bkg/?/c16e/Top/ttbar
+/bkg/?/c16e/Top/single
 /bkg/?/c16e/Diboson
-/bkg/?/c16e/Wjets
+/bkg/?/c16e/Wjets/enu
+/bkg/?/c16e/Wjets/munu
+/bkg/?/c16e/Wjets/taunu

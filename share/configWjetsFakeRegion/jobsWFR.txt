@@ -28,54 +28,69 @@
 # inclusive samples (TruthTau+LepFake)
 /bkg/?/c16a/Ztautau
 /bkg/?/c16a/Zll
-/bkg/?/c16a/Top
+/bkg/?/c16a/Top/ttbar
+/bkg/?/c16a/Top/single
 /bkg/?/c16a/Diboson
-/bkg/?/c16a/Wjets
+/bkg/?/c16a/Wjets/enu
+/bkg/?/c16a/Wjets/munu
+/bkg/?/c16a/Wjets/taunu
 
 # separate TruthTau/LepFake/JetFake samples (or use only JetFake and combine with inclusive)
 #/bkg/?/c16a/Fakes/TruthTau/Ztautau
 #/bkg/?/c16a/Fakes/LepFake/Ztautau
-/bkg/?/c16a/Fakes/Jetfake/Ztautau
+/bkg/?/c16a/Fakes/JetFake/Ztautau
 #/bkg/?/c16a/Fakes/TruthTau/Zll
 #/bkg/?/c16a/Fakes/LepFake/Zll
-/bkg/?/c16a/Fakes/Jetfake/Zll
-#/bkg/?/c16a/Fakes/TruthTau/Top
-#/bkg/?/c16a/Fakes/LepFake/Top
-/bkg/?/c16a/Fakes/Jetfake/Top
+/bkg/?/c16a/Fakes/JetFake/Zll
+#/bkg/?/c16a/Fakes/TruthTau/Top/ttbar
+#/bkg/?/c16a/Fakes/TruthTau/Top/single
+#/bkg/?/c16a/Fakes/LepFake/Top/ttbar
+#/bkg/?/c16a/Fakes/LepFake/Top/single
+/bkg/?/c16a/Fakes/JetFake/Top/ttbar
+/bkg/?/c16a/Fakes/JetFake/Top/single
 #/bkg/?/c16a/Fakes/TruthTau/Diboson
 #/bkg/?/c16a/Fakes/LepFake/Diboson
-/bkg/?/c16a/Fakes/Jetfake/Diboson
-#/bkg/?/c16a/Fakes/TruthTau/Wjets
-#/bkg/?/c16a/Fakes/LepFake/Wjets
-/bkg/?/c16a/Fakes/Jetfake/Wjets
+/bkg/?/c16a/Fakes/JetFake/Diboson
+#/bkg/?/c16a/Fakes/TruthTau/Wjets/enu
+#/bkg/?/c16a/Fakes/TruthTau/Wjets/munu
+#/bkg/?/c16a/Fakes/TruthTau/Wjets/taunu
+#/bkg/?/c16a/Fakes/LepFake/Wjets/enu
+#/bkg/?/c16a/Fakes/LepFake/Wjets/munu
+#/bkg/?/c16a/Fakes/LepFake/Wjets/taunu
+/bkg/?/c16a/Fakes/JetFake/Wjets/enu
+/bkg/?/c16a/Fakes/JetFake/Wjets/munu
+/bkg/?/c16a/Fakes/JetFake/Wjets/taunu
 
 
 ##### fakes #####
 # data in anti-ISO region for QCD
-/bkg/?/c16a/Fake/data/data15_D
-/bkg/?/c16a/Fake/data/data15_E
-/bkg/?/c16a/Fake/data/data15_F
-/bkg/?/c16a/Fake/data/data15_G
-/bkg/?/c16a/Fake/data/data15_H
-/bkg/?/c16a/Fake/data/data15_J
+/bkg/?/c16a/Fakes/ISO/data/data15_D
+/bkg/?/c16a/Fakes/ISO/data/data15_E
+/bkg/?/c16a/Fakes/ISO/data/data15_F
+/bkg/?/c16a/Fakes/ISO/data/data15_G
+/bkg/?/c16a/Fakes/ISO/data/data15_H
+/bkg/?/c16a/Fakes/ISO/data/data15_J
 
-/bkg/?/c16a/Fake/data/data16_A
-/bkg/?/c16a/Fake/data/data16_B
-/bkg/?/c16a/Fake/data/data16_C
-/bkg/?/c16a/Fake/data/data16_D
-/bkg/?/c16a/Fake/data/data16_E
-/bkg/?/c16a/Fake/data/data16_F
-/bkg/?/c16a/Fake/data/data16_G
-/bkg/?/c16a/Fake/data/data16_I
-/bkg/?/c16a/Fake/data/data16_K
-/bkg/?/c16a/Fake/data/data16_L
+/bkg/?/c16a/Fakes/ISO/data/data16_A
+/bkg/?/c16a/Fakes/ISO/data/data16_B
+/bkg/?/c16a/Fakes/ISO/data/data16_C
+/bkg/?/c16a/Fakes/ISO/data/data16_D
+/bkg/?/c16a/Fakes/ISO/data/data16_E
+/bkg/?/c16a/Fakes/ISO/data/data16_F
+/bkg/?/c16a/Fakes/ISO/data/data16_G
+/bkg/?/c16a/Fakes/ISO/data/data16_I
+/bkg/?/c16a/Fakes/ISO/data/data16_K
+/bkg/?/c16a/Fakes/ISO/data/data16_L
 
 # bkg in anti-ISO region for QCD, should be negligible
-/bkg/?/c16a/Fake/ISO/mc/Ztautau
-/bkg/?/c16a/Fake/ISO/mc/Zll
-/bkg/?/c16a/Fake/ISO/mc/Top
-/bkg/?/c16a/Fake/ISO/mc/Diboson
-/bkg/?/c16a/Fake/ISO/mc/Wjets
+/bkg/?/c16a/Fakes/ISO/mc/Ztautau
+/bkg/?/c16a/Fakes/ISO/mc/Zll
+/bkg/?/c16a/Fakes/ISO/mc/Top/ttbar
+/bkg/?/c16a/Fakes/ISO/mc/Top/single
+/bkg/?/c16a/Fakes/ISO/mc/Diboson
+/bkg/?/c16a/Fakes/ISO/mc/Wjets/enu
+/bkg/?/c16a/Fakes/ISO/mc/Wjets/munu
+/bkg/?/c16a/Fakes/ISO/mc/Wjets/taunu
 
 
 # ----------- c16d ----------- #
@@ -94,45 +109,60 @@
 # inclusive samples (TruthTau+LepFake)
 /bkg/?/c16d/Ztautau
 /bkg/?/c16d/Zll
-/bkg/?/c16d/Top
+/bkg/?/c16d/Top/ttbar
+/bkg/?/c16d/Top/single
 /bkg/?/c16d/Diboson
-/bkg/?/c16d/Wjets
+/bkg/?/c16d/Wjets/enu
+/bkg/?/c16d/Wjets/munu
+/bkg/?/c16d/Wjets/taunu
 
 # separate TruthTau/LepFake/JetFake samples (or use only JetFake and combine with inclusive)
 #/bkg/?/c16d/Fakes/TruthTau/Ztautau
 #/bkg/?/c16d/Fakes/LepFake/Ztautau
-/bkg/?/c16d/Fakes/Jetfake/Ztautau
+/bkg/?/c16d/Fakes/JetFake/Ztautau
 #/bkg/?/c16d/Fakes/TruthTau/Zll
 #/bkg/?/c16d/Fakes/LepFake/Zll
-/bkg/?/c16d/Fakes/Jetfake/Zll
-#/bkg/?/c16d/Fakes/TruthTau/Top
-#/bkg/?/c16d/Fakes/LepFake/Top
-/bkg/?/c16d/Fakes/Jetfake/Top
+/bkg/?/c16d/Fakes/JetFake/Zll
+#/bkg/?/c16d/Fakes/TruthTau/Top/ttbar
+#/bkg/?/c16d/Fakes/TruthTau/Top/single
+#/bkg/?/c16d/Fakes/LepFake/Top/ttbar
+#/bkg/?/c16d/Fakes/LepFake/Top/single
+/bkg/?/c16d/Fakes/JetFake/Top/ttbar
+/bkg/?/c16d/Fakes/JetFake/Top/single
 #/bkg/?/c16d/Fakes/TruthTau/Diboson
 #/bkg/?/c16d/Fakes/LepFake/Diboson
-/bkg/?/c16d/Fakes/Jetfake/Diboson
-#/bkg/?/c16d/Fakes/TruthTau/Wjets
-#/bkg/?/c16d/Fakes/LepFake/Wjets
-/bkg/?/c16d/Fakes/Jetfake/Wjets
+/bkg/?/c16d/Fakes/JetFake/Diboson
+#/bkg/?/c16d/Fakes/TruthTau/Wjets/enu
+#/bkg/?/c16d/Fakes/TruthTau/Wjets/munu
+#/bkg/?/c16d/Fakes/TruthTau/Wjets/taunu
+#/bkg/?/c16d/Fakes/LepFake/Wjets/enu
+#/bkg/?/c16d/Fakes/LepFake/Wjets/munu
+#/bkg/?/c16d/Fakes/LepFake/Wjets/taunu
+/bkg/?/c16d/Fakes/JetFake/Wjets/enu
+/bkg/?/c16d/Fakes/JetFake/Wjets/munu
+/bkg/?/c16d/Fakes/JetFake/Wjets/taunu
 
 
 ##### fakes #####
 # data in anti-ISO region for QCD
-/bkg/?/c16d/Fake/data/data17_B
-/bkg/?/c16d/Fake/data/data17_C
-/bkg/?/c16d/Fake/data/data17_D
-/bkg/?/c16d/Fake/data/data17_E
-/bkg/?/c16d/Fake/data/data17_F
-/bkg/?/c16d/Fake/data/data17_H
-/bkg/?/c16d/Fake/data/data17_I
-/bkg/?/c16d/Fake/data/data17_K
+/bkg/?/c16d/Fakes/ISO/data/data17_B
+/bkg/?/c16d/Fakes/ISO/data/data17_C
+/bkg/?/c16d/Fakes/ISO/data/data17_D
+/bkg/?/c16d/Fakes/ISO/data/data17_E
+/bkg/?/c16d/Fakes/ISO/data/data17_F
+/bkg/?/c16d/Fakes/ISO/data/data17_H
+/bkg/?/c16d/Fakes/ISO/data/data17_I
+/bkg/?/c16d/Fakes/ISO/data/data17_K
 
 # bkg in anti-ISO region for QCD, should be negligible
-/bkg/?/c16d/Fake/ISO/mc/Ztautau
-/bkg/?/c16d/Fake/ISO/mc/Zll
-/bkg/?/c16d/Fake/ISO/mc/Top
-/bkg/?/c16d/Fake/ISO/mc/Diboson
-/bkg/?/c16d/Fake/ISO/mc/Wjets
+/bkg/?/c16d/Fakes/ISO/mc/Ztautau
+/bkg/?/c16d/Fakes/ISO/mc/Zll
+/bkg/?/c16d/Fakes/ISO/mc/Top/ttbar
+/bkg/?/c16d/Fakes/ISO/mc/Top/single
+/bkg/?/c16d/Fakes/ISO/mc/Diboson
+/bkg/?/c16d/Fakes/ISO/mc/Wjets/enu
+/bkg/?/c16d/Fakes/ISO/mc/Wjets/munu
+/bkg/?/c16d/Fakes/ISO/mc/Wjets/taunu
 
 
 # ----------- c16e ----------- #
@@ -153,44 +183,59 @@
 # inclusive samples (TruthTau+LepFake)
 /bkg/?/c16e/Ztautau
 /bkg/?/c16e/Zll
-/bkg/?/c16e/Top
+/bkg/?/c16e/Top/ttbar
+/bkg/?/c16e/Top/single
 /bkg/?/c16e/Diboson
-/bkg/?/c16e/Wjets
+/bkg/?/c16e/Wjets/enu
+/bkg/?/c16e/Wjets/munu
+/bkg/?/c16e/Wjets/taunu
 
 # separate TruthTau/LepFake/JetFake samples (or use only JetFake and combine with inclusive)
 #/bkg/?/c16e/Fakes/TruthTau/Ztautau
 #/bkg/?/c16e/Fakes/LepFake/Ztautau
-/bkg/?/c16e/Fakes/Jetfake/Ztautau
+/bkg/?/c16e/Fakes/JetFake/Ztautau
 #/bkg/?/c16e/Fakes/TruthTau/Zll
 #/bkg/?/c16e/Fakes/LepFake/Zll
-/bkg/?/c16e/Fakes/Jetfake/Zll
-#/bkg/?/c16e/Fakes/TruthTau/Top
-#/bkg/?/c16e/Fakes/LepFake/Top
-/bkg/?/c16e/Fakes/Jetfake/Top
+/bkg/?/c16e/Fakes/JetFake/Zll
+#/bkg/?/c16e/Fakes/TruthTau/Top/ttbar
+#/bkg/?/c16e/Fakes/TruthTau/Top/single
+#/bkg/?/c16e/Fakes/LepFake/Top/ttbar
+#/bkg/?/c16e/Fakes/LepFake/Top/single
+/bkg/?/c16e/Fakes/JetFake/Top/ttbar
+/bkg/?/c16e/Fakes/JetFake/Top/single
 #/bkg/?/c16e/Fakes/TruthTau/Diboson
 #/bkg/?/c16e/Fakes/LepFake/Diboson
-/bkg/?/c16e/Fakes/Jetfake/Diboson
-#/bkg/?/c16e/Fakes/TruthTau/Wjets
-#/bkg/?/c16e/Fakes/LepFake/Wjets
-/bkg/?/c16e/Fakes/Jetfake/Wjets
+/bkg/?/c16e/Fakes/JetFake/Diboson
+#/bkg/?/c16e/Fakes/TruthTau/Wjets/enu
+#/bkg/?/c16e/Fakes/TruthTau/Wjets/munu
+#/bkg/?/c16e/Fakes/TruthTau/Wjets/taunu
+#/bkg/?/c16e/Fakes/LepFake/Wjets/enu
+#/bkg/?/c16e/Fakes/LepFake/Wjets/munu
+#/bkg/?/c16e/Fakes/LepFake/Wjets/taunu
+/bkg/?/c16e/Fakes/JetFake/Wjets/enu
+/bkg/?/c16e/Fakes/JetFake/Wjets/munu
+/bkg/?/c16e/Fakes/JetFake/Wjets/taunu
 
 
 ##### fakes #####
 # data in anti-ISO region for QCD
-/bkg/?/c16e/Fake/data/data18_B
-/bkg/?/c16e/Fake/data/data18_C
-/bkg/?/c16e/Fake/data/data18_D
-/bkg/?/c16e/Fake/data/data18_F
-/bkg/?/c16e/Fake/data/data18_I
-/bkg/?/c16e/Fake/data/data18_K
-/bkg/?/c16e/Fake/data/data18_L
-/bkg/?/c16e/Fake/data/data18_M
-/bkg/?/c16e/Fake/data/data18_O
-/bkg/?/c16e/Fake/data/data18_Q
+/bkg/?/c16e/Fakes/ISO/data/data18_B
+/bkg/?/c16e/Fakes/ISO/data/data18_C
+/bkg/?/c16e/Fakes/ISO/data/data18_D
+/bkg/?/c16e/Fakes/ISO/data/data18_F
+/bkg/?/c16e/Fakes/ISO/data/data18_I
+/bkg/?/c16e/Fakes/ISO/data/data18_K
+/bkg/?/c16e/Fakes/ISO/data/data18_L
+/bkg/?/c16e/Fakes/ISO/data/data18_M
+/bkg/?/c16e/Fakes/ISO/data/data18_O
+/bkg/?/c16e/Fakes/ISO/data/data18_Q
 
 # bkg in anti-ISO region for QCD, should be negligible
-/bkg/?/c16e/Fake/ISO/mc/Ztautau
-/bkg/?/c16e/Fake/ISO/mc/Zll
-/bkg/?/c16e/Fake/ISO/mc/Top
-/bkg/?/c16e/Fake/ISO/mc/Diboson
-/bkg/?/c16e/Fake/ISO/mc/Wjets
+/bkg/?/c16e/Fakes/ISO/mc/Ztautau
+/bkg/?/c16e/Fakes/ISO/mc/Zll
+/bkg/?/c16e/Fakes/ISO/mc/Top/ttbar
+/bkg/?/c16e/Fakes/ISO/mc/Top/single
+/bkg/?/c16e/Fakes/ISO/mc/Diboson
+/bkg/?/c16e/Fakes/ISO/mc/Wjets/enu
+/bkg/?/c16e/Fakes/ISO/mc/Wjets/munu
+/bkg/?/c16e/Fakes/ISO/mc/Wjets/taunu

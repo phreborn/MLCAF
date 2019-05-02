@@ -4,7 +4,7 @@
 
 ### Fakes ###
 .path="|"
-#.name="QCDFake", .title="QCDFake", .path="/bkg/$(channel)/$(campaign)/Fake/[data+mc]", .isBackground=true, histFillColor=kGray+1, histFillStyle=1001
+#.name="QCDFake", .title="QCDFake", .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data-mc]", .isBackground=true, histFillColor=kGray+1, histFillStyle=1001
 
 ######################################
 ##      Use this for inclusive      ##
