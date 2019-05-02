@@ -7,67 +7,68 @@
 ####.name="Data",                   .path="/data/$(channel)/$(campaign)",            .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
 ### BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND
 
-.name="WjetsFake",                 .path="/bkg/$(channel)/$(campaign)/WJETSFakes/[data - mc/[Top+Ztautau+Diboson+Zee+Zmumu] - QCD/[data - mc/[Top+Ztautau+Diboson+Zee+Zmumu]]]",       .isBackground=true,     histFillColor = kGray,  histFillStyle=1001,     title = "WjetsFake", .includeSysError = syst
+.name="WjetsFake",                 .path="/bkg/$(channel)/$(campaign)/Fakes/ID/[data - mc - ISO/[data - mc/[Ztautau+Zll+Top+Diboson]]]",       .isBackground=true,     histFillColor = kGray,  histFillStyle=1001,     title = "WjetsFake", .includeSysError = syst
 
 ### look at mc paths:
 ### this subtracts all mc, including SherpaWjets, we might use it for mT N-1 plot where W peak is important;
-#.name="QCDFake",              .path="/bkg/$(channel)/$(campaign)/QCDFakes/[data - mc/[Top+Ztautau+Diboson+Zee+Zmumu+SherpaWjets]]",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+#.name="QCDFake",              .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data - mc/[Ztautau+Zll+Top+Diboson+Wjets]]",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
 ### this subtracts mc without SherpaWjets, we might use it by default;
-.name="QCDFake",               .path="/bkg/$(channel)/$(campaign)/QCDFakes/[data - mc/[Top+Ztautau+Diboson+Zee+Zmumu]]",                  .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+.name="QCDFake",               .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data - mc/[Ztautau+Zll+Top+Diboson]]",                  .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
 ### this does not subtract mc, we wight use it for btag regions;
-#.name="QCDFake",              .path="/bkg/$(channel)/$(campaign)/QCDFakes/data",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+#.name="QCDFake",              .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/data",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
 
-#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
-.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false, .includeSysError = syst
 .name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false, .includeSysError = syst
+.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/Zll",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false, .includeSysError = syst
+.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false, .includeSysError = syst
 .name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false, .includeSysError = syst
-.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false, .includeSysError = syst
+#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Wjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
 ###
 
-#.name="Top TT",                    .path="/bkg/$(channel)/$(campaign)/TopTruthTau",           .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top (true \tau)",  .showRaw = false, .includeSysError = syst
-#.name="Top TEl",                   .path="/bkg/$(channel)/$(campaign)/TopElFake",             .isBackground=true,     histFillColor=kBlue-6,            histFillStyle=1001,     title = "Top (e\rightarrow\tau)",  .showRaw = false, .includeSysError = syst
-#.name="Top TMu",                   .path="/bkg/$(channel)/$(campaign)/TopMuFake",             .isBackground=true,     histFillColor=kBlue-9,            histFillStyle=1001,     title = "Top (\mu\rightarrow\tau)",  .showRaw = false, .includeSysError = syst
+#.name="Top TT",                    .path="/bkg/$(channel)/$(campaign)/Fakes/TopTruthTau",           .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top (true \tau)",  .showRaw = false, .includeSysError = syst
+#.name="Top TEl",                   .path="/bkg/$(channel)/$(campaign)/Fakes/TopElFake",             .isBackground=true,     histFillColor=kBlue-6,            histFillStyle=1001,     title = "Top (e\rightarrow\tau)",  .showRaw = false, .includeSysError = syst
+#.name="Top TMu",                   .path="/bkg/$(channel)/$(campaign)/Fakes/TopMuFake",             .isBackground=true,     histFillColor=kBlue-9,            histFillStyle=1001,     title = "Top (\mu\rightarrow\tau)",  .showRaw = false, .includeSysError = syst
 
 ###
-#.name="ggH300",           .path="/sig/$(channel)/$(campaign)/ggH300",        .isSignal=true, title = "ggH 300GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kMagenta-4, .showRaw = false
-#.name="bbH300",           .path="/sig/$(channel)/$(campaign)/bbH300",        .isSignal=true, title = "bbH 300GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kYellow-4, .showRaw = false
+#.name="ggH300",           .path="/sig/$(channel)/$(campaign)/ggH/300",        .isSignal=true, title = "ggH 300GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kMagenta-4, .showRaw = false
+#.name="bbH300",           .path="/sig/$(channel)/$(campaign)/bbH/300",        .isSignal=true, title = "bbH 300GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kYellow-4, .showRaw = false
 
-.name="ggH1000",       .path="/sig/$(channel)/$(campaign)/ggH1000",   .isSignal=true, title = "ggH 1000GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kMagenta-9, .showRaw = false
-.name="bbH1000",       .path="/sig/$(channel)/$(campaign)/bbH1000",   .isSignal=true, title = "bbH 1000GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kGreen-7, .showRaw = false
+.name="ggH1000",       .path="/sig/$(channel)/$(campaign)/ggH/1000",   .isSignal=true, title = "ggH 1000GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kMagenta-9, .showRaw = false
+.name="bbH1000",       .path="/sig/$(channel)/$(campaign)/bbH/1000",   .isSignal=true, title = "bbH 1000GeV", histLineStyle = 1, histLineWidth = 3, histLineColor = kGreen-7, .showRaw = false
 
 ###########################################
 ###
 ###      Use this for qcd composition
 ###
 ###################################################
-#.name="Data",                   .path="/bkg/$(channel)/$(campaign)/QCDFakes/data",              .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
-#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/QCDFakes/mc/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
-#.name="Top",                    .path="/bkg/$(channel)/$(campaign)/QCDFakes/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
-#.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/QCDFakes/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
-#.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/QCDFakes/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
-#.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/QCDFakes/mc/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
+#.name="Data",                   .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/data",              .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+#.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
+#.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Zll",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
+#.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
+#.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
+#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Wjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
 
 #################################################
 ###
 ###      Use this for wjets composition
 ###
 ###################################################
-#.name="Data",                   .path="/bkg/$(channel)/$(campaign)/WJETSFakes/data",                .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
-#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
-#.name="Top",                    .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
-#.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
-#.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
-#.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/WJETSFakes/mc/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
-#.name="QCDFake",               .path="/bkg/$(channel)/$(campaign)/WJETSFakes/QCD/data",        .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake"
+#.name="Data",                   .path="/bkg/$(channel)/$(campaign)/Fakes/ID/data",                .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+#.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
+#.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Zll",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
+#.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
+#.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
+#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Wjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
+#.name="QCDFake",                .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/[data - mc/[Ztautau+Zll+Top+Diboson]]",        .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake"
+
 
 #################################################
 ###
 ###      Use this for wjets qcd composition
 ###
 ###################################################
-#.name="Data",                   .path="/bkg/$(channel)/$(campaign)/WJETSFakes/QCD/data",     .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
-#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/WJETSFakes/QCD/mc/SherpaWjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
-#.name="Top",                    .path="/bkg/$(channel)/$(campaign)/WJETSFakes/QCD/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
-#.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/WJETSFakes/QCD/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
-#.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/WJETSFakes/QCD/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
-#.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/WJETSFakes/QCD/mc/[Zee+Zmumu]",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
+#.name="Data",                   .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/data",     .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+#.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
+#.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/mc/Zll",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
+#.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
+#.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
+#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/mc/Wjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"

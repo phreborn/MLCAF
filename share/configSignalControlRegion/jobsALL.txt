@@ -25,12 +25,14 @@
 
 
 ##### bkg #####
-/bkg/?/c16a/Diboson
-/bkg/?/c16a/Zee
-/bkg/?/c16a/Zmumu
 /bkg/?/c16a/Ztautau
-/bkg/?/c16a/Top
-#/bkg/?/c16a/SherpaWjets
+/bkg/?/c16a/Zll
+/bkg/?/c16a/Top/ttbar
+/bkg/?/c16a/Top/single
+/bkg/?/c16a/Diboson
+#/bkg/?/c16a/Wjets/enu
+#/bkg/?/c16a/Wjets/munu
+#/bkg/?/c16a/Wjets/taunu
 
 
 ##### fakes #####
@@ -55,12 +57,15 @@
 /bkg/?/c16a/QCDFakes/data/data16_L
 
 ### mc ###
-/bkg/?/c16a/QCDFakes/mc/Diboson
-/bkg/?/c16a/QCDFakes/mc/Zee
-/bkg/?/c16a/QCDFakes/mc/Zmumu
 /bkg/?/c16a/QCDFakes/mc/Ztautau
-/bkg/?/c16a/QCDFakes/mc/Top
-#/bkg/?/c16a/QCDFakes/mc/SherpaWjets
+/bkg/?/c16a/QCDFakes/mc/Zll
+/bkg/?/c16a/QCDFakes/mc/Top/ttbar
+/bkg/?/c16a/QCDFakes/mc/Top/single
+/bkg/?/c16a/QCDFakes/mc/Diboson
+#/bkg/?/c16a/QCDFakes/mc/Wjets/enu
+#/bkg/?/c16a/QCDFakes/mc/Wjets/munu
+#/bkg/?/c16a/QCDFakes/mc/Wjets/taunu
+
 
 #### Anti-ID W+jets ####
 ### data ###
@@ -83,12 +88,15 @@
 /bkg/?/c16a/WJETSFakes/data/data16_L
 
 ### mc ###
-/bkg/?/c16a/WJETSFakes/mc/Diboson
-/bkg/?/c16a/WJETSFakes/mc/Zee
-/bkg/?/c16a/WJETSFakes/mc/Zmumu
 /bkg/?/c16a/WJETSFakes/mc/Ztautau
-/bkg/?/c16a/WJETSFakes/mc/Top
-#/bkg/?/c16a/WJETSFakes/mc/SherpaWjets
+/bkg/?/c16a/WJETSFakes/mc/Zll
+/bkg/?/c16a/WJETSFakes/mc/Top/ttbar
+/bkg/?/c16a/WJETSFakes/mc/Top/single
+/bkg/?/c16a/WJETSFakes/mc/Diboson
+#/bkg/?/c16a/WJETSFakes/mc/Wjets/enu
+#/bkg/?/c16a/WJETSFakes/mc/Wjets/munu
+#/bkg/?/c16a/WJETSFakes/mc/Wjets/taunu
+
 
 #### Anti-ID W+jets Anti-ISO QCD ####
 ### data ###
@@ -111,16 +119,19 @@
 /bkg/?/c16a/WJETSFakes/QCD/data/data16_L
 
 ### mc ###
-/bkg/?/c16a/WJETSFakes/QCD/mc/Diboson
-/bkg/?/c16a/WJETSFakes/QCD/mc/Zee
-/bkg/?/c16a/WJETSFakes/QCD/mc/Zmumu
 /bkg/?/c16a/WJETSFakes/QCD/mc/Ztautau
-/bkg/?/c16a/WJETSFakes/QCD/mc/Top
-#/bkg/?/c16a/WJETSFakes/QCD/mc/SherpaWjets
+/bkg/?/c16a/WJETSFakes/QCD/mc/Zll
+/bkg/?/c16a/WJETSFakes/QCD/mc/Top/ttbar
+/bkg/?/c16a/WJETSFakes/QCD/mc/Top/single
+/bkg/?/c16a/WJETSFakes/QCD/mc/Diboson
+#/bkg/?/c16a/WJETSFakes/QCD/mc/Wjets/enu
+#/bkg/?/c16a/WJETSFakes/QCD/mc/Wjets/munu
+#/bkg/?/c16a/WJETSFakes/QCD/mc/Wjets/taunu
 
 
 ##### sig #####
-/sig/?/c16a/?
+/sig/?/c16a/ggH/?
+/sig/?/c16a/bbH/?
 
 
 # ----------- c16d ----------- #
@@ -136,12 +147,14 @@
 
 
 ##### bkg #####
-/bkg/?/c16d/Diboson
-/bkg/?/c16d/Zee
-/bkg/?/c16d/Zmumu
 /bkg/?/c16d/Ztautau
-/bkg/?/c16d/Top
-#/bkg/?/c16d/SherpaWjets
+/bkg/?/c16d/Zll
+/bkg/?/c16d/Top/ttbar
+/bkg/?/c16d/Top/single
+/bkg/?/c16d/Diboson
+#/bkg/?/c16d/Wjets/enu
+#/bkg/?/c16d/Wjets/munu
+#/bkg/?/c16d/Wjets/taunu
 
 
 ##### fakes #####
@@ -157,12 +170,15 @@
 /bkg/?/c16d/QCDFakes/data/data17_K
 
 ### mc ###
-/bkg/?/c16d/QCDFakes/mc/Diboson
-/bkg/?/c16d/QCDFakes/mc/Zee
-/bkg/?/c16d/QCDFakes/mc/Zmumu
 /bkg/?/c16d/QCDFakes/mc/Ztautau
-/bkg/?/c16d/QCDFakes/mc/Top
-#/bkg/?/c16d/QCDFakes/mc/SherpaWjets
+/bkg/?/c16d/QCDFakes/mc/Zll
+/bkg/?/c16d/QCDFakes/mc/Top/ttbar
+/bkg/?/c16d/QCDFakes/mc/Top/single
+/bkg/?/c16d/QCDFakes/mc/Diboson
+#/bkg/?/c16d/QCDFakes/mc/Wjets/enu
+#/bkg/?/c16d/QCDFakes/mc/Wjets/munu
+#/bkg/?/c16d/QCDFakes/mc/Wjets/taunu
+
 
 #### Anti-ID W+jets ####
 ### data ###
@@ -176,12 +192,15 @@
 /bkg/?/c16d/WJETSFakes/data/data17_K
 
 ### mc ###
-/bkg/?/c16d/WJETSFakes/mc/Diboson
-/bkg/?/c16d/WJETSFakes/mc/Zee
-/bkg/?/c16d/WJETSFakes/mc/Zmumu
 /bkg/?/c16d/WJETSFakes/mc/Ztautau
-/bkg/?/c16d/WJETSFakes/mc/Top
-#/bkg/?/c16d/WJETSFakes/mc/SherpaWjets
+/bkg/?/c16d/WJETSFakes/mc/Zll
+/bkg/?/c16d/WJETSFakes/mc/Top/ttbar
+/bkg/?/c16d/WJETSFakes/mc/Top/single
+/bkg/?/c16d/WJETSFakes/mc/Diboson
+#/bkg/?/c16d/WJETSFakes/mc/Wjets/enu
+#/bkg/?/c16d/WJETSFakes/mc/Wjets/munu
+#/bkg/?/c16d/WJETSFakes/mc/Wjets/taunu
+
 
 #### Anti-ID W+jets Anti-ISO QCD ####
 ### data ###
@@ -195,16 +214,19 @@
 /bkg/?/c16d/WJETSFakes/QCD/data/data17_K
 
 ### mc ###
-/bkg/?/c16d/WJETSFakes/QCD/mc/Diboson
-/bkg/?/c16d/WJETSFakes/QCD/mc/Zee
-/bkg/?/c16d/WJETSFakes/QCD/mc/Zmumu
 /bkg/?/c16d/WJETSFakes/QCD/mc/Ztautau
-/bkg/?/c16d/WJETSFakes/QCD/mc/Top
-#/bkg/?/c16d/WJETSFakes/QCD/mc/SherpaWjets
+/bkg/?/c16d/WJETSFakes/QCD/mc/Zll
+/bkg/?/c16d/WJETSFakes/QCD/mc/Top/ttbar
+/bkg/?/c16d/WJETSFakes/QCD/mc/Top/single
+/bkg/?/c16d/WJETSFakes/QCD/mc/Diboson
+#/bkg/?/c16d/WJETSFakes/QCD/mc/Wjets/enu
+#/bkg/?/c16d/WJETSFakes/QCD/mc/Wjets/munu
+#/bkg/?/c16d/WJETSFakes/QCD/mc/Wjets/taunu
 
 
 ##### sig #####
-/sig/?/c16d/?
+/sig/?/c16d/ggH/?
+/sig/?/c16d/bbH/?
 
 
 # ----------- c16e ----------- #
@@ -222,12 +244,14 @@
 
 
 ##### bkg #####
-/bkg/?/c16e/Diboson
-/bkg/?/c16e/Zee
-/bkg/?/c16e/Zmumu
 /bkg/?/c16e/Ztautau
-/bkg/?/c16e/Top
-#/bkg/?/c16e/SherpaWjets
+/bkg/?/c16e/Zll
+/bkg/?/c16e/Top/ttbar
+/bkg/?/c16e/Top/single
+/bkg/?/c16e/Diboson
+#/bkg/?/c16e/Wjets/enu
+#/bkg/?/c16e/Wjets/munu
+#/bkg/?/c16e/Wjets/taunu
 
 
 ##### fakes #####
@@ -245,12 +269,15 @@
 /bkg/?/c16e/QCDFakes/data/data18_Q
 
 ### mc ###
-/bkg/?/c16e/QCDFakes/mc/Diboson
-/bkg/?/c16e/QCDFakes/mc/Zee
-/bkg/?/c16e/QCDFakes/mc/Zmumu
 /bkg/?/c16e/QCDFakes/mc/Ztautau
-/bkg/?/c16e/QCDFakes/mc/Top
-#/bkg/?/c16e/QCDFakes/mc/SherpaWjets
+/bkg/?/c16e/QCDFakes/mc/Zll
+/bkg/?/c16e/QCDFakes/mc/Top/ttbar
+/bkg/?/c16e/QCDFakes/mc/Top/single
+/bkg/?/c16e/QCDFakes/mc/Diboson
+#/bkg/?/c16e/QCDFakes/mc/Wjets/enu
+#/bkg/?/c16e/QCDFakes/mc/Wjets/munu
+#/bkg/?/c16e/QCDFakes/mc/Wjets/taunu
+
 
 #### Anti-ID W+jets ####
 ### data ###
@@ -266,12 +293,15 @@
 /bkg/?/c16e/WJETSFakes/data/data18_Q
 
 ### mc ###
-/bkg/?/c16e/WJETSFakes/mc/Diboson
-/bkg/?/c16e/WJETSFakes/mc/Zee
-/bkg/?/c16e/WJETSFakes/mc/Zmumu
 /bkg/?/c16e/WJETSFakes/mc/Ztautau
-/bkg/?/c16e/WJETSFakes/mc/Top
-#/bkg/?/c16e/WJETSFakes/mc/SherpaWjets
+/bkg/?/c16e/WJETSFakes/mc/Zll
+/bkg/?/c16e/WJETSFakes/mc/Top/ttbar
+/bkg/?/c16e/WJETSFakes/mc/Top/single
+/bkg/?/c16e/WJETSFakes/mc/Diboson
+#/bkg/?/c16e/WJETSFakes/mc/Wjets/enu
+#/bkg/?/c16e/WJETSFakes/mc/Wjets/munu
+#/bkg/?/c16e/WJETSFakes/mc/Wjets/taunu
+
 
 #### Anti-ID W+jets Anti-ISO QCD ####
 ### data ###
@@ -287,13 +317,16 @@
 /bkg/?/c16e/WJETSFakes/QCD/data/data18_Q
 
 ### mc ###
-/bkg/?/c16e/WJETSFakes/QCD/mc/Diboson
-/bkg/?/c16e/WJETSFakes/QCD/mc/Zee
-/bkg/?/c16e/WJETSFakes/QCD/mc/Zmumu
 /bkg/?/c16e/WJETSFakes/QCD/mc/Ztautau
-/bkg/?/c16e/WJETSFakes/QCD/mc/Top
-#/bkg/?/c16e/WJETSFakes/QCD/mc/SherpaWjets
+/bkg/?/c16e/WJETSFakes/QCD/mc/Zll
+/bkg/?/c16e/WJETSFakes/QCD/mc/Top/ttbar
+/bkg/?/c16e/WJETSFakes/QCD/mc/Top/single
+/bkg/?/c16e/WJETSFakes/QCD/mc/Diboson
+#/bkg/?/c16e/WJETSFakes/QCD/mc/Wjets/enu
+#/bkg/?/c16e/WJETSFakes/QCD/mc/Wjets/munu
+#/bkg/?/c16e/WJETSFakes/QCD/mc/Wjets/taunu
 
 
 ##### sig #####
-/sig/?/c16e/?
+/sig/?/c16e/ggH/?
+/sig/?/c16e/bbH/?

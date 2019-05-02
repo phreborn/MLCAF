@@ -5,10 +5,6 @@
 
 # prepare tags: /data folder has yet to be initialized, MC samples are yet to collect weights
 
-# is signal (if it exists)
-<isSig=false> @ /.;
-<isSig=true> @ /sig;
-
 # collect and use MC weights during initialize
 <usemcweights=false> @ /.;
 <usemcweights=true> @ /bkg, /sig;
@@ -30,6 +26,10 @@
 
 <isDib=false> @ /.;
 <isDib=true, isInc=true> @ /bkg/?/?/Diboson;
+
+# is signal (if it exists)
+<isSig=false> @ /.;
+<isSig=true, isInc=true> @ /sig;
 
 # use MC W+jets for modelling ID fakes in ISO fakes region
 <isWjets=false> @ /.;
