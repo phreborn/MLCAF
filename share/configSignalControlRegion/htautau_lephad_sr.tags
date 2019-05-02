@@ -7,7 +7,7 @@ $include("configCommon/htautau_lephad_common_postinit.tags");
 $include("configCommon/htautau_lephad_common_postinit_fakes_iso.tags");
 
 # include ID fakes tags
-$include("configCommon/htautau_lephad_common_postinit_fakes_iso.tags");
+$include("configCommon/htautau_lephad_common_postinit_fakes_id.tags");
 
 # delete Wjets MC if using ID fakes instead
 $delete("/bkg/?/?/Wjets!");

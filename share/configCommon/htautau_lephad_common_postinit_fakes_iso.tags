@@ -2,6 +2,7 @@
 
 # for use in including derived fake contributions from the anti-ISO region
 # as this is post-initialize, the MC samples should already have their weights collected
+$printline("Including ISO fakes...");
 
 # create /bkg SampleFolders for ISO fakes
 $create(path="/bkg/?/?/Fakes/ISO/data", type="sf");

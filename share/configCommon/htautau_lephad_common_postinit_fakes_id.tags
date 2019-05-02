@@ -2,6 +2,7 @@
 
 # for use in including derived fake contributions from the anti-ID region
 # as this is post-initialize, the MC samples should already have their weights collected
+$printline("Including ID fakes...");
 
 # create /bkg SampleFolders for ID fakes
 $create(path="/bkg/?/?/Fakes/ID/data", type="sf");
