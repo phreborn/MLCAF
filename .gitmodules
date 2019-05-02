@@ -2,3 +2,7 @@
 	path = CAFCore
 	url = ../../atlas-caf/CAFCore
 	branch = master
+[submodule "share/scripts/AtlasStyle"]
+	path = share/scripts/AtlasStyle
+	url = ../../atlas-publications-committee/atlasrootstyle
+    branch = master
