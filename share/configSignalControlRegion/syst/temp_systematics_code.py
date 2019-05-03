@@ -68,15 +68,15 @@ def main():
   nominal_file_path = dir + 'NOMINAL.root' + sfname
 
 
-  path_mc = '/bkg/{:s}/{:s}/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel,campaign)
-  path_wjets_data = '/bkg/{:s}/{:s}/WJETSFakes/data'.format(channel,campaign)
-  path_wjets_mc = '/bkg/{:s}/{:s}/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel,campaign)
-  path_wjets_qcd = '/bkg/{:s}/{:s}/WJETSFakes/QCD/data'.format(channel,campaign)
-  path_qcd_data = '/bkg/{:s}/{:s}/QCDFakes/data'.format(channel,campaign)
+  path_mc = '/bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson]'.format(channel,campaign)
+  path_wjets_data = '/bkg/{:s}/{:s}/Fakes/ID/data'.format(channel,campaign)
+  path_wjets_mc = '/bkg/{:s}/{:s}/Fakes/ID/mc/[Ztautau+Zll+Top+Diboson]'.format(channel,campaign)
+  path_wjets_qcd = '/bkg/{:s}/{:s}/Fakes/ID/ISO/data'.format(channel,campaign)
+  path_qcd_data = '/bkg/{:s}/{:s}/Fakes/ISO/data'.format(channel,campaign)
   path_qcd_mc = ''
     # different sf paths because we dont use mc in btag anti-iso (qcd bkg)
   if not b_isbtag:
-    path_qcd_mc = '-/bkg/{:s}/{:s}/QCDFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]'.format(channel,campaign)
+    path_qcd_mc = '-/bkg/{:s}/{:s}/Fakes/ISO/mc/[Ztautau+Zll+Top+Diboson]'.format(channel,campaign)
   path_qcd = path_qcd_data + path_qcd_mc
 
   nominal_sf_path = path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd
