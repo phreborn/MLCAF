@@ -38,8 +38,11 @@ $create(path="/bkg/?/?/Fakes/ID/mc", type="sf");
 }
 
 # tag the anti-ID region
+# try to decide which of the 2 tag names to use
 <isFailID=false> @ /.;
+<isAntiID=false> @ /.;
 <isFailID=true> @ /bkg/?/?/Fakes/ID;
+<isAntiID=true> @ /bkg/?/?/Fakes/ID;
 
 # re-mark fake data as data
 <isFailData=false> @ /.;
