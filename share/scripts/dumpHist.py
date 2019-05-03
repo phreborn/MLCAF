@@ -41,14 +41,14 @@ if datasets == "mc16e":
 channel = args.channel
 basepath = "." #basepath in sample folder to get list of histograms from
 sflist = [
-          "sig/{:s}/{:s}/bbH1000/".format(channel,datasets),
-          "sig/{:s}/{:s}/ggH1000/".format(channel,datasets),
+          "sig/{:s}/{:s}/bbH/1000/".format(channel,datasets),
+          "sig/{:s}/{:s}/ggH/1000/".format(channel,datasets),
           "data/{:s}/{:s}/".format(channel,datasets),
           "bkg/{:s}/{:s}/Top/".format(channel,datasets),
           "bkg/{:s}/{:s}/Diboson/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/Zee/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/Zmumu/".format(channel,datasets),
-          "bkg/{:s}/{:s}/[Zee+Zmumu]/".format(channel,datasets),
+          "bkg/{:s}/{:s}/Zll/".format(channel,datasets),
           "bkg/{:s}/{:s}/Ztautau/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/QCDFakes/data/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/QCDFakes/mc/Diboson/".format(channel,datasets),
@@ -56,7 +56,7 @@ sflist = [
 #          "bkg/{:s}/{:s}/QCDFakes/mc/Zee/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/QCDFakes/mc/Zmumu/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/QCDFakes/mc/Ztautau/".format(channel,datasets),
-          "bkg/{:s}/{:s}/QCDFakes/[data-mc/[Top+Ztautau+Diboson+Zee+Zmumu]]".format(channel,datasets),
+          "bkg/{:s}/{:s}/Fakes/ISO/[data-mc/[Ztautau+Zll+Top+Diboson]]".format(channel,datasets),
 #          "bkg/{:s}/{:s}/WJETSFakes/data/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/WJETSFakes/mc/Diboson/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/WJETSFakes/mc/Top/".format(channel,datasets),
@@ -69,7 +69,7 @@ sflist = [
 #          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(channel,datasets),
 #          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(channel,datasets),
-          "bkg/{:s}/{:s}/WJETSFakes/[data-mc/[Top+Ztautau+Diboson+Zee+Zmumu]-QCD/data]".format(channel,datasets)
+          "bkg/{:s}/{:s}/Fakes/ID/[data-mc/[Ztautau+Zll+Top+Diboson]-ISO/data]".format(channel,datasets)
 ]
 #sflist = ["bkg/{:s}/{:s}/?/".format(channel,datasets)]
 
@@ -148,13 +148,18 @@ def setHistName(path, orgHistName,inputfile):
 #  if  pathlist[0] == "{:s}".format(datasets) and pathlist[0] != "data":
 #    histOutName0+=pathlist[0]+"_"
 #    if pathlist[2] != "QCDFakes" and pathlist[2] != "WJETSFakes": 
-    if pathlist[3] == "[Zee+Zmumu]":
+    if pathlist[3] == "Zll":
         histOutName+="DYZ"
-        #histOutName+="Zll"
     elif pathlist[3] == "Ztautau":
         histOutName+="ZplusJets"
-    elif "bbH" in pathlist[3] or "ggH" in pathlist[3]:
+    if pathlist[3] == "Fakes":
+        if pathlist[4] == "ISO":
+            histOutName+="QCDFakes"
+        elif pathlist[4] == "ID":
+            histOutName+="WJETSFakes"
+    elif pathlist[3] == "bbH" or pathlist[3] == "ggH":
         histOutName+=pathlist[3].replace("H", "Hlh")
+        histOutName+=pathlist[4]
     else:
         histOutName+=pathlist[3]
 #    elif pathlist[2] == "QCDFakes" and pathlist[3] == "data":
