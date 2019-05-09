@@ -1,0 +1,49 @@
+# -*- mode: tqfolder -*-
+
+# for use in including derived fake contributions from the anti-ISO region
+# as this is post-initialize, the MC samples should already have their weights collected
+$printline("Including ISO fakes...");
+
+# create /bkg SampleFolders for ISO fakes
+$create(path="/bkg/?/?/Fakes/ISO/data", type="sf");
+$create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
+
+# copy /data into the /bkg/.../Fakes folder
+# currently, this is repeated for manually for each channel - try to find a way to compact this
+@ /data/lephad {
+    @ ? {
+        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/Fakes/ISO/data");
+    }
+}
+@ /data/muhad {
+    @ ? {
+        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/Fakes/ISO/data");
+    }
+}
+@ /data/ehad {
+    @ ? {
+        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/Fakes/ISO/data");
+    }
+}
+# copy each /bkg into the Fakes folder, including Wjets MC
+@ /bkg/? {
+    @ ? {
+        $copy("Ztautau >> Fakes/ISO/mc");
+        $copy("Zll     >> Fakes/ISO/mc");
+        $copy("Top     >> Fakes/ISO/mc");
+        $copy("Diboson >> Fakes/ISO/mc");
+        $copy("Wjets   >> Fakes/ISO/mc");
+    }
+}
+
+# tag the anti-iso region
+# try to decide which of the 2 tag names to use
+<isFailISO=false> @ /.;
+<isAntiISO=false> @ /.;
+<isFailISO=true> @ /bkg/?/?/Fakes/ISO;
+<isAntiISO=true> @ /bkg/?/?/Fakes/ISO;
+
+# re-mark fake data as data
+<isFailData=false> @ /.;
+<isFailData=true> @ /bkg/?/?/Fakes/ISO/data;
+<isData=true> @ /bkg/?/?/Fakes/ISO/data;

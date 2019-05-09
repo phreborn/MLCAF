@@ -1,27 +1,4 @@
 # -*- mode: tqfolder -*-
 
-<usemcweights=true> @ /bkg;
-<isData=false> @ /.;
-<isData=true> @ /data;
-
-<weightvariation="nominal"> @ /bkg;
-<channel="muhad"> @ ?/muhad;
-<channel="ehad"> @ ?/ehad;
-
-<isInc=false> @ /bkg;
-
-<isWjets=false> @ /.;
-<isWjets=true, isInc=true> @ /bkg/?/?/SherpaWjets;
-
-<isDib=false> @ /.;
-<isDib=true, isInc=true> @ /bkg/?/?/Diboson;
-
-<isTop=false> @ /.;
-<isTop=true, isInc=true> @ /bkg/?/?/Top;
-
-<isZtt=false> @ /.;
-<isZtt=true, isInc=true> @ /bkg/?/?/Ztautau;
-
-<isZll=false> @ /.;
-<isZll=true, isInc=true> @ /bkg/?/?/Zee;
-<isZll=true, isInc=true> @ /bkg/?/?/Zmumu;
+# include common post-initialize tags
+$include("configCommon/htautau_lephad_common_postinit.tags");

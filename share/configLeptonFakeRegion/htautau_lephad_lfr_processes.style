@@ -4,14 +4,14 @@
 
 ### Fakes ###
 .path="|"
-#.name="QCDFake", .title="QCDFake", .path="/bkg/$(channel)/$(campaign)/Fake/[data+mc]", .isBackground=true, histFillColor=kGray+1, histFillStyle=1001
+#.name="QCDFake", .title="QCDFake", .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data-mc]", .isBackground=true, histFillColor=kGray+1, histFillStyle=1001
+.name="Wjets",   .title="W+jets",                          .path="/bkg/$(channel)/$(campaign)/Wjets",   .isBackground=true, histFillColor=kYellow-8, histFillStyle=1001
 
 ######################################
 ##      Use this for inclusive      ##
 ######################################
 .path="|"
-.name="Wjets",   .title="W+jets",                          .path="/bkg/$(channel)/$(campaign)/SherpaWjets", .isBackground=true, histFillColor=kYellow-8, histFillStyle=1001
-.name="Ztautau", .title="Z/\gamma^{*}\rightarrow\tau\tau", .path="/bkg/$(channel)/$(campaign)/Ztautau",     .isBackground=true, histFillColor=kGreen+1,  histFillStyle=1001
-.name="Zll",     .title="Z/\gamma^{*}\rightarrow\ell\ell", .path="/bkg/$(channel)/$(campaign)/[Zee+Zmumu]", .isBackground=true, histFillColor=kRed-6,    histFillStyle=1001
-.name="Top",     .title="Top",                             .path="/bkg/$(channel)/$(campaign)/Top",         .isBackground=true, histFillColor=kBlue,     histFillStyle=1001
-.name="Diboson", .title="Diboson",                         .path="/bkg/$(channel)/$(campaign)/Diboson",     .isBackground=true, histFillColor=kOrange-3, histFillStyle=1001
+.name="Ztautau", .title="Z/\gamma^{*}\rightarrow\tau\tau", .path="/bkg/$(channel)/$(campaign)/Ztautau", .isBackground=true, histFillColor=kGreen+1,  histFillStyle=1001
+.name="Zll",     .title="Z/\gamma^{*}\rightarrow\ell\ell", .path="/bkg/$(channel)/$(campaign)/Zll",     .isBackground=true, histFillColor=kRed-6,    histFillStyle=1001
+.name="Top",     .title="Top",                             .path="/bkg/$(channel)/$(campaign)/Top",     .isBackground=true, histFillColor=kBlue,     histFillStyle=1001
+.name="Diboson", .title="Diboson",                         .path="/bkg/$(channel)/$(campaign)/Diboson", .isBackground=true, histFillColor=kOrange-3, histFillStyle=1001
