@@ -101,8 +101,8 @@ Running the analysis
 ```bash
 cd BSMtautauCAF/share
 
-# First edit without committing the 'dataPaths' and 'mcPaths' in
-configCommon/htautau_lephad_common_*_input.cfg
+# First edit without committing the 'dataPaths' and 'mcPaths' for NOM/SYS in
+configCommon/htautau_lephad_common_campaigns_input*.cfg
 # relevant for your setup (don't let them be too long or you could see errors)
 ```
 
@@ -113,7 +113,7 @@ source configLeptonFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
 source configLeptonFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.root -t analyze batchOutput/unmerged_LFR_*/*.root
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root -t analyze batchOutput/unmerged_LFR/*.root
 # Visualize plots
 source configLeptonFakeRegion/scriptVisualize.sh
 # Calculate lepton fake factors
@@ -127,7 +127,7 @@ source configWjetsFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
 source configWjetsFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr-nominal.root -t analyze batchOutput/unmerged_WFR_*/*.root
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root -t analyze batchOutput/unmerged_WFR/*.root
 # Visualize plots          
 source configWjetsFakeRegion/scriptVisualize.sh
 # Calculate W+jets fake factors
@@ -141,7 +141,7 @@ source configSignalControlRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
 source configSignalControlRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-nominal.root -t analyze batchOutput/unmerged_SR_*/*.root
+tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root -t analyze batchOutput/unmerged_SR/*.root
 # Visualize plots
 source configSignalControlRegion/scriptVisualize.sh
 ```
