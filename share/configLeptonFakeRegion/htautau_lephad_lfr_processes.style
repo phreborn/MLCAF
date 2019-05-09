@@ -5,6 +5,7 @@
 ### Fakes ###
 .path="|"
 #.name="QCDFake", .title="QCDFake", .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data-mc]", .isBackground=true, histFillColor=kGray+1, histFillStyle=1001
+.name="Wjets",   .title="W+jets",                          .path="/bkg/$(channel)/$(campaign)/Wjets",   .isBackground=true, histFillColor=kYellow-8, histFillStyle=1001
 
 ######################################
 ##      Use this for inclusive      ##
@@ -14,4 +15,3 @@
 .name="Zll",     .title="Z/\gamma^{*}\rightarrow\ell\ell", .path="/bkg/$(channel)/$(campaign)/Zll",     .isBackground=true, histFillColor=kRed-6,    histFillStyle=1001
 .name="Top",     .title="Top",                             .path="/bkg/$(channel)/$(campaign)/Top",     .isBackground=true, histFillColor=kBlue,     histFillStyle=1001
 .name="Diboson", .title="Diboson",                         .path="/bkg/$(channel)/$(campaign)/Diboson", .isBackground=true, histFillColor=kOrange-3, histFillStyle=1001
-.name="Wjets",   .title="W+jets",                          .path="/bkg/$(channel)/$(campaign)/Wjets",   .isBackground=true, histFillColor=kYellow-8, histFillStyle=1001

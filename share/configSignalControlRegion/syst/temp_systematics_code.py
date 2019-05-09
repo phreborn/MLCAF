@@ -76,7 +76,7 @@ def main():
   path_qcd_mc = ''
     # different sf paths because we dont use mc in btag anti-iso (qcd bkg)
   if not b_isbtag:
-    path_qcd_mc = '-/bkg/{:s}/{:s}/Fakes/ISO/mc/[Ztautau+Zll+Top+Diboson]'.format(channel,campaign)
+    path_qcd_mc = '-/bkg/{:s}/{:s}/Fakes/ISO/mc/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel,campaign)
   path_qcd = path_qcd_data + path_qcd_mc
 
   nominal_sf_path = path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd

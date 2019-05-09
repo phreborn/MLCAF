@@ -11,7 +11,7 @@ $create(path="/bkg/?/?/Fakes/TruthTau", type="sf");
 $create(path="/bkg/?/?/Fakes/LepFake", type="sf");
 $create(path="/bkg/?/?/Fakes/JetFake", type="sf");
 
-# copy ID fakes from MC, including Wjets
+# copy ID fakes from MC, including Wjets MC
 @ /bkg/? {
     @ ? {
         $copy("Ztautau >> Fakes/TruthTau");
@@ -36,7 +36,7 @@ $create(path="/bkg/?/?/Fakes/JetFake", type="sf");
     }
 }
 
-# unmark MC as inclusive
+# unmark fake MC as inclusive
 <isInc=false> @ /bkg/?/?/Fakes/TruthTau/?, /bkg/?/?/Fakes/LepFake/?, /bkg/?/?/Fakes/JetFake/?;
 
 # tag truth taus

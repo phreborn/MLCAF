@@ -9,4 +9,4 @@
 .name="Top",                    .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Top",                            .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
 .name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Diboson",                        .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
 #.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Fakes/ID/mc/Wjets",                    .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
-.name="QCDFake",                .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/[data - mc/[Ztautau+Zll+Top+Diboson]]",        .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake"
+.name="QCDFake",                .path="/bkg/$(channel)/$(campaign)/Fakes/ID/ISO/[data-mc]",        .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake"

@@ -25,7 +25,7 @@ $create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
         $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/Fakes/ISO/data");
     }
 }
-# copy each /bkg into the Fakes folder, including Wjets
+# copy each /bkg into the Fakes folder, including Wjets MC
 @ /bkg/? {
     @ ? {
         $copy("Ztautau >> Fakes/ISO/mc");

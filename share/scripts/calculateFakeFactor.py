@@ -1986,7 +1986,7 @@ if __name__=='__main__':
 
         # 2015+16
         dataPath = 'data/{:s}/c16a'
-        bkgPath = 'bkg/{:s}/c16a/[Ztautau+Zll+Top+Diboson+Fakes/ISO/data]'
+        bkgPath = 'bkg/{:s}/c16a/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'
         # lephad 
         #calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR15',0.1,0.1)
         #calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR15',0.1,0.1)
@@ -2035,7 +2035,7 @@ if __name__=='__main__':
 
         # 2017
         dataPath = 'data/{:s}/c16d'
-        bkgPath = 'bkg/{:s}/c16d/[Ztautau+Zll+Top+Diboson+Fake/ISO/data]'
+        bkgPath = 'bkg/{:s}/c16d/[Ztautau+Zll+Top+Diboson+Fake/ISO/[data-mc]]'
         # lephad
         #calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR17',0.1,0.1)
         #calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR17',0.1,0.1)
@@ -2084,7 +2084,7 @@ if __name__=='__main__':
 
         # 2018
         dataPath = 'data/{:s}/c16e'
-        bkgPath = 'bkg/{:s}/c16e/[Ztautau+Zll+Top+Diboson+Fake/ISO/data]'
+        bkgPath = 'bkg/{:s}/c16e/[Ztautau+Zll+Top+Diboson+Fake/ISO/[data-mc]]'
         # lephad
         #calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'lephad', 'WFR18',0.1,0.1)
         #calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'lephad', 'WFR18',0.1,0.1)
