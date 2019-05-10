@@ -352,7 +352,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 
   addScaleFactor(muon,
    mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
-   "lep_0_NOMINAL_MuEffSF_IsoGradient");
+   "lep_0_NOMINAL_MuEffSF_IsoFCTightTrackOnly");
 
   addScaleFactor(muon | mu_eff_isostat_low,
    "lep_0_MUON_ISO_STAT_1down_MuEffSF_IsoGradient");
