@@ -5,23 +5,25 @@
 # ------------------------------ samples ------------------------------ #
 # ----------- c16a ----------- #
 ##### data #####
-/data/?/c16a/data15_D
-/data/?/c16a/data15_E
-/data/?/c16a/data15_F
-/data/?/c16a/data15_G
-/data/?/c16a/data15_H
-/data/?/c16a/data15_J
+#/data/?/c16a/data15_D
+#/data/?/c16a/data15_E
+#/data/?/c16a/data15_F
+#/data/?/c16a/data15_G
+#/data/?/c16a/data15_H
+#/data/?/c16a/data15_J
 
-/data/?/c16a/data16_A
-/data/?/c16a/data16_B
-/data/?/c16a/data16_C
-/data/?/c16a/data16_D
-/data/?/c16a/data16_E
-/data/?/c16a/data16_F
-/data/?/c16a/data16_G
-/data/?/c16a/data16_I
-/data/?/c16a/data16_K
-/data/?/c16a/data16_L
+#/data/?/c16a/data16_A
+#/data/?/c16a/data16_B
+#/data/?/c16a/data16_C
+#/data/?/c16a/data16_D
+#/data/?/c16a/data16_E
+#/data/?/c16a/data16_F
+#/data/?/c16a/data16_G
+#/data/?/c16a/data16_I
+#/data/?/c16a/data16_K
+#/data/?/c16a/data16_L
+
+/data/?/c16a
 
 
 ##### bkg #####
@@ -37,14 +39,16 @@
 
 # ----------- c16d ----------- #
 ##### data #####
-/data/?/c16d/data17_B
-/data/?/c16d/data17_C
-/data/?/c16d/data17_D
-/data/?/c16d/data17_E
-/data/?/c16d/data17_F
-/data/?/c16d/data17_H
-/data/?/c16d/data17_I
-/data/?/c16d/data17_K
+#/data/?/c16d/data17_B
+#/data/?/c16d/data17_C
+#/data/?/c16d/data17_D
+#/data/?/c16d/data17_E
+#/data/?/c16d/data17_F
+#/data/?/c16d/data17_H
+#/data/?/c16d/data17_I
+#/data/?/c16d/data17_K
+
+/data/?/c16d
 
 
 ##### bkg #####
@@ -60,16 +64,18 @@
 
 # ----------- c16e ----------- #
 ##### data #####
-/data/?/c16e/data18_B
-/data/?/c16e/data18_C
-/data/?/c16e/data18_D
-/data/?/c16e/data18_F
-/data/?/c16e/data18_I
-/data/?/c16e/data18_K
-/data/?/c16e/data18_L
-/data/?/c16e/data18_M
-/data/?/c16e/data18_O
-/data/?/c16e/data18_Q
+#/data/?/c16e/data18_B
+#/data/?/c16e/data18_C
+#/data/?/c16e/data18_D
+#/data/?/c16e/data18_F
+#/data/?/c16e/data18_I
+#/data/?/c16e/data18_K
+#/data/?/c16e/data18_L
+#/data/?/c16e/data18_M
+#/data/?/c16e/data18_O
+#/data/?/c16e/data18_Q
+
+/data/?/c16e
 
 
 ##### bkg #####
