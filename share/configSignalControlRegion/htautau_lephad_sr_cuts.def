@@ -23,7 +23,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
             <.cutExpression = " [lep_0_id_medium==1 && lep_0_p4.Pt()>30 && tau_0_p4.Pt()>25 && fabs(tau_0_p4.Eta())<2.3 && lephad_dphi>2.4]",
              .weightExpression = "$(isTop)? [bsmlephad_topsys_$(ttbarweight)]:1.", .title="All">
             +CutISO{
-                <.cutExpression = " $(isAntiISO) ? lep_0_iso_Gradient==0 : lep_0_iso_Gradient==1",
+                <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))",
                  .weightExpression = "$(isAntiISO) ? [isoreweight_$(isovar)] : 1", .title="ISO">
                 +CutID{
                     <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>0.01 && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",

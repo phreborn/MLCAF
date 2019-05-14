@@ -56,6 +56,7 @@ TObjArray* LepHadObservable::getBranchNames() const {
   bnames->Add(new TObjString("n_electrons"));
   bnames->Add(new TObjString("lep_0"));
   bnames->Add(new TObjString("lep_0_iso_Gradient"));
+  bnames->Add(new TObjString("lep_0_iso_FCTightTrackOnly"));
 
   if (isData()) {
     bnames->Add(new TObjString("run_number"));
@@ -318,6 +319,7 @@ bool LepHadObservable::initializeSelf(){
   this->n_electrons = new TTreeFormula( "n_electrons", "n_electrons", this->fTree);
   this->lep_0 = new TTreeFormula( "lep_0", "lep_0", this->fTree);
   this->lep_0_iso_Gradient = new TTreeFormula( "lep_0_iso_Gradient", "lep_0_iso_Gradient", this->fTree);
+  this->lep_0_iso_FCTightTrackOnly = new TTreeFormula( "lep_0_iso_FCTightTrackOnly", "lep_0_iso_FCTightTrackOnly", this->fTree);
 
   if (this->fTree->FindLeaf("NOMINAL_pileup_random_run_number")) this->x_run_number = new TTreeFormula("NOMINAL_pileup_random_run_number", "NOMINAL_pileup_random_run_number", this->fTree);
   else                                                           this->x_run_number = new TTreeFormula("run_number", "run_number", this->fTree);
@@ -344,6 +346,7 @@ bool LepHadObservable::finalizeSelf(){
   delete this->n_electrons;
   delete this->lep_0;
   delete this->lep_0_iso_Gradient;
+  delete this->lep_0_iso_FCTightTrackOnly;
   delete this->lephad_mt_lep0_met;
   delete this->lephad_mt_lep1_met;
   delete this->lephad_dphi;
