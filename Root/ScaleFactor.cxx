@@ -718,7 +718,8 @@ void ScaleFactor::addScaleFactor(Condition requirement, Condition veto, const do
   std::get<1>(sf) = veto;
   std::get<2>(sf) = factor;
 
-  factors.push_back(sf);
+  // broken with MCASV (unneeded anyway)
+  //factors.push_back(sf);
 }
 
 //______________________________________________________________________________________________
@@ -799,7 +800,7 @@ double ScaleFactor::getValue() const {
     scaleFac *= formula->EvalInstance();
   }
 
-
+/* broken with MCASV (unneeded anyway)
   // apply constant factors
   for (unsigned int i = 0; i < factors.size(); i++) {
     Condition requirement = std::get<0>(factors[i]);
@@ -812,6 +813,7 @@ double ScaleFactor::getValue() const {
 
     scaleFac *= (*std::get<2>(factors[i]));
   }
+*/
 
   DEBUGclass("returning");
 

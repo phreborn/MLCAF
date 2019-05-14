@@ -31,7 +31,8 @@ protected:
   Condition variation;
 
   std::vector< std::tuple<Condition, Condition, TString, TTreeFormula*> > branches;
-  std::vector< std::tuple<Condition, Condition, const double*> > factors;
+  // broken with MCASV (unneeded anyway)
+  //std::vector< std::tuple<Condition, Condition, const double*> > factors;
 
   virtual void addScaleFactor(Condition requirement, TString branch);
   virtual void addScaleFactor(Condition requirement, Condition veto, TString branch);
@@ -39,7 +40,8 @@ protected:
   virtual void addScaleFactor(Condition requirement, const double* factor);
   virtual void addScaleFactor(Condition requirement, Condition veto, const double* factor);
 
-  TTreeFormula* event_number;
+  // must initialize to NULL or broken with MCASV
+  TTreeFormula* event_number = NULL;
 
   const double zero = 0;
   const double one = 1;
