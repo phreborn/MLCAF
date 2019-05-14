@@ -1,3 +1,4 @@
+!time=4320
 !memory=1024
 
 # all samples needed in the analysis:
