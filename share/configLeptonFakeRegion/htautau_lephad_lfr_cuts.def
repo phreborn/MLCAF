@@ -24,16 +24,16 @@ $include("configCommon/htautau_lephad_common_cuts.def");
         <.cutExpression = " [(n_electrons+n_muons==1) && ( (n_bjets>0 && (n_taus+n_jets)>1) || (n_bjets==0 && (n_taus+n_jets)>0) )] && [n_taus_loose]==0 ",
         .weightExpression = "{ $(isData) ? 1 : [weight_mc*NOMINAL_pileup_combined_weight] }" ,.title="SL">
         +CutBvetoSLPassISO{
-           <.cutExpression = "n_bjets == 0 && (lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1)", .title="BvetoSLPass">
+           <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))", .title="BvetoSLPass">
            }
         +CutBtagSLPassISO{
-           < .cutExpression = "n_bjets > 0 && (lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1)", .title="BtagSLPass">
+           < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))", .title="BtagSLPass">
            }
         +CutBvetoSLFailISO{
-           <.cutExpression = "n_bjets == 0 && (lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)", .title="BvetoSLFail">
+           <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0))", .title="BvetoSLFail">
            }
         +CutBtagSLFailISO{
-           < .cutExpression = "n_bjets > 0 && (lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)", .title="BtagSLFail">
+           < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0))", .title="BtagSLFail">
            }
         }
     }
@@ -45,16 +45,16 @@ $include("configCommon/htautau_lephad_common_cuts.def");
         <.cutExpression = "tau_0_jet_bdt_score_trans<0.01 && n_taus>0 ",
         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvariation)] }",  .title="BDT">
         +CutBvetoBDTPassISO{
-            <.cutExpression = "n_bjets == 0 && (lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1)", .title="BvetoBDTPass">
+            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))", .title="BvetoBDTPass">
             }
         +CutBtagBDTPassISO{
-            < .cutExpression = "n_bjets > 0 && (lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1)", .title="BtagBDTPass">
+            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))", .title="BtagBDTPass">
             }
         +CutBvetoBDTFailISO{
-            <.cutExpression = "n_bjets == 0 && (lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)", .title="BvetoBDTFail">
+            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0))", .title="BvetoBDTFail">
             }
         +CutBtagBDTFailISO{
-            < .cutExpression = "n_bjets > 0 && (lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)", .title="BtagBDTFail">
+            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0))", .title="BtagBDTFail">
             }
         }
     }
@@ -64,16 +64,16 @@ $include("configCommon/htautau_lephad_common_cuts.def");
         <.cutExpression = "(n_electrons+n_muons)==1",.title="BDTSL">
 
         +CutBvetoBDTSLPassISO{
-            <.cutExpression = "n_bjets == 0 && (lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1)", .title="BvetoBDTSLPass">
+            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))", .title="BvetoBDTSLPass">
             }
         +CutBtagBDTSLPassISO{
-            < .cutExpression = "n_bjets > 0 && (lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1)", .title="BtagBDTSLPass">
+            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))", .title="BtagBDTSLPass">
             }
         +CutBvetoBDTSLFailISO{
-            <.cutExpression = "n_bjets == 0 && (lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)", .title="BvetoBDTSLFail">
+            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0))", .title="BvetoBDTSLFail">
             }
         +CutBtagBDTSLFailISO{
-            < .cutExpression = "n_bjets > 0 && (lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)", .title="BtagBDTSLFail">
+            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0))", .title="BtagBDTSLFail">
             }
         }
     }
