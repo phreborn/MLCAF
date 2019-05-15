@@ -21,7 +21,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
                             .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvariation)] }", .title="Truth">
         +CutAll {
             <.cutExpression = " [lep_0_id_medium==1 && lep_0_p4.Pt()>30 && tau_0_p4.Pt()>25 && fabs(tau_0_p4.Eta())<2.3 &&
-                                 tau_0_jet_bdt_score_trans>0.01 && lephad_dphi>2.4] && [$(isFailISO)?lep_0_iso_Gradient==0:lep_0_iso_Gradient==1] ",
+                                 tau_0_jet_bdt_score_trans>0.01 && lephad_dphi>2.4] && [$(isFailISO)?((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==0)):((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTightTrackOnly==1))] ",
                                  .weightExpression = "$(isFailISO)?[isoreweight_$(isovar)]:1", .title="All">
             +CutVisMassVeto {
                 # vis mass veto only in ehad bveto channel.

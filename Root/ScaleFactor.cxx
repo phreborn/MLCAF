@@ -250,7 +250,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 
   addScaleFactor(electron | slt,
     el_eff_trigger_low | el_eff_trigger_high,
-    "lep_0_NOMINAL_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2017_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13_isolGradient");
+    "lep_0_NOMINAL_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2018_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13_isolGradient");
 
   addScaleFactor(electron | slt | el_eff_trigger_low,
     "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13_isolGradient");
@@ -352,7 +352,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 
   addScaleFactor(muon,
    mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
-   "lep_0_NOMINAL_MuEffSF_IsoGradient");
+   "lep_0_NOMINAL_MuEffSF_IsoFCTightTrackOnly");
 
   addScaleFactor(muon | mu_eff_isostat_low,
    "lep_0_MUON_ISO_STAT_1down_MuEffSF_IsoGradient");
@@ -718,7 +718,8 @@ void ScaleFactor::addScaleFactor(Condition requirement, Condition veto, const do
   std::get<1>(sf) = veto;
   std::get<2>(sf) = factor;
 
-  factors.push_back(sf);
+  // broken with MCASV (unneeded anyway)
+  //factors.push_back(sf);
 }
 
 //______________________________________________________________________________________________
@@ -799,7 +800,7 @@ double ScaleFactor::getValue() const {
     scaleFac *= formula->EvalInstance();
   }
 
-
+/* broken with MCASV (unneeded anyway)
   // apply constant factors
   for (unsigned int i = 0; i < factors.size(); i++) {
     Condition requirement = std::get<0>(factors[i]);
@@ -812,6 +813,7 @@ double ScaleFactor::getValue() const {
 
     scaleFac *= (*std::get<2>(factors[i]));
   }
+*/
 
   DEBUGclass("returning");
 

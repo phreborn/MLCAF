@@ -49,6 +49,7 @@ TObjArray* ptReweight::getBranchNames() const {
   bnames->Add(new TObjString("tau_0_phi"));
   bnames->Add(new TObjString("met_anti_iso_phi"));
   bnames->Add(new TObjString("lep_0_iso_Gradient"));
+  bnames->Add(new TObjString("lep_0_iso_FCTightTrackOnly"));
   bnames->Add(new TObjString("tau_0_n_charged_tracks"));
   bnames->Add(new TObjString("tau_0_pt"));
   bnames->Add(new TObjString("lep_0"));
@@ -86,6 +87,7 @@ double ptReweight::getValue() const {
   //double f_met_anti_iso_phi   = this->met_anti_iso_phi->EvalInstance();
   double f_lep_0              = this->lep_0->EvalInstance();
   double f_lep_0_iso_Gradient   = this->lep_0_iso_Gradient->EvalInstance();
+  double f_lep_0_iso_FCTightTrackOnly   = this->lep_0_iso_FCTightTrackOnly->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
   int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   int    f_n_bjets        = this->n_bjets->EvalInstance();
@@ -408,7 +410,7 @@ double ptReweight::getValue() const {
   }
 
 
-  //if(f_lep_0_iso_Gradient==0)
+  //if( (f_lep_0==2 && f_lep_0_iso_Gradient==0) || (f_lep_0==1 && f_lep_0_iso_FCTightTrackOnly==0) )
   //{
   //  f_lephad_met_lep1_cos_dphi = fabs(f_tau_0_phi - f_met_anti_iso_phi);
   //  if(f_lephad_met_lep1_cos_dphi > TMath::Pi()) f_lephad_met_lep1_cos_dphi = TMath::TwoPi() - f_lephad_met_lep1_cos_dphi;
@@ -2214,6 +2216,7 @@ bool ptReweight::initializeSelf(){
   this->tau_0_n_charged_tracks  = new TTreeFormula( "tau_0_n_charged_tracks","tau_0_n_charged_tracks", this->fTree);
   this->tau_0_pt                = new TTreeFormula( "tau_0_pt",     "tau_0_p4.Pt()",      this->fTree);
   this->lep_0_iso_Gradient      = new TTreeFormula( "lep_0_iso_Gradient",     "lep_0_iso_Gradient",      this->fTree);
+  this->lep_0_iso_FCTightTrackOnly  = new TTreeFormula( "lep_0_iso_FCTightTrackOnly",     "lep_0_iso_FCTightTrackOnly",  this->fTree);
   this->lephad_met_lep1_cos_dphi= new TTreeFormula( "lephad_met_lep1_cos_dphi", "lephad_met_lep1_cos_dphi", this->fTree);
   this->lep_0                   = new TTreeFormula( "lep_0",    "lep_0",      this->fTree);
   this->n_bjets                 = new TTreeFormula( "n_bjets",  "n_bjets",      this->fTree);
@@ -2234,6 +2237,7 @@ bool ptReweight::finalizeSelf(){
   delete this->tau_0_n_charged_tracks;
   delete this->lephad_met_lep1_cos_dphi;
   delete this->lep_0_iso_Gradient;
+  delete this->lep_0_iso_FCTightTrackOnly;
   delete this->n_bjets;
 
   return true;

@@ -56,6 +56,7 @@ protected:
   TTreeFormula* n_bjets = NULL;
 
   TTreeFormula* lep_0_iso_Gradient = NULL;
+  TTreeFormula* lep_0_iso_FCTightTrackOnly = NULL;
 
   TTreeFormula* n_electrons = NULL;
   TTreeFormula* n_muons = NULL;
