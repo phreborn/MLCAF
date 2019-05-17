@@ -175,45 +175,13 @@ source configSignalControlRegion/syst/scriptDumpHist.sh
 
 Old README content
 ------------------
-TODO: 2015-16-17 fake factors:
-    - update isoReweight.cxx and ptReweight.cxx to use appropriate year fake factors;
-    - I only checked W+jets ffs and it looks that all years can be merged;
-    - Need to check lepton ffs;
-
-
-TODO: merging mc16a and mc16c samples:
-    - easiest is to run makeSampleFile.py twice for two MC projects and do tqmerge;
-    - problem arise when merging /data folders; only the first input file will be used;
-    - pseudo-solution do both makeSampleFile.py with full data, in that case full data from the first input file is used;
-        -- problem when copying /data folder for data-driven fake background; full data copied for mc16a and mc16c samples,
-                but only appropriate years are required;
-        ---- proposed solution - figure out how to merge /data folders at the first step.
-
-
-
 TODO: Decide how to calculate FF:
     - proposed function in the calculateFakeFactor.py script works well;
         -- calcJetFakeFactorFinal(identifier, dataPath, bkgPath, nominator, denominator, histogram, channel, region, uncertainty)
         ---- make cosmetic improvements for FF plots.
 
-
-IMPORTANT: systematics are submited with different options via command line:
-    - every systematic produce a separate output file;
-        -- this is mainly due to the requirement of having separate input files for reading different systematic trees in the ntuples,
-                so why not doing the same for all systematics;
-    - When running runAnalysis.py with sys, tell it what to do with command line options, e.g.
-        $ python runAnalysis.py ConfigSignalRegion/htautau-lephad-sr.cfg --options fakevar:FakeShape_WjetsSysDo outputFile:output/htautau_lephad_sr/FakeShape_WjetsSysDo_wjets.root
-    - that way 1 syst = 1 job and 1 root file.
-
-
-
 IMPORTANT: Top samples with dilepton filter contains more statistics because we use truth matching anyway.
         Be careful to use allhad/nonallhad top samples for QCD regions.
-
-
-
-IMPORTANT: in processes style files can do, e.g. [Zee+Zll] to add folders, [Zee-Zll] to subtract folders, 50*Zee to scale.
-
 
 ####################
 ### WCR stuff:
@@ -242,5 +210,3 @@ and requires less hardcoding in cuts and histos config files.
 
     atm this doesn't include QCD, but studies could be made to show that QCD changes nothing to ff,
     or at least not significantly.
-
-
