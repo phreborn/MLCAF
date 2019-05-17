@@ -351,20 +351,37 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition mu_eff_isosys_high = registerVariation("mu_eff_isosys_high");
 
   addScaleFactor(muon,
-   mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
+   highpt2 | mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
    "lep_0_NOMINAL_MuEffSF_IsoFCTightTrackOnly");
 
   addScaleFactor(muon | mu_eff_isostat_low,
-   "lep_0_MUON_ISO_STAT_1down_MuEffSF_IsoGradient");
+   "lep_0_MUON_ISO_STAT_1down_MuEffSF_IsoFCTightTrackOnly");
 
   addScaleFactor(muon | mu_eff_isostat_high,
-   "lep_0_MUON_ISO_STAT_1up_MuEffSF_IsoGradient");
+   "lep_0_MUON_ISO_STAT_1up_MuEffSF_IsoFCTightTrackOnly");
 
   addScaleFactor(muon | mu_eff_isosys_low,
-   "lep_0_MUON_ISO_SYS_1down_MuEffSF_IsoGradient");
+   "lep_0_MUON_ISO_SYS_1down_MuEffSF_IsoFCTightTrackOnly");
 
   addScaleFactor(muon | mu_eff_isosys_high,
-   "lep_0_MUON_ISO_SYS_1up_MuEffSF_IsoGradient");
+   "lep_0_MUON_ISO_SYS_1up_MuEffSF_IsoFCTightTrackOnly");
+
+  // muon isolation efficient highpt
+  addScaleFactor(muon | highpt2,
+   mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
+   "lep_0_NOMINAL_MuEffSF_IsoFCTight");
+
+  addScaleFactor(muon | highpt2 | mu_eff_isostat_low,
+   "lep_0_MUON_ISO_STAT_1down_MuEffSF_IsoFCTight");
+
+  addScaleFactor(muon | highpt2 | mu_eff_isostat_high,
+   "lep_0_MUON_ISO_STAT_1up_MuEffSF_IsoFCTight");
+
+  addScaleFactor(muon | highpt2 | mu_eff_isosys_low,
+   "lep_0_MUON_ISO_SYS_1down_MuEffSF_IsoFCTight");
+
+  addScaleFactor(muon | highpt2 | mu_eff_isosys_high,
+   "lep_0_MUON_ISO_SYS_1up_MuEffSF_IsoFCTight");
 
   ////////////////////////////////////////////////////////////////////////////////
   // muon ttva
@@ -784,6 +801,7 @@ double ScaleFactor::getValue() const {
   if (isElectron()) { status |= electron; }
   if (isSherpa())   { status |= sherpa; }
   if (isHighPt())   { status |= highpt ;}
+  if (isHighPt2())   { status |= highpt2 ;}
   if (isZtt || isZll) { status |= isZ;}
 
   // apply branches
