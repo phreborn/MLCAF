@@ -1,0 +1,4 @@
+# -*- mode: tqfolder -*-
+
+# include ISO fakes tags
+$include("configCommon/htautau_lephad_common_postinit_fakes_iso.tags");
