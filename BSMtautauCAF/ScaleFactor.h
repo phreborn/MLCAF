@@ -58,12 +58,13 @@ protected:
   const Condition electron  = 1<<7;
   const Condition sherpa    = 1<<8;
   const Condition highpt    = 1<<9;
-  const Condition isZ       = 1<<10;
+  const Condition highpt2    = 1<<10;
+  const Condition isZ       = 1<<11;
 
-  const Condition nominal = 1<<11;
+  const Condition nominal = 1<<12;
 
   virtual Condition registerVariation(TString name);
-  unsigned int nextBitPosition = 12;
+  unsigned int nextBitPosition = 13;
 
   // need to know which samples are Z for lpx kfactor systematics
   bool isZtt = false;
