@@ -1,4 +1,7 @@
 # -*- mode: tqfolder -*-
 
+# include original region tags
+$include("configLeptonFakeRegion/htautau_lephad_lfr.tags");
+
 # include ISO fakes tags
 $include("configCommon/htautau_lephad_common_postinit_fakes_iso.tags");
