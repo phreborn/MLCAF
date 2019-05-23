@@ -413,8 +413,14 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition tau_eff_reco_highpt_low = registerVariation("tau_eff_reco_highpt_low");
   Condition tau_eff_reco_highpt_high = registerVariation("tau_eff_reco_highpt_high");
 
+  Condition tau_eff_eleolr_trueele_low = registerVariation("tau_eff_eleolr_trueelectron_low");
+  Condition tau_eff_eleolr_trueele_high = registerVariation("tau_eff_eleolr_trueelectron_high");
+  Condition tau_eff_eleolr_truehadtau_low = registerVariation("tau_eff_eleolr_truehadtau_low");
+  Condition tau_eff_eleolr_truehadtau_high = registerVariation("tau_eff_eleolr_truehadtau_high");
+
   addScaleFactor(none,
-    tau_eff_reco_total_low | tau_eff_reco_total_high | tau_eff_reco_highpt_low | tau_eff_reco_highpt_high,
+    tau_eff_reco_total_low | tau_eff_reco_total_high | tau_eff_reco_highpt_low | tau_eff_reco_highpt_high
+        | tau_eff_eleolr_trueele_low | tau_eff_eleolr_trueele_high | tau_eff_eleolr_truehadtau_low | tau_eff_eleolr_truehadtau_high,
     "tau_0_NOMINAL_TauEffSF_selection");
 
   addScaleFactor(tau_eff_reco_total_low,
@@ -429,33 +435,17 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(tau_eff_reco_highpt_high,
     "tau_0_TAUS_TRUEHADTAU_EFF_RECO_HIGHPT_1up_TauEffSF_selection");
 
-
-  ////////////////////////////////////////////////////////////////////////////////
   // tau electron overlap removal
-  Condition tau_eff_eleolr_trueele_low = registerVariation("tau_eff_eleolr_trueelectron_low");
-  Condition tau_eff_eleolr_trueele_high = registerVariation("tau_eff_eleolr_trueelectron_high");
-
-  addScaleFactor(none,
-    tau_eff_eleolr_trueele_low | tau_eff_eleolr_trueele_high,
-    "tau_0_NOMINAL_TauEffSF_selection");
-
   addScaleFactor(tau_eff_eleolr_trueele_low,
     "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1down_TauEffSF_selection");
 
   addScaleFactor(tau_eff_eleolr_trueele_high,
     "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1up_TauEffSF_selection");
 
-  Condition tau_eff_eleolr_truehadtau_low = registerVariation("tau_eff_eleolr_truehadtau_low");
-  Condition tau_eff_eleolr_truehadtau_high = registerVariation("tau_eff_eleolr_truehadtau_high");
-
-  addScaleFactor(none,
-    tau_eff_eleolr_truehadtau_low | tau_eff_eleolr_truehadtau_high,
-    "tau_0_NOMINAL_TauEffSF_selection");
-
-  addScaleFactor(none | tau_eff_eleolr_truehadtau_low,
+  addScaleFactor(tau_eff_eleolr_truehadtau_low,
     "tau_0_TAUS_TRUEHADTAU_EFF_ELEOLR_TOTAL_1down_TauEffSF_selection");
 
-  addScaleFactor(none | tau_eff_eleolr_truehadtau_high,
+  addScaleFactor(tau_eff_eleolr_truehadtau_high,
     "tau_0_TAUS_TRUEHADTAU_EFF_ELEOLR_TOTAL_1up_TauEffSF_selection");
 
   ////////////////////////////////////////////////////////////////////////////////
