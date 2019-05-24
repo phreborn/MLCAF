@@ -54,17 +54,18 @@ protected:
   const Condition y2018 = 1<<3;
   const Condition slt   = 1<<4;
   const Condition tauid = 1<<5;
-  const Condition muon  = 1<<6;
-  const Condition electron  = 1<<7;
-  const Condition sherpa    = 1<<8;
-  const Condition highpt    = 1<<9;
-  const Condition highpt2    = 1<<10;
-  const Condition isZ       = 1<<11;
+  const Condition lepiso = 1<<6;
+  const Condition muon  = 1<<7;
+  const Condition electron  = 1<<8;
+  const Condition sherpa    = 1<<9;
+  const Condition highpt    = 1<<10;
+  const Condition highpt2    = 1<<11;
+  const Condition isZ       = 1<<12;
 
-  const Condition nominal = 1<<12;
+  const Condition nominal = 1<<13;
 
   virtual Condition registerVariation(TString name);
-  unsigned int nextBitPosition = 13;
+  unsigned int nextBitPosition = 14;
 
   // need to know which samples are Z for lpx kfactor systematics
   bool isZtt = false;

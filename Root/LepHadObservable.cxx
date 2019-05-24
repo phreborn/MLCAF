@@ -214,6 +214,12 @@ bool LepHadObservable::isTauID() const {
 
 }
 
+bool LepHadObservable::isLepISO() const {
+  return ((lep_0->EvalInstance()==2 && lep_0_iso_Gradient->EvalInstance()==1)
+            || (lep_0->EvalInstance()==1 && ( (lep_0_pt->EvalInstance()<50. && lep_0_iso_FCTightTrackOnly->EvalInstance()==1) || (lep_0_pt->EvalInstance()>=50. && lep_0_iso_FCTight->EvalInstance()==1) )));
+
+}
+
 //______________________________________________________________________________________________
 bool LepHadObservable::isSLT() const {
   //if (!_useSLT) { return false; }
