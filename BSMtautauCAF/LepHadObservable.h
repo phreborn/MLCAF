@@ -91,6 +91,7 @@ public:
   bool is2017() const;
   bool is2018() const;
   bool isTauID() const;
+  bool isLepISO() const;
   bool isTLT() const;
   bool isSLT() const;
 

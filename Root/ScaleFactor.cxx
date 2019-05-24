@@ -112,6 +112,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition mu_eff_trigsys_low = registerVariation("mu_eff_trigsys_low");
   Condition mu_eff_trigsys_high = registerVariation("mu_eff_trigsys_high");
 
+  // add separate SFs for isolated muons?
   // muon slt efficiency 2015
   addScaleFactor(muon | slt | y2015,
     highpt | mu_eff_trigstat_low | mu_eff_trigstat_high | mu_eff_trigsys_low | mu_eff_trigsys_high,
@@ -248,15 +249,30 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition el_eff_trigger_low = registerVariation("el_eff_trigger_low");
   Condition el_eff_trigger_high = registerVariation("el_eff_trigger_high");
 
-  addScaleFactor(electron | slt,
+  // isolated
+  addScaleFactor(electron | slt | lepiso,
     el_eff_trigger_low | el_eff_trigger_high,
     "lep_0_NOMINAL_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2018_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13_isolGradient");
 
-  addScaleFactor(electron | slt | el_eff_trigger_low,
+  addScaleFactor(electron | slt | lepiso | el_eff_trigger_low,
     "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13_isolGradient");
 
-  addScaleFactor(electron | slt | el_eff_trigger_high,
+  addScaleFactor(electron | slt | lepiso | el_eff_trigger_high,
     "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13_isolGradient");
+
+// currently not in ntuple
+  // anti-isolated
+//  addScaleFactor(electron | slt,
+//    lepiso | el_eff_trigger_low | el_eff_trigger_high,
+//    "lep_0_NOMINAL_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2018_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13");
+//
+//  addScaleFactor(electron | slt | el_eff_trigger_low,
+//    lepiso,
+//    "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13");
+//
+//  addScaleFactor(electron | slt | el_eff_trigger_high,
+//    lepiso,
+//    "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13");
 
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -294,14 +310,14 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition el_eff_iso_low = registerVariation("el_eff_iso_low");
   Condition el_eff_iso_high = registerVariation("el_eff_iso_high");
 
-  addScaleFactor(electron,
+  addScaleFactor(electron | lepiso,
     el_eff_iso_low | el_eff_iso_high,
     "lep_0_NOMINAL_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
 
-  addScaleFactor(electron | el_eff_iso_low,
+  addScaleFactor(electron | lepiso | el_eff_iso_low,
     "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
 
-  addScaleFactor(electron | el_eff_iso_high,
+  addScaleFactor(electron | lepiso | el_eff_iso_high,
     "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -350,37 +366,37 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition mu_eff_isosys_low = registerVariation("mu_eff_isosys_low");
   Condition mu_eff_isosys_high = registerVariation("mu_eff_isosys_high");
 
-  addScaleFactor(muon,
+  addScaleFactor(muon | lepiso,
    highpt2 | mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
    "lep_0_NOMINAL_MuEffSF_IsoFCTightTrackOnly");
 
-  addScaleFactor(muon | mu_eff_isostat_low,
+  addScaleFactor(muon | lepiso | mu_eff_isostat_low,
    "lep_0_MUON_ISO_STAT_1down_MuEffSF_IsoFCTightTrackOnly");
 
-  addScaleFactor(muon | mu_eff_isostat_high,
+  addScaleFactor(muon | lepiso | mu_eff_isostat_high,
    "lep_0_MUON_ISO_STAT_1up_MuEffSF_IsoFCTightTrackOnly");
 
-  addScaleFactor(muon | mu_eff_isosys_low,
+  addScaleFactor(muon | lepiso | mu_eff_isosys_low,
    "lep_0_MUON_ISO_SYS_1down_MuEffSF_IsoFCTightTrackOnly");
 
-  addScaleFactor(muon | mu_eff_isosys_high,
+  addScaleFactor(muon | lepiso | mu_eff_isosys_high,
    "lep_0_MUON_ISO_SYS_1up_MuEffSF_IsoFCTightTrackOnly");
 
   // muon isolation efficient highpt
-  addScaleFactor(muon | highpt2,
+  addScaleFactor(muon | lepiso | highpt2,
    mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
    "lep_0_NOMINAL_MuEffSF_IsoFCTight");
 
-  addScaleFactor(muon | highpt2 | mu_eff_isostat_low,
+  addScaleFactor(muon | lepiso | highpt2 | mu_eff_isostat_low,
    "lep_0_MUON_ISO_STAT_1down_MuEffSF_IsoFCTight");
 
-  addScaleFactor(muon | highpt2 | mu_eff_isostat_high,
+  addScaleFactor(muon | lepiso | highpt2 | mu_eff_isostat_high,
    "lep_0_MUON_ISO_STAT_1up_MuEffSF_IsoFCTight");
 
-  addScaleFactor(muon | highpt2 | mu_eff_isosys_low,
+  addScaleFactor(muon | lepiso | highpt2 | mu_eff_isosys_low,
    "lep_0_MUON_ISO_SYS_1down_MuEffSF_IsoFCTight");
 
-  addScaleFactor(muon | highpt2 | mu_eff_isosys_high,
+  addScaleFactor(muon | lepiso | highpt2 | mu_eff_isosys_high,
    "lep_0_MUON_ISO_SYS_1up_MuEffSF_IsoFCTight");
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -459,16 +475,16 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     tau_eff_jetid_total_low | tau_eff_jetid_total_high | tau_eff_jetid_highpt_low | tau_eff_jetid_highpt_high,
     "tau_0_NOMINAL_TauEffSF_JetBDTmedium");
 
-  addScaleFactor(tau_eff_jetid_total_low,
+  addScaleFactor(tauid | tau_eff_jetid_total_low,
     "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1down_TauEffSF_JetBDTmedium");
 
-  addScaleFactor(tau_eff_jetid_total_high,
+  addScaleFactor(tauid | tau_eff_jetid_total_high,
     "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1up_TauEffSF_JetBDTmedium");
 
-  addScaleFactor(tau_eff_jetid_highpt_low,
+  addScaleFactor(tauid | tau_eff_jetid_highpt_low,
     "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1down_TauEffSF_JetBDTmedium");
 
-  addScaleFactor(tau_eff_jetid_highpt_high,
+  addScaleFactor(tauid | tau_eff_jetid_highpt_high,
     "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1up_TauEffSF_JetBDTmedium");
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -787,6 +803,7 @@ double ScaleFactor::getValue() const {
   if (is2015())     { status |= y2015; }
   if (isSLT())      { status |= slt; }
   if (isTauID())    { status |= tauid; }
+  if (isLepISO())   { status |= lepiso; }
   if (isMuon())     { status |= muon; }
   if (isElectron()) { status |= electron; }
   if (isSherpa())   { status |= sherpa; }
