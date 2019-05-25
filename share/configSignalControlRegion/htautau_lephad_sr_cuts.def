@@ -117,19 +117,19 @@ $include("configCommon/htautau_lephad_common_cuts.def");
         }
     }
 
-# cut at high tau_0_ele_BDTEleScoreTrans_run2 where data peaks for some reason
+# cut at high tau_0_ele_bdt_score_trans where data peaks for some reason
 @*/CutVRMT{
     +CutVReleBveto1p{
-        <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1 && tau_0_ele_BDTEleScoreTrans_run2<0.95", .title="VRBveto1p">
+        <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1 && tau_0_ele_bdt_score_trans<0.95", .title="VRBveto1p">
         }
     +CutVReleBtag1p{
-        < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_ele_BDTEleScoreTrans_run2<0.95", .title="VRBtag1p",>
+        < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_ele_bdt_score_trans<0.95", .title="VRBtag1p",>
         }
     +CutVReleBveto3p{
-        <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==3 && tau_0_ele_BDTEleScoreTrans_run2<0.95", .title="VRBveto3p">
+        <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==3 && tau_0_ele_bdt_score_trans<0.95", .title="VRBveto3p">
         }
     +CutVReleBtag3p{
-        < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_ele_BDTEleScoreTrans_run2<0.95", .title="VRBtag3p",>
+        < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_ele_bdt_score_trans<0.95", .title="VRBtag3p",>
         }
     }
 
