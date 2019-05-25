@@ -28,7 +28,7 @@ protected:
   const long LIMIT_2018 = 364292;
 
 
-  TH1 *h_weight ;
+  TH1 *h_weight=0;
   // 2015+2016
   TH1F* h_ff15_lfr_ehad_0tag = 0;
   TH1F* h_ff15_lfr_ehad_0tag_up = 0;

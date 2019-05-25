@@ -621,7 +621,8 @@ isoReweight::isoReweight(const TString& expression) : LepHadObservable(expressio
   fSysName = expression;
 
   // when files are closed histograms also dissapear, so detatch them and keep in this directory:
-  m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
+  //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
+  m_histoDir = 0;
   // temporary pointer to ff files:
   TFile* tempFile=0;
 
