@@ -89,7 +89,7 @@ double extrapolationReweight::getValue() const {
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
   int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   int    f_n_bjets        = this->n_bjets->EvalInstance();
-  int    f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
+  double    f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
 
 
   ////////////////////////////
@@ -407,7 +407,8 @@ extrapolationReweight::extrapolationReweight(const TString& expression) : LepHad
   fSysName = expression;
 
   // when files are closed histograms also dissapear, so detatch them and keep in this directory:
-  m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
+  //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
+  m_histoDir = 0;
   // temporary pointer to ff files:
   TFile* tempFile=0;
 

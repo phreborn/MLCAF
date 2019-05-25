@@ -95,7 +95,7 @@ double ptReweight::getValue() const {
   double f_lep_0_pt   = this->lep_0_pt->EvalInstance();
   int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   int    f_n_bjets        = this->n_bjets->EvalInstance();
-  int    f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
+  double    f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
 /*
   TH1F * h_ff_mj_1p_0tag     = h_2015ff_mj_1p_0tag   ;
   TH1F * h_ff_mj_3p_0tag     = h_2015ff_mj_3p_0tag   ;
@@ -878,7 +878,8 @@ ptReweight::ptReweight(const TString& expression) : LepHadObservable(expression)
   fSysName = expression;
 
   // when files are closed histograms also dissapear, so detatch them and keep in this directory:
-  m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
+  //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
+  m_histoDir = 0;
   // temporary pointer to ff files:
   TFile* tempFile=0;
 

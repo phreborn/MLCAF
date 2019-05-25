@@ -29,7 +29,7 @@ protected:
   const long LIMIT_2017 = 340453;
 
 
-  TH1 *h_weight ;
+  TH1 *h_weight=0;
 
   // nominal pt parametrization
   // 2015/16
