@@ -1,0 +1,13 @@
+.name="||"
+.name=CutChannel
+.name="|"
+.name=CutBase
+.name="|"
+.name=CutAll
+.name="|"
+.name=CutBDT
+.name="||"
+.name=CutBDTSL
+.name="|"
+.name=CutBvetoBDTSLPassISO
+.name=CutBtagBDTSLPassISO

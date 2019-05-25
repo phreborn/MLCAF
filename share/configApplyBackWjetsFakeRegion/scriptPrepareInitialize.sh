@@ -1,7 +1,0 @@
-prepare.py configApplyBackWjetsFakeRegion/htautau_lephad_wfr_applywff_mc16a.cfg
-prepare.py configApplyBackWjetsFakeRegion/htautau_lephad_wfr_applywff_mc16c.cfg
-
-initialize.py configApplyBackWjetsFakeRegion/htautau_lephad_wfr_applywff_mc16a.cfg
-initialize.py configApplyBackWjetsFakeRegion/htautau_lephad_wfr_applywff_mc16c.cfg
-
-tqmerge -o sampleFolders/initialized/samples-initialized-htautau_lephad_wfr_applywff.root -t initialize sampleFolders/initialized/samples-initialized-htautau_lephad_wfr_applywff_mc16*.root

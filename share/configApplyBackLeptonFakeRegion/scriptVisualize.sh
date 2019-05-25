@@ -1,2 +1,0 @@
-visualize.py configApplyBackLeptonFakeRegion/htautau_lephad_lfr_applyff_mc16a.cfg
-visualize.py configApplyBackLeptonFakeRegion/htautau_lephad_lfr_applyff_mc16c.cfg

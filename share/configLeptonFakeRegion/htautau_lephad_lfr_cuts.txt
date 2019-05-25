@@ -5,13 +5,6 @@
 .name="|"
 .name=CutAll
 .name="||"
-.name=CutSingleLepton
-.name="|"
-.name=CutBvetoSLPassISO
-.name=CutBvetoSLFailISO
-.name=CutBtagSLPassISO
-.name=CutBtagSLFailISO
-.name="||"
 .name=CutBDT
 .name="|"
 .name=CutBvetoBDTPassISO
