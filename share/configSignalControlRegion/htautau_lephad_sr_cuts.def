@@ -148,22 +148,26 @@ $include("configCommon/htautau_lephad_common_cuts.def");
 
 # WCR
 @*/CutOS{
-    +CutWCR{
-        <.cutExpression = "lephad_mt_lep0_met>60.", .title="WCRMT">
-        +CutWCRBveto1p{
-            < .cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1", .title="WCRBveto1p",>
+    +CutVisMassVeto {
+        # vis mass veto only in ehad bveto channel.
+        <.cutExpression=" (lep_0==2 && n_bjets==0)? ( (lephad_p4.M() > 110 || lephad_p4.M() < 80)? 1 : 0 ) : 1 ", .title="Vis mass veto">
+        +CutWCR {
+            <.cutExpression = "lephad_mt_lep0_met>60. && lephad_mt_lep0_met<150.", .title="WCRMT">
+            +CutWCRBveto1p{
+                < .cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1", .title="WCRBveto1p",>
             }
-        +CutWCRBveto3p{
-            < .cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==3", .title="WCRBveto3p",>
+            +CutWCRBveto3p{
+                < .cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==3", .title="WCRBveto3p",>
             }
-        +CutWCRBtag1p{
-            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1", .title="WCRBtag1p",>
+            +CutWCRBtag1p{
+                < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1", .title="WCRBtag1p",>
             }
-        +CutWCRBtag3p{
-            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3", .title="WCRBtag3p",>
+            +CutWCRBtag3p{
+                < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3", .title="WCRBtag3p",>
             }
         }
     }
+}
 
 
 # SSWCR
