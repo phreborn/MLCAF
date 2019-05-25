@@ -1,2 +1,0 @@
-visualize.py configApplyBackWjetsFakeRegion/htautau_lephad_wfr_applywff_mc16a.cfg
-visualize.py configApplyBackWjetsFakeRegion/htautau_lephad_wfr_applywff_mc16c.cfg

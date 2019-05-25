@@ -2134,25 +2134,23 @@ if __name__=='__main__':
 
     elif region == 'LFR':
         dataPath = 'data/{:s}/c16a'
-        #bkgPath = 'mc16a/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson]'#+SherpaWjets]'
         bkgPath = 'bkg/{:s}/c16a/[Ztautau+Zll+Top+Diboson+Wjets]'
 
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtELEBTAGFF','ehad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtMUONFF','muhad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtMUONFF', 'muhad','LFR15',0.1,0.2)
-	#muhad FFs missing - will try to add them now
+	    #muhad FFs missing - will try to add them now
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1ELEBVETOFF', 'ehad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2ELEBVETOFF', 'ehad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4ELEBVETOFF', 'ehad','LFR15',0.1,0.2)
 
-	#adding muon ffs, but not sure about naming scheme
+	    #adding muon ffs, but not sure about naming scheme
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1MUONBVETOFF', 'muhad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2MUONBVETOFF', 'muhad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','LFR15',0.1,0.2)
-
 
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','LFR15',0.1,0.2)
@@ -2162,10 +2160,8 @@ if __name__=='__main__':
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','LFR15',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','LFR15',0.1,0.2)
 
-	#now adding 2017
-
+	    #now adding 2017
         dataPath = 'data/{:s}/c16d'
-        #bkgPath = 'mc16c/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson]'#+SherpaWjets]'
         bkgPath = 'bkg/{:s}/c16d/[Ztautau+Zll+Top+Diboson+Wjets]'
 
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','LFR17',0.1,0.2)
@@ -2184,7 +2180,6 @@ if __name__=='__main__':
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','LFR17',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','LFR17',0.1,0.2)
 
-
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','LFR17',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','LFR17',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3ELEBTAGFF', 'ehad','LFR17',0.1,0.2)
@@ -2193,10 +2188,8 @@ if __name__=='__main__':
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','LFR17',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','LFR17',0.1,0.2)
 
-    #now adding 2018
-
+        #now adding 2018
         dataPath = 'data/{:s}/c16e'
-        #bkgPath = 'mc16c/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson]'#+SherpaWjets]'
         bkgPath = 'bkg/{:s}/c16e/[Ztautau+Zll+Top+Diboson+Wjets]'
 
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','LFR18',0.1,0.2)
@@ -2209,12 +2202,10 @@ if __name__=='__main__':
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','LFR18',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4ELEBVETOFF', 'ehad','LFR18',0.1,0.2)
 
-        #adding muon ffs, but not sure about naming scheme
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1MUONBVETOFF', 'muhad','LFR18',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2MUONBVETOFF', 'muhad','LFR18',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','LFR18',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','LFR18',0.1,0.2)
-
 
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','LFR18',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','LFR18',0.1,0.2)
@@ -2223,6 +2214,28 @@ if __name__=='__main__':
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1MUONBTAGFF', 'muhad','LFR18',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','LFR18',0.1,0.2)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','LFR18',0.1,0.2)
+
+
+        # full year
+        dataPath = 'data/{:s}/[c16a+c16d+c16e]'
+        bkgPath = 'bkg/{:s}/[c16a+c16d+c16e]/[Ztautau+Zll+Top+Diboson+Wjets]'
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1ELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2ELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4ELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
+
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1MUONBVETOFF', 'muhad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2MUONBVETOFF', 'muhad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3MUONBVETOFF', 'muhad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi4MUONBVETOFF', 'muhad','LFRAll',0.1,0.2)
+
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1ELEBTAGFF', 'ehad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2ELEBTAGFF', 'ehad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3ELEBTAGFF', 'ehad','LFRAll',0.1,0.2)
+
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi1MUONBTAGFF', 'muhad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi2MUONBTAGFF', 'muhad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtDphi3MUONBTAGFF', 'muhad','LFRAll',0.1,0.2)
 
     elif region == 'WFRcontid':
         dataPath = 'data/{:s}'

@@ -1,7 +1,0 @@
-.name=CutSLBveto
-.name=CutSLBtag
-
-.name=CutBveto1p
-.name=CutBveto3p
-.name=CutBtag1p
-.name=CutBtag3p

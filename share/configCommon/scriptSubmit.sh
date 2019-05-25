@@ -10,7 +10,7 @@ if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
   SUBMIT="--submit condor"
 elif [ "$USER" == "yehf" ]; then
   SUBMIT="--submit hep_sub --account atlas"
-elif [ "$USER" == "xiaozhong"]; then
+elif [ "$USER" == "xiaozhong" ]; then
   SUBMIT="--submit condor --maxSampleSize 12000"
 fi
 
