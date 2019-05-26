@@ -4,33 +4,9 @@
 
 
 # ------------------------------ samples ------------------------------ #
-# no /data
-# no /bkg
-# no /Fakes/ID
-# no /sig
 # ----------- c16a ----------- #
-##### fakes #####
-#### Anti-ISO QCD ####
-### data ###
-/bkg/?/c16a/Fakes/ISO/data/data15_D
-/bkg/?/c16a/Fakes/ISO/data/data15_E
-/bkg/?/c16a/Fakes/ISO/data/data15_F
-/bkg/?/c16a/Fakes/ISO/data/data15_G
-/bkg/?/c16a/Fakes/ISO/data/data15_H
-/bkg/?/c16a/Fakes/ISO/data/data15_J
-
-/bkg/?/c16a/Fakes/ISO/data/data16_A
-/bkg/?/c16a/Fakes/ISO/data/data16_B
-/bkg/?/c16a/Fakes/ISO/data/data16_C
-/bkg/?/c16a/Fakes/ISO/data/data16_D
-/bkg/?/c16a/Fakes/ISO/data/data16_E
-/bkg/?/c16a/Fakes/ISO/data/data16_F
-/bkg/?/c16a/Fakes/ISO/data/data16_G
-/bkg/?/c16a/Fakes/ISO/data/data16_I
-/bkg/?/c16a/Fakes/ISO/data/data16_K
-/bkg/?/c16a/Fakes/ISO/data/data16_L
-
-### mc ###
+##### bkg from QCD jets #####
+/bkg/?/c16a/Fakes/ISO/data
 /bkg/?/c16a/Fakes/ISO/mc/Ztautau
 /bkg/?/c16a/Fakes/ISO/mc/Zll
 /bkg/?/c16a/Fakes/ISO/mc/Top/ttbar
@@ -40,28 +16,8 @@
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/taunu
 
-
-#### Anti-ID W+jets Anti-ISO QCD ####
-### data ###
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_D
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_E
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_F
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_G
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_H
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_J
-
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_A
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_B
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_C
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_D
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_E
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_F
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_G
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_I
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_K
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_L
-
-### mc ###
+##### bkg from W+jets #####
+/bkg/?/c16a/Fakes/ID/ISO/data
 /bkg/?/c16a/Fakes/ID/ISO/mc/Ztautau
 /bkg/?/c16a/Fakes/ID/ISO/mc/Zll
 /bkg/?/c16a/Fakes/ID/ISO/mc/Top/ttbar
@@ -71,21 +27,9 @@
 /bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/taunu
 
-
 # ----------- c16d ----------- #
-##### fakes #####
-#### Anti-ISO QCD ####
-### data ###
-/bkg/?/c16d/Fakes/ISO/data/data17_B
-/bkg/?/c16d/Fakes/ISO/data/data17_C
-/bkg/?/c16d/Fakes/ISO/data/data17_D
-/bkg/?/c16d/Fakes/ISO/data/data17_E
-/bkg/?/c16d/Fakes/ISO/data/data17_F
-/bkg/?/c16d/Fakes/ISO/data/data17_H
-/bkg/?/c16d/Fakes/ISO/data/data17_I
-/bkg/?/c16d/Fakes/ISO/data/data17_K
-
-### mc ###
+##### bkg from QCD jets #####
+/bkg/?/c16d/Fakes/ISO/data
 /bkg/?/c16d/Fakes/ISO/mc/Ztautau
 /bkg/?/c16d/Fakes/ISO/mc/Zll
 /bkg/?/c16d/Fakes/ISO/mc/Top/ttbar
@@ -95,19 +39,8 @@
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/taunu
 
-
-#### Anti-ID W+jets Anti-ISO QCD ####
-### data ###
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_B
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_C
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_D
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_E
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_F
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_H
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_I
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_K
-
-### mc ###
+##### bkg from W+jets #####
+/bkg/?/c16d/Fakes/ID/ISO/data
 /bkg/?/c16d/Fakes/ID/ISO/mc/Ztautau
 /bkg/?/c16d/Fakes/ID/ISO/mc/Zll
 /bkg/?/c16d/Fakes/ID/ISO/mc/Top/ttbar
@@ -117,23 +50,9 @@
 /bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/taunu
 
-
 # ----------- c16e ----------- #
-##### fakes #####
-#### Anti-ISO QCD ####
-### data ###
-/bkg/?/c16e/Fakes/ISO/data/data18_B
-/bkg/?/c16e/Fakes/ISO/data/data18_C
-/bkg/?/c16e/Fakes/ISO/data/data18_D
-/bkg/?/c16e/Fakes/ISO/data/data18_F
-/bkg/?/c16e/Fakes/ISO/data/data18_I
-/bkg/?/c16e/Fakes/ISO/data/data18_K
-/bkg/?/c16e/Fakes/ISO/data/data18_L
-/bkg/?/c16e/Fakes/ISO/data/data18_M
-/bkg/?/c16e/Fakes/ISO/data/data18_O
-/bkg/?/c16e/Fakes/ISO/data/data18_Q
-
-### mc ###
+##### bkg from QCD jets #####
+/bkg/?/c16e/Fakes/ISO/data
 /bkg/?/c16e/Fakes/ISO/mc/Ztautau
 /bkg/?/c16e/Fakes/ISO/mc/Zll
 /bkg/?/c16e/Fakes/ISO/mc/Top/ttbar
@@ -143,21 +62,8 @@
 /bkg/?/c16e/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16e/Fakes/ISO/mc/Wjets/taunu
 
-
-#### Anti-ID W+jets Anti-ISO QCD ####
-### data ###
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_B
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_C
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_D
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_F
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_I
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_K
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_L
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_M
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_O
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_Q
-
-### mc ###
+##### bkg from W+jets #####
+/bkg/?/c16e/Fakes/ID/ISO/data
 /bkg/?/c16e/Fakes/ID/ISO/mc/Ztautau
 /bkg/?/c16e/Fakes/ID/ISO/mc/Zll
 /bkg/?/c16e/Fakes/ID/ISO/mc/Top/ttbar
