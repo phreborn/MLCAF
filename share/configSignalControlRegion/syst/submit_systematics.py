@@ -7,7 +7,7 @@ import argparse
 
 #some configurations
 s_queue='medium'
-s_nominal_dir='batchOutput/unmerged_SRsys'
+s_nominal_dir='batchOutput/unmerged_SR'
 s_config_path='configSignalControlRegion/htautau_lephad_sr.cfg'
 #s_config_path='ConfigSignalRegion/htautau_lephad_srcontid.cfg'
 #s_sys_file_path='/atlas/zorbas/BSM_TauTau/LepHad/190116/mc/mc16a/sys/'
@@ -310,16 +310,16 @@ if __name__=='__main__':
       if option=='fakevar':
         # wff sys, dont need mc bkg and qcd
         #l_files.append('unmerged_*_bkg_X_c16?_Wjets.root')
-        l_files.append('unmerged_*_bkg_X_c16?_Diboson.root')
-        l_files.append('unmerged_*_bkg_X_c16?_Top.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Fakes_ISO_*.root')
         l_files.append('unmerged_*_sig_X_c16?_*.root')
       elif option=='isovar':
         # lepton ff sys, dont need mc bkg
         #l_files.append('unmerged_*_bkg_X_c16?_Wjets.root')
-        l_files.append('unmerged_*_bkg_X_c16?_Diboson.root')
-        l_files.append('unmerged_*_bkg_X_c16?_Top.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Fakes_ID_data_*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Fakes_ID_mc_*.root')
@@ -331,7 +331,7 @@ if __name__=='__main__':
       elif option=='ttbarweight':
         l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
         l_files.append('unmerged_*_sig_X_c16?_*.root')
-        l_files.append('unmerged_*_bkg_X_c16?_Diboson.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
         #l_files.append('unmerged_*_bkg_X_c16?_Wjets.root')
 
@@ -370,7 +370,7 @@ if __name__=='__main__':
         jobs_file = "jobsSYS-weighttreevar.txt"
 
       #command='analyze.py --options {:s} --submit bsub --queue {:s} --jobs ConfigSignalRegion/jobsSYS.txt --identifier {:s} --downmerge --memory 0.01 {:s}'.format(temp_option,s_queue,sys,s_config_path)
-      command='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --submit condor --options {:s}'.format(s_config_path,jobs_file,sys,temp_option)
+      command='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --submit condor --maxSampleSize 12000 --options {:s}'.format(s_config_path,jobs_file,sys,temp_option)
       print(command)
       if not args.dry: os.system(command)
 
