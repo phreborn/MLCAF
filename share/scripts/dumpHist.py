@@ -41,63 +41,36 @@ if datasets == "mc16e":
 channel = args.channel
 basepath = "." #basepath in sample folder to get list of histograms from
 sflist = [
+          "data/{:s}/{:s}/".format(channel,datasets),
           "sig/{:s}/{:s}/bbH/1000/".format(channel,datasets),
           "sig/{:s}/{:s}/ggH/1000/".format(channel,datasets),
-          "data/{:s}/{:s}/".format(channel,datasets),
           "bkg/{:s}/{:s}/Top/".format(channel,datasets),
           "bkg/{:s}/{:s}/Diboson/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/Zee/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/Zmumu/".format(channel,datasets),
           "bkg/{:s}/{:s}/Zll/".format(channel,datasets),
           "bkg/{:s}/{:s}/Ztautau/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/QCDFakes/data/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/QCDFakes/mc/Diboson/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/QCDFakes/mc/Top/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/QCDFakes/mc/Zee/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/QCDFakes/mc/Zmumu/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/QCDFakes/mc/Ztautau/".format(channel,datasets),
-          "bkg/{:s}/{:s}/Fakes/ISO/[data-mc/[Ztautau+Zll+Top+Diboson]]".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/data/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/mc/Diboson/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/mc/Top/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/mc/Zee/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/mc/Zmumu/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/mc/Ztautau/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/QCD/data/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Diboson/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Top/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Zee/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Zmumu/".format(channel,datasets),
-#          "bkg/{:s}/{:s}/WJETSFakes/QCD/mc/Ztautau/".format(channel,datasets),
-          "bkg/{:s}/{:s}/Fakes/ID/[data-mc/[Ztautau+Zll+Top+Diboson]-ISO/data]".format(channel,datasets)
+          "bkg/{:s}/{:s}/Fakes/ISO/[data-mc]".format(channel,datasets),
+          "bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]".format(channel,datasets)
 ]
 #sflist = ["bkg/{:s}/{:s}/?/".format(channel,datasets)]
 
 #some definitions for what to do:
 
 varDict = {
-#"MuonPt"                                             : "MuonPt",                                              
-#"MuonEta"                                            : "MuonEta",                                              
-#"MuonPhi"                                            : "MuonPhi",                                              
-#"TauPt"                                              : "TauPt",                                               
-#"LeptonPt"                                           : "LeptonPt",                                               
-#"TauMETDphi"                                              : "TauMETDphi",                                               
-#"LepMETDphi"                                              : "LepMETDphi",                                               
-#"bvetoMTTOT"                                               : "bvetoMTTOT",
-#"btagMTTOT"                                               : "btagMTTOT",
-"MTTOT"                                               : "MTtot",
-#"TauEta"                                             : "TauEta",
-#"TauPhi"                                             : "TauPhi",
-#"SumCosDPhi"                                         : "SumCosDPhi",
-#"MET"                                                : "MET",
-#"MT"                                                 : "MT",
-#"tauNTracks"                                         : "tauNTracks",                                         
-#"taunwidetrk"                                        : "taunwidetrk",                                                                                              
+"bvetoTauMETDphi"                                              : "TauMETDphi",
+"btagTauMETDphi"                                              : "TauMETDphi",
+"bvetoLepMETDphi"                                              : "LepMETDphi",
+"btagLepMETDphi"                                              : "LepMETDphi",
+"bvetoMTTOT"                                               : "MTTOT",
+"btagMTTOT"                                               : "MTTOT",
+"bvetoTauPt": "TauPt",
+"btagTauPt": "TauPt",
+"bvetoLeptonPt": "LeptonPt",
+"btagLeptonPt": "LeptonPt",
 }
 
 catDict = {
-"CutBtag1p" : "sr1pBtag",
-"CutBtag3p" : "sr3pBtag",
+#"CutBtag1p" : "sr1pBtag",
+#"CutBtag3p" : "sr3pBtag",
 "CutBveto1p" : "sr1pBveto",
 "CutBveto3p" : "sr3pBveto",
 #"CutWCRBtag1p" : "wcr1pBtag",
@@ -106,10 +79,10 @@ catDict = {
 #"CutWCRBveto3p" : "wcr3pBveto",
 #"CutVRBtag1p" : "vr1pBtag",
 #"CutVRBtag3p" : "vr3pBtag",
-#"CutVRBveto1p" : "vr1pBveto",
-#"CutVRBveto3p" : "vr3pBveto",
-"CutTCRBtag1p" : "tcr1pBtag",
-"CutTCRBtag3p" : "tcr3pBtag",
+"CutVRBveto1p" : "vr1pBveto",
+"CutVRBveto3p" : "vr3pBveto",
+#"CutTCRBtag1p" : "tcr1pBtag",
+#"CutTCRBtag3p" : "tcr3pBtag",
 #"[CutBtag1p+CutBtag3p]" : "srBtag",
 #"[CutBveto1p+CutBveto3p]" : "srBveto",
 #"[CutTCRBtag1p+CutTCRBtag3p]" : "tcrBtag",
@@ -152,7 +125,7 @@ def setHistName(path, orgHistName,inputfile):
         histOutName+="DYZ"
     elif pathlist[3] == "Ztautau":
         histOutName+="ZplusJets"
-    if pathlist[3] == "Fakes":
+    elif pathlist[3] == "Fakes":
         if pathlist[4] == "ISO":
             histOutName+="QCDFakes"
         elif pathlist[4] == "ID":
@@ -160,21 +133,6 @@ def setHistName(path, orgHistName,inputfile):
     elif pathlist[3] == "bbH" or pathlist[3] == "ggH":
         histOutName+=pathlist[3].replace("H", "Hlh")
         histOutName+=pathlist[4]
-    else:
-        histOutName+=pathlist[3]
-#    elif pathlist[2] == "QCDFakes" and pathlist[3] == "data":
-#       histOutName+=pathlist[2]+"_"+pathlist[3]
-#    elif pathlist[2] == "QCDFakes" and pathlist[3] == "mc":
-#       histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
-#    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "data":
-#       histOutName+=pathlist[2]+"_"+pathlist[3]
-#    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "mc":
-#       histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
-#    elif pathlist[2] == "WJETSFakes" and pathlist[3] == "QCD":
-#       if pathlist[4] == "data":
-#          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]
-#       elif pathlist[4] == "mc": 
-#          histOutName+=pathlist[2]+"_"+pathlist[3]+"_"+pathlist[4]+"_"+pathlist[5] 
   else:
 #    histOutName0+=pathlist[0]+"_"
     histOutName+="data"
