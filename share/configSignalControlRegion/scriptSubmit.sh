@@ -5,9 +5,7 @@
 REGION="configSignalControlRegion"
 JOBS="jobsALL.txt"
 CONFIG="htautau_lephad_sr"
-#IDENT="SRmuoncut"
 IDENT="SR"
-#IDENT="SRtreevar"
 
 if [ "$1" == "applyff" ]; then
   CONFIG="${CONFIG}_applyff"
