@@ -1,0 +1,24 @@
+######################################################
+###
+###      Use this for Signal Region
+###
+########################################################
+.path="||"
+.name="Data",                   .path="/data/$(channel)/$(campaign)",            .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
+
+.path="|"
+.name="WjetsFake",               .path="/bkg/$(channel)/$(campaign)/Fakes/ID/[data-[mc+ISO/[data-mc]]]",       .isBackground=true,     histFillColor = kGray,  histFillStyle=1001,     title = "WjetsFake", .includeSysError = syst
+
+### look at mc paths:
+### this subtracts all mc, including SherpaWjets, we might use it for mT N-1 plot where W peak is important;
+.name="QCDFake",              .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data-mc]",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+### this subtracts mc without SherpaWjets, we might use it by default; lets not
+#.name="QCDFake",               .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data-mc/[Ztautau+Zll+Top+Diboson]]",                  .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+### this does not subtract mc, we wight use it for btag regions;
+#.name="QCDFake",              .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/data",      .isBackground=true,     histFillColor = kGray+1,    histFillStyle=1001,     title = "QCDFake", .includeSysError = syst
+.path="|"
+.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false, .includeSysError = syst
+.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/Zll",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false, .includeSysError = syst
+.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false, .includeSysError = syst
+.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false, .includeSysError = syst
+#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Wjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
