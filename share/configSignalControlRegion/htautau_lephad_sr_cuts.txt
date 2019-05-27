@@ -1,11 +1,3 @@
-.name=CutBase
-.name=CutTruth
-.name=CutAll
-
-.name=CutBveto1p
-.name=CutBveto3p
-.name=CutBtag1p
-.name=CutBtag3p
 
 .name=CutChannel
 .name=CutBase
@@ -16,6 +8,11 @@
 .name=CutOS
 .name=CutVisMassVeto
 .name=CutMT
+
+.name=CutBveto1p
+.name=CutBveto3p
+.name=CutBtag1p
+.name=CutBtag3p
 
 .name=CutVRMT
 .name=CutVRBveto1p

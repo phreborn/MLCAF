@@ -1918,7 +1918,7 @@ if __name__=='__main__':
     elif region == 'LFR':
         sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr-nominal.root'
     elif region == 'VR':
-        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-nominal.root'
+        sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
     elif region == 'WFRcontid':
         sFile = 'output/htautau_lephad_wfr_contid/nominal.root'
     elif region == 'WFRdphiCorr':
@@ -1962,35 +1962,20 @@ if __name__=='__main__':
 
 
     if region == 'VR':
-
-        dataPath = 'data/{:s}/[data15*+data16*]'
-        bkgPath1 = 'mc16a/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+QCDFakes/data/[data15*+data16*]]'
-        bkgPath2 = 'mc16a/{:s}/WJETSFakes/data/[data15*+data16*]-/mc16a/{:s}/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]-/mc16a/{:s}/WJETSFakes/QCD/data/[data15*+data16*]'
-
-        # ehad 
-        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'bvetoTauPt', 'ehad', 'VR15',0.1)
-        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'bvetoTauPt', 'ehad', 'VR15',0.1)
-        calcExtrapoSF('Btag1p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag1p', 'CutVRBtag1p', 'btagTauPt', 'ehad', 'VR15',0.1)
-        calcExtrapoSF('Btag3p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag3p', 'CutVRBtag3p', 'btagTauPt', 'ehad', 'VR15',0.1)
-
-        # muhad 
-        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'bvetoTauPt', 'muhad', 'VR15',0.1)
-        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'bvetoTauPt', 'muhad', 'VR15',0.1)
-        calcExtrapoSF('Btag1p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag1p', 'CutVRBtag1p', 'btagTauPt', 'muhad', 'VR15',0.1)
-        calcExtrapoSF('Btag3p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag3p', 'CutVRBtag3p', 'btagTauPt', 'muhad', 'VR15',0.1)
-
-        dataPath = 'data/{:s}/[data17*]'
-        bkgPath1 = 'mc16c/{:s}/[Top+Ztautau+Zee+Zmumu+Diboson+QCDFakes/data/[data17*]]'
-        bkgPath2 = 'mc16c/{:s}/WJETSFakes/data/[data17*]-/mc16c/{:s}/WJETSFakes/mc/[Top+Ztautau+Diboson+Zee+Zmumu]-/mc16c/{:s}/WJETSFakes/QCD/data/[data17*]'
-
+        dataPath = 'data/{:s}/[c16a+c16d+c16e]'
+        bkgPath1 = 'bkg/{:s}/[c16a+c16d+c16e]/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'
+        bkgPath2 = 'bkg/{:s}/[c16a+c16d+c16e]/Fakes/ID/[data-[mc+ISO/[data-mc]]]' 
         # ehad
-        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'bvetoTauPt', 'ehad', 'VR17',0.1)
-        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'bvetoTauPt', 'ehad', 'VR17',0.1)
-        calcExtrapoSF('Btag1p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag1p', 'CutVRBtag1p', 'btagTauPt', 'ehad', 'VR17',0.1)
-        calcExtrapoSF('Btag3p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag3p', 'CutVRBtag3p', 'btagTauPt', 'ehad', 'VR17',0.1)
-
+        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'TauPtFFBveto1pDphi1', 'ehad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'TauPtFFBveto1pDphi2', 'ehad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'TauPtFFBveto1pDphi34', 'ehad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'TauPtFFBveto3pDphi1', 'ehad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'TauPtFFBveto3pDphi2', 'ehad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'TauPtFFBveto3pDphi34', 'ehad', 'VRAll',0.1)
         # muhad
-        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'bvetoTauPt', 'muhad', 'VR17',0.1)
-        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'bvetoTauPt', 'muhad', 'VR17',0.1)
-        calcExtrapoSF('Btag1p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag1p', 'CutVRBtag1p', 'btagTauPt', 'muhad', 'VR17',0.1)
-        calcExtrapoSF('Btag3p', dataPath, bkgPath1,bkgPath2, 'CutVRBtag3p', 'CutVRBtag3p', 'btagTauPt', 'muhad', 'VR17',0.1)
+        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'TauPtFFBveto1pDphi1', 'muhad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'TauPtFFBveto1pDphi2', 'muhad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto1p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto1p', 'CutVRBveto1p', 'TauPtFFBveto1pDphi34', 'muhad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'TauPtFFBveto3pDphi1', 'muhad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'TauPtFFBveto3pDphi2', 'muhad', 'VRAll',0.1)
+        calcExtrapoSF('Bveto3p', dataPath, bkgPath1,bkgPath2, 'CutVRBveto3p', 'CutVRBveto3p', 'TauPtFFBveto3pDphi34', 'muhad', 'VRAll',0.1)

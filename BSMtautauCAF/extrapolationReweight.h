@@ -29,7 +29,7 @@ protected:
   const long LIMIT_2017 = 340453;
 
 
-  TH1 *h_weight=0;
+  TH1 *h_weight =0;
 
   // nominal pt parametrization
   // 2015/16
@@ -142,8 +142,58 @@ protected:
   TH1F * h_ff17_vr_3p_dphi3_0tag_up   = 0;
   TH1F * h_ff17_vr_3p_dphi3_0tag_down = 0;
 
+  TH1F * h_151617_vr_ehad_1p_0tag = 0;
+  TH1F * h_151617_vr_ehad_1p_0tag_up = 0;
+  TH1F * h_151617_vr_ehad_1p_0tag_down = 0;
 
+  TH1F * h_151617_vr_ehad_3p_0tag = 0;
+  TH1F * h_151617_vr_ehad_3p_0tag_up = 0;
+  TH1F * h_151617_vr_ehad_3p_0tag_down = 0;
 
+  TH1F * h_151617_vr_muhad_1p_0tag = 0;
+  TH1F * h_151617_vr_muhad_1p_0tag_up = 0;
+  TH1F * h_151617_vr_muhad_1p_0tag_down = 0;
+
+  TH1F * h_151617_vr_muhad_3p_0tag = 0;
+  TH1F * h_151617_vr_muhad_3p_0tag_up = 0;
+  TH1F * h_151617_vr_muhad_3p_0tag_down = 0;
+
+  TH1F * h_all_vr_ehad_1p_dphi1_0tag = 0;
+  TH1F * h_all_vr_ehad_1p_dphi2_0tag = 0;
+  TH1F * h_all_vr_ehad_1p_dphi34_0tag = 0;
+  TH1F * h_all_vr_ehad_3p_dphi1_0tag = 0;
+  TH1F * h_all_vr_ehad_3p_dphi2_0tag = 0;
+  TH1F * h_all_vr_ehad_3p_dphi34_0tag = 0;
+  TH1F * h_all_vr_muhad_1p_dphi1_0tag = 0;
+  TH1F * h_all_vr_muhad_1p_dphi2_0tag = 0;
+  TH1F * h_all_vr_muhad_1p_dphi34_0tag = 0;
+  TH1F * h_all_vr_muhad_3p_dphi1_0tag = 0;
+  TH1F * h_all_vr_muhad_3p_dphi2_0tag = 0;
+  TH1F * h_all_vr_muhad_3p_dphi34_0tag = 0;
+  TH1F * h_all_vr_ehad_1p_dphi1_0tag_up = 0;
+  TH1F * h_all_vr_ehad_1p_dphi2_0tag_up = 0;
+  TH1F * h_all_vr_ehad_1p_dphi34_0tag_up = 0;
+  TH1F * h_all_vr_ehad_3p_dphi1_0tag_up = 0;
+  TH1F * h_all_vr_ehad_3p_dphi2_0tag_up = 0;
+  TH1F * h_all_vr_ehad_3p_dphi34_0tag_up = 0;
+  TH1F * h_all_vr_muhad_1p_dphi1_0tag_up = 0;
+  TH1F * h_all_vr_muhad_1p_dphi2_0tag_up = 0;
+  TH1F * h_all_vr_muhad_1p_dphi34_0tag_up = 0;
+  TH1F * h_all_vr_muhad_3p_dphi1_0tag_up = 0;
+  TH1F * h_all_vr_muhad_3p_dphi2_0tag_up = 0;
+  TH1F * h_all_vr_muhad_3p_dphi34_0tag_up = 0;
+  TH1F * h_all_vr_ehad_1p_dphi1_0tag_down = 0;
+  TH1F * h_all_vr_ehad_1p_dphi2_0tag_down = 0;
+  TH1F * h_all_vr_ehad_1p_dphi34_0tag_down = 0;
+  TH1F * h_all_vr_ehad_3p_dphi1_0tag_down = 0;
+  TH1F * h_all_vr_ehad_3p_dphi2_0tag_down = 0;
+  TH1F * h_all_vr_ehad_3p_dphi34_0tag_down = 0;
+  TH1F * h_all_vr_muhad_1p_dphi1_0tag_down = 0;
+  TH1F * h_all_vr_muhad_1p_dphi2_0tag_down = 0;
+  TH1F * h_all_vr_muhad_1p_dphi34_0tag_down = 0;
+  TH1F * h_all_vr_muhad_3p_dphi1_0tag_down = 0;
+  TH1F * h_all_vr_muhad_3p_dphi2_0tag_down = 0;
+  TH1F * h_all_vr_muhad_3p_dphi34_0tag_down = 0;
   std::vector<TFile*> fileList;
 
 
