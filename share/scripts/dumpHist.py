@@ -66,6 +66,19 @@ varDict = {
 "btagTauPt": "TauPt",
 "bvetoLeptonPt": "LeptonPt",
 "btagLeptonPt": "LeptonPt",
+#"TauPtFFBveto1pDphi1": "TauPtFFBveto1pDphi1",
+#"TauPtFFBveto1pDphi2": "TauPtFFBveto1pDphi2",
+#"TauPtFFBveto1pDphi3": "TauPtFFBveto1pDphi3",
+#"TauPtFFBveto1pDphi4": "TauPtFFBveto1pDphi4",
+#"TauPtFFBveto1pDphi34": "TauPtFFBveto1pDphi34",
+#"TauPtFFBveto3pDphi1": "TauPtFFBveto3pDphi1",
+#"TauPtFFBveto3pDphi2": "TauPtFFBveto3pDphi2",
+#"TauPtFFBveto3pDphi3": "TauPtFFBveto3pDphi3",
+#"TauPtFFBveto3pDphi4": "TauPtFFBveto3pDphi4",
+#"TauPtFFBveto3pDphi34": "TauPtFFBveto3pDphi34",
+#"TauPtDphi1FF": "TauPtDphi1FF",
+#"TauPtDphi2FF": "TauPtDphi2FF",
+#"TauPtDphi34FF": "TauPtDphi34FF",
 }
 
 catDict = {
@@ -133,6 +146,8 @@ def setHistName(path, orgHistName,inputfile):
     elif pathlist[3] == "bbH" or pathlist[3] == "ggH":
         histOutName+=pathlist[3].replace("H", "Hlh")
         histOutName+=pathlist[4]
+    else:
+        histOutName+=pathlist[3]
   else:
 #    histOutName0+=pathlist[0]+"_"
     histOutName+="data"

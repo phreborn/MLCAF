@@ -1,10 +1,4 @@
 #!/user/bin/env python2
-
-
-
-
-
-
 debug = False
 info = False
 doConstrain = False
@@ -1005,7 +999,10 @@ def calcJetFakeFactorFinal(category, datapath, bkgpath, nominator, denominator, 
     FF_histo.Write()
     FF_histo_up.Write()
     FF_histo_down.Write()
-
+    histoPass.SetName(histoPass.GetName()+'Pass')
+    histoPass.Write()
+    histoFail.SetName(histoFail.GetName()+'Fail')
+    histoFail.Write()
     plotFF(FF_histo,FF_histo_up,FF_histo_down,region,file,region+category+channel+histogram)
 
     file.Close()
