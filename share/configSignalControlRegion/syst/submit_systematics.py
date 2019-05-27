@@ -255,8 +255,17 @@ l_treevariations=[
 #['treevariation', 'MET_SoftTrk_ScaleUp'],
 ]
 
+l_extraposfs=[
+["extraposf","ExtrapolationSFs_Bveto1p_1down"],
+["extraposf","ExtrapolationSFs_Bveto1p_1up"],
+["extraposf","ExtrapolationSFs_Bveto3p_1down"],
+["extraposf","ExtrapolationSFs_Bveto3p_1up"],
+]
+
 # now we add the systematic sublists we want to run over into the grand list
 # this is controlled by the arg parser, so I can run the show from an external submission script
+if args.systype == "extraposf":
+    l_systematics.extend(l_extraposfs)
 if args.systype == "fakevar":
     l_systematics.extend(l_fakevars)
 if args.systype == "isovar":
@@ -267,6 +276,7 @@ if args.systype == "weightvar":
     l_systematics.extend(l_weightvars)
 if args.systype == "treevariation":
     l_systematics.extend(l_treevariations)
+
 
 # back out if its empty
 if not len(l_systematics):
@@ -307,7 +317,7 @@ if __name__=='__main__':
 
       # make list of which files needs to be copied:
       l_files = []
-      if option=='fakevar':
+      if option=='fakevar' or option=='extraposf':
         # wff sys, dont need mc bkg and qcd
         #l_files.append('unmerged_*_bkg_X_c16?_Wjets.root')
         l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
@@ -321,7 +331,7 @@ if __name__=='__main__':
         l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
-        l_files.append('unmerged_*_bkg_X_c16?_Fakes_ID_data_*.root')
+        l_files.append('unmerged_*_bkg_X_c16?_Fakes_ID_data*.root')
         l_files.append('unmerged_*_bkg_X_c16?_Fakes_ID_mc_*.root')
         l_files.append('unmerged_*_sig_X_c16?_*.root')
       elif option=='weightvar' or option=='treevariation':
@@ -358,7 +368,7 @@ if __name__=='__main__':
 
       # more control over the jobs.txt file, relevant to systematic type:
       jobs_file = ""
-      if args.systype == "fakevar":
+      if args.systype == "fakevar" or args.systype=='extraposf':
         jobs_file = "jobsSYS-fakevar.txt"
       if args.systype == "isovar":
         jobs_file = "jobsSYS-isovar.txt"
