@@ -1,4 +1,0 @@
-#!/bin/bash
-
-prepare.py configApplyFFtoLeptonFakeRegion/htautau_lephad_apply_ff_to_lfr.cfg
-initialize.py configApplyFFtoLeptonFakeRegion/htautau_lephad_apply_ff_to_lfr.cfg
