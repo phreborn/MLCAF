@@ -118,6 +118,16 @@ tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root -t an
 source configLeptonFakeRegion/scriptVisualize.sh
 # Calculate lepton fake factors
 python scripts/calculateFakeFactor.py LFR
+
+# To check back the LFF modelling in the LFR
+# Prepare and initialize your samples with fakes
+source configLeptonFakeRegion/applyFF/scriptPrepareInitialize.sh
+# Submit the fake analysis to a cluster
+source configLeptonFakeRegion/applyFF/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output with the existing file
+source configLeptonFakeRegion/applyFF/scriptMerge.sh
+# Visualize plots with fakes
+source configLeptonFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 ### W+jets Fake Region
