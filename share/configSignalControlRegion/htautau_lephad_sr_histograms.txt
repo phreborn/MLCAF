@@ -49,7 +49,7 @@ TH1F('VRbtagMTTOT','', {40.,48.,84.,108.,134.,168.,212.,274.,400.})    <<   ( [[
 #TH1F('TauMETDphi','',       30,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
 #TH1F('LepMETDphi','',       30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" )
 #TH1F('MET','',              {0.,11.,18.,26.,36.,48.,62.,78.,96.,118.,142.,172.,208.,250.,300.})   <<   ( met_reco_p4.Et() : "E_{T}^{miss} [GeV]" );
-#TH1F('MTTOT','',            1000,0,5000)    <<   ( [lephad_mttot] : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT','',            1000,0,5000)    <<   ( [lephad_mttot] : "m_{T}^{TOT} [GeV]" );
 #TH1F('TauEta','',           25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
 #TH1F('LeptonEta','',        25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\#eta^{lep}" );
 
@@ -113,7 +113,7 @@ TH1F('TauPtDphi34FF'  ,'', 275, 25, 300)  <<   ( {[lephad_met_lep1_cos_dphi]>=2.
 #@CutVRB*/*,CutBveto*/*,CutBtag*/*:  TauLepDr,TauLepDeta,TauLepMETMinDphi,LepTrkD0,LepTrkD0Significance,LepTrkZ0,LepTrkZ0Significance,LepTrkZ0sinTheta,TauIsMuonVeto;
 
 @CutBtag1p*,CutBtag3p*,CutVRBt*: btagLeptonPt,btagTauPt,btagLepMETDphi,btagTauMETDphi,btagMTTOT,btagVisibleMassTauLep;
-@CutBveto1p*,CutBveto3p*,CutVRBv*: bvetoLeptonPt,bvetoTauPt,bvetoLepMETDphi,bvetoTauMETDphi,bvetoMTTOT,bvetoVisibleMassTauLep;
+@CutBveto1p*,CutBveto3p*,CutVRBv*: bvetoLeptonPt,bvetoTauPt,bvetoLepMETDphi,bvetoTauMETDphi,bvetoMTTOT,bvetoVisibleMassTauLep,MTTOT;
 @CutVRBveto1p*,CutVRBveto3p*:VRbvetoMTTOT;
 @CutVRBtag1p*,CutVRBtag3p*:VRbtagMTTOT;
 @CutVRBveto1p*:TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3,TauPtFFBveto1pDphi4,TauPtFFBveto1pDphi34;
