@@ -113,7 +113,7 @@ source configLeptonFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
 source configLeptonFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root -t analyze batchOutput/unmerged_LFR/*.root
+source configLeptonFakeRegion/scriptMerge.sh
 # Visualize plots
 source configLeptonFakeRegion/scriptVisualize.sh
 # Calculate lepton fake factors
