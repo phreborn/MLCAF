@@ -20,23 +20,7 @@
 ##### fakes #####
 #### Anti-ISO QCD ####
 ### data ###
-/bkg/?/c16a/Fakes/ISO/data/data15_D
-/bkg/?/c16a/Fakes/ISO/data/data15_E
-/bkg/?/c16a/Fakes/ISO/data/data15_F
-/bkg/?/c16a/Fakes/ISO/data/data15_G
-/bkg/?/c16a/Fakes/ISO/data/data15_H
-/bkg/?/c16a/Fakes/ISO/data/data15_J
-
-/bkg/?/c16a/Fakes/ISO/data/data16_A
-/bkg/?/c16a/Fakes/ISO/data/data16_B
-/bkg/?/c16a/Fakes/ISO/data/data16_C
-/bkg/?/c16a/Fakes/ISO/data/data16_D
-/bkg/?/c16a/Fakes/ISO/data/data16_E
-/bkg/?/c16a/Fakes/ISO/data/data16_F
-/bkg/?/c16a/Fakes/ISO/data/data16_G
-/bkg/?/c16a/Fakes/ISO/data/data16_I
-/bkg/?/c16a/Fakes/ISO/data/data16_K
-/bkg/?/c16a/Fakes/ISO/data/data16_L
+/bkg/?/c16a/Fakes/ISO/data
 
 ### mc ###
 /bkg/?/c16a/Fakes/ISO/mc/Ztautau
@@ -50,23 +34,7 @@
 
 #### Anti-ID W+jets ####
 ### data ###
-/bkg/?/c16a/Fakes/ID/data/data15_D
-/bkg/?/c16a/Fakes/ID/data/data15_E
-/bkg/?/c16a/Fakes/ID/data/data15_F
-/bkg/?/c16a/Fakes/ID/data/data15_G
-/bkg/?/c16a/Fakes/ID/data/data15_H
-/bkg/?/c16a/Fakes/ID/data/data15_J
-
-/bkg/?/c16a/Fakes/ID/data/data16_A
-/bkg/?/c16a/Fakes/ID/data/data16_B
-/bkg/?/c16a/Fakes/ID/data/data16_C
-/bkg/?/c16a/Fakes/ID/data/data16_D
-/bkg/?/c16a/Fakes/ID/data/data16_E
-/bkg/?/c16a/Fakes/ID/data/data16_F
-/bkg/?/c16a/Fakes/ID/data/data16_G
-/bkg/?/c16a/Fakes/ID/data/data16_I
-/bkg/?/c16a/Fakes/ID/data/data16_K
-/bkg/?/c16a/Fakes/ID/data/data16_L
+/bkg/?/c16a/Fakes/ID/data
 
 ### mc ###
 /bkg/?/c16a/Fakes/ID/mc/Ztautau
@@ -80,23 +48,7 @@
 
 #### Anti-ID W+jets Anti-ISO QCD ####
 ### data ###
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_D
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_E
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_F
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_G
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_H
-/bkg/?/c16a/Fakes/ID/ISO/data/data15_J
-
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_A
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_B
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_C
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_D
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_E
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_F
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_G
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_I
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_K
-/bkg/?/c16a/Fakes/ID/ISO/data/data16_L
+/bkg/?/c16a/Fakes/ID/ISO/data
 
 ### mc ###
 /bkg/?/c16a/Fakes/ID/ISO/mc/Ztautau
@@ -129,14 +81,7 @@
 ##### fakes #####
 #### Anti-ISO QCD ####
 ### data ###
-/bkg/?/c16d/Fakes/ISO/data/data17_B
-/bkg/?/c16d/Fakes/ISO/data/data17_C
-/bkg/?/c16d/Fakes/ISO/data/data17_D
-/bkg/?/c16d/Fakes/ISO/data/data17_E
-/bkg/?/c16d/Fakes/ISO/data/data17_F
-/bkg/?/c16d/Fakes/ISO/data/data17_H
-/bkg/?/c16d/Fakes/ISO/data/data17_I
-/bkg/?/c16d/Fakes/ISO/data/data17_K
+/bkg/?/c16d/Fakes/ISO/data
 
 ### mc ###
 /bkg/?/c16d/Fakes/ISO/mc/Ztautau
@@ -151,14 +96,7 @@
 
 #### Anti-ID W+jets ####
 ### data ###
-/bkg/?/c16d/Fakes/ID/data/data17_B
-/bkg/?/c16d/Fakes/ID/data/data17_C
-/bkg/?/c16d/Fakes/ID/data/data17_D
-/bkg/?/c16d/Fakes/ID/data/data17_E
-/bkg/?/c16d/Fakes/ID/data/data17_F
-/bkg/?/c16d/Fakes/ID/data/data17_H
-/bkg/?/c16d/Fakes/ID/data/data17_I
-/bkg/?/c16d/Fakes/ID/data/data17_K
+/bkg/?/c16d/Fakes/ID/data
 
 ### mc ###
 /bkg/?/c16d/Fakes/ID/mc/Ztautau
@@ -173,14 +111,7 @@
 
 #### Anti-ID W+jets Anti-ISO QCD ####
 ### data ###
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_B
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_C
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_D
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_E
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_F
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_H
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_I
-/bkg/?/c16d/Fakes/ID/ISO/data/data17_K
+/bkg/?/c16d/Fakes/ID/ISO/data
 
 ### mc ###
 /bkg/?/c16d/Fakes/ID/ISO/mc/Ztautau
@@ -213,16 +144,7 @@
 ##### fakes #####
 #### Anti-ISO QCD ####
 ### data ###
-/bkg/?/c16e/Fakes/ISO/data/data18_B
-/bkg/?/c16e/Fakes/ISO/data/data18_C
-/bkg/?/c16e/Fakes/ISO/data/data18_D
-/bkg/?/c16e/Fakes/ISO/data/data18_F
-/bkg/?/c16e/Fakes/ISO/data/data18_I
-/bkg/?/c16e/Fakes/ISO/data/data18_K
-/bkg/?/c16e/Fakes/ISO/data/data18_L
-/bkg/?/c16e/Fakes/ISO/data/data18_M
-/bkg/?/c16e/Fakes/ISO/data/data18_O
-/bkg/?/c16e/Fakes/ISO/data/data18_Q
+/bkg/?/c16e/Fakes/ISO/data
 
 ### mc ###
 /bkg/?/c16e/Fakes/ISO/mc/Ztautau
@@ -237,16 +159,7 @@
 
 #### Anti-ID W+jets ####
 ### data ###
-/bkg/?/c16e/Fakes/ID/data/data18_B
-/bkg/?/c16e/Fakes/ID/data/data18_C
-/bkg/?/c16e/Fakes/ID/data/data18_D
-/bkg/?/c16e/Fakes/ID/data/data18_F
-/bkg/?/c16e/Fakes/ID/data/data18_I
-/bkg/?/c16e/Fakes/ID/data/data18_K
-/bkg/?/c16e/Fakes/ID/data/data18_L
-/bkg/?/c16e/Fakes/ID/data/data18_M
-/bkg/?/c16e/Fakes/ID/data/data18_O
-/bkg/?/c16e/Fakes/ID/data/data18_Q
+/bkg/?/c16e/Fakes/ID/data
 
 ### mc ###
 /bkg/?/c16e/Fakes/ID/mc/Ztautau
@@ -261,16 +174,7 @@
 
 #### Anti-ID W+jets Anti-ISO QCD ####
 ### data ###
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_B
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_C
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_D
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_F
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_I
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_K
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_L
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_M
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_O
-/bkg/?/c16e/Fakes/ID/ISO/data/data18_Q
+/bkg/?/c16e/Fakes/ID/ISO/data
 
 ### mc ###
 /bkg/?/c16e/Fakes/ID/ISO/mc/Ztautau

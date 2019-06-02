@@ -178,16 +178,9 @@ source configSignalControlRegion/scriptVisualize.sh
 
 ### Systematics (Signal Region, Validation Region, W+jets/Top Control Regions)
 ```bash
-# Prepare and initialize your systematic nominal samples
-source configSignalControlRegion/syst/scriptPrepareInitializeNominal.sh
-# Submit the full analysis to a cluster
-source configSignalControlRegion/syst/scriptSubmitNominal.sh
-# After all cluster jobs have finished, merge the output
-source configSignalControlRegion/syst/scriptMergeNominal.sh
-
 # Prepare and initialize your systematic variation samples
 source configSignalControlRegion/syst/scriptPrepareInitializeSystematics.sh
-# Submit the full analysis to a cluster
+# Submit the full systematic analysis to a cluster
 source configSignalControlRegion/syst/scriptSubmitSystematics.sh
 # After all cluster jobs have finished, merge the output
 source configSignalControlRegion/syst/scriptMergeSystematics.sh
