@@ -1,4 +1,4 @@
 #!/bin/bash
 
-prepare.py configApplyFFtoWjetsFakeRegion/htautau_lephad_apply_ff_to_wfr.cfg
-initialize.py configApplyFFtoWjetsFakeRegion/htautau_lephad_apply_ff_to_wfr.cfg
+prepare.py configWjetsFakeRegion/applyFF/htautau_lephad_wfr_applyff.cfg
+initialize.py configWjetsFakeRegion/applyFF/htautau_lephad_wfr_applyff.cfg

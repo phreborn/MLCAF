@@ -1,3 +1,4 @@
 #!/bin/bash
 
-visualize.py configApplyFFtoWjetsFakeRegion/htautau_lephad_apply_ff_to_wfr.cfg
+visualize.py configWjetsFakeRegion/applyFF/htautau_lephad_wfr_applyff.cfg
+source scripts/tqpdflatex.sh results/htautau_lephad_wfr_applyff/summary.tex
