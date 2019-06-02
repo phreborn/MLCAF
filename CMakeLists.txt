@@ -13,7 +13,7 @@ else()
 endif()
 
 # we try to discover if we are compiling inside an ASG environment or not
-find_package( AnalysisBase QUIET) 
+find_package( AnalysisBase QUIET)
 
 # define dependencies on other packages
 find_package( ROOT COMPONENTS Core Matrix RooFitCore Minuit2)
@@ -29,29 +29,29 @@ IF(${AnalysisBase_FOUND})
   file(GLOB CAFExampleSources Root/*.cxx)
   file(GLOB CAFExampleHeaders CAFExample/*.h)
 
-  # generate the LinkDef.h 
+  # generate the LinkDef.h
   execute_process(
     COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
     )
 
   # write a setup script
-  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore)
+  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_BINARY_DIR}/CAFCore/cafsetup.sh)
 
   # Set up the usage of CTest:
   IF(NOT ${HAS_PARENT})
-    atlas_ctest_setup() # Set up the project: 
-    atlas_project( CAFExample 1.0.0 
-      USE AnalysisBase ${AnalysisBase_VERSION} ) 
-    
-    # Generate an environment setup script: 
-    lcg_generate_env( SH_FILE ${CMAKE_BINARY_DIR}/${ATLAS_PLATFORM}/env_setup.sh )
-    install( FILES ${CMAKE_BINARY_DIR}/${ATLAS_PLATFORM}/env_setup.sh DESTINATION . ) 
+    atlas_ctest_setup() # Set up the project:
+    atlas_project( CAFExample 1.0.0
+      USE AnalysisBase ${AnalysisBase_VERSION} )
 
-    # Set up the usage of CPack: 
+    # Generate an environment setup script:
+    lcg_generate_env( SH_FILE ${CMAKE_BINARY_DIR}/${ATLAS_PLATFORM}/env_setup.sh )
+    install( FILES ${CMAKE_BINARY_DIR}/${ATLAS_PLATFORM}/env_setup.sh DESTINATION . )
+
+    # Set up the usage of CPack:
     set(CMAKE_INSTALL_PREFIX /InstallArea/x86_64-slc6-gcc49-opt)
     atlas_cpack_setup()
   ENDIF()
-    
+
   # register this as a package to ASG
   atlas_subdir( CAFExample )
 
@@ -60,12 +60,12 @@ IF(${AnalysisBase_FOUND})
     ROOT_HEADERS ${CAFExampleHeaders} ${CAFExampleLinkDef}
     EXTERNAL_PACKAGES ROOT
     )
-  
+
   # put everything together to make CMake compile your library
   atlas_add_library( CAFExample
     ${CAFExampleHeaders} ${CAFExampleSources} ${CAFExampleCintDict}
     PUBLIC_HEADERS CAFExample
-    PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS} 
+    PRIVATE_INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
     LINK_LIBRARIES QFramework CAFxAODUtils PileupReweightingLib MCTruthClassifierLib
     # here go all the libraries corresonding to the packages that you depend on
     PRIVATE_LINK_LIBRARIES ${ROOT_LIBRARIES}
@@ -75,7 +75,7 @@ IF(${AnalysisBase_FOUND})
   atlas_install_python_modules( python/*.py )
 
   # check if we have any test cases
-  if(CAFExampleTests)   
+  if(CAFExampleTests)
     # register your test cases from the "test" folder
     find_package(PythonInterp REQUIRED)
     foreach(TestScript ${CAFExampleTests})
@@ -83,8 +83,8 @@ IF(${AnalysisBase_FOUND})
       atlas_add_test( ${TestName} SCRIPT ${TestScript} )
     endforeach()
   endif()
-  
-  # Set up the usage of CPack: 
+
+  # Set up the usage of CPack:
   set(CMAKE_INSTALL_PREFIX /InstallArea/x86_64-slc6-gcc49-opt)
   atlas_cpack_setup()
 else()
@@ -99,14 +99,14 @@ else()
   string(REGEX REPLACE "[ \r\n]+" ";" CAFExampleSources ${CAFExampleSourcesTMP})
   string(REGEX REPLACE "[ \r\n]+" ";" CAFExampleHeaders ${CAFExampleHeadersTMP})
 
-  # generate the LinkDef.h 
+  # generate the LinkDef.h
   execute_process(
     COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore/QFramework/share/generateBindings.py --set-working-directory ${CMAKE_CURRENT_SOURCE_DIR} --pkgname CAFExample --loadpackage --verbose --python ${PROJECT_SOURCE_DIR}/python/__init__.py --linkdef ${CAFExampleLinkDef} --headers ${CAFExampleHeaders}
     )
 
   # set general CMake settings
   set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-  set(CMAKE_DISABLE_SOURCE_CHANGES  OFF)  
+  set(CMAKE_DISABLE_SOURCE_CHANGES  OFF)
   set(CMAKE_VERBOSE_MAKEFILE OFF)
   set(CMAKE_COLOR_MAKEFILE   ON)
 
@@ -119,7 +119,7 @@ else()
   endforeach()
 
   # write a setup script
-  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_SOURCE_DIR}/CAFCore --binDir ${CMAKE_CURRENT_BINARY_DIR})
+  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_BINARY_DIR}/CAFCore/cafsetup.sh --binDir ${CMAKE_CURRENT_BINARY_DIR})
 
   # register all the files and directories
   include_directories ("${PROJECT_SOURCE_DIR}")
@@ -145,7 +145,7 @@ else()
   find_package(PythonInterp REQUIRED)
   include(CTest)
   enable_testing()
-  
+
   message("adding CAFCore")
   add_subdirectory(CAFCore)
 endif()
