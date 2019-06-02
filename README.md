@@ -166,10 +166,12 @@ source configWjetsFakeRegion/applyFF/scriptVisualize.sh
 ```bash
 # Prepare and initialize your samples
 source configSignalControlRegion/scriptPrepareInitialize.sh
+# Debug test the analysis
+source configSignalControlRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
 source configSignalControlRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root -t analyze batchOutput/unmerged_SR/*.root
+source configSignalControlRegion/scriptMerge.sh
 # Visualize plots
 source configSignalControlRegion/scriptVisualize.sh
 ```
