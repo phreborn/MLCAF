@@ -110,6 +110,8 @@ configCommon/htautau_lephad_common_campaigns_input*.cfg
 ```bash
 # Prepare and initialize your samples
 source configLeptonFakeRegion/scriptPrepareInitialize.sh
+# Debug test the analysis
+source configLeptonFakeRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
 source configLeptonFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
@@ -122,6 +124,8 @@ python scripts/calculateFakeFactor.py LFR
 # To check back the LFF modelling in the LFR
 # Prepare and initialize your samples with fakes
 source configLeptonFakeRegion/applyFF/scriptPrepareInitialize.sh
+# Debug test the analysis with fakes
+source configLeptonFakeRegion/applyFF/scriptDebug.sh
 # Submit the fake analysis to a cluster
 source configLeptonFakeRegion/applyFF/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output with the existing file
@@ -134,6 +138,8 @@ source configLeptonFakeRegion/applyFF/scriptVisualize.sh
 ```bash
 # Prepare and initialize your samples
 source configWjetsFakeRegion/scriptPrepareInitialize.sh
+# Debug test the analysis
+source configWjetsFakeRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
 source configWjetsFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
@@ -146,6 +152,8 @@ python scripts/calculateFakeFactor.py WFR
 # To check back the WFF modelling in the WFR
 # Prepare and initialize your samples with fakes
 source configWjetsFakeRegion/applyFF/scriptPrepareInitialize.sh
+# Debug test the analysis with fakes
+source configWjetsFakeRegion/applyFF/scriptDebug.sh
 # Submit the fake analysis to a cluster
 source configWjetsFakeRegion/applyFF/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output with the existing file
