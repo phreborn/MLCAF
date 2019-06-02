@@ -1,5 +1,5 @@
 # ------------------------------ c16a ------------------------------ #
-##### fakes in anti-ISO region #####
+##### ISO fakes #####
 ### data ###
 /bkg/?/c16a/Fakes/ISO/data
 
@@ -15,7 +15,7 @@
 
 
 # ------------------------------ c16d ------------------------------ #
-##### fakes in anti-ISO region #####
+##### ISO fakes #####
 ### data ###
 /bkg/?/c16d/Fakes/ISO/data
 
@@ -31,7 +31,7 @@
 
 
 # ------------------------------ c16e ------------------------------ #
-##### fakes in anti-ISO region #####
+##### ISO fakes #####
 ### data ###
 /bkg/?/c16e/Fakes/ISO/data
 

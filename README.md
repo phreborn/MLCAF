@@ -137,11 +137,21 @@ source configWjetsFakeRegion/scriptPrepareInitialize.sh
 # Submit the full analysis to a cluster
 source configWjetsFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root -t analyze batchOutput/unmerged_WFR/*.root
+source configWjetsFakeRegion/scriptMerge.sh
 # Visualize plots          
 source configWjetsFakeRegion/scriptVisualize.sh
 # Calculate W+jets fake factors
 python scripts/calculateFakeFactor.py WFR
+
+# To check back the WFF modelling in the WFR
+# Prepare and initialize your samples with fakes
+source configWjetsFakeRegion/applyFF/scriptPrepareInitialize.sh
+# Submit the fake analysis to a cluster
+source configWjetsFakeRegion/applyFF/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output with the existing file
+source configWjetsFakeRegion/applyFF/scriptMerge.sh
+# Visualize plots with fakes
+source configWjetsFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 ### Signal Region, Validation Region, W+jets/Top Control Regions

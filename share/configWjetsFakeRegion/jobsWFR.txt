@@ -1,10 +1,4 @@
-# ------------------------------ options ------------------------------ #
-!time=4320
-!memory=1024
-
-
-# ------------------------------ samples ------------------------------ #
-# ----------- c16a ----------- #
+# ------------------------------ c16a ------------------------------ #
 ##### data #####
 /data/?/c16a
 
@@ -18,8 +12,11 @@
 /bkg/?/c16a/Wjets/munu
 /bkg/?/c16a/Wjets/taunu
 
-##### bkg from QCD jets #####
+##### ISO fakes #####
+### data ###
 /bkg/?/c16a/Fakes/ISO/data
+
+### bkg ###
 /bkg/?/c16a/Fakes/ISO/mc/Ztautau
 /bkg/?/c16a/Fakes/ISO/mc/Zll
 /bkg/?/c16a/Fakes/ISO/mc/Top/ttbar
@@ -29,7 +26,8 @@
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/taunu
 
-# ----------- c16d ----------- #
+
+# ------------------------------ c16d ------------------------------ #
 ##### data #####
 /data/?/c16d
 
@@ -43,8 +41,11 @@
 /bkg/?/c16d/Wjets/munu
 /bkg/?/c16d/Wjets/taunu
 
-##### bkg from QCD jets #####
+##### ISO fakes #####
+### data ###
 /bkg/?/c16d/Fakes/ISO/data
+
+### bkg ###
 /bkg/?/c16d/Fakes/ISO/mc/Ztautau
 /bkg/?/c16d/Fakes/ISO/mc/Zll
 /bkg/?/c16d/Fakes/ISO/mc/Top/ttbar
@@ -54,7 +55,8 @@
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/taunu
 
-# ----------- c16e ----------- #
+
+# ------------------------------ c16e ------------------------------ #
 ##### data #####
 /data/?/c16e
 
@@ -68,8 +70,11 @@
 /bkg/?/c16e/Wjets/munu
 /bkg/?/c16e/Wjets/taunu
 
-##### bkg from QCD jets #####
+##### ISO fakes #####
+### data ###
 /bkg/?/c16e/Fakes/ISO/data
+
+### bkg ###
 /bkg/?/c16e/Fakes/ISO/mc/Ztautau
 /bkg/?/c16e/Fakes/ISO/mc/Zll
 /bkg/?/c16e/Fakes/ISO/mc/Top/ttbar
