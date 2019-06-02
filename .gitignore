@@ -29,3 +29,4 @@ build
 #*#
 .asetup.save
 *.DS_Store
+*.isDone
