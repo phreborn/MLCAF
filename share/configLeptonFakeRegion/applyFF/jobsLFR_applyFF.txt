@@ -1,33 +1,9 @@
-# ------------------------------ options ------------------------------ #
-!time=4320
-!memory=1024
-
-
-# ------------------------------ samples ------------------------------ #
-# /Fakes/ISO only
-# ----------- c16a ----------- #
-##### fakes #####
-# data in anti-ISO region for QCD
-#/bkg/?/c16a/Fakes/ISO/data/data15_D
-#/bkg/?/c16a/Fakes/ISO/data/data15_E
-#/bkg/?/c16a/Fakes/ISO/data/data15_F
-#/bkg/?/c16a/Fakes/ISO/data/data15_G
-#/bkg/?/c16a/Fakes/ISO/data/data15_H
-#/bkg/?/c16a/Fakes/ISO/data/data15_J
-
-#/bkg/?/c16a/Fakes/ISO/data/data16_A
-#/bkg/?/c16a/Fakes/ISO/data/data16_B
-#/bkg/?/c16a/Fakes/ISO/data/data16_C
-#/bkg/?/c16a/Fakes/ISO/data/data16_D
-#/bkg/?/c16a/Fakes/ISO/data/data16_E
-#/bkg/?/c16a/Fakes/ISO/data/data16_F
-#/bkg/?/c16a/Fakes/ISO/data/data16_G
-#/bkg/?/c16a/Fakes/ISO/data/data16_I
-#/bkg/?/c16a/Fakes/ISO/data/data16_K
-#/bkg/?/c16a/Fakes/ISO/data/data16_L
+# ------------------------------ c16a ------------------------------ #
+##### fakes in anti-ISO region #####
+### data ###
 /bkg/?/c16a/Fakes/ISO/data
 
-# bkg in anti-ISO region for QCD
+### bkg ###
 /bkg/?/c16a/Fakes/ISO/mc/Ztautau
 /bkg/?/c16a/Fakes/ISO/mc/Zll
 /bkg/?/c16a/Fakes/ISO/mc/Top/ttbar
@@ -38,20 +14,12 @@
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/taunu
 
 
-# ----------- c16d ----------- #
-##### fakes #####
-# data in anti-ISO region for QCD
-#/bkg/?/c16d/Fakes/ISO/data/data17_B
-#/bkg/?/c16d/Fakes/ISO/data/data17_C
-#/bkg/?/c16d/Fakes/ISO/data/data17_D
-#/bkg/?/c16d/Fakes/ISO/data/data17_E
-#/bkg/?/c16d/Fakes/ISO/data/data17_F
-#/bkg/?/c16d/Fakes/ISO/data/data17_H
-#/bkg/?/c16d/Fakes/ISO/data/data17_I
-#/bkg/?/c16d/Fakes/ISO/data/data17_K
+# ------------------------------ c16d ------------------------------ #
+##### fakes in anti-ISO region #####
+### data ###
 /bkg/?/c16d/Fakes/ISO/data
 
-# bkg in anti-ISO region for QCD
+### bkg ###
 /bkg/?/c16d/Fakes/ISO/mc/Ztautau
 /bkg/?/c16d/Fakes/ISO/mc/Zll
 /bkg/?/c16d/Fakes/ISO/mc/Top/ttbar
@@ -62,22 +30,12 @@
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/taunu
 
 
-# ----------- c16e ----------- #
-##### fakes #####
-# data in anti-ISO region for QCD
-#/bkg/?/c16e/Fakes/ISO/data/data18_B
-#/bkg/?/c16e/Fakes/ISO/data/data18_C
-#/bkg/?/c16e/Fakes/ISO/data/data18_D
-#/bkg/?/c16e/Fakes/ISO/data/data18_F
-#/bkg/?/c16e/Fakes/ISO/data/data18_I
-#/bkg/?/c16e/Fakes/ISO/data/data18_K
-#/bkg/?/c16e/Fakes/ISO/data/data18_L
-#/bkg/?/c16e/Fakes/ISO/data/data18_M
-#/bkg/?/c16e/Fakes/ISO/data/data18_O
-#/bkg/?/c16e/Fakes/ISO/data/data18_Q
+# ------------------------------ c16e ------------------------------ #
+##### fakes in anti-ISO region #####
+### data ###
 /bkg/?/c16e/Fakes/ISO/data
 
-# bkg in anti-ISO region for QCD
+### bkg ###
 /bkg/?/c16e/Fakes/ISO/mc/Ztautau
 /bkg/?/c16e/Fakes/ISO/mc/Zll
 /bkg/?/c16e/Fakes/ISO/mc/Top/ttbar

@@ -11,11 +11,11 @@ if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
 elif [ "$USER" == "yehf" ]; then
   SUBMIT="--submit hep_sub --account atlas"
 elif [ "$USER" == "xiaozhong" ]; then
-  SUBMIT="--submit condor --maxSampleSize 12000"
+  SUBMIT="--submit condor"
 fi
 
-submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges ${SUBMIT}
+submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 12000 ${SUBMIT}
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with
-echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-${CONFIG}.root -t analyze batchOutput/unmerged_${IDENT}/*.root"
+# echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-${CONFIG}.root -t analyze batchOutput/unmerged_${IDENT}/*.root"
