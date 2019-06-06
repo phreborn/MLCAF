@@ -714,15 +714,29 @@ def plotFF(hist,up,down,region, file='', name='someFF'):
     gr.SetFillStyle(3005);
     gr.SetMarkerColor(4);
     gr.SetMarkerStyle(21);
-    gr.Draw("A3");
+    gr.Draw("A2");
 
     hist.Draw('X0same')
 
     #ATLAS label
-    ATLAS_LABEL(0.37,0.85,kBlack)
-    myText(0.49,0.85,kBlack, "Internal");
-    lumi = '56.9' if ("18" in region) else '44.3' if ("17" in region) else '36.2'
-    myText(0.37,0.79,kBlack, '\sqrt s=13TeV, \int L dt = {:s} fb^-1'.format(lumi));
+
+    if 'WFR' in name:
+      ATLAS_LABEL(0.37,0.85,kBlack)
+      myText(0.49,0.85,kBlack, "Internal");
+      lumi = '140.4' if ("All" in region) else '56.9' if ("18" in region) else '44.3' if ("17" in region) else '36.2'
+      myText(0.37,0.79,kBlack, '\sqrt s=13TeV, \int L dt = {:s} fb^-1'.format(lumi));
+    elif 'LFR' in name and 'ehad' in name:
+      ATLAS_LABEL(0.49,0.35,kBlack)
+      myText(0.61,0.35,kBlack, "Internal");
+      lumi = '140.4' if ("All" in region) else '56.9' if ("18" in region) else '44.3' if ("17" in region) else '36.2'
+      myText(0.49,0.29,kBlack, '\sqrt s=13TeV, \int L dt = {:s} fb^-1'.format(lumi));
+    elif 'LFR' in name and 'muhad' in name:
+      ATLAS_LABEL(0.37,0.85,kBlack)
+      myText(0.49,0.85,kBlack, "Internal");
+      lumi = '140.4' if ("All" in region) else '56.9' if ("18" in region) else '44.3' if ("17" in region) else '36.2'
+      myText(0.37,0.79,kBlack, '\sqrt s=13TeV, \int L dt = {:s} fb^-1'.format(lumi));
+
+
 
     # derive what ff is this
     text = ''
@@ -743,9 +757,20 @@ def plotFF(hist,up,down,region, file='', name='someFF'):
     elif '3p' in name:
         text += ' 3-prong'
 
-    myText(0.37,0.73,kBlack, text);
+    if 'WFR' in name:
+      myText(0.37,0.73,kBlack, text);
+    elif 'LFR' in name and 'ehad' in name:
+      myText(0.49,0.23,kBlack, text);
+    elif 'LFR' in name and 'muhad' in name:
+      myText(0.37,0.73,kBlack, text);
+
+
 
     gr.GetXaxis().SetRangeUser(hist.GetBinLowEdge(1),hist.GetBinLowEdge(nBinsX+1))
+    if "LFR" in region:
+      gr.GetXaxis().SetTitle('p_{T}^{lep} [GeV]')
+    elif "WFR" in region:
+      gr.GetXaxis().SetTitle('p_{T}^{#tau} [GeV]')
     gr.GetYaxis().SetTitle('Fake Factor')
 
     c1.Update()
@@ -2137,6 +2162,10 @@ if __name__=='__main__':
         # btag 
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'ehad', 'SSWFRAll',0.1,0.1)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'ehad', 'SSWFRAll',0.1,0.1)
+        # bveto
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'ehad', 'WFRAll',0.1,0.1)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'ehad', 'WFRAll',0.1,0.1)
+
         # bveto 1p
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'ehad', 'WFRAll',0.1,0.1)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'ehad', 'WFRAll',0.1,0.1)
@@ -2153,6 +2182,9 @@ if __name__=='__main__':
         # btag
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag1pSSPassID', 'CutBtag1pSSFailID', 'TauPtFFBtag1p', 'muhad', 'SSWFRAll',0.1,0.1)
         calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtag3pSSPassID', 'CutBtag3pSSFailID', 'TauPtFFBtag3p', 'muhad', 'SSWFRAll',0.1,0.1)
+        # bveto
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1p', 'muhad', 'WFRAll',0.1,0.1)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'TauPtFFBveto3p', 'muhad', 'WFRAll',0.1,0.1)
         # bveto 1p
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi1', 'muhad', 'WFRAll',0.1,0.1)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'TauPtFFBveto1pDphi2', 'muhad', 'WFRAll',0.1,0.1)
@@ -2252,6 +2284,11 @@ if __name__=='__main__':
         # full year
         dataPath = 'data/{:s}/[c16a+c16d+c16e]'
         bkgPath = 'bkg/{:s}/[c16a+c16d+c16e]/[Ztautau+Zll+Top+Diboson+Wjets]'
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtELEBTAGFF','ehad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtMUONFF','muhad','LFRAll',0.1,0.2)
+        calcJetFakeFactorFinal('Btag', dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'LeptonPtMUONFF', 'muhad','LFRAll',0.1,0.2)
+
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi1ELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi2ELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
         calcJetFakeFactorFinal('Bveto', dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'LeptonPtDphi3ELEBVETOFF', 'ehad','LFRAll',0.1,0.2)
