@@ -34,36 +34,38 @@ SampleID,       process,                        xsectioninpb,           kfactor,
 342300,         ggH125W02_ttlh,                 1.0,    1.0,    0.45599,        1.,              PowhegPythiaEvtGen
 #30.217 -> this is AMI xsec
 
+342305,         ggH200W1_ttlh,                  1.0,    1.0,    0.45494         1.,             PowhegPythiaEvtGen
+
 342310,         ggH300W2_ttlh,                  1.0,    1.0,    0.45501,        1.,             PowhegPythiaEvtGen
 #6.6586
+
+342318,         ggH600W10_ttlh,                 1.0,    1.0,    0.45508,        1.,             PowhegPythiaEvtGen
 
 342320,         ggH700W20_ttlh,                 1.0,    1.0,    0.45387,        1.,             PowhegPythiaEvtGen
 #0.64931
 
-
-
-342326,     ggH1000W30_ttlh,        1.0,    1.0,    0.45636,    1.,     PoPy8
+342326,         ggH1000W30_ttlh,                1.0,    1.0,    0.45636,    1.,     PoPy8
 #0.093729
 
-342332,     ggH1300W50_ttlh,        1.0,    1.0,    0.45206,    1.,     PowhegPythiaEvtGen
+342332,         ggH1300W50_ttlh,                1.0,    1.0,    0.45206,    1.,     PowhegPythiaEvtGen
 #0.016856
 
-342334,     ggH1400W50_ttlh,        1.0,    1.0,    0.45906,    1.,     PowhegPythiaEvtGen
+342334,         ggH1400W50_ttlh,        1.0,    1.0,    0.45906,    1.,     PowhegPythiaEvtGen
 #0.010001
 
-342336,     ggH1500W60_ttlh,        1.0,    1.0,    0.45371,    1.,     PowhegPythiaEvtGen
+342336,         ggH1500W60_ttlh,        1.0,    1.0,    0.45371,    1.,     PowhegPythiaEvtGen
 #0.0061076
 
-345295,     ggH1750W70_ttlh,        1.0,    1.0,    0.45514,    1.,     PowhegPythiaEvtGen
+345295,         ggH1750W70_ttlh,        1.0,    1.0,    0.45514,    1.,     PowhegPythiaEvtGen
 #0.0018686
 
-345297,     ggH2000W80_ttlh,        1.0,    1.0,    0.45723,    1.,     PowhegPythiaEvtGen
+345297,         ggH2000W80_ttlh,        1.0,    1.0,    0.45723,    1.,     PowhegPythiaEvtGen
 #0.00077934
 
-345299,     ggH2250W90_ttlh,        1.0,    1.0,    0.45798 ,   1.,     PowhegPythiaEvtGen
+345299,         ggH2250W90_ttlh,        1.0,    1.0,    0.45798 ,   1.,     PowhegPythiaEvtGen
 #0.00031156
 
-345301,     ggH2500W100_ttlh,       1.0,    1.0,    0.45284 ,   1.,     PowhegPythiaEvtGen
+345301,         ggH2500W100_ttlh,       1.0,    1.0,    0.45284 ,   1.,     PowhegPythiaEvtGen
 #0.00013222
 
 
