@@ -40,6 +40,8 @@ SampleID,       process,                        xsectioninpb,           kfactor,
 342320,         ggH700W20_ttlh,                 1.0,    1.0,    0.45387,        1.,             PowhegPythiaEvtGen
 #0.64931
 
+
+
 342326,     ggH1000W30_ttlh,        1.0,    1.0,    0.45636,    1.,     PoPy8
 #0.093729
 
@@ -109,10 +111,10 @@ SampleID,       process,                        xsectioninpb,           kfactor,
 345289,     bbH2000_yb2_ttlh,   1.0,    1.0,    0.45725,    1.,     aMCNloPy8
 # 7.1731e-07
 
-345291,     bbH2250_yb2_ttlh,   1.0,    1.0 0.45671,    1.,     aMCNloPy8
+345291,     bbH2250_yb2_ttlh,   1.0,    1.0,    0.45671,    1.,     aMCNloPy8
 # 2.9334e-07
 
-345293,     bbH2500_yb2_ttlh,   1.0,    1.0 0.44701,    1.,     aMCNloPy8
+345293,     bbH2500_yb2_ttlh,   1.0,    1.0,    0.44701,    1.,     aMCNloPy8
 # 1.3219e-07
 
 ###########################################
