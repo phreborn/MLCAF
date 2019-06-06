@@ -5,24 +5,19 @@ import os
 
 class LocalJobHandler:
   def __init__(self, cmd_log, NCORES):
-    self.cmd_log = cmd_log
     self.NCORES = NCORES
-    self.pids =[]
-    self.log_files=[]
+    self.cmd_log = cmd_log
+    self.pid_logfile = {}
 
   def run(self):
     """ Summit jobs by subprocess """
     for cmd, log in self.cmd_log:
-      if len(self.pids) > self.NCORES:
+      if len(self.pid_logfile) > self.NCORES:
         self.wait_complete_one()
-      pid, log_file = self.submit_local_job(cmd, log)
-    
-      self.pids.append(pid)
-      self.log_files.append(log_file)
+      pid, logfile = self.submit_local_job(cmd, log)
+      self.pid_logfile[pid] = logfile 
 
     self.wait_complete_all()
-    for log_file in self.log_files:
-      log_file.close()
 
   def submit_local_job(self,cmd, log):
     os.system("rm -f "+log)
@@ -34,17 +29,18 @@ class LocalJobHandler:
   def wait_complete_one(self):
     """Wait until completion of one of the launched jobs"""
     while True:
-      for pid in self.pids:
+      for pid, logfile in self.pid_logfile.items():
         if pid.poll() is not None:
-          print "Process", pid.pid, "has completed"
-          self.pids.remove(pid)
+          print "Process", pid.pid, "has completed"  
+          logfile.close()
+          del self.pid_logfile[pid]
           return
       print "Waiting completion of jobs..."
       time.sleep(60) # wait 15 seconds before retrying
 
   def wait_complete_all(self):
     """Wait until completion of all launched jobs"""
-    while len(self.pids)>0:
+    while len(self.pid_logfile)>0:
       self.wait_complete_one()
     print "All jobs finished !"
 
