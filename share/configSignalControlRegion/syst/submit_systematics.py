@@ -306,10 +306,11 @@ if __name__=='__main__':
       if b_makeSamples:
         if option=='treevariation':
           #command='bsub python makeSampleFile.py {:s} --options mcPaths=\'{:s}:{:s}\' sampleFile=\'input/htautau_lephad_sr_{:s}.root:samples\''.format(s_config_path,s_sys_file_path,sys,sys)
-          command1="prepare.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path,sys,sys)
-          print(command1)
-          if not args.dry: os.system(command1)
-          command2="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr-{:s}.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path,sys,sys,sys)
+          #command1="prepare.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path,sys,sys)
+          #print(command1)
+          #if not args.dry: os.system(command1)
+          #command2="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' inputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr-{:s}.root' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path,sys,sys,sys)
+          command2="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path,sys,sys)
           print(command2)
           if not args.dry: os.system(command2)
         # if making sample files: continue, because we don't want to submit jobs before we have inputs ready;
@@ -380,7 +381,7 @@ if __name__=='__main__':
         jobs_file = "jobsSYS-weighttreevar.txt"
 
       #command='analyze.py --options {:s} --submit bsub --queue {:s} --jobs ConfigSignalRegion/jobsSYS.txt --identifier {:s} --downmerge --memory 0.01 {:s}'.format(temp_option,s_queue,sys,s_config_path)
-      command='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --submit condor --maxSampleSize 12000 --options {:s}'.format(s_config_path,jobs_file,sys,temp_option)
+      command='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 12000 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,temp_option)
       print(command)
       if not args.dry: os.system(command)
 
