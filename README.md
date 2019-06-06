@@ -102,7 +102,7 @@ Running the analysis
 cd BSMtautauCAF/share
 
 # First set the input path to your samples by creating a symbolic link to the directory
-ln -sfiv /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190417 -T ${CAFANALYSISSHARE}/inputs
+:(){ ln -sfiv $1 -T ${CAFANALYSISSHARE}/inputs; }; : /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190417
 ```
 
 ### Lepton Fake Region
