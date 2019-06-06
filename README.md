@@ -101,9 +101,8 @@ Running the analysis
 ```bash
 cd BSMtautauCAF/share
 
-# First edit without committing the 'dataPaths' and 'mcPaths' for NOM/SYS in
-configCommon/htautau_lephad_common_campaigns_input*.cfg
-# relevant for your setup (don't let them be too long or you could see errors)
+# First set the input path to your samples by creating a symbolic link to the directory
+ln -sfiv /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190417 -T ${CAFANALYSISSHARE}/inputs
 ```
 
 ### Lepton Fake Region
