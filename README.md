@@ -182,7 +182,7 @@ source configSignalControlRegion/scriptVisualize.sh
 ### Workspace inputs (Signal Region, Top Control Region)
 ```bash
 # Dump systematic outputs to standard ROOT files and merge
-source configSignalControlRegion/syst/scriptDumpHist.sh
+python configSignalControlRegion/syst/scriptDumpHist.py
 ```
 
 Old README content
