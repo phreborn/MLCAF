@@ -34,10 +34,15 @@ if __name__ == '__main__':
   cmd_list, log_list = create_cmd_log_list(input_files, campaigns, channels)
   cmd_log = zip(cmd_list, log_list)
 
-  local_job_handler = LocalJobHandler(cmd_log, NCORES)
-  local_job_handler.run()
+  if 1 == NCORES:
+    for cmd in cmd_list:
+      os.system(cmd)
+  else:
+    local_job_handler = LocalJobHandler(cmd_log, NCORES)
+    local_job_handler.run()
   
   regions=['sr1pBveto','sr3pBveto','sr1pBtag','sr3pBtag','tcr1pBtag','tcr3pBtag']
+  #regions=['vr1pBveto','vr3pBveto','vr1pBtag','vr3pBtag']
   """ Merge the Histograms """
   for campaign in campaigns:
     for region in regions:

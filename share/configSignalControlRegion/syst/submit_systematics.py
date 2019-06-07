@@ -9,7 +9,7 @@ from JobHandler import LocalJobHandler
 # The results of some jobs will not be changed for the systematics, these jobs will be copied from the following dir
 s_nominal_dir='batchOutput/unmerged_SRsys'  
 # Cofiguration for the systematic jobs
-s_config_path='configSignalControlRegion/htautau_lephad_sr.cfg'
+s_config_path='configSignalControlRegion/syst/htautau_lephad_sr_sys.cfg'
 # Input MC files for the systematic jobs (Input data files are not changed)
 s_sys_file_path='configCommon/htautau_lephad_common_campaigns_input_sys.cfg'
 # list of all systematics, comment out the ones you don't want to run:
@@ -147,12 +147,12 @@ l_treevariations=[
 ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
 ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down'],
 ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
-#['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down'],
-#['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
-#['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down'],
-#['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
-#['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down'],
-#['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
+['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down'],
+['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
+['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down'],
+['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
+['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down'],
+['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
 ['treevariation', 'JET_EtaIntercalibration_NonClosure_highE_1up'],
 ['treevariation', 'JET_EtaIntercalibration_NonClosure_highE_1down'],
 ['treevariation', 'JET_EtaIntercalibration_NonClosure_negEta_1up'],
