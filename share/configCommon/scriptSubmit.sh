@@ -5,16 +5,17 @@ CONFIG="$2"
 JOBS="$3"
 IDENT="$4"
 
+# additional institute/user-specific submission commands
 SUBMIT=""
 if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
   SUBMIT="--submit condor"
 elif [ "$USER" == "yehf" ]; then
-  SUBMIT="--submit hep_sub --account atlas"
+  SUBMIT="--submit condor"
 elif [ "$USER" == "xiaozhong" ]; then
   SUBMIT="--submit condor"
 fi
 
-submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 12000 ${SUBMIT}
+submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 ${SUBMIT}
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with

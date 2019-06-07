@@ -141,7 +141,10 @@
 
 # Signal (ggH)
 #342300 /sig/$(channel)/$(campaign)/ggH/125
+342305 /sig/$(channel)/$(campaign)/ggH/200
 342310 /sig/$(channel)/$(campaign)/ggH/300
+#342314 /sig/$(channel)/$(campaign)/ggH/400
+342318 /sig/$(channel)/$(campaign)/ggH/600
 #342320 /sig/$(channel)/$(campaign)/ggH/700
 342326 /sig/$(channel)/$(campaign)/ggH/1000
 #342332 /sig/$(channel)/$(campaign)/ggH/1300
@@ -155,11 +158,11 @@
 # Signal (bbH)
 #341856 /sig/$(channel)/$(campaign)/bbH/125
 #341857 /sig/$(channel)/$(campaign)/bbH/150
-#341858 /sig/$(channel)/$(campaign)/bbH/200
+341858 /sig/$(channel)/$(campaign)/bbH/200
 #341859 /sig/$(channel)/$(campaign)/bbH/250
 341860 /sig/$(channel)/$(campaign)/bbH/300
 #341863 /sig/$(channel)/$(campaign)/bbH/500
-#341864 /sig/$(channel)/$(campaign)/bbH/600
+341864 /sig/$(channel)/$(campaign)/bbH/600
 341868 /sig/$(channel)/$(campaign)/bbH/1000
 341873 /sig/$(channel)/$(campaign)/bbH/1500
 #345287 /sig/$(channel)/$(campaign)/bbH/1750

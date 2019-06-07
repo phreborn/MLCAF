@@ -58,6 +58,7 @@ cmake ../BSMtautauCAF
 source ../BSMtautauCAF/setup/setupAnalysis.sh
 make -j4
 cd -
+export PYTHONPATH=$CAFANALYSISBASE"/tools":$PYTHONPATH
 ```
 
 On Every Login
@@ -71,6 +72,7 @@ lsetup git
 cd build
 asetup --restore
 source ../BSMtautauCAF/setup/setupAnalysis.sh
+export PYTHONPATH=$CAFANALYSISBASE"/tools":$PYTHONPATH
 cd -
 ```
 
@@ -192,7 +194,7 @@ source configSignalControlRegion/scriptVisualize.sh
 ### Workspace inputs (Signal Region, Top Control Region)
 ```bash
 # Dump systematic outputs to standard ROOT files and merge
-source configSignalControlRegion/syst/scriptDumpHist.sh
+python configSignalControlRegion/syst/scriptDumpHist.py
 ```
 
 Old README content

@@ -1,324 +1,163 @@
 #!/usr/bin/env python2
-
 import argparse
 import os,sys
-import imp, ROOT
-
-parser = argparse.ArgumentParser(description='calculate signal strength.')
-parser.add_argument('inputfilepath', metavar='FILEPATH', type=str,
-          default="output/htautau_lephad_sr_2D/FakeFactor_LepElBtag_1down.root",
-          help='sample file to be used')
-parser.add_argument('datasets', metavar='DATASETS', type=str,
-          default="c16a",
-          help='datasets to be used')
-parser.add_argument('channel', metavar='CHANNEL', type=str,
-          default="ehad",
-          help='channel to be used')
-#parser.add_argument('varWanted', metavar='varName', type=str,
-#          default="mvis",
-#          help='var to be getten')
-args = parser.parse_args()
-# the alias is the 'appliation name' that will be dumped to the info tags of any
-# sample folder created
-alias = "plotSystematicsHistograms"
-sfName = "samples" # samples or systematics
-datasets = args.datasets
-datasets_data = "?"
-datasets_sig = "siga"
-if datasets == "mc16a":
-    datasets_data = "[data15*+data16*]"
-    datasets_name = "data1516"
-    datasets_sig = "siga"
-if datasets == "mc16c" or datasets == "mc16d":
-    datasets_data = "[data17*]"
-    datasets_name = "data17"
-    datasets_sig = "sigc"
-if datasets == "mc16e":
-    datasets_data = "[data18*]"
-    datasets_name = "data18"
-    datasets_sig = "sige"
-
-channel = args.channel
-basepath = "." #basepath in sample folder to get list of histograms from
-sflist = [
-          "data/{:s}/{:s}/".format(channel,datasets),
-          "sig/{:s}/{:s}/bbH/300/".format(channel,datasets),
-          "sig/{:s}/{:s}/ggH/300/".format(channel,datasets),
-          "sig/{:s}/{:s}/bbH/1000/".format(channel,datasets),
-          "sig/{:s}/{:s}/ggH/1000/".format(channel,datasets),
-          "sig/{:s}/{:s}/bbH/1500/".format(channel,datasets),
-          "sig/{:s}/{:s}/ggH/1500/".format(channel,datasets),
-          "sig/{:s}/{:s}/bbH/2000/".format(channel,datasets),
-          "sig/{:s}/{:s}/ggH/2000/".format(channel,datasets),
-          "sig/{:s}/{:s}/bbH/2500/".format(channel,datasets),
-          "sig/{:s}/{:s}/ggH/2500/".format(channel,datasets),
-          "bkg/{:s}/{:s}/Top/".format(channel,datasets),
-          "bkg/{:s}/{:s}/Diboson/".format(channel,datasets),
-          "bkg/{:s}/{:s}/Zll/".format(channel,datasets),
-          "bkg/{:s}/{:s}/Ztautau/".format(channel,datasets),
-          "bkg/{:s}/{:s}/Fakes/ISO/[data-mc]".format(channel,datasets),
-          "bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]".format(channel,datasets)
-]
-#sflist = ["bkg/{:s}/{:s}/?/".format(channel,datasets)]
-
-#some definitions for what to do:
-
-varDict = {
-"bvetoTauMETDphi"                                              : "TauMETDphi",
-#"btagTauMETDphi"                                              : "TauMETDphi",
-"bvetoLepMETDphi"                                              : "LepMETDphi",
-#"btagLepMETDphi"                                              : "LepMETDphi",
-#"bvetoMTTOT"                                               : "MTTOT",
-#"btagMTTOT"                                               : "MTTOT",
-"bvetoTauPt": "TauPt",
-#"btagTauPt": "TauPt",
-"bvetoLeptonPt": "LeptonPt",
-"btagLeptonPt": "LeptonPt",
-"bvetoMTTOT": "MTTOT",
-#"TauPtFFBveto1pDphi1": "TauPtFFBveto1pDphi1",
-#"TauPtFFBveto1pDphi2": "TauPtFFBveto1pDphi2",
-#"TauPtFFBveto1pDphi3": "TauPtFFBveto1pDphi3",
-#"TauPtFFBveto1pDphi4": "TauPtFFBveto1pDphi4",
-#"TauPtFFBveto1pDphi34": "TauPtFFBveto1pDphi34",
-#"TauPtFFBveto3pDphi1": "TauPtFFBveto3pDphi1",
-#"TauPtFFBveto3pDphi2": "TauPtFFBveto3pDphi2",
-#"TauPtFFBveto3pDphi3": "TauPtFFBveto3pDphi3",
-#"TauPtFFBveto3pDphi4": "TauPtFFBveto3pDphi4",
-#"TauPtFFBveto3pDphi34": "TauPtFFBveto3pDphi34",
-#"TauPtDphi1FF": "TauPtDphi1FF",
-#"TauPtDphi2FF": "TauPtDphi2FF",
-#"TauPtDphi34FF": "TauPtDphi34FF",
-}
-
-catDict = {
-#"CutBtag1p" : "sr1pBtag",
-#"CutBtag3p" : "sr3pBtag",
-#"CutBveto1p" : "sr1pBveto",
-#"CutBveto3p" : "sr3pBveto",
-#"CutWCRBtag1p" : "wcr1pBtag",
-#"CutWCRBtag3p" : "wcr3pBtag",
-"CutWCRBveto1p" : "wcr1pBveto",
-"CutWCRBveto3p" : "wcr3pBveto",
-#"CutVRBtag1p" : "vr1pBtag",
-#"CutVRBtag3p" : "vr3pBtag",
-#"CutVRBveto1p" : "vr1pBveto",
-#"CutVRBveto3p" : "vr3pBveto",
-#"CutTCRBtag1p" : "tcr1pBtag",
-#"CutTCRBtag3p" : "tcr3pBtag",
-#"[CutBtag1p+CutBtag3p]" : "srBtag",
-#"[CutBveto1p+CutBveto3p]" : "srBveto",
-#"[CutTCRBtag1p+CutTCRBtag3p]" : "tcrBtag",
-}
-
-def setHistName(path, orgHistName,inputfile):
-  pathlist = path.split("/")
-  print "pathlist",pathlist
-  histname = orgHistName.Data();
-  print histname
-  namelist = histname.split("/")
-  print namelist
-  distname = namelist.pop()
-  print distname
-  print inputfile
-  if inputfile != "NOMINAL":
-    inputfilenamelist=inputfile.split("_")
-    inputfilenamevar=inputfilenamelist[-1]
-    inputfilename=inputfile.replace("_"+inputfilenamevar, "")
-  #if "mvis" not in distname : 
-  #  print "not", distname
-  #  return ""
-  #if "CutWControl" not in namelist[0] : 
-  #  print "not", namelist[0]
-  #  return ""
-  
-  histOutName=""
-  histOutName0=""
-  histOutName0=datasets+"_"
-  histOutName0+=pathlist[0]+"_"
-  if ( pathlist[0] == "bkg" or pathlist[0] == "sig" ) and pathlist[0] != "data":
-#    if pathlist[0] == "{:s}".format(datasets_sig):
-#        histOutName0+="{:s}_".format(datasets)
-#    else:
-#        histOutName0+=pathlist[0]+"_"
-#  if  pathlist[0] == "{:s}".format(datasets) and pathlist[0] != "data":
-#    histOutName0+=pathlist[0]+"_"
-#    if pathlist[2] != "QCDFakes" and pathlist[2] != "WJETSFakes": 
-    if pathlist[3] == "Zll":
-        histOutName+="DYZ"
-    elif pathlist[3] == "Ztautau":
-        histOutName+="ZplusJets"
-    elif pathlist[3] == "Fakes":
-        if pathlist[4] == "ISO":
-            histOutName+="QCDFakes"
-        elif pathlist[4] == "ID":
-            histOutName+="WJETSFakes"
-    elif pathlist[3] == "bbH" or pathlist[3] == "ggH":
-        histOutName+=pathlist[3].replace("H", "Hlh")
-        histOutName+=pathlist[4]
-    else:
-        histOutName+=pathlist[3]
-  else:
-#    histOutName0+=pathlist[0]+"_"
-    histOutName+="data"
-
-  if pathlist[1] == "ehad":
-    Channel = "ElHad"
-  elif pathlist[1] == "muhad":
-    Channel = "MuHad"
-
-  if "TCR" in namelist[0]:
-    Channel+="Tcr"
-
-  if "Btag" in namelist[0]:
-    Tags = "1tag0jet"
-  elif "Bveto" in namelist[0]:
-    Tags = "0tag0jet"
-
-  #if pathlist[0] == "data":
-  #  histOutFileName=histOutName+"_"
-  #else:
-  #  histOutFileName=histOutName0+histOutName+"_"
-  histOutFileName=histOutName0+histOutName+"_"
-
-  histOutFileName+=catDict[ namelist[0] ]
-  histOutFileName+="_"+pathlist[1]+"_"
-  histOutFileName+=varDict[distname]
-
-  histOutName=histOutName+"_"+Tags+"_0ptv_"+Channel+"_"+varDict[distname]
-  if inputfile != "NOMINAL":
-    histOutName+="_ATLAS_"+inputfilename+"__"+inputfilenamevar
-
-  return [histOutName, histOutFileName]
+from QFramework import *
+from ROOT import *
 
 
-def findHist(path, orgHistName):
-  pathlist = path.split("/")
-  histname = orgHistName.Data();
-  print histname
-  namelist = histname.split("/")
-  distname = namelist.pop()
-  print namelist
-  print distname
 
-  print "has var",varDict.has_key(distname)
-  print "has cat",catDict.has_key(namelist[0])
-
-  if varDict.has_key(distname) is False : return 0
-  if catDict.has_key(namelist[0]) is False : return 0
-
-  #if histWanted not in distname :
-  #  return 0
-
-  return 1
-
-def main(args):
-  # print a welcome message
-  print(TQStringUtils.makeBoldWhite("dump histo"))
-  
-  # open the samplefile
-  filepath=TString(args.inputfilepath)
-
-  # get the input file name
-  s_file = args.inputfilepath
-  inputfilenamelist=s_file.split("/")
-  inputfilename=inputfilenamelist[-1]
-  inputfilelist=inputfilename.split(".")
-  inputfilebasename=inputfilelist[0]
-  inputfilebasenamelist=inputfilebasename.split("-")
-  inputfile=inputfilebasenamelist[-1]
-
-  os.system('mkdir -p dumpHist/{:s}/{:s}/{:s}'.format(inputfile,datasets,channel))
-
-  dir_sys = ROOT.TDirectory
-
-  #outfilepath = TString(args.outputfilepath)
-  INFO("reading sample file '{:s}' ".format(filepath))
-  samples = TQSampleFolder.loadSampleFolder(filepath+TString(":")+sfName)
+def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
+  # Read files
+  file_path = args.inputfilepath
+  INFO("Reading sample file {:s}".format(file_path))
+  samples = TQSampleFolder.loadSampleFolder(file_path+":samples")
   if not samples:
-    BREAK("unable to open sample file '{:s}' - please check the filepath!".format(filepath))
-  tags = TQTaggable()
-  tags.setTagBool("ensureDirectory",True)
-  tags.setTagString("scaleScheme",".default")
+    BREAK("Unable to open sample file {:s}".formath(file_path))
+  
   reader = TQSampleDataReader(samples)
-  hlist = reader.getListOfHistogramNames()
-  for (index,path) in enumerate(sflist):
-    for hname in hlist:
-      if hname is None: continue 
-      histname = hname.GetString().Data();
-      print histname.split("/")
-      namelist = histname.split("/")
-      print histname
-      distname = namelist.pop()
-      print distname
-      pathlist = path.split("/")
-      print(pathlist)
 
-      if pathlist[0] == "data" and inputfile != "NOMINAL":
-          print("no systematics for data")
+  # systematic name
+  sys_name = file_path.split("-")[-1]
+  sys_name = sys_name.split(".")[0]
+  # some hacks for systematics
+  if sys_name != "NOMINAL":
+    sys_name=sys_name.replace('ScaleUp', 'Scale_1up')
+    sys_name=sys_name.replace('ScaleDown', 'Scale_1down')
+    sys_name_list = sys_name.split("_")
+    while '' in sys_name_list:
+      sys_name_list.remove('')
+    sys_name_list[-1]=sys_name_list[-1].replace('high','1up')  
+    sys_name_list[-1]=sys_name_list[-1].replace('low','1down') 
+    sys_name_list[-1]=sys_name_list[-1].replace('1up','_1up')
+    sys_name_list[-1]=sys_name_list[-1].replace('1down','_1down')
+    sys_name = "_".join(sys_name_list)
+    sys_name = "ATLAS_"+sys_name
+
+  # Output file dir
+  dir_out = "dumpHist/{:s}/{:s}/{:s}".format(sys_name,args.datasets,args.channel) 
+  os.system('mkdir -p {:s}'.format(dir_out))
+
+  # Dump hists reduce files !! channel campain region
+  for region_name, region_path in region_dict.items():
+    # Output file name
+    fn_out = '{:s}_{:s}_{:s}.root'.format(args.datasets,region_name,args.channel)
+    # Open output file
+    f_out = TFile.Open("{:s}/{:s}".format(dir_out,fn_out),"RECREATE")
+    if sys_name != "NOMINAL":
+      dir_sys = f_out.mkdir(sys_name, sys_name)
+    for sample_name, sample_path in sample_dict.items():
+      sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+      for hist_name, hist_rename in hist_dict.items():
+        hist = reader.getHistogram(sample_path, '{:s}/{:s}'.format(region_path,hist_name))
+        if not hist:
+          WARN("Unable to find hist {:s} : {:s}/{:s}".format(sample_path, region_path, hist_name))
           continue
+        # hist name
+        hist_new_name = sample_name
+        if "Btag" in region_name:
+          hist_new_name += "_1tag0jet_0ptv_"
+        elif "Bveto" in region_name:
+          hist_new_name += "_0tag0jet_0ptv_"
+        else:
+          BREAK("Unexpcted region name {:s}".format(region_name))
     
-      if findHist(path, hname.GetString()) is 0 : 
-        print " not the wanted histogram "
-        continue
+        if args.channel == "ehad":
+          hist_new_name += "ElHad"
+        elif args.channel == "muhad":
+          hist_new_name += "MuHad"
+        else:
+          BREAK("Unexpected channel {:s}".format(args.channel))
+        if "tcr" in region_name:
+          hist_new_name += "Tcr"
 
-      #if "mvis" not in distname : 
-      #  print "not", distname
-      #  continue
-
-      #if "CutWControl" not in namelist[0] : 
-      #  print "not", namelist[0]
-      #  continue
-
-      hist = reader.getHistogram(path,hname.GetString(),tags)
-
-      histOutName=setHistName(path, hname.GetString(),inputfile )
-      print histOutName
-      hist.SetNameTitle( histOutName[0], histOutName[0] )
-     
-      OutputSystFolderNameListFull = histOutName[0].split("_")
-      OutputSystFolderNameList = OutputSystFolderNameListFull[5:]
-      print(OutputSystFolderNameList)
-      #OutputSystFolderName = OutputSystFolderNameList[-5]+"_"+OutputSystFolderNameList[-4]+"_"+OutputSystFolderNameList[-3]+"__"+OutputSystFolderNameList[-1]
-      OutputSystFolderName = "_".join(OutputSystFolderNameList)
-      print OutputSystFolderName
- 
-      if hist is None: continue
-      #do to hist what ever you want :)
-      hist.Print()
-
-      ouptfilename = histOutName[1].replace("?","X")
-      ouptfilename += ".root"
-      outfile = TFile.Open( "dumpHist/{:s}/{:s}/{:s}/".format(inputfile,datasets,channel)+ouptfilename,"RECREATE")
-      #outfile = TFile.Open(outfilepath.Data(),"RECREATE")
- 
-      if inputfile != "NOMINAL" :
-        dir_sys = outfile.mkdir( OutputSystFolderName, OutputSystFolderName )
-
-      outfile.cd()
-      if inputfile != "NOMINAL" :
-        dir_sys.cd()
-      hist.Write()
-      del hist
-      outfile.Write()
-      outfile.Close()
-
-
+        hist_new_name += "_"+hist_rename
+  
+        if sys_name != "NOMINAL":
+          hist_new_name += "_"+sys_name
+        
+        hist.SetNameTitle(hist_new_name, hist_new_name)
+        f_out.cd()
+        if sys_name != "NOMINAL":
+          dir_sys.cd()
+        hist.Write()
+        del hist
+    f_out.Write()
+    f_out.Close()
+    INFO("All histograms have been dumped !")
 
 if __name__ == "__main__":
-  # parse the CLI arguments
-#  parser = argparse.ArgumentParser(description='calculate signal strength.')
-#  parser.add_argument('inputfilepath', metavar='FILEPATH', type=str,
-#            default="output/htautau_lephad_sr_2D/FakeFactor_LepElBtag_1down.root",
-#            help='sample file to be used')
-#  parser.add_argument('outputfilepath', metavar='FILEPATH', type=str,
-#            default="myHistograms.root",
-#            help='output file to be used')
-#  parser.add_argument('varWanted', metavar='varName', type=str,
-#            default="mvis",
-#            help='var to be getten')
-#  args = parser.parse_args()
 
-  from QFramework import *
-  from ROOT import *
-  TQLibrary.getQLibrary().setApplicationName(alias);
-  main(args); 
+  parser = argparse.ArgumentParser(description='Dump histogram for statistical analysis.')
+  parser.add_argument('inputfilepath', metavar='FILEPATH', type=str,
+            default="sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-TAUS_TRUEHADTAU_SME_TES_MODEL_1up.root",
+            help='sample file to be used')
+  parser.add_argument('datasets', metavar='DATASETS', type=str,
+            default="c16a",
+            help='datasets to be used')
+  parser.add_argument('channel', metavar='CHANNEL', type=str,
+            default="ehad",
+            help='channel to be used')
+  args = parser.parse_args()
+
+  dataset_dict = {
+    'c16a': 'c16a',
+    'c16d': 'c16d',
+    'c16e': 'c16e',
+    'c16ade': '[c16a+c16d+c16e]',
+  }
+
+  ### The following Samples will be dumped
+  sample_dict = {
+    'data':         "data/{:s}/{:s}/",
+    'Top':          "bkg/{:s}/{:s}/Top/", 
+    'Diboson':      "bkg/{:s}/{:s}/Diboson/", 
+    'DYZ':          "bkg/{:s}/{:s}/Zll/", 
+    'ZplusJets':    "bkg/{:s}/{:s}/Ztautau/", 
+    'QCDFakes':     "bkg/{:s}/{:s}/Fakes/ISO/[data-mc]", 
+    'WJETSFakes':   "bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]", 
+    'bbHlh200':     "sig/{:s}/{:s}/bbH/200/",
+    'bbHlh300':     "sig/{:s}/{:s}/bbH/300/",
+    'bbHlh600':     "sig/{:s}/{:s}/bbH/600/",
+    'bbHlh1000':    "sig/{:s}/{:s}/bbH/1000/",
+    'bbHlh1500':    "sig/{:s}/{:s}/bbH/1500/",
+    'bbHlh2000':    "sig/{:s}/{:s}/bbH/2000/",
+    'bbHlh2500':    "sig/{:s}/{:s}/bbH/2500/",
+    'ggHlh200':     "sig/{:s}/{:s}/ggH/200/",
+    'ggHlh300':     "sig/{:s}/{:s}/ggH/300/",
+    'ggHlh600':     "sig/{:s}/{:s}/ggH/600/",
+    'ggHlh1000':    "sig/{:s}/{:s}/ggH/1000/",
+    'ggHlh1500':    "sig/{:s}/{:s}/ggH/1500/",
+    'ggHlh2000':    "sig/{:s}/{:s}/ggH/2000/",
+    'ggHlh2500':    "sig/{:s}/{:s}/ggH/2500/",
+  }
+
+  ### The following regions will be dumped
+  region_dict = {
+    #"sr1pBtag"  :   'CutBtag1p',
+    #"sr3pBtag"  :   'CutBtag3p',
+    #"sr1pBveto"  :   'CutBveto1p',
+    #"sr3pBveto"  :   'CutBveto3p',
+    #"tcr1pBtag"  :  'CutTCRBtag1p',
+    #"tcr3pBtag"  :  'CutTCRBtag3p',
+    "vr1pBtag"  :   'CutVRBtag1p',
+    "vr3pBtag"  :   'CutVRBtag3p',
+    "vr1pBveto"  :   'CutVRBveto1p',
+    "vr3pBveto"  :   'CutVRBveto3p',
+  }
+
+  ### The following hists will be dumped
+  hist_dict = {
+    #"bvetoTauMETDphi"  : "TauMETDphi",
+    #"btagTauMETDphi"   : "TauMETDphi",
+    #"bvetoLepMETDphi"  : "LepMETDphi",
+    #"btagLepMETDphi"   : "LepMETDphi",
+    "bvetoTauPt"        : "TauPt",
+    "btagTauPt"         : "TauPt",
+    "bvetoMTTOT"        : "MTTOT",
+    "btagMTTOT"         : "MTTOT",
+    #"bvetoLeptonPt"    : "LeptonPt",
+    #"btagLeptonPt"     : "LeptonPt",
+    #"MTTOT"            : "MTTOT",
+  }
+
+  main(args, dataset_dict, sample_dict, region_dict, hist_dict); 
