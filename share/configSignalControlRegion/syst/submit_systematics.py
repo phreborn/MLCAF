@@ -75,18 +75,18 @@ l_weightvars=[
 ['weightvar', 'el_eff_reco_high'],
 ['weightvar', 'el_eff_trigger_low'],
 ['weightvar', 'el_eff_trigger_high'],
-#['weightvar', 'tau_eff_reco_total_low'],
-#['weightvar', 'tau_eff_reco_total_high'],
-#['weightvar', 'tau_eff_reco_highpt_low'],
-#['weightvar', 'tau_eff_reco_highpt_high'],
-#['weightvar', 'tau_eff_eleolr_trueelectron_low'],
-#['weightvar', 'tau_eff_eleolr_trueelectron_high'],
-#['weightvar', 'tau_eff_eleolr_truehadtau_low'],
-#['weightvar', 'tau_eff_eleolr_truehadtau_high'],
-#['weightvar', 'tau_eff_jetid_total_low'],
-#['weightvar', 'tau_eff_jetid_total_high'],
-#['weightvar', 'tau_eff_jetid_highpt_low'],
-#['weightvar', 'tau_eff_jetid_highpt_high'],
+['weightvar', 'tau_eff_reco_total_low'],
+['weightvar', 'tau_eff_reco_total_high'],
+['weightvar', 'tau_eff_reco_highpt_low'],
+['weightvar', 'tau_eff_reco_highpt_high'],
+['weightvar', 'tau_eff_eleolr_trueelectron_low'],
+['weightvar', 'tau_eff_eleolr_trueelectron_high'],
+['weightvar', 'tau_eff_eleolr_truehadtau_low'],
+['weightvar', 'tau_eff_eleolr_truehadtau_high'],
+['weightvar', 'tau_eff_jetid_total_low'],
+['weightvar', 'tau_eff_jetid_total_high'],
+['weightvar', 'tau_eff_jetid_highpt_low'],
+['weightvar', 'tau_eff_jetid_highpt_high'],
 ['weightvar', 'btag_b_0_low'],
 ['weightvar', 'btag_b_0_high'],
 ['weightvar', 'btag_b_1_low'],
@@ -99,6 +99,8 @@ l_weightvars=[
 ['weightvar', 'btag_c_1_high'],
 ['weightvar', 'btag_c_2_low'],
 ['weightvar', 'btag_c_2_high'],
+['weightvar', 'btag_c_3_low'],
+['weightvar', 'btag_c_3_high'],
 ['weightvar', 'btag_light_0_low'],
 ['weightvar', 'btag_light_0_high'],
 ['weightvar', 'btag_light_1_low'],
@@ -287,7 +289,7 @@ if __name__ == '__main__':
                     help='select the stage: prepare, initialize, analyze, merge')
   parser.add_argument('--systype', default='none',
                     help='select which type of systematic to process')
-  parser.add_argument('--ncores', default=1,
+  parser.add_argument('--ncores', default=1, type=int,
                     help='number of cores to run')
   args = parser.parse_args()
 
@@ -323,7 +325,6 @@ if __name__ == '__main__':
     log_list.append(log)
 
   NCORES = args.ncores
-
   if 1 == NCORES:
     for cmd in cmd_list:
       os.system(cmd)
