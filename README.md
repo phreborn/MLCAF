@@ -103,19 +103,20 @@ Running the analysis
 ```bash
 cd BSMtautauCAF/share
 
-# First edit without committing the 'dataPaths' and 'mcPaths' for NOM/SYS in
-configCommon/htautau_lephad_common_campaigns_input*.cfg
-# relevant for your setup (don't let them be too long or you could see errors)
+# First set the input path to your samples by creating a symbolic link to the directory
+:(){ ln -sfiv $1 -T ${CAFANALYSISSHARE}/inputs; }; : /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190417
 ```
 
 ### Lepton Fake Region
 ```bash
 # Prepare and initialize your samples
 source configLeptonFakeRegion/scriptPrepareInitialize.sh
+# Debug test the analysis
+source configLeptonFakeRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
 source configLeptonFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root -t analyze batchOutput/unmerged_LFR/*.root
+source configLeptonFakeRegion/scriptMerge.sh
 # Visualize plots
 source configLeptonFakeRegion/scriptVisualize.sh
 # Calculate lepton fake factors
@@ -124,6 +125,8 @@ python scripts/calculateFakeFactor.py LFR
 # To check back the LFF modelling in the LFR
 # Prepare and initialize your samples with fakes
 source configLeptonFakeRegion/applyFF/scriptPrepareInitialize.sh
+# Debug test the analysis with fakes
+source configLeptonFakeRegion/applyFF/scriptDebug.sh
 # Submit the fake analysis to a cluster
 source configLeptonFakeRegion/applyFF/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output with the existing file
@@ -136,40 +139,49 @@ source configLeptonFakeRegion/applyFF/scriptVisualize.sh
 ```bash
 # Prepare and initialize your samples
 source configWjetsFakeRegion/scriptPrepareInitialize.sh
+# Debug test the analysis
+source configWjetsFakeRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
 source configWjetsFakeRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root -t analyze batchOutput/unmerged_WFR/*.root
+source configWjetsFakeRegion/scriptMerge.sh
 # Visualize plots          
 source configWjetsFakeRegion/scriptVisualize.sh
 # Calculate W+jets fake factors
 python scripts/calculateFakeFactor.py WFR
+
+# To check back the WFF modelling in the WFR
+# Prepare and initialize your samples with fakes
+source configWjetsFakeRegion/applyFF/scriptPrepareInitialize.sh
+# Debug test the analysis with fakes
+source configWjetsFakeRegion/applyFF/scriptDebug.sh
+# Submit the fake analysis to a cluster
+source configWjetsFakeRegion/applyFF/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output with the existing file
+source configWjetsFakeRegion/applyFF/scriptMerge.sh
+# Visualize plots with fakes
+source configWjetsFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 ### Signal Region, Validation Region, W+jets/Top Control Regions
 ```bash
 # Prepare and initialize your samples
 source configSignalControlRegion/scriptPrepareInitialize.sh
+# Debug test the analysis
+source configSignalControlRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
 source configSignalControlRegion/scriptSubmit.sh
 # After all cluster jobs have finished, merge the output
-tqmerge -o sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root -t analyze batchOutput/unmerged_SR/*.root
+source configSignalControlRegion/scriptMerge.sh
 # Visualize plots
 source configSignalControlRegion/scriptVisualize.sh
 ```
 
 ### Systematics (Signal Region, Validation Region, W+jets/Top Control Regions)
 ```bash
-# Prepare and initialize your systematic nominal samples
-source configSignalControlRegion/syst/scriptPrepareInitializeNominal.sh
-# Submit the full analysis to a cluster
-source configSignalControlRegion/syst/scriptSubmitNominal.sh
-# After all cluster jobs have finished, merge the output
-source configSignalControlRegion/syst/scriptMergeNominal.sh
-
 # Prepare and initialize your systematic variation samples
 source configSignalControlRegion/syst/scriptPrepareInitializeSystematics.sh
-# Submit the full analysis to a cluster
+# Submit the full systematic analysis to a cluster
 source configSignalControlRegion/syst/scriptSubmitSystematics.sh
 # After all cluster jobs have finished, merge the output
 source configSignalControlRegion/syst/scriptMergeSystematics.sh

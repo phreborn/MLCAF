@@ -1,4 +1,0 @@
-#!/bin/bash
-
-prepare.py configApplyFFtoWjetsFakeRegion/htautau_lephad_apply_ff_to_wfr.cfg
-initialize.py configApplyFFtoWjetsFakeRegion/htautau_lephad_apply_ff_to_wfr.cfg

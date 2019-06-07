@@ -12,9 +12,6 @@ build
 */jobslist.txt
 */logs
 */backups
-*/configFailIDSignalControlRegion
-*/configApplyBackLeptonFakeRegion
-*/configApplyBackWjetsFakeRegion
 *.tex
 *.pdf
 *.log
@@ -29,3 +26,5 @@ build
 #*#
 .asetup.save
 *.DS_Store
+*.isDone
+share/inputs

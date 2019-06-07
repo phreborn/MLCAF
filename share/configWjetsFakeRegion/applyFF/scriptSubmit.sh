@@ -2,10 +2,10 @@
 
 # add "contid" as argument to executing this script to run over contid
 
-REGION="configLeptonFakeRegion/applyFF"
-JOBS="jobsLFR_applyFF.txt"
-CONFIG="htautau_lephad_lfr_applyff"
-IDENT="LFRapplyFF"
+REGION="configWjetsFakeRegion/applyFF"
+JOBS="jobsWFR_applyFF.txt"
+CONFIG="htautau_lephad_wfr_applyff"
+IDENT="WFRapplyFF"
 
 if [ "$1" == "contid" ]; then
   CONFIG="${CONFIG}_contid"

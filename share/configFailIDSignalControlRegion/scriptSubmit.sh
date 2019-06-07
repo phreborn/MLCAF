@@ -16,4 +16,4 @@ if [ "$1" == "contid" ]; then
   IDENT="${IDENT}contid"
 fi
 
-source configCommon/scriptSubmit.sh ${REGION} ${CONFIG} ${JOBS} ${IDENT}
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${JOBS}" "${IDENT}"

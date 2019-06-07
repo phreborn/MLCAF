@@ -1,10 +1,4 @@
-# ------------------------------ options ------------------------------ #
-!time=4320
-!memory=1024
-
-
-# ------------------------------ samples ------------------------------ #
-# ----------- c16a ----------- #
+# ------------------------------ c16a ------------------------------ #
 ##### data #####
 /data/?/c16a
 
@@ -15,8 +9,11 @@
 /bkg/?/c16a/Top/single
 /bkg/?/c16a/Diboson
 
-##### bkg from QCD jets #####
+##### ISO fakes #####
+### data ###
 /bkg/?/c16a/Fakes/ISO/data
+
+### bkg ###
 /bkg/?/c16a/Fakes/ISO/mc/Ztautau
 /bkg/?/c16a/Fakes/ISO/mc/Zll
 /bkg/?/c16a/Fakes/ISO/mc/Top/ttbar
@@ -26,14 +23,22 @@
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/taunu
 
-##### bkg from W+jets #####
+##### ID fakes #####
+### data ###
 /bkg/?/c16a/Fakes/ID/data
+
+### bkg ###
 /bkg/?/c16a/Fakes/ID/mc/Ztautau
 /bkg/?/c16a/Fakes/ID/mc/Zll
 /bkg/?/c16a/Fakes/ID/mc/Top/ttbar
 /bkg/?/c16a/Fakes/ID/mc/Top/single
 /bkg/?/c16a/Fakes/ID/mc/Diboson
+
+### ID ISO fakes ###
+## data ##
 /bkg/?/c16a/Fakes/ID/ISO/data
+
+## bkg ##
 /bkg/?/c16a/Fakes/ID/ISO/mc/Ztautau
 /bkg/?/c16a/Fakes/ID/ISO/mc/Zll
 /bkg/?/c16a/Fakes/ID/ISO/mc/Top/ttbar
@@ -43,11 +48,12 @@
 /bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/taunu
 
-##### signal  #####
+##### sig #####
 /sig/?/c16a/ggH/?
 /sig/?/c16a/bbH/?
 
-# ----------- c16d ----------- #
+
+# ------------------------------ c16d ------------------------------ #
 ##### data #####
 /data/?/c16d
 
@@ -58,8 +64,11 @@
 /bkg/?/c16d/Top/single
 /bkg/?/c16d/Diboson
 
-##### bkg from QCD jets #####
+##### ISO fakes #####
+### data ###
 /bkg/?/c16d/Fakes/ISO/data
+
+### bkg ###
 /bkg/?/c16d/Fakes/ISO/mc/Ztautau
 /bkg/?/c16d/Fakes/ISO/mc/Zll
 /bkg/?/c16d/Fakes/ISO/mc/Top/ttbar
@@ -69,14 +78,22 @@
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/taunu
 
-##### bkg from W+jets #####
+##### ID fakes #####
+### data ###
 /bkg/?/c16d/Fakes/ID/data
+
+### bkg ###
 /bkg/?/c16d/Fakes/ID/mc/Ztautau
 /bkg/?/c16d/Fakes/ID/mc/Zll
 /bkg/?/c16d/Fakes/ID/mc/Top/ttbar
 /bkg/?/c16d/Fakes/ID/mc/Top/single
 /bkg/?/c16d/Fakes/ID/mc/Diboson
+
+### ID ISO fakes ###
+## data ##
 /bkg/?/c16d/Fakes/ID/ISO/data
+
+## bkg ##
 /bkg/?/c16d/Fakes/ID/ISO/mc/Ztautau
 /bkg/?/c16d/Fakes/ID/ISO/mc/Zll
 /bkg/?/c16d/Fakes/ID/ISO/mc/Top/ttbar
@@ -86,11 +103,12 @@
 /bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/taunu
 
-##### signal  #####
+##### sig #####
 /sig/?/c16d/ggH/?
 /sig/?/c16d/bbH/?
 
-# ----------- c16e ----------- #
+
+# ------------------------------ c16e ------------------------------ #
 ##### data #####
 /data/?/c16e
 
@@ -101,8 +119,11 @@
 /bkg/?/c16e/Top/single
 /bkg/?/c16e/Diboson
 
-##### bkg from QCD jets #####
+##### ISO fakes #####
+### data ###
 /bkg/?/c16e/Fakes/ISO/data
+
+### bkg ###
 /bkg/?/c16e/Fakes/ISO/mc/Ztautau
 /bkg/?/c16e/Fakes/ISO/mc/Zll
 /bkg/?/c16e/Fakes/ISO/mc/Top/ttbar
@@ -112,14 +133,22 @@
 /bkg/?/c16e/Fakes/ISO/mc/Wjets/munu
 /bkg/?/c16e/Fakes/ISO/mc/Wjets/taunu
 
-##### bkg from W+jets #####
+##### ID fakes #####
+### data ###
 /bkg/?/c16e/Fakes/ID/data
+
+### bkg ###
 /bkg/?/c16e/Fakes/ID/mc/Ztautau
 /bkg/?/c16e/Fakes/ID/mc/Zll
 /bkg/?/c16e/Fakes/ID/mc/Top/ttbar
 /bkg/?/c16e/Fakes/ID/mc/Top/single
 /bkg/?/c16e/Fakes/ID/mc/Diboson
+
+### ID ISO fakes ###
+## data ##
 /bkg/?/c16e/Fakes/ID/ISO/data
+
+## bkg ##
 /bkg/?/c16e/Fakes/ID/ISO/mc/Ztautau
 /bkg/?/c16e/Fakes/ID/ISO/mc/Zll
 /bkg/?/c16e/Fakes/ID/ISO/mc/Top/ttbar
@@ -129,6 +158,6 @@
 /bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/taunu
 
-##### signal  #####
+##### sig #####
 /sig/?/c16e/ggH/?
 /sig/?/c16e/bbH/?
