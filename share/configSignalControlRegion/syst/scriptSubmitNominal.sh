@@ -1,19 +1,9 @@
 #!/bin/bash
 
-# add "applyff"/"contid" as argument to executing this script to run over applyff/contid
-
 REGION="configSignalControlRegion"
 JOBS="syst/jobsSYS.txt --options inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-NOMINAL.root'"
-CONFIG="htautau_lephad_sr"
+CONFIG="syst/htautau_lephad_sr_sys"
 IDENT="SRsys"
+SUBMIT="--submit condor --maxSampleSize 60000 --maxSampleCount 75"
 
-if [ "$1" == "applyff" ]; then
-  CONFIG="${CONFIG}_applyff"
-  IDENT="${IDENT}applyff"
-fi
-if [ "$1" == "contid" ]; then
-  CONFIG="${CONFIG}_contid"
-  IDENT="${IDENT}contid"
-fi
-
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${JOBS}" "${IDENT}"
+submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges ${SUBMIT}

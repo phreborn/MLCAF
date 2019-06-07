@@ -7,7 +7,7 @@ visualize.py configSignalControlRegion/htautau_lephad_wcr.cfg
 #visualize.py configSignalControlRegion/htautau_lephad_wcr_wjetsqcd.cfg
 
 ### TCR
-#visualize.py configSignalControlRegion/htautau_lephad_tcr.cfg
+visualize.py configSignalControlRegion/htautau_lephad_tcr.cfg
 #visualize.py configSignalControlRegion/htautau_lephad_tcr_wjets.cfg
 #visualize.py configSignalControlRegion/htautau_lephad_tcr_qcd.cfg
 #visualize.py configSignalControlRegion/htautau_lephad_tcr_wjetsqcd.cfg

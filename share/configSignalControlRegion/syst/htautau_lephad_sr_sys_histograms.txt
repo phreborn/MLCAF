@@ -16,7 +16,7 @@ TH1F('bvetoMTTOT','',           {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,11
 #TH1F('bvetoSigmaCosDphi','',    {-1.,-0.8,-0.6,-0.5,-0.4,-0.3,-0.2,-0.1,0.,0.1,0.2,0.3,0.45,0.8,1.}) <<     ( lephad_met_sum_cos_dphi : "\#sum cos\#Delta\#phi(\#tau,E_{T}^{miss};lep,E_{T}^{miss})");
 #TH1F('bvetoSigmaDeltaPhi','',   {0.,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0,3.2}) << ( lephad_met_lep0_cos_dphi : "\#sum\#Delta\#phi(\#tau,E_{T}^{miss};lep,E_{T}^{miss})");
 
-@CutBveto*,CutVRBveto*,CutWCRBveto*: bvetoLeptonPt,bvetoTauPt,bvetoLepMETDphi,bvetoTauMETDphi,bvetoMTTOT,bvetoVisibleMassTauLep;
+@CutBveto*,CutVRBveto*: bvetoLeptonPt,bvetoTauPt,bvetoLepMETDphi,bvetoTauMETDphi,bvetoMTTOT,bvetoVisibleMassTauLep;
 
 ### Hists for plotting in Btag category:
 TH1F('btagLeptonPt','',         {30.,40.,50.,60.,70.,82.,96.,112.,130.,150.,200.,300.})   <<   ( lep_0_p4.Pt() : "p_{T}^{lep}" );
@@ -33,7 +33,7 @@ TH1F('btagMTTOT','',            {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,18
 #TH1F('btagSigmaDeltaPhi','',    {0.,0.4,0.8,1.2,1.6,2.0,2.4,2.8,3.2}) <<  ( lephad_met_lep0_cos_dphi : "\#sum\#Delta\#phi(\#tau,E_{T}^{miss};lep,E_{T}^{miss})");
 #TH1F('btagTauLepMETcentrality','', {-1.5,-1.4,-1.3,-1.1,-0.8,-0.4,-0,0.4,0.8,1.1,1.3,1.4,1.5}) << ( lephad_met_centrality : "lephad_met_centrality");
 
-@CutBtag*,CutVRBtag*,CutSSWCRBtag*,CutTCRBtag*: btagLeptonPt,btagTauPt,btagLepMETDphi,btagTauMETDphi,btagMTTOT,btagVisibleMassTauLep;
+@CutBtag*,CutVRBtag*,CutTCRBtag*: btagLeptonPt,btagTauPt,btagLepMETDphi,btagTauMETDphi,btagMTTOT,btagVisibleMassTauLep;
 
 ### Hists for statistical analysis
 #TH1F('LeptonPt','',         30, 0,300)   <<   ( lep_0_p4.Pt() : "p_{T}^{lep}" );
@@ -45,21 +45,21 @@ TH1F('btagMTTOT','',            {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,18
 #TH1F('TauMETDphi','',       30,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
 #TH1F('LepMETDphi','',       30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" )
 #TH1F('MET','',              {0.,11.,18.,26.,36.,48.,62.,78.,96.,118.,142.,172.,208.,250.,300.})   <<   ( met_reco_p4.Et() : "E_{T}^{miss} [GeV]" );
-#TH1F('MTTOT','',            500,0,2500)    <<   ( [lephad_mttot] : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT','',            400,0,2000)    <<   ( [lephad_mttot] : "m_{T}^{TOT} [GeV]" );
 #TH1F('TauEta','',           25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
 #TH1F('LeptonEta','',        25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\#eta^{lep}" );
 
-#@CutBveto*,CutBtag*,CutTCRBtag*: MTTOT;
+@CutBveto*,CutBtag*,CutTCRBtag*: MTTOT;
 
 ### Hists for FF
-TH1F('TauPtFFBveto1pDphi1'   ,'', {25.,30.,39.,52.,110.,300.})  <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi1'   ,'', {25.,30.,39.,52.,110.,300.})  <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto1pDphi2'   ,'', {25.,30.,39.,52.,110.,300.})       <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi2'   ,'', {25.,30.,39.,52.,110.,300.})           <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto1pDphi3'   ,'', {25.,39.,70.,300.})                           <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=2.&&[lephad_met_lep1_cos_dphi]<2.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi3'   ,'', {25.,39.,70.,300.})                       <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=2.&&[lephad_met_lep1_cos_dphi]<2.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto1pDphi34'   ,'',{25.,39.,70.,300.})                           <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('TauPtFFBveto3pDphi34'   ,'',{25.,39.,70.,300.})                       <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-#
-@CutVRBveto1p*:TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3,TauPtFFBveto1pDphi4,TauPtFFBveto1pDphi34;
-@CutVRBveto3p*:TauPtFFBveto3pDphi1,TauPtFFBveto3pDphi2,TauPtFFBveto3pDphi3,TauPtFFBveto3pDphi4,TauPtFFBveto3pDphi34;
+#TH1F('TauPtFFBveto1pDphi1'   ,'', {25.,30.,39.,52.,110.,300.})  <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+#TH1F('TauPtFFBveto3pDphi1'   ,'', {25.,30.,39.,52.,110.,300.})  <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+#TH1F('TauPtFFBveto1pDphi2'   ,'', {25.,30.,39.,52.,110.,300.})       <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+#TH1F('TauPtFFBveto3pDphi2'   ,'', {25.,30.,39.,52.,110.,300.})           <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+#TH1F('TauPtFFBveto1pDphi3'   ,'', {25.,39.,70.,300.})                           <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=2.&&[lephad_met_lep1_cos_dphi]<2.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+#TH1F('TauPtFFBveto3pDphi3'   ,'', {25.,39.,70.,300.})                       <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=2.&&[lephad_met_lep1_cos_dphi]<2.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+#TH1F('TauPtFFBveto1pDphi34'   ,'',{25.,39.,70.,300.})                           <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+#TH1F('TauPtFFBveto3pDphi34'   ,'',{25.,39.,70.,300.})                       <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
+##
+#@CutVRBveto1p*:TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3,TauPtFFBveto1pDphi4,TauPtFFBveto1pDphi34;
+#@CutVRBveto3p*:TauPtFFBveto3pDphi1,TauPtFFBveto3pDphi2,TauPtFFBveto3pDphi3,TauPtFFBveto3pDphi4,TauPtFFBveto3pDphi34;

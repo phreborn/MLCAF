@@ -1,7 +1,8 @@
 #!/bin/bash
-
-python configSignalControlRegion/syst/submit_systematics.py --systype fakevar --merge
-python configSignalControlRegion/syst/submit_systematics.py --systype isovar --merge
-python configSignalControlRegion/syst/submit_systematics.py --systype ttbarweight --merge
-python configSignalControlRegion/syst/submit_systematics.py --systype weightvar --merge
-python configSignalControlRegion/syst/submit_systematics.py --systype treevariation --merge
+NCORES=1
+python configSignalControlRegion/syst/submit_systematics.py --systype fakevar --stage merge --ncores ${NCORES}
+python configSignalControlRegion/syst/submit_systematics.py --systype isovar --stage merge --ncores ${NCORES}
+python configSignalControlRegion/syst/submit_systematics.py --systype extraposf --stage merge --ncores ${NCORES}
+python configSignalControlRegion/syst/submit_systematics.py --systype treevariation --stage merge --ncores ${NCORES}
+python configSignalControlRegion/syst/submit_systematics.py --systype ttbarweight --stage merge --ncores ${NCORES}
+python configSignalControlRegion/syst/submit_systematics.py --systype weightvar --stage merge --ncores ${NCORES}
