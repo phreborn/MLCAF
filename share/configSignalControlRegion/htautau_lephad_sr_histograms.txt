@@ -61,5 +61,5 @@ TH1F('TauPtFFBveto3pDphi3'   ,'', {25.,39.,70.,300.})                       <<  
 TH1F('TauPtFFBveto1pDphi34'   ,'',{25.,39.,70.,300.})                           <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
 TH1F('TauPtFFBveto3pDphi34'   ,'',{25.,39.,70.,300.})                       <<   ( {[tau_0_n_charged_tracks]==3&&[lephad_met_lep1_cos_dphi]>=2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
 #
-@CutVRBveto1p*:TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3,TauPtFFBveto1pDphi4,TauPtFFBveto1pDphi34;
-@CutVRBveto3p*:TauPtFFBveto3pDphi1,TauPtFFBveto3pDphi2,TauPtFFBveto3pDphi3,TauPtFFBveto3pDphi4,TauPtFFBveto3pDphi34;
+@CutVRBveto1p*:TauPtFFBveto1pDphi1,TauPtFFBveto1pDphi2,TauPtFFBveto1pDphi3,TauPtFFBveto1pDphi34;
+@CutVRBveto3p*:TauPtFFBveto3pDphi1,TauPtFFBveto3pDphi2,TauPtFFBveto3pDphi3,TauPtFFBveto3pDphi34;
