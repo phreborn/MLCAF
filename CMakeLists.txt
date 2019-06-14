@@ -35,7 +35,7 @@ IF(${AnalysisBase_FOUND})
     )
 
   # write a setup script
-  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_BINARY_DIR}/CAFCore/cafsetup.sh)
+  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_BINARY_DIR}/CAFCore)
 
   # Set up the usage of CTest:
   IF(NOT ${HAS_PARENT})
@@ -119,7 +119,7 @@ else()
   endforeach()
 
   # write a setup script
-  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_BINARY_DIR}/CAFCore/cafsetup.sh --binDir ${CMAKE_CURRENT_BINARY_DIR})
+  execute_process(COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/setup/writeSetupScript.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/setup ${CMAKE_CURRENT_BINARY_DIR}/CAFCore --binDir ${CMAKE_CURRENT_BINARY_DIR})
 
   # register all the files and directories
   include_directories ("${PROJECT_SOURCE_DIR}")
