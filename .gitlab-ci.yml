@@ -20,7 +20,7 @@ variables:
     - cvmfs
 
 .standalone: &standalone
-  image: rootproject/root-ubuntu16:latest
+  image: rootproject/root-ubuntu:latest
   tags:
     - cvmfs
   before_script:
