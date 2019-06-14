@@ -53,8 +53,8 @@ if __name__ == "__main__":
         cafsetupPath = os.path.join(args.CAFCoreSetupDir,"cafsetup.sh")
         # Source other scripts
         f.write("if [ -f "+autoCompletePath+" ]; then\n\tsource "+autoCompletePath+"\nfi\n")
-        f.write("if [ -f "+setupLocalPath+" ]; then \n\tsource "+setupLocalPath+"\nfi\n")
         f.write("if [ -f "+cafsetupPath+" ]; then \n\tsource "+cafsetupPath+"\nfi\n")
+        f.write("if [ -f "+setupLocalPath+" ]; then \n\tsource "+setupLocalPath+"\nfi\n")
         #add the path to this script (overwriting what might have been set by cafsetup.sh !) :
         f.write("\n#export path to this script for easier re-setup, e.g., for batch submission\n")
         if args.binDir: 
