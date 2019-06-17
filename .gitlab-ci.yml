@@ -176,5 +176,3 @@ build_image:
     - docker-image-build
   script:
     - ignore
-
-
