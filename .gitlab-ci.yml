@@ -20,7 +20,8 @@ variables:
     - cvmfs
 
 .standalone: &standalone
-  image: rootproject/root-ubuntu16
+  #image: rootproject/root-ubuntu:latest
+  image: gitlab-registry.cern.ch/atlas-caf/cafcore/cafcore-standalone-base:19.06.X
   tags:
     - cvmfs
   before_script:
