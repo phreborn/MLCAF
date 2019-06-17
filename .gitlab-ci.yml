@@ -42,7 +42,7 @@ variables:
 
 .minimal_script: &minimal_script
   script:
-    - source setup/setupAnalysis.sh
+    - source build/setupAnalysis.sh
     - mkdir run
     - cd run
     - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
@@ -52,7 +52,7 @@ variables:
 
 .flatNTuple_script: &flatNTuple_script
   script:
-    - source setup/setupAnalysis.sh
+    - source build/setupAnalysis.sh
     - mkdir run
     - cd run
     - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
@@ -62,7 +62,7 @@ variables:
 
 .xAOD_script: &xAOD_script
   script:
-    - source setup/setupAnalysis.sh
+    - source build/setupAnalysis.sh
     - mkdir run
     - cd run
     - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
@@ -161,7 +161,7 @@ run_xAOD:
 #   dependencies:
 #     - standalone_compile
 #   script:
-#     - source setup/setupAnalysis.sh
+#     - source build/setupAnalysis.sh
 #     - curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py
 #     - sudo python3 ./get-pip.py
 #     - sudo pip3 install doxec
