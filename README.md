@@ -105,12 +105,13 @@ cd BSMtautauCAF/share
 
 # First set the input path to your samples by creating a symbolic link to the directory
 ln -sfiv /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190530 -T ${CAFANALYSISSHARE}/inputs
+
+# Prepare and initialize your samples
+source configCommon/scriptPrepareInitialize.sh
 ```
 
-### Lepton Fake Region
+### Lepton/QCD Fake Region (L/QFR)
 ```bash
-# Prepare and initialize your samples
-source configLeptonFakeRegion/scriptPrepareInitialize.sh
 # Debug test the analysis
 source configLeptonFakeRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
@@ -122,9 +123,7 @@ source configLeptonFakeRegion/scriptVisualize.sh
 # Calculate lepton fake factors
 python scripts/calculateFakeFactor.py LFR
 
-# To check back the LFF modelling in the LFR
-# Prepare and initialize your samples with fakes
-source configLeptonFakeRegion/applyFF/scriptPrepareInitialize.sh
+# To check back the L/QFF modelling in the L/QFR
 # Debug test the analysis with fakes
 source configLeptonFakeRegion/applyFF/scriptDebug.sh
 # Submit the fake analysis to a cluster
@@ -135,10 +134,8 @@ source configLeptonFakeRegion/applyFF/scriptMerge.sh
 source configLeptonFakeRegion/applyFF/scriptVisualize.sh
 ```
 
-### W+jets Fake Region
+### W+jets/Top Fake Region (WFR/TFR)
 ```bash
-# Prepare and initialize your samples
-source configWjetsFakeRegion/scriptPrepareInitialize.sh
 # Debug test the analysis
 source configWjetsFakeRegion/scriptDebug.sh
 # Submit the full analysis to a cluster
@@ -147,12 +144,10 @@ source configWjetsFakeRegion/scriptSubmit.sh
 source configWjetsFakeRegion/scriptMerge.sh
 # Visualize plots          
 source configWjetsFakeRegion/scriptVisualize.sh
-# Calculate W+jets fake factors
+# Calculate W+jets/Top fake factors
 python scripts/calculateFakeFactor.py WFR
 
-# To check back the WFF modelling in the WFR
-# Prepare and initialize your samples with fakes
-source configWjetsFakeRegion/applyFF/scriptPrepareInitialize.sh
+# To check back the WFF/TFF modelling in the WFR/TFR
 # Debug test the analysis with fakes
 source configWjetsFakeRegion/applyFF/scriptDebug.sh
 # Submit the fake analysis to a cluster
@@ -165,8 +160,6 @@ source configWjetsFakeRegion/applyFF/scriptVisualize.sh
 
 ### Signal Region, Validation Region, W+jets/Top Control Regions
 ```bash
-# Prepare and initialize your samples
-source configSignalControlRegion/scriptPrepareInitialize.sh
 # Debug test the analysis
 source configSignalControlRegion/scriptDebug.sh
 # Submit the full analysis to a cluster

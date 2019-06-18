@@ -1,4 +1,0 @@
-# -*- mode: tqfolder -*-
-
-# include common post-initialize tags
-$include("configCommon/htautau_lephad_common_postinit.tags");

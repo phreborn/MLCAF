@@ -10,8 +10,9 @@ from JobHandler import LocalJobHandler
 s_nominal_dir='batchOutput/unmerged_SRsys'  
 # Cofiguration for the systematic jobs
 s_config_path='configSignalControlRegion/syst/htautau_lephad_sr_sys.cfg'
+s_common_config_path='configCommon/htautau_lephad_common.cfg'
 # Input MC files for the systematic jobs (Input data files are not changed)
-s_sys_file_path='configCommon/htautau_lephad_common_campaigns_input_sys.cfg'
+s_sys_file_path='configCommon/htautau_lephad_common_campaigns_sys.cfg'
 # list of all systematics, comment out the ones you don't want to run:
 # lets instead separate out the systematic types into sublists, and append them to the grand list on request
 # so first initialise the grand list of systematics
@@ -212,7 +213,7 @@ def create_cmd_log(option, sys, stage):
 #  elif stage == 'initialize':
   if stage == 'initialize':
     #s_sys_file_path_hack = s_sys_file_path.replace('sys','sys_{:s}'.format(sys)) 
-    cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path,sys,sys)
+    cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
   #######################
   # Analyze samples
   #######################
@@ -220,11 +221,11 @@ def create_cmd_log(option, sys, stage):
     # different option for different sys
     extra_option = ''
     if option == 'treevariation':
-      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-{:s}.root'".format(sys)
+      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(sys)
     elif option == "weightvar":
-        extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-NOMINAL.root' aliases.{:s}={:s} {:s}={:s} aliases.weightvariation={:s} weightvariation={:s}".format(option,sys,option,sys,sys,sys)
+        extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s} aliases.weightvariation={:s} weightvariation={:s}".format(option,sys,option,sys,sys,sys)
     else:
-      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_sr-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
+      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
 
     # different files to be copied
     l_files = []

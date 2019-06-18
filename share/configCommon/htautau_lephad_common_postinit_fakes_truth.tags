@@ -1,10 +1,8 @@
 # -*- mode: tqfolder -*-
 
-# include common post-initialize tags
-$include("configCommon/htautau_lephad_common_postinit.tags");
-
-# include ISO fakes tags
-$include("configCommon/htautau_lephad_common_postinit_fakes_iso.tags");
+# alternative method for including MC-driven fake contributions from the anti-ID region
+# as this is post-initialize, the MC samples should already have their weights collected
+$printline("Including Truth fakes...");
 
 # create /bkg subfolders for MC-driven ID fakes
 $create(path="/bkg/?/?/Fakes/TruthTau", type="sf");
@@ -50,3 +48,26 @@ $create(path="/bkg/?/?/Fakes/JetFake", type="sf");
 # tag jet fakes
 <isJET=false> @ /.;
 <isJET=true> @ /bkg/?/?/Fakes/JetFake;
+
+
+################### formally from sr ##############
+## delete Wjets MC if using ID fakes instead
+#$delete("/bkg/?/?/Wjets!");
+
+### use this or similar for additional true-fake-lep structure
+#@ /bkg/? {
+#    @ ? {
+#        $copy("Top >> ::TopTruthTau");
+#        $copy("Top >> ::TopElFake");
+#        $copy("Top >> ::TopMuFake");
+#    }
+#}
+#<isTT=false> @ /.;
+#<isTT=true, isInc=false> @ /bkg/?/?/TopTruthTau;
+#
+#<isTEl=false> @ /.;
+#<isTEl=true, isInc=false> @ /bkg/?/?/TopElFake;
+#
+#<isTMu=false> @ /.;
+#<isTMu=true, isInc=false> @ /bkg/?/?/TopMuFake;
+###
