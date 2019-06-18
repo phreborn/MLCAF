@@ -140,32 +140,29 @@
 #410472 /bkg/$(channel)/$(campaign)/Top/ttbar
 
 # Signal (ggH)
-#342300 /sig/$(channel)/$(campaign)/ggH/125
 342305 /sig/$(channel)/$(campaign)/ggH/200
+342308 /sig/$(channel)/$(campaign)/ggH/250
 342310 /sig/$(channel)/$(campaign)/ggH/300
-#342314 /sig/$(channel)/$(campaign)/ggH/400
+342312 /sig/$(channel)/$(campaign)/ggH/350
+342314 /sig/$(channel)/$(campaign)/ggH/400
+342316 /sig/$(channel)/$(campaign)/ggH/500
 342318 /sig/$(channel)/$(campaign)/ggH/600
-#342320 /sig/$(channel)/$(campaign)/ggH/700
+342320 /sig/$(channel)/$(campaign)/ggH/700
+342322 /sig/$(channel)/$(campaign)/ggH/800
 342326 /sig/$(channel)/$(campaign)/ggH/1000
-#342332 /sig/$(channel)/$(campaign)/ggH/1300
-#342334 /sig/$(channel)/$(campaign)/ggH/1400
+342330 /sig/$(channel)/$(campaign)/ggH/1200
 342336 /sig/$(channel)/$(campaign)/ggH/1500
-#345295 /sig/$(channel)/$(campaign)/ggH/1750
 345297 /sig/$(channel)/$(campaign)/ggH/2000
-#345299 /sig/$(channel)/$(campaign)/ggH/2250
 345301 /sig/$(channel)/$(campaign)/ggH/2500
 
 # Signal (bbH)
-#341856 /sig/$(channel)/$(campaign)/bbH/125
-#341857 /sig/$(channel)/$(campaign)/bbH/150
+341856 /sig/$(channel)/$(campaign)/bbH/125
+341857 /sig/$(channel)/$(campaign)/bbH/150
 341858 /sig/$(channel)/$(campaign)/bbH/200
-#341859 /sig/$(channel)/$(campaign)/bbH/250
 341860 /sig/$(channel)/$(campaign)/bbH/300
-#341863 /sig/$(channel)/$(campaign)/bbH/500
+341862 /sig/$(channel)/$(campaign)/bbH/400
 341864 /sig/$(channel)/$(campaign)/bbH/600
 341868 /sig/$(channel)/$(campaign)/bbH/1000
 341873 /sig/$(channel)/$(campaign)/bbH/1500
-#345287 /sig/$(channel)/$(campaign)/bbH/1750
 345289 /sig/$(channel)/$(campaign)/bbH/2000
-#345291 /sig/$(channel)/$(campaign)/bbH/2250
 345293 /sig/$(channel)/$(campaign)/bbH/2500
