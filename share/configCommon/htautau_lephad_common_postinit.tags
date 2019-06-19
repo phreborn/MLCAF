@@ -12,7 +12,7 @@
 <channel="lephad"> @ ?/lephad;
 
 # wildcard channels for job submission
-<wildcarded = true> @ /data/?, /bkg/?, /sig/?;
+<wildcarded=true> @ /data/?, /bkg/?, /sig/?;
 
 # set cutflow counter and histogram pooling higher in the sample folder
 # this also helps to reduce memory consumption

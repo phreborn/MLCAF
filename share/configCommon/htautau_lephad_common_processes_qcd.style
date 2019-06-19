@@ -1,0 +1,16 @@
+### data ###
+.path="||"
+.name="Data",     .isData=true,       .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/data"
+
+
+### fakes ###
+.path="|"
+.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Wjets"
+
+
+### background ###
+.path="|"
+.name="Ztautau",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Ztautau"
+.name="Zll",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Zll"
+.name="Top",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Top"
+.name="Diboson",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Diboson"
