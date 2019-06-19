@@ -1,55 +1,34 @@
-### Data ###
+### data ###
 .path="||"
-.name="Data",                   .path="/data/$(channel)/$(campaign)",             .isData=true,           histLineColor=1,                histMarkerStyle = 8,    histMarkerSize = 0.6,   title = "Data", isHistogram = false
+.name="Data",     .isData=true,       .path="/data/$(channel)/$(campaign)"
 
-### Fakes ###
+
+### fakes ###
 .path="|"
-.name="QCDFakes",               .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data-mc]",  .isBackground=true,     histFillColor = kGray+1,        histFillStyle=1001,     title = "QCDFakes"
-#.name="WjetsFake",              .path="/bkg/$(channel)/$(campaign)/Fakes/ID/[data-[mc+ISO/[data-mc]]]",  .isBackground=true,     histFillColor = kGray,          histFillStyle=1001,     title = "WjetsFake"
+.name="FakesISO", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/[data-mc]"
 
-################################################
-##
-##      Use this for inclusive
-##
-################################################
+#.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Wjets"
+
+#.name="WjetsTT",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Wjets"
+#.name="WjetsTL",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Wjets"
+#.name="WjetsJET",   .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Wjets"
+#.name="ZtautauTT",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Ztautau"
+#.name="ZtautauTL",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Ztautau"
+#.name="ZtautauJET", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Ztautau"
+#.name="ZllTT",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Zll"
+#.name="ZllTL",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Zll"
+#.name="ZllJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Zll"
+#.name="TopTT",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Top"
+#.name="TopTL",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Top"
+#.name="TopJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Top"
+#.name="DibosonTT",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Diboson"
+#.name="DibosonTL",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Diboson"
+#.name="DibosonJET", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Diboson"
+
+
+### background ###
 .path="|"
-.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/Ztautau",         				.isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
-.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/Zll",                    .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
-.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Top",                            .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
-.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Diboson",         				.isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
-.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Wjets",                  .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
-
-
-################################################
-##
-##      Use this for all separate labels
-##
-################################################
-#.name="Top TT",                         .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Top",                     .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top (true \tau)",  .showRaw = false
-#.name="Top TL",                         .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Top",                      .isBackground=true,     histFillColor=kBlue-6,          histFillStyle=1001,     title = "Top (l\rightarrow\tau)",  .showRaw = false
-#.name="Top JET",                        .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Top",                      .isBackground=true,     histFillColor=kBlue-9,          histFillStyle=1001,     title = "Top (jet\rightarrow\tau)",  .showRaw = false
-#.name="Z\rightarrow \tau\tau TT",       .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Ztautau",                 .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau (true \tau)", .showRaw = false,
-#.name="Z\rightarrow \tau\tau TL",       .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Ztautau",                  .isBackground=true,     histFillColor=kGreen-6,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau (l\rightarrow\tau)", .showRaw = false,
-#.name="Z\rightarrow \tau\tau JET",      .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Ztautau",                  .isBackground=true,     histFillColor=kGreen-9,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau (jet\rightarrow\tau)", .showRaw = false,
-#.name="Diboson TT",                     .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Diboson",                 .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson (true \tau)", .showRaw = false
-#.name="Diboson TL",                     .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Diboson",                  .isBackground=true,     histFillColor=kOrange+6,        histFillStyle=1001,     title = "Diboson (l\rightarrow\tau)", .showRaw = false
-#.name="Diboson JET",                    .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Diboson",                  .isBackground=true,     histFillColor=kOrange-4,        histFillStyle=1001,     title = "Diboson (jet\rightarrow\tau)", .showRaw = false
-#.name="Z\rightarrow ll TT",             .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Zll",                     .isBackground=true,     histFillColor=kRed,           histFillStyle=1001,     title = "Z\rightarrow ll (true \tau)", .showRaw = false
-#.name="Z\rightarrow ll TL",             .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Zll",                      .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll (l\rightarrow\tau)", .showRaw = false
-#.name="Z\rightarrow ll JET",           .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Zll",                   .isBackground=true,     histFillColor=kRed-9,           histFillStyle=1001,     title = "Z\rightarrow ll (jet\rightarrow\tau)", .showRaw = false
-#.name="W+jets TT",                      .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Wjets",             .isBackground=true,     histFillColor=kYellow-7,       histFillStyle=1001,     title="W+jets (true \tau)"
-#.name="W+jets TL",                      .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Wjets",              .isBackground=true,     histFillColor=kYellow-5,        histFillStyle=1001,     title="W+jets (l\rightarrow\tau)"
-#.name="W+jets JET",                     .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Wjets",              .isBackground=true,     histFillColor=kYellow,        histFillStyle=1001,     title="W+jets (jet\rightarrow\tau)"
-
-
-#################################################
-###
-###      Use this for qcd composition
-###
-#################################################
-#.name="Data",                   .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/data",            .isData=true,           histLineColor=1,                histMarkerStyle = 8,   histMarkerSize = 0.6,   title = "Data", isHistogram = false
-#.name="Z\rightarrow \tau\tau",  .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Ztautau",         .isBackground=true,     histFillColor=kGreen+1,         histFillStyle=1001,     title = "Z\rightarrow \tau\tau", .showRaw = false,
-#.name="Z\rightarrow ll",        .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Zll",     .isBackground=true,     histFillColor=kRed-6,           histFillStyle=1001,     title = "Z\rightarrow ll", .showRaw = false
-#.name="Top",                    .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Top",             .isBackground=true,     histFillColor=kBlue,            histFillStyle=1001,     title = "Top",  .showRaw = false
-#.name="DiBoson",                .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Diboson",         .isBackground=true,     histFillColor=kOrange-3,        histFillStyle=1001,     title = "Diboson", .showRaw = false
-#.name="W+jets",                 .path="/bkg/$(channel)/$(campaign)/Fakes/ISO/mc/Wjets",     .isBackground=true,     histFillColor=kYellow-8,        histFillStyle=1001,     title = "W+jets"
+.name="Ztautau",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Ztautau"
+.name="Zll",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zll"
+.name="Top",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top"
+.name="Diboson",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Diboson"
