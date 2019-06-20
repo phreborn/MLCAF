@@ -92,133 +92,76 @@ double extrapolationReweight::getValue() const {
   double f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
 
   ////////////////////////////
-  //
-  //  WJETS FF
-  //
+  //  Extrapolation SF
   ////////////////////////////
-  // nominal pt parametrization
   if (f_tau_0_pt >= 300)  f_tau_0_pt = 299;
-  if (f_n_bjets !=0) return 1.0;
-  double weight(1.0), weight_err(0);
-  TH1F * h_weight = 0;
-  TH1F * h_weight_up = 0;
-  TH1F * h_weight_down = 0;
 
-  if (f_lep_0 == 1) {//muon
-    if (f_tau_0_n_charged_tracks ==1) {// 1p 
-      if (f_n_bjets ==0 ) { // bveto
-        if (f_lephad_met_lep1_cos_dphi<1.) { 
-          h_weight = h_all_vr_muhad_1p_dphi1_0tag;
-          h_weight_up = h_all_vr_muhad_1p_dphi1_0tag_up;
-          h_weight_down = h_all_vr_muhad_1p_dphi1_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=1. && f_lephad_met_lep1_cos_dphi<2) {
-          h_weight = h_all_vr_muhad_1p_dphi2_0tag;
-          h_weight_up = h_all_vr_muhad_1p_dphi2_0tag_up;
-          h_weight_down = h_all_vr_muhad_1p_dphi2_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=2.) {
-          h_weight = h_all_vr_muhad_1p_dphi34_0tag;
-          h_weight_up = h_all_vr_muhad_1p_dphi34_0tag_up;
-          h_weight_down = h_all_vr_muhad_1p_dphi34_0tag_down;
-        }
-      }
-    }
-    else if (f_tau_0_n_charged_tracks ==3) { //3p
-      if (f_n_bjets ==0 ) { // bveto
-        if (f_lephad_met_lep1_cos_dphi<1.) { 
-          h_weight = h_all_vr_muhad_3p_dphi1_0tag;
-          h_weight_up = h_all_vr_muhad_3p_dphi1_0tag_up;
-          h_weight_down = h_all_vr_muhad_3p_dphi1_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=1. && f_lephad_met_lep1_cos_dphi<2) {
-          h_weight = h_all_vr_muhad_3p_dphi2_0tag;
-          h_weight_up = h_all_vr_muhad_3p_dphi2_0tag_up;
-          h_weight_down = h_all_vr_muhad_3p_dphi2_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=2.) {
-          h_weight = h_all_vr_muhad_3p_dphi34_0tag;
-          h_weight_up = h_all_vr_muhad_3p_dphi34_0tag_up;
-          h_weight_down = h_all_vr_muhad_3p_dphi34_0tag_down;
-        }
-      }
-    }
-  }
-  else if (f_lep_0 == 2) {//electron
-    if (f_tau_0_n_charged_tracks ==1) {// 1p 
-      if (f_n_bjets ==0 ) { // bveto
-        if (f_lephad_met_lep1_cos_dphi<1.) { 
-          h_weight = h_all_vr_ehad_1p_dphi1_0tag;
-          h_weight_up = h_all_vr_ehad_1p_dphi1_0tag_up;
-          h_weight_down = h_all_vr_ehad_1p_dphi1_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=1. && f_lephad_met_lep1_cos_dphi<2) {
-          h_weight = h_all_vr_ehad_1p_dphi2_0tag;
-          h_weight_up = h_all_vr_ehad_1p_dphi2_0tag_up;
-          h_weight_down = h_all_vr_ehad_1p_dphi2_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=2.) {
-          h_weight = h_all_vr_ehad_1p_dphi34_0tag;
-          h_weight_up = h_all_vr_ehad_1p_dphi34_0tag_up;
-          h_weight_down = h_all_vr_ehad_1p_dphi34_0tag_down;
-        }
-      }
-    }
-    else if (f_tau_0_n_charged_tracks ==3) { //3p
-      if (f_n_bjets ==0 ) { // bveto
-        if (f_lephad_met_lep1_cos_dphi<1.) { 
-          h_weight = h_all_vr_ehad_3p_dphi1_0tag;
-          h_weight_up = h_all_vr_ehad_3p_dphi1_0tag_up;
-          h_weight_down = h_all_vr_ehad_3p_dphi1_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=1. && f_lephad_met_lep1_cos_dphi<2) {
-          h_weight = h_all_vr_ehad_3p_dphi2_0tag;
-          h_weight_up = h_all_vr_ehad_3p_dphi2_0tag_up;
-          h_weight_down = h_all_vr_ehad_3p_dphi2_0tag_down;
-        }
-        else if (f_lephad_met_lep1_cos_dphi>=2.) {
-          h_weight = h_all_vr_ehad_3p_dphi34_0tag;
-          h_weight_up = h_all_vr_ehad_3p_dphi34_0tag_up;
-          h_weight_down = h_all_vr_ehad_3p_dphi34_0tag_down;
-        }
-      }
-    }
-  }
+  // determine which SF to use
+  // period + channel + category + variable + SF
+  // period (VR1516, VR17, VR18, VRAll)
+  // channel (ehad, muhad, lephad)
+  // category (Bveto, Btag)x(1p,3p)
+  // variable (LeptonPt, LeptonPtDphi?)
+  TString SF = "";   // SF name
+  TH1F * h_nominal = 0;
+  TH1F * h_up = 0;
+  TH1F * h_down = 0;
 
-  if (h_weight!=0) {
-    weight =  h_weight-> GetBinContent(h_weight->FindBin(f_tau_0_pt));
-    weight_err = fabs(h_weight_up-> GetBinContent(h_weight_up->FindBin(f_tau_0_pt)) 
-                     -h_weight_down-> GetBinContent(h_weight_down->FindBin(f_tau_0_pt)));
-    weight_err /= 2.0;
-  }
+  // peiriod
+  SF = "VRAll";
+
+  // channel
+  if ( 1 == f_lep_0) SF += "muhad";
+  else if (2 == f_lep_0) SF += "ehad";
+  else std::cout << "ERROR: unknown lepton flavor" << std::endl;
+
+  // category (only consider bveto category)
+  if ( 0 == f_n_bjets) SF += "Bveto";
+  else if (1 <= f_n_bjets) return 1.0;
+  else std::cout << "ERROR: strange #bjets" << std::endl;
+
+  if ( 1 == f_tau_0_n_charged_tracks) SF += "1p";
+  else if ( 3 == f_tau_0_n_charged_tracks) SF += "3p";
+  else return 1.0;
+
+  // parameterization
+  // dphi 1,2,3 in bveto/btag category
+  if (f_lephad_met_lep1_cos_dphi>=0.0&&f_lephad_met_lep1_cos_dphi<1) SF += "TauPtDphi1SF";
+  else if (f_lephad_met_lep1_cos_dphi>=1&&f_lephad_met_lep1_cos_dphi<2) SF += "TauPtDphi2SF";
+  else if (f_lephad_met_lep1_cos_dphi>=2) SF += "TauPtDphi3SF";
+
+  h_nominal = m_SF_hist.at(SF);
+  h_up = m_SF_hist.at(SF+"_up");
+  h_down = m_SF_hist.at(SF+"_down");
+  
+  // SF is a function of tau pT
+  float retval = h_nominal->GetBinContent(h_nominal->FindBin(f_tau_0_pt));
+  float retval_up = h_up->GetBinContent(h_up->FindBin(f_tau_0_pt));
+  float retval_down = h_down->GetBinContent(h_down->FindBin(f_tau_0_pt));
+  float retval_error = fabs(retval_up - retval_down)/2.0;
   ////////////////
-  //
   // SYSTEMATICS
-  //
   ////////////////
-  // WFF
-  if    ( (fSysName.Contains("ExtrapolationSFs_Btag_1up")    && f_n_bjets>0) ||
-          (fSysName.Contains("ExtrapolationSFs_Btag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("ExtrapolationSFs_Btag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("ExtrapolationSFs_Bveto_1up")   && f_n_bjets==0 ) ||
-          (fSysName.Contains("ExtrapolationSFs_Bveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("ExtrapolationSFs_Bveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    //weight += weight_err;
-    weight = 1.0+fabs(weight-1.0);
+  if    ( (fSysName.Contains("FakeFactor_ExtraSysBtag_1up")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBveto_1up")   && f_n_bjets==0 ) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
+    retval = 1.0+fabs(retval-1.0);
   }
-  else if((fSysName.Contains("ExtrapolationSFs_Btag_1down")    && f_n_bjets>0) ||
-          (fSysName.Contains("ExtrapolationSFs_Btag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("ExtrapolationSFs_Btag3p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("ExtrapolationSFs_Bveto_1down")   && f_n_bjets==0 ) ||
-          (fSysName.Contains("ExtrapolationSFs_Bveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("ExtrapolationSFs_Bveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    //weight -= weight_err;
-    weight = 1.0-fabs(weight-1.0);
+  else if((fSysName.Contains("FakeFactor_ExtraSysBtag_1down")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBveto_1down")   && f_n_bjets==0 ) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
+    retval = 1.0-fabs(retval-1.0);
   }
-  else
-    weight = 1.0;
+
   DEBUGclass("returning");
-  return weight;
+
+  return retval;
 }
 //______________________________________________________________________________________________
 
@@ -234,187 +177,55 @@ extrapolationReweight::extrapolationReweight(const TString& expression) : LepHad
 
   fSysName = expression;
 
+  // when files are closed histograms also dissapear, so detatch them and keep in this directory:
+  //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
+  m_histoDir = 0;
   // temporary pointer to ff files:
   TFile* tempFile=0;
 
   std::cout << "INFO: extrapolationReweight.cxx getting histograms from files. " << std::endl;
+
   ///////////////////////////////
-  //
-  //  Extrapolation
-  //
+  // extra sys
   ///////////////////////////////
-  // 2015+2016+2017
-  // bveto ehad 1p
-/*
-  tempFile=TFile::Open("ExtrapolationSFs/WFFCorAllYearBveto1pehadBveto1pTauPt.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file WFFCorAllYearBveto1pehadBveto1pTauPt.root " << std::endl;
-  else
-  {
-    h_151617_vr_ehad_1p_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_Bveto1pTauPt");            h_151617_vr_ehad_1p_0tag->SetDirectory(0);
-    h_151617_vr_ehad_1p_0tag_up=(TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_Bveto1pTauPt_up");        h_151617_vr_ehad_1p_0tag_up->SetDirectory(0);
-    h_151617_vr_ehad_1p_0tag_down=(TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_Bveto1pTauPt_down");    h_151617_vr_ehad_1p_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-  // bveto ehad 3p
-  tempFile=TFile::Open("ExtrapolationSFs/WFFCorAllYearBveto3pehadBveto3pTauPt.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pehadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_151617_vr_ehad_3p_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_Bveto3pTauPt");            h_151617_vr_ehad_3p_0tag->SetDirectory(0);
-    h_151617_vr_ehad_3p_0tag_up=(TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_Bveto3pTauPt_up");        h_151617_vr_ehad_3p_0tag_up->SetDirectory(0);
-    h_151617_vr_ehad_3p_0tag_down=(TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_Bveto3pTauPt_down");    h_151617_vr_ehad_3p_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-  // bveto muhad 1p
-  tempFile=TFile::Open("ExtrapolationSFs/WFFCorAllYearBveto1pmuhadBveto1pTauPt.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto1pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_151617_vr_muhad_1p_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_Bveto1pTauPt");            h_151617_vr_muhad_1p_0tag->SetDirectory(0);
-    h_151617_vr_muhad_1p_0tag_up=(TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_Bveto1pTauPt_up");        h_151617_vr_muhad_1p_0tag_up->SetDirectory(0);
-    h_151617_vr_muhad_1p_0tag_down=(TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_Bveto1pTauPt_down");    h_151617_vr_muhad_1p_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-  // bveto muhad 3p
-  tempFile=TFile::Open("ExtrapolationSFs/WFFCorAllYearBveto3pmuhadBveto3pTauPt.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_151617_vr_muhad_3p_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_Bveto3pTauPt");            h_151617_vr_muhad_3p_0tag->SetDirectory(0);
-    h_151617_vr_muhad_3p_0tag_up=(TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_Bveto3pTauPt_up");        h_151617_vr_muhad_3p_0tag_up->SetDirectory(0);
-    h_151617_vr_muhad_3p_0tag_down=(TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_Bveto3pTauPt_down");    h_151617_vr_muhad_3p_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
+  std::vector<TString> periods = {"VRAll"};
+  std::vector<TString> channels = {"ehad", "muhad"};
 
-}
-*/
-  // ehad bveto 1p
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto1pehadTauPtFFBveto1pDphi1.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_ehad_1p_dphi1_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi1");        h_all_vr_ehad_1p_dphi1_0tag->SetDirectory(0);
-    h_all_vr_ehad_1p_dphi1_0tag_up = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi1_up");        h_all_vr_ehad_1p_dphi1_0tag_up->SetDirectory(0);
-    h_all_vr_ehad_1p_dphi1_0tag_down = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi1_down");        h_all_vr_ehad_1p_dphi1_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
+  // list of available SFs
+  std::vector<TString> SF_list;
+  SF_list.clear();
+  SF_list.reserve(256);
+  for (auto period : periods) {
+    for (auto channel : channels) {
+      // 2D TauPt Dphi(lep, MET)
+      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi1SF");
+      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi2SF");
+      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi3SF");
+      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi1SF");
+      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi2SF");
+      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi3SF");
+    }
   }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto1pehadTauPtFFBveto1pDphi2.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_ehad_1p_dphi2_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi2");        h_all_vr_ehad_1p_dphi2_0tag->SetDirectory(0);
-    h_all_vr_ehad_1p_dphi2_0tag_up = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi2_up");        h_all_vr_ehad_1p_dphi2_0tag_up->SetDirectory(0);
-    h_all_vr_ehad_1p_dphi2_0tag_down = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi2_down");        h_all_vr_ehad_1p_dphi2_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
+ 
+  TH1F* tempHist = 0;
+  // obtain SF histograms
+  for (auto fn : SF_list) {
+    tempFile = TFile::Open("ScaleFactors/"+fn+".root");
+    if (!tempFile) {
+      std::cout << "WARNING: can not find SF " << fn << std::endl;
+      continue;
+    }
+    else {
+      tempHist = (TH1F*)tempFile->Get(fn); tempHist->SetDirectory(m_histoDir);
+      m_SF_hist[fn] = tempHist;
+      tempHist = (TH1F*)tempFile->Get(fn+"_up"); tempHist->SetDirectory(m_histoDir);
+      m_SF_hist[fn+"_up"] = tempHist;
+      tempHist = (TH1F*)tempFile->Get(fn+"_down"); tempHist->SetDirectory(m_histoDir);
+      m_SF_hist[fn+"_down"] = tempHist;
+      std::cout << "INFO: find SF " << fn << std::endl;
+    }
+    tempFile->Close(); delete tempFile; tempFile = 0;
   }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto1pehadTauPtFFBveto1pDphi34.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_ehad_1p_dphi34_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi34");        h_all_vr_ehad_1p_dphi34_0tag->SetDirectory(0);
-    h_all_vr_ehad_1p_dphi34_0tag_up = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi34_up");        h_all_vr_ehad_1p_dphi34_0tag_up->SetDirectory(0);
-    h_all_vr_ehad_1p_dphi34_0tag_down = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_ehad_TauPtFFBveto1pDphi34_down");        h_all_vr_ehad_1p_dphi34_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  // ehad bveto 3p
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto3pehadTauPtFFBveto3pDphi1.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_ehad_3p_dphi1_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi1");        h_all_vr_ehad_3p_dphi1_0tag->SetDirectory(0);
-    h_all_vr_ehad_3p_dphi1_0tag_up = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi1_up");        h_all_vr_ehad_3p_dphi1_0tag_up->SetDirectory(0);
-    h_all_vr_ehad_3p_dphi1_0tag_down = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi1_down");        h_all_vr_ehad_3p_dphi1_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto3pehadTauPtFFBveto3pDphi2.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_ehad_3p_dphi2_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi2");        h_all_vr_ehad_3p_dphi2_0tag->SetDirectory(0);
-    h_all_vr_ehad_3p_dphi2_0tag_up = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi2_up");        h_all_vr_ehad_3p_dphi2_0tag_up->SetDirectory(0);
-    h_all_vr_ehad_3p_dphi2_0tag_down = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi2_down");        h_all_vr_ehad_3p_dphi2_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto3pehadTauPtFFBveto3pDphi34.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_ehad_3p_dphi34_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi34");        h_all_vr_ehad_3p_dphi34_0tag->SetDirectory(0);
-    h_all_vr_ehad_3p_dphi34_0tag_up = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi34_up");        h_all_vr_ehad_3p_dphi34_0tag_up->SetDirectory(0);
-    h_all_vr_ehad_3p_dphi34_0tag_down = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_ehad_TauPtFFBveto3pDphi34_down");        h_all_vr_ehad_3p_dphi34_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-
-  // muhad bveto 1p
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto1pmuhadTauPtFFBveto1pDphi1.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_muhad_1p_dphi1_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi1");        h_all_vr_muhad_1p_dphi1_0tag->SetDirectory(0);
-    h_all_vr_muhad_1p_dphi1_0tag_up = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi1_up");        h_all_vr_muhad_1p_dphi1_0tag_up->SetDirectory(0);
-    h_all_vr_muhad_1p_dphi1_0tag_down = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi1_down");        h_all_vr_muhad_1p_dphi1_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto1pmuhadTauPtFFBveto1pDphi2.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_muhad_1p_dphi2_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi2");        h_all_vr_muhad_1p_dphi2_0tag->SetDirectory(0);
-    h_all_vr_muhad_1p_dphi2_0tag_up = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi2_up");        h_all_vr_muhad_1p_dphi2_0tag_up->SetDirectory(0);
-    h_all_vr_muhad_1p_dphi2_0tag_down = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi2_down");        h_all_vr_muhad_1p_dphi2_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto1pmuhadTauPtFFBveto1pDphi34.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_muhad_1p_dphi34_0tag = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi34");        h_all_vr_muhad_1p_dphi34_0tag->SetDirectory(0);
-    h_all_vr_muhad_1p_dphi34_0tag_up = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi34_up");        h_all_vr_muhad_1p_dphi34_0tag_up->SetDirectory(0);
-    h_all_vr_muhad_1p_dphi34_0tag_down = (TH1F*)tempFile->Get("Bveto1pExtrapoSF_muhad_TauPtFFBveto1pDphi34_down");        h_all_vr_muhad_1p_dphi34_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  // muhad bveto 3p
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto3pmuhadTauPtFFBveto3pDphi1.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_muhad_3p_dphi1_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi1");        h_all_vr_muhad_3p_dphi1_0tag->SetDirectory(0);
-    h_all_vr_muhad_3p_dphi1_0tag_up = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi1_up");        h_all_vr_muhad_3p_dphi1_0tag_up->SetDirectory(0);
-    h_all_vr_muhad_3p_dphi1_0tag_down = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi1_down");        h_all_vr_muhad_3p_dphi1_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto3pmuhadTauPtFFBveto3pDphi2.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_muhad_3p_dphi2_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi2");        h_all_vr_muhad_3p_dphi2_0tag->SetDirectory(0);
-    h_all_vr_muhad_3p_dphi2_0tag_up = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi2_up");        h_all_vr_muhad_3p_dphi2_0tag_up->SetDirectory(0);
-    h_all_vr_muhad_3p_dphi2_0tag_down = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi2_down");        h_all_vr_muhad_3p_dphi2_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("ExtrapolationSFs/VRAllBveto3pmuhadTauPtFFBveto3pDphi34.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file VR15Bveto3pmuhadbvetoTauPt.root " << std::endl;
-  else
-  {
-    h_all_vr_muhad_3p_dphi34_0tag = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi34");        h_all_vr_muhad_3p_dphi34_0tag->SetDirectory(0);
-    h_all_vr_muhad_3p_dphi34_0tag_up = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi34_up");        h_all_vr_muhad_3p_dphi34_0tag_up->SetDirectory(0);
-    h_all_vr_muhad_3p_dphi34_0tag_down = (TH1F*)tempFile->Get("Bveto3pExtrapoSF_muhad_TauPtFFBveto3pDphi34_down");        h_all_vr_muhad_3p_dphi34_0tag_down->SetDirectory(0);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-
-
 }
 //______________________________________________________________________________________________
 

@@ -75,9 +75,9 @@ def convertToAsyGraph(hist, up, down):
     gr = TGraphAsymmErrors(nBinsX,x,y,exl,exh,eyl,eyh)
     gr.GetXaxis().SetTitle(hist.GetXaxis().GetTitle())
     return gr
-# plotting FFs: hist error is MC statistics
+# plotting SFs: hist error is MC statistics
 #               up/down is MC statistics and MC subtraction
-def plotFakeFactor(hist,up,down,name='someFF'):
+def plotScaleFactor(hist,up,down,name='someFF'):
     print ' Now Plotting FakeFacotr: '+name
 
     c1 = TCanvas( 'c1', '', 200, 10, 700, 500 )
@@ -111,91 +111,91 @@ def plotFakeFactor(hist,up,down,name='someFF'):
             text += t
     myText(0.37,0.73,kBlack, text);
 
-    gr.GetYaxis().SetTitle('Fake Factor')
+    gr.GetYaxis().SetTitle('Scale Factor')
     c1.Update()
     c1.Write()
 
 
 ###############################################################
-# calculation of fake factor
-#       [datapath-mcpath]:nominator/histogram
+# calculation of scale factor
+#       [datapath-mcpath1]:cut/histogram
 # FF =  ---------------------------------------
-#       [datapath-mcpath]:denominator/histogram
+#       [mcpath2]:cut/histogram
 # Considering statistical uncertainty and sys of mc subtraction 
 # FF will be saved to root files named prefix+histogram+'.root' 
 ###############################################################
-def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix, mcVar1=0.1, mcVar2=0.1):
+def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1=0.1, mcVar2=0.1):
   print '----------------------------------------------------------'
-  print 'Now running Fake Factor in ', prefix, histogram
+  print 'Now running Scale Factor in ', prefix, histogram
   print '--------------------------------------------------------\n'
 
   doMCSys = True #True
   
   # nominal histogram
-  histoPass = reader.getHistogram('{:s}-{:s}'.format(dataPath,bkgpath),'{:s}/{:s}'.format(nominator,histogram))
-  histoFail = reader.getHistogram('{:s}-{:s}'.format(dataPath,bkgpath),'{:s}/{:s}'.format(denominator,histogram))
+  histoObs = reader.getHistogram('{:s}-{:s}'.format(dataPath,bkgpath1),'{:s}/{:s}'.format(cut,histogram))
+  histoExp = reader.getHistogram('{:s}'.format(bkgpath2),'{:s}/{:s}'.format(cut,histogram))
 
   # add overflow
-  addOverflow(histoPass)
-  addOverflow(histoFail)
+  addOverflow(histoObs)
+  addOverflow(histoExp)
 
-  # calculate nominal FF
-  FF_nom = histoPass.Clone()
-  FF_nom.Divide(histoFail)
-  FF_nom.SetName(prefix+histogram)
-  checkNegative(FF_nom)
+  # calculate nominal SF
+  SF_nom = histoObs.Clone()
+  SF_nom.Divide(histoExp)
+  SF_nom.SetName(prefix+histogram)
+  checkNegative(SF_nom)
 
   # create error hist, this should contain errors with respect to 0
-  FF_nom_error = FF_nom.Clone()
-  for i in range(0, FF_nom_error.GetNbinsX()+2):
-    FF_nom_error.SetBinContent(i, FF_nom_error.GetBinError(i))
-    FF_nom_error.SetBinError(i, 0)
+  SF_nom_error = SF_nom.Clone()
+  for i in range(0, SF_nom_error.GetNbinsX()+2):
+    SF_nom_error.SetBinContent(i, SF_nom_error.GetBinError(i))
+    SF_nom_error.SetBinError(i, 0)
 
   if doMCSys:
-    histoPass_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+mcVar1),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
-    histoPass_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-mcVar1),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
-    histoFail_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+mcVar2),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
-    histoFail_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-mcVar2),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
+    histoObs_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+mcVar1),bkgpath1),'{:s}/{:s}'.format(cut,histogram))
+    histoObs_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-mcVar1),bkgpath1),'{:s}/{:s}'.format(cut,histogram))
+    histoExp_up   = reader.getHistogram('{:s}*{:s}'.format(str(1+mcVar2),bkgpath2),'{:s}/{:s}'.format(cut,histogram))
+    histoExp_down = reader.getHistogram('{:s}*{:s}'.format(str(1-mcVar2),bkgpath2),'{:s}/{:s}'.format(cut,histogram))
     # add overflow
-    addOverflow(histoPass_up)
-    addOverflow(histoPass_down)
-    addOverflow(histoFail_up)
-    addOverflow(histoFail_down)
+    addOverflow(histoObs_up)
+    addOverflow(histoObs_down)
+    addOverflow(histoExp_up)
+    addOverflow(histoExp_down)
 
     # up variation
-    temp_up =histoPass_up.Clone()
-    temp_up.Divide(histoFail_down)
+    temp_up =histoObs_up.Clone()
+    temp_up.Divide(histoExp_down)
     # down variation
-    temp_down =histoPass_down.Clone()
-    temp_down.Divide(histoFail_up)
+    temp_down =histoObs_down.Clone()
+    temp_down.Divide(histoExp_up)
 
     # difference
-    temp_up.Add(FF_nom,-1)
-    temp_down.Add(FF_nom,-1)
+    temp_up.Add(SF_nom,-1)
+    temp_down.Add(SF_nom,-1)
     
     # make positive definite and find average
     temp_ave = averageHist(temp_up, temp_down)
 
     # add difference to error hist
-    addSysError(FF_nom_error,temp_ave)
+    addSysError(SF_nom_error,temp_ave)
 
-  # at this point FF_nom_error contain stat and, if doMCSys, mc subtraction error
-  FF_nom_up = FF_nom.Clone()
-  FF_nom_up.Add(FF_nom_error)
-  FF_nom_up.SetName(FF_nom.GetName()+'_up')
-  checkNegative(FF_nom_up)
+  # at this point SF_nom_error contain stat and, if doMCSys, mc subtraction error
+  SF_nom_up = SF_nom.Clone()
+  SF_nom_up.Add(SF_nom_error)
+  SF_nom_up.SetName(SF_nom.GetName()+'_up')
+  checkNegative(SF_nom_up)
 
-  FF_nom_down = FF_nom.Clone()
-  FF_nom_down.Add(FF_nom_error,-1)
-  FF_nom_down.SetName(FF_nom.GetName()+'_down')
-  checkNegative(FF_nom_down)
+  SF_nom_down = SF_nom.Clone()
+  SF_nom_down.Add(SF_nom_error,-1)
+  SF_nom_down.SetName(SF_nom.GetName()+'_down')
+  checkNegative(SF_nom_down)
 
-  outfile = TFile('FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile('ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
-  FF_nom.Write()
-  FF_nom_up.Write()
-  FF_nom_down.Write()
-  plotFakeFactor(FF_nom,FF_nom_up,FF_nom_down,FF_nom.GetName())
+  SF_nom.Write()
+  SF_nom_up.Write()
+  SF_nom_down.Write()
+  plotScaleFactor(SF_nom,SF_nom_up,SF_nom_down,SF_nom.GetName())
   outfile.Close()
 
 if __name__=='__main__':
@@ -230,20 +230,22 @@ if __name__=='__main__':
   if region == 'WFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
   elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr_applyff.root'
   elif region == 'TCR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
+  elif region == 'VR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
   reader = TQSampleDataReader(samples)
 
-  if region == 'WFR':
+  if region == 'VR':
     # Loop over data taking period and channels
     periods = {
-                '1516': 'c16a',
-                '17': 'c16d',
-                '18': 'c16e',
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
                 'All': '[c16a+c16d+c16e]',
              }
     channels = {
@@ -257,31 +259,23 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
-        
+        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
-        # bveto 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtFF', prefix, 0.1, 0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
-        # btag 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBtag1pOSPassID',  'CutBtag1pOSFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtag3pOSPassID',  'CutBtag3pOSFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
-        # bveto 2D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi1FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi2FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi3FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi4FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi1FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi2FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi3FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi4FF', prefix,0.1,0.1)
+        # bveto 1D SF
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi3SF', prefix, 0.1, 0.1)
 
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi3SF', prefix, 0.1, 0.1)
   elif region == 'LFR':
     # Loop over data taking period and channels
     periods = {
-                '1516': 'c16a',
-                '17': 'c16d',
-                '18': 'c16e',
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
                 'All': '[c16a+c16d+c16e]',
              }
     channels = {
@@ -295,17 +289,16 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
-        
+        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ISO/[data-mc]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
-        # 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtFF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO',   'BtagLeptonPtFF', prefix, 0.1,0.2)
-        # 2D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi3FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi4FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi3FF', prefix, 0.1,0.2)
+        # btag 1D SF
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'Bveto1pTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'Bveto1pTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'Bveto1pTauPtDphi3SF', prefix, 0.1, 0.1)
+        # btag 2D SF
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'Bveto3pTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'Bveto3pTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'Bveto3pTauPtDphi3SF', prefix, 0.1, 0.1)
+
+
