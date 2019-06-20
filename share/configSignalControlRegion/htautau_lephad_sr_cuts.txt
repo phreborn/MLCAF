@@ -5,16 +5,15 @@
 .name=CutAll
 .name=CutISO
 .name=CutID
-.name=CutOS
-.name=CutVisMassVeto
-.name=CutMT
 
+.name=CutVisMassVeto
+.name=CutMTOS
 .name=CutBveto1p
 .name=CutBveto3p
 .name=CutBtag1p
 .name=CutBtag3p
 
-.name=CutVRMT
+.name=CutVRMTOS
 .name=CutVRBveto1p
 .name=CutVRBtag1p
 .name=CutVRBveto3p
@@ -28,5 +27,5 @@
 .name=CutWCRBveto3p
 .name=CutWCRBtag3p
 
-.name=CutSSWCRBtag1p
-.name=CutSSWCRBtag3p
+.name=CutWCRSSBtag1p
+.name=CutWCRSSBtag3p

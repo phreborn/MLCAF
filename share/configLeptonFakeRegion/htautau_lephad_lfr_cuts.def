@@ -17,10 +17,13 @@ $include("configCommon/htautau_lephad_common_cuts.def");
     +CutAll{
         <.cutExpression = " lep_0_id_medium==1 && lep_0_p4.Pt()>30  && lephad_mt_lep0_met<30 ", 
         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvariation)] }", .title="All">
+        +CutISO{
+            <.cutExpression = "1", .title="ISO">
+        }
     }
 }
 
-@*/CutAll{
+@*/CutISO{
     +CutBDT{
         <.cutExpression = "tau_0_jet_bdt_score_trans<0.01 && n_taus>0 ", .title="BDT">
         +CutBvetoBDTPassISO{
@@ -38,7 +41,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
     }
 }
 
-@*/CutBDT{
+@*/CutISO{
     +CutBDTSL{
         <.cutExpression = "(n_electrons+n_muons)==1",.title="BDTSL">
         +CutBvetoBDTSLPassISO{

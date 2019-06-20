@@ -26,6 +26,10 @@ l_fakevars=[
 ['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
 ['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
 ['fakevar',   'FakeFactor_WjetsBveto3p_1down'],
+["fakevar",   "FakeFactor_ExtraSysBveto1p_1down"],
+["fakevar",   "FakeFactor_ExtraSysBveto1p_1up"],
+["fakevar",   "FakeFactor_ExtraSysBveto3p_1down"],
+["fakevar",   "FakeFactor_ExtraSysBveto3p_1up"],
 ]
 
 l_isovars=[
@@ -194,12 +198,6 @@ l_treevariations=[
 ['treevariation', 'MET_SoftTrk_ScaleUp'],
 ]
 
-l_extraposfs=[
-["extraposf","ExtrapolationSFs_Bveto1p_1down"],
-["extraposf","ExtrapolationSFs_Bveto1p_1up"],
-["extraposf","ExtrapolationSFs_Bveto3p_1down"],
-["extraposf","ExtrapolationSFs_Bveto3p_1up"],
-]
 
 
 def create_cmd_log(option, sys, stage):
@@ -230,7 +228,7 @@ def create_cmd_log(option, sys, stage):
     # different files to be copied
     l_files = []
     jobs_file = ''
-    if option=='fakevar' or option=='extraposf':
+    if option=='fakevar':
       l_files.append('unmerged_*_data_X_c16?*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
@@ -299,8 +297,6 @@ if __name__ == '__main__':
   # this is controlled by the arg parser, so I can run the show from an external submission script
 
   l_systematics=[]
-  if args.systype == "extraposf":
-    l_systematics.extend(l_extraposfs)
   if args.systype == "fakevar":
     l_systematics.extend(l_fakevars)
   if args.systype == "isovar":

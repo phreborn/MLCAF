@@ -16,8 +16,11 @@
 
 # set cutflow counter and histogram pooling higher in the sample folder
 # this also helps to reduce memory consumption
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /data/?/?/?;
 
+##### data #####
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /data/?/?;
+
+##### bkg #####
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau/Z;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Ztautau/DY;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Zll/ee/Z;
@@ -31,5 +34,6 @@
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/munu;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/taunu;
 
+## sig ##
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/ggH/?;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/bbH/?;
