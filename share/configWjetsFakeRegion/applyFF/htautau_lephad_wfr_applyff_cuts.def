@@ -24,7 +24,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
                                 .title="All">
             +CutISO {
                 <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && ( (lep_0_p4.Pt()<50. && lep_0_iso_FCTightTrackOnly==0) || (lep_0_p4.Pt()>=50. && lep_0_iso_FCTight==0) ))) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && ( (lep_0_p4.Pt()<50. && lep_0_iso_FCTightTrackOnly==1) || (lep_0_p4.Pt()>=50. && lep_0_iso_FCTight==1) )))",
-                .weightExpression = "$(isAntiISO) ? [isoreweight_$(isovar)] : 1", .title="ISO">
+                .weightExpression = "$(isAntiISO) ? [isoreweight_$(isovar)]*[QCDReweight_$(isovar)] : 1", .title="ISO">
                 +CutID {
                     <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>0.01 && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",
                     .weightExpression = "$(isAntiID) ? [ptreweight_$(fakevar)] : 1", .title="ID">
