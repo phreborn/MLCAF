@@ -7,7 +7,7 @@ import argparse
 from JobHandler import LocalJobHandler
 
 # The results of some jobs will not be changed for the systematics, these jobs will be copied from the following dir
-s_nominal_dir='batchOutput/unmerged_SRsys'  
+s_nominal_dir='batchOutput/unmerged_SR'
 # Cofiguration for the systematic jobs
 s_config_path='configSignalControlRegion/syst/htautau_lephad_sr_sys.cfg'
 s_common_config_path='configCommon/htautau_lephad_common.cfg'
@@ -210,7 +210,7 @@ def create_cmd_log(option, sys, stage):
 #    cmd="prepare.py {:s} --options campaignsConfig='{:s}'  outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path_hack,sys)
 #  elif stage == 'initialize':
   if stage == 'initialize':
-    #s_sys_file_path_hack = s_sys_file_path.replace('sys','sys_{:s}'.format(sys)) 
+    #s_sys_file_path_hack = s_sys_file_path.replace('sys','sys_{:s}'.format(sys))
     cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
   #######################
   # Analyze samples
@@ -223,13 +223,13 @@ def create_cmd_log(option, sys, stage):
     elif option == "weightvar":
         extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s} aliases.weightvariation={:s} weightvariation={:s}".format(option,sys,option,sys,sys,sys)
     else:
-      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
+      extra_option = "aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
 
     # different files to be copied
     l_files = []
     jobs_file = ''
+    l_files.append('unmerged_*_data_X_c16?*.root')
     if option=='fakevar':
-      l_files.append('unmerged_*_data_X_c16?*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
@@ -237,7 +237,6 @@ def create_cmd_log(option, sys, stage):
       l_files.append('unmerged_*_sig_X_c16?_*.root')
       jobs_file = "jobsSYS-fakevar.txt"
     elif option=='isovar':
-      l_files.append('unmerged_*_data_X_c16?*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
@@ -246,19 +245,17 @@ def create_cmd_log(option, sys, stage):
       l_files.append('unmerged_*_sig_X_c16?_*.root')
       jobs_file = "jobsSYS-isovar.txt"
     elif option=='weightvar' or option=='treevar':
-      l_files.append('unmerged_*_data_X_c16?*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       jobs_file = "jobsSYS-weighttreevar.txt"
     elif option=='topvar':
-      l_files.append('unmerged_*_data_X_c16?*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
       jobs_file = "jobsSYS-topvar.txt"
     # make output folder, the same as the submitAnalysis.py would create;
-    print('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
-    os.system('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
+    print('mkdir -v batchOutput/unmerged_SRsys_{:s}'.format(sys))
+    os.system('mkdir -v batchOutput/unmerged_SRsys_{:s}'.format(sys))
     # copy those files which should not be run over for this particular systematic;
     for files in l_files:
       l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))
