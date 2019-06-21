@@ -169,7 +169,10 @@ double ptReweight::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsBveto_1up")   && f_n_bjets==0 ) ||
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    retval += retval_error;
+    if (fSysName.Contains("Btag"))
+      retval *= 1.2;
+    else
+      retval += retval_error;
   }
   else if((fSysName.Contains("FakeFactor_WjetsBtag_1down")    && f_n_bjets>0) ||
           (fSysName.Contains("FakeFactor_WjetsBtag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
@@ -177,7 +180,10 @@ double ptReweight::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsBveto_1down")   && f_n_bjets==0 ) ||
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    retval -= retval_error;
+    if (fSysName.Contains("Btag"))
+      retval *= 0.8;
+    else
+      retval -= retval_error;
   }
 
   return retval;

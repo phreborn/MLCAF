@@ -30,6 +30,10 @@ l_fakevars=[
 ["fakevar",   "FakeFactor_ExtraSysBveto1p_1up"],
 ["fakevar",   "FakeFactor_ExtraSysBveto3p_1down"],
 ["fakevar",   "FakeFactor_ExtraSysBveto3p_1up"],
+["fakevar",   "FakeFactor_QCDReweight_MuHadBtag_1up"],
+["fakevar",   "FakeFactor_QCDReweight_MuHadBtag_1down"],
+["fakevar",   "FakeFactor_QCDReweight_MuHadBveto_1up"],
+["fakevar",   "FakeFactor_QCDReweight_MuHadBveto_1down"],
 ]
 
 l_isovars=[
@@ -220,8 +224,6 @@ def create_cmd_log(option, sys, stage):
     extra_option = ''
     if option == 'treevar':
       extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(sys)
-    elif option == "weightvar":
-        extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s} aliases.weightvariation={:s} weightvariation={:s}".format(option,sys,option,sys,sys,sys)
     else:
       extra_option = "aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
 
