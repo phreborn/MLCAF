@@ -1,10 +1,10 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __EXTRAPOLATIONREWEIGHT__
-#define __EXTRAPOLATIONREWEIGHT__
+#ifndef __QCDREWEIGHT__
+#define __QCDREWEIGHT__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class extrapolationReweight : public LepHadObservable {
+class QCDReweight : public LepHadObservable {
 protected:
   // put here any data members your class might need
 
@@ -34,16 +34,16 @@ public:
   virtual const TString& getExpression() const override;
   virtual void setExpression(const TString& expr) override;
 
-  extrapolationReweight();
-  extrapolationReweight(const TString& expression);
-  virtual ~extrapolationReweight();
+  QCDReweight();
+  QCDReweight(const TString& expression);
+  virtual ~QCDReweight();
 public:
   bool parseExpression(const TString& expr);
   void clearParsedExpression();
 
   virtual TString getActiveExpression() const override;
 
-  ClassDef(extrapolationReweight, 1);
+  ClassDef(QCDReweight, 1);
 
 
 };
