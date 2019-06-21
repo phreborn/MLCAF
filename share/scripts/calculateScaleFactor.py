@@ -279,7 +279,7 @@ if __name__=='__main__':
                 'All': '[c16a+c16d+c16e]',
              }
     channels = {
-                'ehad': 'ehad',
+                #'ehad': 'ehad',
                 'muhad': 'muhad',
                 #'lephad': '[ehad+muhad]',
               }
@@ -292,13 +292,37 @@ if __name__=='__main__':
         bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
         bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ISO/[data-mc]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
-        # btag 1D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'Bveto1pTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'Bveto1pTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'Bveto1pTauPtDphi3SF', prefix, 0.1, 0.1)
+        # bveto 2D SF
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi3SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi4SF', prefix, 0.1, 0.1)
         # btag 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'Bveto3pTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'Bveto3pTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'Bveto3pTauPtDphi3SF', prefix, 0.1, 0.1)
-
-
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
+  elif region == 'TCR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Diboson+Fakes/ISO/[data-mc]+Fakes/ID/[data-[mc+ISO/[data-mc]]]]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/Top'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        # btag 1D SF
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag1p', 'Btag1pTauPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag3p', 'Btag3pTauPtSF', prefix, 0.1, 0.1)
