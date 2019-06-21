@@ -1,10 +1,10 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __ISOREWEIGHT__
-#define __ISOREWEIGHT__
+#ifndef __TOPREWEIGHT__
+#define __TOPREWEIGHT__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class isoReweight : public LepHadObservable {
+class TopReweight : public LepHadObservable {
 protected:
   // put here any data members your class might need
 
@@ -27,23 +27,23 @@ protected:
   const long LIMIT_2017 = 341649;
   const long LIMIT_2018 = 364292;
 
-  std::map<TString, TH1F*> m_FF_hist;
+  std::map<TString, TH1F*> m_SF_hist;
 
 public:
   virtual bool hasExpression() const override;
   virtual const TString& getExpression() const override;
   virtual void setExpression(const TString& expr) override;
 
-  isoReweight();
-  isoReweight(const TString& expression);
-  virtual ~isoReweight();
+  TopReweight();
+  TopReweight(const TString& expression);
+  virtual ~TopReweight();
 public:
   bool parseExpression(const TString& expr);
   void clearParsedExpression();
 
   virtual TString getActiveExpression() const override;
 
-  ClassDef(isoReweight, 1);
+  ClassDef(TopReweight, 1);
 
 
 };

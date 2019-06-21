@@ -10,7 +10,7 @@
 <usemcweights=true> @ /bkg, /sig;
 
 # systematic weight variation
-<weightvariation="nominal"> @ /.;
+<weightvar="nominal"> @ /.;
 
 # categorise each inclusive MC process
 <isInc=false> @ /.;

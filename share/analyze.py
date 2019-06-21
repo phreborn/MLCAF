@@ -91,10 +91,14 @@ def main(config):
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
     # BSMtautauCAF: get fake factors from config
-    myLeptonFF = config.getTagStringDefault("myLeptonFF","mc")
-    samples.setTagString("myLeptonFF", myLeptonFF)
-    myWjetsFF = config.getTagStringDefault("myWjetsFF","mc")
-    samples.setTagString("myWjetsFF", myWjetsFF)
+    LFFPeriod = config.getTagStringDefault("LFFPeriod","mc")
+    samples.setTagString("LFFPeriod", LFFPeriod)
+    LFFParam = config.getTagStringDefault("LFFParam","mc")
+    samples.setTagString("LFFParam", LFFParam)
+    WFFPeriod = config.getTagStringDefault("WFFPeriod","mc")
+    samples.setTagString("WFFPeriod", WFFPeriod)
+    WFFParam = config.getTagStringDefault("WFFParam","mc")
+    samples.setTagString("WFFParam", WFFParam)
     myExtrapoSF = config.getTagStringDefault("myExtrapoSF","mc")
     samples.setTagString("myExtrapoSF", myExtrapoSF)
 

@@ -3,7 +3,7 @@ import ROOT
 from BSMtautauCAF import BSMLepHad_TopSys
 
 def addObservables(config):
-    variation = config.getTagStringDefault("ttbarweight","nominal")
+    variation = config.getTagStringDefault("topvar","nominal")
     myBSMLepHad_TopSys= BSMLepHad_TopSys("bsmlephad_topsys_"+variation)
     if not QFramework.TQTreeObservable.addObservable(myBSMLepHad_TopSys,"bsmlephad_topsys_"+variation):
         INFO("failed to add myBSMLepHad_TopSys observable")

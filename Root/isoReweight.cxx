@@ -40,25 +40,22 @@ TObjArray* isoReweight::getBranchNames() const {
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
   TObjArray* bnames = new TObjArray();
-
   //bnames->SetOwner(true);
-
   // add the branch names needed by your observable here, e.g.
   // bnames->Add(new TObjString("someBranch"));
 
-  bnames->Add(new TObjString("lep_0_phi"));
   bnames->Add(new TObjString("lep_0"));
   bnames->Add(new TObjString("lep_0_eta"));
+  bnames->Add(new TObjString("lep_0_phi"));
   bnames->Add(new TObjString("lep_0_pt"));
-  bnames->Add(new TObjString("lephad_met_lep0_cos_dphi"));
   bnames->Add(new TObjString("n_bjets"));
+  bnames->Add(new TObjString("lephad_met_lep0_cos_dphi"));
 
   if (isData()) {
     bnames->Add(new TObjString("run_number"));
   } else {
     bnames->Add(new TObjString("NOMINAL_pileup_random_run_number"));
   }
-
 
 
   return bnames;
@@ -80,8 +77,6 @@ double isoReweight::getValue() const {
   /* exmple block for TTree::SetBranchAddress method:
      const double retval = this->fBranch1 + this->fBranch2;
      */
-
-  //std::cout<<" In getValue "<<std::endl;
   double f_lep_0_phi      = this->lep_0_phi->EvalInstance();
   int    f_lep_0          = this->lep_0->EvalInstance();
   float  f_lep_0_eta      = this->lep_0_eta->EvalInstance();
@@ -89,663 +84,89 @@ double isoReweight::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   float  f_lephad_met_lep0_cos_dphi= this->lephad_met_lep0_cos_dphi->EvalInstance();
 
-  // mean values:
-  float ave_eta(1), ave_muon_bveto_eta(0),ave_muon_btag_eta(0);
-
-  if(f_lep_0==2) ave_eta = f_n_bjets==0?ave_ele_bveto_eta : ave_ele_btag_eta;
-
-  // FOR LEPTON ETA FF:
-  float ff15_lep(0), errff15_lep(0);
-  float ff17_lep(0), errff17_lep(0);
-  float ff18_lep(0), errff18_lep(0);
-  float fffull_lep(0), errfffull_lep(0);
-//  if( f_lep_0==1 && f_lep_0_pt<55. )//muon
-//  {
-//    ff_lep    = f_n_bjets==0?   h_ff_lfr_muhad_0tag_lowpt->GetBinContent( h_ff_lfr_muhad_0tag_lowpt->FindBin(fabs(f_lep_0_eta)) ):
-//                                h_ff_lfr_muhad_1tag_lowpt->GetBinContent( h_ff_lfr_muhad_1tag_lowpt->FindBin(fabs(f_lep_0_eta)) );
-//    errff_lep = f_n_bjets==0?   fabs( h_ff_lfr_muhad_0tag_lowpt_up->GetBinContent( h_ff_lfr_muhad_0tag_lowpt_up->FindBin(fabs(f_lep_0_eta)) ) -
-//                                      h_ff_lfr_muhad_0tag_lowpt_down->GetBinContent( h_ff_lfr_muhad_0tag_lowpt_down->FindBin(fabs(f_lep_0_eta)) ) ) :
-//                                fabs( h_ff_lfr_muhad_1tag_lowpt_up->GetBinContent( h_ff_lfr_muhad_1tag_lowpt_up->FindBin(fabs(f_lep_0_eta)) ) -
-//                                      h_ff_lfr_muhad_1tag_lowpt_down->GetBinContent( h_ff_lfr_muhad_1tag_lowpt_down->FindBin(fabs(f_lep_0_eta)) ) );
-//    errff_lep /= 2.;
-//  }
-//  else if( f_lep_0==1 && f_lep_0_pt>55. )
-//  {
-//    ff_lep    = f_n_bjets==0?   h_ff_lfr_muhad_0tag_highpt->GetBinContent( h_ff_lfr_muhad_0tag_highpt->FindBin(fabs(f_lep_0_eta)) ):
-//                                h_ff_lfr_muhad_1tag_highpt->GetBinContent( h_ff_lfr_muhad_1tag_highpt->FindBin(fabs(f_lep_0_eta)) );
-//    errff_lep = f_n_bjets==0?   fabs( h_ff_lfr_muhad_0tag_highpt_up->GetBinContent( h_ff_lfr_muhad_0tag_highpt_up->FindBin(fabs(f_lep_0_eta)) ) -
-//                                      h_ff_lfr_muhad_0tag_highpt_down->GetBinContent( h_ff_lfr_muhad_0tag_highpt_down->FindBin(fabs(f_lep_0_eta)) ) ) :
-//                                fabs( h_ff_lfr_muhad_1tag_highpt_up->GetBinContent( h_ff_lfr_muhad_1tag_highpt_up->FindBin(fabs(f_lep_0_eta)) ) -
-//                                      h_ff_lfr_muhad_1tag_highpt_down->GetBinContent( h_ff_lfr_muhad_1tag_highpt_down->FindBin(fabs(f_lep_0_eta)) ) );
-//    errff_lep /= 2.;
-//  }
-//  else if( f_lep_0==2 )
-//  {
-//    ff_lep    = f_n_bjets==0?   h_ff_lfr_ehad_0tag->GetBinContent( h_ff_lfr_ehad_0tag->FindBin(fabs(f_lep_0_eta)) ):
-//                                h_ff_lfr_ehad_1tag->GetBinContent( h_ff_lfr_ehad_1tag->FindBin(fabs(f_lep_0_eta)) );
-//    errff_lep = f_n_bjets==0?   fabs( h_ff_lfr_ehad_0tag_up->GetBinContent( h_ff_lfr_ehad_0tag_up->FindBin(fabs(f_lep_0_eta)) ) -
-//                                      h_ff_lfr_ehad_0tag_down->GetBinContent( h_ff_lfr_ehad_0tag_down->FindBin(fabs(f_lep_0_eta)) ) ) :
-//                                fabs( h_ff_lfr_ehad_1tag_up->GetBinContent( h_ff_lfr_ehad_1tag_up->FindBin(fabs(f_lep_0_eta)) ) -
-//                                      h_ff_lfr_ehad_1tag_down->GetBinContent( h_ff_lfr_ehad_1tag_down->FindBin(fabs(f_lep_0_eta)) ) );
-//    errff_lep /= 2.;
-//  }
-
-  // FOR LEPTON PT FF:
-  // 2015+2016
-
-  float ff15pt_lep(0), errff15pt_lep(0);
+  // fake factor valid range up to 200
   if (f_lep_0_pt>=200) f_lep_0_pt=199;
+  // determine which FF to use
+  // period + channel + category + variable + FF
+  // period (LFR1516, LFR17, LFR18, LFRAll)
+  // channel (ehad, muhad, lephad)
+  // category (Bveto, Btag)
+  // variable (LeptonPt, LeptonPtDphi?)
+  TString FF = "";   // FF name
+  TH1F * h_nominal = 0;
+  TH1F * h_up = 0;
+  TH1F * h_down = 0;
 
-  if( f_lep_0==1)//muon
-  {
-    ff15pt_lep    = f_n_bjets==0?   h_ff15_lfr_muhad_0tag_pt->GetBinContent( h_ff15_lfr_muhad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_ff15_lfr_muhad_1tag_pt->GetBinContent( h_ff15_lfr_muhad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errff15pt_lep = f_n_bjets==0?   fabs( h_ff15_lfr_muhad_0tag_pt_up   ->GetBinContent( h_ff15_lfr_muhad_0tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff15_lfr_muhad_0tag_pt_down ->GetBinContent( h_ff15_lfr_muhad_0tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_ff15_lfr_muhad_1tag_pt_up   ->GetBinContent( h_ff15_lfr_muhad_1tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff15_lfr_muhad_1tag_pt_down ->GetBinContent( h_ff15_lfr_muhad_1tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) );
-    errff15pt_lep /= 2.;
+  // peiriod
+  TString period_tag = "";
+  if(!this->fSample->getTag("~LFFPeriod",period_tag)) std::cout<<"ERROR: Why cant I get ff name!!!\n";
+
+  if (period_tag == "Separated") {
+    if(this->x_run_number->EvalInstance() <= LIMIT_2016) FF = "LFR1516";
+    else if(this->x_run_number->EvalInstance() > LIMIT_2016 && this->x_run_number->EvalInstance() <= LIMIT_2017) FF = "LFR17";
+    else if(this->x_run_number->EvalInstance() > LIMIT_2017 && this->x_run_number->EvalInstance() <= LIMIT_2018) FF = "LFR18";
+    else std::cout << "ERROR: srange run number " << this->x_run_number->EvalInstance() << std::endl; 
   }
-  else if( f_lep_0==2 )
-  {
-    ff15pt_lep    = f_n_bjets==0?   h_ff15_lfr_ehad_0tag_pt->GetBinContent( h_ff15_lfr_ehad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_ff15_lfr_ehad_1tag_pt->GetBinContent( h_ff15_lfr_ehad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errff15pt_lep = f_n_bjets==0?   fabs( h_ff15_lfr_ehad_0tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff15_lfr_ehad_0tag_pt_down->GetBinContent( h_ff15_lfr_ehad_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_ff15_lfr_ehad_1tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff15_lfr_ehad_1tag_pt_down->GetBinContent( h_ff15_lfr_ehad_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    errff15pt_lep /= 2.;
+  else if (period_tag == "Combined")
+    FF = "LFRAll";
+
+  // channel
+  if ( 1 == f_lep_0) FF += "muhad";
+  else if (2 == f_lep_0) FF += "ehad";
+  else std::cout << "ERROR: unknown lepton flavor" << std::endl;
+
+  // category 
+  if ( 0 == f_n_bjets) FF += "Bveto";
+  else if (1 <= f_n_bjets) FF += "Btag";
+  else std::cout << "ERROR: strange #bjets";
+
+  // parameterization
+  TString param_tag = "";
+  if(!this->fSample->getTag("~LFFParam",param_tag)) std::cout<<"ERROR: Why cant I get ff name!!!\n";
+  if ( "LeptonPt" == param_tag ) {
+    FF += "LeptonPtFF";
   }
-
-
-  // 2017
-  float ff17pt_lep(0), errff17pt_lep(0);
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
-
-  if( f_lep_0==1)//muon
-  {
-    ff17pt_lep    = f_n_bjets==0?   h_ff17_lfr_muhad_0tag_pt->GetBinContent( h_ff17_lfr_muhad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_ff17_lfr_muhad_1tag_pt->GetBinContent( h_ff17_lfr_muhad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errff17pt_lep = f_n_bjets==0?   fabs( h_ff17_lfr_muhad_0tag_pt_up   ->GetBinContent( h_ff17_lfr_muhad_0tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff17_lfr_muhad_0tag_pt_down ->GetBinContent( h_ff17_lfr_muhad_0tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_ff17_lfr_muhad_1tag_pt_up   ->GetBinContent( h_ff17_lfr_muhad_1tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff17_lfr_muhad_1tag_pt_down ->GetBinContent( h_ff17_lfr_muhad_1tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) );
-    errff17pt_lep /= 2.;
-  }
-  else if( f_lep_0==2 )
-  {
-    ff17pt_lep    = f_n_bjets==0?   h_ff17_lfr_ehad_0tag_pt->GetBinContent( h_ff17_lfr_ehad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_ff17_lfr_ehad_1tag_pt->GetBinContent( h_ff17_lfr_ehad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errff17pt_lep = f_n_bjets==0?   fabs( h_ff17_lfr_ehad_0tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff17_lfr_ehad_0tag_pt_down->GetBinContent( h_ff17_lfr_ehad_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_ff17_lfr_ehad_1tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff17_lfr_ehad_1tag_pt_down->GetBinContent( h_ff17_lfr_ehad_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    errff17pt_lep /= 2.;
-  }
-
-  // 2018
-  float ff18pt_lep(0), errff18pt_lep(0);
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
-
-  if( f_lep_0==1)//muon
-  {
-    ff18pt_lep    = f_n_bjets==0?   h_ff18_lfr_muhad_0tag_pt->GetBinContent( h_ff18_lfr_muhad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_ff18_lfr_muhad_1tag_pt->GetBinContent( h_ff18_lfr_muhad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errff18pt_lep = f_n_bjets==0?   fabs( h_ff18_lfr_muhad_0tag_pt_up   ->GetBinContent( h_ff18_lfr_muhad_0tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff18_lfr_muhad_0tag_pt_down ->GetBinContent( h_ff18_lfr_muhad_0tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_ff18_lfr_muhad_1tag_pt_up   ->GetBinContent( h_ff18_lfr_muhad_1tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff18_lfr_muhad_1tag_pt_down ->GetBinContent( h_ff18_lfr_muhad_1tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) );
-    errff18pt_lep /= 2.;
-  }
-  else if( f_lep_0==2 )
-  {
-    ff18pt_lep    = f_n_bjets==0?   h_ff18_lfr_ehad_0tag_pt->GetBinContent( h_ff18_lfr_ehad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_ff18_lfr_ehad_1tag_pt->GetBinContent( h_ff18_lfr_ehad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errff18pt_lep = f_n_bjets==0?   fabs( h_ff18_lfr_ehad_0tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff18_lfr_ehad_0tag_pt_down->GetBinContent( h_ff18_lfr_ehad_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_ff18_lfr_ehad_1tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_ff18_lfr_ehad_1tag_pt_down->GetBinContent( h_ff18_lfr_ehad_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    errff18pt_lep /= 2.;
-  }
-
-  // all years
-  float fffullpt_lep(0), errfffullpt_lep(0);
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
-
-  if( f_lep_0==1)//muon
-  {
-    fffullpt_lep    = f_n_bjets==0?   h_fffull_lfr_muhad_0tag_pt->GetBinContent( h_fffull_lfr_muhad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_fffull_lfr_muhad_1tag_pt->GetBinContent( h_fffull_lfr_muhad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errfffullpt_lep = f_n_bjets==0?   fabs( h_fffull_lfr_muhad_0tag_pt_up   ->GetBinContent( h_fffull_lfr_muhad_0tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_fffull_lfr_muhad_0tag_pt_down ->GetBinContent( h_fffull_lfr_muhad_0tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_fffull_lfr_muhad_1tag_pt_up   ->GetBinContent( h_fffull_lfr_muhad_1tag_pt_up  ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_fffull_lfr_muhad_1tag_pt_down ->GetBinContent( h_fffull_lfr_muhad_1tag_pt_down->FindBin(fabs(f_lep_0_pt)) ) );
-    errfffullpt_lep /= 2.;
-  }
-  else if( f_lep_0==2 )
-  {
-    fffullpt_lep    = f_n_bjets==0?   h_fffull_lfr_ehad_0tag_pt->GetBinContent( h_fffull_lfr_ehad_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                  h_fffull_lfr_ehad_1tag_pt->GetBinContent( h_fffull_lfr_ehad_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-    errfffullpt_lep = f_n_bjets==0?   fabs( h_fffull_lfr_ehad_0tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_fffull_lfr_ehad_0tag_pt_down->GetBinContent( h_fffull_lfr_ehad_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                  fabs( h_fffull_lfr_ehad_1tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                        h_fffull_lfr_ehad_1tag_pt_down->GetBinContent( h_fffull_lfr_ehad_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    errfffullpt_lep /= 2.;
-  }
-
-  float dphi_lepmet = f_lephad_met_lep0_cos_dphi;
-
-  float dphi15corr_lep(1), errdphi15corr_lep(0); // only for electron!!!
-  float dphi17corr_lep(1), errdphi17corr_lep(0); // only for electron!!!
-  float dphi18corr_lep(1), errdphi18corr_lep(0); // only for electron!!!
-  float dphifullcorr_lep(1), errdphifullcorr_lep(0); // only for electron!!!
-/*  if( f_lep_0==2 )
-  {
-    dphicorr_lep    = f_n_bjets==0?   h_dphicorr_lfr_ehad_0tag->GetBinContent( h_dphicorr_lfr_ehad_0tag->FindBin(fabs(dphi_lepmet)) ):
-                                      h_dphicorr_lfr_ehad_1tag->GetBinContent( h_dphicorr_lfr_ehad_1tag->FindBin(fabs(dphi_lepmet)) );
-    errdphicorr_lep = f_n_bjets==0?   fabs( h_dphicorr_lfr_ehad_0tag_up  ->GetBinContent( h_dphicorr_lfr_ehad_0tag_up   ->FindBin(fabs(dphi_lepmet)) ) -
-                                            h_dphicorr_lfr_ehad_0tag_down->GetBinContent( h_dphicorr_lfr_ehad_0tag_down ->FindBin(fabs(dphi_lepmet)) ) ) :
-                                      fabs( h_dphicorr_lfr_ehad_1tag_up  ->GetBinContent( h_dphicorr_lfr_ehad_1tag_up   ->FindBin(fabs(dphi_lepmet)) ) -
-                                            h_dphicorr_lfr_ehad_1tag_down->GetBinContent( h_dphicorr_lfr_ehad_1tag_down ->FindBin(fabs(dphi_lepmet)) ) );
-    errdphicorr_lep /= 2.;
-  }
-*/
-
-  // FOR LEPTON PT * DPHI 2DFF:
-  // 2015+2016
-  float ff15ptdphi_lep(1), errff15ptdphi_lep(0);
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
-
-  if( f_lep_0==1 ) //muon
-  {
-    if(dphi_lepmet<0.5)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_muhad_dphi1_0tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_muhad_dphi1_1tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_muhad_dphi1_0tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi1_0tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_muhad_dphi1_1tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi1_1tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
+  else if ( "LeptonPtDphi" == param_tag) {
+    // dphi 1,2,3,4 in bveto category
+    if (0 == f_n_bjets) {
+      if (f_lephad_met_lep0_cos_dphi<0.5) FF += "LeptonPtDphi1FF";
+      else if (f_lephad_met_lep0_cos_dphi>=0.5&&f_lephad_met_lep0_cos_dphi<1) FF += "LeptonPtDphi2FF";
+      else if (f_lephad_met_lep0_cos_dphi>=1&&f_lephad_met_lep0_cos_dphi<2) FF += "LeptonPtDphi3FF";
+      else if (f_lephad_met_lep0_cos_dphi>=2) FF += "LeptonPtDphi4FF";
     }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_muhad_dphi2_0tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_muhad_dphi2_1tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_muhad_dphi2_0tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi2_0tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_muhad_dphi2_1tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi2_1tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
+    // dphi 1,2,3 in btag category
+    else if (1 <= f_n_bjets) {
+      if (f_lephad_met_lep0_cos_dphi<0.5) FF += "LeptonPtDphi1FF";
+      else if (f_lephad_met_lep0_cos_dphi>=0.5&&f_lephad_met_lep0_cos_dphi<1) FF += "LeptonPtDphi2FF";
+      else if (f_lephad_met_lep0_cos_dphi>=1) FF += "LeptonPtDphi3FF";
     }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_muhad_dphi3_0tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_muhad_dphi3_0tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi3_0tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_muhad_dphi4_0tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_ff15_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_muhad_dphi4_0tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi4_0tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_ff15_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_ff15_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errff15ptdphi_lep /= 2.;
-  }
-  else if( f_lep_0==2 ) //electron
-  {
-    if(dphi_lepmet<0.5)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_ehad_dphi1_0tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_ehad_dphi1_1tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_ehad_dphi1_0tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi1_0tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_ehad_dphi1_1tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi1_1tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_ehad_dphi2_0tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_ehad_dphi2_1tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_ehad_dphi2_0tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi2_0tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_ehad_dphi2_1tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi2_1tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_ehad_dphi3_0tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_ehad_dphi3_0tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi3_0tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      ff15ptdphi_lep    = f_n_bjets==0?   h_ff15_lfr_ehad_dphi4_0tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff15_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_ff15_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff15ptdphi_lep = f_n_bjets==0?   fabs( h_ff15_lfr_ehad_dphi4_0tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi4_0tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff15_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_ff15_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff15_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_ff15_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errff15ptdphi_lep /= 2.;
   }
 
+  h_nominal = m_FF_hist.at(FF);
+  h_up = m_FF_hist.at(FF+"_up");
+  h_down = m_FF_hist.at(FF+"_down");
+  
+  // FF is a function of lepton pT
+  float retval = h_nominal->GetBinContent(h_nominal->FindBin(f_lep_0_pt));
+  float retval_up = h_up->GetBinContent(h_up->FindBin(f_lep_0_pt));
+  float retval_down = h_down->GetBinContent(h_down->FindBin(f_lep_0_pt));
+  float retval_error = fabs(retval_up - retval_down)/2.0;
 
-
-  // lep ff15 sys
-  if      ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1up") && f_lep_0==1 && f_n_bjets>0) ) {
-    ff15_lep += errff15_lep;
-    ff15pt_lep += errff15pt_lep;
-    ff15ptdphi_lep += errff15ptdphi_lep;
+  // systematic uncertainty
+  if ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_LepElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
+       (fSysName.Contains("FakeFactor_LepMuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_LepMuBtag_1up") && f_lep_0==1 && f_n_bjets>0)  ) {
+    retval += retval_error;
   }
   else if(  (fSysName.Contains("FakeFactor_LepElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
             (fSysName.Contains("FakeFactor_LepElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
             (fSysName.Contains("FakeFactor_LepMuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
             (fSysName.Contains("FakeFactor_LepMuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
-    ff15_lep -= errff15_lep;
-    ff15pt_lep -= errff15pt_lep;
-    ff15ptdphi_lep -= errff15ptdphi_lep;
-  }
-
-  if( (fSysName.Contains("FakeLep_DphiElBvetoSysUp") && f_lep_0==2 && f_n_bjets==0) ||
-      (fSysName.Contains("FakeLep_DphiElBtagSysUp") && f_lep_0==2 && f_n_bjets>0)  ) {
-    dphi15corr_lep += errdphi15corr_lep;
-  }
-  else if(  (fSysName.Contains("FakeLep_DphiElBvetoSysDo") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeLep_DphiElBtagSysDo") && f_lep_0==2 && f_n_bjets>0) ) {
-    dphi15corr_lep -= errdphi15corr_lep;
-  }
-
-  // 2017
-
-  float ff17ptdphi_lep(1), errff17ptdphi_lep(0);
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
-
-  if( f_lep_0==1 ) //muon
-  {
-    if(dphi_lepmet<0.5)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_muhad_dphi1_0tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_muhad_dphi1_1tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_muhad_dphi1_0tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi1_0tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_muhad_dphi1_1tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi1_1tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_muhad_dphi2_0tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_muhad_dphi2_1tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_muhad_dphi2_0tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi2_0tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_muhad_dphi2_1tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi2_1tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_muhad_dphi3_0tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_muhad_dphi3_0tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi3_0tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_muhad_dphi4_0tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_ff17_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_muhad_dphi4_0tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi4_0tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_ff17_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_ff17_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errff17ptdphi_lep /= 2.;
-  }
-  else if( f_lep_0==2 ) //electron
-  {
-    if(dphi_lepmet<0.5)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_ehad_dphi1_0tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_ehad_dphi1_1tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_ehad_dphi1_0tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi1_0tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_ehad_dphi1_1tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi1_1tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_ehad_dphi2_0tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_ehad_dphi2_1tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_ehad_dphi2_0tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi2_0tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_ehad_dphi2_1tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi2_1tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_ehad_dphi3_0tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_ehad_dphi3_0tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi3_0tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      ff17ptdphi_lep    = f_n_bjets==0?   h_ff17_lfr_ehad_dphi4_0tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff17_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_ff17_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff17ptdphi_lep = f_n_bjets==0?   fabs( h_ff17_lfr_ehad_dphi4_0tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi4_0tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff17_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_ff17_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff17_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_ff17_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errff17ptdphi_lep /= 2.;
-  }
-
-
-
-  // lep ff17 sys
-  if      ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1up") && f_lep_0==1 && f_n_bjets>0) ) {
-    ff17_lep += errff17_lep;
-    ff17pt_lep += errff17pt_lep;
-    ff17ptdphi_lep += errff17ptdphi_lep;
-  }
-  else if(  (fSysName.Contains("FakeFactor_LepElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
-    ff17_lep -= errff17_lep;
-    ff17pt_lep -= errff17pt_lep;
-    ff17ptdphi_lep -= errff17ptdphi_lep;
-  }
-
-  if( (fSysName.Contains("FakeLep_DphiElBvetoSysUp") && f_lep_0==2 && f_n_bjets==0) ||
-      (fSysName.Contains("FakeLep_DphiElBtagSysUp") && f_lep_0==2 && f_n_bjets>0)  ) {
-    dphi17corr_lep += errdphi17corr_lep;
-  }
-  else if(  (fSysName.Contains("FakeLep_DphiElBvetoSysDo") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeLep_DphiElBtagSysDo") && f_lep_0==2 && f_n_bjets>0) ) {
-    dphi17corr_lep -= errdphi17corr_lep;
-  }
-
-  // 2018
-
-  float ff18ptdphi_lep(1), errff18ptdphi_lep(0);
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
-
-  if( f_lep_0==1 ) //muon
-  {
-    if(dphi_lepmet<0.5)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_muhad_dphi1_0tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_muhad_dphi1_1tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_muhad_dphi1_0tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi1_0tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_muhad_dphi1_1tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi1_1tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_muhad_dphi2_0tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_muhad_dphi2_1tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_muhad_dphi2_0tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi2_0tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_muhad_dphi2_1tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi2_1tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_muhad_dphi3_0tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_muhad_dphi3_0tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi3_0tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_muhad_dphi4_0tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_ff18_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_muhad_dphi4_0tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi4_0tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_ff18_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_ff18_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errff18ptdphi_lep /= 2.;
-  }
-  else if( f_lep_0==2 ) //electron
-  {
-    if(dphi_lepmet<0.5)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_ehad_dphi1_0tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_ehad_dphi1_1tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_ehad_dphi1_0tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi1_0tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_ehad_dphi1_1tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi1_1tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_ehad_dphi2_0tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_ehad_dphi2_1tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_ehad_dphi2_0tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi2_0tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_ehad_dphi2_1tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi2_1tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_ehad_dphi3_0tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_ehad_dphi3_0tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi3_0tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      ff18ptdphi_lep    = f_n_bjets==0?   h_ff18_lfr_ehad_dphi4_0tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_ff18_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_ff18_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errff18ptdphi_lep = f_n_bjets==0?   fabs( h_ff18_lfr_ehad_dphi4_0tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi4_0tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_ff18_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_ff18_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_ff18_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_ff18_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errff18ptdphi_lep /= 2.;
-  }
-
-
-
-  // lep ff18 sys
-  if      ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1up") && f_lep_0==1 && f_n_bjets>0) ) {
-    ff18_lep += errff18_lep;
-    ff18pt_lep += errff18pt_lep;
-    ff18ptdphi_lep += errff18ptdphi_lep;
-  }
-  else if(  (fSysName.Contains("FakeFactor_LepElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
-    ff18_lep -= errff18_lep;
-    ff18pt_lep -= errff18pt_lep;
-    ff18ptdphi_lep -= errff18ptdphi_lep;
-  }
-
-  if( (fSysName.Contains("FakeLep_DphiElBvetoSysUp") && f_lep_0==2 && f_n_bjets==0) ||
-      (fSysName.Contains("FakeLep_DphiElBtagSysUp") && f_lep_0==2 && f_n_bjets>0)  ) {
-    dphi18corr_lep += errdphi18corr_lep;
-  }
-  else if(  (fSysName.Contains("FakeLep_DphiElBvetoSysDo") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeLep_DphiElBtagSysDo") && f_lep_0==2 && f_n_bjets>0) ) {
-    dphi18corr_lep -= errdphi18corr_lep;
-  }
-  // all years(2015-2018)
-  float fffullptdphi_lep(1), errfffullptdphi_lep(0);
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
-
-  if( f_lep_0==1 ) //muon
-  {
-    if(dphi_lepmet<0.5)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_muhad_dphi1_0tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_muhad_dphi1_1tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_muhad_dphi1_0tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi1_0tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_muhad_dphi1_1tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi1_1tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_muhad_dphi2_0tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_muhad_dphi2_1tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_muhad_dphi2_0tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi2_0tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_muhad_dphi2_1tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi2_1tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_muhad_dphi3_0tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_muhad_dphi3_0tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi3_0tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_muhad_dphi4_0tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_muhad_dphi3_1tag_pt->GetBinContent( h_fffull_lfr_muhad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_muhad_dphi4_0tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi4_0tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_muhad_dphi3_1tag_pt_up  ->GetBinContent( h_fffull_lfr_muhad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_muhad_dphi3_1tag_pt_down->GetBinContent( h_fffull_lfr_muhad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errfffullptdphi_lep /= 2.;
-  }
-  else if( f_lep_0==2 ) //electron
-  {
-    if(dphi_lepmet<0.5)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_ehad_dphi1_0tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi1_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_ehad_dphi1_1tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi1_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_ehad_dphi1_0tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi1_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi1_0tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi1_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_ehad_dphi1_1tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi1_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi1_1tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi1_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=0.5&&dphi_lepmet<1.)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_ehad_dphi2_0tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi2_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_ehad_dphi2_1tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi2_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_ehad_dphi2_0tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi2_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi2_0tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi2_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_ehad_dphi2_1tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi2_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi2_1tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi2_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=1.&&dphi_lepmet<2.)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_ehad_dphi3_0tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi3_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_ehad_dphi3_0tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi3_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi3_0tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi3_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    if(dphi_lepmet>=2.)
-    {
-      fffullptdphi_lep    = f_n_bjets==0?   h_fffull_lfr_ehad_dphi4_0tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi4_0tag_pt->FindBin(fabs(f_lep_0_pt)) ):
-                                        h_fffull_lfr_ehad_dphi3_1tag_pt->GetBinContent( h_fffull_lfr_ehad_dphi3_1tag_pt->FindBin(fabs(f_lep_0_pt)) );
-      errfffullptdphi_lep = f_n_bjets==0?   fabs( h_fffull_lfr_ehad_dphi4_0tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi4_0tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi4_0tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi4_0tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) ) :
-                                        fabs( h_fffull_lfr_ehad_dphi3_1tag_pt_up  ->GetBinContent( h_fffull_lfr_ehad_dphi3_1tag_pt_up   ->FindBin(fabs(f_lep_0_pt)) ) -
-                                              h_fffull_lfr_ehad_dphi3_1tag_pt_down->GetBinContent( h_fffull_lfr_ehad_dphi3_1tag_pt_down ->FindBin(fabs(f_lep_0_pt)) ) );
-    }
-    errfffullptdphi_lep /= 2.;
-  }
-
-
-
-  // lep fffull sys
-  if      ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1up") && f_lep_0==1 && f_n_bjets>0) ) {
-    fffull_lep += errfffull_lep;
-    fffullpt_lep += errfffullpt_lep;
-    fffullptdphi_lep += errfffullptdphi_lep;
-  }
-  else if(  (fSysName.Contains("FakeFactor_LepElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
-    fffull_lep -= errfffull_lep;
-    fffullpt_lep -= errfffullpt_lep;
-    fffullptdphi_lep -= errfffullptdphi_lep;
-  }
-
-  if( (fSysName.Contains("FakeLep_DphiElBvetoSysUp") && f_lep_0==2 && f_n_bjets==0) ||
-      (fSysName.Contains("FakeLep_DphiElBtagSysUp") && f_lep_0==2 && f_n_bjets>0)  ) {
-    dphifullcorr_lep += errdphifullcorr_lep;
-  }
-  else if(  (fSysName.Contains("FakeLep_DphiElBvetoSysDo") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeLep_DphiElBtagSysDo") && f_lep_0==2 && f_n_bjets>0) ) {
-    dphifullcorr_lep -= errdphifullcorr_lep;
+    retval -= retval_error;
   }
 
   DEBUGclass("returning");
-  double retval=1.;
-
-  TString ff="";
-  if(!this->fSample->getTag("~myLeptonFF",ff)) std::cout<<"ERROR: Why cant I get ff name!!!\n";
-  if(ff=="FFPT")
-  {
-    if(this->x_run_number->EvalInstance() <= LIMIT_2018) retval = fffullpt_lep;
-    //if(this->x_run_number->EvalInstance() <= LIMIT_2016) retval = ff15pt_lep;
-    //else if(this->x_run_number->EvalInstance() > LIMIT_2016 && this->x_run_number->EvalInstance() <= LIMIT_2017) retval = ff17pt_lep;
-    //else if(this->x_run_number->EvalInstance() > LIMIT_2017 && this->x_run_number->EvalInstance() <= LIMIT_2018) retval = ff18pt_lep;
-  }
-  else if(ff=="LFF2DCombined")
-  {
-    if(this->x_run_number->EvalInstance() <= LIMIT_2018) retval = fffullptdphi_lep;
-  }
-  else if(ff=="LFF2DSeparated")
-  {
-    if(this->x_run_number->EvalInstance() <= LIMIT_2016) retval = ff15ptdphi_lep;
-    else if(this->x_run_number->EvalInstance() > LIMIT_2016 && this->x_run_number->EvalInstance() <= LIMIT_2017) retval = ff17ptdphi_lep;
-    else if(this->x_run_number->EvalInstance() > LIMIT_2017 && this->x_run_number->EvalInstance() <= LIMIT_2018) retval = ff18ptdphi_lep;
-  }
-//  else if(ff=="FFPTDPHI")
-//  {
-//    retval = ffpt_lep * dphicorr_lep;
-    //std::cout<<"returning ff= " << ffpt_lep << "   corr= " << dphicorr_lep << std::endl;
-//  }
-//  else if(ff=="FFETA")  retval = ff_lep;
-//  else if(ff=="FFETAPTDPHI")  retval =  ffpt_lep * (f_lep_0==2?ff_lep / ave_eta * dphicorr_lep:1);
-//  else if(ff=="FF2DPTDPHI") retval = f_lep_0==2? ffptdphi_lep : ffpt_lep;
-//  if (f_lep_0==2)
-//  {
-//  std::cout<<"dphi lepmet = " << dphi_lepmet << std::endl;
-//  std::cout<<"returning ff= " << retval << std::endl;
-//  std::cout<<"returning ff= " << (f_lep_0==2? ffptdphi_lep : ffpt_lep) << std::endl;
-//}
-
 
   return retval;
 }
@@ -768,884 +189,52 @@ isoReweight::isoReweight(const TString& expression) : LepHadObservable(expressio
   m_histoDir = 0;
   // temporary pointer to ff files:
   TFile* tempFile=0;
-
   std::cout << "INFO: isoReweight.cxx getting histograms from files. " << std::endl;
+
   ///////////////////////////////
-  //
   //  Lepton FF
-  //
   ///////////////////////////////
-
-  /*tempFile=TFile::Open("FakeFactors/LFRBvetoehadLeptonEtaELEFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRBvetoehadLeptonEtaELEFF.root " << std::endl;
-  else
-  {
-    h_ff_lfr_ehad_0tag = (TH1F*)tempFile->Get("BvetoFF_ehad_LeptonEtaELEFF");             h_ff_lfr_ehad_0tag->SetDirectory(m_histoDir);
-    h_ff_lfr_ehad_0tag_up=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonEtaELEFF_up");         h_ff_lfr_ehad_0tag_up->SetDirectory(m_histoDir);
-    h_ff_lfr_ehad_0tag_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonEtaELEFF_down");     h_ff_lfr_ehad_0tag_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRBtagehadLeptonEtaELEFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRBtagehadLeptonEtaELEFF.root " << std::endl;
-  else
-  {
-    h_ff_lfr_ehad_1tag = (TH1F*)tempFile->Get("BtagFF_ehad_LeptonEtaELEFF");            h_ff_lfr_ehad_1tag->SetDirectory(m_histoDir);
-    h_ff_lfr_ehad_1tag_up=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonEtaELEFF_up");        h_ff_lfr_ehad_1tag_up->SetDirectory(m_histoDir);
-    h_ff_lfr_ehad_1tag_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonEtaELEFF_down");    h_ff_lfr_ehad_1tag_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRBvetomuhadLeptonEtaMUONLOWFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRBvetomuhadLeptonEtaMUONLOWFF.root " << std::endl;
-  else
-  {
-    h_ff_lfr_muhad_0tag_lowpt = (TH1F*)tempFile->Get("BvetoFF_muhad_LeptonEtaMUONLOWFF");            h_ff_lfr_muhad_0tag_lowpt->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_0tag_lowpt_up=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonEtaMUONLOWFF_up");        h_ff_lfr_muhad_0tag_lowpt_up->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_0tag_lowpt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonEtaMUONLOWFF_down");    h_ff_lfr_muhad_0tag_lowpt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRBvetomuhadLeptonEtaMUONHIGHBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRBvetomuhadLeptonEtaMUONHIGHBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff_lfr_muhad_0tag_highpt = (TH1F*)tempFile->Get("BvetoFF_muhad_LeptonEtaMUONHIGHBVETOFF");            h_ff_lfr_muhad_0tag_highpt->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_0tag_highpt_up=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonEtaMUONHIGHBVETOFF_up");        h_ff_lfr_muhad_0tag_highpt_up->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_0tag_highpt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonEtaMUONHIGHBVETOFF_down");    h_ff_lfr_muhad_0tag_highpt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRBtagmuhadLeptonEtaMUONLOWFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRBtagmuhadLeptonEtaMUONLOWFF.root " << std::endl;
-  else
-  {
-    h_ff_lfr_muhad_1tag_lowpt = (TH1F*)tempFile->Get("BtagFF_muhad_LeptonEtaMUONLOWFF");            h_ff_lfr_muhad_1tag_lowpt->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_1tag_lowpt_up=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonEtaMUONLOWFF_up");        h_ff_lfr_muhad_1tag_lowpt_up->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_1tag_lowpt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonEtaMUONLOWFF_down");    h_ff_lfr_muhad_1tag_lowpt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRBtagmuhadLeptonEtaMUONHIGHBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRBtagmuhadLeptonEtaMUONHIGHBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff_lfr_muhad_1tag_highpt = (TH1F*)tempFile->Get("BtagFF_muhad_LeptonEtaMUONHIGHBTAGFF");            h_ff_lfr_muhad_1tag_highpt->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_1tag_highpt_up=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonEtaMUONHIGHBTAGFF_up");        h_ff_lfr_muhad_1tag_highpt_up->SetDirectory(m_histoDir);
-    h_ff_lfr_muhad_1tag_highpt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonEtaMUONHIGHBTAGFF_down");    h_ff_lfr_muhad_1tag_highpt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }*/
-
-
-  ///////////////////////////////
-  //
-  //  Lepton FF in lepton pt
-  //
-  ///////////////////////////////
-  //2015+2016
-  tempFile=TFile::Open("FakeFactors/LFR15BvetoehadLeptonPtELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetoehadLeptonPtELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF");              h_ff15_lfr_ehad_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_up");           h_ff15_lfr_ehad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_down");         h_ff15_lfr_ehad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BtagehadLeptonPtELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagehadLeptonPtELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF");             h_ff15_lfr_ehad_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_up");          h_ff15_lfr_ehad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_down");        h_ff15_lfr_ehad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BvetomuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetomuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_0tag_pt      =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF");            h_ff15_lfr_muhad_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_0tag_pt_up   =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_up");            h_ff15_lfr_muhad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_0tag_pt_down =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_down");          h_ff15_lfr_muhad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BtagmuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagmuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_1tag_pt      =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF");            h_ff15_lfr_muhad_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_1tag_pt_up   =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_up");         h_ff15_lfr_muhad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_1tag_pt_down =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_down");       h_ff15_lfr_muhad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-  // 2017
-  tempFile=TFile::Open("FakeFactors/LFR17BvetoehadLeptonPtELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetoehadLeptonPtELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF");              h_ff17_lfr_ehad_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_up");           h_ff17_lfr_ehad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_down");         h_ff17_lfr_ehad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BtagehadLeptonPtELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagehadLeptonPtELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF");             h_ff17_lfr_ehad_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_up");          h_ff17_lfr_ehad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_down");        h_ff17_lfr_ehad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BvetomuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetomuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_0tag_pt      =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF");            h_ff17_lfr_muhad_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_0tag_pt_up   =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_up");            h_ff17_lfr_muhad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_0tag_pt_down =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_down");          h_ff17_lfr_muhad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BtagmuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagmuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_1tag_pt      =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF");            h_ff17_lfr_muhad_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_1tag_pt_up   =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_up");         h_ff17_lfr_muhad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_1tag_pt_down =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_down");       h_ff17_lfr_muhad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  // 2018
-  tempFile=TFile::Open("FakeFactors/LFR18BvetoehadLeptonPtELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetoehadLeptonPtELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF");              h_ff18_lfr_ehad_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_up");           h_ff18_lfr_ehad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_down");         h_ff18_lfr_ehad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BtagehadLeptonPtELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagehadLeptonPtELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF");             h_ff18_lfr_ehad_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_up");          h_ff18_lfr_ehad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_down");        h_ff18_lfr_ehad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BvetomuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetomuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_0tag_pt      =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF");            h_ff18_lfr_muhad_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_0tag_pt_up   =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_up");            h_ff18_lfr_muhad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_0tag_pt_down =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_down");          h_ff18_lfr_muhad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BtagmuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagmuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_1tag_pt      =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF");            h_ff18_lfr_muhad_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_1tag_pt_up   =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_up");         h_ff18_lfr_muhad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_1tag_pt_down =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_down");       h_ff18_lfr_muhad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-  // all years(2015-2018)
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetoehadLeptonPtELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetoehadLeptonPtELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF");              h_fffull_lfr_ehad_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_up");           h_fffull_lfr_ehad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtELEBVETOFF_down");         h_fffull_lfr_ehad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagehadLeptonPtELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagehadLeptonPtELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF");             h_fffull_lfr_ehad_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_up");          h_fffull_lfr_ehad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtELEBTAGFF_down");        h_fffull_lfr_ehad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetomuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetomuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_0tag_pt      =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF");            h_fffull_lfr_muhad_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_0tag_pt_up   =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_up");            h_fffull_lfr_muhad_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_0tag_pt_down =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtMUONFF_down");          h_fffull_lfr_muhad_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagmuhadLeptonPtMUONFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagmuhadLeptonPtMUONFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_1tag_pt      =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF");            h_fffull_lfr_muhad_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_1tag_pt_up   =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_up");         h_fffull_lfr_muhad_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_1tag_pt_down =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtMUONFF_down");       h_fffull_lfr_muhad_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-  ///////////////////////////////
-  //
-  // Dhi Correction for Lepton FF in lepton pt
-  //
-  ///////////////////////////////
-/*  tempFile=TFile::Open("FakeFactors/LFRdphiBvetoehadLepMETDphiBvetoCorrectionELE.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRdphiBvetoehadLepMETDphiBvetoCorrectionELE.root " << std::endl;
-  else
-  {
-    h_dphicorr_lfr_ehad_0tag     =(TH1F*)tempFile->Get("dphicorr_Bveto_ehad_LepMETDphiBvetoCorrectionELE");              h_dphicorr_lfr_ehad_0tag     ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_ehad_0tag_up  =(TH1F*)tempFile->Get("dphicorr_Bveto_ehad_LepMETDphiBvetoCorrectionELE_up");           h_dphicorr_lfr_ehad_0tag_up  ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_ehad_0tag_down=(TH1F*)tempFile->Get("dphicorr_Bveto_ehad_LepMETDphiBvetoCorrectionELE_down");         h_dphicorr_lfr_ehad_0tag_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRdphiBvetomuhadLepMETDphiBvetoCorrectionMUON.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRdphiBvetomuhadLepMETDphiBvetoCorrectionMUON.root " << std::endl;
-  else
-  {
-    h_dphicorr_lfr_muhad_0tag     =(TH1F*)tempFile->Get("dphicorr_Bveto_muhad_LepMETDphiBvetoCorrectionMUON");             h_dphicorr_lfr_muhad_0tag      ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_muhad_0tag_up  =(TH1F*)tempFile->Get("dphicorr_Bveto_muhad_LepMETDphiBvetoCorrectionMUON_up");          h_dphicorr_lfr_muhad_0tag_up   ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_muhad_0tag_down=(TH1F*)tempFile->Get("dphicorr_Bveto_muhad_LepMETDphiBvetoCorrectionMUON_down");        h_dphicorr_lfr_muhad_0tag_down ->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRdphiBtagehadLepMETDphiBtagCorrectionELE.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRdphiBtagehadLepMETDphiBtagCorrectionELE.root " << std::endl;
-  else
-  {
-    h_dphicorr_lfr_ehad_1tag      =(TH1F*)tempFile->Get("dphicorr_Btag_ehad_LepMETDphiBtagCorrectionELE");               h_dphicorr_lfr_ehad_1tag      ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_ehad_1tag_up   =(TH1F*)tempFile->Get("dphicorr_Btag_ehad_LepMETDphiBtagCorrectionELE_up");            h_dphicorr_lfr_ehad_1tag_up   ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_ehad_1tag_down =(TH1F*)tempFile->Get("dphicorr_Btag_ehad_LepMETDphiBtagCorrectionELE_down");          h_dphicorr_lfr_ehad_1tag_down ->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRdphiBtagmuhadLepMETDphiBtagCorrectionMUON.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRdphiBtagmuhadLepMETDphiBtagCorrectionMUON.root " << std::endl;
-  else
-  {
-    h_dphicorr_lfr_muhad_1tag      =(TH1F*)tempFile->Get("dphicorr_Btag_muhad_LepMETDphiBtagCorrectionMUON");            h_dphicorr_lfr_muhad_1tag     ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_muhad_1tag_up   =(TH1F*)tempFile->Get("dphicorr_Btag_muhad_LepMETDphiBtagCorrectionMUON_up");         h_dphicorr_lfr_muhad_1tag_up  ->SetDirectory(m_histoDir);
-    h_dphicorr_lfr_muhad_1tag_down =(TH1F*)tempFile->Get("dphicorr_Btag_muhad_LepMETDphiBtagCorrectionMUON_down");       h_dphicorr_lfr_muhad_1tag_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  ave_ele_bveto_eta=0;
-  for(int bin=1; bin<=h_ff_lfr_ehad_0tag->GetNbinsX();++bin)
-    ave_ele_bveto_eta += h_ff_lfr_ehad_0tag->GetBinContent(bin);
-  ave_ele_bveto_eta /= h_ff_lfr_ehad_0tag->GetNbinsX();
-  ave_ele_btag_eta=0;
-  for(int bin=1; bin<=h_ff_lfr_ehad_1tag->GetNbinsX();++bin)
-    ave_ele_btag_eta += h_ff_lfr_ehad_1tag->GetBinContent(bin);
-  ave_ele_btag_eta /= h_ff_lfr_ehad_1tag->GetNbinsX();
-
-*/
-
-
-  ///////////////////////////////
-  //
-  //  2D ff pt * dphi parametrization for ehad and muhad (new)
-  //
-  ///////////////////////////////
-
-  //2015+2016 first, Bveto, ehad
-  tempFile=TFile::Open("FakeFactors/LFR15BvetoehadLeptonPtDphi1ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetoehadLeptonPtDphi1ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF");              h_ff15_lfr_ehad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_up");           h_ff15_lfr_ehad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_down");         h_ff15_lfr_ehad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BvetoehadLeptonPtDphi2ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetoehadLeptonPtDphi2ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF");              h_ff15_lfr_ehad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_up");           h_ff15_lfr_ehad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_down");         h_ff15_lfr_ehad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BvetoehadLeptonPtDphi3ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetoehadLeptonPtDphi3ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF");              h_ff15_lfr_ehad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_up");           h_ff15_lfr_ehad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_down");         h_ff15_lfr_ehad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BvetoehadLeptonPtDphi4ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetoehadLeptonPtDphi4ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF");              h_ff15_lfr_ehad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_up");           h_ff15_lfr_ehad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_down");         h_ff15_lfr_ehad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-   //2015+2016, Bveto, muhad
-  tempFile=TFile::Open("FakeFactors/LFR15BvetomuhadLeptonPtDphi1MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetomuhadLeptonPtDphi1MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF");              h_ff15_lfr_muhad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_up");           h_ff15_lfr_muhad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_down");         h_ff15_lfr_muhad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BvetomuhadLeptonPtDphi2MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetomuhadLeptonPtDphi2MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF");              h_ff15_lfr_muhad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_up");           h_ff15_lfr_muhad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_down");         h_ff15_lfr_muhad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BvetomuhadLeptonPtDphi3MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetomuhadLeptonPtDphi3MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF");              h_ff15_lfr_muhad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_up");           h_ff15_lfr_muhad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_down");         h_ff15_lfr_muhad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BvetomuhadLeptonPtDphi4MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BvetomuhadLeptonPtDphi4MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF");              h_ff15_lfr_muhad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_up");           h_ff15_lfr_muhad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_down");         h_ff15_lfr_muhad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  //2015+2016, Btag, ehad
-  tempFile=TFile::Open("FakeFactors/LFR15BtagehadLeptonPtDphi1ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagehadLeptonPtDphi1ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF");              h_ff15_lfr_ehad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_up");           h_ff15_lfr_ehad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_down");         h_ff15_lfr_ehad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BtagehadLeptonPtDphi2ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagehadLeptonPtDphi2ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF");              h_ff15_lfr_ehad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_up");           h_ff15_lfr_ehad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_down");         h_ff15_lfr_ehad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BtagehadLeptonPtDphi3ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagehadLeptonPtDphi3ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_ehad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF");              h_ff15_lfr_ehad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_up");           h_ff15_lfr_ehad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_ehad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_down");         h_ff15_lfr_ehad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-
-  //2015+2016, Btag, muhad
-  tempFile=TFile::Open("FakeFactors/LFR15BtagmuhadLeptonPtDphi1MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagmuhadLeptonPtDphi1MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF");              h_ff15_lfr_muhad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_up");           h_ff15_lfr_muhad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_down");         h_ff15_lfr_muhad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BtagmuhadLeptonPtDphi2MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagmuhadLeptonPtDphi2MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF");              h_ff15_lfr_muhad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_up");           h_ff15_lfr_muhad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_down");         h_ff15_lfr_muhad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR15BtagmuhadLeptonPtDphi3MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR15BtagmuhadLeptonPtDphi3MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff15_lfr_muhad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF");              h_ff15_lfr_muhad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_up");           h_ff15_lfr_muhad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff15_lfr_muhad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_down");         h_ff15_lfr_muhad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-
-
-  //now 2017! Bveto, ehad
-  tempFile=TFile::Open("FakeFactors/LFR17BvetoehadLeptonPtDphi1ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetoehadLeptonPtDphi1ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF");              h_ff17_lfr_ehad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_up");           h_ff17_lfr_ehad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_down");         h_ff17_lfr_ehad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BvetoehadLeptonPtDphi2ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetoehadLeptonPtDphi2ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF");              h_ff17_lfr_ehad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_up");           h_ff17_lfr_ehad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_down");         h_ff17_lfr_ehad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BvetoehadLeptonPtDphi3ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetoehadLeptonPtDphi3ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF");              h_ff17_lfr_ehad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_up");           h_ff17_lfr_ehad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_down");         h_ff17_lfr_ehad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BvetoehadLeptonPtDphi4ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetoehadLeptonPtDphi4ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF");              h_ff17_lfr_ehad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_up");           h_ff17_lfr_ehad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_down");         h_ff17_lfr_ehad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-   //2017, Bveto, muhad
-  tempFile=TFile::Open("FakeFactors/LFR17BvetomuhadLeptonPtDphi1MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetomuhadLeptonPtDphi1MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF");              h_ff17_lfr_muhad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_up");           h_ff17_lfr_muhad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_down");         h_ff17_lfr_muhad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BvetomuhadLeptonPtDphi2MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetomuhadLeptonPtDphi2MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF");              h_ff17_lfr_muhad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_up");           h_ff17_lfr_muhad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_down");         h_ff17_lfr_muhad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BvetomuhadLeptonPtDphi3MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetomuhadLeptonPtDphi3MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF");              h_ff17_lfr_muhad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_up");           h_ff17_lfr_muhad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_down");         h_ff17_lfr_muhad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BvetomuhadLeptonPtDphi4MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BvetomuhadLeptonPtDphi4MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF");              h_ff17_lfr_muhad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_up");           h_ff17_lfr_muhad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_down");         h_ff17_lfr_muhad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  //2017, Btag, ehad
-  tempFile=TFile::Open("FakeFactors/LFR17BtagehadLeptonPtDphi1ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagehadLeptonPtDphi1ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF");              h_ff17_lfr_ehad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_up");           h_ff17_lfr_ehad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_down");         h_ff17_lfr_ehad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BtagehadLeptonPtDphi2ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagehadLeptonPtDphi2ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF");              h_ff17_lfr_ehad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_up");           h_ff17_lfr_ehad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_down");         h_ff17_lfr_ehad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BtagehadLeptonPtDphi3ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagehadLeptonPtDphi3ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_ehad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF");              h_ff17_lfr_ehad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_up");           h_ff17_lfr_ehad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_ehad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_down");         h_ff17_lfr_ehad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-
-  //2017, Btag, muhad
-  tempFile=TFile::Open("FakeFactors/LFR17BtagmuhadLeptonPtDphi1MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagmuhadLeptonPtDphi1MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF");              h_ff17_lfr_muhad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_up");           h_ff17_lfr_muhad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_down");         h_ff17_lfr_muhad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BtagmuhadLeptonPtDphi2MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagmuhadLeptonPtDphi2MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF");              h_ff17_lfr_muhad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_up");           h_ff17_lfr_muhad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_down");         h_ff17_lfr_muhad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR17BtagmuhadLeptonPtDphi3MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR17BtagmuhadLeptonPtDphi3MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff17_lfr_muhad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF");              h_ff17_lfr_muhad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_up");           h_ff17_lfr_muhad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff17_lfr_muhad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_down");         h_ff17_lfr_muhad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  //now 2018! Bveto, ehad
-  tempFile=TFile::Open("FakeFactors/LFR18BvetoehadLeptonPtDphi1ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetoehadLeptonPtDphi1ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF");              h_ff18_lfr_ehad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_up");           h_ff18_lfr_ehad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_down");         h_ff18_lfr_ehad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BvetoehadLeptonPtDphi2ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetoehadLeptonPtDphi2ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF");              h_ff18_lfr_ehad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_up");           h_ff18_lfr_ehad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_down");         h_ff18_lfr_ehad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BvetoehadLeptonPtDphi3ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetoehadLeptonPtDphi3ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF");              h_ff18_lfr_ehad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_up");           h_ff18_lfr_ehad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_down");         h_ff18_lfr_ehad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BvetoehadLeptonPtDphi4ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetoehadLeptonPtDphi4ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF");              h_ff18_lfr_ehad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_up");           h_ff18_lfr_ehad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_down");         h_ff18_lfr_ehad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-   //2018, Bveto, muhad
-  tempFile=TFile::Open("FakeFactors/LFR18BvetomuhadLeptonPtDphi1MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetomuhadLeptonPtDphi1MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF");              h_ff18_lfr_muhad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_up");           h_ff18_lfr_muhad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_down");         h_ff18_lfr_muhad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BvetomuhadLeptonPtDphi2MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetomuhadLeptonPtDphi2MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF");              h_ff18_lfr_muhad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_up");           h_ff18_lfr_muhad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_down");         h_ff18_lfr_muhad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BvetomuhadLeptonPtDphi3MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetomuhadLeptonPtDphi3MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF");              h_ff18_lfr_muhad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_up");           h_ff18_lfr_muhad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_down");         h_ff18_lfr_muhad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BvetomuhadLeptonPtDphi4MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BvetomuhadLeptonPtDphi4MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF");              h_ff18_lfr_muhad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_up");           h_ff18_lfr_muhad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_down");         h_ff18_lfr_muhad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  //2018, Btag, ehad
-  tempFile=TFile::Open("FakeFactors/LFR18BtagehadLeptonPtDphi1ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagehadLeptonPtDphi1ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF");              h_ff18_lfr_ehad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_up");           h_ff18_lfr_ehad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_down");         h_ff18_lfr_ehad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BtagehadLeptonPtDphi2ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagehadLeptonPtDphi2ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF");              h_ff18_lfr_ehad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_up");           h_ff18_lfr_ehad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_down");         h_ff18_lfr_ehad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BtagehadLeptonPtDphi3ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagehadLeptonPtDphi3ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_ehad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF");              h_ff18_lfr_ehad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_up");           h_ff18_lfr_ehad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_ehad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_down");         h_ff18_lfr_ehad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-
-  //2018, Btag, muhad
-  tempFile=TFile::Open("FakeFactors/LFR18BtagmuhadLeptonPtDphi1MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagmuhadLeptonPtDphi1MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF");              h_ff18_lfr_muhad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_up");           h_ff18_lfr_muhad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_down");         h_ff18_lfr_muhad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BtagmuhadLeptonPtDphi2MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagmuhadLeptonPtDphi2MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF");              h_ff18_lfr_muhad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_up");           h_ff18_lfr_muhad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_down");         h_ff18_lfr_muhad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFR18BtagmuhadLeptonPtDphi3MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFR18BtagmuhadLeptonPtDphi3MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_ff18_lfr_muhad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF");              h_ff18_lfr_muhad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_up");           h_ff18_lfr_muhad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_ff18_lfr_muhad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_down");         h_ff18_lfr_muhad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  //now all years! Bveto, ehad
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetoehadLeptonPtDphi1ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetoehadLeptonPtDphi1ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF");              h_fffull_lfr_ehad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_up");           h_fffull_lfr_ehad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi1ELEBVETOFF_down");         h_fffull_lfr_ehad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetoehadLeptonPtDphi2ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetoehadLeptonPtDphi2ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF");              h_fffull_lfr_ehad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_up");           h_fffull_lfr_ehad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi2ELEBVETOFF_down");         h_fffull_lfr_ehad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetoehadLeptonPtDphi3ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetoehadLeptonPtDphi3ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF");              h_fffull_lfr_ehad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_up");           h_fffull_lfr_ehad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi3ELEBVETOFF_down");         h_fffull_lfr_ehad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetoehadLeptonPtDphi4ELEBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetoehadLeptonPtDphi4ELEBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF");              h_fffull_lfr_ehad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_up");           h_fffull_lfr_ehad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_ehad_LeptonPtDphi4ELEBVETOFF_down");         h_fffull_lfr_ehad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-   //all years, Bveto, muhad
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetomuhadLeptonPtDphi1MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetomuhadLeptonPtDphi1MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_dphi1_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF");              h_fffull_lfr_muhad_dphi1_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi1_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_up");           h_fffull_lfr_muhad_dphi1_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi1_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi1MUONBVETOFF_down");         h_fffull_lfr_muhad_dphi1_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetomuhadLeptonPtDphi2MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetomuhadLeptonPtDphi2MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_dphi2_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF");              h_fffull_lfr_muhad_dphi2_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi2_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_up");           h_fffull_lfr_muhad_dphi2_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi2_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi2MUONBVETOFF_down");         h_fffull_lfr_muhad_dphi2_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetomuhadLeptonPtDphi3MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetomuhadLeptonPtDphi3MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_dphi3_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF");              h_fffull_lfr_muhad_dphi3_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi3_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_up");           h_fffull_lfr_muhad_dphi3_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi3_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi3MUONBVETOFF_down");         h_fffull_lfr_muhad_dphi3_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBvetomuhadLeptonPtDphi4MUONBVETOFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBvetomuhadLeptonPtDphi4MUONBVETOFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_dphi4_0tag_pt     =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF");              h_fffull_lfr_muhad_dphi4_0tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi4_0tag_pt_up  =(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_up");           h_fffull_lfr_muhad_dphi4_0tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi4_0tag_pt_down=(TH1F*)tempFile->Get("BvetoFF_muhad_LeptonPtDphi4MUONBVETOFF_down");         h_fffull_lfr_muhad_dphi4_0tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  //all years, Btag, ehad
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagehadLeptonPtDphi1ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagehadLeptonPtDphi1ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF");              h_fffull_lfr_ehad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_up");           h_fffull_lfr_ehad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi1ELEBTAGFF_down");         h_fffull_lfr_ehad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagehadLeptonPtDphi2ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagehadLeptonPtDphi2ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF");              h_fffull_lfr_ehad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_up");           h_fffull_lfr_ehad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi2ELEBTAGFF_down");         h_fffull_lfr_ehad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagehadLeptonPtDphi3ELEBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagehadLeptonPtDphi3ELEBTAGFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_ehad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF");              h_fffull_lfr_ehad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_up");           h_fffull_lfr_ehad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_ehad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_ehad_LeptonPtDphi3ELEBTAGFF_down");         h_fffull_lfr_ehad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-
-  //all years, Btag, muhad
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagmuhadLeptonPtDphi1MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagmuhadLeptonPtDphi1MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_dphi1_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF");              h_fffull_lfr_muhad_dphi1_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi1_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_up");           h_fffull_lfr_muhad_dphi1_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi1_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi1MUONBTAGFF_down");         h_fffull_lfr_muhad_dphi1_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagmuhadLeptonPtDphi2MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagmuhadLeptonPtDphi2MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_dphi2_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF");              h_fffull_lfr_muhad_dphi2_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi2_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_up");           h_fffull_lfr_muhad_dphi2_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi2_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi2MUONBTAGFF_down");         h_fffull_lfr_muhad_dphi2_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
-  }
-
-  tempFile=TFile::Open("FakeFactors/LFRAllBtagmuhadLeptonPtDphi3MUONBTAGFF.root");
-  if(!tempFile) std::cout << "ERROR cant open FF file LFRAllBtagmuhadLeptonPtDphi3MUONBTAGFF.root " << std::endl;
-  else
-  {
-    h_fffull_lfr_muhad_dphi3_1tag_pt     =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF");              h_fffull_lfr_muhad_dphi3_1tag_pt->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi3_1tag_pt_up  =(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_up");           h_fffull_lfr_muhad_dphi3_1tag_pt_up->SetDirectory(m_histoDir);
-    h_fffull_lfr_muhad_dphi3_1tag_pt_down=(TH1F*)tempFile->Get("BtagFF_muhad_LeptonPtDphi3MUONBTAGFF_down");         h_fffull_lfr_muhad_dphi3_1tag_pt_down->SetDirectory(m_histoDir);
-    tempFile->Close(); delete tempFile; tempFile=0;
+  std::vector<TString> periods = {"LFR1516", "LFR17", "LFR18", "LFRAll"};
+  std::vector<TString> channels = {"ehad", "muhad"};
+  
+  // list of available FFs
+  std::vector<TString> FF_list;
+  FF_list.clear();
+  FF_list.reserve(256);
+  for (auto period : periods) {
+    for (auto channel : channels) {
+      // 1D LeptonPt
+      FF_list.emplace_back(period + channel + "BvetoLeptonPtFF");
+      FF_list.emplace_back(period + channel + "BtagLeptonPtFF");
+      // 2D LeptonPt Dphi(lep, MET)
+      FF_list.emplace_back(period + channel + "BvetoLeptonPtDphi1FF");
+      FF_list.emplace_back(period + channel + "BvetoLeptonPtDphi2FF");
+      FF_list.emplace_back(period + channel + "BvetoLeptonPtDphi3FF");
+      FF_list.emplace_back(period + channel + "BvetoLeptonPtDphi4FF");
+      FF_list.emplace_back(period + channel + "BtagLeptonPtDphi1FF");
+      FF_list.emplace_back(period + channel + "BtagLeptonPtDphi2FF");
+      FF_list.emplace_back(period + channel + "BtagLeptonPtDphi3FF");
+    }
+  }
+ 
+  TH1F* tempHist = 0;
+  // obtain FF histograms
+  for (auto fn : FF_list) {
+    tempFile = TFile::Open("FakeFactors/"+fn+".root");
+    if (!tempFile) {
+      std::cout << "WARNING: can not find LFF " << fn << std::endl;
+      continue;
+    }
+    else {
+      tempHist = (TH1F*)tempFile->Get(fn); tempHist->SetDirectory(m_histoDir);
+      m_FF_hist[fn] = tempHist;
+      tempHist = (TH1F*)tempFile->Get(fn+"_up"); tempHist->SetDirectory(m_histoDir);
+      m_FF_hist[fn+"_up"] = tempHist;
+      tempHist = (TH1F*)tempFile->Get(fn+"_down"); tempHist->SetDirectory(m_histoDir);
+      m_FF_hist[fn+"_down"] = tempHist;
+      std::cout << "INFO: find LFF " << fn << std::endl;
+    }
+    tempFile->Close(); delete tempFile; tempFile = 0;
   }
 }
 
@@ -1712,7 +301,6 @@ bool isoReweight::initializeSelf(){
   this->lep_0_eta      = new TTreeFormula( "lep_0_eta",     "lep_0_p4.Eta()",      this->fTree);
   this->lep_0_pt      = new TTreeFormula( "lep_0_pt",     "lep_0_p4.Pt()",      this->fTree);
   this->lephad_met_lep0_cos_dphi      = new TTreeFormula( "lephad_met_lep0_cos_dphi",     "lephad_met_lep0_cos_dphi",      this->fTree);
-
   this->n_bjets      = new TTreeFormula( "n_bjets",      "n_bjets",      this->fTree);
 
   return true;

@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/extrapolationReweight.h"
+#include "BSMtautauCAF/TopReweight.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(extrapolationReweight)
+ClassImp(TopReweight)
 
 //______________________________________________________________________________________________
 
-extrapolationReweight::extrapolationReweight(){
+TopReweight::TopReweight(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,7 +27,7 @@ extrapolationReweight::extrapolationReweight(){
 
 //______________________________________________________________________________________________
 
-extrapolationReweight::~extrapolationReweight(){
+TopReweight::~TopReweight(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -35,7 +35,7 @@ extrapolationReweight::~extrapolationReweight(){
 
 //______________________________________________________________________________________________
 
-TObjArray* extrapolationReweight::getBranchNames() const {
+TObjArray* TopReweight::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -65,7 +65,7 @@ TObjArray* extrapolationReweight::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double extrapolationReweight::getValue() const {
+double TopReweight::getValue() const {
   // in the rest of this function, you should retrieve the data and calculate your return value
   // here is the place where most of your custom code should go
   // a couple of comments should guide you through the process
@@ -100,7 +100,7 @@ double extrapolationReweight::getValue() const {
   // period + channel + category + variable + SF
   // period (VR1516, VR17, VR18, VRAll)
   // channel (ehad, muhad, lephad)
-  // category (Bveto, Btag)x(1p,3p)
+  // category (Bveto, Btag)
   // variable (LeptonPt, LeptonPtDphi?)
   TString SF = "";   // SF name
   TH1F * h_nominal = 0;
@@ -108,27 +108,26 @@ double extrapolationReweight::getValue() const {
   TH1F * h_down = 0;
 
   // peiriod
-  SF = "VRAll";
+  SF = "TCRAll";
 
   // channel
-  if ( 1 == f_lep_0) SF += "muhad";
-  else if (2 == f_lep_0) SF += "ehad";
-  else std::cout << "ERROR: unknown lepton flavor" << std::endl;
+  SF += "lephad";
 
-  // category (only consider bveto category)
-  if ( 0 == f_n_bjets) SF += "Bveto";
-  else if (1 <= f_n_bjets) return 1.0;
-  else std::cout << "ERROR: strange #bjets" << std::endl;
+  // category (only consider btag category)
+  if ( 0 == f_n_bjets) return 1.0;
+  else if (1 <= f_n_bjets) SF += "Btag";
+  else {
+    std::cout << "ERROR: strange #bjets" << std::endl;
+    return 1.0;
+  }
 
-  if ( 1 == f_tau_0_n_charged_tracks) SF += "1p";
-  else if ( 3 == f_tau_0_n_charged_tracks) SF += "3p";
+  if (1 == f_tau_0_n_charged_tracks) SF += "1p";
+  else if (3 == f_tau_0_n_charged_tracks) SF += "3p";
   else return 1.0;
 
   // parameterization
-  // dphi 1,2,3 in bveto/btag category
-  if (f_lephad_met_lep1_cos_dphi>=0.0&&f_lephad_met_lep1_cos_dphi<1) SF += "TauPtDphi1SF";
-  else if (f_lephad_met_lep1_cos_dphi>=1&&f_lephad_met_lep1_cos_dphi<2) SF += "TauPtDphi2SF";
-  else if (f_lephad_met_lep1_cos_dphi>=2) SF += "TauPtDphi3SF";
+  // tauPt
+  SF += "TauPtSF";
 
   h_nominal = m_SF_hist.at(SF);
   h_up = m_SF_hist.at(SF+"_up");
@@ -142,21 +141,13 @@ double extrapolationReweight::getValue() const {
   ////////////////
   // SYSTEMATICS
   ////////////////
-  if    ( (fSysName.Contains("FakeFactor_ExtraSysBtag_1up")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto_1up")   && f_n_bjets==0 ) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    retval = 1.0+fabs(retval-1.0);
+  if    ( (fSysName.Contains("TopReweight_LepHadBtag1p_1up")    && f_n_bjets>0) ||
+          (fSysName.Contains("TopReweight_LepHadBtag3p_1up")   && f_n_bjets==0 )) {
+    retval = retval+retval_error;
   }
-  else if((fSysName.Contains("FakeFactor_ExtraSysBtag_1down")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto_1down")   && f_n_bjets==0 ) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    retval = 1.0-fabs(retval-1.0);
+  else if((fSysName.Contains("TopReweight_LepHadBtag1p_1down")    && f_n_bjets>0) ||
+          (fSysName.Contains("TopReweight_LepHadBtag3p_1down")   && f_n_bjets==0 )) {
+    retval = retval-retval_error;
   }
 
   DEBUGclass("returning");
@@ -165,7 +156,7 @@ double extrapolationReweight::getValue() const {
 }
 //______________________________________________________________________________________________
 
-extrapolationReweight::extrapolationReweight(const TString& expression) : LepHadObservable(expression)
+TopReweight::TopReweight(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -183,27 +174,23 @@ extrapolationReweight::extrapolationReweight(const TString& expression) : LepHad
   // temporary pointer to ff files:
   TFile* tempFile=0;
 
-  std::cout << "INFO: extrapolationReweight.cxx getting histograms from files. " << std::endl;
+  std::cout << "INFO: TopReweight.cxx getting histograms from files. " << std::endl;
 
   ///////////////////////////////
-  // extra sys
+  // QDD scale factor
   ///////////////////////////////
-  std::vector<TString> periods = {"VRAll"};
-  std::vector<TString> channels = {"ehad", "muhad"};
+  std::vector<TString> periods = {"TCRAll"};
+  std::vector<TString> channels = {"lephad"};
 
   // list of available SFs
   std::vector<TString> SF_list;
   SF_list.clear();
-  SF_list.reserve(256);
+  SF_list.reserve(16);
   for (auto period : periods) {
     for (auto channel : channels) {
-      // 2D TauPt Dphi(lep, MET)
-      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi1SF");
-      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi2SF");
-      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi3SF");
-      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi1SF");
-      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi2SF");
-      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi3SF");
+      // 1D TauPt
+      SF_list.emplace_back(period + channel + "Btag1pTauPtSF");
+      SF_list.emplace_back(period + channel + "Btag3pTauPtSF");
     }
   }
  
@@ -229,40 +216,40 @@ extrapolationReweight::extrapolationReweight(const TString& expression) : LepHad
 }
 //______________________________________________________________________________________________
 
-const TString& extrapolationReweight::getExpression() const {
+const TString& TopReweight::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool extrapolationReweight::hasExpression() const {
+bool TopReweight::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void extrapolationReweight::setExpression(const TString& expr){
+void TopReweight::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool extrapolationReweight::parseExpression(const TString& expr){
+bool TopReweight::parseExpression(const TString& expr){
   // parse the expression
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void extrapolationReweight::clearParsedExpression(){
+void TopReweight::clearParsedExpression(){
   // clear the current expression
 }
 
 //______________________________________________________________________________________________
 
-TString extrapolationReweight::getActiveExpression() const {
+TString TopReweight::getActiveExpression() const {
   // retrieve the expression associated with this incarnation
 
   return this->getExpression();
@@ -270,7 +257,7 @@ TString extrapolationReweight::getActiveExpression() const {
 
 //______________________________________________________________________________________________
 
-bool extrapolationReweight::initializeSelf(){
+bool TopReweight::initializeSelf(){
   // initialize self - compile container name, construct accessor
   if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
     return false;
@@ -299,7 +286,7 @@ bool extrapolationReweight::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool extrapolationReweight::finalizeSelf(){
+bool TopReweight::finalizeSelf(){
   // finalize self - delete accessor
   this->clearParsedExpression();
 
