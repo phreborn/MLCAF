@@ -1,5 +1,4 @@
 #!/bin/bash
+NCORES=10
 
-NCORES=1
-#python configSignalControlRegion/syst/submit_systematics.py --systype treevariation --stage prepare --ncores ${NCORES}
-python configSignalControlRegion/syst/submit_systematics.py --systype treevariation --stage initialize --ncores ${NCORES}
+python configSignalControlRegion/syst/submit_systematics.py --systype treevar --stage initialize --ncores ${NCORES}
