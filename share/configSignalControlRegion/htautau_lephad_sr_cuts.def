@@ -17,11 +17,11 @@ $include("configCommon/htautau_lephad_common_cuts.def");
     +CutTruth{
         <.cutExpression = "{ ($(isData)||$(isSig)||$(isAntiISO)||($(isAntiID)&&$(isWjets))) ? 1 :
                             ( ($(isInc)&&([TruthSelector]==30 || [TruthSelector]==20 || [TruthSelector]==5)) ) }",
-         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvariation)] }", .title="Truth">
+         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvar)] }", .title="Truth">
         # || ($(isTT)&&([TruthSelector]==30)) || ($(isTMu)&&([TruthSelector]==20)) || ($(isTEl)&&([TruthSelector]==5))
         +CutAll{
             <.cutExpression = " [lep_0_id_medium==1 && lep_0_p4.Pt()>30 && tau_0_p4.Pt()>25 && fabs(tau_0_p4.Eta())<2.3 && lephad_dphi>2.4]",
-             .weightExpression = "$(isTop)? [bsmlephad_topsys_$(ttbarweight)]:1.", .title="All">
+             .weightExpression = "$(isTop)? [bsmlephad_topsys_$(topvar)]:1.", .title="All">
             +CutISO{
                 <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && ( (lep_0_p4.Pt()<50. && lep_0_iso_FCTightTrackOnly==0) || (lep_0_p4.Pt()>=50. && lep_0_iso_FCTight==0) ))) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && ( (lep_0_p4.Pt()<50. && lep_0_iso_FCTightTrackOnly==1) || (lep_0_p4.Pt()>=50. && lep_0_iso_FCTight==1) )))",
                 .weightExpression = "$(isAntiISO) ? [isoreweight_$(isovar)]*[QCDReweight_$(isovar)] : 1", .title="ISO">

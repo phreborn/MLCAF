@@ -43,11 +43,11 @@ l_isovars=[
 ['isovar',   'FakeFactor_LepMuBtag_1down'],
 ]
 
-l_ttbarweights=[
-['ttbarweight', 'TTBAR_Radiation_1up'],
-['ttbarweight', 'TTBAR_Radiation_1down'],
-['ttbarweight', 'TTBAR_ShowerUE_1up'],
-['ttbarweight', 'TTBAR_ShowerUE_1down'],
+l_topvars=[
+['topvar', 'TTBAR_Radiation_1up'],
+['topvar', 'TTBAR_Radiation_1down'],
+['topvar', 'TTBAR_ShowerUE_1up'],
+['topvar', 'TTBAR_ShowerUE_1down'],
 ]
 
 #70
@@ -126,76 +126,76 @@ l_weightvars=[
 ['weightvar', 'pu_prw_low'],
 ]
 # 68
-l_treevariations=[
+l_treevars=[
 ## below the systematic must be actual tree name in ntuples
-['treevariation', 'MUON_ID_1down'],
-['treevariation', 'MUON_ID_1up'],
-['treevariation', 'MUON_MS_1down'],
-['treevariation', 'MUON_MS_1up'],
-['treevariation', 'MUON_SAGITTA_RESBIAS_1down'],
-['treevariation', 'MUON_SAGITTA_RESBIAS_1up'],
-['treevariation', 'MUON_SAGITTA_RHO_1down'],
-['treevariation', 'MUON_SAGITTA_RHO_1up'],
-['treevariation', 'MUON_SCALE_1down'],
-['treevariation', 'MUON_SCALE_1up'],
-['treevariation', 'EG_RESOLUTION_ALL_1down'],
-['treevariation', 'EG_RESOLUTION_ALL_1up'],
-['treevariation', 'EG_SCALE_AF2_1down'],
-['treevariation', 'EG_SCALE_AF2_1up'],
-['treevariation', 'EG_SCALE_ALL_1down'],
-['treevariation', 'EG_SCALE_ALL_1up'],
-['treevariation', 'EG_SCALE_ALLCORR_1down'],
-['treevariation', 'EG_SCALE_ALLCORR_1up'],
-['treevariation', 'EG_SCALE_E4SCINTILLATOR_1down'],
-['treevariation', 'EG_SCALE_E4SCINTILLATOR_1up'],
-['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down'],
-['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down'],
-['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
-['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down'],
-['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
-['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down'],
-['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
-['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down'],
-['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_highE_1up'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_highE_1down'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_negEta_1up'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_negEta_1down'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_posEta_1up'],
-['treevariation', 'JET_EtaIntercalibration_NonClosure_posEta_1down'],
-['treevariation', 'JET_Flavor_Response_1up'],
-['treevariation', 'JET_Flavor_Response_1down'],
-['treevariation', 'JET_GroupedNP_1_1up'],
-['treevariation', 'JET_GroupedNP_1_1down'],
-['treevariation', 'JET_GroupedNP_2_1up'],
-['treevariation', 'JET_GroupedNP_2_1down'],
-['treevariation', 'JET_GroupedNP_3_1up'],
-['treevariation', 'JET_GroupedNP_3_1down'],
-['treevariation', 'JET_JER_DataVsMC_1up'],
-['treevariation', 'JET_JER_DataVsMC_1down'],
-['treevariation', 'JET_JER_EffectiveNP_1_1up'],
-['treevariation', 'JET_JER_EffectiveNP_1_1down'],
-['treevariation', 'JET_JER_EffectiveNP_2_1up'],
-['treevariation', 'JET_JER_EffectiveNP_2_1down'],
-['treevariation', 'JET_JER_EffectiveNP_3_1up'],
-['treevariation', 'JET_JER_EffectiveNP_3_1down'],
-['treevariation', 'JET_JER_EffectiveNP_4_1up'],
-['treevariation', 'JET_JER_EffectiveNP_4_1down'],
-['treevariation', 'JET_JER_EffectiveNP_5_1up'],
-['treevariation', 'JET_JER_EffectiveNP_5_1down'],
-['treevariation', 'JET_JER_EffectiveNP_6_1up'],
-['treevariation', 'JET_JER_EffectiveNP_6_1down'],
-['treevariation', 'JET_JER_EffectiveNP_7restTerm_1up'],
-['treevariation', 'JET_JER_EffectiveNP_7restTerm_1down'],
-['treevariation', 'JET_TILECORR_Uncertainty_1down'],
-['treevariation', 'JET_TILECORR_Uncertainty_1up'],
-['treevariation', 'MET_SoftTrk_ResoPara'],
-['treevariation', 'MET_SoftTrk_ResoPerp'],
-['treevariation', 'MET_SoftTrk_ScaleDown'],
-['treevariation', 'MET_SoftTrk_ScaleUp'],
+['treevar', 'MUON_ID_1down'],
+['treevar', 'MUON_ID_1up'],
+['treevar', 'MUON_MS_1down'],
+['treevar', 'MUON_MS_1up'],
+['treevar', 'MUON_SAGITTA_RESBIAS_1down'],
+['treevar', 'MUON_SAGITTA_RESBIAS_1up'],
+['treevar', 'MUON_SAGITTA_RHO_1down'],
+['treevar', 'MUON_SAGITTA_RHO_1up'],
+['treevar', 'MUON_SCALE_1down'],
+['treevar', 'MUON_SCALE_1up'],
+['treevar', 'EG_RESOLUTION_ALL_1down'],
+['treevar', 'EG_RESOLUTION_ALL_1up'],
+['treevar', 'EG_SCALE_AF2_1down'],
+['treevar', 'EG_SCALE_AF2_1up'],
+['treevar', 'EG_SCALE_ALL_1down'],
+['treevar', 'EG_SCALE_ALL_1up'],
+['treevar', 'EG_SCALE_ALLCORR_1down'],
+['treevar', 'EG_SCALE_ALLCORR_1up'],
+['treevar', 'EG_SCALE_E4SCINTILLATOR_1down'],
+['treevar', 'EG_SCALE_E4SCINTILLATOR_1up'],
+['treevar', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down'],
+['treevar', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
+['treevar', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down'],
+['treevar', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
+['treevar', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down'],
+['treevar', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
+['treevar', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down'],
+['treevar', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
+['treevar', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down'],
+['treevar', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
+['treevar', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down'],
+['treevar', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
+['treevar', 'JET_EtaIntercalibration_NonClosure_highE_1up'],
+['treevar', 'JET_EtaIntercalibration_NonClosure_highE_1down'],
+['treevar', 'JET_EtaIntercalibration_NonClosure_negEta_1up'],
+['treevar', 'JET_EtaIntercalibration_NonClosure_negEta_1down'],
+['treevar', 'JET_EtaIntercalibration_NonClosure_posEta_1up'],
+['treevar', 'JET_EtaIntercalibration_NonClosure_posEta_1down'],
+['treevar', 'JET_Flavor_Response_1up'],
+['treevar', 'JET_Flavor_Response_1down'],
+['treevar', 'JET_GroupedNP_1_1up'],
+['treevar', 'JET_GroupedNP_1_1down'],
+['treevar', 'JET_GroupedNP_2_1up'],
+['treevar', 'JET_GroupedNP_2_1down'],
+['treevar', 'JET_GroupedNP_3_1up'],
+['treevar', 'JET_GroupedNP_3_1down'],
+['treevar', 'JET_JER_DataVsMC_1up'],
+['treevar', 'JET_JER_DataVsMC_1down'],
+['treevar', 'JET_JER_EffectiveNP_1_1up'],
+['treevar', 'JET_JER_EffectiveNP_1_1down'],
+['treevar', 'JET_JER_EffectiveNP_2_1up'],
+['treevar', 'JET_JER_EffectiveNP_2_1down'],
+['treevar', 'JET_JER_EffectiveNP_3_1up'],
+['treevar', 'JET_JER_EffectiveNP_3_1down'],
+['treevar', 'JET_JER_EffectiveNP_4_1up'],
+['treevar', 'JET_JER_EffectiveNP_4_1down'],
+['treevar', 'JET_JER_EffectiveNP_5_1up'],
+['treevar', 'JET_JER_EffectiveNP_5_1down'],
+['treevar', 'JET_JER_EffectiveNP_6_1up'],
+['treevar', 'JET_JER_EffectiveNP_6_1down'],
+['treevar', 'JET_JER_EffectiveNP_7restTerm_1up'],
+['treevar', 'JET_JER_EffectiveNP_7restTerm_1down'],
+['treevar', 'JET_TILECORR_Uncertainty_1down'],
+['treevar', 'JET_TILECORR_Uncertainty_1up'],
+['treevar', 'MET_SoftTrk_ResoPara'],
+['treevar', 'MET_SoftTrk_ResoPerp'],
+['treevar', 'MET_SoftTrk_ScaleDown'],
+['treevar', 'MET_SoftTrk_ScaleUp'],
 ]
 
 
@@ -218,7 +218,7 @@ def create_cmd_log(option, sys, stage):
   elif stage == 'analyze':
     # different option for different sys
     extra_option = ''
-    if option == 'treevariation':
+    if option == 'treevar':
       extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(sys)
     elif option == "weightvar":
         extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s} aliases.weightvariation={:s} weightvariation={:s}".format(option,sys,option,sys,sys,sys)
@@ -245,17 +245,17 @@ def create_cmd_log(option, sys, stage):
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_ID_mc_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
       jobs_file = "jobsSYS-isovar.txt"
-    elif option=='weightvar' or option=='treevariation':
+    elif option=='weightvar' or option=='treevar':
       l_files.append('unmerged_*_data_X_c16?*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       jobs_file = "jobsSYS-weighttreevar.txt"
-    elif option=='ttbarweight':
+    elif option=='topvar':
       l_files.append('unmerged_*_data_X_c16?*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
-      jobs_file = "jobsSYS-ttbarweight.txt"
+      jobs_file = "jobsSYS-topvar.txt"
     # make output folder, the same as the submitAnalysis.py would create;
     print('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
     os.system('mkdir batchOutput/unmerged_SRsys_{:s}'.format(sys))
@@ -301,12 +301,12 @@ if __name__ == '__main__':
     l_systematics.extend(l_fakevars)
   if args.systype == "isovar":
     l_systematics.extend(l_isovars)
-  if args.systype == "ttbarweight":
-    l_systematics.extend(l_ttbarweights)
+  if args.systype == "topvar":
+    l_systematics.extend(l_topvars)
   if args.systype == "weightvar":
     l_systematics.extend(l_weightvars)
-  if args.systype == "treevariation":
-    l_systematics.extend(l_treevariations)
+  if args.systype == "treevar":
+    l_systematics.extend(l_treevars)
 
   # back out if its empty
   if not len(l_systematics):
