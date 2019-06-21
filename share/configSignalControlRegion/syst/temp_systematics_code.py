@@ -9,8 +9,8 @@ parser.add_argument('--channel', default='lephad',
                     help='channel to run over (ehad, muhad, lephad)')
 parser.add_argument('--campaign', default='c16a',
                     help='campaign to run over (c16a, c16d, c16e)')
-parser.add_argument('--isbtag', action='store_true',
-                    help='apply btag corrections or not')
+#parser.add_argument('--isbtag', action='store_true',
+#                    help='apply btag corrections or not')
 parser.add_argument('--systype', default='none',
                     help='select which type of systematic to process')
 parser.add_argument('--nosys', action='store_true',
@@ -21,13 +21,13 @@ pair = ROOT.std.pair('TString','TString')
 channel = args.channel
 campaign = args.campaign
 b_doSys = not args.nosys
-b_isbtag = args.isbtag
+#b_isbtag = args.isbtag
 #### NEW!! we don't want to use mc in anti-iso region in btag category,
 #### so we neeed to run this script two times - one for bveto and one for btag and give a bit different
 #### sf paths
 
-if b_isbtag:
-  l_cuts=[
+#if b_isbtag:
+l_cuts=[
     'CutBtag1p',
     'CutBtag3p',
     'CutVRBtag1p',
@@ -36,9 +36,9 @@ if b_isbtag:
     'CutTCRBtag3p',
     'CutWCRBtag1p',
     'CutWCRBtag3p',
-    ]
-else:
-  l_cuts=[
+#    ]
+#else:
+#  l_cuts=[
     'CutBveto1p',
     'CutBveto3p',
     'CutVRBveto1p',
@@ -54,9 +54,10 @@ else:
 #    'CutBveto3pBDT1',
 #    'CutBveto3pBDT2',
 #    'CutBveto3pBDT3',
-    ]
+]
 
-print(channel, campaign, b_isbtag, args.systype)
+#print(channel, campaign, b_isbtag, args.systype)
+print(campaign, channel, args.systype)
 
 def main():
   handler = TQSystematicsHandler ('systematics')
@@ -65,21 +66,22 @@ def main():
   # The name of the TQSampleFolder object within your files
   # Alternatively, you can just use ':*' to have the code grab the first instance of TQSampleFolder that it finds
   sfname = ':samples'
-  nominal_file_path = dir + 'NOMINAL.root' + sfname
-
+  #nominal_file_path = dir + 'NOMINAL.root' + sfname
+  nominal_file_path = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root' + sfname
 
   path_mc = '/bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson]'.format(channel,campaign)
   path_wjets_data = '/bkg/{:s}/{:s}/Fakes/ID/data'.format(channel,campaign)
-  path_wjets_mc = '/bkg/{:s}/{:s}/Fakes/ID/mc/[Ztautau+Zll+Top+Diboson]'.format(channel,campaign)
-  path_wjets_qcd = '/bkg/{:s}/{:s}/Fakes/ID/ISO/data'.format(channel,campaign)
+  path_wjets_mc = '/bkg/{:s}/{:s}/Fakes/ID/mc'.format(channel,campaign)
+  path_wjets_qcd = '/bkg/{:s}/{:s}/Fakes/ID/ISO/[data-mc]'.format(channel,campaign)
   path_qcd_data = '/bkg/{:s}/{:s}/Fakes/ISO/data'.format(channel,campaign)
-  path_qcd_mc = ''
+#  path_qcd_mc = ''
     # different sf paths because we dont use mc in btag anti-iso (qcd bkg)
-  if not b_isbtag:
-    path_qcd_mc = '-/bkg/{:s}/{:s}/Fakes/ISO/mc/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel,campaign)
-  path_qcd = path_qcd_data + path_qcd_mc
+#  if not b_isbtag:
+  path_qcd_mc = '/bkg/{:s}/{:s}/Fakes/ISO/mc'.format(channel,campaign)
+  path_qcd = path_qcd_data+'-'+path_qcd_mc
 
-  nominal_sf_path = path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd
+#  nominal_sf_path = path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd
+  nominal_sf_path = "/bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/[ISO/[data-mc]+ID/[data-[mc+ISO/[data-mc]]]]]".format(channel,campaign)
 
 
   handler.setNominalFilePath(nominal_file_path)
@@ -221,15 +223,17 @@ def main():
 
   # now we add the systematic sublists we want to run over into the grand list
   # this is controlled by the arg parser, so I can run the show from an external submission script
-  if args.systype == "fakevar":
+  if args.systype == "partial" or args.systype == "full":
+#  if args.systype == "fakevar":
       l_systematics.extend(l_fakevars)
-  if args.systype == "isovar":
+#  if args.systype == "isovar":
       l_systematics.extend(l_isovars)
-  if args.systype == "ttbarweight":
+  if args.systype == "full":
+#  if args.systype == "ttbarweight":
       l_systematics.extend(l_ttbarweights)
-  if args.systype == "weightvar":
+#  if args.systype == "weightvar":
       l_systematics.extend(l_weightvars)
-  if args.systype == "treevariation":
+#  if args.systype == "treevariation":
       l_systematics.extend(l_treevariations)
 
 
@@ -256,17 +260,17 @@ def main():
       )
 
   # add 10% variation on MC in anti-id region
-  handler.addSystematic('MCAntiID',
-      pair(nominal_file_path,  path_mc+'+'+path_wjets_data+'-0.9*'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd),
-      pair(nominal_file_path,  path_mc+'+'+path_wjets_data+'-1.1*'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd)
-      )
+#  handler.addSystematic('MCAntiID',
+#      pair(nominal_file_path,  path_mc+'+'+path_wjets_data+'-0.9*'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd),
+#      pair(nominal_file_path,  path_mc+'+'+path_wjets_data+'-1.1*'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd)
+#      )
 
   # add 50% variation on MC in id anti-iso region
-  if not b_isbtag:
-    handler.addSystematic('MCAntiISO',
-        pair(nominal_file_path, path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd_data+'-0.5*'+path_qcd_mc),
-        pair(nominal_file_path, path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd_data+'-1.5*'+path_qcd_mc)
-        )
+#  if not b_isbtag:
+#    handler.addSystematic('MCAntiISO',
+#        pair(nominal_file_path, path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd_data+'-0.5*'+path_qcd_mc),
+#        pair(nominal_file_path, path_mc+'+'+path_wjets_data+'-'+path_wjets_mc+'-'+path_wjets_qcd+'+'+path_qcd_data+'-1.5*'+path_qcd_mc)
+#        )
 
 
   # An empty string for either path means the handler will use the respective nominal path
@@ -308,14 +312,19 @@ def main():
   # Export the systematics to an instance of TQFolder and write the 'yellow-band' to file
   systematics = handler.exportSystematics()
   bchannel='bveto'
-  if b_isbtag:
-    bchannel='btag'
-  systematics.writeToFile(dir+'sys_band_'+campaign+'_'+channel+'_'+bchannel+'_'+option+'.root',True,0)
+#  if b_isbtag:
+#    bchannel='btag'
+  campaignname = campaign
+  if campaign == "[c16a+c16d+c16e]":
+    campaignname = "c16ade"
+  if not os.path.exists("systematicsBands/tables"):
+    os.makedirs("systematicsBands/tables")
+  systematics.writeToFile("systematicsBands/"+'SRsys_band_'+campaignname+'_'+channel+'.root',True,0)
   # Produce a table with the ranking of systematic uncertainties at some cut stage table
   # Table.printPlain() to write it as a LaTeX and a CSV file
   for cut in l_cuts:
     table = handler.getTable(cut)
-    table.writeLaTeX(dir+'sys_table_'+campaign+'_'+channel+'_'+bchannel+'_'+option+'_'+cut+'.tex')
+    table.writeLaTeX("systematicsBands/tables/"+'SRsys_table_'+campaignname+'_'+channel+'_'+cut+'.tex')
     print(cut)
     table.printPlain()
 
