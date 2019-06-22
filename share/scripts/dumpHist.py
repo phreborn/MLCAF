@@ -69,6 +69,8 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
           BREAK("Unexpected channel {:s}".format(args.channel))
         if "tcr" in region_name:
           hist_new_name += "Tcr"
+        if "vr" in region_name:
+          hist_new_name += "Vr"
 
         hist_new_name += "_"+hist_rename
   
@@ -121,14 +123,14 @@ if __name__ == "__main__":
     'bbHlh1000':    "sig/{:s}/{:s}/bbH/1000/",
     'bbHlh1500':    "sig/{:s}/{:s}/bbH/1500/",
     'bbHlh2000':    "sig/{:s}/{:s}/bbH/2000/",
-    'bbHlh2500':    "sig/{:s}/{:s}/bbH/2500/",
+    #'bbHlh2500':    "sig/{:s}/{:s}/bbH/2500/",
     'ggHlh200':     "sig/{:s}/{:s}/ggH/200/",
     'ggHlh300':     "sig/{:s}/{:s}/ggH/300/",
     'ggHlh600':     "sig/{:s}/{:s}/ggH/600/",
     'ggHlh1000':    "sig/{:s}/{:s}/ggH/1000/",
     'ggHlh1500':    "sig/{:s}/{:s}/ggH/1500/",
     'ggHlh2000':    "sig/{:s}/{:s}/ggH/2000/",
-    'ggHlh2500':    "sig/{:s}/{:s}/ggH/2500/",
+    #'ggHlh2500':    "sig/{:s}/{:s}/ggH/2500/",
   }
 
   ### The following regions will be dumped
@@ -147,16 +149,16 @@ if __name__ == "__main__":
 
   ### The following hists will be dumped
   hist_dict = {
-    #"bvetoTauMETDphi"  : "TauMETDphi",
-    #"btagTauMETDphi"   : "TauMETDphi",
-    #"bvetoLepMETDphi"  : "LepMETDphi",
-    #"btagLepMETDphi"   : "LepMETDphi",
-    "bvetoTauPt"        : "TauPt",
-    "btagTauPt"         : "TauPt",
-    "bvetoMTTOT"        : "MTTOT",
-    "btagMTTOT"         : "MTTOT",
-    #"bvetoLeptonPt"    : "LeptonPt",
-    #"btagLeptonPt"     : "LeptonPt",
+    #"BvetoTauMETDphi"  : "TauMETDphi",
+    #"BtagTauMETDphi"   : "TauMETDphi",
+    #"BvetoLepMETDphi"  : "LepMETDphi",
+    #"BtagLepMETDphi"   : "LepMETDphi",
+    "BvetoTauPt"        : "TauPt",
+    "BtagTauPt"         : "TauPt",
+    "BvetoMTTOT"        : "MTTOT",
+    "BtagMTTOT"         : "MTTOT",
+    #"BvetoLeptonPt"    : "LeptonPt",
+    #"BtagLeptonPt"     : "LeptonPt",
     #"MTTOT"            : "MTTOT",
   }
 
