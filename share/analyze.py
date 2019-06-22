@@ -99,8 +99,6 @@ def main(config):
     samples.setTagString("WFFPeriod", WFFPeriod)
     WFFParam = config.getTagStringDefault("WFFParam","mc")
     samples.setTagString("WFFParam", WFFParam)
-    myExtrapoSF = config.getTagStringDefault("myExtrapoSF","mc")
-    samples.setTagString("myExtrapoSF", myExtrapoSF)
 
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
     if config.getTagBoolDefault("purgeSamples",False):

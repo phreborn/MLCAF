@@ -158,7 +158,7 @@ double extrapolationReweight::getValue() const {
           (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
     retval = 1.0-fabs(retval-1.0);
   }
-
+  else retval = 1.0;
   DEBUGclass("returning");
 
   return retval;
