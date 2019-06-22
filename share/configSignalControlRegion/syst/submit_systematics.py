@@ -15,7 +15,7 @@ s_common_config_path='configCommon/htautau_lephad_common.cfg'
 s_sys_file_path='configCommon/htautau_lephad_common_campaigns_sys.cfg'
 # list of all systematics, comment out the ones you don't want to run:
 # lets instead separate out the systematic types into sublists, and append them to the grand list on request
-# so first initialise the grand list of systematics
+# so first initialize the grand list of systematics
 # 8 + 8 + 4 + 70 + 68 + 4 
 l_fakevars=[
 ['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
@@ -30,10 +30,6 @@ l_fakevars=[
 ["fakevar",   "FakeFactor_ExtraSysBveto1p_1up"],
 ["fakevar",   "FakeFactor_ExtraSysBveto3p_1down"],
 ["fakevar",   "FakeFactor_ExtraSysBveto3p_1up"],
-["fakevar",   "FakeFactor_QCDReweight_MuHadBtag_1up"],
-["fakevar",   "FakeFactor_QCDReweight_MuHadBtag_1down"],
-["fakevar",   "FakeFactor_QCDReweight_MuHadBveto_1up"],
-["fakevar",   "FakeFactor_QCDReweight_MuHadBveto_1down"],
 ]
 
 l_isovars=[
@@ -45,6 +41,10 @@ l_isovars=[
 ['isovar',   'FakeFactor_LepMuBveto_1down'],
 ['isovar',   'FakeFactor_LepMuBtag_1up'],
 ['isovar',   'FakeFactor_LepMuBtag_1down'],
+['isovar',   'FakeFactor_QCDReweight_MuHadBtag_1up'],
+['isovar',   'FakeFactor_QCDReweight_MuHadBtag_1down'],
+['isovar',   'FakeFactor_QCDReweight_MuHadBveto_1up'],
+['isovar',   'FakeFactor_QCDReweight_MuHadBveto_1down'],
 ]
 
 l_topvars=[
@@ -225,7 +225,7 @@ def create_cmd_log(option, sys, stage):
     if option == 'treevar':
       extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(sys)
     else:
-      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
+      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
 
     # different files to be copied
     l_files = []
@@ -318,6 +318,11 @@ if __name__ == '__main__':
     sys = systematics[1]
     # create cmd for this setup
     cmd, log = create_cmd_log(option, sys, args.stage)
+    cmd_list.append(cmd)
+    log_list.append(log)
+  # hotfix for nominal branch in sys samples
+  if args.stage == 'initialize':
+    cmd, log = create_cmd_log('', 'NOMINAL', 'initialize')
     cmd_list.append(cmd)
     log_list.append(log)
 
