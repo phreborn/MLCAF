@@ -47,3 +47,5 @@ $create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
 <isFailData=false> @ /.;
 <isFailData=true> @ /bkg/?/?/Fakes/ISO/data;
 <isData=true> @ /bkg/?/?/Fakes/ISO/data;
+
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fakes/ISO/data;
