@@ -60,6 +60,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
 @*/CutID{
     +CutTCRMTOS{
         <.cutExpression = "lephad_mt_lep0_met>100. && lephad_qxq==-1", .title="TCRMTOS">
+         #.weightExpression = "$(isTop) ? [TopReweight_$(topvar)] : 1", .title="TCRMTOS">
         +CutTCRBtag1p{
             < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1", .title="TCRBtag1p">
         }
@@ -72,7 +73,8 @@ $include("configCommon/htautau_lephad_common_cuts.def");
 # Validation Region
 @*/CutVisMassVeto{
     +CutVRMTOS{
-        <.cutExpression = "lephad_mt_lep0_met>40. && lephad_mt_lep0_met<60. && lephad_qxq==-1", .title="VRMTOS">
+        <.cutExpression = "lephad_mt_lep0_met>40. && lephad_mt_lep0_met<60. && lephad_qxq==-1", 
+         .weightExpression = "$(isTop) ? [TopReweight_$(topvar)] : 1",.title="VRMTOS">
         +CutVRBveto1p{
             <.cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1", .title="VRBveto1p">
         }
@@ -94,7 +96,8 @@ $include("configCommon/htautau_lephad_common_cuts.def");
     +CutWCRVisMassVeto {
         <.cutExpression=" (lep_0==2 && n_bjets==0)? ( (lephad_p4.M() > 110 || lephad_p4.M() < 80)? 1 : 0 ) : 1 ", .title="WCR Vis mass veto">
         +CutWCRMTOS{
-            <.cutExpression = "lephad_mt_lep0_met>60. && lephad_mt_lep0_met<150. && lephad_qxq==-1", .title="WCRMTOS">
+            <.cutExpression = "lephad_mt_lep0_met>60. && lephad_mt_lep0_met<150. && lephad_qxq==-1", 
+             .weightExpression = "$(isTop) ? [TopReweight_$(topvar)] : 1",.title="WCRMTOS">
             +CutWCRBveto1p{
                 < .cutExpression = "n_bjets == 0 && tau_0_n_charged_tracks==1", .title="WCRBveto1p">
             }
@@ -115,7 +118,8 @@ $include("configCommon/htautau_lephad_common_cuts.def");
 # WCRSS
 @*/CutID{
     +CutWCRMTSS{
-        <.cutExpression = "lephad_mt_lep0_met>60. && lephad_qxq==1", .title="WCRMTSS">
+        <.cutExpression = "lephad_mt_lep0_met>60. && lephad_qxq==1", 
+         .weightExpression = "$(isTop) ? [TopReweight_$(topvar)] : 1",.title="WCRMTSS">
         +CutWCRSSBtag1p{
             <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1", .title="WCRSSBtag1p">
         }
