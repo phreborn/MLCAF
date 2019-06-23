@@ -91,14 +91,16 @@ def main(config):
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
     # BSMtautauCAF: get fake factors from config
-    LFFPeriod = config.getTagStringDefault("LFFPeriod","mc")
+    LFFPeriod = config.getTagStringDefault("LFFPeriod","")
     samples.setTagString("LFFPeriod", LFFPeriod)
-    LFFParam = config.getTagStringDefault("LFFParam","mc")
+    LFFParam = config.getTagStringDefault("LFFParam","")
     samples.setTagString("LFFParam", LFFParam)
-    WFFPeriod = config.getTagStringDefault("WFFPeriod","mc")
+    WFFPeriod = config.getTagStringDefault("WFFPeriod","")
     samples.setTagString("WFFPeriod", WFFPeriod)
-    WFFParam = config.getTagStringDefault("WFFParam","mc")
+    WFFParam = config.getTagStringDefault("WFFParam","")
     samples.setTagString("WFFParam", WFFParam)
+    UseTopSF = config.getTagBoolDefault("UseTopSF", False)
+    samples.setTagBool("UseTopSF", UseTopSF)
 
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
     if config.getTagBoolDefault("purgeSamples",False):
