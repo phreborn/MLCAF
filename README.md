@@ -55,7 +55,7 @@ mkdir build run
 cd build
 asetup AnalysisBase,21.2.78
 cmake ../BSMtautauCAF
-source BSMtautauCAF/setupAnalysis.sh
+source setupAnalysis.sh
 export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
 make -j4
 cd -
@@ -71,7 +71,7 @@ setupATLAS
 lsetup git
 cd build
 asetup --restore
-source BSMtautauCAF/setupAnalysis.sh
+source setupAnalysis.sh
 export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
 cd -
 ```
