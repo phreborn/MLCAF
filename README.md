@@ -53,9 +53,9 @@ Building the project
 ```bash
 mkdir build run
 cd build
-asetup AnalysisBase,21.2.34
+asetup AnalysisBase,21.2.78
 cmake ../BSMtautauCAF
-source ../BSMtautauCAF/setup/setupAnalysis.sh
+source BSMtautauCAF/setupAnalysis.sh
 export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
 make -j4
 cd -
@@ -71,7 +71,7 @@ setupATLAS
 lsetup git
 cd build
 asetup --restore
-source ../BSMtautauCAF/setup/setupAnalysis.sh
+source BSMtautauCAF/setupAnalysis.sh
 export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
 cd -
 ```
@@ -199,31 +199,3 @@ TODO: Decide how to calculate FF:
 
 IMPORTANT: Top samples with dilepton filter contains more statistics because we use truth matching anyway.
         Be careful to use allhad/nonallhad top samples for QCD regions.
-
-####################
-### WCR stuff:
-####################
-
-In WCR the sample folder structure is made that truth labels are separate and there are lephad, muhad and ehad channels which are
-executed separately so in config file under runAnalysis.channel write which ones to run over. This takes more time but is more flexible
-and requires less hardcoding in cuts and histos config files.
-
-## for nominal plotting, cutflow, study use:
-    # config:
-    config/htautau_lephad_wfr.cfg
-
-    because we want to plot all truth labels but they are not needed for ff calculation,
-    so we save time and make things more clear.
-
-## for ff measurement:
-    # config:
-    config/htautau_lephad_wfr_ff.cfg
-
-    this is only to make Pt histos with proper binning and Pass and Fail cuts.
-
-## for applying ff to wcr:
-    # config:
-    config/htautau_lephad_wfr_applyff.cfg
-
-    atm this doesn't include QCD, but studies could be made to show that QCD changes nothing to ff,
-    or at least not significantly.

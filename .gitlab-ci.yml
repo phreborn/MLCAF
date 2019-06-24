@@ -15,12 +15,13 @@ variables:
 # job defaults
 
 .asg: &asg
-  image: atlas/analysisbase:21.2.39
+  image: atlas/analysisbase:21.2.78
   tags:
     - cvmfs
 
 .standalone: &standalone
-  image: rootproject/root-ubuntu16
+  #image: rootproject/root-ubuntu:latest
+  image: gitlab-registry.cern.ch/atlas-caf/cafcore/cafcore-standalone-base:19.06.X
   tags:
     - cvmfs
   before_script:
@@ -41,7 +42,7 @@ variables:
 
 #.minimal_script: &minimal_script
 #  script:
-#    - source setup/setupAnalysis.sh
+#    - source build/setupAnalysis.sh
 #    - mkdir run
 #    - cd run
 #    - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
@@ -51,7 +52,7 @@ variables:
 
 #.flatNTuple_script: &flatNTuple_script
 #  script:
-#    - source setup/setupAnalysis.sh
+#    - source build/setupAnalysis.sh
 #    - mkdir run
 #    - cd run
 #    - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
@@ -61,7 +62,7 @@ variables:
 
 #.xAOD_script: &xAOD_script
 #  script:
-#    - source setup/setupAnalysis.sh
+#    - source build/setupAnalysis.sh
 #    - mkdir run
 #    - cd run
 #    - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
@@ -160,7 +161,7 @@ standalone_compile:
 #   dependencies:
 #     - standalone_compile
 #   script:
-#     - source setup/setupAnalysis.sh
+#     - source build/setupAnalysis.sh
 #     - curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py
 #     - sudo python3 ./get-pip.py
 #     - sudo pip3 install doxec
@@ -175,5 +176,3 @@ build_image:
     - docker-image-build
   script:
     - ignore
-
-
