@@ -53,9 +53,9 @@ Building the project
 ```bash
 mkdir build run
 cd build
-asetup AnalysisBase,21.2.34
+asetup AnalysisBase,21.2.78
 cmake ../BSMtautauCAF
-source ../BSMtautauCAF/setup/setupAnalysis.sh
+source BSMtautauCAF/setupAnalysis.sh
 export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
 make -j4
 cd -
@@ -71,7 +71,7 @@ setupATLAS
 lsetup git
 cd build
 asetup --restore
-source ../BSMtautauCAF/setup/setupAnalysis.sh
+source BSMtautauCAF/setupAnalysis.sh
 export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
 cd -
 ```

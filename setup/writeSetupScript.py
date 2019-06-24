@@ -8,7 +8,7 @@ def parseArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("sourceDir", help="absolute path of source directory", type=str)
     parser.add_argument("setupDir", help="absolute path of setup directory", type=str)
-    parser.add_argument("CAFCoreDir", help="absolute path of CAFCore directory", type=str)
+    parser.add_argument("CAFCoreSetupDir", help="absolute path of directory containing CAFCore's setup script cafsetup.sh", type=str)
     parser.add_argument("--binDir",help="absolute path of binary directory", type=str,required=False,default=None)
     args = parser.parse_args()
     return args
@@ -48,10 +48,13 @@ if __name__ == "__main__":
         f.write("\tset -e\n")
         f.write("fi\n\n")
 
+        autoCompletePath = os.path.join(args.setupDir,"setupAutoComplete.sh")
+        setupLocalPath = os.path.join(args.setupDir,"setupLocal.sh")
+        cafsetupPath = os.path.join(args.CAFCoreSetupDir,"cafsetup.sh")
         # Source other scripts
-        f.write("if [ -f "+args.setupDir+"/setupAutoComplete.sh ]; then\n\tsource "+args.setupDir+"/setupAutoComplete.sh\nfi\n")
-        f.write("if [ -f "+args.setupDir+"/setupLocal.sh ]; then \n\tsource "+args.setupDir+"/setupLocal.sh\nfi\n")
-        f.write("if [ -f "+args.CAFCoreDir+"/cafsetup.sh ]; then \n\tsource "+args.CAFCoreDir+"/cafsetup.sh\nfi\n")
+        f.write("if [ -f "+autoCompletePath+" ]; then\n\tsource "+autoCompletePath+"\nfi\n")
+        f.write("if [ -f "+cafsetupPath+" ]; then \n\tsource "+cafsetupPath+"\nfi\n")
+        f.write("if [ -f "+setupLocalPath+" ]; then \n\tsource "+setupLocalPath+"\nfi\n")
         #add the path to this script (overwriting what might have been set by cafsetup.sh !) :
         f.write("\n#export path to this script for easier re-setup, e.g., for batch submission\n")
         if args.binDir: 
