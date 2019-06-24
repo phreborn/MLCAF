@@ -33,9 +33,9 @@ Building the project
 ```bash
 mkdir build run
 cd build
-asetup AnalysisBase,21.2.34
+asetup AnalysisBase,21.2.78
 cmake ../CAFExample
-source ../CAFExample/setup/setupAnalysis.sh
+source CAFExample/setupAnalysis.sh
 make -j4
 ```
 
@@ -105,5 +105,5 @@ setupATLAS
 lsetup git
 cd build
 asetup --restore
-source ../CAFExample/setup/setupAnalysis.sh
+source CAFExample/setupAnalysis.sh
 ```
