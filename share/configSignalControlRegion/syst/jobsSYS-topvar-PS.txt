@@ -10,17 +10,17 @@
 # no /sig
 # ----------- c16a ----------- #
 ##### bkg #####
-/bkg/?/c16a/Top/ttbar/NOMINAL
+/bkg/?/c16a/Top/ttbar/PS
 #/bkg/?/c16a/Top/single
 
 
 # ----------- c16d ----------- #
 ##### bkg #####
-/bkg/?/c16d/Top/ttbar/NOMINAL
+/bkg/?/c16d/Top/ttbar/PS
 #/bkg/?/c16d/Top/single
 
 
 # ----------- c16e ----------- #
 ##### bkg #####
-/bkg/?/c16e/Top/ttbar/NOMINAL
+/bkg/?/c16e/Top/ttbar/PS
 #/bkg/?/c16e/Top/single

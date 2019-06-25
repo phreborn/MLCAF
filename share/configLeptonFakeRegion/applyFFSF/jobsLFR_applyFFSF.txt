@@ -6,7 +6,7 @@
 ### bkg ###
 /bkg/?/c16a/Fakes/ISO/mc/Ztautau
 /bkg/?/c16a/Fakes/ISO/mc/Zll
-/bkg/?/c16a/Fakes/ISO/mc/Top/ttbar
+/bkg/?/c16a/Fakes/ISO/mc/Top/ttbar/NOMINAL
 /bkg/?/c16a/Fakes/ISO/mc/Top/single
 /bkg/?/c16a/Fakes/ISO/mc/Diboson
 /bkg/?/c16a/Fakes/ISO/mc/Wjets/enu
@@ -22,7 +22,7 @@
 ### bkg ###
 /bkg/?/c16d/Fakes/ISO/mc/Ztautau
 /bkg/?/c16d/Fakes/ISO/mc/Zll
-/bkg/?/c16d/Fakes/ISO/mc/Top/ttbar
+/bkg/?/c16d/Fakes/ISO/mc/Top/ttbar/NOMINAL
 /bkg/?/c16d/Fakes/ISO/mc/Top/single
 /bkg/?/c16d/Fakes/ISO/mc/Diboson
 /bkg/?/c16d/Fakes/ISO/mc/Wjets/enu
@@ -38,7 +38,7 @@
 ### bkg ###
 /bkg/?/c16e/Fakes/ISO/mc/Ztautau
 /bkg/?/c16e/Fakes/ISO/mc/Zll
-/bkg/?/c16e/Fakes/ISO/mc/Top/ttbar
+/bkg/?/c16e/Fakes/ISO/mc/Top/ttbar/NOMINAL
 /bkg/?/c16e/Fakes/ISO/mc/Top/single
 /bkg/?/c16e/Fakes/ISO/mc/Diboson
 /bkg/?/c16e/Fakes/ISO/mc/Wjets/enu

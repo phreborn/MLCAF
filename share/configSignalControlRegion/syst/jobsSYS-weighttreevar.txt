@@ -7,7 +7,7 @@
 ##### bkg #####
 /bkg/?/c16a/Ztautau
 /bkg/?/c16a/Zll
-/bkg/?/c16a/Top/ttbar
+/bkg/?/c16a/Top/ttbar/NOMINAL
 /bkg/?/c16a/Top/single
 /bkg/?/c16a/Diboson
 
@@ -19,7 +19,7 @@
 ##### bkg #####
 /bkg/?/c16d/Ztautau
 /bkg/?/c16d/Zll
-/bkg/?/c16d/Top/ttbar
+/bkg/?/c16d/Top/ttbar/NOMINAL
 /bkg/?/c16d/Top/single
 /bkg/?/c16d/Diboson
 
@@ -31,7 +31,7 @@
 ##### bkg #####
 /bkg/?/c16e/Ztautau
 /bkg/?/c16e/Zll
-/bkg/?/c16e/Top/ttbar
+/bkg/?/c16e/Top/ttbar/NOMINAL
 /bkg/?/c16e/Top/single
 /bkg/?/c16e/Diboson
 

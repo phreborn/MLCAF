@@ -133,11 +133,27 @@
 410658 /bkg/$(channel)/$(campaign)/Top/single
 410659 /bkg/$(channel)/$(campaign)/Top/single
 
-# use these two if you want to see jet->tau fake composition
-410470 /bkg/$(channel)/$(campaign)/Top/ttbar
-410471 /bkg/$(channel)/$(campaign)/Top/ttbar
-# use dilepton filter for FF calculation since we are truth-matching anyway
-#410472 /bkg/$(channel)/$(campaign)/Top/ttbar
+# nonallhad/allhad (use if you want to see jet->tau fake composition)
+410470 /bkg/$(channel)/$(campaign)/Top/ttbar/NOMINAL
+410471 /bkg/$(channel)/$(campaign)/Top/ttbar/NOMINAL
+# dilepton (alternatively, use for FF calculation since we are truth-matching anyway)
+#410472 /bkg/$(channel)/$(campaign)/Top/ttbar/NOMINAL
+
+# PMG ttbar systematics
+# ISRup
+410480 /bkg/$(channel)/$(campaign)/Top/ttbar/ISRup
+410481 /bkg/$(channel)/$(campaign)/Top/ttbar/ISRup
+410482 /bkg/$(channel)/$(campaign)/Top/ttbar/ISRup
+
+# ME
+410464 /bkg/$(channel)/$(campaign)/Top/ttbar/ME
+410465 /bkg/$(channel)/$(campaign)/Top/ttbar/ME
+410466 /bkg/$(channel)/$(campaign)/Top/ttbar/ME
+
+# PS
+410557 /bkg/$(channel)/$(campaign)/Top/ttbar/PS
+410558 /bkg/$(channel)/$(campaign)/Top/ttbar/PS
+410559 /bkg/$(channel)/$(campaign)/Top/ttbar/PS
 
 # Signal (ggH)
 342305 /sig/$(channel)/$(campaign)/ggH/200
