@@ -48,10 +48,16 @@ l_isovars=[
 ]
 
 l_topvars=[
-['topvar', 'TTBAR_Radiation_1up'],
-['topvar', 'TTBAR_Radiation_1down'],
-['topvar', 'TTBAR_ShowerUE_1up'],
-['topvar', 'TTBAR_ShowerUE_1down'],
+#['topvar', 'TTBAR_Radiation_1up'],
+#['topvar', 'TTBAR_Radiation_1down'],
+#['topvar', 'TTBAR_ShowerUE_1up'],
+#['topvar', 'TTBAR_ShowerUE_1down'],
+['topvar', 'TTBar_ME'],
+['topvar', 'TTBar_PS'],
+['topvar', 'TTBar_ISR_1up'],
+['topvar', 'TTBar_ISR_1down'],
+['topvar', 'TTBar_FSR_1up'],
+['topvar', 'TTBar_FSR_1down'],
 ]
 
 #70
@@ -224,8 +230,10 @@ def create_cmd_log(option, sys, stage):
     extra_option = ''
     if option == 'treevar':
       extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(sys)
-    else:
+    elif option == 'weightvar':
       extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
+    else:
+      extra_option = "aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
 
     # different files to be copied
     l_files = []
@@ -251,18 +259,25 @@ def create_cmd_log(option, sys, stage):
       jobs_file = "jobsSYS-weighttreevar.txt"
     elif option=='topvar':
       l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_Top_single*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
-      jobs_file = "jobsSYS-topvar.txt"
+      if sys == 'TTBar_ME':
+        jobs_file = "jobsSYS-topvar-ME.txt"
+      elif sys == 'TTBar_PS':
+        jobs_file = "jobsSYS-topvar-PS.txt"
+      elif sys == 'TTBar_ISR_1up':
+        jobs_file = "jobsSYS-topvar-ISRup.txt"
+      else:
+        jobs_file = "jobsSYS-topvar.txt"
+
     # make output folder, the same as the submitAnalysis.py would create;
-    print('mkdir -v batchOutput/unmerged_SRsys_{:s}'.format(sys))
-    os.system('mkdir -v batchOutput/unmerged_SRsys_{:s}'.format(sys))
+    os.system('mkdir -pv batchOutput/unmerged_SRsys_{:s}'.format(sys))
     # copy those files which should not be run over for this particular systematic;
     for files in l_files:
       l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))
       for file in l_file:
-        print('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
         os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
     # obtain the command
     cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 60000 --maxSampleCount 75 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,extra_option)

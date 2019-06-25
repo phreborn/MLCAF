@@ -45,12 +45,18 @@ TObjArray* BSMLepHad_TopSys::getBranchNames() const {
   // add the branch names needed by your observable here, e.g.
   // bnames->Add(new TObjString("someBranch"));
 
+  // old systematics
   bnames->Add(new TObjString("lep_0_pt"));
   bnames->Add(new TObjString("tau_0_pt"));
   bnames->Add(new TObjString("lephad_mt_lep0_met"));
   bnames->Add(new TObjString("lephad_mt_lep1_met"));
   bnames->Add(new TObjString("lephad_dphi"));
 
+  // new systematics
+  bnames->Add(new TObjString("pmg_truth_weight_ISRHi"));
+  bnames->Add(new TObjString("pmg_truth_weight_ISRLo"));
+  bnames->Add(new TObjString("pmg_truth_weight_FSRHi"));
+  bnames->Add(new TObjString("pmg_truth_weight_FSRLo"));
 
   return bnames;
 }
@@ -75,6 +81,7 @@ double BSMLepHad_TopSys::getValue() const {
 
   //std::cout<<" In getValue "<<std::endl;
 
+  // old systematics
   double f_lep_0_pt       = this->lep_0_pt->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
   double f_lepmet_mt1     = this->lephad_mt_lep0_met->EvalInstance();
@@ -89,8 +96,10 @@ double BSMLepHad_TopSys::getValue() const {
    cor_ShUe = 1.18 - 0.0015 * 500 + 1.5 * 0.000001 * 500 * 500;
   }
 
+
   double retval(1);
 
+  // old systematics
   if( fSysName.Contains("TTBAR_Radiation_1up") ) {
     retval = cor_Rad;
   }
@@ -103,6 +112,25 @@ double BSMLepHad_TopSys::getValue() const {
   }
   if( fSysName.Contains("TTBAR_ShowerUE_1down") ) {
     retval = -1*(cor_ShUe - 1) + 1;
+  }
+
+  // new systematics
+  if( fSysName.Contains("TTBar_ISR_1up") ) {
+    double f_pmg_truth_weight_ISRHi = this->pmg_truth_weight_ISRHi->EvalInstance();
+    retval = f_pmg_truth_weight_ISRHi;
+  }
+  if( fSysName.Contains("TTBar_ISR_1down") ) {
+    double f_pmg_truth_weight_ISRLo = this->pmg_truth_weight_ISRLo->EvalInstance();
+    retval = f_pmg_truth_weight_ISRLo;
+  }
+
+  if( fSysName.Contains("TTBar_FSR_1up") ) {
+    double f_pmg_truth_weight_FSRHi = this->pmg_truth_weight_FSRHi->EvalInstance();
+    retval = f_pmg_truth_weight_FSRHi;
+  }
+  if( fSysName.Contains("TTBar_FSR_1down") ) {
+    double f_pmg_truth_weight_FSRLo = this->pmg_truth_weight_FSRLo->EvalInstance();
+    retval = f_pmg_truth_weight_FSRLo;
   }
 
   DEBUGclass("returning");
@@ -174,11 +202,26 @@ bool BSMLepHad_TopSys::initializeSelf(){
     return false;
   }
 
-  this->lephad_dphi        = new TTreeFormula( "lephad_dphi",              "lephad_dphi",              this->fTree);
-  this->tau_0_pt           = new TTreeFormula( "tau_0_pt",           "tau_0_p4.Pt()",           this->fTree);
-  this->lep_0_pt           = new TTreeFormula( "lep_0_pt",           "lep_0_p4.Pt()",           this->fTree);
+  // old systematics
+  this->lephad_dphi        = new TTreeFormula( "lephad_dphi",        "lephad_dphi",        this->fTree);
+  this->tau_0_pt           = new TTreeFormula( "tau_0_pt",           "tau_0_p4.Pt()",      this->fTree);
+  this->lep_0_pt           = new TTreeFormula( "lep_0_pt",           "lep_0_p4.Pt()",      this->fTree);
   this->lephad_mt_lep0_met = new TTreeFormula( "lephad_mt_lep0_met", "lephad_mt_lep0_met", this->fTree);
   this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
+
+  // new systematics
+  if( fSysName.Contains("TTBar_ISR_1up") ) {
+    this->pmg_truth_weight_ISRHi = new TTreeFormula( "pmg_truth_weight_ISRHi", "pmg_truth_weight_ISRHi", this->fTree);
+  }
+  if( fSysName.Contains("TTBar_ISR_1down") ) {
+    this->pmg_truth_weight_ISRLo = new TTreeFormula( "pmg_truth_weight_ISRLo", "pmg_truth_weight_ISRLo", this->fTree);
+  }
+  if( fSysName.Contains("TTBar_FSR_1up") ) {
+    this->pmg_truth_weight_FSRHi = new TTreeFormula( "pmg_truth_weight_FSRHi", "pmg_truth_weight_FSRHi", this->fTree);
+  }
+  if( fSysName.Contains("TTBar_FSR_1down") ) {
+    this->pmg_truth_weight_FSRLo = new TTreeFormula( "pmg_truth_weight_FSRLo", "pmg_truth_weight_FSRLo", this->fTree);
+  }
 
   return true;
 }
@@ -189,11 +232,18 @@ bool BSMLepHad_TopSys::finalizeSelf(){
   // finalize self - delete accessor
   this->clearParsedExpression();
 
+  // old systematics
   delete this->lephad_dphi;
   delete this->tau_0_pt;
   delete this->lep_0_pt;
   delete this->lephad_mt_lep0_met;
   delete this->lephad_mt_lep1_met;
+
+  // new systematics
+  delete this->pmg_truth_weight_ISRHi;
+  delete this->pmg_truth_weight_ISRLo;
+  delete this->pmg_truth_weight_FSRHi;
+  delete this->pmg_truth_weight_FSRLo;
 
   return true;
 }
