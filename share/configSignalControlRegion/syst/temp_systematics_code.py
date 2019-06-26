@@ -124,9 +124,13 @@ def main():
   ['isovar',   'FakeFactor_LepMuBtag_1up',    'FakeFactor_LepMuBtag_1down'],
   ]
 
-  l_ttbarweights=[
-  ['ttbarweight', 'TTBAR_Radiation_1up', 'TTBAR_Radiation_1down'],
-  ['ttbarweight', 'TTBAR_ShowerUE_1up',  'TTBAR_ShowerUE_1down'],
+  l_topvars=[
+#  ['ttbarweight', 'TTBAR_Radiation_1up', 'TTBAR_Radiation_1down'],
+#  ['ttbarweight', 'TTBAR_ShowerUE_1up',  'TTBAR_ShowerUE_1down'],
+  ['topvar', 'TTBar_ME'],
+  ['topvar', 'TTBar_PS'],
+  ['topvar', 'TTBar_ISR_1up', 'TTBar_ISR_1down'],
+  ['topvar', 'TTBar_FSR_1up', 'TTBar_FSR_1down'],
   ]
 
   l_weightvars=[
@@ -228,9 +232,9 @@ def main():
       l_systematics.extend(l_fakevars)
 #  if args.systype == "isovar":
       l_systematics.extend(l_isovars)
+#  if args.systype == "topvar":
+      l_systematics.extend(l_topvars)
   if args.systype == "full":
-#  if args.systype == "ttbarweight":
-      l_systematics.extend(l_ttbarweights)
 #  if args.systype == "weightvar":
       l_systematics.extend(l_weightvars)
 #  if args.systype == "treevariation":
