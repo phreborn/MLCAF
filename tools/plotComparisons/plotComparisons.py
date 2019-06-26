@@ -3,9 +3,10 @@ import argparse
 import sys
 import QFramework as QF
 from CommonAnalysisHelpers import common
-toolsPath = common.findConfigPath("../tools")
+toolsPath = common.findConfigPath("../tools", ignoreExecutionDirectory=True)
 sys.path.append(toolsPath)
-from plotUtils import setup_style, get_style_ATLAS, drawWithRatio, findSmartHistRange, myText, drawATLASLabel, mkdir_p
+import plotUtils as utils
+import math
 from copy import deepcopy
 import ROOT
 
@@ -20,8 +21,9 @@ import ROOT
 #   -- Adapt the config file 'plotComparisons.cfg' (or write a new one) to your needs
 #   -- Adapt the style file 'style-plotComparisons.txt' (or write a new one) to your needs
 #   -- Run this script with:
-#       'python plotComparisons.py <plotCategory>', 
-#       where <plotCategory> specifies the section in your config file.
+#       'python plotComparisons.py <plotCategories>', 
+#       where <plotCategories> specifies the sections in your config file you want
+#       plots to be produced for.
 #
 # Note, that you can also write your own config and style files and point to them accordingly.
 # (For pointing to a new config file please specify the '--config' argument when running this script.
@@ -35,17 +37,20 @@ import ROOT
 # --------------------------------------------------------
 
 def getCustomAxisLabel(var, tags):
+  xlabel, ylabel = None, None
   if tags.hasTag("xlabel."+var):
     xlabel = tags.getTagStandardStringDefault("xlabel."+var, "No Label")
-    return xlabel
-  else:
-    return None
+  if tags.hasTag("ylabel."+var):
+    ylabel = tags.getTagStandardStringDefault("ylabel."+var, "No Label")
+  return xlabel, ylabel
 
-def getLegendEntry(samplepath, reader):
+def getLegendEntry(samplepath, reader, setNameToTrailingFolder = False):
+  if setNameToTrailingFolder:
+    return str(samplepath).strip("/").split("/")[-1]
   f = reader.getListOfSampleFolders(samplepath).At(0) # if [em+me] is specified read label from one channel (needs to be the same)
   if not f: QF.BREAK("Something is wrong! Check your configuration!")
   leg_label = ROOT.TString()
-  if not f.getTagString("label", leg_label):
+  if not f.getTagString("~label", leg_label):
     QF.WARN("No label found for sample with path '{:s}'. Please specify one with the 'label' tag in your style configuration.".format(f.getPath()))
     return "No label"
   return str(leg_label)
@@ -56,6 +61,11 @@ def setAxesRange(hist, var, tags):
     tags.getTagDouble("xrange."+var+".0", xlow)
     tags.getTagDouble("xrange."+var+".1", xhigh)
     hist.GetXaxis().SetRangeUser(xlow, xhigh)
+  if tags.hasTag("yrange."+var+".0") and tags.hasTag("yrange."+var+".1"):
+    ylow, yhigh = ROOT.Double(), ROOT.Double()
+    tags.getTagDouble("yrange."+var+".0", ylow)
+    tags.getTagDouble("yrange."+var+".1", yhigh)
+    hist.GetYaxis().SetRangeUser(ylow, yhigh)
   else:
     pass
   
@@ -64,6 +74,19 @@ def rebinHistogram(hist, var, tags):
     hist.Rebin(tags.getTagIntegerDefault("rebin."+var, 1))
   else:
     pass
+  
+def getNumeratorAndDenominators(histograms, tags):
+  # get numerator and denominator to plot ratios for
+  indexOfNumerator = tags.getTagIntegerDefault("ratio.indexOfNumerator", 0)
+  if indexOfNumerator >= len(histograms):
+    QF.WARN("Specified path index for numerator is out of range!" \
+            " Falling back to the first specified path (index 0) as numerator for the ratio plot.")
+    indexOfNumerator = 0
+  numerator = histograms[indexOfNumerator]
+  histograms.pop(indexOfNumerator) # remove from histogram list
+  denominator = histograms
+
+  return numerator, denominator
 
 # ----------------------------------------------------
 # Main
@@ -81,169 +104,231 @@ def main(args):
   parsed = parser.read(configpath.Data())
   if not parsed:
     QF.BREAK("Configuration file with path '{:s}' could not be read! Exiting...".format(configpath))
-  if not parser.has_section(args.plotCategory):
-    QF.BREAK("No section with name '{:s}' found in configuration file! Exiting...".format(args.plotCategory))
-
-  tags = QF.TQTaggable()
-  
-  # Tags in section 'common' will be overwritten by more specific sections
-  if parser.has_section("common"):
-    common.getTagsFromConfigParser(parser,tags, "common")
-
-  # Get tags from specific plot category
-  common.getTagsFromConfigParser(parser, tags, args.plotCategory)
-  inputFilePath = ROOT.TString()
-  if tags.getTagString("input", inputFilePath):
-    inputFilePath = common.findConfigPath(inputFilePath)
-    samples = QF.TQSampleFolder.loadSampleFolder(inputFilePath)
-  else:
-    QF.BREAK("Please specify an input sample folder!")
-  styleFilePath = tags.getTagStringDefault("patches", common.findConfigPath("../tools/plotComparisons/style-plotComparisons.txt"))
-  common.patchSampleFolder([styleFilePath], samples)
-  reader = QF.TQSampleDataReader(samples)
-  
-  # -----------------------------------------------------
-  # Style, label and legend settings
-  
-  atlasStyle = get_style_ATLAS("ATLAS")
-  print "\nApplying ATLAS style settings...\n"
-  ROOT.gROOT.SetStyle("ATLAS")
-  ROOT.gROOT.ForceStyle()
-  
-  c1 = ROOT.TCanvas("can","can",600,600)
-  
-  ypos1D = 1 - ROOT.gStyle.GetPadTopMargin() - 0.08
-  xpos1D = ROOT.gStyle.GetPadLeftMargin()+0.03
-  textsize = 0.04
-  
-  labelSizeScale = 1
-  if tags.getTagBoolDefault("drawRatio", False):
-    labelSizeScale = 1.5
-  
-  label = ["#sqrt{#it{s}} = 13 TeV"]
-  additional_labels = []
-  if not len(tags.getTagVString("label")) == 0:
-    for ilabel in tags.getTagVString("label"):
-      label.append(str(ilabel))
-      
-  legXlow = tags.getTagDoubleDefault("geometry.legend.xlow", 0.52)
-  legXhigh = tags.getTagDoubleDefault("geometry.legend.xhigh", 0.85)
-  legYlow = tags.getTagDoubleDefault("geometry.legend.ylow", 0.7)
-  legYhigh = tags.getTagDoubleDefault("geometry.legend.yhigh", ypos1D)
-  leg_cl = ROOT.TLegend(legXlow,legYlow,legXhigh,legYhigh)
-  leg_cl.SetBorderSize(0)
-  leg_cl.SetFillStyle(0)
-  leg_cl.SetTextFont(42)
-  leg_cl.SetTextSize(tags.getTagDoubleDefault("legend.textSize", 0.04)*labelSizeScale)
-
-  #-----------------------------------------------------------------------
-  # Start looping
-  
-  # Loop over cuts ---->
-  for cut in tags.getTagVString("cuts"):
-    QF.INFO("Produce histograms at cut: "+str(cut))
     
-    # Loop over variables ---->
-    if len(tags.getTagVString("observables")) == 0: QF.BREAK("Please specify observables to plot with the tag 'observables;!")
-    for var in tags.getTagVString("observables"):
-      QF.INFO("Plot variable: "+str(var))
-      histograms=[]
-      legentries=[]
-      QF.INFO("For processes: "+", ".join(map(str,tags.getTagVString("samplePaths"))))
+  #--------------------------------------------------------
+  # Loop over plot categories
+  
+  for plotCat in args.plotCategory:
+      if not parser.has_section(plotCat):
+        QF.BREAK("No section with name '{:s}' found in configuration file! Exiting...".format(plotCat))
+    
+      tags = QF.TQTaggable()
       
-      # Loop over processes ---->
-      if len(tags.getTagVString("samplePaths")) == 0: QF.BREAK("Please specifiy processes to plot with the tag 'samplePaths'!")
-      for proc in tags.getTagVString("samplePaths"):
-        commonPath = ROOT.TString()
-        if tags.getTagString("commonPath", commonPath):
-          samplepath = QF.TQFolder.concatPaths(commonPath, proc)
-        else:
-          samplepath = proc
-        processname = proc
-          
-        # get Histogram
-        hist = reader.getHistogram(samplepath,QF.TQFolder.concatPaths(cut,var))
-        if not hist:
-          QF.WARN("histogram with definition 'getHistogram({:s},{:s})' not found! Skipping process!".format(samplepath, QF.TQFolder.concatPaths(cut,var)))
-          continue
-        
-        # Set labels
-        xlabel = hist.GetXaxis().GetTitle()
-        custom_xlabel = getCustomAxisLabel(var, tags)
-        if custom_xlabel:
-          xlabel = custom_xlabel
-        if tags.getTagBoolDefault("normed", True):
-          hist.Scale(1./hist.Integral())
-          setup_style(hist, xlabel, "Normalized Events" )
-        else:
-          setup_style(hist, xlabel, "Events" )
-
-        # rebin histogram (if specified in dictionary 'rebins')
-        rebinHistogram(hist, var, tags)
-
-        # set custom axis range if specified in dictionary 'axesranges'
-        setAxesRange(hist, var, tags)
-          
-        # Get max of hists
-        maxVal = -999.9
-        if hist.GetMaximum() > maxVal:
-          maxVal=hist.GetMaximum()
-        
-        # get legend name for process
-        leg_cl.AddEntry(hist, getLegendEntry(samplepath, reader), "l")
-        
-        # Add histogram to list
-        histograms.append(hist)
-        
-      # <---- End loop over processes
-      if len(histograms) < 1:
-        continue
-
-      logX = tags.getTagBoolDefault("logX", False)
-      logY = tags.getTagBoolDefault("logY", False)
-      if len(histograms) == 2 and tags.getTagBoolDefault("drawRatio", False):
-        ratio_yrange = [0.5, 2]
-        if tags.hasTag("ratio.yrange.0"): ratio_yrange[0] = tags.getTagVDouble("ratio.yrange")[0]
-        if tags.hasTag("ratio.yrange.1"): ratio_yrange[1] = tags.getTagVDouble("ratio.yrange")[1]
-        ratio_ylabel = tags.getTagStandardStringDefault("ratio.ylabel", "Nominal / Variation")
-        c1,pad1,pad2 = drawWithRatio(histograms[0], histograms[1], ratio_yrange = ratio_yrange, ratio_ylabel = ratio_ylabel, plot_options = "histE", logx = logX, logy = logY, gridlines_in_ratio = True)
-        c1.cd()
-        pad2.Draw("same")  
-        pad1.cd()
+      # Tags in section 'common' will be overwritten by more specific sections
+      if parser.has_section("common"):
+        common.getTagsFromConfigParser(parser, tags, "common")
+    
+      # Get tags from specific plot category
+      common.getTagsFromConfigParser(parser, tags, plotCat)
+      inputFilePath = ROOT.TString()
+      if tags.getTagString("input", inputFilePath):
+        inputFilePath = common.findConfigPath(inputFilePath)
+        samples = QF.TQSampleFolder.loadSampleFolder(inputFilePath)
       else:
-        histograms[0].SetMaximum(1.5*maxVal)
-        c1.SetLogx(logX)
-        c1.SetLogy(logY)
-        histograms[0].Draw("histE")
-        for i in range(1,len(histograms)):
-          histograms[i].Draw("histe same") 
-        histograms[0].Draw("histesame")
-
-      drawATLASLabel(xpos1D , ypos1D, "Internal", ROOT.kBlack, textsize*1.2*labelSizeScale, 0.25)
-      shift = 0.06*(1+(labelSizeScale-1)/2.)
-      for i, l in enumerate(label):
-        myText(xpos1D, (ypos1D-shift)-i*shift, ROOT.kBlack, l, textsize*labelSizeScale)
-
-      leg_cl.Draw()
-
-      outputfolder = tags.getTagStringDefault("outputFolder", "results/1DShapePlots")
-      mkdir_p(outputfolder.Data())
-      histname = str(cut)+"_"+str(var)
-      outPath = '{dirct}/{la}'.format(dirct=outputfolder, la=histname)
-      outPath = ROOT.TString(QF.TQPathManager.getPathManager().getTargetPath(outPath))
+        QF.BREAK("Please specify an input sample folder!")
+      styleFilePath = tags.getTagStringDefault("patches", common.findConfigPath("../tools/plotComparisons/style-plotComparisons.txt"))
+      common.patchSampleFolder([styleFilePath], samples)
+      reader = QF.TQSampleDataReader(samples)
       
-      plotformat = ["pdf", "png"]
-      if tags.hasTag("plotFormat.0"): plotformat = tags.getTagVString("plotFormat")
-      for pf in plotformat:
-        c1.SaveAs(outPath.Data()+"."+pf)
-      c1.Clear()
-      leg_cl.Clear()
+      # -----------------------------------------------------
+      # Style, label and legend settings
+      
+      atlasStyle = utils.get_style_ATLAS("ATLAS")
+      print "\nApplying ATLAS style settings...\n"
+      ROOT.gROOT.SetStyle("ATLAS")
+      ROOT.gROOT.ForceStyle()
+      
+      c1 = ROOT.TCanvas("can","can",600,600)
+      
+      ypos1D = 1 - ROOT.gStyle.GetPadTopMargin() - 0.08
+      xpos1D = ROOT.gStyle.GetPadLeftMargin()+0.03
+      textsize = 0.04
+      
+      labelSizeScale = 1
+      if tags.getTagBoolDefault("drawRatio", False):
+        labelSizeScale = 1.5
+      
+      label = ["#sqrt{#it{s}} = 13 TeV"]
+      additional_labels = []
+      if not len(tags.getTagVString("label")) == 0:
+        for ilabel in tags.getTagVString("label"):
+          label.append(str(ilabel))
+          
+      legXlow = tags.getTagDoubleDefault("geometry.legend.xlow", 0.52)
+      legXhigh = tags.getTagDoubleDefault("geometry.legend.xhigh", 0.85)
+      legYlow = tags.getTagDoubleDefault("geometry.legend.ylow", 0.7)
+      legYhigh = tags.getTagDoubleDefault("geometry.legend.yhigh", ypos1D)
+      leg_cl = ROOT.TLegend(legXlow,legYlow,legXhigh,legYhigh)
+      leg_cl.SetBorderSize(0)
+      leg_cl.SetFillStyle(0)
+      leg_cl.SetTextFont(42)
+      leg_cl.SetTextSize(tags.getTagDoubleDefault("legend.textSize", 0.04)*labelSizeScale)
+    
+      #-----------------------------------------------------------------------
+      # Get histograms with helper functions in plotUtils.py
+    
+      compareType = ROOT.TString()
+      tags.getTagString("compare", compareType)
+      if not compareType:
+        if not compareType in ["processes", "variables", "cuts"]:
+          QF.BREAK("No valid comparison type found! " \
+                   "You need to specify what to compare with the tag 'compare'! Exiting...")
+    
+      # get distributions/observables, processes/sample paths and cuts from config
+      observables = tags.getTagVString("observables")
+      if len(tags.getTagVString("observables")) == 0: QF.BREAK("Please specify observables to plot with the tag 'observables'!")
+    
+      cuts = tags.getTagVString("cuts")
+      if len(tags.getTagVString("cuts")) == 0: QF.BREAK("Please specify the cuts for plotting with the tag 'cuts'!")
+      
+      processes = tags.getTagVString("samplePaths")
+      if len(tags.getTagVString("samplePaths")) == 0: QF.BREAK("Please specifiy processes to plot with the tag 'samplePaths'!")
+      # add common path in front of sample paths if specified
+      commonPath = ROOT.TString()
+      if tags.getTagString("basePath", commonPath):
+        processes = [QF.TQFolder.concatPaths(commonPath, proc) for proc in processes]
 
+      totalbkg = ""
+      if tags.hasTag("specialPlot.StatUncertaintyDataProcess"):
+        totalbkg = tags.getTagStringDefault("specialPlot.StatUncertaintyDataProcess", "bkg/[em+me]/")
+        if not ROOT.TString(totalbkg).IsNull():
+          if isinstance(processes, ROOT.vector('TString')): processes.push_back(totalbkg)  # for plotting estimated data unc with sqrt(N_bkg)
+          else: processes.append(totalbkg)  # for plotting estimated data unc with sqrt(N_bkg)
+    
+      histsList = utils.getDistributionsAtCutsForProcessesList(processes, cuts, observables, compareType, reader)
+    
+      if len(histsList) < 1 or (len(histsList) == 1 and len(histsList[0]) == 0):
+        QF.BREAK("No histograms could be retrieved, please check your configuration!")
+    
+      # ---->> Loop over plots
+      for histDicts in histsList:
+    
+        if not "hists" in histDicts.keys():
+          QF.BREAK("No proper dictionay found with histogram definitions!")
+          
+        # ---->> Loop over histograms for special manipulations
+        # Do rebinning for all histograms first because it effects other properties like hist range
+        for ihist, hist in enumerate(histDicts["hists"]):
+          # rebin histogram if specified with tag rebin.*
+          rebinHistogram(hist, histDicts["variables"][ihist], tags)
+        for ihist, hist in enumerate(histDicts["hists"]):
+          # option for some special plots
+          if tags.getTagBoolDefault("specialPlot.StatUncertainties", False):
+            if histDicts["processes"][ihist] == totalbkg:
+              if tags.hasTag("specialPlot.StatUncertaintyDataProcess"):
+                newhist = hist.Clone()
+                for i in range(hist.GetNbinsX()+1):
+                  error = math.sqrt(hist.GetBinContent(i)) if hist.GetBinContent(i) > 0 else 0
+                  newhist.SetBinContent(i, error)
+                  newhist.SetBinError(i, 0)
+                newhist.GetYaxis().SetTitle("Statistical Uncertainty")
+                histDicts["hists"][ihist] = newhist
+            else:
+              newhist = hist.Clone()
+              for i in range(hist.GetNbinsX()+1):
+                newhist.SetBinContent(i, hist.GetBinError(i))
+                newhist.SetBinError(i, 0)
+              newhist.GetYaxis().SetTitle("Statistical Uncertainty")
+              histDicts["hists"][ihist] = newhist
+              
+        # Get max of hists
+        ylow, ymax = utils.findSmartHistRange(histDicts["hists"], normalized = tags.getTagBoolDefault("normed", False), includeOverflowBins = False)
+        
+        # ---->> Loop over histograms
+        for ihist, hist in enumerate(histDicts["hists"]):
+          
+          # Set labels
+          xlabel = hist.GetXaxis().GetTitle()
+          ylabel = hist.GetYaxis().GetTitle()
+          custom_xlabel, custom_ylabel = getCustomAxisLabel(histDicts["variables"][ihist], tags)
+          if custom_xlabel: xlabel = custom_xlabel
+          if custom_ylabel: ylabel = custom_ylabel
+          if tags.getTagBoolDefault("normed", True):
+            hist.Scale(1./hist.Integral())
+            utils.setup_style(hist, xlabel, ylabel+" (Normalized)" )
+          else:
+            utils.setup_style(hist, xlabel, ylabel)
+            
+          # set histogram range
+          hist.GetYaxis().SetRangeUser(ylow, ymax)
+          
+          # set custom axis range if specified with tags xlabel.* or ylabel.*
+          setAxesRange(hist, histDicts["variables"][ihist], tags)
+              
+          # get legend name for process
+          if compareType == "processes":
+            leg_cl.AddEntry(hist, getLegendEntry(histDicts["processes"][ihist], reader, tags.getTagBoolDefault("setLegNameToTrailingFolder", False)), "l")
+            # Line colors set with patch file! But can use scheme to set colors that are clearly distinguishable.
+            if tags.getTagBoolDefault("setDistinguishableLineColors"):
+              colors = utils.getListOfDistinguishableColors()
+              if ihist < len(colors):
+                hist.SetLineColor(colors[ihist])
+              else:
+                hist.SetLineColor(ihist)
+          if compareType == "cuts":
+            leg_cl.AddEntry(hist, hist.GetName(), "l")
+            hist.SetLineColor(ihist+1) # TODO: Setting line color can be improved/customized
+          if compareType == "variables":
+            leg_cl.AddEntry(hist, hist.GetName(), "l")
+            hist.SetLineColor(ihist+1) # TODO: Setting line color can be improved/customized
+
+        logX = tags.getTagBoolDefault("logX", False)
+        logY = tags.getTagBoolDefault("logY", False)
+        plot_options = tags.getTagStandardStringDefault("plotOptions", "histE")
+        if tags.getTagBoolDefault("drawRatio", False) and len(histDicts["hists"]) >1:
+          ratio_yrange = [0.5, 2]
+          if tags.hasTag("ratio.yrange.0"): ratio_yrange[0] = tags.getTagVDouble("ratio.yrange")[0]
+          if tags.hasTag("ratio.yrange.1"): ratio_yrange[1] = tags.getTagVDouble("ratio.yrange")[1]
+          ratio_ylabel = tags.getTagStandardStringDefault("ratio.ylabel", "Nominal / Variation")
+          numerator, denominator = getNumeratorAndDenominators(histDicts["hists"], tags)
+          c1,pad1,pad2 = utils.drawWithRatio(numerator, denominator, ratio_yrange = ratio_yrange, ratio_ylabel = ratio_ylabel, plot_options = plot_options, logx = logX, logy = logY, gridlines_in_ratio = True)
+          c1.cd()
+          pad2.Draw("same")  
+          pad1.cd()
+        else:
+          c1.SetLogx(logX)
+          c1.SetLogy(logY)
+          histDicts["hists"][0].Draw("histE")
+          for h in histDicts["hists"]:
+            h.Draw("histe same") 
+          histDicts["hists"][0].Draw("histesame")
+      
+        utils.drawATLASLabel(xpos1D , ypos1D, "Internal", ROOT.kBlack, textsize*1.2*labelSizeScale, 0.25)
+        shift = 0.06*(1+(labelSizeScale-1)/2.)
+        for i, l in enumerate(label):
+          utils.myText(xpos1D, (ypos1D-shift)-i*shift, ROOT.kBlack, l, textsize*labelSizeScale)
+        leg_cl.Draw()
+      
+        outputfolder = tags.getTagStringDefault("outputFolder", "results/1DShapePlots")
+        outputfolder = ROOT.TString(QF.TQPathManager.getPathManager().getTargetPath(outputfolder))
+        utils.mkdir_p(outputfolder.Data())
+        if compareType == "processes":
+          histname = str(histDicts["cuts"][0])+"_"+str(histDicts["variables"][0]) # index does not matter
+        if compareType == "cuts" or compareType == "variables":
+          validProcessName = ROOT.TString(histDicts["processes"][0])
+          validProcessName = validProcessName.ReplaceAll("[", "")
+          validProcessName = validProcessName.ReplaceAll("]", "")
+          validProcessName = validProcessName.ReplaceAll("+", "")
+          validProcessName = QF.TQStringUtils.makeValidIdentifier(validProcessName, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", "_")
+          QF.TQStringUtils.removeTrailing(validProcessName, "_") # remove the last _
+        if compareType == "cuts":
+          histname = str(histDicts["variables"][0])+"_"+str(validProcessName) # index does not matter
+        if compareType == "variables":
+          histname = str(histDicts["cuts"][0])+"_"+str(validProcessName) # index does not matter
+        
+        outPath = '{dirct}/{la}'.format(dirct=outputfolder, la=histname)
+        plotformat = ["pdf", "png"]
+        if tags.hasTag("plotFormat.0"): plotformat = tags.getTagVString("plotFormat")
+        for pf in plotformat:
+          c1.SaveAs(outPath+"."+pf)
+        c1.Clear()
+        leg_cl.Clear()
+      
 if __name__ == "__main__":
   # parse the CLI arguments
   parser = argparse.ArgumentParser(description='make a shape plots for processes shapes')
 
-  parser.add_argument("plotCategory", type=str,  help="Plots that should be produced (section in config file)")
+  parser.add_argument("plotCategory", type=str, nargs="+", help="Plots that should be produced (section in config file)")
   parser.add_argument("--config", type=str, default=common.findConfigPath("../tools/plotComparisons/plotComparisons.cfg"), help="Configuration file to be read (please provide path relative to share or absolute path)")
   args = parser.parse_args()
 
