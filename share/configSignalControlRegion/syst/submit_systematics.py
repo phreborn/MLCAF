@@ -212,16 +212,9 @@ l_treevars=[
 
 def create_cmd_log(option, sys, stage):
   cmd = ''
-#  if stage == 'prepare':
-#    s_sys_file_path_hack = s_sys_file_path.replace('sys','sys_{:s}'.format(sys)) 
-#    os.system('cp {:s} {:s}'.format(s_sys_file_path, s_sys_file_path_hack))
-#    os.system('sed -i s/NOMINAL/{:s}/g {:s}'.format(sys, s_sys_file_path_hack))
-#
-#    cmd="prepare.py {:s} --options campaignsConfig='{:s}'  outputFile='sampleFolders/prepared/samples-prepared-htautau_lephad_sr-{:s}.root'".format(s_config_path,s_sys_file_path_hack,sys)
-#  elif stage == 'initialize':
   if stage == 'initialize':
-    #s_sys_file_path_hack = s_sys_file_path.replace('sys','sys_{:s}'.format(sys))
     cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
+
   #######################
   # Analyze samples
   #######################
@@ -281,6 +274,7 @@ def create_cmd_log(option, sys, stage):
         os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
     # obtain the command
     cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 60000 --maxSampleCount 75 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,extra_option)
+
   #######################
   # Merge samples
   #######################
@@ -311,10 +305,10 @@ if __name__ == '__main__':
   # this is controlled by the arg parser, so I can run the show from an external submission script
 
   l_systematics=[]
-  if args.systype == "fakevar":
-    l_systematics.extend(l_fakevars)
   if args.systype == "isovar":
     l_systematics.extend(l_isovars)
+  if args.systype == "fakevar":
+    l_systematics.extend(l_fakevars)
   if args.systype == "topvar":
     l_systematics.extend(l_topvars)
   if args.systype == "weightvar":
