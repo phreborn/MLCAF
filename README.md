@@ -158,7 +158,7 @@ source configWjetsFakeRegion/applyFF/scriptMerge.sh
 source configWjetsFakeRegion/applyFF/scriptVisualize.sh
 ```
 
-### Signal Region, Validation Region, W+jets/Top Control Regions
+### Signal Region (SR), Validation Region (VR), W+jets/Top Control Regions (WCR/TCR)
 ```bash
 # Debug test the analysis
 source configSignalControlRegion/scriptDebug.sh
@@ -170,21 +170,30 @@ source configSignalControlRegion/scriptMerge.sh
 source configSignalControlRegion/scriptVisualize.sh
 ```
 
-### Systematics (Signal Region, Validation Region, W+jets/Top Control Regions)
+### Systematics (SR, VR, TCR)
 ```bash
-# Prepare and initialize your systematic variation samples
-source configSignalControlRegion/syst/scriptPrepareInitializeSystematics.sh
-# Submit the full systematic analysis to a cluster
-source configSignalControlRegion/syst/scriptSubmitSystematics.sh
+# Submit the NOM-based systematic analysis to a cluster
+source configSignalControlRegion/syst/scriptSubmit.sh NOM 1
 # After all cluster jobs have finished, merge the output
-source configSignalControlRegion/syst/scriptMergeSystematics.sh
+source configSignalControlRegion/syst/scriptMerge.sh NOM 1
 # Write the systematics to band files and tables
-source configSignalControlRegion/syst/scriptWriteSystematics.sh
-# Re-visualize plots
-source configSignalControlRegion/scriptVisualize.sh
+source configSignalControlRegion/syst/scriptWrite.sh NOM
+# Visualize plots with systematics
+source configSignalControlRegion/syst/scriptVisualize.sh
+
+# Initialize your SYS-based samples
+source configSignalControlRegion/syst/scriptInitialize.sh
+# Submit the SYS-based systematic analysis to a cluster
+source configSignalControlRegion/syst/scriptSubmit.sh SYS 1
+# After all cluster jobs have finished, merge the output
+source configSignalControlRegion/syst/scriptMerge.sh SYS 1
+# Re-write the full systematics to band files and tables
+source configSignalControlRegion/syst/scriptWrite.sh SYS
+# Re-visualize plots with full systematics
+source configSignalControlRegion/syst/scriptVisualize.sh
 ```
 
-### Workspace inputs (Signal Region, Top Control Region)
+### Workspace inputs (SR, TCR)
 ```bash
 # Dump systematic outputs to standard ROOT files and merge
 python configSignalControlRegion/syst/scriptDumpHist.py

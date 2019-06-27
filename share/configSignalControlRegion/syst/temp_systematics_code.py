@@ -227,7 +227,7 @@ def main():
 
   # now we add the systematic sublists we want to run over into the grand list
   # this is controlled by the arg parser, so I can run the show from an external submission script
-  if args.systype == "NOM":
+  if args.systype == "NOM" or args.systype == "SYS":
       l_systematics.extend(l_isovars)
       l_systematics.extend(l_fakevars)
       l_systematics.extend(l_topvars)
