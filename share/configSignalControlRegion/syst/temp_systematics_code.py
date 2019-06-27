@@ -227,19 +227,13 @@ def main():
 
   # now we add the systematic sublists we want to run over into the grand list
   # this is controlled by the arg parser, so I can run the show from an external submission script
-  if args.systype == "partial" or args.systype == "full":
-#  if args.systype == "fakevar":
-      l_systematics.extend(l_fakevars)
-#  if args.systype == "isovar":
+  if args.systype == "NOM":
       l_systematics.extend(l_isovars)
-#  if args.systype == "topvar":
+      l_systematics.extend(l_fakevars)
       l_systematics.extend(l_topvars)
-  if args.systype == "full":
-#  if args.systype == "weightvar":
+  if args.systype == "SYS":
       l_systematics.extend(l_weightvars)
-#  if args.systype == "treevariation":
       l_systematics.extend(l_treevariations)
-
 
   for sysline in l_systematics:
     option = sysline[0]

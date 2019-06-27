@@ -1,8 +1,26 @@
 #!/bin/bash
-NCORES=10
 
-python configSignalControlRegion/syst/submit_systematics.py --systype fakevar --stage merge --ncores ${NCORES}
-python configSignalControlRegion/syst/submit_systematics.py --systype isovar --stage merge --ncores ${NCORES}
-python configSignalControlRegion/syst/submit_systematics.py --systype topvar --stage merge --ncores ${NCORES}
-python configSignalControlRegion/syst/submit_systematics.py --systype treevar --stage merge --ncores ${NCORES}
-python configSignalControlRegion/syst/submit_systematics.py --systype weightvar --stage merge --ncores ${NCORES}
+if [ -z $1 ]; then
+    echo "No type specified."
+    return 1
+fi
+
+NCORES=1
+if [ ! -z $2 ]; then
+    NCORES=$2
+fi
+echo "Setting NCORES = ${NCORES}"
+
+echo "Running over $1 set..."
+if [ "$1" == "NOM" ]; then
+    declare -a SYSTYPES=("isovar" "fakevar" "topvar")
+elif [ "$1" == "SYS" ]; then
+    declare -a SYSTYPES=("weightvar" "treevar")
+else
+    echo "Systematic set not recognised."
+    return 1
+fi
+
+for systype in "${SYSTYPES[@]}"; do
+    python configSignalControlRegion/syst/submit_systematics.py --systype ${systype} --stage merge --ncores ${NCORES}
+done
