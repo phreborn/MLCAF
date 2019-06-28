@@ -132,6 +132,18 @@ source configLeptonFakeRegion/applyFF/scriptSubmit.sh
 source configLeptonFakeRegion/applyFF/scriptMerge.sh
 # Visualize plots with fakes
 source configLeptonFakeRegion/applyFF/scriptVisualize.sh
+# Calculate lepton correction scale factors
+python scripts/calculateScaleFactor.py LFR
+
+# To check back the L/QSF modelling in the L/QFR
+# Debug test the analysis with corrected fakes
+source configLeptonFakeRegion/applyFF/applySF/scriptDebug.sh
+# Submit the corrected fake analysis to a cluster
+source configLeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output with the existing file
+source configLeptonFakeRegion/applyFF/applySF/scriptMerge.sh
+# Visualize plots with corrected fakes
+source configLeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
 ```
 
 ### W+jets/Top Fake Region (WFR/TFR)
