@@ -84,8 +84,8 @@ double isoReweight::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   float  f_lephad_met_lep0_cos_dphi= this->lephad_met_lep0_cos_dphi->EvalInstance();
 
-  // fake factor valid range up to 200
-  if (f_lep_0_pt>=200) f_lep_0_pt=199;
+  // fake factor valid range up to 300
+  if (f_lep_0_pt>=300) f_lep_0_pt=299;
   // determine which FF to use
   // period + channel + category + variable + FF
   // period (LFR1516, LFR17, LFR18, LFRAll)

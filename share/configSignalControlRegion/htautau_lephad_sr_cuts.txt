@@ -21,11 +21,3 @@
 
 .name=CutTCRBtag1p
 .name=CutTCRBtag3p
-
-.name=CutWCRBveto1p
-.name=CutWCRBtag1p
-.name=CutWCRBveto3p
-.name=CutWCRBtag3p
-
-.name=CutWCRSSBtag1p
-.name=CutWCRSSBtag3p

@@ -80,8 +80,8 @@ double TopReweight::getValue() const {
   /* exmple block for TTree::SetBranchAddress method:
      const double retval = this->fBranch1 + this->fBranch2;
      */
+  if (0==m_SF_hist.size()) return 1.0;
 
-  //std::cout<<" In getValue "<<std::endl;
   double f_tau_0_phi          = this->tau_0_phi->EvalInstance();
   //double f_met_anti_iso_phi   = this->met_anti_iso_phi->EvalInstance();
   double f_lep_0              = this->lep_0->EvalInstance();
@@ -122,14 +122,13 @@ double TopReweight::getValue() const {
     return 1.0;
   }
 
-  if (1 == f_tau_0_n_charged_tracks) SF += "1p";
+  if (1 == f_tau_0_n_charged_tracks || 2 == f_tau_0_n_charged_tracks ) SF += "1p";
   else if (3 == f_tau_0_n_charged_tracks) SF += "3p";
   else return 1.0;
 
   // parameterization
   // tauPt
   SF += "TauPtSF";
-
   h_nominal = m_SF_hist.at(SF);
   h_up = m_SF_hist.at(SF+"_up");
   h_down = m_SF_hist.at(SF+"_down");
@@ -197,6 +196,7 @@ TopReweight::TopReweight(const TString& expression) : LepHadObservable(expressio
  
   TH1F* tempHist = 0;
   // obtain SF histograms
+  m_SF_hist.clear();
   for (auto fn : SF_list) {
     tempFile = TFile::Open("ScaleFactors/"+fn+".root");
     if (!tempFile) {

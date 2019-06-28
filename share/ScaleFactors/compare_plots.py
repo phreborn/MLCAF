@@ -19,15 +19,23 @@ def obtainHistFromFile(fn, hn):
   f = TFile.Open(fn, 'r')
   hist = f.Get(hn)
   hist.SetDirectory(0)
+  hist_up = f.Get(hn+"_up")
+  hist_down = f.Get(hn+"_down")
+  for i in range(1,hist.GetNbinsX()+1):
+    up = hist_up.GetBinContent(i)
+    down = hist_down.GetBinContent(i)
+    error = 0.5*(up-down)
+    hist.SetBinError(i,error)
   f.Close()
   return hist
 
-def ComparePlot(list_to_compare, fig_name):
+def ComparePlot(map_to_compare, fig_name):
   # obtain the list of histgram
   hist_list = []
-  color_list = [kBlue,kRed,kBlack,kAzure]
-  for fn in list_to_compare:
+  color_list = [kBlue,kRed,kBlack,kOrange]
+  for fn, hist_title in map_to_compare.items():
     hist = obtainHistFromFile(fn+".root", fn)
+    hist.SetTitle(hist_title)
     hist_list.append(hist)
 
   hist_color = zip(hist_list, color_list)
@@ -54,8 +62,9 @@ def ComparePlot(list_to_compare, fig_name):
   leg = TLegend(0.7,0.8,0.9,0.9)
   leg.SetFillColor(0)
   for hist in hist_list:
-    name = hist.GetName()
+    name = hist.GetTitle()
     leg.AddEntry(hist,name,'l')
+    hist.SetTitle("")
   leg.Draw()
 
   c.Update()
@@ -63,6 +72,20 @@ def ComparePlot(list_to_compare, fig_name):
 
 
 if __name__ == '__main__':
-  list_to_compare = ['LFRAllehadBvetoLeptonPtFF','LFRAllehadBtagLeptonPtFF']
-  ComparePlot(list_to_compare, "LFRAllehadLeptonPtFF_Compare.png")
+  map_to_compare = {
+                    'TCRAllehadBtag1pTauPtSF': 'ehad 1p', 
+                    'TCRAllmuhadBtag1pTauPtSF': 'muhad 1p',
+                    }
+  ComparePlot(map_to_compare, "TCRAllBtag1pTauPtSF_Compare.png")
 
+  map_to_compare = {
+                    'TCRAllehadBtag3pTauPtSF': 'ehad 3p', 
+                    'TCRAllmuhadBtag3pTauPtSF': 'muhad 3p',
+                    }
+  ComparePlot(map_to_compare, "TCRAllBtag3pTauPtSF_Compare.png")
+
+  map_to_compare = {
+                    'TCRAlllephadBtag1pTauPtSF': 'lephad 1p', 
+                    'TCRAlllephadBtag3pTauPtSF': 'lephad 3p',
+                    }
+  ComparePlot(map_to_compare, "TCRAllBtagTauPtSF_Compare.png")
