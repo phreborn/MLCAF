@@ -101,6 +101,8 @@ def main(config):
     samples.setTagString("WFFParam", WFFParam)
     UseTopSF = config.getTagBoolDefault("UseTopSF", False)
     samples.setTagBool("UseTopSF", UseTopSF)
+    UseQCDSF = config.getTagBoolDefault("UseQCDSF", False)
+    samples.setTagBool("UseQCDSF", UseQCDSF)
 
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
     if config.getTagBoolDefault("purgeSamples",False):

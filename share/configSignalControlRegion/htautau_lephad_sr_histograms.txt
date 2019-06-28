@@ -19,8 +19,7 @@
 #TH1F('LeptonEta','', 25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\#eta^{lep}" );
 #TH1F('TauEta','', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
 
-#@CutBveto*/*,CutBtag*/*: MTTOT;
-#@CutTCRBtag*/*: MTTOT;
+#@CutBveto*/*,CutBtag*/*, CutTCRBtag*/*: MTTOT;
 
 #################
 # Bveto category
@@ -33,7 +32,7 @@ TH1F('BvetoLepMETDphi','',       30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi 
 TH1F('BvetoVisibleMassTauLep','', {50.,60.,65.,70.,75.,80.,85.,90.,95.,100.,106.,113.,121.,130.,140.,152.,166.,182.,200.,220.,250.,290.,350.})   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
 TH1F('BvetoMTTOT','',           {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
 
-@CutBveto*,CutVRBveto*,CutWCRBveto*: BvetoLeptonPt,BvetoTauPt,BvetoLepMETDphi,BvetoTauMETDphi,BvetoMTTOT,BvetoVisibleMassTauLep;
+@CutBveto*,CutVRBveto*: BvetoLeptonPt,BvetoTauPt,BvetoLepMETDphi,BvetoTauMETDphi,BvetoMTTOT,BvetoVisibleMassTauLep;
 
 #################
 # Btag category
@@ -46,7 +45,7 @@ TH1F('BtagLepMETDphi','',       {0.,0.1,0.2,0.3,0.4,0.52,0.66,0.82,1.1,1.6,3.141
 TH1F('BtagVisibleMassTauLep','', 30, 0,300)   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
 TH1F('BtagMTTOT','',            {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
 
-@CutBtag*,CutVRBtag*,CutWCRBtag*,CutTCRBtag*: BtagLeptonPt,BtagTauPt,BtagLepMETDphi,BtagTauMETDphi,BtagMTTOT,BtagVisibleMassTauLep;
+@CutBtag*,CutVRBtag*,CutTCRBtag*: BtagLeptonPt,BtagTauPt,BtagLepMETDphi,BtagTauMETDphi,BtagMTTOT,BtagVisibleMassTauLep;
 
 #################
 # VR Scale Factor
@@ -61,14 +60,3 @@ TH1F('Bveto3pTauPtDphi3SF'   ,'', {25.,39.,70.,300.})            <<   ( {[tau_0_
 
 @CutVRBveto1p: Bveto1pTauPtDphi1SF,Bveto1pTauPtDphi2SF,Bveto1pTauPtDphi3SF;
 @CutVRBveto3p: Bveto3pTauPtDphi1SF,Bveto3pTauPtDphi2SF,Bveto3pTauPtDphi3SF;
-
-#################
-# TCR Scale Factor
-#################
-
-TH1F('Btag1pTauPtSF'   ,'', {25.,35.,45.,55.,70.,110.,300.})        <<   ( [tau_0_n_charged_tracks==1?tau_0_p4.Pt():-1] : "p_{T}^{tau} [GeV]" );
-TH1F('Btag3pTauPtSF'   ,'', {25.,35.,45.,55.,70.,110.,300.})        <<   ( [tau_0_n_charged_tracks==3?tau_0_p4.Pt():-1] : "p_{T}^{tau} [GeV]" );
-
-@CutTCRBtag1p: Btag1pTauPtSF;
-@CutTCRBtag3p: Btag3pTauPtSF;
-

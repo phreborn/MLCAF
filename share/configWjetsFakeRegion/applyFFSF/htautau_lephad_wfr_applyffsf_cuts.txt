@@ -1,0 +1,12 @@
+.name=CutBase
+.name=CutTruth
+.name=CutAll
+
+.name=CutBveto1pOSPassID
+.name=CutBveto3pOSPassID
+
+.name=CutBtag1pOSPassID
+.name=CutBtag3pOSPassID
+
+.name=CutBtag1pSSPassID
+.name=CutBtag3pSSPassID
