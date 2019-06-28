@@ -232,7 +232,7 @@ if __name__=='__main__':
   elif region == 'LFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr_applyff.root'
   elif region == 'TCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applyff.root'
   elif region == 'VR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
 
