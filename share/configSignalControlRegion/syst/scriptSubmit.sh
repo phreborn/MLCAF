@@ -17,7 +17,7 @@ if [ "$1" == "NOM" ]; then
 elif [ "$1" == "SYS" ]; then
     declare -a SYSTYPES=("weightvar" "treevar")
 else
-    echo "Systematic set not recognised.
+    echo "Systematic set not recognised."
     return 1
 fi
 
