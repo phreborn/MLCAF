@@ -48,11 +48,6 @@
 /bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/taunu
 
-##### sig #####
-/sig/?/c16a/ggH/?
-/sig/?/c16a/bbH/?
-
-
 # ------------------------------ c16d ------------------------------ #
 ##### data #####
 /data/?/c16d
@@ -103,11 +98,6 @@
 /bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/taunu
 
-##### sig #####
-/sig/?/c16d/ggH/?
-/sig/?/c16d/bbH/?
-
-
 # ------------------------------ c16e ------------------------------ #
 ##### data #####
 /data/?/c16e
@@ -157,7 +147,3 @@
 /bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/enu
 /bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/munu
 /bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/taunu
-
-##### sig #####
-/sig/?/c16e/ggH/?
-/sig/?/c16e/bbH/?

@@ -89,3 +89,11 @@ if __name__ == '__main__':
                     'TCRAlllephadBtag3pTauPtSF': 'lephad 3p',
                     }
   ComparePlot(map_to_compare, "TCRAllBtagTauPtSF_Compare.png")
+
+  map_to_compare = {
+                    'TCR1516lephadBtag3pTauPtSF': '1516 lephad 3p', 
+                    'TCR17lephadBtag3pTauPtSF': '17 lephad 3p',
+                    'TCR18lephadBtag3pTauPtSF': '18 lephad 3p',
+                    }
+  ComparePlot(map_to_compare, "TCRlephadBtag3pTauPtSF_Compare.png")
+
