@@ -304,9 +304,9 @@ if __name__=='__main__':
   elif region == 'TCR':
     # Loop over data taking period and channels
     periods = {
-                #'1516': 'c16a',
-                #'17': 'c16d',
-                #'18': 'c16e',
+                '1516': 'c16a',
+                '17': 'c16d',
+                '18': 'c16e',
                 'All': '[c16a+c16d+c16e]',
              }
     channels = {
