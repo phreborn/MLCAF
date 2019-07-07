@@ -24,8 +24,8 @@
 
 
 ### signal ###
-.name="ggH300",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/300"
-.name="bbH300",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/300"
+.name="ggH200",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/200"
+.name="bbH200",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/200"
 
 .name="ggH1000", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/1000"
 .name="bbH1000", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/1000"
