@@ -812,6 +812,14 @@ double ScaleFactor::getValue() const {
     if ((veto & status ).any()) { continue; }
 
     TTreeFormula* formula = std::get<3>(branches[i]);
+
+    // skip unexpected pu weight (observed in bbH2500 sample)
+    if (std::get<2>(branches[i]) == "NOMINAL_pileup_combined_weight") {
+      if (fabs(formula->EvalInstance()) > 10000 ) {
+        std::cout << "ERROR: unexpected pileup weight: " << formula->EvalInstance() << std::endl;
+        continue;
+      }
+    }
     scaleFac *= formula->EvalInstance();
   }
 
