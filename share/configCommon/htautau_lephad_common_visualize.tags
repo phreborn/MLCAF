@@ -45,7 +45,9 @@
 
 
 ### sig ###
-<style.default.title="ggH 300 GeV",  style.default.histLineColor=kMagenta-4> @ /sig/?/?/ggH/300;
-<style.default.title="bbH 300 GeV",  style.default.histLineColor=kYellow-4 > @ /sig/?/?/bbH/300;
+<style.default.title="ggH 200 GeV",  style.default.histLineColor=kMagenta-4> @ /sig/?/?/ggH/200;
+<style.default.title="bbH 200 GeV",  style.default.histLineColor=kYellow-4 > @ /sig/?/?/bbH/200;
 <style.default.title="ggH 1000 GeV", style.default.histLineColor=kMagenta-9> @ /sig/?/?/ggH/1000;
 <style.default.title="bbH 1000 GeV", style.default.histLineColor=kGreen-7  > @ /sig/?/?/bbH/1000;
+<style.default.title="ggH 2500 GeV", style.default.histLineColor=kRed> @ /sig/?/?/ggH/2500;
+<style.default.title="bbH 2500 GeV", style.default.histLineColor=kBlue  > @ /sig/?/?/bbH/2500;
