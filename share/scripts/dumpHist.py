@@ -123,24 +123,24 @@ if __name__ == "__main__":
     'bbHlh1000':    "sig/{:s}/{:s}/bbH/1000/",
     'bbHlh1500':    "sig/{:s}/{:s}/bbH/1500/",
     'bbHlh2000':    "sig/{:s}/{:s}/bbH/2000/",
-    #'bbHlh2500':    "sig/{:s}/{:s}/bbH/2500/",
+    'bbHlh2500':    "sig/{:s}/{:s}/bbH/2500/",
     'ggHlh200':     "sig/{:s}/{:s}/ggH/200/",
     'ggHlh300':     "sig/{:s}/{:s}/ggH/300/",
     'ggHlh600':     "sig/{:s}/{:s}/ggH/600/",
     'ggHlh1000':    "sig/{:s}/{:s}/ggH/1000/",
     'ggHlh1500':    "sig/{:s}/{:s}/ggH/1500/",
     'ggHlh2000':    "sig/{:s}/{:s}/ggH/2000/",
-    #'ggHlh2500':    "sig/{:s}/{:s}/ggH/2500/",
+    'ggHlh2500':    "sig/{:s}/{:s}/ggH/2500/",
   }
 
   ### The following regions will be dumped
   region_dict = {
-    #"sr1pBtag"  :   'CutBtag1p',
-    #"sr3pBtag"  :   'CutBtag3p',
-    #"sr1pBveto"  :   'CutBveto1p',
-    #"sr3pBveto"  :   'CutBveto3p',
-    #"tcr1pBtag"  :  'CutTCRBtag1p',
-    #"tcr3pBtag"  :  'CutTCRBtag3p',
+    "sr1pBtag"  :   'CutBtag1p',
+    "sr3pBtag"  :   'CutBtag3p',
+    "sr1pBveto"  :   'CutBveto1p',
+    "sr3pBveto"  :   'CutBveto3p',
+    "tcr1pBtag"  :  'CutTCRBtag1p',
+    "tcr3pBtag"  :  'CutTCRBtag3p',
     "vr1pBtag"  :   'CutVRBtag1p',
     "vr3pBtag"  :   'CutVRBtag3p',
     "vr1pBveto"  :   'CutVRBveto1p',
@@ -149,17 +149,18 @@ if __name__ == "__main__":
 
   ### The following hists will be dumped
   hist_dict = {
-    #"BvetoTauMETDphi"  : "TauMETDphi",
-    #"BtagTauMETDphi"   : "TauMETDphi",
-    #"BvetoLepMETDphi"  : "LepMETDphi",
-    #"BtagLepMETDphi"   : "LepMETDphi",
-    "BvetoTauPt"        : "TauPt",
-    "BtagTauPt"         : "TauPt",
-    "BvetoMTTOT"        : "MTTOT",
-    "BtagMTTOT"         : "MTTOT",
-    #"BvetoLeptonPt"    : "LeptonPt",
-    #"BtagLeptonPt"     : "LeptonPt",
-    #"MTTOT"            : "MTTOT",
+    "BvetoTauPt"        : "BinTauPt",
+    "BtagTauPt"         : "BinTauPt",
+    "BvetoMTTOT"        : "BinMTTOT",
+    "BtagMTTOT"         : "BinMTTOT",
+    #"BvetoTauMETDphi"  : "BinTauMETDphi",
+    #"BtagTauMETDphi"   : "BinTauMETDphi",
+    #"BvetoLepMETDphi"  : "BinLepMETDphi",
+    #"BtagLepMETDphi"   : "BinLepMETDphi",
+    #"BvetoLeptonPt"    : "BinLeptonPt",
+    #"BtagLeptonPt"     : "BinLeptonPt",
+    
+    "MTTOT"             : "MTTOT",
   }
 
   main(args, dataset_dict, sample_dict, region_dict, hist_dict); 
