@@ -1,0 +1,14 @@
+# -*- mode: tqfolder -*-
+
+# remove unused samples in sys jobs
+# as this is post-initialize, the MC samples should already have their weights collected
+<isAntiID=false> @ /.;
+<isAntiISO=false> @ /.;
+
+$printline("Removing un-unsed samples...");
+
+$delete("/bkg/?/?/Wjets!");
+$delete("/bkg/?/?/Fakes!");
+$delete("/bkg/?/?/Top/ttbar/ISRup!");
+$delete("/bkg/?/?/Top/ttbar/ME!");
+$delete("/bkg/?/?/Top/ttbar/PS!");
