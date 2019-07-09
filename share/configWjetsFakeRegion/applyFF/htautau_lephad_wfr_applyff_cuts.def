@@ -20,7 +20,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
         +CutAll {
             <.cutExpression = " [lep_0_id_medium==1 && lep_0_p4.Pt()>30 && tau_0_p4.Pt()>25 && fabs(tau_0_p4.Eta())<2.3 && lephad_dphi>2.4]", .title="All">
             +CutISO {
-                <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && ( (lep_0_p4.Pt()<50. && lep_0_iso_FCTightTrackOnly==0) || (lep_0_p4.Pt()>=50. && lep_0_iso_FCTight==0) ))) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && ( (lep_0_p4.Pt()<50. && lep_0_iso_FCTightTrackOnly==1) || (lep_0_p4.Pt()>=50. && lep_0_iso_FCTight==1) )))",
+                <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 )) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))",
                 .weightExpression = "$(isAntiISO)?($(UseQCDSF)?[isoreweight_$(isovar)]*[QCDReweight_$(isovar)]:[isoreweight_$(isovar)]):1", .title="ISO">
                 +CutID {
                     <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>0.01 && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",

@@ -364,33 +364,33 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 
   addScaleFactor(muon | lepiso,
    highpt2 | mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
-   "lep_0_NOMINAL_MuEffSF_IsoFCTightTrackOnly");
+   "lep_0_NOMINAL_MuEffSF_IsoFCTight_FixedRad");
   addScaleFactor(muon | lepiso | mu_eff_isostat_low,
-   "lep_0_MUON_EFF_ISO_STAT_1down_MuEffSF_IsoFCTightTrackOnly");
+   "lep_0_MUON_EFF_ISO_STAT_1down_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | mu_eff_isostat_high,
-   "lep_0_MUON_EFF_ISO_STAT_1up_MuEffSF_IsoFCTightTrackOnly");
+   "lep_0_MUON_EFF_ISO_STAT_1up_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | mu_eff_isosys_low,
-   "lep_0_MUON_EFF_ISO_SYS_1down_MuEffSF_IsoFCTightTrackOnly");
+   "lep_0_MUON_EFF_ISO_SYS_1down_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | mu_eff_isosys_high,
-   "lep_0_MUON_EFF_ISO_SYS_1up_MuEffSF_IsoFCTightTrackOnly");
+   "lep_0_MUON_EFF_ISO_SYS_1up_MuEffSF_IsoFCTight_FixedRad");
   // muon isolation efficient highpt
   addScaleFactor(muon | lepiso | highpt2,
    mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
-   "lep_0_NOMINAL_MuEffSF_IsoFCTight");
+   "lep_0_NOMINAL_MuEffSF_IsoFCTight_FixedRad");
   addScaleFactor(muon | lepiso | highpt2 | mu_eff_isostat_low,
-   "lep_0_MUON_EFF_ISO_STAT_1down_MuEffSF_IsoFCTight");
+   "lep_0_MUON_EFF_ISO_STAT_1down_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | highpt2 | mu_eff_isostat_high,
-   "lep_0_MUON_EFF_ISO_STAT_1up_MuEffSF_IsoFCTight");
+   "lep_0_MUON_EFF_ISO_STAT_1up_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | highpt2 | mu_eff_isosys_low,
-   "lep_0_MUON_EFF_ISO_SYS_1down_MuEffSF_IsoFCTight");
+   "lep_0_MUON_EFF_ISO_SYS_1down_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | highpt2 | mu_eff_isosys_high,
-   "lep_0_MUON_EFF_ISO_SYS_1up_MuEffSF_IsoFCTight");
+   "lep_0_MUON_EFF_ISO_SYS_1up_MuEffSF_IsoFCTight_FixedRad");
   ////////////////////////////////////////////////////////////////////////////////
   // muon ttva
   Condition mu_eff_ttvastat_low = registerVariation("mu_eff_ttvastat_low");
@@ -812,6 +812,14 @@ double ScaleFactor::getValue() const {
     if ((veto & status ).any()) { continue; }
 
     TTreeFormula* formula = std::get<3>(branches[i]);
+
+    // skip unexpected pu weight (observed in bbH2500 sample)
+    if (std::get<2>(branches[i]) == "NOMINAL_pileup_combined_weight") {
+      if (fabs(formula->EvalInstance()) > 10000 ) {
+        std::cout << "ERROR: unexpected pileup weight: " << formula->EvalInstance() << std::endl;
+        continue;
+      }
+    }
     scaleFac *= formula->EvalInstance();
   }
 
