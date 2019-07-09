@@ -24,12 +24,13 @@ def checkJobs(task_dir):
     goodfile_list.append(afile)
     avg_size = avg_size + os.path.getsize(afile)
     n_success = n_success + 1
-  avg_size = avg_size/n_success
 
-  for afile in goodfile_list:
-    size = os.path.getsize(afile)
-    if size < avg_size*0.8:
-      print "Size of {0} is {1} (avg: {2})".format(afile, size, avg_size)
+#  avg_size = avg_size/n_success
+#
+#  for afile in goodfile_list:
+#    size = os.path.getsize(afile)
+#    if size < avg_size*0.1:
+#      print "Size of {0} is {1} (avg: {2})".format(afile, size, avg_size)
 
   print "{0} has {1} files".format(task_dir, n_success)
 

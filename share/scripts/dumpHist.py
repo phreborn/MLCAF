@@ -23,6 +23,10 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
   if sys_name != "NOMINAL":
     sys_name=sys_name.replace('ScaleUp', 'Scale_1up')
     sys_name=sys_name.replace('ScaleDown', 'Scale_1down')
+    # 1 side syst 
+    if 'JET_JER' in sys_name:
+      sys_name = sys_name.replace('_1up', '')
+      sys_name = sys_name.replace('__1up', '')
     sys_name_list = sys_name.split("_")
     while '' in sys_name_list:
       sys_name_list.remove('')
@@ -149,14 +153,14 @@ if __name__ == "__main__":
 
   ### The following hists will be dumped
   hist_dict = {
-    "BvetoTauPt"        : "BinTauPt",
-    "BtagTauPt"         : "BinTauPt",
-    "BvetoMTTOT"        : "BinMTTOT",
-    "BtagMTTOT"         : "BinMTTOT",
     #"BvetoTauMETDphi"  : "BinTauMETDphi",
     #"BtagTauMETDphi"   : "BinTauMETDphi",
     #"BvetoLepMETDphi"  : "BinLepMETDphi",
     #"BtagLepMETDphi"   : "BinLepMETDphi",
+    "BvetoTauPt"        : "BinTauPt",
+    "BtagTauPt"         : "BinTauPt",
+    "BvetoMTTOT"        : "BinMTTOT",
+    "BtagMTTOT"         : "BinMTTOT",
     #"BvetoLeptonPt"    : "BinLeptonPt",
     #"BtagLeptonPt"     : "BinLeptonPt",
     

@@ -16,7 +16,11 @@ s_sys_file_path='configCommon/htautau_lephad_common_campaigns_sys.cfg'
 # list of all systematics, comment out the ones you don't want to run:
 # lets instead separate out the systematic types into sublists, and append them to the grand list on request
 # so first initialize the grand list of systematics
-# 8 + 8 + 4 + 70 + 68 + 4 
+# fakevars:     6(12)
+# isovars:      6(12)
+# topvars:      NEW: 4(6)   2 one-side | OLD: 2(2) 2 one-side
+# weightvars:   36(72)
+# treevars:     35(60) 10 one-side 
 l_fakevars=[
 ['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
 ['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
@@ -48,10 +52,10 @@ l_isovars=[
 ]
 
 l_topvars=[
-#['topvar', 'TTBAR_Radiation_1up'],
-#['topvar', 'TTBAR_Radiation_1down'],
-#['topvar', 'TTBAR_ShowerUE_1up'],
-#['topvar', 'TTBAR_ShowerUE_1down'],
+['topvar', 'TTBAR_Radiation_1up'],
+['topvar', 'TTBAR_Radiation_1down'],
+['topvar', 'TTBAR_ShowerUE_1up'],
+['topvar', 'TTBAR_ShowerUE_1down'],
 ['topvar', 'TTBar_ME'],
 ['topvar', 'TTBar_PS'],
 ['topvar', 'TTBar_ISR_1up'],
@@ -60,7 +64,6 @@ l_topvars=[
 ['topvar', 'TTBar_FSR_1down'],
 ]
 
-#70
 l_weightvars=[
 ['weightvar', 'mu_eff_stat_low'],
 ['weightvar', 'mu_eff_stat_high'],
@@ -135,9 +138,8 @@ l_weightvars=[
 ['weightvar', 'pu_prw_high'],
 ['weightvar', 'pu_prw_low'],
 ]
-# 68
+
 l_treevars=[
-## below the systematic must be actual tree name in ntuples
 ['treevar', 'MUON_ID_1down'],
 ['treevar', 'MUON_ID_1up'],
 ['treevar', 'MUON_MS_1down'],
@@ -184,22 +186,14 @@ l_treevars=[
 ['treevar', 'JET_GroupedNP_2_1down'],
 ['treevar', 'JET_GroupedNP_3_1up'],
 ['treevar', 'JET_GroupedNP_3_1down'],
-['treevar', 'JET_JER_DataVsMC_1up'],
-['treevar', 'JET_JER_DataVsMC_1down'],
+['treevar', 'JET_JER_DataVsMC_MC16_1up'],
 ['treevar', 'JET_JER_EffectiveNP_1_1up'],
-['treevar', 'JET_JER_EffectiveNP_1_1down'],
 ['treevar', 'JET_JER_EffectiveNP_2_1up'],
-['treevar', 'JET_JER_EffectiveNP_2_1down'],
 ['treevar', 'JET_JER_EffectiveNP_3_1up'],
-['treevar', 'JET_JER_EffectiveNP_3_1down'],
 ['treevar', 'JET_JER_EffectiveNP_4_1up'],
-['treevar', 'JET_JER_EffectiveNP_4_1down'],
 ['treevar', 'JET_JER_EffectiveNP_5_1up'],
-['treevar', 'JET_JER_EffectiveNP_5_1down'],
 ['treevar', 'JET_JER_EffectiveNP_6_1up'],
-['treevar', 'JET_JER_EffectiveNP_6_1down'],
 ['treevar', 'JET_JER_EffectiveNP_7restTerm_1up'],
-['treevar', 'JET_JER_EffectiveNP_7restTerm_1down'],
 ['treevar', 'JET_TILECORR_Uncertainty_1down'],
 ['treevar', 'JET_TILECORR_Uncertainty_1up'],
 ['treevar', 'MET_SoftTrk_ResoPara'],
@@ -213,7 +207,8 @@ l_treevars=[
 def create_cmd_log(option, sys, stage):
   cmd = ''
   if stage == 'initialize':
-    cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
+      #cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
+      cmd="initialize.py {:s} --options campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
 
   #######################
   # Analyze samples
@@ -273,7 +268,10 @@ def create_cmd_log(option, sys, stage):
       for file in l_file:
         os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
     # obtain the command
-    cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 60000 --maxSampleCount 75 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,extra_option)
+    if option == 'weightvar' or option == 'treevar':
+      cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 35000 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,extra_option)
+    else:
+      cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,extra_option)
 
   #######################
   # Merge samples
@@ -316,12 +314,17 @@ if __name__ == '__main__':
   if args.systype == "treevar":
     l_systematics.extend(l_treevars)
 
-  # back out if its empty
-  if not len(l_systematics):
-    sys.exit()
   # create job list    
   cmd_list = []
   log_list = []
+
+  # hotfix for nominal branch in sys samples
+  if args.stage == 'initialize':
+    cmd, log = create_cmd_log('', 'NOMINAL', 'initialize')
+    print cmd
+    cmd_list.append(cmd)
+    log_list.append(log)
+
   for systematics in l_systematics:
     option = systematics[0]
     sys = systematics[1]
@@ -329,11 +332,9 @@ if __name__ == '__main__':
     cmd, log = create_cmd_log(option, sys, args.stage)
     cmd_list.append(cmd)
     log_list.append(log)
-  # hotfix for nominal branch in sys samples
-  if args.stage == 'initialize':
-    cmd, log = create_cmd_log('', 'NOMINAL', 'initialize')
-    cmd_list.append(cmd)
-    log_list.append(log)
+
+  if not len(cmd_list):
+    sys.exit()
 
   NCORES = args.ncores
   if 1 == NCORES:
