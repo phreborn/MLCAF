@@ -19,13 +19,20 @@
 .name=CutVRBveto3pFailID
 .name=CutVRBtag3pFailID
 
+.name=CutTCRMTOS
 .name=CutTCRBtag1pFailID
 .name=CutTCRBtag3pFailID
 
-.name=CutWCRBveto1pFailID
-.name=CutWCRBtag1pFailID
-.name=CutWCRBveto3pFailID
-.name=CutWCRBtag3pFailID
+.name=CutWCRVisMassVeto
+.name=CutWCRMTOS
+.name=CutWCRBveto1pOSFailID
+.name=CutWCRBtag1pOSFailID
+.name=CutWCRBveto3pOSFailID
+.name=CutWCRBtag3pOSFailID
 
-.name=CutWCRSSBtag1pFailID
-.name=CutWCRSSBtag3pFailID
+.name=CutWCRMTSS
+.name=CutWCRBveto1pSSFailID
+.name=CutWCRBtag1pSSFailID
+.name=CutWCRBveto3pSSFailID
+.name=CutWCRBtag3pSSFailID
+

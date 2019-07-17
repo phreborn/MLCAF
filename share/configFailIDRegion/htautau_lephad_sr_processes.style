@@ -20,7 +20,7 @@
 .name="ZllJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Zll"
 #.name="TopTT",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Top"
 #.name="TopTL",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Top"
-.name="TopJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Top"
+.name="TopJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Top/[ttbar/NOMINAL+single]"
 #.name="DibosonTT",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Diboson"
 #.name="DibosonTL",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Diboson"
 .name="DibosonJET", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Diboson"
