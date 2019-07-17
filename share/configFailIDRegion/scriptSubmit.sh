@@ -2,10 +2,10 @@
 
 # add "contid" as argument to executing this script to run over contid
 
-REGION="configFailIDSignalControlRegion"
+REGION="configFailIDRegion"
 JOBS="jobsALL.txt"
-CONFIG="htautau_lephad_sr_lffcheck"
-IDENT="SR_lffcheck"
+CONFIG="htautau_lephad_sr"
+IDENT="SRfailid"
 
 if [ "$1" == "contid" ]; then
   CONFIG="${CONFIG}_contid"
