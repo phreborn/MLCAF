@@ -30,45 +30,22 @@ variables:
 
 .asg_setup: &asg_setup
   before_script:
-    - if [ -z "$KRB_USERNAME" ]; then exit 0; fi
+    - if [ -z "${KRB_USERNAME}" ]; then exit 0; fi
     - source /home/atlas/release_setup.sh
     - pwd
     - mkdir -p ~/.ssh
     - source ~/.bashrc || echo ignore alrb
     - echo "${KRB_PASSWORD}" | kinit ${KRB_USERNAME}@CERN.CH
     - klist
-    - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+    - echo "${SSH_SERVER_HOSTKEYS}" >> ~/.ssh/known_hosts
+    - echo -e "Host lxplus.cern.ch\n\tUser ${KRB_USERNAME}\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
     - cat ~/.ssh/config
 
-#.minimal_script: &minimal_script
-#  script:
-#    - source build/setupAnalysis.sh
-#    - mkdir run
-#    - cd run
-#    - prepare.py minimal/config/master/prepare-Minimal-Example.cfg
-#    - initialize.py minimal/config/master/initialize-Minimal-Example.cfg --options lineUpdates=false consoleWidth=160
-#    - analyze.py minimal/config/master/analyze-Minimal-Example.cfg --options lineUpdates=false consoleWidth=160
-#    - visualize.py minimal/config/master/visualize-Minimal-Example.cfg
-
-#.flatNTuple_script: &flatNTuple_script
-#  script:
-#    - source build/setupAnalysis.sh
-#    - mkdir run
-#    - cd run
-#    - prepare.py flatNTuple/config/master/prepare-flatNTuple-Example.cfg
-#    - initialize.py flatNTuple/config/master/initialize-flatNTuple-Example.cfg --options lineUpdates=false consoleWidth=160
-#    - analyze.py flatNTuple/config/master/analyze-flatNTuple-Example.cfg --options lineUpdates=false consoleWidth=160
-#    - visualize.py flatNTuple/config/master/visualize-flatNTuple-Example.cfg
-
-#.xAOD_script: &xAOD_script
-#  script:
-#    - source build/setupAnalysis.sh
-#    - mkdir run
-#    - cd run
-#    - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
-#    - initialize.py xAOD/config/master/initialize-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160
-#    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160
-#    - visualize.py xAOD/config/master/visualize-xAOD-Example.cfg
+.BSMtautauCAF_script: &BSMtautauCAF_script
+  script:
+    - source build/setupAnalysis.sh
+    - cd share
+    - echo "Insert analysis scripts here..."
 
 ##########################################################################
 # job definitions
@@ -110,62 +87,19 @@ standalone_compile:
 ##########################################################################
 # stage: run
 
-#run_minimal:
-#  <<: *asg
-#  <<: *asg_setup
-#  <<: *minimal_script
-#  stage: run
-#  dependencies:
-#    - asg_compile
-#  artifacts:
-#    paths:
-#      - run/sampleFolders
-#      - run/results
-#    name: "${CI_JOB_NAME}"
-#    expire_in: 3 mos
-
-#run_flatNTuple:
-#  <<: *asg
-#  <<: *asg_setup
-#  <<: *flatNTuple_script
-#  stage: run
-#  dependencies:
-#    - asg_compile
-#  artifacts:
-#    paths:
-#      - run/sampleFolders
-#      - run/results
-#    name: "${CI_JOB_NAME}"
-#    expire_in: 3 mos
-
-#run_xAOD:
-#  <<: *asg
-#  <<: *asg_setup
-#  <<: *xAOD_script
-#  stage: run
-#  dependencies:
-#    - asg_compile
-#  artifacts:
-#    paths:
-#      - run/sampleFolders
-#      - run/results
-#    name: "${CI_JOB_NAME}"
-#    expire_in: 3 mos
-
-##########################################################################
-# stage: test
-
-# test_tutorial:
-#   <<: *standalone
-#   stage: test
-#   dependencies:
-#     - standalone_compile
-#   script:
-#     - source build/setupAnalysis.sh
-#     - curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py
-#     - sudo python3 ./get-pip.py
-#     - sudo pip3 install doxec
-#     - doxec Tutorial/*.md
+run_BSMtautauCAF:
+  <<: *asg
+  <<: *asg_setup
+  <<: *BSMtautauCAF_script
+  stage: run
+  dependencies:
+    - asg_compile
+  artifacts:
+    paths:
+      - share/sampleFolders
+      - share/results
+    name: "${CI_JOB_NAME}"
+    expire_in: 3 mos
 
 ##########################################################################
 # stage: docker
