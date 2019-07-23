@@ -184,6 +184,13 @@ source configSignalControlRegion/scriptVisualize.sh
 
 ### Systematics (SR, VR, TCR)
 ```bash
+# Calculate top correction scale factors
+python scripts/calculateScaleFactor.py TCR
+# Calculate validation correction scale factors
+python scripts/calculateScaleFactor.py VR
+
+# Debug test the NOM-based systematic analysis
+source configSignalControlRegion/syst/scriptDebug.sh NOM
 # Submit the NOM-based systematic analysis to a cluster
 source configSignalControlRegion/syst/scriptSubmit.sh NOM 1
 # After all cluster jobs have finished, merge the output
@@ -195,6 +202,8 @@ source configSignalControlRegion/syst/scriptVisualize.sh
 
 # Initialize your SYS-based samples
 source configSignalControlRegion/syst/scriptInitialize.sh
+# Debug test the SYS-based systematic analysis
+source configSignalControlRegion/syst/scriptDebug.sh SYS
 # Submit the SYS-based systematic analysis to a cluster
 source configSignalControlRegion/syst/scriptSubmit.sh SYS 1
 # After all cluster jobs have finished, merge the output
