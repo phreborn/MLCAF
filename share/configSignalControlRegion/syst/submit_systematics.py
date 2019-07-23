@@ -268,10 +268,27 @@ def create_cmd_log(option, sys, stage):
       for file in l_file:
         os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
     # obtain the command
+    submit_config = "--time 4320 --memory 1024 --maxSampleSize 7000"
+
+    if ".shef.ac.uk" in os.environ['HOSTNAME']:
+      submit_config += " --submit condor --maxSampleSize 20000"
+    elif os.environ['USER'] == "yehf":
+      submit_config += " --submit condor "
+    elif os.environ['USER'] == "xiaozhong":
+      submit_config += " --submit condor "
+
     if option == 'weightvar' or option == 'treevar':
-      cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 35000 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,extra_option)
+      if os.environ['USER'] == "yehf":
+        submit_config += " --maxSampleSize 35000 "
+      elif os.environ['USER'] == "xiaozhong":
+        submit_config += " --maxSampleSize 35000 "
+      cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges {:s} --options {:s}'.format(s_config_path,jobs_file,sys,submit_config,extra_option)
     else:
-      cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --options {:s} --submit condor'.format(s_config_path,jobs_file,sys,extra_option)
+      if os.environ['USER'] == "yehf":
+        submit_config += " --maxSampleSize 7000 "
+      elif os.environ['USER'] == "xiaozhong":
+        submit_config += " --maxSampleSize 7000 "
+      cmd='submit.py {:s} --jobs configSignalControlRegion/syst/{:s} --identifier SRsys_{:s} --allowArgChanges {:s} --options {:s}'.format(s_config_path,jobs_file,sys,submit_config,extra_option)
 
   #######################
   # Merge samples
