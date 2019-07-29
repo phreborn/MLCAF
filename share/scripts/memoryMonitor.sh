@@ -15,6 +15,7 @@ for file in $(find ./logs -name "${JOBNAME}_*.condorlog" ); do
         if [ ! -z "$CONDORID" ]; then
             echo "Killing ${MEMVAL}MB = $BADFILE = $CONDORID"
             condor_rm $CONDORID
+            rm -v $file
         fi
     fi
 done
