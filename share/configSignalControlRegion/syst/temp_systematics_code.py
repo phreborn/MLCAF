@@ -34,8 +34,8 @@ l_cuts=[
     'CutVRBtag3p',
     'CutTCRBtag1p',
     'CutTCRBtag3p',
-    'CutWCRBtag1p',
-    'CutWCRBtag3p',
+    #'CutWCRBtag1p',
+    #'CutWCRBtag3p',
 #    ]
 #else:
 #  l_cuts=[
@@ -45,8 +45,8 @@ l_cuts=[
     'CutVRBveto3p',
     #'CutTCRBveto1p',
     #'CutTCRBveto3p',
-    'CutWCRBveto1p',
-    'CutWCRBveto3p',
+    #'CutWCRBveto1p',
+    #'CutWCRBveto3p',
 #    'CutBveto1pBDT1',
 #    'CutBveto1pBDT2',
 #    'CutBveto1pBDT3',
@@ -94,10 +94,12 @@ def main():
   l_systematics=[]
 
   l_fakevars=[
-  ['fakevar',   'FakeFactor_WjetsBtag1p_1up',    'FakeFactor_WjetsBtag1p_1down'],
-  ['fakevar',   'FakeFactor_WjetsBtag3p_1up',    'FakeFactor_WjetsBtag3p_1down'],
-  ['fakevar',   'FakeFactor_WjetsBveto1p_1up',   'FakeFactor_WjetsBveto1p_1down'],
-  ['fakevar',   'FakeFactor_WjetsBveto3p_1up',   'FakeFactor_WjetsBveto3p_1down'],
+    ['fakevar',   'FakeFactor_WjetsBtag1p_1up',     'FakeFactor_WjetsBtag1p_1down'],
+    ['fakevar',   'FakeFactor_WjetsBtag3p_1up',      'FakeFactor_WjetsBtag3p_1down'],
+    ['fakevar',   'FakeFactor_WjetsBveto1p_1up',     'FakeFactor_WjetsBveto1p_1down'],
+    ['fakevar',   'FakeFactor_WjetsBveto3p_1up',      'FakeFactor_WjetsBveto3p_1down'],
+    ["fakevar",   "FakeFactor_ExtraSysBveto1p_1up",   "FakeFactor_ExtraSysBveto1p_1down"],
+    ["fakevar",   "FakeFactor_ExtraSysBveto3p_1up",   "FakeFactor_ExtraSysBveto3p_1down"],
   ]
 
   l_bdt_fakevars=[
@@ -122,11 +124,13 @@ def main():
   ['isovar',   'FakeFactor_LepElBtag_1up',    'FakeFactor_LepElBtag_1down'],
   ['isovar',   'FakeFactor_LepMuBveto_1up',   'FakeFactor_LepMuBveto_1down'],
   ['isovar',   'FakeFactor_LepMuBtag_1up',    'FakeFactor_LepMuBtag_1down'],
+  ['isovar',   'FakeFactor_QCDReweight_MuHadBtag_1up',   'FakeFactor_QCDReweight_MuHadBtag_1down'],
+  ['isovar',   'FakeFactor_QCDReweight_MuHadBveto_1up',   'FakeFactor_QCDReweight_MuHadBveto_1down'],
   ]
 
   l_topvars=[
-#  ['ttbarweight', 'TTBAR_Radiation_1up', 'TTBAR_Radiation_1down'],
-#  ['ttbarweight', 'TTBAR_ShowerUE_1up',  'TTBAR_ShowerUE_1down'],
+#  ['topvar', 'TTBAR_Radiation_1up', 'TTBAR_Radiation_1down'],
+#  ['topvar', 'TTBAR_ShowerUE_1up',  'TTBAR_ShowerUE_1down'],
   ['topvar', 'TTBar_ME'],
   ['topvar', 'TTBar_PS'],
   ['topvar', 'TTBar_ISR_1up', 'TTBar_ISR_1down'],
@@ -151,78 +155,93 @@ def main():
 #  ['weightvar', 'LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_SCALE_W_1down_lpx_kfactor', 'LPX_KFACTOR_SCALE_W_1up_lpx_kfactor'],
 #  ['weightvar', 'LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor', 'LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor'],
-#
-#
-#  ['weightvar', 'mu_eff_stat_low',      'mu_eff_stat_high'],
-#  ['weightvar', 'mu_eff_statlowpt_low', 'mu_eff_statlowpt_high'],
-#  ['weightvar', 'mu_eff_sys_low',       'mu_eff_sys_high'],
-#  ['weightvar', 'mu_eff_syslowpt_low',  'mu_eff_syslowpt_high'],
-#  ['weightvar', 'mu_eff_trigstat_low',  'mu_eff_trigstat_high'],
-#  ['weightvar', 'mu_eff_trigsys_low',   'mu_eff_trigsys_high'],
-#  ['weightvar', 'mu_eff_isostat_low',   'mu_eff_isostat_high'],
-#  ['weightvar', 'mu_eff_isosys_low',    'mu_eff_isosys_high'],
-#  ['weightvar', 'mu_eff_ttvastat_low',  'mu_eff_ttvastat_high'],
-#  ['weightvar', 'mu_eff_ttvasys_low',   'mu_eff_ttvasys_high'],
-#
-#  ['weightvar', 'el_eff_id_low',      'el_eff_id_high'],
-#  ['weightvar', 'el_eff_iso_low',     'el_eff_iso_high'],
-#  ['weightvar', 'el_eff_reco_low',    'el_eff_reco_high'],
-#  ['weightvar', 'el_eff_trigger_low', 'el_eff_trigger_high'],
-#
+
+  ['weightvar', 'mu_eff_stat_low',      'mu_eff_stat_high'],
+  ['weightvar', 'mu_eff_statlowpt_low', 'mu_eff_statlowpt_high'],
+  ['weightvar', 'mu_eff_sys_low',       'mu_eff_sys_high'],
+  ['weightvar', 'mu_eff_syslowpt_low',  'mu_eff_syslowpt_high'],
+  ['weightvar', 'mu_eff_trigstat_low',  'mu_eff_trigstat_high'],
+  ['weightvar', 'mu_eff_trigsys_low',   'mu_eff_trigsys_high'],
+  ['weightvar', 'mu_eff_isostat_low',   'mu_eff_isostat_high'],
+  ['weightvar', 'mu_eff_isosys_low',    'mu_eff_isosys_high'],
+  ['weightvar', 'mu_eff_ttvastat_low',  'mu_eff_ttvastat_high'],
+  ['weightvar', 'mu_eff_ttvasys_low',   'mu_eff_ttvasys_high'],
+
+  ['weightvar', 'el_eff_id_low',      'el_eff_id_high'],
+  ['weightvar', 'el_eff_iso_low',     'el_eff_iso_high'],
+  ['weightvar', 'el_eff_reco_low',    'el_eff_reco_high'],
+  ['weightvar', 'el_eff_trigger_low', 'el_eff_trigger_high'],
+
   ['weightvar', 'tau_eff_reco_total_low',         'tau_eff_reco_total_high'],
   ['weightvar', 'tau_eff_reco_highpt_low',        'tau_eff_reco_highpt_high'],
   ['weightvar', 'tau_eff_eleolr_trueelectron_low','tau_eff_eleolr_trueelectron_high'],
   ['weightvar', 'tau_eff_eleolr_truehadtau_low',  'tau_eff_eleolr_truehadtau_high'],
   ['weightvar', 'tau_eff_jetid_total_low', 'tau_eff_jetid_total_high'],
   ['weightvar', 'tau_eff_jetid_highpt_low', 'tau_eff_jetid_highpt_high'],
-#
-#  ['weightvar', 'btag_b_0_low', 'btag_b_0_high'],
-#  ['weightvar', 'btag_b_1_low', 'btag_b_1_high'],
-#  ['weightvar', 'btag_b_2_low', 'btag_b_2_high'],
-#
-#  ['weightvar', 'btag_c_0_low', 'btag_c_0_high'],
-#  ['weightvar', 'btag_c_1_low', 'btag_c_1_high'],
-#  ['weightvar', 'btag_c_2_low', 'btag_c_2_high'],
-#
-#  ['weightvar', 'btag_light_0_low', 'btag_light_0_high'],
-#  ['weightvar', 'btag_light_1_low', 'btag_light_1_high'],
-#  ['weightvar', 'btag_light_2_low', 'btag_light_2_high'],
-#  ['weightvar', 'btag_light_3_low', 'btag_light_3_high'],
-#  ['weightvar', 'btag_light_4_low', 'btag_light_4_high'],
-#
-#  ['weightvar', 'btag_extrapolation_low', 'btag_extrapolation_high'],
-#  ['weightvar', 'btag_extrapolation_from_charm_low', 'btag_extrapolation_from_charm_high'],
-#
-#  ['weightvar', 'jet_jvteff_low', 'jet_jvteff_high'],
-#
-#  ['weightvar', 'pu_prw_high', 'pu_prw_low'],
+
+  ['weightvar', 'btag_b_0_low', 'btag_b_0_high'],
+  ['weightvar', 'btag_b_1_low', 'btag_b_1_high'],
+  ['weightvar', 'btag_b_2_low', 'btag_b_2_high'],
+
+  ['weightvar', 'btag_c_0_low', 'btag_c_0_high'],
+  ['weightvar', 'btag_c_1_low', 'btag_c_1_high'],
+  ['weightvar', 'btag_c_2_low', 'btag_c_2_high'],
+
+  ['weightvar', 'btag_light_0_low', 'btag_light_0_high'],
+  ['weightvar', 'btag_light_1_low', 'btag_light_1_high'],
+  ['weightvar', 'btag_light_2_low', 'btag_light_2_high'],
+  ['weightvar', 'btag_light_3_low', 'btag_light_3_high'],
+  ['weightvar', 'btag_light_4_low', 'btag_light_4_high'],
+
+  ['weightvar', 'btag_extrapolation_low', 'btag_extrapolation_high'],
+  ['weightvar', 'btag_extrapolation_from_charm_low', 'btag_extrapolation_from_charm_high'],
+
+  ['weightvar', 'jet_jvteff_low', 'jet_jvteff_high'],
+
+  ['weightvar', 'pu_prw_high', 'pu_prw_low'],
   ]
 
   l_treevariations=[
 #  # below the systematic must be actual tree name in ntuples
-#  ['treevariation', 'MUON_ID_1down', 'MUON_ID_1up'],
-#  ['treevariation', 'MUON_MS_1down', 'MUON_MS_1up'],
-#  ['treevariation', 'MUON_SAGITTA_RESBIAS_1down', 'MUON_SAGITTA_RESBIAS_1up'],
-#  ['treevariation', 'MUON_SAGITTA_RHO_1down', 'MUON_SAGITTA_RHO_1up'],
-#  ['treevariation', 'MUON_SCALE_1down',       'MUON_SCALE_1up'],
-#  ['treevariation', 'EG_RESOLUTION_ALL_1down',  'EG_RESOLUTION_ALL_1up'],
-#  ['treevariation', 'EG_SCALE_ALLCORR_1down',   'EG_SCALE_ALLCORR_1up'],
-#  ['treevariation', 'EG_SCALE_E4SCINTILLATOR_1down',        'EG_SCALE_E4SCINTILLATOR_1up'],
-#  ['treevariation', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
-#  ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
-#  ['treevariation', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
-  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down',   'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
-  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down',     'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
-  ['treevariation', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down',      'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
-#  ['treevariation', 'JET_EtaIntercalibration_NonClosure_1up', 'JET_EtaIntercalibration_NonClosure_1down'],
-#  ['treevariation', 'JET_GroupedNP_1_1up', 'JET_GroupedNP_1_1down'],
-#  ['treevariation', 'JET_GroupedNP_2_1up', 'JET_GroupedNP_2_1down'],
-#  ['treevariation', 'JET_GroupedNP_3_1up', 'JET_GroupedNP_3_1down'],
-#  ['treevariation', 'JET_JER_SINGLE_NP_1up'],
-#  ['treevariation', 'JET_TILECORR_Uncertainty_1down', 'JET_TILECORR_Uncertainty_1up'],
-#  ['treevariation', 'MET_SoftTrk_ResoPara'],
-#  ['treevariation', 'MET_SoftTrk_ResoPerp'],
-#  ['treevariation', 'MET_SoftTrk_ScaleDown', 'MET_SoftTrk_ScaleUp'],
+  ['treevar', 'MUON_ID_1down', 'MUON_ID_1up'],
+  ['treevar', 'MUON_MS_1down', 'MUON_MS_1up'],
+  ['treevar', 'MUON_SAGITTA_RESBIAS_1down', 'MUON_SAGITTA_RESBIAS_1up'],
+  ['treevar', 'MUON_SAGITTA_RHO_1down', 'MUON_SAGITTA_RHO_1up'],
+  ['treevar', 'MUON_SCALE_1down',       'MUON_SCALE_1up'],
+
+  ['treevar', 'EG_RESOLUTION_ALL_1down', 'EG_RESOLUTION_ALL_1up'],
+  ['treevar', 'EG_SCALE_AF2_1down', 'EG_SCALE_AF2_1up'],
+  ['treevar', 'EG_SCALE_ALL_1down', 'EG_SCALE_ALL_1up'],
+  ['treevar', 'EG_SCALE_ALLCORR_1down', 'EG_SCALE_ALLCORR_1up'],
+  ['treevar', 'EG_SCALE_E4SCINTILLATOR_1down', 'EG_SCALE_E4SCINTILLATOR_1up'],
+  ['treevar', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1down', 'EG_SCALE_LARCALIB_EXTRA2015PRE_1up'],
+  ['treevar', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2015PRE_1up'],
+  ['treevar', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1down', 'EG_SCALE_LARTEMPERATURE_EXTRA2016PRE_1up'],
+
+  ['treevar', 'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1down',   'TAUS_TRUEHADTAU_SME_TES_DETECTOR_1up'],
+  ['treevar', 'TAUS_TRUEHADTAU_SME_TES_INSITU_1down',     'TAUS_TRUEHADTAU_SME_TES_INSITU_1up'],
+  ['treevar', 'TAUS_TRUEHADTAU_SME_TES_MODEL_1down',      'TAUS_TRUEHADTAU_SME_TES_MODEL_1up'],
+
+  ['treevar', 'JET_EtaIntercalibration_NonClosure_highE_1up', 'JET_EtaIntercalibration_NonClosure_highE_1down'],
+  ['treevar', 'JET_EtaIntercalibration_NonClosure_negEta_1up', 'JET_EtaIntercalibration_NonClosure_negEta_1down'],
+  ['treevar', 'JET_EtaIntercalibration_NonClosure_posEta_1up', 'JET_EtaIntercalibration_NonClosure_posEta_1down'],
+  ['treevar', 'JET_Flavor_Response_1up', 'JET_Flavor_Response_1down'],
+  ['treevar', 'JET_GroupedNP_1_1up', 'JET_GroupedNP_1_1down'],
+  ['treevar', 'JET_GroupedNP_2_1up', 'JET_GroupedNP_2_1down'],
+  ['treevar', 'JET_GroupedNP_3_1up', 'JET_GroupedNP_3_1down'],
+  ['treevar', 'JET_JER_DataVsMC_MC16_1up'],
+  ['treevar', 'JET_JER_EffectiveNP_1_1up'],
+  ['treevar', 'JET_JER_EffectiveNP_2_1up'],
+  ['treevar', 'JET_JER_EffectiveNP_3_1up'],
+  ['treevar', 'JET_JER_EffectiveNP_4_1up'],
+  ['treevar', 'JET_JER_EffectiveNP_5_1up'],
+  ['treevar', 'JET_JER_EffectiveNP_6_1up'],
+  ['treevar', 'JET_JER_EffectiveNP_7restTerm_1up'],
+  ['treevar', 'JET_TILECORR_Uncertainty_1down', 'JET_TILECORR_Uncertainty_1up'],
+
+  ['treevar', 'MET_SoftTrk_ResoPara'],
+  ['treevar', 'MET_SoftTrk_ResoPerp'],
+  ['treevar', 'MET_SoftTrk_ScaleDown', 'MET_SoftTrk_ScaleUp'],
   ]
 
   # now we add the systematic sublists we want to run over into the grand list

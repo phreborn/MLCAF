@@ -208,7 +208,7 @@ def create_cmd_log(option, sys, stage):
   cmd = ''
   if stage == 'initialize':
       #cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
-      cmd="initialize.py {:s} --options campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
+      cmd="initialize.py {:s} --options verbose=False printFolderTags=td campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
 
   #######################
   # Analyze samples
