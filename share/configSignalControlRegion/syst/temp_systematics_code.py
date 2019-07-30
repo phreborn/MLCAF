@@ -34,8 +34,8 @@ l_cuts=[
     'CutVRBtag3p',
     'CutTCRBtag1p',
     'CutTCRBtag3p',
-    'CutWCRBtag1p',
-    'CutWCRBtag3p',
+    #'CutWCRBtag1p',
+    #'CutWCRBtag3p',
 #    ]
 #else:
 #  l_cuts=[
@@ -45,8 +45,8 @@ l_cuts=[
     'CutVRBveto3p',
     #'CutTCRBveto1p',
     #'CutTCRBveto3p',
-    'CutWCRBveto1p',
-    'CutWCRBveto3p',
+    #'CutWCRBveto1p',
+    #'CutWCRBveto3p',
 #    'CutBveto1pBDT1',
 #    'CutBveto1pBDT2',
 #    'CutBveto1pBDT3',
