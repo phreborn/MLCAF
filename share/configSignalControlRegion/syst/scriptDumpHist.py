@@ -27,7 +27,7 @@ def create_cmd_log_list(input_files, campaigns, channels):
 if __name__ == '__main__':
   """ Dump the Histograms """
   # make sure the NOMINAL exist
-  sr_fn = './samples-analyzed-htautau_lephad_sr.root'
+  sr_fn = './samples-analyzed-htautau_lephad_sr_applysf.root'
   sr_NOMINAL_fn = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-NOMINAL.root'
   if not os.path.isfile(sr_NOMINAL_fn):
     os.symlink(sr_fn, sr_NOMINAL_fn)

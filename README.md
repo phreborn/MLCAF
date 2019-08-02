@@ -189,6 +189,14 @@ python scripts/calculateScaleFactor.py TCR
 # Calculate validation correction scale factors
 python scripts/calculateScaleFactor.py VR
 
+# To prepare the T/VSF modelling for the NOMINAL SR/VR/TCR
+# Debug test the analysis with corrected scale factors
+source configSignalControlRegion/applySF/scriptDebug.sh
+# Submit the corrected scale factor analysis to a cluster
+source configSignalControlRegion/applySF/scriptSubmit.sh
+# After all cluster jobs have finished, merge the output
+source configSignalControlRegion/applySF/scriptMerge.sh
+
 # Debug test the NOM-based systematic analysis
 source configSignalControlRegion/syst/scriptDebug.sh NOM
 # Submit the NOM-based systematic analysis to a cluster

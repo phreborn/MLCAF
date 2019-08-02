@@ -67,7 +67,7 @@ def main():
   # Alternatively, you can just use ':*' to have the code grab the first instance of TQSampleFolder that it finds
   sfname = ':samples'
   #nominal_file_path = dir + 'NOMINAL.root' + sfname
-  nominal_file_path = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root' + sfname
+  nominal_file_path = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr_applysf.root' + sfname
 
   path_mc = '/bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson]'.format(channel,campaign)
   path_wjets_data = '/bkg/{:s}/{:s}/Fakes/ID/data'.format(channel,campaign)
