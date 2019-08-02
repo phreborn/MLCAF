@@ -7,7 +7,7 @@ import argparse
 from JobHandler import LocalJobHandler
 
 # The results of some jobs will not be changed for the systematics, these jobs will be copied from the following dir
-s_nominal_dir='batchOutput/unmerged_SR'
+s_nominal_dir='batchOutput/unmerged_SRapplySF'
 # Cofiguration for the systematic jobs
 s_config_path='configSignalControlRegion/syst/htautau_lephad_sr_sys.cfg'
 s_common_config_path='configCommon/htautau_lephad_common.cfg'
