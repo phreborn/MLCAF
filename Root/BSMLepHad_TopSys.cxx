@@ -114,6 +114,7 @@ double BSMLepHad_TopSys::getValue() const {
     retval = -1*(cor_ShUe - 1) + 1;
   }
 
+#if 0
   // new systematics
   if( fSysName.Contains("TTBar_ISR_1up") ) {
     double f_pmg_truth_weight_ISRHi = this->pmg_truth_weight_ISRHi->EvalInstance();
@@ -132,6 +133,18 @@ double BSMLepHad_TopSys::getValue() const {
     double f_pmg_truth_weight_FSRLo = this->pmg_truth_weight_FSRLo->EvalInstance();
     retval = f_pmg_truth_weight_FSRLo;
   }
+#else
+  // new systematics from truth level analysis
+  if ( fSysName.Contains("TTBar_ISR_1up") || fSysName.Contains("TTBar_ISR_1down")||
+       fSysName.Contains("TTBar_FSR_1up") || fSysName.Contains("TTBar_FSR_1down")||
+       fSysName.Contains("TTBar_PS") || fSysName.Contains("TTBar_ME") ) {
+    if (mttot > 600 ) mttot = 599;
+    retval = m_hSys->GetBinContent(m_hSys->FindBin(mttot));
+    // the last bin of ISR up variation is the same as that of down variation, which is strange. 
+    // mirror this bin
+    if ( fSysName.Contains("TTBar_ISR_1up") && retval < 1.0) retval = 2.0-retval;
+  }
+#endif
 
   DEBUGclass("returning");
   //return 0;
@@ -222,6 +235,36 @@ bool BSMLepHad_TopSys::initializeSelf(){
   if( fSysName.Contains("TTBar_FSR_1down") ) {
     this->pmg_truth_weight_FSRLo = new TTreeFormula( "pmg_truth_weight_FSRLo", "pmg_truth_weight_FSRLo", this->fTree);
   }
+
+  // new systematics based on truth level analysis
+  TFile* tempFile=0;
+  m_histoDir = 0;
+
+  tempFile = TFile::Open("Systematics/LepHadCombined_TopSys.root");
+  if (!tempFile) {
+    std::cout << "WARNING: can not find top systematics " << std::endl;
+    return false;  
+  }
+
+  if ( fSysName.Contains("TTBar_ISR_1up") ) {
+    m_hSys = (TH1F*)tempFile->Get("hISR_up"); m_hSys->SetDirectory(m_histoDir);
+  }
+  else if ( fSysName.Contains("TTBar_ISR_1down") ) {
+    m_hSys = (TH1F*)tempFile->Get("hISR_down"); m_hSys->SetDirectory(m_histoDir);
+  }
+  else if ( fSysName.Contains("TTBar_FSR_1up") ) {
+    m_hSys = (TH1F*)tempFile->Get("hFSR_up"); m_hSys->SetDirectory(m_histoDir);
+  }
+  else if ( fSysName.Contains("TTBar_FSR_1down") ) {
+    m_hSys = (TH1F*)tempFile->Get("hFSR_down"); m_hSys->SetDirectory(m_histoDir);
+  }
+  else if ( fSysName.Contains("TTBar_PS")) {
+    m_hSys = (TH1F*)tempFile->Get("hPowhegHerwig7"); m_hSys->SetDirectory(m_histoDir);
+  }
+  else if ( fSysName.Contains("TTBar_ME")) {
+    m_hSys = (TH1F*)tempFile->Get("haMcAtNloPythia8"); m_hSys->SetDirectory(m_histoDir);
+  }
+  tempFile->Close(); delete tempFile; tempFile=0;
 
   return true;
 }
