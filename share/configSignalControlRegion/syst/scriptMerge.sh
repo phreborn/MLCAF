@@ -13,8 +13,10 @@ echo "Setting NCORES = ${NCORES}"
 
 echo "Running over $1 set..."
 if [ "$1" == "NOM" ]; then
-    declare -a SYSTYPES=("isovar" "fakevar" "topvar")
+    #declare -a SYSTYPES=("isovar" "fakevar")
+    declare -a SYSTYPES=("isovar")
 elif [ "$1" == "SYS" ]; then
+    #declare -a SYSTYPES=("weightvar" "treevar" "topvar" "lpxvar")
     declare -a SYSTYPES=("weightvar" "treevar")
 else
     echo "Systematic set not recognised."

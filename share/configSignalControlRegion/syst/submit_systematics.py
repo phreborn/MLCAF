@@ -7,7 +7,12 @@ import argparse
 from JobHandler import LocalJobHandler
 
 # The results of some jobs will not be changed for the systematics, these jobs will be copied from the following dir
+<<<<<<< HEAD
 s_nominal_dir='batchOutput/unmerged_SRapplySF'
+=======
+#s_nominal_dir='batchOutput/unmerged_SR'
+s_nominal_dir='batchOutput/unmerged_SRsys_nominal'
+>>>>>>> update scripts for material transport correction and LPX Kfactor
 # Cofiguration for the systematic jobs
 s_config_path='configSignalControlRegion/syst/htautau_lephad_sr_sys.cfg'
 s_common_config_path='configCommon/htautau_lephad_common.cfg'
@@ -22,10 +27,10 @@ s_sys_file_path='configCommon/htautau_lephad_common_campaigns_sys.cfg'
 # weightvars:   36(72)
 # treevars:     35(60) 10 one-side 
 l_fakevars=[
-['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
-['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
-['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
-['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
+#['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
+#['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
+#['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
+#['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
 ['fakevar',   'FakeFactor_WjetsBveto1p_1up'],
 ['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
 ['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
@@ -51,6 +56,33 @@ l_isovars=[
 ['isovar',   'FakeFactor_QCDReweight_MuHadBveto_1down'],
 ]
 
+l_lpxvars=[
+['lpxvar',  'LPX_KFACTOR_ALPHAS_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_ALPHAS_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_BEAM_ENERGY_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_BEAM_ENERGY_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_CHOICE_HERAPDF20_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_CHOICE_HERAPDF20_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_CHOICE_NNPDF30_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_CHOICE_NNPDF30_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_CHOICE_epWZ16_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_CHOICE_epWZ16_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_PDF_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_PDF_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_PDF_EW_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_PDF_EW_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_PDF_epWZ16_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_PDF_epWZ16_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_PI_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_PI_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_REDCHOICE_NNPDF30_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_REDCHOICE_NNPDF30_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_SCALE_W_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_SCALE_W_Corr_1down'],
+['lpxvar',  'LPX_KFACTOR_SCALE_Z_Corr_1up'],
+['lpxvar',  'LPX_KFACTOR_SCALE_Z_Corr_1down'],
+]
+
 l_topvars=[
 ['topvar', 'TTBAR_Radiation_1up'],
 ['topvar', 'TTBAR_Radiation_1down'],
@@ -65,6 +97,7 @@ l_topvars=[
 ]
 
 l_weightvars=[
+#['weightvar', 'nominal'],
 ['weightvar', 'mu_eff_stat_low'],
 ['weightvar', 'mu_eff_stat_high'],
 ['weightvar', 'mu_eff_statlowpt_low'],
@@ -218,9 +251,10 @@ def create_cmd_log(option, sys, stage):
     extra_option = ''
     if option == 'treevar':
       extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(sys)
-    elif option == 'weightvar':
-      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
+    elif option == 'weightvar' or option == 'topvar' or option == 'lpxvar':
+      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-nominal.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
     else:
+      #extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-nominal.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
       extra_option = "aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
 
     # different files to be copied
@@ -242,6 +276,12 @@ def create_cmd_log(option, sys, stage):
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_ID_mc_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
       jobs_file = "jobsSYS-isovar.txt"
+    elif option=='lpxvar':
+      l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
+      l_files.append('unmerged_*_sig_X_c16?_*.root')
+      jobs_file = "jobsSYS-lpxvar.txt"
     elif option=='weightvar' or option=='treevar':
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       jobs_file = "jobsSYS-weighttreevar.txt"
@@ -251,14 +291,14 @@ def create_cmd_log(option, sys, stage):
       l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
-      if sys == 'TTBar_ME':
-        jobs_file = "jobsSYS-topvar-ME.txt"
-      elif sys == 'TTBar_PS':
-        jobs_file = "jobsSYS-topvar-PS.txt"
-      elif sys == 'TTBar_ISR_1up':
-        jobs_file = "jobsSYS-topvar-ISRup.txt"
-      else:
-        jobs_file = "jobsSYS-topvar.txt"
+      #if sys == 'TTBar_ME':
+      #  jobs_file = "jobsSYS-topvar-ME.txt"
+      #elif sys == 'TTBar_PS':
+      #  jobs_file = "jobsSYS-topvar-PS.txt"
+      #elif sys == 'TTBar_ISR_1up':
+      #  jobs_file = "jobsSYS-topvar-ISRup.txt"
+      #else:
+      jobs_file = "jobsSYS-topvar.txt"
 
     # make output folder, the same as the submitAnalysis.py would create;
     os.system('mkdir -pv batchOutput/unmerged_SRsys_{:s}'.format(sys))
@@ -277,7 +317,7 @@ def create_cmd_log(option, sys, stage):
     elif os.environ['USER'] == "xiaozhong":
       submit_config += " --submit condor "
 
-    if option == 'weightvar' or option == 'treevar':
+    if option == 'weightvar' or option == 'treevar' or option == "lpxvar":
       if os.environ['USER'] == "yehf":
         submit_config += " --maxSampleSize 35000 "
       elif os.environ['USER'] == "xiaozhong":
@@ -324,6 +364,8 @@ if __name__ == '__main__':
     l_systematics.extend(l_isovars)
   if args.systype == "fakevar":
     l_systematics.extend(l_fakevars)
+  if args.systype == "lpxvar":
+    l_systematics.extend(l_lpxvars)
   if args.systype == "topvar":
     l_systematics.extend(l_topvars)
   if args.systype == "weightvar":
@@ -337,7 +379,7 @@ if __name__ == '__main__':
 
   # hotfix for nominal branch in sys samples
   if args.stage == 'initialize':
-    cmd, log = create_cmd_log('', 'NOMINAL', 'initialize')
+    cmd, log = create_cmd_log('', 'nominal', 'initialize')
     print cmd
     cmd_list.append(cmd)
     log_list.append(log)

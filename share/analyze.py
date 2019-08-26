@@ -103,6 +103,10 @@ def main(config):
     samples.setTagBool("UseTopSF", UseTopSF)
     UseQCDSF = config.getTagBoolDefault("UseQCDSF", False)
     samples.setTagBool("UseQCDSF", UseQCDSF)
+    UseMaterialCorrection = config.getTagBoolDefault("UseMaterialCorrection", False)
+    samples.setTagBool("UseMaterialCorrection", UseMaterialCorrection)
+    UseLPXKfactor = config.getTagBoolDefault("UseLPXKfactor", False)
+    samples.setTagBool("UseLPXKfactor", UseLPXKfactor)
 
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
     if config.getTagBoolDefault("purgeSamples",False):

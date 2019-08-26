@@ -10,7 +10,16 @@
 #TH1F('TauPt',   '',  30,0,300)  <<  ( tau_0_p4.Pt() : "p_{T}^{\#tau} [GeV]" );
 #TH1F('LepMETDphi'   ,'', 30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" );
 #TH1F('TauMETDphi'   ,'', 30,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
-TH1F('MTTOT','', 500,0,2500) <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT'      ,'', 100,0,1000) <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_30_30','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_30_40','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_30_50','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_40_30','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_40_40','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_40_50','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_50_30','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_50_40','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT_50_50','', 100,0,1000) <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
 #TH1F('VisibleMassTauLep'   ,'', 30, 0, 300)   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
 #TH1F('TransverseMassLepMET','', 30, 0, 300)   <<   ( lephad_mt_lep0_met : "m_{T} [GeV]" );
 #TH1F('TransverseMassTauMET','', 30, 0, 300)   <<   ( lephad_mt_lep1_met : "m_{T}^{\#tau\#oplus met} [GeV]" );
@@ -20,6 +29,7 @@ TH1F('MTTOT','', 500,0,2500) <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
 #TH1F('TauEta','', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
 
 @CutBveto*/*,CutBtag*/*, CutTCRBtag*/*: MTTOT;
+@CutBveto*/*,CutBtag*/*, CutTCRBtag*/*: MTTOT_30_30,MTTOT_30_40,MTTOT_30_50,MTTOT_40_30,MTTOT_40_40,MTTOT_40_50,MTTOT_50_30,MTTOT_50_40,MTTOT_50_50;
 
 #################
 # Bveto category
@@ -31,8 +41,18 @@ TH1F('BvetoTauMETDphi','',      30,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi :
 TH1F('BvetoLepMETDphi','',       30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" )
 TH1F('BvetoVisibleMassTauLep','', {50.,60.,65.,70.,75.,80.,85.,90.,95.,100.,106.,113.,121.,130.,140.,152.,166.,182.,200.,220.,250.,290.,350.})   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
 TH1F('BvetoMTTOT','',           {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_30_30','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_30_40','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_30_50','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_40_30','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_40_40','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_40_50','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_50_30','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_50_40','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BvetoMTTOT_50_50','',     {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
 
 @CutBveto*,CutVRBveto*: BvetoLeptonPt,BvetoTauPt,BvetoLepMETDphi,BvetoTauMETDphi,BvetoMTTOT,BvetoVisibleMassTauLep;
+@CutBveto*,CutVRBveto*: BvetoMTTOT_30_30,BvetoMTTOT_30_40,BvetoMTTOT_30_50,BvetoMTTOT_40_30,BvetoMTTOT_40_40,BvetoMTTOT_40_50,BvetoMTTOT_50_30,BvetoMTTOT_50_40,BvetoMTTOT_50_50;
 
 #################
 # Btag category
@@ -44,8 +64,19 @@ TH1F('BtagTauMETDphi','',       {0.,1.,1.5,1.8,2.,2.2,2.4,2.6,2.8,3.,3.1416})   
 TH1F('BtagLepMETDphi','',       {0.,0.1,0.2,0.3,0.4,0.52,0.66,0.82,1.1,1.6,3.1416})   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" )
 TH1F('BtagVisibleMassTauLep','', 30, 0,300)   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
 TH1F('BtagMTTOT','',            {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_30_30','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_30_40','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_30_50','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>30 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_40_30','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_40_40','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_40_50','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>40 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_50_30','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>30 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_50_40','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>40 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagMTTOT_50_50','',      {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( {[lep_0_p4.Pt()]>50 && [tau_0_p4.Pt()]>50 ? [lephad_mttot] : -10} : "m_{T}^{TOT} [GeV]" );
 
 @CutBtag*,CutVRBtag*,CutTCRBtag*: BtagLeptonPt,BtagTauPt,BtagLepMETDphi,BtagTauMETDphi,BtagMTTOT,BtagVisibleMassTauLep;
+@CutBtag*,CutVRBtag*,CutTCRBtag*: BtagMTTOT_30_30,BtagMTTOT_30_40,BtagMTTOT_30_50,BtagMTTOT_40_30,BtagMTTOT_40_40,BtagMTTOT_40_50,BtagMTTOT_50_30,BtagMTTOT_50_40,BtagMTTOT_50_50; 
+
 
 #################
 # VR Scale Factor

@@ -12,7 +12,7 @@
 
 $include("configCommon/htautau_lephad_common_cuts.def");
 
-@*/CutBase{
+@*/CutMaterialCorrection{
     +CutTruth{
         <.cutExpression = "{ ($(isData)||$(isSig)||$(isAntiISO)) ? 1 :
                             ( ($(isInc)&&([TruthSelector]==30 || [TruthSelector]==20 || [TruthSelector]==5)) ) }",
