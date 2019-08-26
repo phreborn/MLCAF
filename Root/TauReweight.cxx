@@ -13,6 +13,7 @@
 #include "TMath.h"
 #include <map>
 
+using namespace std;
 ClassImp(TauReweight)
 
 //______________________________________________________________________________________________
@@ -81,9 +82,8 @@ double TauReweight::getValue() const {
   /* exmple block for TTree::SetBranchAddress method:
      const double retval = this->fBranch1 + this->fBranch2;
      */
+  //std::cout << "in getValue" << std::endl;
   if (0==m_SF_fun.size()) return 1.0;
-  if (100>=f_tau_0_pt) return 1.0;
-  if (6000<=f_tau_0_pt) f_tau_0_pt = 5999;
 
   double f_tau_0_phi          = this->tau_0_phi->EvalInstance();
   //double f_met_anti_iso_phi   = this->met_anti_iso_phi->EvalInstance();
@@ -96,10 +96,13 @@ double TauReweight::getValue() const {
   double f_lephad_met_lep0_cos_dphi = this->lephad_met_lep0_cos_dphi->EvalInstance();
   double f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
 
+  if (100>=f_tau_0_pt) return 1.0;
+  if (6000<=f_tau_0_pt) f_tau_0_pt = 5999;
+
   // determine which SF to use
   TString SF = "taupt_";   // SF name
   TF1 * fun_nominal = 0;
-  
+  //std::cout << fabs(f_tau_0_eta) << std::endl;
   // barrel/endcap
   if (1.37>fabs(f_tau_0_eta)) SF += "barrel";
   else if (1.52<fabs(f_tau_0_eta)) SF += "endcap";
@@ -114,11 +117,43 @@ double TauReweight::getValue() const {
   // parameterization
   // SF is a function of tau pT
   float retval = fun_nominal->Eval(f_tau_0_pt);
+  //std::cout << SF << "\t" << f_tau_0_pt << "\t" << retval << std::endl;
   ////////////////
   // SYSTEMATICS
   ////////////////
-  /// NOT CONSIDERED YET
+  // strange: neglible
+/*
+  TGraphAsymmErrors* graph_sys = 0;
+  graph_sys = m_SF_graph.at(SF);
 
+  double * x = graph_sys->GetX();
+  double * x_error_low = graph_sys->GetEXlow();
+  double * x_error_high = graph_sys->GetEXhigh();
+
+  double * y = graph_sys->GetY();
+  double * y_error_low = graph_sys->GetEYlow();
+  double * y_error_high = graph_sys->GetEYhigh();
+
+  int N = graph_sys->GetN();
+  cout << N << endl;
+  for (int i=0; i<N; ++i) {
+    cout.precision(5);
+    cout << "[" << x[i]-x_error_low[i] << "," << x[i]+x_error_high[i] << "]\t" 
+              << y[i] << "\t+" << y_error_high[i] << "\t-" << y_error_low[i] << "\t"
+              << fun_nominal->Eval(x[i]) 
+              << endl;;
+  }
+
+  if((fSysName.Contains("MatTransCorr_barrel_1p") && 1.37>fabs(f_tau_0_eta) && 1 == f_tau_0_n_charged_tracks) ||
+     (fSysName.Contains("MatTransCorr_barrel_3p") && 1.37>fabs(f_tau_0_eta) && 3 == f_tau_0_n_charged_tracks) ||
+     (fSysName.Contains("MatTransCorr_endcap_1p") && 1.52<fabs(f_tau_0_eta) && 1 == f_tau_0_n_charged_tracks) ||
+     (fSysName.Contains("MatTransCorr_endcap_3p") && 1.52<fabs(f_tau_0_eta) && 3 == f_tau_0_n_charged_tracks) ) {
+    double x = .0;
+    double nominal = .0;
+    double error = .0;
+    retval += error;
+  }  
+*/
   DEBUGclass("returning");
 
   return retval;
@@ -149,26 +184,54 @@ TauReweight::TauReweight(const TString& expression) : LepHadObservable(expressio
   ///////////////////////////////
   // Tau scale factor
   ///////////////////////////////
+  tempFile = TFile::Open("Systematics/material_transport.root");
+  TGraphAsymmErrors* tempGraph = 0;
+  if (!tempFile) {
+    std::cout << "WARNING: can not find material_transport.root " << std::endl;
+    return;
+  }
+
+  /// barrel 1p
   TF1* fun_barrel1p = new TF1("fun_barrel1p","[0]+[1]*TMath::Log10(x)+[2]*TMath::Power(TMath::Log10(x),2)+[3]*TMath::Power(TMath::Log10(x),3)+[4]*TMath::Power(TMath::Log10(x),4)",0,6000);
   //fun_barrel1p->SetParameters(2.91204e-01,1.09026e+00,-5.60785e-01,9.43443e-02,0);
   fun_barrel1p->SetParameters(4.97952e-01,9.35584e-01,-6.32106e-01, 1.72705e-01,-1.37163e-02);
   m_SF_fun["taupt_barrel1p"] = fun_barrel1p;
 
+  //tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFBarrelLvl0_EffWRTTruthWprime_MatTransOnReco1PTauJets_ptTruthTotalGeV_logDYtautau_maton");
+  tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFBarrelLvl0_EffWRTTruthWprime_MatTransOnReco1PTauJets_ptTruthGeV_logDYtautau_maton");
+  m_SF_graph["taupt_barrel1p"] = tempGraph;
+
+  /// barrel 3p
   TF1* fun_barrel3p = new TF1("fun_barrel3p","[0]+[1]*TMath::Log10(x)+[2]*TMath::Power(TMath::Log10(x),2)+[3]*TMath::Power(TMath::Log10(x),3)+[4]*TMath::Power(TMath::Log10(x),4)",0,6000);
   //fun_barrel3p->SetParameters(9.31260e-01,-2.02958e-03,6.43390e-02,-2.80092e-02,0);
   fun_barrel3p->SetParameters(6.52722e-01,4.13763e-01,-1.33905e-01,0,0);
   m_SF_fun["taupt_barrel3p"] = fun_barrel3p;
 
+  //tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFBarrelLvl0_EffWRTTruthWprime_MatTransOnReco3PTauJets_ptTruthTotalGeV_logDYtautau_maton");
+  tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFBarrelLvl0_EffWRTTruthWprime_MatTransOnReco3PTauJets_ptTruthGeV_logDYtautau_maton");
+  m_SF_graph["taupt_barrel3p"] = tempGraph;
+ 
+  /// endcap 1p
   TF1* fun_endcap1p = new TF1("fun_endcap1p","[0]+[1]*TMath::Log10(x)+[2]*TMath::Power(TMath::Log10(x),2)+[3]*TMath::Power(TMath::Log10(x),3)+[4]*TMath::Power(TMath::Log10(x),4)",0,6000);
   //fun_endcap1p->SetParameters(-3.77269e+00,8.75961e+00,-5.82921e+00,1.65136e+00,-1.66298e-01);
   fun_endcap1p->SetParameters(1.27573,-2.69045e-01,-1.51140e-02,5.57960e-02,-7.76429e-03);
   m_SF_fun["taupt_endcap1p"] = fun_endcap1p;
 
+  //tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFEndcapLvl0_EffWRTTruthWprime_MatTransOnReco1PTauJets_ptTruthTotalGeV_logDYtautau_maton");
+  tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFEndcapLvl0_EffWRTTruthWprime_MatTransOnReco1PTauJets_ptTruthGeV_logDYtautau_maton");
+  m_SF_graph["taupt_endcap1p"] = tempGraph;
+
+  /// endcap 3p
   TF1* fun_endcap3p = new TF1("fun_endcap3p","[0]+[1]*TMath::Log10(x)+[2]*TMath::Power(TMath::Log10(x),2)+[3]*TMath::Power(TMath::Log10(x),3)+[4]*TMath::Power(TMath::Log10(x),4)",0,6000);
   //fun_endcap3p->SetParameters(7.69077e-01,2.76432e-01,-9.40499e-02,0,0);
   fun_endcap3p->SetParameters(8.26519e-01,2.13503e-01,-8.20376e-02,0,0);
-    
   m_SF_fun["taupt_endcap3p"] = fun_endcap3p;
+
+  //tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFEndcapLvl0_EffWRTTruthWprime_MatTransOnReco3PTauJets_ptTruthTotalGeV_logDYtautau_maton");
+  tempGraph = (TGraphAsymmErrors*)tempFile->Get("tid/efficiencies/hists/g_ratio_SFEndcapLvl0_EffWRTTruthWprime_MatTransOnReco3PTauJets_ptTruthGeV_logDYtautau_maton");
+  m_SF_graph["taupt_endcap3p"] = tempGraph;
+
+  tempFile->Close(); delete tempFile; tempFile = 0;
 
 }
 //______________________________________________________________________________________________
