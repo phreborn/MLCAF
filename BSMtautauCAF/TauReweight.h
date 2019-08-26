@@ -3,6 +3,7 @@
 #define __TAUREWEIGHT__
 
 #include "BSMtautauCAF/LepHadObservable.h"
+#include "TGraphAsymmErrors.h"
 
 class TauReweight : public LepHadObservable {
 protected:
@@ -17,17 +18,11 @@ protected:
 protected:
 
   TString fExpression = "";
-
   TString fSysName = "";
-
-  bool _isData = false;
   TDirectory* m_histoDir = 0;
 
-  const long LIMIT_2016 = 311563;
-  const long LIMIT_2017 = 341649;
-  const long LIMIT_2018 = 364292;
-
   std::map<TString, TF1*> m_SF_fun;
+  std::map<TString, TGraphAsymmErrors*> m_SF_graph;
 
 public:
   virtual bool hasExpression() const override;
