@@ -169,6 +169,16 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
     temp_down =histoPass_down.Clone()
     temp_down.Divide(histoFail_up)
 
+    overall_nominal= histoPass.GetSumOfWeights()/histoFail.GetSumOfWeights()
+    overall_up = histoPass_up.GetSumOfWeights()/histoFail_down.GetSumOfWeights()
+    overall_down = histoPass_down.GetSumOfWeights()/histoFail_up.GetSumOfWeights()
+    overall_ave = 0.5*(overall_up-overall_down)
+    print "over all ff"
+    print "nominal\t", overall_nominal
+    print "up\t", overall_up
+    print "down\t", overall_down
+    print "result\t", overall_nominal, "+-", overall_ave
+
     # difference
     temp_up.Add(FF_nom,-1)
     temp_down.Add(FF_nom,-1)
