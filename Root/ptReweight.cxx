@@ -132,6 +132,8 @@ double ptReweight::getValue() const {
   TString param_tag = "";
   if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Why cant I get ff name!!!\n";
   if ( "TauPt" == param_tag ) {
+    // use FF from bveto category
+    FF.ReplaceAll("Btag", "Bveto");
     FF += "TauPtFF";
   }
   else if ( "TauPtDphi" == param_tag) {
@@ -151,7 +153,7 @@ double ptReweight::getValue() const {
       else if (f_lephad_met_lep1_cos_dphi>=2.5) FF += "TauPtDphi4FF";
     }
   }
-
+  //std::cout << FF << std::endl;
   h_nominal = m_FF_hist.at(FF);
   h_up = m_FF_hist.at(FF+"_up");
   h_down = m_FF_hist.at(FF+"_down");
@@ -224,10 +226,10 @@ ptReweight::ptReweight(const TString& expression) : LepHadObservable(expression)
   FF_list.reserve(256);
   for (auto period : periods) {
     for (auto channel : channels) {
-      // 1D LeptonPt
+      // 1D TauPt
       FF_list.emplace_back(period + channel + "Bveto1pTauPtFF");
-      FF_list.emplace_back(period + channel + "Bveto1pTauPtFF");
-      FF_list.emplace_back(period + channel + "Btag3pTauPtFF");
+      FF_list.emplace_back(period + channel + "Bveto3pTauPtFF");
+      FF_list.emplace_back(period + channel + "Btag1pTauPtFF");
       FF_list.emplace_back(period + channel + "Btag3pTauPtFF");
       // 2D TauPt Dphi(lep, MET)
       FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi1FF");
