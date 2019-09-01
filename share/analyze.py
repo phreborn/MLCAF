@@ -103,6 +103,8 @@ def main(config):
     samples.setTagBool("UseTopSF", UseTopSF)
     UseQCDSF = config.getTagBoolDefault("UseQCDSF", False)
     samples.setTagBool("UseQCDSF", UseQCDSF)
+    UseWjetsSF = config.getTagBoolDefault("UseWjetsSF", False)
+    samples.setTagBool("UseWjetsSF", UseWjetsSF)
     UseMaterialCorrection = config.getTagBoolDefault("UseMaterialCorrection", False)
     samples.setTagBool("UseMaterialCorrection", UseMaterialCorrection)
     UseLPXKfactor = config.getTagBoolDefault("UseLPXKfactor", False)
