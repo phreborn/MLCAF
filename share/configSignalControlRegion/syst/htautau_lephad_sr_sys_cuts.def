@@ -27,7 +27,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
                 .weightExpression = "$(isAntiISO) ? [isoreweight_$(isovar)]*[QCDReweight_$(isovar)] : 1", .title="ISO">
                 +CutID{
                     <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>0.01 && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",
-                    .weightExpression = "$(isAntiID) ? [ptreweight_$(fakevar)]*[extraporeweight_$(fakevar)] : 1", .title="ID">
+                    .weightExpression = "$(isAntiID)?($(UseWjetsSF)?[ptreweight_$(fakevar)]*[WjetsReweight_$(fakevar)]*[extraporeweight_$(fakevar)]:[ptreweight_$(fakevar)]*[extraporeweight_$(fakevar)]):1",.title="ID">
                 }
             }
         }
