@@ -7,9 +7,6 @@ import argparse
 from JobHandler import LocalJobHandler
 
 # The results of some jobs will not be changed for the systematics, these jobs will be copied from the following dir
-<<<<<<< HEAD
-s_nominal_dir='batchOutput/unmerged_SRapplySF'
-=======
 #s_nominal_dir='batchOutput/unmerged_SR'
 s_nominal_dir='batchOutput/unmerged_SRsys_nominal'
 >>>>>>> update scripts for material transport correction and LPX Kfactor
@@ -27,10 +24,10 @@ s_sys_file_path='configCommon/htautau_lephad_common_campaigns_sys.cfg'
 # weightvars:   36(72)
 # treevars:     35(60) 10 one-side 
 l_fakevars=[
-#['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
-#['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
-#['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
-#['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
+['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
+['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
+['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
+['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
 ['fakevar',   'FakeFactor_WjetsBveto1p_1up'],
 ['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
 ['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
@@ -241,6 +238,9 @@ def create_cmd_log(option, sys, stage):
   cmd = ''
   if stage == 'initialize':
       #cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
+    if sys == 'nominal':
+      cmd="initialize.py {:s} --options verbose=False printFolderTags=td campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,'NOMINAL',sys)
+    else:
       cmd="initialize.py {:s} --options verbose=False printFolderTags=td campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
 
   #######################
