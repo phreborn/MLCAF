@@ -99,6 +99,8 @@ def main(config):
     samples.setTagString("WFFPeriod", WFFPeriod)
     WFFParam = config.getTagStringDefault("WFFParam","")
     samples.setTagString("WFFParam", WFFParam)
+    WjetsSFParam = config.getTagStringDefault("WjetsSFParam","")
+    samples.setTagString("WjetsSFParam", WjetsSFParam)
     UseTopSF = config.getTagBoolDefault("UseTopSF", False)
     samples.setTagBool("UseTopSF", UseTopSF)
     UseQCDSF = config.getTagBoolDefault("UseQCDSF", False)

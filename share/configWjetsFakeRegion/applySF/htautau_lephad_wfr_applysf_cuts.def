@@ -52,10 +52,12 @@ $include("configCommon/htautau_lephad_common_cuts.def");
                 <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Bveto3pOSFailID">
             }
             +CutBtag1pOSPassID{
-                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==1", .title="Btag1pOSPassID">
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==1",
+                .weightExpression = "$(isTop) && !($(isAntiISO)||$(isAntiID)) ? [TopReweight_$(topvar)]:1", .title="Btag1pOSPassID">
             }
             +CutBtag3pOSPassID{
-                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1", .title="Btag3pOSPassID">
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1",
+                .weightExpression = "$(isTop) && !($(isAntiISO)||$(isAntiID)) ? [TopReweight_$(topvar)]:1", .title="Btag3pOSPassID"> 
             }
             +CutBtag1pOSFailID{
                 <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Btag1pOSFailID">

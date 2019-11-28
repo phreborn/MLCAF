@@ -117,7 +117,7 @@ double extrapolationReweight::getValue() const {
 
   // category (only consider bveto category)
   if ( 0 == f_n_bjets) SF += "Bveto";
-  else if (1 <= f_n_bjets) return 1.0;
+  else if (1 <= f_n_bjets) SF += "Btag";
   else std::cout << "ERROR: strange #bjets" << std::endl;
 
   if ( 1 == f_tau_0_n_charged_tracks) SF += "1p";
@@ -126,9 +126,14 @@ double extrapolationReweight::getValue() const {
 
   // parameterization
   // dphi 1,2,3 in bveto/btag category
-  if (f_lephad_met_lep1_cos_dphi>=0.0&&f_lephad_met_lep1_cos_dphi<1) SF += "TauPtDphi1SF";
-  else if (f_lephad_met_lep1_cos_dphi>=1&&f_lephad_met_lep1_cos_dphi<2) SF += "TauPtDphi2SF";
-  else if (f_lephad_met_lep1_cos_dphi>=2) SF += "TauPtDphi3SF";
+  if (0 == f_n_bjets) {
+    if (f_lephad_met_lep1_cos_dphi>=0.0&&f_lephad_met_lep1_cos_dphi<1) SF += "TauPtDphi1SF";
+    else if (f_lephad_met_lep1_cos_dphi>=1&&f_lephad_met_lep1_cos_dphi<2) SF += "TauPtDphi2SF";
+    else if (f_lephad_met_lep1_cos_dphi>=2) SF += "TauPtDphi3SF";
+  }
+  else {
+    SF += "TauPtSF";
+  }
 
   h_nominal = m_SF_hist.at(SF);
   h_up = m_SF_hist.at(SF+"_up");
@@ -142,20 +147,40 @@ double extrapolationReweight::getValue() const {
   ////////////////
   // SYSTEMATICS
   ////////////////
-  if    ( (fSysName.Contains("FakeFactor_ExtraSysBtag_1up")    && f_n_bjets>0) ||
+  if    ( 
+          (fSysName.Contains("FakeFactor_ExtraSysBtag_1up")    && f_n_bjets>0) ||
           (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag1p_1up")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag3p_1up")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag1p_1up")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag3p_1up")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
           (fSysName.Contains("FakeFactor_ExtraSysBveto_1up")   && f_n_bjets==0 ) ||
           (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
+          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) || 
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto1p_1up") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto3p_1up") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) || 
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto1p_1up") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto3p_1up") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    
+        ) {
     retval = 1.0+fabs(retval-1.0);
   }
-  else if((fSysName.Contains("FakeFactor_ExtraSysBtag_1down")    && f_n_bjets>0) ||
+  else if(
+          (fSysName.Contains("FakeFactor_ExtraSysBtag_1down")    && f_n_bjets>0) ||
           (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag1p_1down")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag3p_1down")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag1p_1down")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag3p_1down")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
           (fSysName.Contains("FakeFactor_ExtraSysBveto_1down")   && f_n_bjets==0 ) ||
           (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
+          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) ||   
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto1p_1down") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto3p_1down") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) || 
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto1p_1down") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto3p_1down") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    
+          ) {
     retval = 1.0-fabs(retval-1.0);
   }
   else retval = 1.0;
@@ -204,6 +229,8 @@ extrapolationReweight::extrapolationReweight(const TString& expression) : LepHad
       SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi1SF");
       SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi2SF");
       SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi3SF");
+      SF_list.emplace_back(period + channel + "Btag1pTauPtSF");
+      SF_list.emplace_back(period + channel + "Btag3pTauPtSF");
     }
   }
  

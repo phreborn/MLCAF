@@ -1,5 +1,14 @@
 #!/user/bin/env python2
 
+def getOverallError(hist):
+  value = .0
+  error = .0
+  for bin in range(1, hist.GetNbinsX()+1):
+    value += hist.GetBinContent(bin)
+    error += hist.GetBinError(bin) * hist.GetBinError(bin)
+  return sqrt(error)
+
+
 # add overflow to the last bin
 def addOverflow(hist):
   lastBin = hist.GetNbinsX()
@@ -172,7 +181,9 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
     overall_nominal= histoPass.GetSumOfWeights()/histoFail.GetSumOfWeights()
     overall_up = histoPass_up.GetSumOfWeights()/histoFail_down.GetSumOfWeights()
     overall_down = histoPass_down.GetSumOfWeights()/histoFail_up.GetSumOfWeights()
-    overall_ave = 0.5*(overall_up-overall_down)
+    overall_ave = 0.5*(overall_down-overall_up)
+    print "pass:\t", histoPass.GetSumOfWeights(), "\t", getOverallError(histoPass)
+    print "fail:\t", histoFail.GetSumOfWeights(), "\t", getOverallError(histoFail)
     print "over all ff"
     print "nominal\t", overall_nominal
     print "up\t", overall_up
@@ -238,7 +249,8 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
+    #sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applysf.root'
   elif region == 'LFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root'
   elif region == 'TCR':
@@ -251,15 +263,15 @@ if __name__=='__main__':
   if region == 'WFR':
     # Loop over data taking period and channels
     periods = {
-                '1516': 'c16a',
-                '17': 'c16d',
-                '18': 'c16e',
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
                 'All': '[c16a+c16d+c16e]',
              }
     channels = {
-                'ehad': 'ehad',
-                'muhad': 'muhad',
-                #'lephad': '[ehad+muhad]',
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
               }
     
     # We use same histograms for ehad, and muhad
@@ -277,14 +289,24 @@ if __name__=='__main__':
         calcFakeFactor(dataPath, bkgPath, 'CutBtag1pOSPassID',  'CutBtag1pOSFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
         calcFakeFactor(dataPath, bkgPath, 'CutBtag3pOSPassID',  'CutBtag3pOSFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
         # bveto 2D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi1FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi2FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi3FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi4FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi1FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi2FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi3FF', prefix,0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi4FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi1FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi2FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi3FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtDphi4FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi1FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi2FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi3FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtDphi4FF', prefix,0.1,0.1)
+        
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtLeptonPt1FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtLeptonPt2FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtLeptonPt3FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtLeptonPt4FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtLeptonPt1FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtLeptonPt2FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtLeptonPt3FF', prefix,0.1,0.1)
+        #calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtLeptonPt4FF', prefix,0.1,0.1)
+
 
   elif region == 'LFR':
     # Loop over data taking period and channels

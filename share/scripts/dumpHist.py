@@ -177,8 +177,8 @@ if __name__ == "__main__":
     "BtagTauPt"         : "BinTauPt",
     "BvetoMTTOT"        : "BinMTTOT",
     "BtagMTTOT"         : "BinMTTOT",
-    #"BvetoLeptonPt"    : "BinLeptonPt",
-    #"BtagLeptonPt"     : "BinLeptonPt",
+    "BvetoLeptonPt"    : "BinLeptonPt",
+    "BtagLeptonPt"     : "BinLeptonPt",
     "MTTOT"             : "MTTOT",
   }
 
