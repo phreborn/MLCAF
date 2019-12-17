@@ -175,10 +175,16 @@
 341856 /sig/$(channel)/$(campaign)/bbH/125
 341857 /sig/$(channel)/$(campaign)/bbH/150
 341858 /sig/$(channel)/$(campaign)/bbH/200
+341859 /sig/$(channel)/$(campaign)/bbH/250
 341860 /sig/$(channel)/$(campaign)/bbH/300
+341861 /sig/$(channel)/$(campaign)/bbH/350
 341862 /sig/$(channel)/$(campaign)/bbH/400
+341863 /sig/$(channel)/$(campaign)/bbH/500
 341864 /sig/$(channel)/$(campaign)/bbH/600
+341865 /sig/$(channel)/$(campaign)/bbH/700
+341866 /sig/$(channel)/$(campaign)/bbH/800
 341868 /sig/$(channel)/$(campaign)/bbH/1000
+341870 /sig/$(channel)/$(campaign)/bbH/1200
 341873 /sig/$(channel)/$(campaign)/bbH/1500
 345289 /sig/$(channel)/$(campaign)/bbH/2000
 345293 /sig/$(channel)/$(campaign)/bbH/2500

@@ -1,7 +1,7 @@
 ### data ###
 .path="||"
 ### BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND
-###.name="Data",     .isData=true,       .path="/data/$(channel)/$(campaign)"
+.name="Data",     .isData=true,       .path="/data/$(channel)/$(campaign)"
 ### BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND BLIND
 
 
