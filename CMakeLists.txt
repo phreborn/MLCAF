@@ -168,23 +168,9 @@ else()
   include(CTest)
   enable_testing()
 
-  if(EXISTS ${PROJECT_SOURCE_DIR}/RooFitExtensions)
-    message("adding RooFitExtensions")
-    add_subdirectory(RooFitExtensions)
-  endif()
-
-  if(EXISTS ${PROJECT_SOURCE_DIR}/RooFitUtils)
-    message("adding RooFitUtils")
-    add_subdirectory(RooFitUtils)
   # link everything together at the end
-  target_link_libraries( CAFExample QFramework SFramework RooFitUtils ${ROOT_LIBRARIES} )
-    else()
-          # link everything together at the end
   target_link_libraries( CAFExample QFramework SFramework ${ROOT_LIBRARIES} )
 
-    endif()
-
-  add_subdirectory(RooUnfold)
   if(EXISTS ${PROJECT_SOURCE_DIR}/VIPUnfolding)
     message("adding VIPUnfolding")
     add_subdirectory(BootstrapGenerator)
