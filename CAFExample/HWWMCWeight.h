@@ -1,7 +1,7 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
 #ifndef __HWWMCWEIGHT__
 #define __HWWMCWEIGHT__
-#include "HWWAnalysisCode/HWWSFBase.h"
+#include "CAFExample/HWWSFBase.h"
 
 #ifndef __CINT__
 #define XAOD_STANDALONE 1

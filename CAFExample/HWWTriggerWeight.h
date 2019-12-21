@@ -16,7 +16,7 @@
 #include "MuonEfficiencyCorrections/MuonTriggerScaleFactors.h"
 #include "AsgTools/AnaToolHandle.h"
 #include "TriggerAnalysisInterfaces/ITrigGlobalEfficiencyCorrectionTool.h"
-#include "HWWAnalysisCode/HWWSFBase.h"
+#include "CAFExample/HWWSFBase.h"
 
 #include <stdio.h>
 using namespace xAOD;

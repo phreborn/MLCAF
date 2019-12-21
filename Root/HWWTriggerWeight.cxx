@@ -1,4 +1,4 @@
-#include "HWWAnalysisCode/HWWTriggerWeight.h"
+#include "CAFExample/HWWTriggerWeight.h"
 // #define _DEBUG_
 #include "QFramework/TQLibrary.h"
 #include <algorithm>

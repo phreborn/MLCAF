@@ -1,4 +1,4 @@
-#include "HWWAnalysisCode/HWWMuonWeight.h"
+#include "CAFExample/HWWMuonWeight.h"
 #include "QFramework/TQUtils.h"
 
 // uncomment the following line to enable debug printouts
