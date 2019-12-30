@@ -13,7 +13,7 @@
 # include common cut file
 $include("configCommon/htautau_lephad_common_cuts.def");
 
-@*/CutBase{
+@*/CutMaterialCorrection{
     +CutAll{
         <.cutExpression = " lep_0_id_medium==1 && lep_0_p4.Pt()>30  && lephad_mt_lep0_met<30 ", 
         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvar)] }", .title="All">

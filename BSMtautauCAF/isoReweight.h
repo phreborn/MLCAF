@@ -17,15 +17,8 @@ protected:
 protected:
 
   TString fExpression = "";
-
   TString fSysName = "";
-
-  bool _isData = false;
   TDirectory* m_histoDir = 0;
-
-  const long LIMIT_2016 = 311563;
-  const long LIMIT_2017 = 341649;
-  const long LIMIT_2018 = 364292;
 
   std::map<TString, TH1F*> m_FF_hist;
 

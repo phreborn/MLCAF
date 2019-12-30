@@ -80,7 +80,7 @@ double TopReweight::getValue() const {
   /* exmple block for TTree::SetBranchAddress method:
      const double retval = this->fBranch1 + this->fBranch2;
      */
-  if (0==m_SF_hist.size()) return 1.0;
+  if (0==m_SF_hist.size()) return 0.0;
 
   double f_tau_0_phi          = this->tau_0_phi->EvalInstance();
   //double f_met_anti_iso_phi   = this->met_anti_iso_phi->EvalInstance();

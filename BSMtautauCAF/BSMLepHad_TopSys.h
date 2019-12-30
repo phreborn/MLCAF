@@ -19,6 +19,9 @@ protected:
   TString fExpression = "";
   TString fSysName = "";
 
+  TDirectory* m_histoDir = 0;
+  TH1F* m_hSys = 0;
+
   TTreeFormula* pmg_truth_weight_ISRHi = NULL;
   TTreeFormula* pmg_truth_weight_ISRLo = NULL;
   TTreeFormula* pmg_truth_weight_FSRHi = NULL;

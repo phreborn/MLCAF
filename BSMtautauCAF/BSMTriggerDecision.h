@@ -17,7 +17,6 @@ protected:
   virtual bool finalizeSelf() override;
 protected:
   TString fExpression = "";
-
   TString fOptionName = "";
 
   TTreeFormula* run_number = NULL;

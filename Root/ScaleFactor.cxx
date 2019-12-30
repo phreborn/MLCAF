@@ -119,15 +119,19 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     "lep_0_NOMINAL_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2015 | mu_eff_trigstat_low,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2015 | mu_eff_trigstat_high,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2015 | mu_eff_trigsys_low,
+    highpt,
     "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2015 | mu_eff_trigsys_high,
+    highpt,
     "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
 
   // muon slt efficient 2016
@@ -136,15 +140,19 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     "lep_0_NOMINAL_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2016 | mu_eff_trigstat_low,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2016 | mu_eff_trigstat_high,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2016 | mu_eff_trigsys_low,
+    highpt,
      "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2016 | mu_eff_trigsys_high,
+    highpt,
     "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   // muon slt efficient 2017
@@ -153,15 +161,19 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     "lep_0_NOMINAL_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2017 | mu_eff_trigstat_low,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2017 | mu_eff_trigstat_high,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2017 | mu_eff_trigsys_low,
+    highpt,
      "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2017 | mu_eff_trigsys_high,
+    highpt,
     "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   // muon slt efficient 2018
@@ -170,15 +182,19 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     "lep_0_NOMINAL_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2018 | mu_eff_trigstat_low,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2018 | mu_eff_trigstat_high,
+    highpt,
     "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2018 | mu_eff_trigsys_low,
+    highpt,
      "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   addScaleFactor(muon | slt | y2018 | mu_eff_trigsys_high,
+    highpt,
     "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
 
   // muon slt efficiency high pt
@@ -366,15 +382,19 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
    highpt2 | mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high,
    "lep_0_NOMINAL_MuEffSF_IsoFCTight_FixedRad");
   addScaleFactor(muon | lepiso | mu_eff_isostat_low,
+   highpt2,
    "lep_0_MUON_EFF_ISO_STAT_1down_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | mu_eff_isostat_high,
+   highpt2,
    "lep_0_MUON_EFF_ISO_STAT_1up_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | mu_eff_isosys_low,
+   highpt2,
    "lep_0_MUON_EFF_ISO_SYS_1down_MuEffSF_IsoFCTight_FixedRad");
 
   addScaleFactor(muon | lepiso | mu_eff_isosys_high,
+   highpt2,
    "lep_0_MUON_EFF_ISO_SYS_1up_MuEffSF_IsoFCTight_FixedRad");
   // muon isolation efficient highpt
   addScaleFactor(muon | lepiso | highpt2,

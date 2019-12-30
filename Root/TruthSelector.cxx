@@ -73,6 +73,7 @@ double TruthSelector::getValue() const {
   //std::cout<<" In getValue "<<std::endl;
 
   int retval = -666;
+  if (isData()) return retval;
 
   int temp_tau_0_truth_isHadTau = this->tau_0_truth_isHadTau->EvalInstance();
   int temp_tau_0_truth_isEle    = this->tau_0_truth_isEle->EvalInstance();
@@ -104,7 +105,7 @@ double TruthSelector::getValue() const {
 //______________________________________________________________________________________________
 
 TruthSelector::TruthSelector(const TString& expression):
-TQTreeObservable(expression)
+LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -163,13 +164,18 @@ bool TruthSelector::initializeSelf(){
   if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))) {
     return false;
   }
+  if (!this->fSample->getTag("~isData", _isData)) {
+    ERROR("tag isData missing");
+    return false;
+  }
 
-  this->tau_0_truth_isHadTau  = new TTreeFormula("tau_0_truth_isHadTau",  "tau_0_truth_isHadTau", this->fTree);
-  this->tau_0_truth_isEle     = new TTreeFormula("tau_0_truth_isEle",     "tau_0_truth_isEle",    this->fTree);
-  this->tau_0_truth_isMuon    = new TTreeFormula("tau_0_truth_isMuon",    "tau_0_truth_isMuon",   this->fTree);
-  this->tau_0_truth_pdgId     = new TTreeFormula("tau_0_truth_pdgId",     "tau_0_truth_pdgId",    this->fTree);
-  this->tau_0_truth_classifierParticleType      = new TTreeFormula("tau_0_truth_classifierParticleType",      "tau_0_truth_classifierParticleType",     this->fTree);
-
+  if ( !isData()) {
+    this->tau_0_truth_isHadTau  = new TTreeFormula("tau_0_truth_isHadTau",  "tau_0_truth_isHadTau", this->fTree);
+    this->tau_0_truth_isEle     = new TTreeFormula("tau_0_truth_isEle",     "tau_0_truth_isEle",    this->fTree);
+    this->tau_0_truth_isMuon    = new TTreeFormula("tau_0_truth_isMuon",    "tau_0_truth_isMuon",   this->fTree);
+    this->tau_0_truth_pdgId     = new TTreeFormula("tau_0_truth_pdgId",     "tau_0_truth_pdgId",    this->fTree);
+    this->tau_0_truth_classifierParticleType      = new TTreeFormula("tau_0_truth_classifierParticleType",      "tau_0_truth_classifierParticleType",     this->fTree);
+  }
   return true;
 }
 
@@ -179,9 +185,13 @@ bool TruthSelector::finalizeSelf(){
   // finalize self - delete accessor
   this->clearParsedExpression();
 
-  delete  this->tau_0_truth_isHadTau;
-  delete  this->tau_0_truth_pdgId;
-  delete  this->tau_0_truth_classifierParticleType;
+  if ( !isData()) {
+    delete this->tau_0_truth_isHadTau;
+    delete this->tau_0_truth_isEle;
+    delete this->tau_0_truth_isMuon;
+    delete this->tau_0_truth_pdgId;
+    delete this->tau_0_truth_classifierParticleType;
+  }
 
   return true;
 }

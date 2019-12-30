@@ -1,6 +1,7 @@
 
 .name=CutChannel
 .name=CutBase
+.name=CutMaterialCorrection
 .name=CutTruth
 .name=CutAll
 .name=CutISO

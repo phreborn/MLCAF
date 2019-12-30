@@ -80,6 +80,8 @@ double QCDReweight::getValue() const {
   /* exmple block for TTree::SetBranchAddress method:
      const double retval = this->fBranch1 + this->fBranch2;
      */
+  if (0==m_SF_hist.size()) return 0.0;
+
   //std::cout<<" In getValue "<<std::endl;
   double f_tau_0_phi          = this->tau_0_phi->EvalInstance();
   //double f_met_anti_iso_phi   = this->met_anti_iso_phi->EvalInstance();
@@ -147,11 +149,13 @@ double QCDReweight::getValue() const {
   ////////////////
   if    ( (fSysName.Contains("FakeFactor_QCDReweight_MuHadBtag_1up")    && f_n_bjets>0) ||
           (fSysName.Contains("FakeFactor_QCDReweight_MuHadBveto_1up")   && f_n_bjets==0 )) {
-    retval = retval+fabs(retval-1.0)/2.0;
+    //retval = retval+fabs(retval-1.0)/2.0;
+    retval = retval+fabs(retval-1.0);
   }
   else if((fSysName.Contains("FakeFactor_QCDReweight_MuHadBtag_1down")    && f_n_bjets>0) ||
           (fSysName.Contains("FakeFactor_QCDReweight_MuHadBveto_1down")   && f_n_bjets==0 )) {
-    retval = retval-fabs(retval-1.0)/2.0;
+    //retval = retval-fabs(retval-1.0)/2.0;
+    retval = retval-fabs(retval-1.0);
   }
 
   DEBUGclass("returning");

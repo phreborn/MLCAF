@@ -228,7 +228,7 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applyff.root'
   elif region == 'LFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr_applyff.root'
   elif region == 'TCR':
@@ -240,7 +240,70 @@ if __name__=='__main__':
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
   reader = TQSampleDataReader(samples)
 
-  if region == 'VR':
+  if region == 'WFR':
+    # Loop over data taking period and channels
+    periods = {
+                '1516': 'c16a',
+                '17': 'c16d',
+                '18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+
+        # 1D LeptonPt
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pLeptonPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pLeptonPtSF', prefix, 0.1, 0.1)
+
+        # 1D MET
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pMETSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pMETSF', prefix, 0.1, 0.1)
+
+        # 1D TauEta
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pTauEtaSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pTauEtaSF', prefix, 0.1, 0.1)
+        
+        # bveto 1D SF
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt1SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt2SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt3SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt4SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt5SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt6SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt7SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt8SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt9SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt10SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt11SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pDphiTauPt12SF', prefix, 0.1, 0.1)
+
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt1SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt2SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt3SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt4SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt5SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt6SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt7SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt8SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt9SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt10SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt11SF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pDphiTauPt12SF', prefix, 0.1, 0.1)
+
+
+  elif region == 'VR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -262,7 +325,7 @@ if __name__=='__main__':
         bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
         bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
-        # bveto 1D SF
+        # bveto 2D SF
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi1SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi2SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi3SF', prefix, 0.1, 0.1)
@@ -270,6 +333,10 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi1SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi2SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi3SF', prefix, 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBtag1p', 'Btag1pTauPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBtag3p', 'Btag3pTauPtSF', prefix, 0.1, 0.1)
+
   elif region == 'LFR':
     # Loop over data taking period and channels
     periods = {

@@ -1,11 +1,11 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
 #ifndef __TruthSelector__
 #define __TruthSelector__
-#include "QFramework/TQTreeObservable.h"
+#include "BSMtautauCAF/LepHadObservable.h"
 
 #include "TTreeFormula.h"
 
-class TruthSelector : public TQTreeObservable {
+class TruthSelector : public LepHadObservable {
 protected:
   // put here any data members your class might need
 
@@ -17,7 +17,6 @@ protected:
   virtual bool finalizeSelf() override;
 protected:
   TString fExpression = "";
-
   TString fOptionName = "";
 
   TTreeFormula* tau_0_truth_isHadTau = NULL;

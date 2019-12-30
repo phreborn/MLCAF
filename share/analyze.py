@@ -99,10 +99,18 @@ def main(config):
     samples.setTagString("WFFPeriod", WFFPeriod)
     WFFParam = config.getTagStringDefault("WFFParam","")
     samples.setTagString("WFFParam", WFFParam)
+    WjetsSFParam = config.getTagStringDefault("WjetsSFParam","")
+    samples.setTagString("WjetsSFParam", WjetsSFParam)
     UseTopSF = config.getTagBoolDefault("UseTopSF", False)
     samples.setTagBool("UseTopSF", UseTopSF)
     UseQCDSF = config.getTagBoolDefault("UseQCDSF", False)
     samples.setTagBool("UseQCDSF", UseQCDSF)
+    UseWjetsSF = config.getTagBoolDefault("UseWjetsSF", False)
+    samples.setTagBool("UseWjetsSF", UseWjetsSF)
+    UseMaterialCorrection = config.getTagBoolDefault("UseMaterialCorrection", False)
+    samples.setTagBool("UseMaterialCorrection", UseMaterialCorrection)
+    UseLPXKfactor = config.getTagBoolDefault("UseLPXKfactor", False)
+    samples.setTagBool("UseLPXKfactor", UseLPXKfactor)
 
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
     if config.getTagBoolDefault("purgeSamples",False):

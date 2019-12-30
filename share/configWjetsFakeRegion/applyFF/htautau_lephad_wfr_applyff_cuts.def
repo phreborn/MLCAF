@@ -12,7 +12,7 @@
 
 $include("configCommon/htautau_lephad_common_cuts.def");
 
-@*/CutBase{
+@*/CutMaterialCorrection{
     +CutTruth{
         <.cutExpression = "{ ($(isData)||$(isAntiISO)) ? 1 : ( $(isInc)? ([TruthSelector]==30 || [TruthSelector]==20 || [TruthSelector]==5) :
                             (  ($(isTT)&&[TruthSelector]==30) || ($(isTL)&&([TruthSelector]==20||[TruthSelector]==5)) || ($(isJET)&&[TruthSelector]==-30) ) ) }",
@@ -23,7 +23,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
                 <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 )) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))",
                 .weightExpression = "$(isAntiISO)?($(UseQCDSF)?[isoreweight_$(isovar)]*[QCDReweight_$(isovar)]:[isoreweight_$(isovar)]):1", .title="ISO">
                 +CutID {
-                    <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>0.01 && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",
+                    <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>$(TauBDTCut) && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",
                     .weightExpression = "$(isAntiID) ? [ptreweight_$(fakevar)] : 1", .title="ID">
                 }
             }

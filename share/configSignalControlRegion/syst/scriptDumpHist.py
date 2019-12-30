@@ -32,7 +32,7 @@ if __name__ == '__main__':
   if not os.path.isfile(sr_NOMINAL_fn):
     os.symlink(sr_fn, sr_NOMINAL_fn)
 
-  _ , input_files = commands.getstatusoutput('ls -1 sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-*.root | grep -v "sys_band"')
+  _ , input_files = commands.getstatusoutput('ls -1 sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-Fake*.root | grep -v "sys_band"')
   campaigns=['c16ade']
   channels=['ehad', 'muhad']
   NCORES=20

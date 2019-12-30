@@ -44,6 +44,7 @@ protected:
   TTreeFormula* x_run_number = NULL;
 
   TTreeFormula* tau_0_pt = NULL;
+  TTreeFormula* tau_0_eta = NULL;
   TTreeFormula* tau_0_jet_bdt_medium = NULL;
   TTreeFormula* lep_0_pt = NULL;
   TTreeFormula* tau_0_phi = NULL;

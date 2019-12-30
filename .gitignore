@@ -28,3 +28,4 @@ build
 *.DS_Store
 *.isDone
 share/inputs
+!share/Systematics/*.root

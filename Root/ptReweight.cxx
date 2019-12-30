@@ -132,6 +132,8 @@ double ptReweight::getValue() const {
   TString param_tag = "";
   if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Why cant I get ff name!!!\n";
   if ( "TauPt" == param_tag ) {
+    // use FF from bveto category
+    FF.ReplaceAll("Btag", "Bveto");
     FF += "TauPtFF";
   }
   else if ( "TauPtDphi" == param_tag) {
@@ -151,11 +153,18 @@ double ptReweight::getValue() const {
       else if (f_lephad_met_lep1_cos_dphi>=2.5) FF += "TauPtDphi4FF";
     }
   }
+  else if ( "TauPtLeptonPt" == param_tag) {
+    FF.ReplaceAll("Btag", "Bveto");
+    if (f_lep_0_pt>=30&&f_lep_0_pt<50) FF += "TauPtLeptonPt1FF";
+    else if (f_lep_0_pt>=50&&f_lep_0_pt<70) FF += "TauPtLeptonPt2FF";
+    else if (f_lep_0_pt>=70&&f_lep_0_pt<100) FF += "TauPtLeptonPt3FF";
+    else if (f_lep_0_pt>=100) FF += "TauPtLeptonPt4FF";
+  }
 
   h_nominal = m_FF_hist.at(FF);
   h_up = m_FF_hist.at(FF+"_up");
   h_down = m_FF_hist.at(FF+"_down");
-  
+
   // FF is a function of tau pT
   float retval = h_nominal->GetBinContent(h_nominal->FindBin(f_tau_0_pt));
   float retval_up = h_up->GetBinContent(h_up->FindBin(f_tau_0_pt));
@@ -169,8 +178,10 @@ double ptReweight::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsBveto_1up")   && f_n_bjets==0 ) ||
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    if (fSysName.Contains("Btag"))
-      retval *= 1.2;
+    if (fSysName.Contains("Btag") && f_tau_0_n_charged_tracks==1)
+      retval *= (0.862+0.262);
+    else if (fSysName.Contains("Btag") && f_tau_0_n_charged_tracks==3)
+      retval *= (0.881+0.262);
     else
       retval += retval_error;
   }
@@ -180,10 +191,18 @@ double ptReweight::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsBveto_1down")   && f_n_bjets==0 ) ||
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
-    if (fSysName.Contains("Btag"))
-      retval *= 0.8;
+    if (fSysName.Contains("Btag") && f_tau_0_n_charged_tracks==1)
+      retval *= (0.862-0.262);
+    else if (fSysName.Contains("Btag") && f_tau_0_n_charged_tracks==3)
+      retval *= (0.881-0.262);
     else
       retval -= retval_error;
+  }
+  else {
+    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks) 
+      retval *= 0.862;
+    else if (f_n_bjets>0 && 3==f_tau_0_n_charged_tracks)
+      retval *= 0.881;
   }
 
   return retval;
@@ -220,20 +239,20 @@ ptReweight::ptReweight(const TString& expression) : LepHadObservable(expression)
   FF_list.reserve(256);
   for (auto period : periods) {
     for (auto channel : channels) {
-      // 1D LeptonPt
+      // 1D TauPt
       FF_list.emplace_back(period + channel + "Bveto1pTauPtFF");
-      FF_list.emplace_back(period + channel + "Bveto1pTauPtFF");
-      FF_list.emplace_back(period + channel + "Btag3pTauPtFF");
+      FF_list.emplace_back(period + channel + "Bveto3pTauPtFF");
+      FF_list.emplace_back(period + channel + "Btag1pTauPtFF");
       FF_list.emplace_back(period + channel + "Btag3pTauPtFF");
       // 2D TauPt Dphi(lep, MET)
-      FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi1FF");
-      FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi2FF");
-      FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi3FF");
-      FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi4FF");
-      FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi1FF");
-      FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi2FF");
-      FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi3FF");
-      FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi4FF");
+      //FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi1FF");
+      //FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi2FF");
+      //FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi3FF");
+      //FF_list.emplace_back(period + channel + "Bveto1pTauPtDphi4FF");
+      //FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi1FF");
+      //FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi2FF");
+      //FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi3FF");
+      //FF_list.emplace_back(period + channel + "Bveto3pTauPtDphi4FF");
       //FF_list.emplace_back(period + channel + "Btag1pTauPtDphi1FF");
       //FF_list.emplace_back(period + channel + "Btag1pTauPtDphi2FF");
       //FF_list.emplace_back(period + channel + "Btag1pTauPtDphi3FF");
@@ -242,6 +261,15 @@ ptReweight::ptReweight(const TString& expression) : LepHadObservable(expression)
       //FF_list.emplace_back(period + channel + "Btag3pTauPtDphi2FF");
       //FF_list.emplace_back(period + channel + "Btag3pTauPtDphi3FF");
       //FF_list.emplace_back(period + channel + "Btag3pTauPtDphi4FF");
+      // 2D TauPt LeptonPt
+      FF_list.emplace_back(period + channel + "Bveto1pTauPtLeptonPt1FF");
+      FF_list.emplace_back(period + channel + "Bveto1pTauPtLeptonPt2FF");
+      FF_list.emplace_back(period + channel + "Bveto1pTauPtLeptonPt3FF");
+      FF_list.emplace_back(period + channel + "Bveto1pTauPtLeptonPt4FF");
+      FF_list.emplace_back(period + channel + "Bveto3pTauPtLeptonPt1FF");
+      FF_list.emplace_back(period + channel + "Bveto3pTauPtLeptonPt2FF");
+      FF_list.emplace_back(period + channel + "Bveto3pTauPtLeptonPt3FF");
+      FF_list.emplace_back(period + channel + "Bveto3pTauPtLeptonPt4FF");
     }
   }
  
