@@ -1,6 +1,6 @@
 from QFramework import TQObservable,INFO,ERROR,BREAK,WARN
 
-from HWWAnalysisCode import HWWTriggerWeight
+from CAFExample import HWWTriggerWeight
 from CommonAnalysisHelpers import common
 
 def addObservables(config):
