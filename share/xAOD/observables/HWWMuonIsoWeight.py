@@ -1,6 +1,6 @@
 from QFramework import TQObservable,INFO,ERROR,BREAK,WARN
 
-from HWWAnalysisCode import HWWMuonWeight
+from CAFExample import HWWMuonWeight
 from CommonAnalysisHelpers import common
 
 def addObservables(config):
@@ -15,7 +15,7 @@ def addObservables(config):
     noMuonIsoSF = muonIsoWP in ['Scan', 'NoIso', 'PLVTight', 'PLVTight_ttH']
 
     if muonIsoWP == "Rel20.7" or noMuonIsoSF:
-        from HWWAnalysisCode import HWWMuonIsoWeight
+        from CAFExample import HWWMuonIsoWeight
         muonIsoWeight = HWWMuonIsoWeight("muonIsoWeight", "effiSFIsoGradient")
         from ROOT import TFile
         muonisosfpath_abs = common.findConfigPath("auxData/calibration/Iso_HWWIsoIso_Z.root")

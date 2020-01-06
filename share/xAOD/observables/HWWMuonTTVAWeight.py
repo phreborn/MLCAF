@@ -1,6 +1,6 @@
 from QFramework import TQObservable,INFO,ERROR,BREAK,WARN
 
-from HWWAnalysisCode import HWWMuonTTVAWeight
+from CAFExample import HWWMuonTTVAWeight
 from CommonAnalysisHelpers import common
 
 def addObservables(config):
