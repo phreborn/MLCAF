@@ -1,9 +1,9 @@
+SampleID , xsection , kfactor , filtereff , uncertainty , mh , generator , process , simulation
+# Units on xsection in this file are in nb, not the default pb!  You MUST specify this correctly in your analyze step.
+
 # This file contains a list of DSIDs and their cross section and serves as a comprehensive example.
 # If you happen to find a mistake in this file, please report it, because a version of this file
 # is used for the HWW analysis.
-
-SampleID , xsection , kfactor , filtereff , uncertainty , mh , generator , process , simulation
-# Units on xsection in this file are in nb, not the default pb!  You MUST specify this correctly in your analyze step.
 
 ###################################################################################################################################################################
 ###################################################################################################################################################################
