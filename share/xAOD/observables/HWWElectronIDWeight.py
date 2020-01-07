@@ -7,8 +7,8 @@ def addObservables(config):
 
     mcWeightsOnly = config.getTagBoolDefault("UseMCWeightsOnly", False)
 
-    electronID = config.getTagStringDefault("ElectronID", "").Data()
-    electronIDLowPt = config.getTagStringDefault("ElectronIDLowPt", "").Data()
+    electronID = config.getTagStringDefault("ElectronID", "MediumLH").Data()
+    electronIDLowPt = config.getTagStringDefault("ElectronIDLowPt", "TightLH").Data()
 
     if electronID == ""  or electronIDLowPt == "":
         return False

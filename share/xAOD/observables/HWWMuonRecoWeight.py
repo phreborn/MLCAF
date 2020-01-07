@@ -16,8 +16,8 @@ def addObservables(config):
     # muon CP group and is different. We treat these two definitions
     # independently.
 
-    muonQuality = config.getTagStringDefault("MuonQuality", "").Data()
-    muonQualityLowPt = config.getTagStringDefault("MuonQualityLowPt", "").Data()
+    muonQuality = config.getTagStringDefault("MuonQuality", "Tight").Data()
+    muonQualityLowPt = config.getTagStringDefault("MuonQualityLowPt", "Tight").Data()
 
     if muonQuality == ""  or muonQualityLowPt == "":
         return False

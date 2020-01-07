@@ -10,8 +10,8 @@ def addObservables(config):
 
     # For all regular analyses, we want to consider the trigger scale factors of
     # the leading 2 leptons. For the ZjetsFF estimate, 3 leptons are needed.
-    nLeptonTriggerSFWeights = config.getTagIntegerDefault("nLeptonTriggerSFWeights", 2)
-    triggerCombination = config.getTagStringDefault("triggerCombination", "singleAndDilepton").Data()
+    nLeptonTriggerSFWeights = config.getTagIntegerDefault("nLeptonTriggerSFWeights", 3)
+    triggerCombination = config.getTagStringDefault("triggerCombination", "singleLepton").Data()
 
     if triggerCombination not in ["singleAndDilepton", "singleLepton"]:
         WARN("Trigger combination " + triggerCombination + " not known. This could mess up the trigger weights.")

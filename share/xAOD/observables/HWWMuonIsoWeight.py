@@ -8,7 +8,7 @@ def addObservables(config):
     useMuonIsoSF = config.getTagBoolDefault("UseMuonIsoSF", True)
     mcWeightsOnly = config.getTagBoolDefault("UseMCWeightsOnly", False)
 
-    muonIsoWP = config.getTagStringDefault("muonIsolationWP", "").Data()
+    muonIsoWP = config.getTagStringDefault("muonIsolationWP", "FCTight").Data()
     if muonIsoWP == "":
         return False
 
