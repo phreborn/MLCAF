@@ -67,7 +67,7 @@ variables:
     - cd run
     - prepare.py xAOD/config/master/prepare-xAOD-Example.cfg
     - initialize.py xAOD/config/master/initialize-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160
-    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg --restrict ?/?/c16a --options lineUpdates=false consoleWidth=160 maxEvents=100
+    - analyze.py xAOD/config/master/analyze-xAOD-Example.cfg --options lineUpdates=false consoleWidth=160 maxEvents=100
     - visualize.py xAOD/config/master/visualize-xAOD-Example.cfg
 
 ##########################################################################
