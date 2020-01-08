@@ -33,7 +33,7 @@ Building the project
 ```bash
 mkdir build run
 cd build
-asetup AnalysisBase,21.2.78
+asetup AnalysisBase,21.2.102
 cmake ../CAFExample
 source CAFExample/setupAnalysis.sh
 make -j4
