@@ -42,7 +42,7 @@ git remote add upstream https://:@gitlab.cern.ch:8443/atlas-phys-hdbs-htautau/BS
 # You should also avoid working on your master, and instead work from a development branch.
 # This way, you can keep your master synced with the main upstream repository
 
-git checkout -b myDevBranch
+git checkout myDevBranch
 
 cd -
 ```
@@ -56,7 +56,7 @@ cd build
 asetup AnalysisBase,21.2.78
 cmake ../BSMtautauCAF
 source setupAnalysis.sh
-export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
+export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
 make -j4
 cd -
 ```
@@ -72,7 +72,7 @@ lsetup git
 cd build
 asetup --restore
 source setupAnalysis.sh
-export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
+export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
 cd -
 ```
 
@@ -103,8 +103,11 @@ Running the analysis
 ```bash
 cd BSMtautauCAF/share
 
-# First set the input path to your samples by creating a symbolic link to the directory
-ln -sfiv /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190530 -T ${CAFANALYSISSHARE}/inputs
+# First define the remote locations of your input samples by pinging them on EOS through XRootD
+source configCommon/collectSamples.sh
+# Alternatively, you could set the input path to your samples by creating a symbolic link to the local directory
+# You will then need to manually switch which method is used in configCommon/htautau_lephad_common_campaigns*.cfg
+#ln -sfiv "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530" -T "${CAFANALYSISSHARE:?}/inputs/Paths"
 
 # Prepare and initialize your samples
 source configCommon/scriptPrepareInitialize.sh

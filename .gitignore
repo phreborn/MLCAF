@@ -27,5 +27,6 @@ build
 .asetup.save
 *.DS_Store
 *.isDone
-share/inputs
+share/inputs/*
+!share/inputs/.keep
 !share/Systematics/*.root
