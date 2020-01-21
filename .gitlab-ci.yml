@@ -46,6 +46,12 @@ variables:
     - source build/setupAnalysis.sh
     - cd share
     - echo "Insert analysis scripts here..."
+    - echo "Initialization:"
+    - source configCommon/collectSamples.sh
+    - source configCommon/scriptPrepareInitialize.sh
+    - echo "Lepton Fake Region:"
+    - source configLeptonFakeRegion/scriptDebug.sh
+    - echo "To be continued..."
 
 ##########################################################################
 # job definitions
