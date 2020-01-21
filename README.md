@@ -100,9 +100,14 @@ cd -
 Running the analysis
 --------------------
 
+Navigate to the execution directory
+
 ```bash
 cd BSMtautauCAF/share
+```
 
+### Initialization
+```bash
 # First define the remote locations of your input samples by pinging them on EOS through XRootD
 source configCommon/collectSamples.sh
 # Alternatively, you could set the input path to your samples by creating a symbolic link to the local directory
