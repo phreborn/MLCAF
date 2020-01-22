@@ -105,5 +105,5 @@ setupATLAS
 lsetup git
 cd build
 asetup --restore
-source CAFExample/setupAnalysis.sh
+source setupAnalysis.sh
 ```
