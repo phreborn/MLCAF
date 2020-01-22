@@ -47,7 +47,7 @@ variables:
     - cd share
     - echo "Insert analysis scripts here..."
     - echo "Initialization:"
-    - source configCommon/collectSamples.sh remote "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
+    - source configCommon/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
     - source configCommon/scriptPrepareInitialize.sh
     - echo "Lepton Fake Region:"
     - source configLeptonFakeRegion/scriptDebug.sh

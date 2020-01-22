@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
     echo -e "\e[91mNo access type specified!\e[39m" >&2
     return 1
 else
-    ACCESS_TYPES=("local" "remote")
+    ACCESS_TYPES=("local" "eosuser" "eosatlas")
     if [[ ! "${ACCESS_TYPES[*]}" =~ $1 ]]; then
         echo -e "\e[91mUnsupported access type '$1'!\e[39m" >&2
         echo -e "\e[91mPlease specify from: ${ACCESS_TYPES[*]}\e[39m" >&2
@@ -38,7 +38,7 @@ collect_samples_local() {
 
 collect_samples_remote() {
     local INPUT="$1"
-    local XRD_ADDRESS="root://eosatlas.cern.ch/"
+    local XRD_ADDRESS="root://${ACCESS_TYPE:?}.cern.ch/"
 
     xrdfs "${XRD_ADDRESS:?}" ls -R -u "${NTUPLE_PATH:?}/${INPUT:?}" | grep ".root"
 }
@@ -48,7 +48,7 @@ COLLECT_SAMPLES=""
 
 if [ "${ACCESS_TYPE}" == "local" ]; then
     COLLECT_SAMPLES="collect_samples_local"
-elif [ "${ACCESS_TYPE}" == "remote" ]; then
+elif [[ "${ACCESS_TYPE}" == "eos"* ]]; then
     COLLECT_SAMPLES="collect_samples_remote"
 fi
 

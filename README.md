@@ -109,8 +109,10 @@ cd BSMtautauCAF/share
 ### Initialization
 ```bash
 # First define the remote locations of your input samples by pinging them on EOS through XRootD
-source configCommon/collectSamples.sh remote "/eos/atlas/path/to/my/ntuples/YYMMDD"
-# Alternatively, you could set the input path to your samples by pointing to any local directory
+source configCommon/collectSamples.sh eosatlas "/eos/atlas/path/to/my/ntuples/YYMMDD"
+# Alternatively, this can be switched to access the EOS user area instead
+#source configCommon/collectSamples.sh eosuser "/eos/user/path/to/my/ntuples/YYMMDD"
+# Or, you could set the input path to your samples by pointing to any other local directory
 #source configCommon/collectSamples.sh local "/any/other/path/to/my/ntuples/YYMMDD"
 
 # Prepare and initialize your samples
