@@ -8,5 +8,5 @@ if [ "${IS_GITLAB_CI}" == "true" ]; then
     CI_OPTS="--options lineUpdates=false consoleWidth=160"
 fi
 
-prepare.py configCommon/htautau_lephad_common.cfg "${CI_OPTS}"
-initialize.py configCommon/htautau_lephad_common.cfg "${CI_OPTS}"
+prepare.py configCommon/htautau_lephad_common.cfg ${CI_OPTS}
+initialize.py configCommon/htautau_lephad_common.cfg ${CI_OPTS}

@@ -8,4 +8,4 @@ if [ "${IS_GITLAB_CI}" == "true" ]; then
     CI_OPTS="--options lineUpdates=false consoleWidth=160 --snowflakeThresh 2"
 fi
 
-analyze.py configLeptonFakeRegion/htautau_lephad_lfr.cfg --debug --restrict /bkg/?/c16a/Top/single "${CI_OPTS}"
+analyze.py configLeptonFakeRegion/htautau_lephad_lfr.cfg --debug --restrict /bkg/?/c16a/Top/single ${CI_OPTS}
