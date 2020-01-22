@@ -109,9 +109,10 @@ cd BSMtautauCAF/share
 ### Initialization
 ```bash
 # First define the remote locations of your input samples by pinging them on EOS through XRootD
-source configCommon/collectSamples.sh remote "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
-# Alternatively, you could set the input path to your samples by pointing to a local directory
-#source configCommon/collectSamples.sh local "/path/to/my/local/ntuples/YYMMDD"
+MY_SAMPLE_DIR="/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
+source configCommon/collectSamples.sh remote "${MY_SAMPLE_DIR:?}"
+# Alternatively, you could set the input path to your samples by pointing to any local directory
+#source configCommon/collectSamples.sh local "${MY_SAMPLE_DIR:?}"
 
 # Prepare and initialize your samples
 source configCommon/scriptPrepareInitialize.sh
