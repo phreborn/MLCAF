@@ -109,10 +109,9 @@ cd BSMtautauCAF/share
 ### Initialization
 ```bash
 # First define the remote locations of your input samples by pinging them on EOS through XRootD
-source configCommon/collectSamples.sh
-# Alternatively, you could set the input path to your samples by creating a symbolic link to the local directory
-# You will then need to manually switch which method is used in configCommon/htautau_lephad_common_campaigns*.cfg
-#ln -sfiv "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530" -T "${CAFANALYSISSHARE:?}/inputs/Paths"
+source configCommon/collectSamples.sh remote "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
+# Alternatively, you could set the input path to your samples by pointing to a local directory
+#source configCommon/collectSamples.sh local "/path/to/my/local/ntuples/YYMMDD"
 
 # Prepare and initialize your samples
 source configCommon/scriptPrepareInitialize.sh
