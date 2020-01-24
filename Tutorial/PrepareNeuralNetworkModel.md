@@ -11,9 +11,9 @@ The [lwtnn](https://github.com/lwtnn/lwtnn) package provides C++ libraries to ap
 Consider the following steps (please start a fresh session on an lxplus machine and login), for which details and general comments are given below:
 
 #### Step 0: Train a neural network
-    Keras is recommended, for which there is lots of documentation and support online, no need to elaborate here.
+[Keras](https://keras.io/) is recommended, for which there is lots of documentation and support online, no need to elaborate here.
 #### Step 1: Save necessary network outputs
-    We need a network architecture json file, a weights HDF5 file (both from keras), and a input variables file (prepared by the user). Example files can be found under /eos/user/b/bejaeger/Keras-Network.
+We need a network architecture json file, a weights HDF5 file (both from keras), and a input variables file (prepared by the user). Example files can be found under `/eos/user/b/bejaeger/Keras-Network`.
 #### Step 2: Convert outputs to single NN json file
 
 ```
