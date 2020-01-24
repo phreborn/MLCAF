@@ -41,7 +41,7 @@ Now you can use the network in CAF with the expression
 ```
 lwtnnSeq(path/to/neural_net.json, {dense_8})
 ```
-Note, that this uses the "Sequential API" of keras. 
+Note, that this uses the "Sequential API" of lwtnn.
 
 # General explanations and tips for different steps
 
@@ -65,7 +65,7 @@ with open('architecture.json', 'w') as arch_file:
 model.save_weights('weights.h5')
 ```
 
-The input variable file needs to be prepared by the user. The file has the following format for the sequential API (See [Keras-Converter](https://github.com/lwtnn/lwtnn/wiki/Keras-Converter) for the input variables file layout of the function API):
+The input variable file needs to be prepared by the user. The file has the following format for the sequential API (See [Keras-Converter](https://github.com/lwtnn/lwtnn/wiki/Keras-Converter) for the variables file layout of the function API):
 
 ```
 {
