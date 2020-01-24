@@ -4,11 +4,11 @@ This document provides instructions on how to use neural networks (NNs) trained 
 
 ## Tools
 
-The [lwtnn](https://github.com/lwtnn/lwtnn) package provides C++ libraries to apply NNs and can be incorporated in any CAF based analysis with the wrapper [CAFlwtnn](https://gitlab.cern.ch/atlas-caf/caflwtnn). Please see the repositories for installation instructions. The lwtnn package comes with converter scripts that take saved networks from SciKit Learn or (Keras)[https://keras.io/] (recommended!) and dump NN models in standard JSON format. These network json files need to be adapted slightly to be used with CAFlwtnn, which is explained in the following.
+The [lwtnn](https://github.com/lwtnn/lwtnn) package provides C++ libraries to apply NNs and can be incorporated in any CAF based analysis with the wrapper [CAFlwtnn](https://gitlab.cern.ch/atlas-caf/caflwtnn). Please see the repositories for installation instructions. The lwtnn package comes with converter scripts that take saved networks from SciKit Learn or [Keras](https://keras.io/) (recommended!) and dump NN models in standard JSON format. These network json files need to be adapted slightly to be used with CAFlwtnn, which is explained in the following.
 
 ## Save network outputs
 
-To convert the network to a single json file we need three files (see also (Keras-Converter)[https://github.com/lwtnn/lwtnn/wiki/Keras-Converter]):
+To convert the network to a single json file we need three files (see also [Keras-Converter](https://github.com/lwtnn/lwtnn/wiki/Keras-Converter)):
 
 1. keras architecture json file
 2. keras weights HDF5 file
@@ -42,20 +42,20 @@ The input variable file needs to be prepared by the user. The file has the follo
 }
 ```
 
-If e.g. the `StandardScaler` provided in the `preprocessing` module from `sklearn` is used, the following code provides a suitable variables file:
+If e.g. the `StandardScaler` provided in the `preprocessing` module from `sklearn` is used during the training, the following code dumps a suitable variables file:
 
 ```python
-        varDict = {"inputs":[]}
-        for i, var in enumerate(arrayOfVariableNames):
-            scale = 1./scaler.scale_[i]
-            offset = -1.*scaler.mean_[i]
-            varDict["inputs"].append( {"name":var, "offset":offset, "scale":scale } )
-        varDict["class_labels"] = ["nameOfOutputNode"]
-        with open(outputPath, "w") as jsonfile:
-            json.dump(varDict, jsonfile)
+varDict = {"inputs":[]}
+for i, var in enumerate(arrayOfVariableNames):
+    scale = 1./scaler.scale_[i]
+    offset = -1.*scaler.mean_[i]
+    varDict["inputs"].append( {"name":var, "offset":offset, "scale":scale } )
+varDict["class_labels"] = ["nameOfOutputNode"]
+with open(variablesFileOutputPath, "w") as jsonfile:
+    json.dump(varDict, jsonfile)
 ```
 
-The only other thing that remains to be done is to manipulate the 'name' entry in the variable json file. We need to make our analysis aware of the (CAF) expression that is to be used for the different variables.
+The only other thing that remains to be done is to manipulate the ``name'' entry in the variable json file. We need to make our analysis aware of the (CAF) expression that is to be used for the different variables.
 We simply add this information to our variable json file with 
 ```
 ...
@@ -63,12 +63,12 @@ We simply add this information to our variable json file with
 ...
 ```
 
-Tip: In case the ntuples used for training were dumped by CAF, the ntuple definition file that was used already has this information included (see e.g. (here)[https://gitlab.cern.ch/atlas-physics/higgs/hww/HWWAnalysisCode/blob/7a69b9e4/share/config/nTuples/VBF/mva-ntuple.txt]). Lines in this file like
+Tip: In case the ntuples used for training were dumped by CAF, the ntuple definition file that was utilized has this information included already (see e.g. [here](https://gitlab.cern.ch/atlas-physics/higgs/hww/HWWAnalysisCode/blob/7a69b9e4/share/config/nTuples/VBF/mva-ntuple.txt)). Lines in this file like
 
 ```
 ... , float mjj << $(Mjj). , float DPhill << $(DPhill), ...
 ```
-can be interpreted automatically by the (adaptDNNJSONFileToCAFCore.py)[https://gitlab.cern.ch/atlas-physics/higgs/hww/HWWAnalysisCode/blob/7a69b9e4/tools/adaptDNNJSONFileToCAFCore.py] script and the input variables file manipulated with with
+can be interpreted automatically by the [adaptDNNJSONFileToCAFCore.py](https://gitlab.cern.ch/atlas-physics/higgs/hww/HWWAnalysisCode/blob/7a69b9e4/tools/adaptDNNJSONFileToCAFCore.py) script and the input variables file manipulated with
 
 ```
 adaptDNNJSONFileToCAFCore.py --networkInputFile variables.json --networkOutputFile variables-modified.json --nTupleDefinitionFile path/to/your/nTuple/definition/file.txt
@@ -76,7 +76,14 @@ adaptDNNJSONFileToCAFCore.py --networkInputFile variables.json --networkOutputFi
 
 ## Convert network to single json file
 
-To convert the three files to a single json file that can be used in the analysis, one needs to clone the lwtnn repository and use
+To convert the three files to a single json file that can be used in the analysis, one needs to clone the lwtnn repository
+
+```
+git clone https://github.com/lwtnn/lwtnn.git; cd lwtnn; make; # shoul take less than 1min
+```
+
+and use
+
 ```
 lwtnn/converters/keras2json.py architecture.json variables-modified.json weights.h5 > neural_net.json
 ```
@@ -89,7 +96,7 @@ pip3 install h5py
 
 ## Make it an observable in CAF
 
-The NN model (which in this case has a layout for the "Sequential API") can then be used by calling the expression
+The NN model (which in our case has a layout for the "Sequential API") can then be used by calling the expression
 ```
 lwtnnSeq(path/to/neural_net.json, {nameOfOutputNode})
 ```
