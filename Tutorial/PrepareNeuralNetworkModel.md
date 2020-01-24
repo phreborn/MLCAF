@@ -10,11 +10,11 @@ The [lwtnn](https://github.com/lwtnn/lwtnn) package provides C++ libraries to ap
 
 Consider the following steps (please start a fresh session on an lxplus machine and login), for which details and general comments are given below:
 
-### Step 0: Train a neural network
-    [Keras](https://keras.io/) is recommended, for which there is lots of documentation and support online, no need to elaborate here.
-### Step 1: Save necessary network outputs
-    We need a network architecture json file, a weights HDF5 file (both from keras), and a input variables file (prepared by the user). Example files can be found under /eos/user/b/bejaeger/Keras-Network
-### Step 2: Convert outputs to single NN json file
+#### Step 0: Train a neural network
+    Keras is recommended, for which there is lots of documentation and support online, no need to elaborate here.
+#### Step 1: Save necessary network outputs
+    We need a network architecture json file, a weights HDF5 file (both from keras), and a input variables file (prepared by the user). Example files can be found under /eos/user/b/bejaeger/Keras-Network.
+#### Step 2: Convert outputs to single NN json file
 
 ```
 # go to your favorite working directory
@@ -29,13 +29,14 @@ pip3 install h5py
 
 # convert
 lwtnn/converters/keras2json.py $NNFilesPath/architecture.json $NNFilesPath/variables.json $NNFilesPath/weights.h5 > neural_net.json
+deactivate
 
 # modify network to assign expressions to variable names
 cafsetup; cd $HOME/CAFNNTutorial; # source your analysis setup script to use the following
 adaptDNNJSONFileToCAFCore.py --networkInputFile neural_net.json --networkOutputFile neural_net_modified.json --nTupleDefinitionFile $NNFilesPath/ntuple-definition.txt;
 ```
 
-### Step 3: Use NN
+#### Step 3: Use NN
 Now you can use the network in CAF with the expression
 ```
 lwtnnSeq(path/to/neural_net.json, {dense_8})
