@@ -6,14 +6,15 @@ This document provides instructions on how to use neural networks (NNs) trained 
 
 The [lwtnn](https://github.com/lwtnn/lwtnn) package provides C++ libraries to apply NNs and can be incorporated in any CAF based analysis with the wrapper [CAFlwtnn](https://gitlab.cern.ch/atlas-caf/caflwtnn). Please see the repositories for installation instructions. The lwtnn package comes with converter scripts that take saved networks from SciKit Learn or [Keras](https://keras.io/) (recommended!) and dump NN models in standard JSON format. These network json files need to be adapted slightly to be used with CAFlwtnn, which is explained in the following.
 
-## Tutorial to incorporate NN with working commands
+# Tutorial to incorporate NN with working commands
 
 Consider the following steps, for which details and general comments are given below:
 
-### Step 0: Train a neural network, keras is recommended (loooots of documentation/support online)
-### Step 1: Save necessary network outputs
-   Example outputs from the training in keras can be found at /eos/user/b/bejaeger/Keras-Network
-### Step 2: Convert outputs to single NN json file
+#### Step 0: Train a neural network
+    [Keras](https://keras.io/) is recommended, for which there is loooots of documentation and support online, no need to elaborate here.
+#### Step 1: Save necessary network outputs
+    We need a network architecture json file, a weights HDF5 file (both from keras), and a input variables file (prepared by the user). Example files can be found under /eos/user/b/bejaeger/Keras-Network
+#### Step 2: Convert outputs to single NN json file
 ```
 # go to your favorite working directory
 mkdir $HOME/CAFNNTutorial; cd $HOME/CAFNNTutorial;
@@ -23,7 +24,7 @@ export NNFilesPath=/eos/user/b/bejaeger/Keras-Network/;
 adaptDNNJSONFileToCAFCore.py --networkInputFile $NNFilesPath/variables.json --networkOutputFile variables-modified.json --nTupleDefinitionFile $NNFilesPath/ntuple-definition.txt;
 
 # necessary clones and installation of h5py for conversion
-git clone https://github.com/lwtnn/lwtnn.git; cd lwtnn; make; cd ../;# shoul take less than 1min
+git clone https://github.com/lwtnn/lwtnn.git; cd lwtnn; make; cd ../;# should take less than 1min
 virtualenv -p python3 ./venv
 source venv/bin/activate
 pip3 install h5py
@@ -32,14 +33,14 @@ pip3 install h5py
 lwtnn/converters/keras2json.py $NNFilesPath/architecture.json variables-modified.json $NNFilesPath/weights.h5 > neural_net.json
 ```
 
-### Step 3: Use NN
+#### Step 3: Use NN
 Now you can use the network in CAF with the expression
 ```
 lwtnnSeq(path/to/neural_net.json, {dense_8})
 ```
 
 
-## General explanations and tips for different steps
+# General explanations and tips for different steps
 
 ### Save network outputs
 
