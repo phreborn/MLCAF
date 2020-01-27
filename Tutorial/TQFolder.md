@@ -616,6 +616,9 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('move.tqfol
 ```
 -->
 
+Be careful never to move a folder into itself or into a subfolder of itself.
+Possible side effects include crashes that are very hard to debug.
+
 ## $create
 The `create` method creates a new `TQFolder` or `TQSampleFolder`. The function
 takes the two named arguments `path` and `type`.  The type can be either "f" or
