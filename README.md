@@ -3,7 +3,7 @@ BSMtautau CAFCore Analysis
 
 This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.
 Further help about the CAF can be found [here](http://atlas-caf.web.cern.ch). If there are any problems, please refer to the FAQ first. If the problem is
-not listed there, feel free to contact the author (Email: xiaozhong.huang@cern.ch).
+not listed there, feel free to contact the author (Email: xiaozhong.huang@cern.ch, t.zorbas@cern.ch).
 
 Cloning the project
 --------------------
@@ -104,7 +104,7 @@ Running the analysis
 
 For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
 All these fake-factors and there systematic uncertaintiees are avaiable in the latest master branch. In case 
-you want to produce them yourself, please refer to the instructions (lepton/jet fake tau).
+you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
 
 ### Prepare the inputs for the nominal analysis
 If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
