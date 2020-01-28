@@ -10,9 +10,9 @@ SUBMIT=""
 if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
   SUBMIT="--submit condor --maxSampleSize 20000"
 elif [ "$USER" == "yehf" ]; then
-  SUBMIT="--submit condor"
+  SUBMIT="--submit condor --account atlas"
 elif [ "$USER" == "xiaozhong" ]; then
-  SUBMIT="--submit condor"
+  SUBMIT="--submit condor --account atlas"
 fi
 
 submit.py ${REGION}/${CONFIG}.cfg --jobs ${REGION}/${JOBS} --identifier ${IDENT} --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 ${SUBMIT}

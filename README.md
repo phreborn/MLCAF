@@ -2,7 +2,7 @@ BSMtautau CAFCore Analysis
 =========================
 
 This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.
-Further help about the CAF can be found [here](http://atlas-caf.web.cern.ch). If there are any problems, please refer to the FAQ first. If the problem is
+Further help about the CAF can be found [here](http://atlas-caf.web.cern.ch). If there are any problems, please refer to the [FAQ](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/FAQ.md) first. If the problem is
 not listed there, feel free to contact the author (Email: xiaozhong.huang@cern.ch, t.zorbas@cern.ch).
 
 Cloning the project
