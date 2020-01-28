@@ -2,7 +2,7 @@
 
 # add "contid" as argument to executing this script to run over contid
 
-REGION="configWjetsFakeRegion/applyFFSF"
+REGION="configWjetsFakeRegion/applyFF/applySF"
 JOBS="jobsWFR_applyFFSF.txt"
 CONFIG="htautau_lephad_wfr_applyffsf"
 IDENT="WFRapplyFFSF"

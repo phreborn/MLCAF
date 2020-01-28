@@ -2,6 +2,8 @@ BSMtautau CAFCore Analysis
 =========================
 
 This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.
+Further help about the CAF can be found [here](http://atlas-caf.web.cern.ch). If there are any problems, please refer to the FAQ first. If the problem is
+not listed there, feel free to contact the author (Email: xiaozhong.huang@cern.ch, t.zorbas@cern.ch).
 
 Cloning the project
 --------------------
@@ -100,8 +102,13 @@ cd -
 Running the analysis
 --------------------
 
-Navigate to the execution directory
+For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
+All these fake-factors and there systematic uncertaintiees are avaiable in the latest master branch. In case 
+you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
 
+### Prepare the inputs for the nominal analysis
+If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
+Navigate to the execution directory
 ```bash
 cd BSMtautauCAF/share
 ```
@@ -119,130 +126,64 @@ source configCommon/collectSamples.sh eosatlas "/eos/atlas/path/to/my/ntuples/YY
 source configCommon/scriptPrepareInitialize.sh
 ```
 
-### Lepton/QCD Fake Region (L/QFR)
+### Running the SR/VR/TCR in the nominal analysis
 ```bash
-# Debug test the analysis
-source configLeptonFakeRegion/scriptDebug.sh
-# Submit the full analysis to a cluster
-source configLeptonFakeRegion/scriptSubmit.sh
-# After all cluster jobs have finished, merge the output
-source configLeptonFakeRegion/scriptMerge.sh
-# Visualize plots
-source configLeptonFakeRegion/scriptVisualize.sh
-# Calculate lepton fake factors
-python scripts/calculateFakeFactor.py LFR
-
-# To check back the L/QFF modelling in the L/QFR
-# Debug test the analysis with fakes
-source configLeptonFakeRegion/applyFF/scriptDebug.sh
-# Submit the fake analysis to a cluster
-source configLeptonFakeRegion/applyFF/scriptSubmit.sh
-# After all cluster jobs have finished, merge the output with the existing file
-source configLeptonFakeRegion/applyFF/scriptMerge.sh
-# Visualize plots with fakes
-source configLeptonFakeRegion/applyFF/scriptVisualize.sh
-# Calculate lepton correction scale factors
-python scripts/calculateScaleFactor.py LFR
-
-# To check back the L/QSF modelling in the L/QFR
-# Debug test the analysis with corrected fakes
-source configLeptonFakeRegion/applyFF/applySF/scriptDebug.sh
-# Submit the corrected fake analysis to a cluster
-source configLeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
-# After all cluster jobs have finished, merge the output with the existing file
-source configLeptonFakeRegion/applyFF/applySF/scriptMerge.sh
-# Visualize plots with corrected fakes
-source configLeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
-```
-
-### W+jets/Top Fake Region (WFR/TFR)
-```bash
-# Debug test the analysis
-source configWjetsFakeRegion/scriptDebug.sh
-# Submit the full analysis to a cluster
-source configWjetsFakeRegion/scriptSubmit.sh
-# After all cluster jobs have finished, merge the output
-source configWjetsFakeRegion/scriptMerge.sh
-# Visualize plots          
-source configWjetsFakeRegion/scriptVisualize.sh
-# Calculate W+jets/Top fake factors
-python scripts/calculateFakeFactor.py WFR
-
-# To check back the WFF/TFF modelling in the WFR/TFR
-# Debug test the analysis with fakes
-source configWjetsFakeRegion/applyFF/scriptDebug.sh
-# Submit the fake analysis to a cluster
-source configWjetsFakeRegion/applyFF/scriptSubmit.sh
-# After all cluster jobs have finished, merge the output with the existing file
-source configWjetsFakeRegion/applyFF/scriptMerge.sh
-# Visualize plots with fakes
-source configWjetsFakeRegion/applyFF/scriptVisualize.sh
-```
-
-### Signal Region (SR), Validation Region (VR), W+jets/Top Control Regions (WCR/TCR)
-```bash
-# Debug test the analysis
+# Debug test before sending the jobs to a cluster
 source configSignalControlRegion/scriptDebug.sh
-# Submit the full analysis to a cluster
+
+# Submit the analysis to a cluster
 source configSignalControlRegion/scriptSubmit.sh
-# After all cluster jobs have finished, merge the output
+
+# Merge the output after all jobs are finished successfully
 source configSignalControlRegion/scriptMerge.sh
-# Visualize plots
-source configSignalControlRegion/scriptVisualize.sh
+
+# Visialize plots
+source configSignalControlRegion/scriptVisualize.sh 
 ```
 
-### Systematics (SR, VR, TCR)
+### Prepare the inputs for the systematic analysis
+If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
 ```bash
-# Calculate top correction scale factors
-python scripts/calculateScaleFactor.py TCR
-# Calculate validation correction scale factors
-python scripts/calculateScaleFactor.py VR
-
-# To prepare the T/VSF modelling for the NOMINAL SR/VR/TCR
-# Debug test the analysis with corrected scale factors
-source configSignalControlRegion/applySF/scriptDebug.sh
-# Submit the corrected scale factor analysis to a cluster
-source configSignalControlRegion/applySF/scriptSubmit.sh
-# After all cluster jobs have finished, merge the output
-source configSignalControlRegion/applySF/scriptMerge.sh
-
-# Debug test the NOM-based systematic analysis
-source configSignalControlRegion/syst/scriptDebug.sh NOM
-# Submit the NOM-based systematic analysis to a cluster
-source configSignalControlRegion/syst/scriptSubmit.sh NOM 1
-# After all cluster jobs have finished, merge the output
-source configSignalControlRegion/syst/scriptMerge.sh NOM 1
-# Write the systematics to band files and tables
-source configSignalControlRegion/syst/scriptWrite.sh NOM
-# Visualize plots with systematics
-source configSignalControlRegion/syst/scriptVisualize.sh
-
-# Initialize your SYS-based samples
-source configSignalControlRegion/syst/scriptInitialize.sh
-# Debug test the SYS-based systematic analysis
-source configSignalControlRegion/syst/scriptDebug.sh SYS
-# Submit the SYS-based systematic analysis to a cluster
-source configSignalControlRegion/syst/scriptSubmit.sh SYS 1
-# After all cluster jobs have finished, merge the output
-source configSignalControlRegion/syst/scriptMerge.sh SYS 1
-# Re-write the full systematics to band files and tables
-source configSignalControlRegion/syst/scriptWrite.sh SYS
-# Re-visualize plots with full systematics
-source configSignalControlRegion/syst/scriptVisualize.sh
+# Initialize the samples with 10 subprocesses to speed up
+source configSignalControlRegion/syst/scriptPrepareInitialize.sh 10
 ```
 
-### Workspace inputs (SR, TCR)
+### Running the SR/VR/TCR in the systematic analysis
+The systematic uncertainties are classified into two types:
+- SYS: need to run over different trees in the systematic samples
+- NOM: need to run over NOMINAL tree in the systematic/nominal samples, need the output from SYS.
+
 ```bash
-# Dump systematic outputs to standard ROOT files and merge
+# First, run SYS
+# Submit the anslysis into a cluster
+souce configSignalControlRegion/syst/scriptSubmit SYS 10
+
+# Merge the output after all jobs are finished successfully
+source configSignalControlRegion/syst/scriptMerge.sh SYS 10
+
+# Then, run NOM
+# Submit the anslysis into a cluster
+souce configSignalControlRegion/syst/scriptSubmit NOM 10
+
+# Merge the output after all jobs are finished successfully
+source configSignalControlRegion/syst/scriptMerge.sh NOM 10
+
+```
+
+### Produce the workspace inputs (SR, TCR)
+
+```bash
+# Dump systematic outputs to standard ROOT files
 python configSignalControlRegion/syst/scriptDumpHist.py
+
+# Merge the systematic outputs for each region
+python configSignalControlRegion/syst/scriptMergeHist.py
+
+# Produce the workspace inputs
+hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ade_sr*.root dumpHist/c16ade_tcr*.root 
+
 ```
 
-Old README content
-------------------
-TODO: Decide how to calculate FF:
-    - proposed function in the calculateFakeFactor.py script works well;
-        -- calcJetFakeFactorFinal(identifier, dataPath, bkgPath, nominator, denominator, histogram, channel, region, uncertainty)
-        ---- make cosmetic improvements for FF plots.
+### Generate the worksapce
+For Att analysis, workapce are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).
 
-IMPORTANT: Top samples with dilepton filter contains more statistics because we use truth matching anyway.
-        Be careful to use allhad/nonallhad top samples for QCD regions.

@@ -62,51 +62,6 @@ TH1F('Bveto3pTauPtFF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,
 @CutBveto1p*/*:Bveto1pTauPtFF;
 @CutBveto3p*/*:Bveto3pTauPtFF;
 
-# 2D: TauPt x LeptonPt
-TH1F('Bveto1pTauPtLeptonPt1FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==1]&&[lep_0_p4.Pt()]>=30&&[lep_0_p4.Pt()]<50?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('Bveto1pTauPtLeptonPt2FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==1]&&[lep_0_p4.Pt()]>=50&&[lep_0_p4.Pt()]<70?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('Bveto1pTauPtLeptonPt3FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==1]&&[lep_0_p4.Pt()]>=70&&[lep_0_p4.Pt()]<100?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('Bveto1pTauPtLeptonPt4FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==1]&&[lep_0_p4.Pt()]>=100?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('Bveto3pTauPtLeptonPt1FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==3]&&[lep_0_p4.Pt()]>=30&&[lep_0_p4.Pt()]<50?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('Bveto3pTauPtLeptonPt2FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==3]&&[lep_0_p4.Pt()]>=50&&[lep_0_p4.Pt()]<70?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('Bveto3pTauPtLeptonPt3FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==3]&&[lep_0_p4.Pt()]>=70&&[lep_0_p4.Pt()]<100?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-TH1F('Bveto3pTauPtLeptonPt4FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks==3]&&[lep_0_p4.Pt()]>=100?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
-
-@CutBveto1p*/*:Bveto1pTauPtLeptonPt1FF,Bveto1pTauPtLeptonPt2FF,Bveto1pTauPtLeptonPt3FF,Bveto1pTauPtLeptonPt4FF;
-@CutBveto3p*/*:Bveto3pTauPtLeptonPt1FF,Bveto3pTauPtLeptonPt2FF,Bveto3pTauPtLeptonPt3FF,Bveto3pTauPtLeptonPt4FF;
-
-# 2D: TauPt x MET
-
-# 2D: TauPt x TauEta
-
-
-# 2D: Dphi(Tau,MET) SF
-#TH1F('Bveto1pDphiTauPt1SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=25&&[tau_0_p4.Pt()]<=27?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt2SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=27&&[tau_0_p4.Pt()]<=30?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt3SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=30&&[tau_0_p4.Pt()]<=34?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt4SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=34&&[tau_0_p4.Pt()]<=39?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt5SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=39&&[tau_0_p4.Pt()]<=45?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt6SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=45&&[tau_0_p4.Pt()]<=52?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt7SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=52&&[tau_0_p4.Pt()]<=60?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt8SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=60&&[tau_0_p4.Pt()]<=70?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt9SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=70&&[tau_0_p4.Pt()]<=90?[lephad_met_lep1_cos_dphi]:-1} : "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt10SF','', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=90&&[tau_0_p4.Pt()]<=110?[lephad_met_lep1_cos_dphi]:-1}: "\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt11SF','', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=110&&[tau_0_p4.Pt()]<=200?[lephad_met_lep1_cos_dphi]:-1}:"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto1pDphiTauPt12SF','', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==1&&[tau_0_p4.Pt()]>=200?[lephad_met_lep1_cos_dphi]:-1}:"\#Delta\#phi(\#tau,MET)");
-#
-#TH1F('Bveto3pDphiTauPt1SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=25&&[tau_0_p4.Pt()]<=27?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt2SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=27&&[tau_0_p4.Pt()]<=30?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt3SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=30&&[tau_0_p4.Pt()]<=34?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt4SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=34&&[tau_0_p4.Pt()]<=39?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt5SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=39&&[tau_0_p4.Pt()]<=45?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt6SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=45&&[tau_0_p4.Pt()]<=52?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt7SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=52&&[tau_0_p4.Pt()]<=60?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt8SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=60&&[tau_0_p4.Pt()]<=70?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt9SF', '', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=70&&[tau_0_p4.Pt()]<=90?[lephad_met_lep1_cos_dphi]:-1} :"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt10SF','', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=90&&[tau_0_p4.Pt()]<=110?[lephad_met_lep1_cos_dphi]:-1}:"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt11SF','', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=110&&[tau_0_p4.Pt()]<=200?[lephad_met_lep1_cos_dphi]:-1}:"\#Delta\#phi(\#tau,MET)");
-#TH1F('Bveto3pDphiTauPt12SF','', {0.0, 0.2, 0.4, 0.6, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 3.1416}) <<({[tau_0_n_charged_tracks]==3&&[tau_0_p4.Pt()]>=200?[lephad_met_lep1_cos_dphi]:-1}:"\#Delta\#phi(\#tau,MET)");
-#
 ## 2D: TauPt, Dphi(Tau,MET)
 #TH1F('Bveto1pTauPtDphi1FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,110.,200.,300.})  <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
 #TH1F('Bveto1pTauPtDphi2FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,200.,300.})       <<   ( {[tau_0_n_charged_tracks]==1&&[lephad_met_lep1_cos_dphi]>=1.&&[lephad_met_lep1_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{tau}" );
@@ -119,8 +74,6 @@ TH1F('Bveto3pTauPtLeptonPt4FF'   ,'', {25.,27.,30.,34.,39.,45.,52.,60.,70.,90.,1
 #
 #@CutBveto1p*/*:Bveto1pTauPtFF,Bveto1pTauPtDphi1FF,Bveto1pTauPtDphi2FF,Bveto1pTauPtDphi3FF,Bveto1pTauPtDphi4FF;
 #@CutBveto3p*/*:Bveto3pTauPtFF,Bveto3pTauPtDphi1FF,Bveto3pTauPtDphi2FF,Bveto3pTauPtDphi3FF,Bveto3pTauPtDphi4FF;
-#@CutBveto1p*/*:Bveto1pDphiTauPt1SF,Bveto1pDphiTauPt2SF,Bveto1pDphiTauPt3SF,Bveto1pDphiTauPt4SF,Bveto1pDphiTauPt5SF,Bveto1pDphiTauPt6SF,Bveto1pDphiTauPt7SF,Bveto1pDphiTauPt8SF,Bveto1pDphiTauPt9SF,Bveto1pDphiTauPt10SF,Bveto1pDphiTauPt11SF,Bveto1pDphiTauPt12SF;
-#@CutBveto3p*/*:Bveto3pDphiTauPt1SF,Bveto3pDphiTauPt2SF,Bveto3pDphiTauPt3SF,Bveto3pDphiTauPt4SF,Bveto3pDphiTauPt5SF,Bveto3pDphiTauPt6SF,Bveto3pDphiTauPt7SF,Bveto3pDphiTauPt8SF,Bveto3pDphiTauPt9SF,Bveto3pDphiTauPt10SF,Bveto3pDphiTauPt11SF,Bveto3pDphiTauPt12SF;
 
 
 ##################

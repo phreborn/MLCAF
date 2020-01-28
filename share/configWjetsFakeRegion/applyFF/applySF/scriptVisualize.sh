@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### WFR
-visualize.py configWjetsFakeRegion/applyFFSF/htautau_lephad_wfr_applyffsf.cfg
+visualize.py configWjetsFakeRegion/applyFF/applySF/htautau_lephad_wfr_applyffsf.cfg
 source scripts/tqpdflatex.sh results/htautau_lephad_wfr_applyffsf/summary.tex
 
 #visualize.py configWjetsFakeRegion/applyFF/htautau_lephad_wfr_applyff_qcd.cfg
@@ -14,5 +14,5 @@ source scripts/tqpdflatex.sh results/htautau_lephad_wfr_applyffsf/summary.tex
 #source scripts/tqpdflatex.sh results/htautau_lephad_wfr_applyff_wjetsqcd/summary.tex
 
 ### TCR
-visualize.py configWjetsFakeRegion/applyFFSF/htautau_lephad_tcr_applyffsf.cfg
+visualize.py configWjetsFakeRegion/applyFF/applySF/htautau_lephad_tcr_applyffsf.cfg
 source scripts/tqpdflatex.sh results/htautau_lephad_tcr_applyffsf/summary.tex
