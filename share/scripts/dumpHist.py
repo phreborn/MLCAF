@@ -20,7 +20,7 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
   sys_name = file_path.split("-")[-1]
   sys_name = sys_name.split(".")[0]
   # some hacks for systematics
-  if sys_name != "nominal":
+  if sys_name != "NOMINAL":
     sys_name=sys_name.replace('ScaleUp', 'Scale_1up')
     sys_name=sys_name.replace('ScaleDown', 'Scale_1down')
     # 1 side syst 
@@ -47,7 +47,7 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
     fn_out = '{:s}_{:s}_{:s}.root'.format(args.datasets,region_name,args.channel)
     # Open output file
     f_out = TFile.Open("{:s}/{:s}".format(dir_out,fn_out),"RECREATE")
-    if sys_name != "nominal":
+    if sys_name != "NOMINAL":
       dir_sys = f_out.mkdir(sys_name, sys_name)
     for sample_name, sample_path in sample_dict.items():
       sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
@@ -78,12 +78,12 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
 
         hist_new_name += "_"+hist_rename
   
-        if sys_name != "nominal":
+        if sys_name != "NOMINAL":
           hist_new_name += "_"+sys_name
         
         hist.SetNameTitle(hist_new_name, hist_new_name)
         f_out.cd()
-        if sys_name != "nominal":
+        if sys_name != "NOMINAL":
           dir_sys.cd()
         hist.Write()
         del hist
@@ -169,16 +169,13 @@ if __name__ == "__main__":
 
   ### The following hists will be dumped
   hist_dict = {
-    #"BvetoTauMETDphi"  : "BinTauMETDphi",
-    #"BtagTauMETDphi"   : "BinTauMETDphi",
-    #"BvetoLepMETDphi"  : "BinLepMETDphi",
-    #"BtagLepMETDphi"   : "BinLepMETDphi",
     "BvetoTauPt"        : "BinTauPt",
     "BtagTauPt"         : "BinTauPt",
+    "BvetoLeptonPt"     : "BinLeptonPt",
+    "BtagLeptonPt"      : "BinLeptonPt",
     "BvetoMTTOT"        : "BinMTTOT",
     "BtagMTTOT"         : "BinMTTOT",
-    "BvetoLeptonPt"    : "BinLeptonPt",
-    "BtagLeptonPt"     : "BinLeptonPt",
+    "TCRBtagMTTOT"      : "BinMTTOT",
     "MTTOT"             : "MTTOT",
   }
 

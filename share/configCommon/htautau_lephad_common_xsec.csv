@@ -1,162 +1,162 @@
-SampleID, process,                                                      xsectioninpb, filtereff,  kfactor,       uncertup, uncertdown, generator,                                                   etag
-301000,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_120M180,                17.477,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301001,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_180M250,                2.9215,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301002,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_250M400,                1.0819,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301003,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_400M600,                0.19551,      1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301004,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_600M800,                0.037403,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301005,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_800M1000,               0.010607,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301006,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1000M1250,              0.0042586,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301007,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1250M1500,              0.001422,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301008,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1500M1750,              0.00054526,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301009,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1750M2000,              0.00022993,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301010,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2000M2250,              0.00010386,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301011,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2250M2500,              4.9403e-05,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301012,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2500M2750,              2.4454e-05,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301013,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2750M3000,              1.249e-05,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301014,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_3000M3500,              1.003e-05,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301015,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_3500M4000,              2.9344e-06,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301016,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_4000M4500,              8.9767e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301017,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_4500M5000,              2.8071e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301018,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_5000M,                  1.2647e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301020,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_120M180,              17.477,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301021,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_180M250,              2.9215,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301022,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_250M400,              1.0819,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301023,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_400M600,              0.19551,      1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301024,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_600M800,              0.037403,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301025,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_800M1000,             0.010607,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301026,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1000M1250,            0.0042586,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301027,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1250M1500,            0.001422,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301028,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1500M1750,            0.00054526,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301029,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1750M2000,            0.00022992,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301030,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2000M2250,            0.00010386,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301031,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2250M2500,            4.9404e-05,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301032,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2500M2750,            2.4454e-05,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301033,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2750M3000,            1.249e-05,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301034,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_3000M3500,            1.003e-05,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301035,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_3500M4000,            2.9344e-06,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301036,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_4000M4500,            8.9767e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301037,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_4500M5000,            2.8071e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301038,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_5000M,                1.2648e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3649
-301040,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_120M180,            17.476,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301041,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_180M250,            2.9213,       1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301042,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_250M400,            1.082,        1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301043,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_400M600,            0.19551,      1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301044,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_600M800,            0.037403,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301045,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_800M1000,           0.010608,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301046,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1000M1250,          0.0042586,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301047,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1250M1500,          0.001422,     1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301048,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1500M1750,          0.00054525,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301049,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1750M2000,          0.00022993,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301050,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2000M2250,          0.00010386,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301051,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2250M2500,          4.9403e-05,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301052,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2500M2750,          2.4454e-05,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301053,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2750M3000,          1.2489e-05,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301054,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3000M3500,          1.003e-05,    1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301055,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3500M4000,          2.9343e-06,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301056,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4000M4500,          8.9767e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301057,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4500M5000,          2.8072e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-301058,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_5000M,              1.2647e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e3649
-341856,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH125_yb2_tautaulh,       1.0,          4.5460E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341857,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH150_yb2_tautaulh,       1.0,          4.5448E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0), e5686
-341858,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH200_yb2_tautaulh,       1.0,          4.5558E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341859,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH250_yb2_tautaulh,       1.0,          4.5501E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0), e5686
-341860,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH300_yb2_tautaulh,       1.0,          4.5424E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341861,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH350_yb2_tautaulh,       1.0,          4.5500E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341862,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH400_yb2_tautaulh,       1.0,          4.5665E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4298
-341863,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH500_yb2_tautaulh,       1.0,          4.5555E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341864,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH600_yb2_tautaulh,       1.0,          4.5632E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341865,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH700_yb2_tautaulh,       1.0,          4.5668E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341866,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH800_yb2_tautaulh,       1.0,          4.5658E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341868,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH1000_yb2_tautaulh,      1.0,          4.5530E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4298
-341870,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH1200_yb2_tautaulh,      1.0,          4.5493E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0), e4482
-341873,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH1500_yb2_tautaulh,      1.0,          4.5591E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.2.3.p3)+Pythia8(v8.210)+EvtGen(v1.2.0), e5314
-342305,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH200W1_tautaulh,      1.0,          4.5490E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342308,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH250W1_tautaulh,      1.0,          4.5526E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342310,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH300W2_tautaulh,      1.0,          4.5554E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342312,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH350W3_tautaulh,      1.0,          4.5487E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342314,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH400W5_tautaulh,      1.0,          4.5461E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342316,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH500W5_tautaulh,      1.0,          4.5539E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342318,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH600W10_tautaulh,     1.0,          4.5508E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342320,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH700W20_tautaulh,     1.0,          4.5550E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342322,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH800W20_tautaulh,     1.0,          4.5591E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342326,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH1000W30_tautaulh,    1.0,          4.5610E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342330,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH1200W40_tautaulh,    1.0,          4.5556E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-342336,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH1500W60_tautaulh,    1.0,          4.5554E-01, 1.0,           0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0),             e4284
-345289,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH2000_yb2_tautaulh,      1.0,          4.5467E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0), e5686
-345293,   aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH2500_yb2_tautaulh,      1.0,          4.5658E-01, 1.0,           0.0,      0.0,        MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0), e5686
-345297,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH2000W80_tautaulh,    1.0,          4.5508E-01, 1.0,           0.0,      0.0,        Powheg(v2_r3080)+Pythia8(v8.212)+EvtGen(v1.2.0),             e5685
-345301,   PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH2500W100_tautaulh,   1.0,          4.5559E-01, 1.0,           0.0,      0.0,        Powheg(v2_r3080)+Pythia8(v8.212)+EvtGen(v1.2.0),             e5685
-361106,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee,                         1901.1,       1.0000E+00, 1.02600047339, 0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3601
-361107,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zmumu,                       1901.1,       1.0000E+00, 1.02605444217, 0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3601
-361108,   PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau,                     1901.1,       1.0000E+00, 1.02605444217, 0.0,      0.0,        Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp,    e3601
-363355,   Sherpa_221_NNPDF30NNLO_ZqqZvv,                                15.561,       2.7687E-01, 1.0,           0.0,      0.0,        Sherpa(v2.2.1),                                              e5525
-363356,   Sherpa_221_NNPDF30NNLO_ZqqZll,                                15.564,       1.4158E-01, 1.0,           0.0,      0.0,        Sherpa(v2.2.1),                                              e5525
-363357,   Sherpa_221_NNPDF30NNLO_WqqZvv,                                6.7975,       1.0000E+00, 1.0,           0.0,      0.0,        Sherpa(v2.2.1),                                              e5525
-363358,   Sherpa_221_NNPDF30NNLO_WqqZll,                                3.4328,       1.0000E+00, 1.0,           0.0,      0.0,        Sherpa(v2.2.1),                                              e5525
-363359,   Sherpa_221_NNPDF30NNLO_WpqqWmlv,                              24.708,       1.0000E+00, 1.0,           0.0,      0.0,        Sherpa(v2.2.1),                                              e5583
-363360,   Sherpa_221_NNPDF30NNLO_WplvWmqq,                              24.724,       1.0000E+00, 1.0,           0.0,      0.0,        Sherpa(v2.2.1),                                              e5983
-363489,   Sherpa_221_NNPDF30NNLO_WlvZqq,                                11.42,        1.0000E+00, 1.0,           0.0,      0.0,        Sherpa(v2.2.1),                                              e5525
-364156,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto,         19151.0,      8.2465E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364157,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto,       19143.0,      1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364158,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter,            19143.0,      1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364159,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto,       945.89,       6.7430E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364160,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CFilterBVeto,     946.12,       2.4357E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364161,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter,          944.8,        8.4525E-02, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364162,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CVetoBVeto,      339.73,       6.0009E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364163,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto,    339.8,        2.9256E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364164,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter,         339.68,       1.1080E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364165,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CVetoBVeto,      72.084,       5.4766E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364166,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto,    72.103,       3.2016E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364167,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter,         72.063,       1.3137E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364168,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000,                15.008,       1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364169,   Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS,              1.2349,       1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364170,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto,          19153.0,      8.2467E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364171,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto,        19146.0,      1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364172,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter,             19144.0,      1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364173,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto,        944.98,       6.7483E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364174,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto,      946.37,       2.4414E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364175,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter,           945.63,       8.5116E-02, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364176,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto,       339.75,       5.9858E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364177,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto,     339.8,        2.8805E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364178,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter,          339.7,        1.1088E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364179,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto,       72.077,       5.4829E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364180,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto,     72.105,       3.1969E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364181,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter,          72.077,       1.3865E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364182,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV500_1000,                 15.05,        1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364183,   Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV1000_E_CMS,               1.2344,       1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364184,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto,        19155.0,      8.2462E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364185,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto,      19153.0,      1.3167E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364186,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter,           19152.0,      4.5128E-02, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364187,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CVetoBVeto,      945.58,       6.7560E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364188,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto,    946.49,       2.4245E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364189,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter,         945.87,       8.3903E-02, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364190,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto,     339.69,       5.9884E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364191,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto,   339.84,       2.8478E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364192,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter,        339.68,       1.0575E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364193,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto,     72.078,       5.6172E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364194,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto,   71.99,        3.1863E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364195,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter,        71.944,       1.3597E-01, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364196,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000,               15.052,       1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364197,   Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS,             1.2342,       1.0000E+00, 0.9702,        0.0,      0.0,        Sherpa(v2.2.1),                                              e5340
-364250,   Sherpa_222_NNPDF30NNLO_llll,                                  1.2523,       1.0000E+00, 1.0,           0.0,      0.0,        Sherpa(v2.2.2),                                              e5894
-364253,   Sherpa_222_NNPDF30NNLO_lllv,                                  4.579,        1.0000E+00, 1.0,           0.0,      0.0,        Sherpa(v2.2.2),                                              e5916
-364254,   Sherpa_222_NNPDF30NNLO_llvv,                                  12.501,       1.0,        1.0,           0.0,      0.0,        Sherpa(v2.2.2),                                              e5916
-364255,   Sherpa_222_NNPDF30NNLO_lvvv,                                  3.2344,       1.0,        1.0,           0.0,      0.0,        Sherpa(v2.2.2),                                              e5916
-410464,   aMcAtNloPy8EvtGen_MEN30NLO_A14N23LO_ttbar_noShWe_SingleLep,   711.43,       4.4037E-01, 1.1691,        0.0,      0.0,        MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.230)+EvtGen(v1.6.0), e6762
-410465,   aMcAtNloPy8EvtGen_MEN30NLO_A14N23LO_ttbar_noShWe_dil,         712.02,       1.0717E-01, 1.1681,        0.0,      0.0,        MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.230)+EvtGen(v1.6.0), e6762
-410466,   aMcAtNloPy8EvtGen_MEN30NLO_A14N23LO_ttbar_noShWe_AllHadronic, 711.38,       4.5261E-01, 1.1692,        0.0,      0.0,        NULL,                                                        e6762
-410470,   PhPy8EG_A14_ttbar_hdamp258p75_nonallhad,                      729.76,       5.4385E-01, 1.13975636159, 0.0,      0.0,        Powheg+Pythia8(v8.230)+EvtGen(v1.6.0),                       e6337
-410471,   PhPy8EG_A14_ttbar_hdamp258p75_allhad,                         729.77,       4.5623E-01, 1.13974074379, 0.0,      0.0,        Powheg+Pythia8(v8.230)+EvtGen(v1.6.0),                       e6337
-410472,   PhPy8EG_A14_ttbar_hdamp258p75_dil,                            729.77,       1.0547E-01, 1.13975636159, 0.0,      0.0,        Powheg+Pythia8(v8.230)+EvtGen(v1.6.0),                       e6348
-410480,   PhPy8EG_A14_ttbar_hdamp517p5_SingleLep,                       729.74,       4.3852E-01, 1.0,           0.0,      0.0,        Powheg+Pythia8(v8.230)+EvtGen(v1.6.0),                       e6454
-410481,   PhPy8EG_A14_ttbar_hdamp517p5_allhad,                          729.74,       4.5622E-01, 1.0,           0.0,      0.0,        Powheg+Pythia8(v8.230)+EvtGen(v1.6.0),                       e6520
-410482,   PhPy8EG_A14_ttbar_hdamp517p5_dil,                             729.74,       1.0546E-01, 1.0,           0.0,      0.0,        Powheg+Pythia8(v8.230)+EvtGen(v1.6.0),                       e6454
-410557,   PowhegHerwig7EvtGen_H7UE_tt_hdamp258p75_704_SingleLep,        730.14,       4.3853E-01, 1.0,           0.0,      0.0,        Powheg+Herwig7(v7.0.4)+EvtGen(v1.6.0),                       e6366
-410558,   PowhegHerwig7EvtGen_H7UE_tt_hdamp258p75_704_dil,              730.15,       1.0547E-01, 1.0,           0.0,      0.0,        Powheg+Herwig7(v7.0.4)+EvtGen(v1.6.0),                       e6366
-410559,   PowhegHerwig7EvtGen_H7UE_tt_hdamp258p75_allhad,               730.15,       4.5624E-01, 1.1392,        0.0,      0.0,        Powheg+Herwig7+EvtGen,                                       e6567
-410644,   PowhegPythia8EvtGen_A14_singletop_schan_lept_top,             2.027,        1.0000E+00, 1.0170,        0.0,      0.0,        Powheg+EvtGen(v1.6.0),                                       e6527
-410645,   PowhegPythia8EvtGen_A14_singletop_schan_lept_antitop,         1.2674,       1.0000E+00, 1.0167,        0.0,      0.0,        Powheg+EvtGen(v1.6.0),                                       e6527
-410646,   PowhegPythia8EvtGen_A14_Wt_DR_inclusive_top,                  37.935,       1.0000E+00, 0.9450,        0.0,      0.0,        Powheg+EvtGen(v1.6.0),                                       e6552
-410647,   PowhegPythia8EvtGen_A14_Wt_DR_inclusive_antitop,              37.905,       1.0000E+00, 0.9457,        0.0,      0.0,        Powheg+EvtGen(v1.6.0),                                       e6552
-410658,   PhPy8EG_A14_tchan_BW50_lept_top,                              36.996,       1.0000E+00, 1.1935,        0.0,      0.0,        Powheg+Pythia8.230+EvtGen,                                   e6671
-410659,   PhPy8EG_A14_tchan_BW50_lept_antitop,                          22.173,       1.0000E+00, 1.1849,        0.0,      0.0,        Powheg+Pythia8.230+EvtGen,                                   e6671
+SampleID,  process,                                                       xsectioninpb,  filtereff,   kfactor,        uncertup,  uncertdown,  generator
+301000,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_120M180,                 17.477,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301001,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_180M250,                 2.9215,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301002,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_250M400,                 1.0819,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301003,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_400M600,                 0.19551,       1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301004,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_600M800,                 0.037403,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301005,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_800M1000,                0.010607,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301006,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1000M1250,               0.0042586,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301007,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1250M1500,               0.001422,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301008,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1500M1750,               0.00054526,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301009,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_1750M2000,               0.00022993,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301010,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2000M2250,               0.00010386,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301011,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2250M2500,               4.9403e-05,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301012,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2500M2750,               2.4454e-05,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301013,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_2750M3000,               1.249e-05,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301014,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_3000M3500,               1.003e-05,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301015,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_3500M4000,               2.9344e-06,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301016,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_4000M4500,               8.9767e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301017,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_4500M5000,               2.8071e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301018,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYee_5000M,                   1.2647e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301020,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_120M180,               17.477,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301021,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_180M250,               2.9215,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301022,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_250M400,               1.0819,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301023,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_400M600,               0.19551,       1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301024,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_600M800,               0.037403,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301025,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_800M1000,              0.010607,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301026,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1000M1250,             0.0042586,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301027,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1250M1500,             0.001422,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301028,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1500M1750,             0.00054526,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301029,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_1750M2000,             0.00022992,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301030,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2000M2250,             0.00010386,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301031,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2250M2500,             4.9404e-05,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301032,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2500M2750,             2.4454e-05,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301033,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_2750M3000,             1.249e-05,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301034,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_3000M3500,             1.003e-05,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301035,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_3500M4000,             2.9344e-06,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301036,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_4000M4500,             8.9767e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301037,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_4500M5000,             2.8071e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301038,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYmumu_5000M,                 1.2648e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+301040,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_120M180,             17.476,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301041,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_180M250,             2.9211,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301042,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_250M400,             1.082,         1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301043,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_400M600,             0.19551,       1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301044,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_600M800,             0.037402,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301045,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_800M1000,            0.010607,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301046,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1000M1250,           0.0042584,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301047,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1250M1500,           0.001422,      1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301048,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1500M1750,           0.00054527,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301049,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1750M2000,           0.00022992,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301050,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2000M2250,           0.00010387,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301051,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2250M2500,           4.9404e-05,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301052,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2500M2750,           2.4455e-05,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301053,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2750M3000,           1.249e-05,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301054,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3000M3500,           1.003e-05,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301055,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3500M4000,           2.934e-06,     1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301056,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4000M4500,           8.9769e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301057,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4500M5000,           2.8073e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+301058,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_5000M,               1.2648e-07,    1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+341856,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH125_yb2_tautaulh,        1.0,           4.5460E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341857,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH150_yb2_tautaulh,        1.0,           4.5448E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0)
+341858,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH200_yb2_tautaulh,        1.0,           4.5558E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341859,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH250_yb2_tautaulh,        1.0,           4.5501E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0)
+341860,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH300_yb2_tautaulh,        1.0,           4.5424E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341861,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH350_yb2_tautaulh,        1.0,           4.5500E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341862,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH400_yb2_tautaulh,        1.0,           4.5665E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341863,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH500_yb2_tautaulh,        1.0,           4.5555E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341864,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH600_yb2_tautaulh,        1.0,           4.5632E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341865,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH700_yb2_tautaulh,        1.0,           4.5668E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341866,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH800_yb2_tautaulh,        1.0,           4.5658E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341868,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH1000_yb2_tautaulh,       1.0,           4.5530E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341870,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH1200_yb2_tautaulh,       1.0,           4.5493E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p0)+Pythia8(v8.205)+EvtGen(v1.2.0)
+341873,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH1500_yb2_tautaulh,       1.0,           4.5591E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.2.3.p3)+Pythia8(v8.210)+EvtGen(v1.2.0)
+342305,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH200W1_tautaulh,       1.0,           4.5490E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342308,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH250W1_tautaulh,       1.0,           4.5526E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342310,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH300W2_tautaulh,       1.0,           4.5554E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342312,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH350W3_tautaulh,       1.0,           4.5487E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342314,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH400W5_tautaulh,       1.0,           4.5461E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342316,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH500W5_tautaulh,       1.0,           4.5539E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342318,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH600W10_tautaulh,      1.0,           4.5508E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342320,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH700W20_tautaulh,      1.0,           4.5550E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342322,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH800W20_tautaulh,      1.0,           4.5591E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342326,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH1000W30_tautaulh,     1.0,           4.5610E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342330,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH1200W40_tautaulh,     1.0,           4.5556E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+342336,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH1500W60_tautaulh,     1.0,           4.5554E-01,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+345289,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH2000_yb2_tautaulh,       1.0,           4.5467E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0)
+345293,    aMcAtNloPythia8EvtGen_A14NNPDF23LO_bbH2500_yb2_tautaulh,       1.0,           4.5658E-01,  1.0,            0.0,       0.0,         MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.212)+EvtGen(v1.2.0)
+345297,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH2000W80_tautaulh,     1.0,           4.5508E-01,  1.0,            0.0,       0.0,         Powheg(v2_r3080)+Pythia8(v8.212)+EvtGen(v1.2.0)
+345301,    PowhegPythia8EvtGen_CT10_AZNLOCTEQ6L1_ggH2500W100_tautaulh,    1.0,           4.5559E-01,  1.0,            0.0,       0.0,         Powheg(v2_r3080)+Pythia8(v8.212)+EvtGen(v1.2.0)
+361106,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee,                          1901.1,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)+Photospp
+361107,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zmumu,                        1901.1,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+361108,    PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau,                      1901.1,        1.0000E+00,  1.0,            0.0,       0.0,         Powheg(v1_r2856)+Pythia8(v8.186)+EvtGen(v1.2.0)
+363355,    Sherpa_221_NNPDF30NNLO_ZqqZvv,                                 15.56,         2.7686E-01,  1.0,            0.0,       0.0,         Sherpa(v2.2.1)
+363356,    Sherpa_221_NNPDF30NNLO_ZqqZll,                                 15.564,        1.4158E-01,  1.0,            0.0,       0.0,         Sherpa(v2.2.1)
+363357,    Sherpa_221_NNPDF30NNLO_WqqZvv,                                 6.7951,        1.0000E+00,  1.0,            0.0,       0.0,         Sherpa(v2.2.1)
+363358,    Sherpa_221_NNPDF30NNLO_WqqZll,                                 3.4328,        1.0000E+00,  1.0,            0.0,       0.0,         Sherpa(v2.2.1)
+363359,    Sherpa_221_NNPDF30NNLO_WpqqWmlv,                               24.708,        1.0000E+00,  1.0,            0.0,       0.0,         Sherpa(v2.2.1)
+363360,    Sherpa_221_NNPDF30NNLO_WplvWmqq,                               24.724,        1.0000E+00,  1.0,            0.0,       0.0,         Sherpa(v2.2.1)
+363489,    Sherpa_221_NNPDF30NNLO_WlvZqq,                                 11.42,         1.0000E+00,  1.0,            0.0,       0.0,         Sherpa(v2.2.1)
+364156,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto,          19149.0,       8.2450E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364157,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto,        19144.0,       1.3114E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364158,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter,             19138.0,       4.4641E-02,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364159,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto,        945.52,        6.7430E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364160,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CFilterBVeto,      945.38,        2.4352E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364161,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter,           944.8,         8.4525E-02,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364162,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CVetoBVeto,       339.73,        6.0009E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364163,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto,     339.8,         2.9256E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364164,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter,          339.64,        0.110298,    0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364165,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CVetoBVeto,       72.079,        5.4768E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364166,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto,     72.1,          3.2016E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364167,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter,          72.058,        1.2542E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364168,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000,                 15.006,        1.0000E+00,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364169,    Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS,               1.2348,        1.0000E+00,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364170,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto,           19153.0,       8.2467E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364171,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto,         19144.0,       1.3075E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364172,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter,              19138.0,       4.4820E-02,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364173,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto,         944.98,        6.7483E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364174,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto,       945.74,        2.4413E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364175,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter,            945.77,        0.10341,     0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364176,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto,        339.75,        5.9858E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364177,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto,      339.8,         2.8805E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364178,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter,           339.64,        0.10898,     0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364179,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto,        72.074,        5.4830E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364180,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto,      72.105,        3.1969E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364181,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter,           72.091,        1.3706E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364182,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV500_1000,                  15.047,        1.0000E+00,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364183,    Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV1000_E_CMS,                1.2344,        1.0000E+00,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364184,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto,         19155.0,       8.2462E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364185,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto,       19153.0,       1.3167E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364186,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter,            19144.0,       4.5098E-02,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364187,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CVetoBVeto,       945.02,        6.7562E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364188,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto,     946.23,        2.4247E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364189,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter,          945.71,        0.10391,     0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364190,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto,      339.69,        5.9884E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364191,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto,    339.84,        2.8478E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364192,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter,         339.31,        1.0578E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364193,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto,      72.078,        5.6172E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364194,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto,    71.99,         3.1863E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364195,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter,         71.945,        1.3597E-01,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364196,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000,                15.052,        1.0000E+00,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364197,    Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS,              1.2341,        1.0000E+00,  0.9702,         0.0,       0.0,         Sherpa(v2.2.1)
+364250,    Sherpa_222_NNPDF30NNLO_llll,                                   1.2523,        1.0000E+00,  1.0,            0.0,       0.0,         Sherpa(v2.2.2)
+364253,    Sherpa_222_NNPDF30NNLO_lllv,                                   4.579,         1.0000E+00,  1.0,            0.0,       0.0,         Sherpa(v2.2.2)
+364254,    Sherpa_222_NNPDF30NNLO_llvv,                                   12.501,        1.0,         1.0,            0.0,       0.0,         Sherpa(v2.2.2)
+364255,    Sherpa_222_NNPDF30NNLO_lvvv,                                   3.2344,        1.0,         1.0,            0.0,       0.0,         Sherpa(v2.2.2)
+410464,    aMcAtNloPy8EvtGen_MEN30NLO_A14N23LO_ttbar_noShWe_SingleLep,    711.43,        4.4037E-01,  1.1691,         0.0,       0.0,         MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.230)+EvtGen(v1.6.0)
+410465,    aMcAtNloPy8EvtGen_MEN30NLO_A14N23LO_ttbar_noShWe_dil,          712.02,        1.0717E-01,  1.1681,         0.0,       0.0,         MadGraph5_aMC@NLO(v2.3.3.p1)+Pythia8(v8.230)+EvtGen(v1.6.0)
+410466,    aMcAtNloPy8EvtGen_MEN30NLO_A14N23LO_ttbar_noShWe_AllHadronic,  711.38,        4.5261E-01,  1.1692,         0.0,       0.0,         NULL
+410470,    PhPy8EG_A14_ttbar_hdamp258p75_nonallhad,                       729.76,        5.4385E-01,  1.13975636159,  0.0,       0.0,         Powheg+Pythia8(v8.230)+EvtGen(v1.6.0)
+410471,    PhPy8EG_A14_ttbar_hdamp258p75_allhad,                          729.77,        4.5623E-01,  1.13974074379,  0.0,       0.0,         Powheg+Pythia8(v8.230)+EvtGen(v1.6.0)
+410472,    PhPy8EG_A14_ttbar_hdamp258p75_dil,                             729.77,        1.0546E-01,  1.13975636159,  0.0,       0.0,         Powheg+Pythia8(v8.230)+EvtGen(v1.6.0)
+410480,    PhPy8EG_A14_ttbar_hdamp517p5_SingleLep,                        729.74,        4.3852E-01,  1.0,            0.0,       0.0,         Powheg+Pythia8(v8.230)+EvtGen(v1.6.0)
+410481,    PhPy8EG_A14_ttbar_hdamp517p5_allhad,                           729.74,        4.5622E-01,  1.0,            0.0,       0.0,         Powheg+Pythia8(v8.230)+EvtGen(v1.6.0)
+410482,    PhPy8EG_A14_ttbar_hdamp517p5_dil,                              729.74,        1.0546E-01,  1.0,            0.0,       0.0,         Powheg+Pythia8(v8.230)+EvtGen(v1.6.0)
+410557,    PowhegHerwig7EvtGen_H7UE_tt_hdamp258p75_704_SingleLep,         730.14,        4.3853E-01,  1.0,            0.0,       0.0,         Powheg+Herwig7(v7.0.4)+EvtGen(v1.6.0)
+410558,    PowhegHerwig7EvtGen_H7UE_tt_hdamp258p75_704_dil,               730.15,        1.0547E-01,  1.0,            0.0,       0.0,         Powheg+Herwig7(v7.0.4)+EvtGen(v1.6.0)
+410559,    PowhegHerwig7EvtGen_H7UE_tt_hdamp258p75_allhad,                730.15,        4.5624E-01,  1.1392,         0.0,       0.0,         Powheg+Herwig7+EvtGen
+410644,    PowhegPythia8EvtGen_A14_singletop_schan_lept_top,              2.027,         1.0000E+00,  1.0170,         0.0,       0.0,         Powheg+EvtGen(v1.6.0)
+410645,    PowhegPythia8EvtGen_A14_singletop_schan_lept_antitop,          1.2674,        1.0000E+00,  1.0167,         0.0,       0.0,         Powheg+EvtGen(v1.6.0)
+410646,    PowhegPythia8EvtGen_A14_Wt_DR_inclusive_top,                   37.936,        1.0000E+00,  0.9450,         0.0,       0.0,         Powheg+EvtGen(v1.6.0)
+410647,    PowhegPythia8EvtGen_A14_Wt_DR_inclusive_antitop,               37.905,        1.0000E+00,  0.9457,         0.0,       0.0,         Powheg+EvtGen(v1.6.0)
+410658,    PhPy8EG_A14_tchan_BW50_lept_top,                               36.996,        1.0000E+00,  1.1935,         0.0,       0.0,         Powheg+Pythia8.230+EvtGen
+410659,    PhPy8EG_A14_tchan_BW50_lept_antitop,                           22.175,        1.0000E+00,  1.1849,         0.0,       0.0,         Powheg+Pythia8.230+EvtGen

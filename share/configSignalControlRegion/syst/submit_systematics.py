@@ -7,9 +7,8 @@ import argparse
 from JobHandler import LocalJobHandler
 
 # The results of some jobs will not be changed for the systematics, these jobs will be copied from the following dir
-#s_nominal_dir='batchOutput/unmerged_SR'
-s_nominal_dir='batchOutput/unmerged_SRsys_nominal'
->>>>>>> update scripts for material transport correction and LPX Kfactor
+s_standard_dir='batchOutput/unmerged_SR'
+s_nominal_dir='batchOutput/unmerged_SRsys_NOMINAL'
 # Cofiguration for the systematic jobs
 s_config_path='configSignalControlRegion/syst/htautau_lephad_sr_sys.cfg'
 s_common_config_path='configCommon/htautau_lephad_common.cfg'
@@ -18,71 +17,46 @@ s_sys_file_path='configCommon/htautau_lephad_common_campaigns_sys.cfg'
 # list of all systematics, comment out the ones you don't want to run:
 # lets instead separate out the systematic types into sublists, and append them to the grand list on request
 # so first initialize the grand list of systematics
-# fakevars:     6(12)
+# fakevars:     12(24)
 # isovars:      6(12)
 # topvars:      NEW: 4(6)   2 one-side | OLD: 2(2) 2 one-side
 # weightvars:   36(72)
 # treevars:     35(60) 10 one-side 
 l_fakevars=[
-#['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
-#['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
-#['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
-#['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
-#['fakevar',   'FakeFactor_WjetsBveto1p_1up'],
-#['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
-#['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
-#['fakevar',   'FakeFactor_WjetsBveto3p_1down'],
+['fakevar',   'FakeFactor_WjetsBtag1p_1up'],
+['fakevar',   'FakeFactor_WjetsBtag1p_1down'],
+['fakevar',   'FakeFactor_WjetsBtag3p_1up'],
+['fakevar',   'FakeFactor_WjetsBtag3p_1down'],
+['fakevar',   'FakeFactor_WjetsBveto1p_1up'],
+['fakevar',   'FakeFactor_WjetsBveto1p_1down'],
+['fakevar',   'FakeFactor_WjetsBveto3p_1up'],
+['fakevar',   'FakeFactor_WjetsBveto3p_1down'],
 
-["fakevar",   "FakeFactor_ExtraSysElHadBveto1p_1down"],
-["fakevar",   "FakeFactor_ExtraSysElHadBveto1p_1up"],
-["fakevar",   "FakeFactor_ExtraSysElHadBveto3p_1down"],
-["fakevar",   "FakeFactor_ExtraSysElHadBveto3p_1up"],
-["fakevar",   "FakeFactor_ExtraSysElHadBtag1p_1down"],
-["fakevar",   "FakeFactor_ExtraSysElHadBtag1p_1up"],
-["fakevar",   "FakeFactor_ExtraSysElHadBtag3p_1down"],
-["fakevar",   "FakeFactor_ExtraSysElHadBtag3p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto1p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto1p_1down"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto3p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto3p_1down"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag1p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag1p_1down"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag3p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag3p_1down"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto1p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto1p_1down"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto3p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto3p_1down"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag1p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag1p_1down"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag3p_1up"],
+["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag3p_1down"],
 
-["fakevar",   "FakeFactor_ExtraSysMuHadBveto1p_1down"],
-["fakevar",   "FakeFactor_ExtraSysMuHadBveto1p_1up"],
-["fakevar",   "FakeFactor_ExtraSysMuHadBveto3p_1down"],
-["fakevar",   "FakeFactor_ExtraSysMuHadBveto3p_1up"],
-["fakevar",   "FakeFactor_ExtraSysMuHadBtag1p_1down"],
-["fakevar",   "FakeFactor_ExtraSysMuHadBtag1p_1up"],
-["fakevar",   "FakeFactor_ExtraSysMuHadBtag3p_1down"],
-["fakevar",   "FakeFactor_ExtraSysMuHadBtag3p_1up"],
-
-["fakevar",   "FakeFactor_WjetsReweight_Bveto1p_1up"],
-["fakevar",   "FakeFactor_WjetsReweight_Bveto1p_1down"],
-["fakevar",   "FakeFactor_WjetsReweight_Bveto3p_1up"],
-["fakevar",   "FakeFactor_WjetsReweight_Bveto3p_1down"],
-["fakevar",   "FakeFactor_WjetsReweight_Btag1p_1up"],
-["fakevar",   "FakeFactor_WjetsReweight_Btag1p_1down"],
-["fakevar",   "FakeFactor_WjetsReweight_Btag3p_1up"],
-["fakevar",   "FakeFactor_WjetsReweight_Btag3p_1down"],
-#["fakevar",   "FakeFactor_ExtraSysBveto1p_1down"],
-#["fakevar",   "FakeFactor_ExtraSysBveto1p_1up"],
-#["fakevar",   "FakeFactor_ExtraSysBveto3p_1down"],
-#["fakevar",   "FakeFactor_ExtraSysBveto3p_1up"],
-#["fakevar",   "FakeFactor_ExtraSysBtag1p_1down"],
-#["fakevar",   "FakeFactor_ExtraSysBtag1p_1up"],
-#["fakevar",   "FakeFactor_ExtraSysBtag3p_1down"],
-#["fakevar",   "FakeFactor_ExtraSysBtag3p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto1p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto1p_1down"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto3p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBveto3p_1down"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto1p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto1p_1down"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto3p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBveto3p_1down"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag1p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag1p_1down"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag3p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_ElHadBtag3p_1down"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag1p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag1p_1down"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag3p_1up"],
-#["fakevar",   "FakeFactor_WjetsReweight_MuHadBtag3p_1down"],
+["fakevar",   "FakeFactor_ExtraSysBveto1p_1down"],
+["fakevar",   "FakeFactor_ExtraSysBveto1p_1up"],
+["fakevar",   "FakeFactor_ExtraSysBveto3p_1down"],
+["fakevar",   "FakeFactor_ExtraSysBveto3p_1up"],
+["fakevar",   "FakeFactor_ExtraSysBtag1p_1down"],
+["fakevar",   "FakeFactor_ExtraSysBtag1p_1up"],
+["fakevar",   "FakeFactor_ExtraSysBtag3p_1down"],
+["fakevar",   "FakeFactor_ExtraSysBtag3p_1up"],
 ]
 
 l_isovars=[
@@ -141,7 +115,6 @@ l_topvars=[
 ]
 
 l_weightvars=[
-#['weightvar', 'nominal'],
 ['weightvar', 'mu_eff_stat_low'],
 ['weightvar', 'mu_eff_stat_high'],
 ['weightvar', 'mu_eff_statlowpt_low'],
@@ -217,6 +190,7 @@ l_weightvars=[
 ]
 
 l_treevars=[
+['treevar', 'NOMINAL'],
 ['treevar', 'MUON_ID_1down'],
 ['treevar', 'MUON_ID_1up'],
 ['treevar', 'MUON_MS_1down'],
@@ -284,24 +258,15 @@ l_treevars=[
 def create_cmd_log(option, sys, stage):
   cmd = ''
   if stage == 'initialize':
-      #cmd="initialize.py {:s} --options campaignsConfig='{:s}' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
-    if sys == 'nominal':
-      cmd="initialize.py {:s} --options verbose=False printFolderTags=td campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,'NOMINAL',sys)
-    else:
-      cmd="initialize.py {:s} --options verbose=False printFolderTags=td campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
-
-  #######################
-  # Analyze samples
-  #######################
+    cmd="initialize.py {:s} --options verbose=False printFolderTags=td campaignsConfig='{:s}' postInit_patches='configCommon/htautau_lephad_common_postinit.tags, configCommon/htautau_lephad_common_postinit_clean.tags' mcPathsTreeName='{:s}' outputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(s_common_config_path,s_sys_file_path,sys,sys)
   elif stage == 'analyze':
     # different option for different sys
     extra_option = ''
     if option == 'treevar':
       extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-{:s}.root'".format(sys)
     elif option == 'weightvar' or option == 'topvar' or option == 'lpxvar':
-      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-nominal.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
+      extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-NOMINAL.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
     else:
-      #extra_option = "inputFile='sampleFolders/initialized/samples-initialized-htautau_lephad_common-nominal.root' aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
       extra_option = "aliases.{:s}={:s} {:s}={:s}".format(option,sys,option,sys)
 
     # different files to be copied
@@ -338,22 +303,19 @@ def create_cmd_log(option, sys, stage):
       l_files.append('unmerged_*_bkg_X_c16?_Z*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Fakes_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
-      #if sys == 'TTBar_ME':
-      #  jobs_file = "jobsSYS-topvar-ME.txt"
-      #elif sys == 'TTBar_PS':
-      #  jobs_file = "jobsSYS-topvar-PS.txt"
-      #elif sys == 'TTBar_ISR_1up':
-      #  jobs_file = "jobsSYS-topvar-ISRup.txt"
-      #else:
       jobs_file = "jobsSYS-topvar.txt"
 
     # make output folder, the same as the submitAnalysis.py would create;
     os.system('mkdir -pv batchOutput/unmerged_SRsys_{:s}'.format(sys))
     # copy those files which should not be run over for this particular systematic;
     for files in l_files:
-      l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))
-      for file in l_file:
-        os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(file,sys))
+      l_file = []
+      if "Fake" in files:
+        l_file = glob.glob('{:s}/{:s}'.format(s_standard_dir,files))
+      else:
+        l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))
+      for afile in l_file:
+        os.system('ln -sv ../../{:s} batchOutput/unmerged_SRsys_{:s}'.format(afile,sys))
     # obtain the command
     submit_config = "--time 4320 --memory 1024 --maxSampleSize 7000"
 
@@ -423,13 +385,6 @@ if __name__ == '__main__':
   # create job list    
   cmd_list = []
   log_list = []
-
-  # hotfix for nominal branch in sys samples
-  if args.stage == 'initialize':
-    cmd, log = create_cmd_log('', 'nominal', 'initialize')
-    print cmd
-    cmd_list.append(cmd)
-    log_list.append(log)
 
   for systematics in l_systematics:
     option = systematics[0]
