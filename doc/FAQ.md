@@ -10,9 +10,8 @@ add the following statement in Line 202.
 payload.append("Accounting_Group = {:s}".format(accGroup))
 ```
 
-2. When running jobs in muhad channel, the following error messages are observed:
+2. When running jobs in muhad channel, the following error messages are observed: \\
 ```ERROR in TQMultiChannelAnalysisSampleVisitor::analyseTree(...) : No cuts were activated for processing sample```
-is observedd.
 
 It is a known issue in CAF. We still obtain the right results with this error. For now, we need to live with it.
 
