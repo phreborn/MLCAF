@@ -322,9 +322,9 @@ def create_cmd_log(option, sys, stage):
     if ".shef.ac.uk" in os.environ['HOSTNAME']:
       submit_config += " --submit condor --maxSampleSize 20000"
     elif os.environ['USER'] == "yehf":
-      submit_config += " --submit condor "
+      submit_config += " --submit condor --account atlas"
     elif os.environ['USER'] == "xiaozhong":
-      submit_config += " --submit condor "
+      submit_config += " --submit condor --account atlas"
 
     if option == 'weightvar' or option == 'treevar' or option == "lpxvar":
       if os.environ['USER'] == "yehf":

@@ -267,14 +267,6 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pLeptonPtSF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pLeptonPtSF', prefix, 0.1, 0.1)
 
-        # 1D MET
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pMETSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pMETSF', prefix, 0.1, 0.1)
-
-        # 1D TauEta
-        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pTauEtaSF', prefix, 0.1, 0.1)
-        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pTauEtaSF', prefix, 0.1, 0.1)
-
   elif region == 'VR':
     # Loop over data taking period and channels
     periods = {
@@ -340,6 +332,7 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
+
   elif region == 'TCR':
     # Loop over data taking period and channels
     periods = {
