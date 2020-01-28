@@ -249,12 +249,12 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    #sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applysf.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
   elif region == 'LFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root'
-  elif region == 'TCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
+  else:
+    print ("ERROR: unsupported region: ", region)
+    return
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
@@ -269,9 +269,9 @@ if __name__=='__main__':
                 'All': '[c16a+c16d+c16e]',
              }
     channels = {
-                #'ehad': 'ehad',
-                #'muhad': 'muhad',
-                'lephad': '[ehad+muhad]',
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
               }
     
     # We use same histograms for ehad, and muhad
@@ -311,9 +311,9 @@ if __name__=='__main__':
   elif region == 'LFR':
     # Loop over data taking period and channels
     periods = {
-                '1516': 'c16a',
-                '17': 'c16d',
-                '18': 'c16e',
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
                 'All': '[c16a+c16d+c16e]',
              }
     channels = {

@@ -26,16 +26,12 @@ def create_cmd_log_list(input_files, campaigns, channels):
 
 if __name__ == '__main__':
   """ Dump the Histograms """
-  # make sure the NOMINAL exist
-  sr_fn = './samples-analyzed-htautau_lephad_sr_applysf.root'
-  sr_NOMINAL_fn = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-NOMINAL.root'
-  if not os.path.isfile(sr_NOMINAL_fn):
-    os.symlink(sr_fn, sr_NOMINAL_fn)
+  
+  _ , input_files = commands.getstatusoutput('ls -1 sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-*.root | grep -v "sys_band"')
 
-  _ , input_files = commands.getstatusoutput('ls -1 sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr-Fake*.root | grep -v "sys_band"')
   campaigns=['c16ade']
   channels=['ehad', 'muhad']
-  NCORES=20
+  NCORES=10
 
   cmd_list, log_list = create_cmd_log_list(input_files, campaigns, channels)
   cmd_log = zip(cmd_list, log_list)
@@ -46,13 +42,3 @@ if __name__ == '__main__':
   else:
     local_job_handler = LocalJobHandler(cmd_log, NCORES)
     local_job_handler.run()
- 
-  regions=[]
-  regions.extend(['sr1pBveto','sr3pBveto','sr1pBtag','sr3pBtag'])
-  regions.extend(['tcr1pBtag','tcr3pBtag'])
-  regions.extend(['vr1pBveto','vr3pBveto','vr1pBtag','vr3pBtag'])
-  """ Merge the Histograms """
-  for campaign in campaigns:
-    for region in regions:
-      cmd='hadd -f -j {2} dumpHist/{0}_{1}.root dumpHist/*/{0}/*/{0}*{1}*.root'.format(campaign, region, NCORES)    
-      os.system(cmd)
