@@ -105,7 +105,6 @@ cd -
 Running the analysis
 --------------------
 
-### Beginning the analysis
 Navigate to the execution directory
 ```bash
 cd BSMtautauCAF/share
