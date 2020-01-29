@@ -8,10 +8,10 @@ IDENT="$4"
 # additional institute/user-specific submission commands
 SUBMIT=""
 if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
+  # Sheffield
   SUBMIT="--submit condor --maxSampleSize 20000"
-elif [ "$USER" == "yehf" ]; then
-  SUBMIT="--submit condor --account atlas"
-elif [ "$USER" == "xiaozhong" ]; then
+elif [[ "${HOSTNAME}" == *".ihep.ac.cn" ]]; then
+  # IHEP
   SUBMIT="--submit condor --account atlas"
 fi
 
