@@ -15,7 +15,7 @@ variables:
 # job defaults
 
 .asg: &asg
-  image: atlas/analysisbase:21.2.78
+  image: atlas/analysisbase:21.2.102
   tags:
     - cvmfs
 
@@ -45,7 +45,6 @@ variables:
   script:
     - source build/setupAnalysis.sh
     - cd share
-    - echo "Insert analysis scripts here..."
     - echo "Initialization:"
     - source configCommon/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
     - source configCommon/scriptPrepareInitialize.sh

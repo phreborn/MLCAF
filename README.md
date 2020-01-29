@@ -55,7 +55,7 @@ Building the project
 ```bash
 mkdir build run
 cd build
-asetup AnalysisBase,21.2.78
+asetup AnalysisBase,21.2.102
 cmake ../BSMtautauCAF
 source setupAnalysis.sh
 export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
@@ -167,7 +167,6 @@ souce configSignalControlRegion/syst/scriptSubmit NOM 10
 
 # Merge the output after all jobs are finished successfully
 source configSignalControlRegion/syst/scriptMerge.sh NOM 10
-
 ```
 
 ### Produce the workspace inputs (SR, TCR)
@@ -180,10 +179,8 @@ python configSignalControlRegion/syst/scriptDumpHist.py
 python configSignalControlRegion/syst/scriptMergeHist.py
 
 # Produce the workspace inputs
-hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ade_sr*.root dumpHist/c16ade_tcr*.root 
-
+hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ade_sr*.root dumpHist/c16ade_tcr*.root
 ```
 
 ### Generate the worksapce
 For Att analysis, workapce are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).
-
