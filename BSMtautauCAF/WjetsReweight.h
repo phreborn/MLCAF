@@ -31,10 +31,7 @@ public:
   WjetsReweight(const TString& expression);
   virtual ~WjetsReweight();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(WjetsReweight, 1);
 

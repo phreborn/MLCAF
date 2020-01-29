@@ -254,35 +254,10 @@ void TauReweight::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
-//______________________________________________________________________________________________
-
-bool TauReweight::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void TauReweight::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString TauReweight::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
 
 //______________________________________________________________________________________________
 
 bool TauReweight::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -308,9 +283,6 @@ bool TauReweight::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool TauReweight::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
   delete this->lep_0;
   delete this->tau_0_phi;
   delete this->tau_0_pt;

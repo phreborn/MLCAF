@@ -81,7 +81,6 @@ public:
   ScaleFactor(const TString& expression);
   virtual ~ScaleFactor();
 public:
-  bool parseExpression(const TString& expr);
 
   ClassDef(ScaleFactor, 1);
 };

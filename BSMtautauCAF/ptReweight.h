@@ -31,10 +31,7 @@ public:
   ptReweight(const TString& expression);
   virtual ~ptReweight();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(ptReweight, 1);
 

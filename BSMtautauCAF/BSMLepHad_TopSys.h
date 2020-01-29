@@ -36,10 +36,6 @@ public:
   BSMLepHad_TopSys(const TString& expression);
   virtual ~BSMLepHad_TopSys();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
-
-  virtual TString getActiveExpression() const override;
 
   ClassDef(BSMLepHad_TopSys, 1);
 

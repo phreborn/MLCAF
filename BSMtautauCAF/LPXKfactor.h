@@ -36,10 +36,7 @@ public:
   LPXKfactor(const TString& expression);
   virtual ~LPXKfactor();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(LPXKfactor, 1);
 

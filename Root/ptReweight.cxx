@@ -316,33 +316,7 @@ void ptReweight::setExpression(const TString& expr){
 }
 //______________________________________________________________________________________________
 
-bool ptReweight::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void ptReweight::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString ptReweight::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
-
-//______________________________________________________________________________________________
-
 bool ptReweight::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -365,9 +339,6 @@ bool ptReweight::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool ptReweight::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
   delete this->lep_0;
   delete this->tau_0_phi;
   delete this->tau_0_pt;

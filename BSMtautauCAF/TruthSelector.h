@@ -34,10 +34,7 @@ public:
   TruthSelector(const TString& expression);
   virtual ~TruthSelector();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(TruthSelector, 1);
 

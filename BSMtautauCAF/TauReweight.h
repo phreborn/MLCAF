@@ -33,10 +33,7 @@ public:
   TauReweight(const TString& expression);
   virtual ~TauReweight();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(TauReweight, 1);
 

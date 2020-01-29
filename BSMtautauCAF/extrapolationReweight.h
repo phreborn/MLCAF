@@ -31,10 +31,7 @@ public:
   extrapolationReweight(const TString& expression);
   virtual ~extrapolationReweight();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(extrapolationReweight, 1);
 

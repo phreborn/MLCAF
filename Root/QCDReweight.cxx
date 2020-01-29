@@ -249,33 +249,7 @@ void QCDReweight::setExpression(const TString& expr){
 }
 //______________________________________________________________________________________________
 
-bool QCDReweight::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void QCDReweight::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString QCDReweight::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
-
-//______________________________________________________________________________________________
-
 bool QCDReweight::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -300,9 +274,6 @@ bool QCDReweight::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool QCDReweight::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
   delete this->lep_0;
   delete this->tau_0_phi;
   delete this->tau_0_pt;

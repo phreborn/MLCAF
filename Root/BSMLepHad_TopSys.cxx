@@ -188,33 +188,7 @@ void BSMLepHad_TopSys::setExpression(const TString& expr){
 }
 //______________________________________________________________________________________________
 
-bool BSMLepHad_TopSys::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void BSMLepHad_TopSys::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString BSMLepHad_TopSys::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
-
-//______________________________________________________________________________________________
-
 bool BSMLepHad_TopSys::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   // old systematics
   this->lephad_dphi        = new TTreeFormula( "lephad_dphi",        "lephad_dphi",        this->fTree);
   this->tau_0_pt           = new TTreeFormula( "tau_0_pt",           "tau_0_p4.Pt()",      this->fTree);
@@ -272,9 +246,6 @@ bool BSMLepHad_TopSys::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool BSMLepHad_TopSys::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
   // old systematics
   delete this->lephad_dphi;
   delete this->tau_0_pt;

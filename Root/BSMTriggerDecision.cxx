@@ -233,32 +233,7 @@ void BSMTriggerDecision::setExpression(const TString& expr){
 }
 //______________________________________________________________________________________________
 
-bool BSMTriggerDecision::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void BSMTriggerDecision::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString BSMTriggerDecision::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-  return "" ;/* you have to build the expression here */;
-}
-
-//______________________________________________________________________________________________
-
 bool BSMTriggerDecision::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   this->run_number = new TTreeFormula( "run_number", "run_number", this->fTree);
 
   if( this->fTree->FindLeaf("NOMINAL_pileup_random_run_number") )
@@ -297,8 +272,6 @@ bool BSMTriggerDecision::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool BSMTriggerDecision::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
 
   delete  this->run_number;
 

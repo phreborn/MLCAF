@@ -345,35 +345,10 @@ void WjetsReweight::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
-//______________________________________________________________________________________________
-
-bool WjetsReweight::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void WjetsReweight::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString WjetsReweight::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
 
 //______________________________________________________________________________________________
 
 bool WjetsReweight::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -401,9 +376,6 @@ bool WjetsReweight::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool WjetsReweight::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
   delete this->lep_0;
   delete this->tau_0_phi;
   delete this->tau_0_pt;

@@ -631,25 +631,6 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 }
 
 //______________________________________________________________________________________________
-bool ScaleFactor::parseExpression(const TString& expr) {
-
-  if (expr == "ScaleFactor" || expr == "ScaleFactor_nominal") {
-    variation = nominal;
-    return true;
-  }
-
-  for (unsigned int i = 0; i < variations.size(); i++) {
-    if (expr.EndsWith(variations[i].first)) {
-      variation = variations[i].second;
-      return true;
-    }
-  }
-
-
-  return false;
-}
-
-//______________________________________________________________________________________________
 bool ScaleFactor::initializeSelf() {
   if (!LepHadObservable::initializeSelf()) {
       ERROR("Initialization of LepHadObservable failed.");
@@ -693,8 +674,6 @@ bool ScaleFactor::initializeSelf() {
 //______________________________________________________________________________________________
 
 bool ScaleFactor::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
 
   for (unsigned int i = 0; i < branches.size(); i++) {
     TTreeFormula* formula = std::get<3>(branches[i]);

@@ -31,10 +31,7 @@ public:
   isoReweight(const TString& expression);
   virtual ~isoReweight();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(isoReweight, 1);
 

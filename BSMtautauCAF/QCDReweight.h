@@ -31,10 +31,7 @@ public:
   QCDReweight(const TString& expression);
   virtual ~QCDReweight();
 public:
-  bool parseExpression(const TString& expr);
-  void clearParsedExpression();
 
-  virtual TString getActiveExpression() const override;
 
   ClassDef(QCDReweight, 1);
 

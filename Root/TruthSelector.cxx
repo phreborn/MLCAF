@@ -136,34 +136,10 @@ void TruthSelector::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
-//______________________________________________________________________________________________
-
-bool TruthSelector::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void TruthSelector::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString TruthSelector::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
 
 //______________________________________________________________________________________________
 
 bool TruthSelector::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))) {
-    return false;
-  }
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -182,9 +158,6 @@ bool TruthSelector::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool TruthSelector::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
   if ( !isData()) {
     delete this->tau_0_truth_isHadTau;
     delete this->tau_0_truth_isEle;

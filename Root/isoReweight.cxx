@@ -260,33 +260,7 @@ void isoReweight::setExpression(const TString& expr){
 }
 //______________________________________________________________________________________________
 
-bool isoReweight::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void isoReweight::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString isoReweight::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
-
-//______________________________________________________________________________________________
-
 bool isoReweight::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -309,10 +283,6 @@ bool isoReweight::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool isoReweight::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
-
   delete this->lep_0_phi;
   delete this->lep_0;
   delete this->lep_0_eta;

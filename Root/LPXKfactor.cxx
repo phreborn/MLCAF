@@ -76,13 +76,7 @@ double LPXKfactor::getValue() const {
 
   // here, you should calculate your return value
   // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-     const double retval = this->fFormula->Eval(0.);
-     */
-  /* exmple block for TTree::SetBranchAddress method:
-     const double retval = this->fBranch1 + this->fBranch2;
-     */
-  //std::cout << "In LPXKfactoor::getValue" << std::endl;
+  
   if (0==m_SF_graph.size()) return 1.0;
   if (isData()) return 1.0;
   
@@ -323,7 +317,7 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
   for (auto sample : Sample_list) {
     tempFile = TFile::Open("Systematics/LPK_k-Factors_"+sample+".root");
     if (!tempFile) {
-      std::cout << "WARNING: can not find SF " << sample << std::endl;
+      std::cout << "ERROR: can not find LPX Kfactor for " << sample << std::endl;
       continue;
     }
     else {
@@ -331,7 +325,6 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
         tempGraph = (TGraphAsymmErrors*)tempFile->Get(SF);
         tempGraph->SetName(sample+"_"+SF);
         m_SF_graph[tempGraph->GetName()] = tempGraph;
-        std::cout << "INFO: find SF " << tempGraph->GetName() << std::endl;
       }
       tempFile->Close(); delete tempFile; tempFile = 0;
     }
@@ -359,33 +352,7 @@ void LPXKfactor::setExpression(const TString& expr){
 }
 //______________________________________________________________________________________________
 
-bool LPXKfactor::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void LPXKfactor::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString LPXKfactor::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
-
-//______________________________________________________________________________________________
-
 bool LPXKfactor::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
-
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -412,9 +379,6 @@ bool LPXKfactor::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool LPXKfactor::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
-
   delete this->lep_0;
   delete this->tau_0_phi;
   delete this->tau_0_pt;
