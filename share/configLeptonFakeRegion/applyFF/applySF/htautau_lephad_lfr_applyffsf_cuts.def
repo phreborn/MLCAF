@@ -31,8 +31,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
             <.cutExpression = "n_bjets == 0", .title="BvetoBDTPass">
         }
         +CutBtagBDTPassISO{
-            < .cutExpression = "n_bjets > 0",
-            .weightExpression = "$(isTop) && $(UseTopSF) && !($(isAntiISO)||$(isAntiID)) ? [TopReweight_$(topvar)]:1", .title="BtagBDTPass">
+            < .cutExpression = "n_bjets > 0", .title="BtagBDTPass">
         }
     }
 }
@@ -44,8 +43,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
             <.cutExpression = "n_bjets == 0", .title="BvetoBDTSLPass"> 
         }
         +CutBtagBDTSLPassISO{
-            < .cutExpression = "n_bjets > 0", 
-            .weightExpression = "$(isTop) && $(UseTopSF) && !($(isAntiISO)||$(isAntiID)) ? [TopReweight_$(topvar)]:1", .title="BtagBDTSLPass">
+            < .cutExpression = "n_bjets > 0", .title="BtagBDTSLPass">
         }
     }
 }
