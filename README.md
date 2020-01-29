@@ -1,9 +1,12 @@
 BSMtautau CAFCore Analysis
 =========================
 
-This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.
-Further help about the CAF can be found [here](http://atlas-caf.web.cern.ch). If there are any problems, please refer to the [FAQ](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/FAQ.md) first. If the problem is
-not listed there, feel free to contact the author (Email: xiaozhong.huang@cern.ch, t.zorbas@cern.ch).
+This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.  
+Further help about the Common Analysis Framework can be found [here](http://atlas-caf.web.cern.ch).  
+If there are any problems, please refer to the [FAQ](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/FAQ.md) first.  
+If the problem is not listed there, then please feel free to contact the project maintainers:  
+- Xiaozhong Huang (xiaozhong.huang@cern.ch)
+- Theodore Zorbas (t.zorbas@cern.ch)
 
 Cloning the project
 --------------------
@@ -102,29 +105,36 @@ cd -
 Running the analysis
 --------------------
 
-For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
-All these fake-factors and there systematic uncertaintiees are avaiable in the latest master branch. In case 
-you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
-
-### Prepare the inputs for the nominal analysis
-If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
+### Beginning the analysis
 Navigate to the execution directory
 ```bash
 cd BSMtautauCAF/share
 ```
 
-### Initialization
+### Preparing and initializing inputs for the nominal analysis
+First you need to collect the list of input sample ROOT files you will be running over in the nominal analysis.  
+Our framework is currently designed to run over flat ntuples produced by the [xTauFramework](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/xTauFramework).  
+Unless you change these samples, this step will only need to be run once.
 ```bash
-# First define the remote locations of your input samples by pinging them on EOS through XRootD
+# Define the remote locations of your input samples by pinging them on EOS through XRootD
 source configCommon/collectSamples.sh eosatlas "/eos/atlas/path/to/my/ntuples/YYMMDD"
 # Alternatively, this can be switched to access the EOS user area instead
 #source configCommon/collectSamples.sh eosuser "/eos/user/path/to/my/ntuples/YYMMDD"
 # Or, you could set the input path to your samples by pointing to any other local directory
 #source configCommon/collectSamples.sh local "/any/other/path/to/my/ntuples/YYMMDD"
+```
 
+Then prepare a `TQSampleFolder` representation of your input samples, with their weights initialized.  
+Unless you change the cross-section values, this step will also only need to be run once.
+```bash
 # Prepare and initialize your samples
 source configCommon/scriptPrepareInitialize.sh
 ```
+
+### Fake background estimation
+For the LepHad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method.  
+All these fake-factors and their systematic uncertaintiees are avaiable in the repository.  
+In case you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
 
 ### Running the SR/VR/TCR in the nominal analysis
 ```bash
@@ -137,7 +147,7 @@ source configSignalControlRegion/scriptSubmit.sh
 # Merge the output after all jobs are finished successfully
 source configSignalControlRegion/scriptMerge.sh
 
-# Visialize plots
+# Visualize plots
 source configSignalControlRegion/scriptVisualize.sh 
 ```
 
@@ -183,4 +193,4 @@ hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ad
 ```
 
 ### Generate the worksapce
-For Att analysis, workapce are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).
+For Att analysis, workspace are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).
