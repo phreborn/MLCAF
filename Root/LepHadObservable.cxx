@@ -179,14 +179,6 @@ bool LepHadObservable::isHighPt() const {
 }
 
 //______________________________________________________________________________________________
-bool LepHadObservable::isHighPt2() const {
-
-  if(lep_0_pt->EvalInstance() >= 50.) return true;
-  else return false;
-
-}
-
-//______________________________________________________________________________________________
 bool LepHadObservable::initializeSelf(){
   
   if (!this->fSample->getTag("~isData", _isData)) {

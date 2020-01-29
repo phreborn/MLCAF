@@ -35,8 +35,6 @@ class LepHadObservable : public TQTreeObservable {
     bool isLepISO() const;
   
     bool isHighPt() const;
-    bool isHighPt2() const;
-
 
   protected:
     

@@ -208,9 +208,6 @@ void BSMTriggerDecision::setExpression(const TString& expr){
 bool BSMTriggerDecision::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
 
-  this->lep_0_pt      = new TTreeFormula("lep_0_pt", "lep_0_p4.Pt()", this->fTree);
-  this->lep_0         = new TTreeFormula("lep_0",    "lep_0",    this->fTree);
-
   this->HLT_e24_lhmedium_L1EM20VH                 = new TTreeFormula( "HLT_e24_lhmedium_L1EM20VH", "HLT_e24_lhmedium_L1EM20VH", this->fTree);
   this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH  = new TTreeFormula( "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , this->fTree);
 

@@ -40,24 +40,17 @@ class ScaleFactor : public LepHadObservable {
     virtual void addScaleFactor(Condition requirement, Condition veto, TString branch);
 
     const Condition none  = 0;
-    const Condition y2015 = 1<<0;
-    const Condition y2016 = 1<<1;
-    const Condition y2017 = 1<<2;
-    const Condition y2018 = 1<<3;
-    const Condition slt   = 1<<4;
-    const Condition tauid = 1<<5;
-    const Condition lepiso = 1<<6;
-    const Condition muon  = 1<<7;
-    const Condition electron  = 1<<8;
-    const Condition sherpa    = 1<<9;
-    const Condition highpt    = 1<<10;
-    const Condition highpt2    = 1<<11;
-    const Condition isZ       = 1<<12;
-
-    const Condition nominal = 1<<13;
+    
+    const Condition y2015 =     1<<0;
+    const Condition muon  =     1<<1;
+    const Condition electron =  1<<2;
+    const Condition highpt  =   1<<3;
+    const Condition tauid =     1<<4;
+    const Condition lepiso =    1<<5;
+    const Condition nominal =   1<<6;
 
     virtual Condition registerVariation(TString name);
-    unsigned int nextBitPosition = 14;
+    unsigned int nextBitPosition =7;
 
     // This variable contains all flags, which do not change until
     // initializeSelf is called again. It can therefore be used to determine
