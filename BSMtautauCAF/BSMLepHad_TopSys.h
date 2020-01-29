@@ -38,7 +38,5 @@ public:
 public:
 
   ClassDef(BSMLepHad_TopSys, 1);
-
-
 };
 #endif

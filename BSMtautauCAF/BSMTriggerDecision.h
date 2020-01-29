@@ -1,11 +1,10 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
 #ifndef __BSMTRIGGERDECISION__
 #define __BSMTRIGGERDECISION__
-#include "QFramework/TQTreeObservable.h"
 
-#include "TTreeFormula.h"
+#include "BSMtautauCAF/LepHadObservable.h"
 
-class BSMTriggerDecision : public TQTreeObservable {
+class BSMTriggerDecision : public LepHadObservable {
 protected:
   // put here any data members your class might need
  
@@ -18,12 +17,6 @@ protected:
 protected:
   TString fExpression = "";
   TString fOptionName = "";
-
-  TTreeFormula* run_number = NULL;
-  TTreeFormula* NOMINAL_pileup_random_run_number = NULL;
-
-  TTreeFormula* lep_0    = NULL;
-  TTreeFormula* lep_0_pt = NULL;
 
   //* 2015 trigger
   TTreeFormula* HLT_e24_lhmedium_L1EM20VH = NULL;

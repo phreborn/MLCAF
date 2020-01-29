@@ -14,6 +14,14 @@ ClassImp(higgsPt)
 
 //______________________________________________________________________________________________
 
+higgsPt::higgsPt(const TString& name):
+LepHadObservable(name)
+{
+  // constructor with name argument
+  DEBUGclass("constructor called with '%s'",name.Data());
+}
+//______________________________________________________________________________________________
+
 higgsPt::higgsPt(){
   // default constructor
   DEBUGclass("default constructor called");
@@ -33,18 +41,8 @@ TObjArray* higgsPt::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-  bnames->SetOwner(false);
-  bnames->Add(new TObjString("tau_0_pt"));
-  bnames->Add(new TObjString("lep_0_pt"));
-  bnames->Add(new TObjString("tau_0_phi"));
-  bnames->Add(new TObjString("lep_0_phi"));
-  bnames->Add(new TObjString("met_reco_ety"));
-  bnames->Add(new TObjString("met_reco_etx"));
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
-
+  TObjArray* bnames = LepHadObservable::getBranchNames();
+  
   return bnames;
 }
 
@@ -70,8 +68,8 @@ double higgsPt::getValue() const {
   float f_tau_0_pt                = this->tau_0_pt->EvalInstance();
   float f_lep_0_phi               = this->lep_0_phi->EvalInstance();
   float f_tau_0_phi               = this->tau_0_phi->EvalInstance();
-  float f_met_reco_ety            = this->met_reco_ety->EvalInstance();
   float f_met_reco_etx            = this->met_reco_etx->EvalInstance();
+  float f_met_reco_ety            = this->met_reco_ety->EvalInstance();
 
 
 
@@ -88,52 +86,13 @@ double higgsPt::getValue() const {
 bool higgsPt::initializeSelf(){
   // initialize this observable on a sample/tree
   DEBUGclass("initializing");
-  LepHadObservable::initializeSelf();
-  // since this function is only called once per sample, we can
-  // perform any checks that seem necessary
-  if(!this->fTree){
-    DEBUGclass("no tree, terminating");
-    return false;
-  }
-
-  // if you want to use a TTreeFormula, can may construct it here
-  /* example block for TTreeFormula method:
-  this->fFormula = new TTreeFormula("branch1 + branch2",this->fTree);
-  */
-
-  // if you want to use the TTree::SetBranchAddress method, you can
-  // call TTree::SetBranchAddress here
-  // please note that this method is highly discouraged.
-  // if a branch you access via this method is used by any other
-  // observable, you will 'steal' the branch address from that
-  // observable, leading to the other observable returning wrong
-  // results
-  /* example block for TTree::SetBranchAddress method:
-  this->fTree->SetBranchAddress("branch1",&(this->fBranch1));
-  this->fTree->SetBranchAddress("branch2",&(this->fBranch2));
-  */
-
+  if (! LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
 bool higgsPt::finalizeSelf(){
-  // finalize this observable on a sample/tree
-  DEBUGclass("finalizing");
-  // here, you should undo anything that you did while initializing
-  /* example block for TTreeFormula method:
-  delete this->fFormula;
-  this->fFormula = NULL;
-  */
-
+  if (! LepHadObservable::finalizeSelf()) return false;
   return true;
-}
-//______________________________________________________________________________________________
-
-higgsPt::higgsPt(const TString& name):
-LepHadObservable(name)
-{
-  // constructor with name argument
-  DEBUGclass("constructor called with '%s'",name.Data());
 }

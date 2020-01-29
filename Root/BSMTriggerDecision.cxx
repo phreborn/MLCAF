@@ -33,19 +33,7 @@ TObjArray* BSMTriggerDecision::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-  bnames->SetOwner(false);
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
-
-  bnames->Add(new TObjString("run_number"));
-
-  if( this->NOMINAL_pileup_random_run_number ) bnames->Add(new TObjString("NOMINAL_pileup_random_run_number"));
-
-  bnames->Add(new TObjString("lep_0_pt"));
-  bnames->Add(new TObjString("lep_0"));
-
+  TObjArray* bnames = LepHadObservable::getBranchNames();
   // 2015 trigger
   bnames->Add(new TObjString("HLT_e24_lhmedium_L1EM20VH"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"));
@@ -85,24 +73,8 @@ TObjArray* BSMTriggerDecision::getBranchNames() const {
 //______________________________________________________________________________________________
 
 double BSMTriggerDecision::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
 
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-     const double retval = this->fFormula->Eval(0.);
-     */
-  /* exmple block for TTree::SetBranchAddress method:
-     const double retval = this->fBranch1 + this->fBranch2;
-     */
-
-  UInt_t    run_number = this->run_number->EvalInstance();
-
-  if( this->NOMINAL_pileup_random_run_number ) run_number = this->NOMINAL_pileup_random_run_number->EvalInstance();
+  UInt_t    run_number = this->x_run_number->EvalInstance();
 
   bool Is2016 = 0;
   if( run_number>290000 )  Is2016 = 1;
@@ -198,7 +170,7 @@ double BSMTriggerDecision::getValue() const {
 //______________________________________________________________________________________________
 
 BSMTriggerDecision::BSMTriggerDecision(const TString& expression):
-TQTreeObservable(expression)
+LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -234,16 +206,13 @@ void BSMTriggerDecision::setExpression(const TString& expr){
 //______________________________________________________________________________________________
 
 bool BSMTriggerDecision::initializeSelf(){
-  this->run_number = new TTreeFormula( "run_number", "run_number", this->fTree);
-
-  if( this->fTree->FindLeaf("NOMINAL_pileup_random_run_number") )
-    this->NOMINAL_pileup_random_run_number = new TTreeFormula( "NOMINAL_pileup_random_run_number", "NOMINAL_pileup_random_run_number", this->fTree);
+  if (! LepHadObservable::initializeSelf()) return false;
 
   this->lep_0_pt      = new TTreeFormula("lep_0_pt", "lep_0_p4.Pt()", this->fTree);
   this->lep_0         = new TTreeFormula("lep_0",    "lep_0",    this->fTree);
 
-    this->HLT_e24_lhmedium_L1EM20VH                 = new TTreeFormula( "HLT_e24_lhmedium_L1EM20VH", "HLT_e24_lhmedium_L1EM20VH", this->fTree);
-    this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH  = new TTreeFormula( "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , this->fTree);
+  this->HLT_e24_lhmedium_L1EM20VH                 = new TTreeFormula( "HLT_e24_lhmedium_L1EM20VH", "HLT_e24_lhmedium_L1EM20VH", this->fTree);
+  this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH  = new TTreeFormula( "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , this->fTree);
 
   this->HLT_e26_lhtight_nod0_ivarloose                 = new TTreeFormula( "HLT_e26_lhtight_nod0_ivarloose", "HLT_e26_lhtight_nod0_ivarloose", this->fTree);
   this->eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose  = new TTreeFormula( "eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose"  , "eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose"  , this->fTree);
@@ -272,17 +241,10 @@ bool BSMTriggerDecision::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool BSMTriggerDecision::finalizeSelf(){
+  if (! LepHadObservable::finalizeSelf()) return false;
 
-  delete  this->run_number;
-
-  if( this->NOMINAL_pileup_random_run_number ) delete this->NOMINAL_pileup_random_run_number;
-  this->NOMINAL_pileup_random_run_number = NULL;
-
-  delete  this->lep_0_pt;
-  delete  this->lep_0   ;
-
-    delete  this->HLT_e24_lhmedium_L1EM20VH                ;
-    delete  this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH ;
+  delete  this->HLT_e24_lhmedium_L1EM20VH                ;
+  delete  this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH ;
 
   delete  this->HLT_e26_lhtight_nod0_ivarloose                ;
   delete  this->eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose ;

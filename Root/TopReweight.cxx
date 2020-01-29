@@ -39,28 +39,9 @@ TObjArray* TopReweight::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
+  TObjArray* bnames = LepHadObservable::getBranchNames();
 
   //bnames->SetOwner(true);
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
-  bnames->Add(new TObjString("tau_0_phi"));
-  bnames->Add(new TObjString("met_anti_iso_phi"));
-  bnames->Add(new TObjString("lep_0_iso_Gradient"));
-  bnames->Add(new TObjString("tau_0_n_charged_tracks"));
-  bnames->Add(new TObjString("tau_0_pt"));
-  bnames->Add(new TObjString("lep_0"));
-  bnames->Add(new TObjString("n_bjets"));
-  bnames->Add(new TObjString("lephad_met_lep0_cos_dphi"));
-  bnames->Add(new TObjString("lephad_met_lep1_cos_dphi"));
-
-  if (isData()) {
-    bnames->Add(new TObjString("run_number"));
-  } else {
-    bnames->Add(new TObjString("NOMINAL_pileup_random_run_number"));
-  }
-
   return bnames;
 }
 
@@ -238,39 +219,13 @@ void TopReweight::setExpression(const TString& expr){
 //______________________________________________________________________________________________
 
 bool TopReweight::initializeSelf(){
-  if (!this->fSample->getTag("~isData", _isData)) {
-    ERROR("tag isData missing");
-    return false;
-  }
-
-  if (this->fTree->FindLeaf("NOMINAL_pileup_random_run_number")) this->x_run_number = new TTreeFormula("NOMINAL_pileup_random_run_number", "NOMINAL_pileup_random_run_number", this->fTree);
-  else                                                           this->x_run_number = new TTreeFormula("run_number", "run_number", this->fTree);
-
-
-  this->tau_0_phi               = new TTreeFormula( "tau_0_phi",     "tau_0_p4.Phi()",      this->fTree);
-  this->tau_0_n_charged_tracks  = new TTreeFormula( "tau_0_n_charged_tracks","tau_0_n_charged_tracks", this->fTree);
-  this->tau_0_pt                = new TTreeFormula( "tau_0_pt",     "tau_0_p4.Pt()",      this->fTree);
-  this->lep_0_iso_Gradient      = new TTreeFormula( "lep_0_iso_Gradient",     "lep_0_iso_Gradient",      this->fTree);
-  this->lephad_met_lep1_cos_dphi= new TTreeFormula( "lephad_met_lep1_cos_dphi", "lephad_met_lep1_cos_dphi", this->fTree);
-  this->lephad_met_lep0_cos_dphi= new TTreeFormula( "lephad_met_lep0_cos_dphi", "lephad_met_lep0_cos_dphi", this->fTree);
-  this->lep_0                   = new TTreeFormula( "lep_0",    "lep_0",      this->fTree);
-  this->n_bjets                 = new TTreeFormula( "n_bjets",  "n_bjets",      this->fTree);
-  //this->met_anti_iso_phi = new TTreeFormula( "met_anti_iso_phi", "met_anti_iso_phi", this->fTree);
+  if (! LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
 bool TopReweight::finalizeSelf(){
-  delete this->lep_0;
-  delete this->tau_0_phi;
-  delete this->tau_0_pt;
-  //delete this->met_anti_iso_phi;
-  delete this->tau_0_n_charged_tracks;
-  delete this->lephad_met_lep1_cos_dphi;
-  delete this->lephad_met_lep0_cos_dphi;
-  delete this->lep_0_iso_Gradient;
-  delete this->n_bjets;
-
+  if (! LepHadObservable::finalizeSelf()) return false;
   return true;
 }

@@ -47,17 +47,7 @@ TObjArray* mTtot::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-  bnames->SetOwner(false);
-  bnames->Add(new TObjString("tau_0_pt"));
-  bnames->Add(new TObjString("lep_0_pt"));
-  bnames->Add(new TObjString("lephad_mt_lep0_met"));
-  bnames->Add(new TObjString("lephad_mt_lep1_met"));
-  bnames->Add(new TObjString("lephad_dphi"));
-
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
+  TObjArray* bnames = LepHadObservable::getBranchNames();
 
   return bnames;
 }
@@ -94,52 +84,14 @@ double mTtot::getValue() const {
 //______________________________________________________________________________________________
 
 bool mTtot::initializeSelf(){
-  // initialize this observable on a sample/tree
-  DEBUGclass("initializing");
-
-  // since this function is only called once per sample, we can
-  // perform any checks that seem necessary
-  if(!this->fTree){
-    DEBUGclass("no tree, terminating");
-    return false;
-  }
-
-  // if you want to use a TTreeFormula, can may construct it here
-  /* example block for TTreeFormula method:
-  this->fFormula = new TTreeFormula("branch1 + branch2",this->fTree);
-  */
-
-  // if you want to use the TTree::SetBranchAddress method, you can
-  // call TTree::SetBranchAddress here
-  // please note that this method is highly discouraged.
-  // if a branch you access via this method is used by any other
-  // observable, you will 'steal' the branch address from that
-  // observable, leading to the other observable returning wrong
-  // results
-  /* example block for TTree::SetBranchAddress method:
-  this->fTree->SetBranchAddress("branch1",&(this->fBranch1));
-  this->fTree->SetBranchAddress("branch2",&(this->fBranch2));
-  */
-  this->tau_0_pt = new TTreeFormula( "tau_0_pt", "tau_0_p4.Pt()", this->fTree);
-  this->lep_0_pt = new TTreeFormula( "lep_0_pt", "lep_0_p4.Pt()", this->fTree);
-  this->lephad_mt_lep0_met = new TTreeFormula( "lephad_mt_lep0_met", "lephad_mt_lep0_met", this->fTree);
-  this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
-  this->lephad_dphi = new TTreeFormula( "lephad_dphi", "lephad_dphi", this->fTree);
-
+  if (!LepHadObservable::initializeSelf())  return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
 bool mTtot::finalizeSelf(){
-  // finalize this observable on a sample/tree
-  DEBUGclass("finalizing");
-  // here, you should undo anything that you did while initializing
-  /* example block for TTreeFormula method:
-  delete this->fFormula;
-  this->fFormula = NULL;
-  */
-
+  if (!LepHadObservable::finalizeSelf()) return false;
   return true;
 }
 

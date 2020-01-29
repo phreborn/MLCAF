@@ -39,44 +39,13 @@ TObjArray* isoReweight::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-  //bnames->SetOwner(true);
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
-
-  bnames->Add(new TObjString("lep_0"));
-  bnames->Add(new TObjString("lep_0_eta"));
-  bnames->Add(new TObjString("lep_0_phi"));
-  bnames->Add(new TObjString("lep_0_pt"));
-  bnames->Add(new TObjString("n_bjets"));
-  bnames->Add(new TObjString("lephad_met_lep0_cos_dphi"));
-
-  if (isData()) {
-    bnames->Add(new TObjString("run_number"));
-  } else {
-    bnames->Add(new TObjString("NOMINAL_pileup_random_run_number"));
-  }
-
-
+  TObjArray* bnames = LepHadObservable::getBranchNames();
   return bnames;
 }
 
 //______________________________________________________________________________________________
 double isoReweight::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
-
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-     const double retval = this->fFormula->Eval(0.);
-     */
-  /* exmple block for TTree::SetBranchAddress method:
-     const double retval = this->fBranch1 + this->fBranch2;
-     */
+  
   double f_lep_0_phi      = this->lep_0_phi->EvalInstance();
   int    f_lep_0          = this->lep_0->EvalInstance();
   float  f_lep_0_eta      = this->lep_0_eta->EvalInstance();
@@ -261,35 +230,13 @@ void isoReweight::setExpression(const TString& expr){
 //______________________________________________________________________________________________
 
 bool isoReweight::initializeSelf(){
-  if (!this->fSample->getTag("~isData", _isData)) {
-    ERROR("tag isData missing");
-    return false;
-  }
-
-  if (this->fTree->FindLeaf("NOMINAL_pileup_random_run_number")) this->x_run_number = new TTreeFormula("NOMINAL_pileup_random_run_number", "NOMINAL_pileup_random_run_number", this->fTree);
-  else                                                           this->x_run_number = new TTreeFormula("run_number", "run_number", this->fTree);
-
-
-  this->lep_0_phi      = new TTreeFormula( "lep_0_phi",     "lep_0_p4.Phi()",      this->fTree);
-  this->lep_0      = new TTreeFormula( "lep_0",     "lep_0",      this->fTree);
-  this->lep_0_eta      = new TTreeFormula( "lep_0_eta",     "lep_0_p4.Eta()",      this->fTree);
-  this->lep_0_pt      = new TTreeFormula( "lep_0_pt",     "lep_0_p4.Pt()",      this->fTree);
-  this->lephad_met_lep0_cos_dphi      = new TTreeFormula( "lephad_met_lep0_cos_dphi",     "lephad_met_lep0_cos_dphi",      this->fTree);
-  this->n_bjets      = new TTreeFormula( "n_bjets",      "n_bjets",      this->fTree);
-
+  if (! LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
 bool isoReweight::finalizeSelf(){
-  delete this->lep_0_phi;
-  delete this->lep_0;
-  delete this->lep_0_eta;
-  delete this->lep_0_pt;
-  delete this->lephad_met_lep0_cos_dphi;
-
-  delete this->n_bjets;
-
+  if (! LepHadObservable::finalizeSelf()) return false;
   return true;
 }

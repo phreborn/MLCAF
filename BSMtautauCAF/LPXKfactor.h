@@ -21,8 +21,6 @@ protected:
   TString fSysName = "";
   TDirectory* m_histoDir = 0;
 
-  TTreeFormula* mc_channel_number = NULL;
-
   std::map<int, int> m_DSID_bin;
 
   std::map<TString, TGraphAsymmErrors*> m_SF_graph;

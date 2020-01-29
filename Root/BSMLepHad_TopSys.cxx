@@ -38,19 +38,7 @@ TObjArray* BSMLepHad_TopSys::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-
-  //bnames->SetOwner(true);
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
-
-  // old systematics
-  bnames->Add(new TObjString("lep_0_pt"));
-  bnames->Add(new TObjString("tau_0_pt"));
-  bnames->Add(new TObjString("lephad_mt_lep0_met"));
-  bnames->Add(new TObjString("lephad_mt_lep1_met"));
-  bnames->Add(new TObjString("lephad_dphi"));
+  TObjArray* bnames = LepHadObservable::getBranchNames();
 
   // new systematics
   bnames->Add(new TObjString("pmg_truth_weight_ISRHi"));
@@ -64,23 +52,6 @@ TObjArray* BSMLepHad_TopSys::getBranchNames() const {
 //______________________________________________________________________________________________
 
 double BSMLepHad_TopSys::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
-
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-  const double retval = this->fFormula->Eval(0.);
-  */
-  /* exmple block for TTree::SetBranchAddress method:
-  const double retval = this->fBranch1 + this->fBranch2;
-  */
-
-  //std::cout<<" In getValue "<<std::endl;
-
   // old systematics
   double f_lep_0_pt       = this->lep_0_pt->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
@@ -189,13 +160,7 @@ void BSMLepHad_TopSys::setExpression(const TString& expr){
 //______________________________________________________________________________________________
 
 bool BSMLepHad_TopSys::initializeSelf(){
-  // old systematics
-  this->lephad_dphi        = new TTreeFormula( "lephad_dphi",        "lephad_dphi",        this->fTree);
-  this->tau_0_pt           = new TTreeFormula( "tau_0_pt",           "tau_0_p4.Pt()",      this->fTree);
-  this->lep_0_pt           = new TTreeFormula( "lep_0_pt",           "lep_0_p4.Pt()",      this->fTree);
-  this->lephad_mt_lep0_met = new TTreeFormula( "lephad_mt_lep0_met", "lephad_mt_lep0_met", this->fTree);
-  this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
-
+  if (!LepHadObservable::initializeSelf()) return false;
   // new systematics
   if( fSysName.Contains("TTBar_ISR_1up") ) {
     this->pmg_truth_weight_ISRHi = new TTreeFormula( "pmg_truth_weight_ISRHi", "pmg_truth_weight_ISRHi", this->fTree);
@@ -246,13 +211,7 @@ bool BSMLepHad_TopSys::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool BSMLepHad_TopSys::finalizeSelf(){
-  // old systematics
-  delete this->lephad_dphi;
-  delete this->tau_0_pt;
-  delete this->lep_0_pt;
-  delete this->lephad_mt_lep0_met;
-  delete this->lephad_mt_lep1_met;
-
+  if (! LepHadObservable::finalizeSelf()) return false;
   // new systematics
   delete this->pmg_truth_weight_ISRHi;
   delete this->pmg_truth_weight_ISRLo;
