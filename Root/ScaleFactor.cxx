@@ -16,6 +16,18 @@
 
 ClassImp(ScaleFactor)
 
+//______________________________________________________________________________________________
+ScaleFactor::ScaleFactor(){
+  this->setExpression(this->GetName() );
+
+  DEBUGclass("default constructor called");
+}
+
+//______________________________________________________________________________________________
+ScaleFactor::~ScaleFactor(){
+  // default destructor
+  DEBUGclass("destructor called");
+}
 
 ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression) {
   // constructor with expression argument
@@ -25,85 +37,6 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   // you can use it to choose between different modes or pass configuration options to your observable
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
-
-  ////////////////////////////////////////////////////////////////////////////////
-  // Z samples' kfactors
-
- //Condition  LPX_KFACTOR_ALPHAS_1down_lpx_kfactor      = registerVariation("LPX_KFACTOR_ALPHAS_1down_lpx_kfactor");
- //Condition  LPX_KFACTOR_ALPHAS_1up_lpx_kfactor        = registerVariation("LPX_KFACTOR_ALPHAS_1up_lpx_kfactor");
- //Condition  LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor = registerVariation("LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor");
- //Condition  LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor   = registerVariation("LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor");
- //Condition  LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor  = registerVariation("LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor");
- //Condition  LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor    = registerVariation("LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_1down_lpx_kfactor         = registerVariation("LPX_KFACTOR_PDF_1down_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_1up_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_1up_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EV1_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_EV1_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EV2_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_EV2_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EV3_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_EV3_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EV4_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_EV4_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EV5_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_EV5_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EV6_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_EV6_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EV7_lpx_kfactor           = registerVariation("LPX_KFACTOR_PDF_EV7_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EW_1down_lpx_kfactor      = registerVariation("LPX_KFACTOR_PDF_EW_1down_lpx_kfactor");
- //Condition  LPX_KFACTOR_PDF_EW_1up_lpx_kfactor        = registerVariation("LPX_KFACTOR_PDF_EW_1up_lpx_kfactor");
- //Condition  LPX_KFACTOR_PI_1down_lpx_kfactor          = registerVariation("LPX_KFACTOR_PI_1down_lpx_kfactor");
- //Condition  LPX_KFACTOR_PI_1up_lpx_kfactor            = registerVariation("LPX_KFACTOR_PI_1up_lpx_kfactor");
- //Condition  LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor = registerVariation("LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor");
- //Condition  LPX_KFACTOR_SCALE_W_1down_lpx_kfactor     = registerVariation("LPX_KFACTOR_SCALE_W_1down_lpx_kfactor");
- //Condition  LPX_KFACTOR_SCALE_W_1up_lpx_kfactor       = registerVariation("LPX_KFACTOR_SCALE_W_1up_lpx_kfactor");
- //Condition  LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor     = registerVariation("LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor");
- //Condition  LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor       = registerVariation("LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor");
-
- //addScaleFactor( isZ,
- //                LPX_KFACTOR_ALPHAS_1down_lpx_kfactor |
- //                LPX_KFACTOR_ALPHAS_1up_lpx_kfactor |
- //                LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor |
- //                LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor |
- //                LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor |
- //                LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor |
- //                LPX_KFACTOR_PDF_1down_lpx_kfactor |
- //                LPX_KFACTOR_PDF_1up_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EV1_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EV2_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EV3_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EV4_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EV5_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EV6_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EV7_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EW_1down_lpx_kfactor |
- //                LPX_KFACTOR_PDF_EW_1up_lpx_kfactor |
- //                LPX_KFACTOR_PI_1down_lpx_kfactor |
- //                LPX_KFACTOR_PI_1up_lpx_kfactor |
- //                LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor |
- //                LPX_KFACTOR_SCALE_W_1down_lpx_kfactor |
- //                LPX_KFACTOR_SCALE_W_1up_lpx_kfactor |
- //                LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor |
- //                LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor,  "NOMINAL_lpx_kfactor");
-
- //addScaleFactor(isZ | LPX_KFACTOR_ALPHAS_1down_lpx_kfactor,      "LPX_KFACTOR_ALPHAS_1down_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_ALPHAS_1up_lpx_kfactor,        "LPX_KFACTOR_ALPHAS_1up_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor, "LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor,   "LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor,  "LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor,    "LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_1down_lpx_kfactor,         "LPX_KFACTOR_PDF_1down_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_1up_lpx_kfactor,           "LPX_KFACTOR_PDF_1up_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EV1_lpx_kfactor,           "LPX_KFACTOR_PDF_EV1_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EV2_lpx_kfactor,           "LPX_KFACTOR_PDF_EV2_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EV3_lpx_kfactor,           "LPX_KFACTOR_PDF_EV3_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EV4_lpx_kfactor,           "LPX_KFACTOR_PDF_EV4_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EV5_lpx_kfactor,           "LPX_KFACTOR_PDF_EV5_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EV6_lpx_kfactor,           "LPX_KFACTOR_PDF_EV6_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EV7_lpx_kfactor,           "LPX_KFACTOR_PDF_EV7_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EW_1down_lpx_kfactor,      "LPX_KFACTOR_PDF_EW_1down_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PDF_EW_1up_lpx_kfactor,        "LPX_KFACTOR_PDF_EW_1up_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PI_1down_lpx_kfactor,          "LPX_KFACTOR_PI_1down_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_PI_1up_lpx_kfactor,            "LPX_KFACTOR_PI_1up_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor, "LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_SCALE_W_1down_lpx_kfactor,     "LPX_KFACTOR_SCALE_W_1down_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_SCALE_W_1up_lpx_kfactor,       "LPX_KFACTOR_SCALE_W_1up_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor,     "LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor");
- //addScaleFactor(isZ | LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor,       "LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor");
 
   ////////////////////////////////////////////////////////////////////////////////
   // muon slt efficiency
@@ -214,53 +147,6 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(muon | slt | highpt | mu_eff_trigsys_high,
     "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu50_QualMedium_IsoNone");
 
-/*  ////////////////////////////////////////////////////////////////////////////////
-  // tau tlt efficiency
-  Condition tau_trigger_statdata_low = registerVariation("tau_trigger_statdata_low");
-  Condition tau_trigger_statdata_high = registerVariation("tau_trigger_statdata_high");
-  Condition tau_trigger_statmc_low = registerVariation("tau_trigger_statmc_low");
-  Condition tau_trigger_statmc_high = registerVariation("tau_trigger_statmc_high");
-  Condition tau_trigger_syst_low = registerVariation("tau_trigger_syst_low");
-  Condition tau_trigger_syst_high = registerVariation("tau_trigger_syst_high");
-  Condition tau_trigger_total2016_low = registerVariation("tau_trigger_total2016_low");
-  Condition tau_trigger_total2016_high = registerVariation("tau_trigger_total2016_high");
-
-  // tau tlt efficiency 2015
-  addScaleFactor(tlt | y2015,
-    tau_trigger_statdata_low | tau_trigger_statdata_high | tau_trigger_statmc_low | tau_trigger_statmc_high | tau_trigger_syst_low | tau_trigger_syst_high,
-    "tau_0_NOMINAL_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2015 | tau_trigger_statdata_low,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_STATDATA2015_1down_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2015 | tau_trigger_statdata_high,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_STATDATA2015_1up_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2015 | tau_trigger_statmc_low,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_STATMC2015_1down_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2015 | tau_trigger_statmc_high,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_STATMC2015_1up_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2015 | tau_trigger_syst_low,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_SYST2015_1down_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2015 | tau_trigger_syst_high,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_SYST2015_1up_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  // tau tlt efficiency 2016
-  addScaleFactor(tlt | y2016,
-    tau_trigger_total2016_low | tau_trigger_total2016_high,
-    "tau_0_NOMINAL_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2016 | tau_trigger_total2016_low,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_TOTAL2016_1down_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-  addScaleFactor(tlt | y2016 | tau_trigger_total2016_high,
-    "tau_0_TAUS_TRUEHADTAU_EFF_TRIGGER_TOTAL2016_1up_TauEffSF_HLT_tau25_medium1_tracktwo_JETIDBDTMEDIUM");
-
-
-*/  ////////////////////////////////////////////////////////////////////////////////
   // electron slt efficiency
   Condition el_eff_trigger_low = registerVariation("el_eff_trigger_low");
   Condition el_eff_trigger_high = registerVariation("el_eff_trigger_high");
@@ -274,20 +160,6 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 
   addScaleFactor(electron | slt | lepiso | el_eff_trigger_high,
     "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2018_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13_isolGradient");
-// currently not in ntuple
-  // anti-isolated
-//  addScaleFactor(electron | slt,
-//    lepiso | el_eff_trigger_low | el_eff_trigger_high,
-//    "lep_0_NOMINAL_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2018_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13");
-//
-//  addScaleFactor(electron | slt | el_eff_trigger_low,
-//    lepiso,
-//    "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13");
-//
-//  addScaleFactor(electron | slt | el_eff_trigger_high,
-//    lepiso,
-//    "lep_0_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0_MediumLLH_d0z0_v13");
-
 
   ////////////////////////////////////////////////////////////////////////////////
   // electron id efficiency
@@ -607,27 +479,8 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(pu_prw_high, "PRW_DATASF_1up_pileup_combined_weight");
 
   ////////////////////////////////////////////////////////////////////////////////
-
-  // luminosity scaling
-  //addScaleFactor(y2015, &scale2015);
-  //addScaleFactor(y2016, &scale2016);
-
-  ////////////////////////////////////////////////////////////////////////////////
   // mc weight
   addScaleFactor(none, "weight_mc");
-
-
-  ////////////////////////////////////////////////////////////////////////////////
-  // fail safe
-  //addScaleFactor(none, muon | electron, &zero);
-  //addScaleFactor(none, y2015 | y2016, &zero);
-  //addScaleFactor(none, slt | tlt, &zero);
-
-  ////////////////////////////////////////////////////////////////////////////////
-  // pileup
-  //TFile* pileup_weights_file = TFile::Open("input/pileup_weights.root");
-  //fac = (TH2*) pileup_weights_file->Get("fac");
-  //ren = (TH2*) pileup_weights_file->Get("ren");
 }
 
 //______________________________________________________________________________________________
@@ -637,20 +490,11 @@ bool ScaleFactor::initializeSelf() {
       return false;
   }
 
-  this->fSample->getTag("~scale2016", scale2016);
-  this->fSample->getTag("~scale2015", scale2015);
-
-  this->fSample->getTag("~isZtt", isZtt);
-  this->fSample->getTag("~isZll", isZll);
-
   // These flags do not change on a sample-to-sample basis, they are constant
   // until initializeSelf is called again.
   staticConditionsMask |= sherpa;
 
   Condition staticConditions = variation;
-  if (isSherpa()) {
-      staticConditions |= sherpa;
-  }
 
   for (unsigned int i = 0; i < branches.size(); i++) {
     Condition requirement = std::get<0>(branches[i]);
@@ -665,8 +509,6 @@ bool ScaleFactor::initializeSelf() {
     TString name = std::get<2>(branches[i]);
     std::get<3>(branches[i]) = new TTreeFormula(name, name, this->fTree);
   }
-
-  event_number = new TTreeFormula("event_number", "event_number",  this->fTree);
 
   return true;
 }
@@ -717,35 +559,6 @@ void ScaleFactor::addScaleFactor(Condition requirement, Condition veto, TString 
   branches.push_back(sf);
 }
 
-//______________________________________________________________________________________________
-void ScaleFactor::addScaleFactor(Condition requirement, const double* factor) {
-  addScaleFactor(requirement, none, factor);
-}
-
-//______________________________________________________________________________________________
-void ScaleFactor::addScaleFactor(Condition requirement, Condition veto, const double* factor) {
-  std::tuple<Condition, Condition, const double*> sf;
-
-  std::get<0>(sf) = requirement;
-  std::get<1>(sf) = veto;
-  std::get<2>(sf) = factor;
-
-  // broken with MCASV (unneeded anyway)
-  //factors.push_back(sf);
-}
-
-//______________________________________________________________________________________________
-ScaleFactor::ScaleFactor(){
-  this->setExpression(this->GetName() );
-
-  DEBUGclass("default constructor called");
-}
-
-//______________________________________________________________________________________________
-ScaleFactor::~ScaleFactor(){
-  // default destructor
-  DEBUGclass("destructor called");
-}
 
 //______________________________________________________________________________________________
 TObjArray* ScaleFactor::getBranchNames() const {
@@ -759,28 +572,12 @@ TObjArray* ScaleFactor::getBranchNames() const {
     bnames->Add(new TObjString(name.Data()));
   }
 
-  bnames->Add(new TObjString("event_number"));
-
   return bnames;
 }
 
 //______________________________________________________________________________________________
 
 double ScaleFactor::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
-
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-  const double retval = this->fFormula->Eval(0.);
-  */
-  /* exmple block for TTree::SetBranchAddress method:
-  const double retval = this->fBranch1 + this->fBranch2;
-  */
 
   double scaleFac = 1.;
 
@@ -790,15 +587,14 @@ double ScaleFactor::getValue() const {
   if (is2017())     { status |= y2017; }
   if (is2016())     { status |= y2016; }
   if (is2015())     { status |= y2015; }
+  
   if (isSLT())      { status |= slt; }
   if (isTauID())    { status |= tauid; }
   if (isLepISO())   { status |= lepiso; }
   if (isMuon())     { status |= muon; }
   if (isElectron()) { status |= electron; }
-  if (isSherpa())   { status |= sherpa; }
   if (isHighPt())   { status |= highpt ;}
   if (isHighPt2())   { status |= highpt2 ;}
-  if (isZtt || isZll) { status |= isZ;}
 
   // apply branches
   for (unsigned int i = 0; i < branches.size(); i++) {
@@ -821,24 +617,7 @@ double ScaleFactor::getValue() const {
     }
     scaleFac *= formula->EvalInstance();
   }
-
-/* broken with MCASV (unneeded anyway)
-  // apply constant factors
-  for (unsigned int i = 0; i < factors.size(); i++) {
-    Condition requirement = std::get<0>(factors[i]);
-    Condition veto = std::get<1>(factors[i]);
-
-    // some requirements are not met
-    if ((requirement & ~status).any()) { continue; }
-    // some vetos are triggered
-    if ((veto & status ).any()) { continue; }
-
-    scaleFac *= (*std::get<2>(factors[i]));
-  }
-*/
-
   DEBUGclass("returning");
-
   return scaleFac;
 }
 

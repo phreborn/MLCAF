@@ -21,19 +21,19 @@ class LepHadObservable : public TQTreeObservable {
 
     bool isData() const;
     bool isMC() const;
-    bool isFake() const;
-    bool isSherpa() const;
   
     bool is2015() const;
     bool is2016() const;
     bool is2017() const;
     bool is2018() const;
-    bool isTauID() const;
-    bool isLepISO() const;
+    
     bool isSLT() const;
-  
+ 
     bool isMuon() const;
     bool isElectron() const;
+    bool isTauID() const;
+    bool isLepISO() const;
+  
     bool isHighPt() const;
     bool isHighPt2() const;
 
@@ -53,8 +53,6 @@ class LepHadObservable : public TQTreeObservable {
 
     bool _isData = false;
     bool _isMC = false;
-    bool _isFake = false;
-    bool _isSherpa = false;
 
     TTreeFormula* x_run_number = nullptr;
     TTreeFormula* mc_channel_number = nullptr;

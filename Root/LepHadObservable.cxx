@@ -113,11 +113,6 @@ void LepHadObservable::setExpression(const TString& expr){
 }
 
 //______________________________________________________________________________________________
-bool LepHadObservable::isSherpa() const {
-  return false;//_isSherpa;
-}
-
-//______________________________________________________________________________________________
 bool LepHadObservable::isData() const {
   return _isData;
 }
@@ -126,11 +121,6 @@ bool LepHadObservable::isData() const {
 bool LepHadObservable::isMC() const {
   return !_isData;
 }
-//______________________________________________________________________________________________
-bool LepHadObservable::isFake() const {
-  return false;//_isFake;
-}
-
 //______________________________________________________________________________________________
 bool LepHadObservable::is2015() const {
   long xrn = x_run_number->EvalInstance();
