@@ -93,13 +93,11 @@ double HWWMCWeight::getValue() const {
   // value retrieval function, called on every event for every cut and histogram
   DEBUGclass("entering function");
 
-  const xAOD::CompositeParticleContainer *cand = 0;
-  const xAOD::CompositeParticle *evt = 0;
   const xAOD::EventInfo *evtInfo = 0;
 
   double mcWeight = 1.0;
 
-  // Don’t call HWWSFBase::getDefaultValue(...) here, because it tries to
+  // Don't call HWWSFBase::getDefaultValue(...) here, because it tries to
   // retrieve the event container, which might not exist if running over
   // truth+reco PAODs. This is unfortunately an inconsistency between this
   // variable and all other observables inheriting from HWWSFBase.
