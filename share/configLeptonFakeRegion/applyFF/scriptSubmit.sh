@@ -8,5 +8,5 @@ JOBSLIST=(
     "fakesISO"
 )
 
-# submit
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST}"
+# execute
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"

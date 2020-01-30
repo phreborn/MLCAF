@@ -7,28 +7,28 @@ IDENT="$3"
 JOBSLIST="$4"
 
 # additional institute-specific submission commands
-OPTIONS=""
+OPTIONS=()
 if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
   # Sheffield
-  OPTIONS="--submit condor --maxSampleSize 20000"
+  OPTIONS=(--submit condor --maxSampleSize 20000)
 elif [[ "${HOSTNAME}" == *".ihep.ac.cn" ]]; then
   # IHEP
-  OPTIONS="--submit condor --account atlas"
+  OPTIONS=(--submit condor --account atlas)
 fi
 
-# create jobs file
+# create temp jobs file
 JOBSFILE="jobs-${IDENT}.tmp"
-rm "${REGION}/${JOBSFILE}"
+rm -f "${REGION}/${JOBSFILE}"
 
 for LIST in "${JOBSLIST[@]}"; do
-    cat configCommon/jobLists/jobs_${LIST}_c16*.txt >> "${REGION}/${JOBSFILE}"
+    cat "configCommon/jobLists/jobs_${LIST}_c16"*".txt" >> "${REGION}/${JOBSFILE}"
 done
 
 # submission
-submit.py "${REGION}/${CONFIG}.cfg" --jobs "${REGION}/${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 ${OPTIONS}
+submit.py "${REGION}/${CONFIG}.cfg" --jobs "${REGION}/${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 "${OPTIONS[@]}"
 
-# cleanup jobs file
-rm "${REGION}/${JOBSFILE}"
+# cleanup temp jobs file
+rm -f "${REGION}/${JOBSFILE}"
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with
