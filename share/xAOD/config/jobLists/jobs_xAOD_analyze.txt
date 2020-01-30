@@ -1,6 +1,6 @@
 # jobs file for xAOD example analysis
 
-!time=15
+!time=20
 !memory=2000.
 !maxSampleSize=5000
 
