@@ -27,7 +27,7 @@ variables:
   before_script:
     - sudo apt-get update
     - sudo apt-get -y install libboost-dev
-    - export CAFOUTPUTDIR=$CAFANALYSISBASE/run
+    - sed -i 's|CAFANALYSISBASE/../output|CAFANALYSISBASE/run|' setup/setupLocal.sh
 
 .asg_setup: &asg_setup
   before_script:
@@ -40,7 +40,7 @@ variables:
     - klist
     - echo -e "Host svn.cern.ch lxplus.cern.ch\n\tUser ${CERN_USER}\n\tStrictHostKeyChecking no\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
     - cat ~/.ssh/config
-    - export CAFOUTPUTDIR=$CAFANALYSISBASE/run
+    - sed -i 's|CAFANALYSISBASE/../output|CAFANALYSISBASE/run|' setup/setupLocal.sh
 
 .minimal_script: &minimal_script
   script:
