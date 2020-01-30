@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/TruthSelector.h"
+#include "BSMtautauCAF/TruthTauSelector.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -10,11 +10,11 @@
 // otherwise, it will show no effect
 #include "QFramework/TQLibrary.h"
 
-ClassImp(TruthSelector)
+ClassImp(TruthTauSelector)
 
 //______________________________________________________________________________________________
 
-TruthSelector::TruthSelector(){
+TruthTauSelector::TruthTauSelector(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -24,7 +24,7 @@ TruthSelector::TruthSelector(){
 
 //______________________________________________________________________________________________
 
-TruthSelector::~TruthSelector(){
+TruthTauSelector::~TruthTauSelector(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -32,7 +32,7 @@ TruthSelector::~TruthSelector(){
 
 //______________________________________________________________________________________________
 
-TObjArray* TruthSelector::getBranchNames() const {
+TObjArray* TruthTauSelector::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -54,23 +54,7 @@ TObjArray* TruthSelector::getBranchNames() const {
 
 //______________________________________________________________________________________________
 
-double TruthSelector::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
-
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-  const double retval = this->fFormula->Eval(0.);
-  */
-  /* exmple block for TTree::SetBranchAddress method:
-  const double retval = this->fBranch1 + this->fBranch2;
-  */
-
-  //std::cout<<" In getValue "<<std::endl;
+double TruthTauSelector::getValue() const {
 
   int retval = -666;
   if (isData()) return retval;
@@ -104,7 +88,7 @@ double TruthSelector::getValue() const {
 }
 //______________________________________________________________________________________________
 
-TruthSelector::TruthSelector(const TString& expression):
+TruthTauSelector::TruthTauSelector(const TString& expression):
 LepHadObservable(expression)
 {
   // constructor with expression argument
@@ -118,28 +102,28 @@ LepHadObservable(expression)
 
 //______________________________________________________________________________________________
 
-const TString& TruthSelector::getExpression() const {
+const TString& TruthTauSelector::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool TruthSelector::hasExpression() const {
+bool TruthTauSelector::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void TruthSelector::setExpression(const TString& expr){
+void TruthTauSelector::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 
 //______________________________________________________________________________________________
 
-bool TruthSelector::initializeSelf(){
+bool TruthTauSelector::initializeSelf(){
   if (!this->fSample->getTag("~isData", _isData)) {
     ERROR("tag isData missing");
     return false;
@@ -157,7 +141,7 @@ bool TruthSelector::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool TruthSelector::finalizeSelf(){
+bool TruthTauSelector::finalizeSelf(){
   if ( !isData()) {
     delete this->tau_0_truth_isHadTau;
     delete this->tau_0_truth_isEle;

@@ -1,23 +1,25 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __TOPREWEIGHT__
-#define __TOPREWEIGHT__
+#ifndef __JETFAKES__
+#define __JETFAKES__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class TopReweight : public LepHadObservable {
+class JetFakes : public LepHadObservable {
 
   public:
-    ClassDef(TopReweight, 1);
-  
-    TopReweight();
-    TopReweight(const TString& expression);
-    ~TopReweight();
-
-    virtual double getValue() const override;
-    virtual TObjArray* getBranchNames() const override;
+    
+    ClassDef(JetFakes, 1);
+    
+    JetFakes();
+    JetFakes(const TString& expression);
+    ~JetFakes();
+    
     virtual bool hasExpression() const override;
     virtual const TString& getExpression() const override;
     virtual void setExpression(const TString& expr) override;
+
+    virtual double getValue() const override;
+    virtual TObjArray* getBranchNames() const override;
 
   protected:
     virtual bool initializeSelf() override;
@@ -27,7 +29,6 @@ class TopReweight : public LepHadObservable {
     TString fSysName = "";
     TDirectory* m_histoDir = 0;
 
-    std::map<TString, TH1F*> m_SF_hist;
-
+    std::map<TString, TH1F*> m_FF_hist;
 };
 #endif

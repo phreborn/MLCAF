@@ -47,31 +47,12 @@ TObjArray* TopReweight::getBranchNames() const {
 
 //______________________________________________________________________________________________
 double TopReweight::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
-
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-     const double retval = this->fFormula->Eval(0.);
-     */
-  /* exmple block for TTree::SetBranchAddress method:
-     const double retval = this->fBranch1 + this->fBranch2;
-     */
+  
   if (0==m_SF_hist.size()) return 0.0;
 
-  double f_tau_0_phi          = this->tau_0_phi->EvalInstance();
-  //double f_met_anti_iso_phi   = this->met_anti_iso_phi->EvalInstance();
-  double f_lep_0              = this->lep_0->EvalInstance();
-  double f_lep_0_iso_Gradient   = this->lep_0_iso_Gradient->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
-  int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   int    f_n_bjets        = this->n_bjets->EvalInstance();
-  double f_lephad_met_lep0_cos_dphi = this->lephad_met_lep0_cos_dphi->EvalInstance();
-  double f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
+  int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
 
   ////////////////////////////
   //  Extrapolation SF

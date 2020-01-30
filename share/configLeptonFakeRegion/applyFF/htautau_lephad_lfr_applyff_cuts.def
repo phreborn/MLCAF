@@ -19,7 +19,7 @@ $include("configCommon/htautau_lephad_common_cuts.def");
         .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvar)] }", .title="All">
         +CutISO {
             <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 )) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))",
-            .weightExpression = "$(isAntiISO) ? [isoreweight_$(isovar)] : 1", .title="ISO">
+            .weightExpression = "$(isAntiISO) ? [LeptonFakes_$(isovar)] : 1", .title="ISO">
         }
     }
 }

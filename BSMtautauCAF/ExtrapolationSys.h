@@ -1,18 +1,18 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __TOPREWEIGHT__
-#define __TOPREWEIGHT__
+#ifndef __EXTRAPOLATIONSYS__
+#define __EXTRAPOLATIONSYS__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class TopReweight : public LepHadObservable {
+class ExtrapolationSys : public LepHadObservable {
 
   public:
-    ClassDef(TopReweight, 1);
-  
-    TopReweight();
-    TopReweight(const TString& expression);
-    ~TopReweight();
-
+    ClassDef(ExtrapolationSys, 1);
+    
+    ExtrapolationSys();
+    ExtrapolationSys(const TString& expression);
+    ~ExtrapolationSys();
+    
     virtual double getValue() const override;
     virtual TObjArray* getBranchNames() const override;
     virtual bool hasExpression() const override;
@@ -28,6 +28,5 @@ class TopReweight : public LepHadObservable {
     TDirectory* m_histoDir = 0;
 
     std::map<TString, TH1F*> m_SF_hist;
-
 };
 #endif

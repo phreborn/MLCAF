@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/WjetsReweight.h"
+#include "BSMtautauCAF/JetFakesReweight.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(WjetsReweight)
+ClassImp(JetFakesReweight)
 
 //______________________________________________________________________________________________
 
-WjetsReweight::WjetsReweight(){
+JetFakesReweight::JetFakesReweight(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,7 +27,7 @@ WjetsReweight::WjetsReweight(){
 
 //______________________________________________________________________________________________
 
-WjetsReweight::~WjetsReweight(){
+JetFakesReweight::~JetFakesReweight(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -35,7 +35,7 @@ WjetsReweight::~WjetsReweight(){
 
 //______________________________________________________________________________________________
 
-TObjArray* WjetsReweight::getBranchNames() const {
+TObjArray* JetFakesReweight::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -45,7 +45,7 @@ TObjArray* WjetsReweight::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double WjetsReweight::getValue() const {
+double JetFakesReweight::getValue() const {
   
   if (0==m_SF_hist.size()) return 0.0;
 
@@ -147,18 +147,18 @@ double WjetsReweight::getValue() const {
   // SYSTEMATICS
   ////////////////
   if    ( 
-          (fSysName.Contains("FakeFactor_WjetsReweight_Bveto1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Bveto3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Btag1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Btag3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBveto1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBveto1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBveto3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBveto3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) || 
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBtag1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBtag1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBtag3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBtag3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Bveto1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Bveto3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Btag1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Btag3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) || 
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
         ) {
     //retval = retval+fabs(retval-1.0)/2.0;
     if (f_n_bjets == 0)
@@ -167,18 +167,18 @@ double WjetsReweight::getValue() const {
       retval = 1.0+fabs(retval-1.0);
   }
   else if(
-          (fSysName.Contains("FakeFactor_WjetsReweight_Bveto1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Bveto3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Btag1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Btag3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBveto1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBveto1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBveto3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBveto3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBtag1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBtag1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_ElHadBtag3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_MuHadBtag3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0)
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Bveto1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Bveto3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Btag1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_Btag3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0)
          ) {
     //retval = retval-fabs(retval-1.0)/2.0;
     if (f_n_bjets ==0 )
@@ -197,7 +197,7 @@ double WjetsReweight::getValue() const {
 }
 //______________________________________________________________________________________________
 
-WjetsReweight::WjetsReweight(const TString& expression) : LepHadObservable(expression)
+JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -215,7 +215,7 @@ WjetsReweight::WjetsReweight(const TString& expression) : LepHadObservable(expre
   // temporary pointer to ff files:
   TFile* tempFile=0;
 
-  std::cout << "INFO: WjetsReweight.cxx getting histograms from files. " << std::endl;
+  std::cout << "INFO: JetFakesReweight.cxx getting histograms from files. " << std::endl;
 
   ///////////////////////////////
   // Wjets scale factor
@@ -292,35 +292,35 @@ WjetsReweight::WjetsReweight(const TString& expression) : LepHadObservable(expre
 }
 //______________________________________________________________________________________________
 
-const TString& WjetsReweight::getExpression() const {
+const TString& JetFakesReweight::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool WjetsReweight::hasExpression() const {
+bool JetFakesReweight::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void WjetsReweight::setExpression(const TString& expr){
+void JetFakesReweight::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 
 //______________________________________________________________________________________________
 
-bool WjetsReweight::initializeSelf(){
+bool JetFakesReweight::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
-bool WjetsReweight::finalizeSelf(){
+bool JetFakesReweight::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf()) return false;
   return true;
 }

@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/BSMLepHad_TopSys.h"
+#include "BSMtautauCAF/TopTheorySys.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -12,11 +12,11 @@
 #include "TFile.h"
 #include <map>
 
-ClassImp(BSMLepHad_TopSys)
+ClassImp(TopTheorySys)
 
 //______________________________________________________________________________________________
 
-BSMLepHad_TopSys::BSMLepHad_TopSys(){
+TopTheorySys::TopTheorySys(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -26,7 +26,7 @@ BSMLepHad_TopSys::BSMLepHad_TopSys(){
 
 //______________________________________________________________________________________________
 
-BSMLepHad_TopSys::~BSMLepHad_TopSys(){
+TopTheorySys::~TopTheorySys(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -34,7 +34,7 @@ BSMLepHad_TopSys::~BSMLepHad_TopSys(){
 
 //______________________________________________________________________________________________
 
-TObjArray* BSMLepHad_TopSys::getBranchNames() const {
+TObjArray* TopTheorySys::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -51,7 +51,7 @@ TObjArray* BSMLepHad_TopSys::getBranchNames() const {
 
 //______________________________________________________________________________________________
 
-double BSMLepHad_TopSys::getValue() const {
+double TopTheorySys::getValue() const {
   // old systematics
   double f_lep_0_pt       = this->lep_0_pt->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
@@ -123,7 +123,7 @@ double BSMLepHad_TopSys::getValue() const {
 }
 //______________________________________________________________________________________________
 
-BSMLepHad_TopSys::BSMLepHad_TopSys(const TString& expression):
+TopTheorySys::TopTheorySys(const TString& expression):
 LepHadObservable(expression)
 {
   // constructor with expression argument
@@ -139,27 +139,27 @@ LepHadObservable(expression)
 
 //______________________________________________________________________________________________
 
-const TString& BSMLepHad_TopSys::getExpression() const {
+const TString& TopTheorySys::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool BSMLepHad_TopSys::hasExpression() const {
+bool TopTheorySys::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void BSMLepHad_TopSys::setExpression(const TString& expr){
+void TopTheorySys::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool BSMLepHad_TopSys::initializeSelf(){
+bool TopTheorySys::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
   // new systematics
   if( fSysName.Contains("TTBar_ISR_1up") ) {
@@ -210,7 +210,7 @@ bool BSMLepHad_TopSys::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool BSMLepHad_TopSys::finalizeSelf(){
+bool TopTheorySys::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf()) return false;
   // new systematics
   delete this->pmg_truth_weight_ISRHi;

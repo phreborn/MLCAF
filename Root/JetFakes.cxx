@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/ptReweight.h"
+#include "BSMtautauCAF/JetFakes.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(ptReweight)
+ClassImp(JetFakes)
 
 //______________________________________________________________________________________________
 
-ptReweight::ptReweight(){
+JetFakes::JetFakes(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,7 +27,7 @@ ptReweight::ptReweight(){
 
 //______________________________________________________________________________________________
 
-ptReweight::~ptReweight(){
+JetFakes::~JetFakes(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -35,7 +35,7 @@ ptReweight::~ptReweight(){
 
 //______________________________________________________________________________________________
 
-TObjArray* ptReweight::getBranchNames() const {
+TObjArray* JetFakes::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -44,7 +44,7 @@ TObjArray* ptReweight::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double ptReweight::getValue() const {
+double JetFakes::getValue() const {
   // in the rest of this function, you should retrieve the data and calculate your return value
   // here is the place where most of your custom code should go
   // a couple of comments should guide you through the process
@@ -189,7 +189,7 @@ double ptReweight::getValue() const {
 }
 //______________________________________________________________________________________________
 
-ptReweight::ptReweight(const TString& expression) : LepHadObservable(expression)
+JetFakes::JetFakes(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -206,7 +206,7 @@ ptReweight::ptReweight(const TString& expression) : LepHadObservable(expression)
   m_histoDir = 0;
   // temporary pointer to ff files:
   TFile* tempFile=0;
-  std::cout << "INFO: ptReweight.cxx getting histograms from files. " << std::endl;
+  std::cout << "INFO: JetFakes.cxx getting histograms from files. " << std::endl;
   ///////////////////////////////
   //  Wjets FF
   ///////////////////////////////
@@ -276,34 +276,34 @@ ptReweight::ptReweight(const TString& expression) : LepHadObservable(expression)
 
 //______________________________________________________________________________________________
 
-const TString& ptReweight::getExpression() const {
+const TString& JetFakes::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool ptReweight::hasExpression() const {
+bool JetFakes::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void ptReweight::setExpression(const TString& expr){
+void JetFakes::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool ptReweight::initializeSelf(){
+bool JetFakes::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
-bool ptReweight::finalizeSelf(){
+bool JetFakes::finalizeSelf(){
   if (!LepHadObservable::finalizeSelf())  return false; 
   return true;
 }

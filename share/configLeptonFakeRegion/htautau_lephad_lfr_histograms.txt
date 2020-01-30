@@ -11,7 +11,7 @@ TH1F('TauPt',   '', 30, 0,300)   <<   ( tau_0_p4.Pt() : "p_{T}^{tau} [GeV]" );
 TH1F('LepMETDphi','', 30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" );
 TH1F('TauMETDphi','', 30,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
 TH1F('LepTauDphi','', 30,0,3.1416)   <<   ( lephad_dphi : "\#Delta\#phi(lep,\#tau)" );
-TH1F('MTTOT','', {30.,40.,60.,70.,80.,90.,100.,114.,134.,162.,200.,250.,362.,600.}) <<   ( lephad_mttot : "m_{T}^{TOT} [GeV]" );
+TH1F('MTTOT','', {30.,40.,60.,70.,80.,90.,100.,114.,134.,162.,200.,250.,362.,600.}) <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
 #TH1F('LeptonEta','', 25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\eta^{lep}" );
 #TH1F('TauEta'   ,'', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\eta^{\#tau}" );
 #TH1F('mu','', 10, 0, 100)   <<   ( n_actual_int  : "number of interactions per bunch crossing" );

@@ -1,19 +1,18 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __LPXKFACTOR__
-#define __LPXKFACTOR__
+#ifndef __TopTheorySys__
+#define __TopTheorySys__
 
 #include "BSMtautauCAF/LepHadObservable.h"
-#include "TGraphAsymmErrors.h"
 
-class LPXKfactor : public LepHadObservable {
+class TopTheorySys : public LepHadObservable {
 
   public:
-    ClassDef(LPXKfactor, 1);
-
-    LPXKfactor();
-    LPXKfactor(const TString& expression);
-    ~LPXKfactor();
-
+    ClassDef(TopTheorySys, 1);
+    
+    TopTheorySys();
+    TopTheorySys(const TString& expression);
+    ~TopTheorySys();
+    
     virtual bool hasExpression() const override;
     virtual const TString& getExpression() const override;
     virtual void setExpression(const TString& expr) override;
@@ -23,12 +22,16 @@ class LPXKfactor : public LepHadObservable {
   protected:
     virtual bool initializeSelf() override;
     virtual bool finalizeSelf() override;
+
     TString fExpression = "";
     TString fSysName = "";
+
     TDirectory* m_histoDir = 0;
+    TH1F* m_hSys = 0;
 
-    std::map<int, int> m_DSID_bin;
-    std::map<TString, TGraphAsymmErrors*> m_SF_graph;
-
+    TTreeFormula* pmg_truth_weight_ISRHi = NULL;
+    TTreeFormula* pmg_truth_weight_ISRLo = NULL;
+    TTreeFormula* pmg_truth_weight_FSRHi = NULL;
+    TTreeFormula* pmg_truth_weight_FSRLo = NULL;
 };
 #endif

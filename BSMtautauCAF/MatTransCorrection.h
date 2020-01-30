@@ -1,23 +1,24 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __TOPREWEIGHT__
-#define __TOPREWEIGHT__
+#ifndef __MATTRANSCORRECTION__
+#define __MATTRANSCORRECTION__
 
 #include "BSMtautauCAF/LepHadObservable.h"
+#include "TGraphAsymmErrors.h"
 
-class TopReweight : public LepHadObservable {
+class MatTransCorrection : public LepHadObservable {
 
   public:
-    ClassDef(TopReweight, 1);
+    ClassDef(MatTransCorrection, 1);
   
-    TopReweight();
-    TopReweight(const TString& expression);
-    ~TopReweight();
+    MatTransCorrection();
+    MatTransCorrection(const TString& expression);
+    ~MatTransCorrection();
 
-    virtual double getValue() const override;
-    virtual TObjArray* getBranchNames() const override;
     virtual bool hasExpression() const override;
     virtual const TString& getExpression() const override;
     virtual void setExpression(const TString& expr) override;
+    virtual double getValue() const override;
+    virtual TObjArray* getBranchNames() const override;
 
   protected:
     virtual bool initializeSelf() override;
@@ -27,7 +28,7 @@ class TopReweight : public LepHadObservable {
     TString fSysName = "";
     TDirectory* m_histoDir = 0;
 
-    std::map<TString, TH1F*> m_SF_hist;
-
+    std::map<TString, TF1*> m_SF_fun;
+    std::map<TString, TGraphAsymmErrors*> m_SF_graph;
 };
 #endif

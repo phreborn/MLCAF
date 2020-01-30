@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/QCDReweight.h"
+#include "BSMtautauCAF/LeptonFakesReweight.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(QCDReweight)
+ClassImp(LeptonFakesReweight)
 
 //______________________________________________________________________________________________
 
-QCDReweight::QCDReweight(){
+LeptonFakesReweight::LeptonFakesReweight(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,7 +27,7 @@ QCDReweight::QCDReweight(){
 
 //______________________________________________________________________________________________
 
-QCDReweight::~QCDReweight(){
+LeptonFakesReweight::~LeptonFakesReweight(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -35,7 +35,7 @@ QCDReweight::~QCDReweight(){
 
 //______________________________________________________________________________________________
 
-TObjArray* QCDReweight::getBranchNames() const {
+TObjArray* LeptonFakesReweight::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -46,7 +46,7 @@ TObjArray* QCDReweight::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double QCDReweight::getValue() const {
+double LeptonFakesReweight::getValue() const {
   
   if (0==m_SF_hist.size()) return 0.0;
 
@@ -115,13 +115,13 @@ double QCDReweight::getValue() const {
   ////////////////
   // SYSTEMATICS
   ////////////////
-  if    ( (fSysName.Contains("FakeFactor_QCDReweight_MuHadBtag_1up")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_QCDReweight_MuHadBveto_1up")   && f_n_bjets==0 )) {
+  if    ( (fSysName.Contains("FakeFactor_LeptonFakesReweight_MuHadBtag_1up")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_LeptonFakesReweight_MuHadBveto_1up")   && f_n_bjets==0 )) {
     //retval = retval+fabs(retval-1.0)/2.0;
     retval = retval+fabs(retval-1.0);
   }
-  else if((fSysName.Contains("FakeFactor_QCDReweight_MuHadBtag_1down")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_QCDReweight_MuHadBveto_1down")   && f_n_bjets==0 )) {
+  else if((fSysName.Contains("FakeFactor_LeptonFakesReweight_MuHadBtag_1down")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_LeptonFakesReweight_MuHadBveto_1down")   && f_n_bjets==0 )) {
     //retval = retval-fabs(retval-1.0)/2.0;
     retval = retval-fabs(retval-1.0);
   }
@@ -132,7 +132,7 @@ double QCDReweight::getValue() const {
 }
 //______________________________________________________________________________________________
 
-QCDReweight::QCDReweight(const TString& expression) : LepHadObservable(expression)
+LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -150,7 +150,7 @@ QCDReweight::QCDReweight(const TString& expression) : LepHadObservable(expressio
   // temporary pointer to ff files:
   TFile* tempFile=0;
 
-  std::cout << "INFO: QCDReweight.cxx getting histograms from files. " << std::endl;
+  std::cout << "INFO: LeptonFakesReweight.cxx getting histograms from files. " << std::endl;
 
   ///////////////////////////////
   // QDD scale factor
@@ -197,34 +197,34 @@ QCDReweight::QCDReweight(const TString& expression) : LepHadObservable(expressio
 }
 //______________________________________________________________________________________________
 
-const TString& QCDReweight::getExpression() const {
+const TString& LeptonFakesReweight::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool QCDReweight::hasExpression() const {
+bool LeptonFakesReweight::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void QCDReweight::setExpression(const TString& expr){
+void LeptonFakesReweight::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool QCDReweight::initializeSelf(){
+bool LeptonFakesReweight::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
-bool QCDReweight::finalizeSelf(){
+bool LeptonFakesReweight::finalizeSelf(){
   if (!LepHadObservable::finalizeSelf()) return false;
   return true;
 }

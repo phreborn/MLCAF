@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/TauReweight.h"
+#include "BSMtautauCAF/MatTransCorrection.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -14,11 +14,11 @@
 #include <map>
 
 using namespace std;
-ClassImp(TauReweight)
+ClassImp(MatTransCorrection)
 
 //______________________________________________________________________________________________
 
-TauReweight::TauReweight(){
+MatTransCorrection::MatTransCorrection(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -28,7 +28,7 @@ TauReweight::TauReweight(){
 
 //______________________________________________________________________________________________
 
-TauReweight::~TauReweight(){
+MatTransCorrection::~MatTransCorrection(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -36,7 +36,7 @@ TauReweight::~TauReweight(){
 
 //______________________________________________________________________________________________
 
-TObjArray* TauReweight::getBranchNames() const {
+TObjArray* MatTransCorrection::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -46,7 +46,7 @@ TObjArray* TauReweight::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double TauReweight::getValue() const {
+double MatTransCorrection::getValue() const {
   // in the rest of this function, you should retrieve the data and calculate your return value
   // here is the place where most of your custom code should go
   // a couple of comments should guide you through the process
@@ -138,7 +138,7 @@ double TauReweight::getValue() const {
 }
 //______________________________________________________________________________________________
 
-TauReweight::TauReweight(const TString& expression) : LepHadObservable(expression)
+MatTransCorrection::MatTransCorrection(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -156,8 +156,8 @@ TauReweight::TauReweight(const TString& expression) : LepHadObservable(expressio
   // temporary pointer to ff files:
   TFile* tempFile=0;
 
-  //std::cout << "INFO: TauReweight.cxx getting histograms from files. " << std::endl;
-  std::cout << "INFO: TauReweight getting functions " << std::endl;
+  //std::cout << "INFO: MatTransCorrection.cxx getting histograms from files. " << std::endl;
+  std::cout << "INFO: MatTransCorrection getting functions " << std::endl;
 
   ///////////////////////////////
   // Tau scale factor
@@ -214,35 +214,35 @@ TauReweight::TauReweight(const TString& expression) : LepHadObservable(expressio
 }
 //______________________________________________________________________________________________
 
-const TString& TauReweight::getExpression() const {
+const TString& MatTransCorrection::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool TauReweight::hasExpression() const {
+bool MatTransCorrection::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void TauReweight::setExpression(const TString& expr){
+void MatTransCorrection::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 
 //______________________________________________________________________________________________
 
-bool TauReweight::initializeSelf(){
+bool MatTransCorrection::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
-bool TauReweight::finalizeSelf(){
+bool MatTransCorrection::finalizeSelf(){
   if (!LepHadObservable::finalizeSelf()) return false;
   return true;
 }

@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/extrapolationReweight.h"
+#include "BSMtautauCAF/ExtrapolationSys.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(extrapolationReweight)
+ClassImp(ExtrapolationSys)
 
 //______________________________________________________________________________________________
 
-extrapolationReweight::extrapolationReweight(){
+ExtrapolationSys::ExtrapolationSys(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,7 +27,7 @@ extrapolationReweight::extrapolationReweight(){
 
 //______________________________________________________________________________________________
 
-extrapolationReweight::~extrapolationReweight(){
+ExtrapolationSys::~ExtrapolationSys(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -35,7 +35,7 @@ extrapolationReweight::~extrapolationReweight(){
 
 //______________________________________________________________________________________________
 
-TObjArray* extrapolationReweight::getBranchNames() const {
+TObjArray* ExtrapolationSys::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -45,7 +45,7 @@ TObjArray* extrapolationReweight::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double extrapolationReweight::getValue() const {
+double ExtrapolationSys::getValue() const {
   
   double f_lep_0              = this->lep_0->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
@@ -145,7 +145,7 @@ double extrapolationReweight::getValue() const {
 }
 //______________________________________________________________________________________________
 
-extrapolationReweight::extrapolationReweight(const TString& expression) : LepHadObservable(expression)
+ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -163,7 +163,7 @@ extrapolationReweight::extrapolationReweight(const TString& expression) : LepHad
   // temporary pointer to ff files:
   TFile* tempFile=0;
 
-  std::cout << "INFO: extrapolationReweight.cxx getting histograms from files. " << std::endl;
+  std::cout << "INFO: ExtrapolationSys.cxx getting histograms from files. " << std::endl;
 
   ///////////////////////////////
   // extra sys
@@ -211,34 +211,34 @@ extrapolationReweight::extrapolationReweight(const TString& expression) : LepHad
 }
 //______________________________________________________________________________________________
 
-const TString& extrapolationReweight::getExpression() const {
+const TString& ExtrapolationSys::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool extrapolationReweight::hasExpression() const {
+bool ExtrapolationSys::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void extrapolationReweight::setExpression(const TString& expr){
+void ExtrapolationSys::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool extrapolationReweight::initializeSelf(){
+bool ExtrapolationSys::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
   return true;
 }
 
 //______________________________________________________________________________________________
 
-bool extrapolationReweight::finalizeSelf(){
+bool ExtrapolationSys::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf())  return false;
   return true;
 }
