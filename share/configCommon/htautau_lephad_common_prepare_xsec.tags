@@ -1,0 +1,9 @@
+# -*- mode: tqfolder -*-
+
+# With MC samples having their Xsec collected from file, override for any individual samples
+
+# normalise signal cross-sections
+<.xsp.xSection=1.0> @ /sig/?/?/?/?/?;
+
+# normalise Z+jets k-factors (apply from HadHad)
+<.xsp.kFactor=1.0> @ /bkg/?/?/Zll/?/Z/?, /bkg/?/?/Ztautau/Z/?;

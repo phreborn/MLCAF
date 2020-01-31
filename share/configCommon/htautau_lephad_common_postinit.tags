@@ -1,6 +1,7 @@
 # -*- mode: tqfolder -*-
 
 # post-initialize tags: /data folder has now been initialized, MC samples have now collected weights
+$printline("Applying post-initialize tags...");
 
 # is data
 <isData=false> @ /.;
