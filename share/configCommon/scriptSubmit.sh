@@ -25,7 +25,9 @@ for LIST in "${JOBSLIST[@]}"; do
 done
 
 # submission
+echo "Submitting..."
 submit.py "${REGION}/${CONFIG}.cfg" --jobs "${REGION}/${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 "${OPTIONS[@]}"
+echo "Finished submitting!"
 
 # cleanup temp jobs file
 rm -f "${REGION}/${JOBSFILE}"

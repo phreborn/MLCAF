@@ -8,5 +8,10 @@ if [ "${IS_GITLAB_CI}" == "true" ]; then
     CI_OPTS=(--options "lineUpdates=false" "consoleWidth=80")
 fi
 
+echo "Preparing..."
 prepare.py configCommon/htautau_lephad_common.cfg "${CI_OPTS[@]}"
+echo "Finished preparing!"
+
+echo "Initializing..."
 initialize.py configCommon/htautau_lephad_common.cfg "${CI_OPTS[@]}"
+echo "Finished initializing!"
