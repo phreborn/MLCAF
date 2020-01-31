@@ -23,13 +23,13 @@ export NNFilesPath=/eos/user/b/bejaeger/Keras-Network/;
 
 # necessary clones and installation of h5py for conversion
 git clone https://github.com/lwtnn/lwtnn.git; cd lwtnn; make; cd ../;# should take less than 1min
-virtualenv -p python3 venv; # needed for later
+virtualenv -p python3 venv; 
 source venv/bin/activate # now source it
 pip3 install h5py
 
 # convert
 lwtnn/converters/keras2json.py $NNFilesPath/architecture.json $NNFilesPath/variables.json $NNFilesPath/weights.h5 > neural_net.json
-deactivate
+deactivate # deactivate python virtualenv
 
 # modify network to assign expressions to variable names
 cafsetup; cd $HOME/CAFNNTutorial; # source your analysis setup script to use the following
@@ -120,7 +120,7 @@ Note, this script can also be run on the final neural network json file, after t
 To convert the three files to a single json file that can be used in the analysis, one needs to clone the lwtnn repository
 
 ```
-git clone https://github.com/lwtnn/lwtnn.git; cd lwtnn; make; # shoul take less than 1min
+git clone https://github.com/lwtnn/lwtnn.git; cd lwtnn; make; # should take less than 1min
 ```
 
 and use
@@ -140,4 +140,8 @@ pip3 install h5py
 The NN model (which in our case has a layout for the "Sequential API") can then be used by calling the expression
 ```
 lwtnnSeq(path/to/neural_net.json, {nameOfOutputNode})
+```
+If you use the function API, please use
+```
+lwtnn(path/to/neural_net.json, {nameOfOutputNode})
 ```
