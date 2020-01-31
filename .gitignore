@@ -31,3 +31,4 @@ share/inputs/*
 !share/Systematics/*.root
 .envBefore_asetup.sh*
 jobs-*.tmp
+htautau_lephad_common_xsec.csv-*
