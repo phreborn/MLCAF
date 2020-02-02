@@ -629,6 +629,9 @@ takes the two named arguments `path` and `type`.  The type can be either "f" or
 $create(path="path/to/new/folder", type="f or sf");
 ```
 
+For TQFolders the '+' operator can be used as well as 'create'. Main use case
+for the 'create' method is making TQSampleFolders, which cannot be done via '+'.
+
 > Task: Create a new TQFolder for the mammal zebra.
 
 <!-- console
