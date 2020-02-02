@@ -60,7 +60,6 @@ Let's have a look at `MjjMaxObservable.h` first. You should modify it such that 
 #ifndef __MJJMAXOBSERVABLE__
 #define __MJJMAXOBSERVABLE__
 #include "CAFxAODUtils/TQEventObservable.h"
-#include "xAODParticleEvent/CompositeParticleContainer.h"
 
 class MjjMaxObservable : public TQEventObservable {
 protected:
@@ -117,7 +116,7 @@ Now we have to implement the actual calculation of the desired quantity. This ha
   const double retval = MjjMax;
   return retval;
 ```
-After implementing the above, the observable should be ready to be compiled - almost. We want to read a CompositeParticleContainer, but your c++ doesn't know what this is. So let's include the corresponding header file
+After implementing the above, the observable should be ready to be compiled - almost. We use a CompositeParticleContainer, but your c++ doesn't know what this is. So let's include the corresponding header file
 ```
 #include "xAODParticleEvent/CompositeParticleContainer.h"
 ```
