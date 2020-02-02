@@ -117,10 +117,17 @@ Now we have to implement the actual calculation of the desired quantity. This ha
   const double retval = MjjMax;
   return retval;
 ```
-After implementing the above (don't forget to make potential includes), the observable should be ready to be compiled. This can be done with `cafcompile`  which invokes an alias and automatically runs cmake and finds the new class.
+After implementing the above, the observable should be ready to be compiled - almost. We want to read a CompositeParticleContainer, but your c++ doesn't know what this is. So let's include the corresponding header file
+```
+#include "xAODParticleEvent/CompositeParticleContainer.h"
+```
+in the beginning of the file. Now, we are ready to execute `cafcompile`  which will automatically run cmake for you, find the new class and compile it.
 Once your class compiles fine along with the other observable classes we can move on to the next step.
 
-Remark: The line at the top of `MjjMaxObservable.cxx` saying `// #define _DEBUG__` can be uncommented to enable printouts from the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
+Two small remarks:
+
+*  The line at the top of `MjjMaxObservable.cxx` saying `// #define _DEBUG__` can be uncommented to enable printouts from the DEBUGclass(...) function. This might be useful for initial tests and checks of the new observable.
+*  CAF provides the small functions `cafcompile` and `cafbuild`. The latter only compiles your code with `make`, while the former calls `cmake` and then compiles. To see what exactly these functions do, type `type cafcompile` in your shell.
 
 ## Creating an observable snippet
 A small python snippet needs to be added for the new observable to the designated observable/ folder of the analysis.
