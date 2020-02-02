@@ -135,13 +135,11 @@ In the xAOD Example analysis, the observable snippets are located [here](https:/
 The snippet will instantiate the observable class and adds it to the observable database. The python script should have the same name as the observable itself (in our case MjjMaxObservable.py) and can look like this:
 
 ```python
-from QFramework import *
-from ROOT import *
-
+from QFramework import TQObservable
 from CAFExample import MjjMaxObservable
 
 def addObservables():
-	
+
     obs = MjjMaxObservable("MjjMax")
     if not TQObservable.addObservable(obs, "MjjMax"):
         INFO("failed to add MjjMax Observable")
