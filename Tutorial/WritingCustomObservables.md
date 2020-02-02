@@ -22,7 +22,7 @@ We want to create a new observable that calculates the invariant mass (called Mj
 The new observable class is to be implemented in the existing [xAOD Example analysis](https://gitlab.cern.ch/atlas-caf/CAFExample/tree/master/share/xAOD).
 
 ## The magic wizard.py script
-[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. Make sure you are setup (`source setup/setupAnalysis.sh`) and are in the main directory of the CAFExample repository (which you can ensure e.g. with `cd $CAFANALYSISBASE`). Then, you can call the script via
+[CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) provides the python script [wizard.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/QFramework/share/TQObservable/wizard.py) helping you to create a source and header file for your new observable. Make sure you are setup (`source build/setupAnalysis.sh`) and are in the main directory of the CAFExample repository (which you can ensure e.g. with `cd $CAFANALYSISBASE`). Then, you can call the script via
 ```bash
 ./CAFCore/QFramework/share/TQObservable/wizard.py
 ```
