@@ -171,7 +171,7 @@ If the analysis is executed (you only have to perform the analyze step) and ever
 <!-- It is assumed that you have already learned how to run a complete analysis.-->
 You can check this by opening the respective sample folder with `tqroot -sfr sampleFolders/analyzed/samples-analyzed-xAOD-Example.root` and draw one of the histograms with
 ```
-r_samples->getHistogram("bkg/[ee+mm]/top/ttbar", "CutChannels/hist_MjjMax")->Draw("")
+r_samples->getHistogram("bkg/[ee+mm]/[c16a+c16d+c16e]/top/ttbar", "CutChannels/hist_MjjMax")->Draw("")
 ```
 If you see a reasonable distribution: Congratulations! You just successfully created your own observable.
 Now, you can do with it what ever you want (define cuts/cutflows, event lists, etc.) and/or create more awesome observable!
