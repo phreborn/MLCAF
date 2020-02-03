@@ -29,3 +29,5 @@ build
 *.isDone
 share/inputs
 !share/Systematics/*.root
+!share/FakeFactors/*.root
+!share/ScaleFactors/*.root
