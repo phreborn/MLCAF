@@ -56,7 +56,7 @@ double LeptonFakes::getValue() const {
   // region: bveto or btag
   TString region = "";
   if (0==f_n_bjets) region = "Bveto";
-  else if (1==f_n_bjets) region = "Btag";
+  else if (1<=f_n_bjets) region = "Btag";
 
   // peiriod: Combined or Separated
   TString period = "";
@@ -101,10 +101,22 @@ double LeptonFakes::getValue() const {
   TH1F * h_nominal = 0;
   TH1F * h_up = 0;
   TH1F * h_down = 0;
+ 
+  auto it = m_FF_hist.find(histName); 
+  if ( it != m_FF_hist.end() ) h_nominal = it->second;
+  else {
+    std::cout << "ERROR! Unavailable FF: " << histName << std::endl;
+    for (auto item : m_FF_hist)
+      std::cout << "Available FF: " << item.first << std::endl;
+  }
+
+  it = m_FF_hist.find(histName+"_up"); 
+  if ( it != m_FF_hist.end() ) h_up = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_up" << std::endl;
   
-  h_nominal = m_FF_hist.at(histName);
-  h_up = m_FF_hist.at(histName+"_up");
-  h_down = m_FF_hist.at(histName+"_down");
+  it = m_FF_hist.find(histName+"_down"); 
+  if ( it != m_FF_hist.end() ) h_down = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_down" << std::endl;
   
   // FF is a function of lepton pT
   int binID = std::min(h_nominal->FindBin(f_lep_0_pt), h_nominal->GetNbinsX());
