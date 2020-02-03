@@ -29,7 +29,6 @@ class TruthTauSelector : public LepHadObservable {
     TTreeFormula* tau_0_truth_isHadTau = NULL;
     TTreeFormula* tau_0_truth_isEle    = NULL;
     TTreeFormula* tau_0_truth_isMuon   = NULL;
-    TTreeFormula* tau_0_truth_pdgId    = NULL;
     TTreeFormula* tau_0_truth_classifierParticleType  = NULL;
 
 };

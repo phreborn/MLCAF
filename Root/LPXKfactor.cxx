@@ -47,11 +47,14 @@ TObjArray* LPXKfactor::getBranchNames() const {
 //______________________________________________________________________________________________
 double LPXKfactor::getValue() const {
   
-  if (0==m_SF_graph.size()) return 1.0;
   if (isData()) return 1.0;
+  
   int f_mc_channel_number = this->mc_channel_number->EvalInstance();
-  // determine which SF to use
-  TString SF = "";   // SF name
+
+  //////////////////////////////////////////////////////////////////////// 
+  // determine which LPX Kfactor to use
+  //////////////////////////////////////////////////////////////////////// 
+  
   TString Sample = "";
   if ( (f_mc_channel_number>=301000 && f_mc_channel_number<=301018) || f_mc_channel_number == 361106 )
      Sample = "DYee";
@@ -62,10 +65,9 @@ double LPXKfactor::getValue() const {
   else 
      return 1.0;
 
-  SF = Sample;
   // obtain the graph
   TGraphAsymmErrors* graph_nominal = 0;
-  graph_nominal = m_SF_graph.at(SF+"_LPX_kFactors");
+  graph_nominal = m_SF_graph.at(Sample+"_LPX_kFactors");
 
   // determine the bin
   int bin = -1;
@@ -80,138 +82,136 @@ double LPXKfactor::getValue() const {
   else bin = it->second;
   
   double retval = 1.0;
-  double _x = 0.0;
-  graph_nominal ->GetPoint(bin, _x, retval);
+  double x = 0.0;
+  graph_nominal ->GetPoint(bin, x, retval);
 
-  ////////////////
+  //////////////////////////////////////////////////////////////////////// 
   // SYSTEMATICS
-  ////////////////
+  //////////////////////////////////////////////////////////////////////// 
+  
   TGraphAsymmErrors* graph_sys = 0;
   double relsys = 1.0;
   if ( fSysName.Contains("LPX_KFACTOR_CHOICE_HERAPDF20_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_HERAPDF20__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_HERAPDF20_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_HERAPDF20__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= (2-relsys);
   }
   else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_NNPDF30_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_NNPDF30_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= (2-relsys);
   }
   else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_epWZ16_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_epWZ16__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_epWZ16_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_epWZ16__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= (2-relsys);
   }
   else if ( fSysName.Contains("LPX_KFACTOR_REDCHOICE_NNPDF30_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_REDCHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_REDCHOICE_NNPDF30_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_REDCHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= (2-relsys);
   }
   else if ( fSysName.Contains("LPX_KFACTOR_ALPHAS_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_ALPHAS__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_ALPHAS_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_ALPHAS__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_BEAM_ENERGY_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_BEAM_ENERGY__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_BEAM_ENERGY_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_BEAM_ENERGY__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PDF_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PDF_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PDF_EW_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_EW__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PDF_EW_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_EW__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PDF_epWZ16_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_epWZ16__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PDF_epWZ16_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_epWZ16__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PI_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PI__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_PI_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PI__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_SCALE_W_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_W__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_SCALE_W_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_W__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_SCALE_Z_Corr_1up")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_Z__1up");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
   else if ( fSysName.Contains("LPX_KFACTOR_SCALE_Z_Corr_1down")) {
     graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_Z__1down");
-    graph_sys -> GetPoint(bin, _x, relsys);
+    graph_sys -> GetPoint(bin, x, relsys);
     retval *= relsys;
   }
 
-  DEBUGclass("returning");
-
-  //std::cout << SF << "\t" << f_mc_channel_number << "\t" << _x << "\t" << retval << std::endl;
   return retval;
 }
 //______________________________________________________________________________________________

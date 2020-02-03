@@ -307,6 +307,18 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   // mc weight
   ////////////////////////////////////////////////////////////////////////////////
   addScaleFactor(none, "weight_mc");
+  
+  staticConditionsMask |= nominal;
+  
+  if (expression == "ScaleFactor_nominal") {
+     variation = nominal;
+  }
+   
+  for (unsigned int i = 0; i < variations.size(); i++) {
+    if (expression.EndsWith(variations[i].first)) {
+        variation = variations[i].second;
+    }
+  }
 }
 
 //______________________________________________________________________________________________
@@ -316,32 +328,16 @@ bool ScaleFactor::initializeSelf() {
       return false;
   }
 
-  if (fExpression == "ScaleFactor_nominal") {
-     variation = nominal;
-  }
-  
-  for (unsigned int i = 0; i < variations.size(); i++) {
-    if (fExpression.EndsWith(variations[i].first)) {
-        variation = variations[i].second;
-    }
-  }
-
-  // These flags do not change on a sample-to-sample basis, they are constant
-  // until initializeSelf is called again.
-
-  Condition staticConditions = variation;
-
   for (unsigned int i = 0; i < branches.size(); i++) {
     Condition requirement = std::get<0>(branches[i]);
     Condition veto = std::get<1>(branches[i]);
-
+    TString name = std::get<2>(branches[i]);
     std::get<3>(branches[i]) = NULL;
 
     // remove those, which are already impossible due to variation
-    if ((requirement & staticConditionsMask & ~staticConditions).any()) { continue; }
-    if ((veto & staticConditions).any()) { continue; }
+    if ( (requirement & staticConditionsMask & ~variation).any() ) { continue; }
+    if ( (veto & variation).any() ) { continue; }
 
-    TString name = std::get<2>(branches[i]);
     std::get<3>(branches[i]) = new TTreeFormula(name, name, this->fTree);
   }
 
@@ -369,7 +365,6 @@ Condition ScaleFactor::registerVariation(TString name) {
   variation.set(nextBitPosition);
   staticConditionsMask.set(nextBitPosition);
   nextBitPosition++;
-
 
   std::pair<TString, Condition> pair(name, variation);
   variations.push_back(pair);
@@ -431,7 +426,7 @@ double ScaleFactor::getValue() const {
   for (unsigned int i = 0; i < branches.size(); i++) {
     Condition requirement = std::get<0>(branches[i]);
     Condition veto = std::get<1>(branches[i]);
-
+    
     // some requirements are not met
     if ((requirement & ~status).any()) { continue; }
     // some vetos are triggered
@@ -448,6 +443,5 @@ double ScaleFactor::getValue() const {
     }
     scaleFac *= formula->EvalInstance();
   }
-  DEBUGclass("returning");
   return scaleFac;
 }

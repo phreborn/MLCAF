@@ -55,21 +55,7 @@ TObjArray* MTtot::getBranchNames() const {
 //______________________________________________________________________________________________
 
 double MTtot::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
-
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-  const double retval = this->fFormula->Eval(0.);
-  */
-  /* exmple block for TTree::SetBranchAddress method:
-  const double retval = this->fBranch1 + this->fBranch2;
-  */
-
+  
   float f_lephad_mt_lep0_met      = this->lephad_mt_lep0_met->EvalInstance();
   float f_lephad_mt_lep1_met      = this->lephad_mt_lep1_met->EvalInstance();
   float f_lep_0_pt                = this->lep_0_pt->EvalInstance();
@@ -78,7 +64,6 @@ double MTtot::getValue() const {
 
   float retval = std::sqrt(f_lephad_mt_lep0_met*f_lephad_mt_lep0_met + f_lephad_mt_lep1_met*f_lephad_mt_lep1_met + 2.*f_lep_0_pt*f_tau_0_pt*(1-cos(f_lephad_dphi)) );
 
-  DEBUGclass("returning");
   return retval;
 }
 //______________________________________________________________________________________________

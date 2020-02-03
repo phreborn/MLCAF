@@ -52,7 +52,8 @@ TObjArray* TopTheorySys::getBranchNames() const {
 //______________________________________________________________________________________________
 
 double TopTheorySys::getValue() const {
-  // old systematics
+  double retval = 1.0;
+
   double f_lep_0_pt       = this->lep_0_pt->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
   double f_lepmet_mt1     = this->lephad_mt_lep0_met->EvalInstance();
@@ -61,29 +62,6 @@ double TopTheorySys::getValue() const {
 
   double mttot = std::sqrt(f_lepmet_mt1*f_lepmet_mt1 + f_lepmet_mt2*f_lepmet_mt2 + 2.*f_lep_0_pt*f_tau_0_pt*(1-cos(f_lephad_dphi)) );
 
-  double cor_Rad  = 1.11 - 0.0007 * mttot;
-  double cor_ShUe = 1.18 - 0.0015 * mttot + 1.5 * 0.000001 * mttot * mttot;
-  if(mttot>500) {
-   cor_ShUe = 1.18 - 0.0015 * 500 + 1.5 * 0.000001 * 500 * 500;
-  }
-
-
-  double retval(1);
-
-  // old systematics
-  if( fSysName.Contains("TTBAR_Radiation_1up") ) {
-    retval = cor_Rad;
-  }
-  if( fSysName.Contains("TTBAR_Radiation_1down") ) {
-    retval = -1*(cor_Rad - 1) + 1;
-  }
-
-  if( fSysName.Contains("TTBAR_ShowerUE_1up") ) {
-    retval = cor_ShUe;
-  }
-  if( fSysName.Contains("TTBAR_ShowerUE_1down") ) {
-    retval = -1*(cor_ShUe - 1) + 1;
-  }
 
 #if 0
   // new systematics
@@ -109,16 +87,14 @@ double TopTheorySys::getValue() const {
   if ( fSysName.Contains("TTBar_ISR_1up") || fSysName.Contains("TTBar_ISR_1down")||
        fSysName.Contains("TTBar_FSR_1up") || fSysName.Contains("TTBar_FSR_1down")||
        fSysName.Contains("TTBar_PS") || fSysName.Contains("TTBar_ME") ) {
-    if (mttot > 600 ) mttot = 599;
-    retval = m_hSys->GetBinContent(m_hSys->FindBin(mttot));
+    int binID =  std::min(m_hSys->FindBin(mttot),m_hSys->GetNbinsX());
+    retval = m_hSys->GetBinContent(binID);
     // the last bin of ISR up variation is the same as that of down variation, which is strange. 
     // mirror this bin
     if ( fSysName.Contains("TTBar_ISR_1up") && retval < 1.0) retval = 2.0-retval;
   }
 #endif
 
-  DEBUGclass("returning");
-  //return 0;
   return retval;
 }
 //______________________________________________________________________________________________
@@ -177,7 +153,6 @@ bool TopTheorySys::initializeSelf(){
 
   // new systematics based on truth level analysis
   TFile* tempFile=0;
-  m_histoDir = 0;
 
   tempFile = TFile::Open("Systematics/LepHadCombined_TopSys.root");
   if (!tempFile) {
@@ -186,22 +161,22 @@ bool TopTheorySys::initializeSelf(){
   }
 
   if ( fSysName.Contains("TTBar_ISR_1up") ) {
-    m_hSys = (TH1F*)tempFile->Get("hISR_up"); m_hSys->SetDirectory(m_histoDir);
+    m_hSys = (TH1F*)tempFile->Get("hISR_up"); m_hSys->SetDirectory(0);
   }
   else if ( fSysName.Contains("TTBar_ISR_1down") ) {
-    m_hSys = (TH1F*)tempFile->Get("hISR_down"); m_hSys->SetDirectory(m_histoDir);
+    m_hSys = (TH1F*)tempFile->Get("hISR_down"); m_hSys->SetDirectory(0);
   }
   else if ( fSysName.Contains("TTBar_FSR_1up") ) {
-    m_hSys = (TH1F*)tempFile->Get("hFSR_up"); m_hSys->SetDirectory(m_histoDir);
+    m_hSys = (TH1F*)tempFile->Get("hFSR_up"); m_hSys->SetDirectory(0);
   }
   else if ( fSysName.Contains("TTBar_FSR_1down") ) {
-    m_hSys = (TH1F*)tempFile->Get("hFSR_down"); m_hSys->SetDirectory(m_histoDir);
+    m_hSys = (TH1F*)tempFile->Get("hFSR_down"); m_hSys->SetDirectory(0);
   }
   else if ( fSysName.Contains("TTBar_PS")) {
-    m_hSys = (TH1F*)tempFile->Get("hPowhegHerwig7"); m_hSys->SetDirectory(m_histoDir);
+    m_hSys = (TH1F*)tempFile->Get("hPowhegHerwig7"); m_hSys->SetDirectory(0);
   }
   else if ( fSysName.Contains("TTBar_ME")) {
-    m_hSys = (TH1F*)tempFile->Get("haMcAtNloPythia8"); m_hSys->SetDirectory(m_histoDir);
+    m_hSys = (TH1F*)tempFile->Get("haMcAtNloPythia8"); m_hSys->SetDirectory(0);
   }
   tempFile->Close(); delete tempFile; tempFile=0;
 
@@ -212,7 +187,7 @@ bool TopTheorySys::initializeSelf(){
 
 bool TopTheorySys::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf()) return false;
-  // new systematics
+  
   delete this->pmg_truth_weight_ISRHi;
   delete this->pmg_truth_weight_ISRLo;
   delete this->pmg_truth_weight_FSRHi;

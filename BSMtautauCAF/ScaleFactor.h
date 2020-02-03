@@ -10,7 +10,7 @@
 #include "TH2.h"
 
 
-typedef std::bitset<256> Condition;
+typedef std::bitset<128> Condition;
 
 class ScaleFactor : public LepHadObservable {
 
@@ -29,8 +29,6 @@ class ScaleFactor : public LepHadObservable {
     virtual bool initializeSelf() override;
     virtual bool finalizeSelf() override;
   
-    TString fExpression = "";
-
     std::vector< std::pair<TString, Condition> > variations;
     Condition variation;
 
@@ -50,11 +48,10 @@ class ScaleFactor : public LepHadObservable {
     const Condition nominal =   1<<6;
 
     virtual Condition registerVariation(TString name);
+    // position to register new variations
     unsigned int nextBitPosition =7;
 
-    // This variable contains all flags, which do not change until
-    // initializeSelf is called again. It can therefore be used to determine
-    // which branches need to be registered.
+    // stores bit of all the variations (including nominal)
     Condition staticConditionsMask;
 };
 #endif

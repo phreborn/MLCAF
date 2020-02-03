@@ -35,18 +35,11 @@ TruthTauSelector::~TruthTauSelector(){
 TObjArray* TruthTauSelector::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
-  DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-
-  //bnames->SetOwner(true);
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
+  TObjArray* bnames = LepHadObservable::getBranchNames();
 
   bnames->Add(new TObjString("tau_0_truth_isHadTau"));
   bnames->Add(new TObjString("tau_0_truth_isEle"));
   bnames->Add(new TObjString("tau_0_truth_isMuon"));
-  bnames->Add(new TObjString("tau_0_truth_pdgId"));
   bnames->Add(new TObjString("tau_0_truth_classifierParticleType"));
 
   return bnames;
@@ -56,13 +49,13 @@ TObjArray* TruthTauSelector::getBranchNames() const {
 
 double TruthTauSelector::getValue() const {
 
-  int retval = -666;
-  if (isData()) return retval;
+  if (isData()) return 1.0;
+
+  double retval = -9999;
 
   int temp_tau_0_truth_isHadTau = this->tau_0_truth_isHadTau->EvalInstance();
   int temp_tau_0_truth_isEle    = this->tau_0_truth_isEle->EvalInstance();
   int temp_tau_0_truth_isMuon   = this->tau_0_truth_isMuon->EvalInstance();
-  int temp_tau_0_truth_pdgId    = this->tau_0_truth_pdgId->EvalInstance();
   int temp_tau_0_truth_type     = this->tau_0_truth_classifierParticleType->EvalInstance();
 
   bool isTrueEleFake = temp_tau_0_truth_isEle == 1 && temp_tau_0_truth_type == 2;
@@ -82,8 +75,6 @@ double TruthTauSelector::getValue() const {
     retval = -30; //Jet fake
   }
 
-  DEBUGclass("returning");
-  //return 0;
   return retval;
 }
 //______________________________________________________________________________________________
@@ -124,16 +115,12 @@ void TruthTauSelector::setExpression(const TString& expr){
 //______________________________________________________________________________________________
 
 bool TruthTauSelector::initializeSelf(){
-  if (!this->fSample->getTag("~isData", _isData)) {
-    ERROR("tag isData missing");
-    return false;
-  }
+  if (! LepHadObservable::initializeSelf()) return false;
 
   if ( !isData()) {
     this->tau_0_truth_isHadTau  = new TTreeFormula("tau_0_truth_isHadTau",  "tau_0_truth_isHadTau", this->fTree);
     this->tau_0_truth_isEle     = new TTreeFormula("tau_0_truth_isEle",     "tau_0_truth_isEle",    this->fTree);
     this->tau_0_truth_isMuon    = new TTreeFormula("tau_0_truth_isMuon",    "tau_0_truth_isMuon",   this->fTree);
-    this->tau_0_truth_pdgId     = new TTreeFormula("tau_0_truth_pdgId",     "tau_0_truth_pdgId",    this->fTree);
     this->tau_0_truth_classifierParticleType      = new TTreeFormula("tau_0_truth_classifierParticleType",      "tau_0_truth_classifierParticleType",     this->fTree);
   }
   return true;
@@ -142,11 +129,12 @@ bool TruthTauSelector::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool TruthTauSelector::finalizeSelf(){
+  if (! LepHadObservable::finalizeSelf()) return false;
+
   if ( !isData()) {
     delete this->tau_0_truth_isHadTau;
     delete this->tau_0_truth_isEle;
     delete this->tau_0_truth_isMuon;
-    delete this->tau_0_truth_pdgId;
     delete this->tau_0_truth_classifierParticleType;
   }
 
