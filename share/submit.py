@@ -16,12 +16,12 @@ def main(args):
 
     pathManager = QFramework.TQPathManager.getPathManager()
     outputFileNameTemplate=pathManager.getTargetPath("{output}/unmerged_{globalIdentifier}/unmerged_{{identifier}}.root".format(output=args.output, globalIdentifier=args.identifier))
-    
+
     templateCommand="{executable} {config} --restrict {{restrict}} --jobID {{identifier}} --options outputFile={outFileTemplate} {{options}}".format(executable=args.executable, config=",".join(args.config), outFileTemplate=outputFileNameTemplate)
-    
+
     if args.options:
         templateCommand += " " + " ".join(args.options) #forward options from command line to individual jobs
-    
+
     #convenience method to make a somewhat smart splitting of jobs (the maxSampleCount and maxSampleSize arguments allow to control the splitting into sub-jobs. This can yield a significant improvement in turn-over time!):
     #note: this method is somewhat targeted at the analyze.py step/ written with that one in mind
     if executable_name == "initialize":
@@ -32,7 +32,7 @@ def main(args):
     allDone = ctrl.submitTasks(args,taskList)
     if allDone: common.mergeFilesQuery(args, config)
     print("Done")
-    
+
 
 if __name__ == "__main__":
 
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     parser.add_argument('--maxSampleSize', default=-1, type=float, help='split jobs such that each job processes only so many input files that their cummulative size is below this value (in MB)')
     parser.add_argument('--maxSampleCount', default=-1, type=float, help='split jobs such that each job processes only up to this many input files')
     parser.add_argument("--executable",type=str,metavar="executable.py",help="executable to be submitted (default = analyze.py)", default="analyze.py")
-    parser.add_argument('--mergeConfig', default="auxData/submission/merge.cfg", type=str, help='merge file to be read to build merge command string')
+    parser.add_argument('--mergeConfig', default="common/submission/merge.cfg", type=str, help='merge file to be read to build merge command string')
     parser.add_argument('--merge', action="store_const", default=False, const=True, help='merge files when they have succeeded automatically')
 
     import QFramework
@@ -59,4 +59,3 @@ if __name__ == "__main__":
 
     # call the main function
     main(args)
-
