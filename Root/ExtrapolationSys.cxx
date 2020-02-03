@@ -53,55 +53,59 @@ double ExtrapolationSys::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   double f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
 
-  ////////////////////////////
-  //  Extrapolation SF
-  ////////////////////////////
-  if (f_tau_0_pt >= 300)  f_tau_0_pt = 299;
-
+  ///////////////////////////////////////////////////////////////
   // determine which SF to use
-  // period + channel + category + variable + SF
-  // period (VR1516, VR17, VR18, VRAll)
-  // channel (ehad, muhad, lephad)
-  // category (Bveto, Btag)x(1p,3p)
-  // variable (LeptonPt, LeptonPtDphi?)
-  TString SF = "";   // SF name
-  TH1F * h_nominal = 0;
+  ///////////////////////////////////////////////////////////////
+  // channel: ehad or muhad
+  TString channel = "";
+  if (1==f_lep_0) channel = "muhad";
+  else if (2==f_lep_0) channel = "ehad";
 
-  // peiriod
-  SF = "VRAll";
-
-  // channel
-  if ( 1 == f_lep_0) SF += "muhad";
-  else if (2 == f_lep_0) SF += "ehad";
-  else std::cout << "ERROR: unknown lepton flavor" << std::endl;
-
-  // category (only consider bveto category)
-  if ( 0 == f_n_bjets) SF += "Bveto";
-  else if (1 <= f_n_bjets) SF += "Btag";
+  // region: bveto or btag, 1p or 3p
+  TString region = "";
+  if ( 0 == f_n_bjets) region = "Bveto";
+  else if (1 <= f_n_bjets) region = "Btag";
   else std::cout << "ERROR: strange #bjets" << std::endl;
 
-  if ( 1 == f_tau_0_n_charged_tracks) SF += "1p";
-  else if ( 3 == f_tau_0_n_charged_tracks) SF += "3p";
+  if ( 1 == f_tau_0_n_charged_tracks) region += "1p";
+  else if ( 3 == f_tau_0_n_charged_tracks) region += "3p";
   else return 1.0;
 
+  // peiriod: Combined or Separated
+  TString period = "All";
+  
   // parameterization
   // dphi 1,2,3 in bveto/btag category
+  TString param = "";
   if (0 == f_n_bjets) {
-    if (f_lephad_met_lep1_cos_dphi>=0.0&&f_lephad_met_lep1_cos_dphi<1) SF += "TauPtDphi1SF";
-    else if (f_lephad_met_lep1_cos_dphi>=1&&f_lephad_met_lep1_cos_dphi<2) SF += "TauPtDphi2SF";
-    else if (f_lephad_met_lep1_cos_dphi>=2) SF += "TauPtDphi3SF";
+    if (f_lephad_met_lep1_cos_dphi>=0.0&&f_lephad_met_lep1_cos_dphi<1) param = "TauPtDphi1";
+    else if (f_lephad_met_lep1_cos_dphi>=1&&f_lephad_met_lep1_cos_dphi<2) param = "TauPtDphi2";
+    else if (f_lephad_met_lep1_cos_dphi>=2) param = "TauPtDphi3";
   }
   else {
-    SF += "TauPtSF";
+    param = "TauPt";
   }
 
-  h_nominal = m_SF_hist.at(SF);
+  TString histName = "VR"+ period + channel + region + param + "SF";
   
-  // SF is a function of tau pT
-  float retval = h_nominal->GetBinContent(h_nominal->FindBin(f_tau_0_pt));
-  ////////////////
-  // SYSTEMATICS
-  ////////////////
+  TH1F * h_nominal = 0;
+  
+  auto it = m_SF_hist.find(histName); 
+  if ( it != m_SF_hist.end() ) h_nominal = it->second;
+  else {
+    std::cout << "error! unavailable FF: " << histName << std::endl;
+    for (auto item : m_SF_hist)
+      std::cout << "available FF: " << item.first << std::endl;
+  }
+ 
+  // SF is a function of variable
+  int binID = std::min(h_nominal->FindBin(f_tau_0_pt), h_nominal->GetNbinsX());
+
+  float retval = h_nominal->GetBinContent(binID);
+
+  ///////////////////////////////////////////////////////////////
+  // systematic uncertainty
+  ///////////////////////////////////////////////////////////////
   if    ( 
           (fSysName.Contains("FakeFactor_ExtraSysBtag_1up")    && f_n_bjets>0) ||
           (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
@@ -139,7 +143,6 @@ double ExtrapolationSys::getValue() const {
     retval = 1.0-fabs(retval-1.0);
   }
   else retval = 1.0;
-  DEBUGclass("returning");
 
   return retval;
 }
@@ -156,58 +159,28 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   this->setExpression(expression);
 
   fSysName = expression;
+  
+  TFile* aFile= TFile::Open("ScaleFactors/VR_SF.root");
+  if (!aFile) {
+    std::cout << "ERROR: can not find VR_SF.root " << std::endl;
+  }
 
-  // when files are closed histograms also dissapear, so detatch them and keep in this directory:
-  //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
-  m_histoDir = 0;
-  // temporary pointer to ff files:
-  TFile* tempFile=0;
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// right histgram given the name
+  TList* list = aFile->GetListOfKeys();
+  TIter next(list);
+  TKey* key;
 
-  std::cout << "INFO: ExtrapolationSys.cxx getting histograms from files. " << std::endl;
-
-  ///////////////////////////////
-  // extra sys
-  ///////////////////////////////
-  std::vector<TString> periods = {"VRAll"};
-  std::vector<TString> channels = {"ehad", "muhad"};
-
-  // list of available SFs
-  std::vector<TString> SF_list;
-  SF_list.clear();
-  SF_list.reserve(256);
-  for (auto period : periods) {
-    for (auto channel : channels) {
-      // 2D TauPt Dphi(lep, MET)
-      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi1SF");
-      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi2SF");
-      SF_list.emplace_back(period + channel + "Bveto1pTauPtDphi3SF");
-      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi1SF");
-      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi2SF");
-      SF_list.emplace_back(period + channel + "Bveto3pTauPtDphi3SF");
-      SF_list.emplace_back(period + channel + "Btag1pTauPtSF");
-      SF_list.emplace_back(period + channel + "Btag3pTauPtSF");
+  while ( (key = (TKey*)next()) ) {
+    TString className = key->GetClassName();
+    if (className == "TH1F") {
+      TH1F* hist = (TH1F*)aFile->Get(key->GetName());
+      hist->SetDirectory(0);
+      m_SF_hist[key->GetName()] = hist;
     }
   }
- 
-  TH1F* tempHist = 0;
-  // obtain SF histograms
-  for (auto fn : SF_list) {
-    tempFile = TFile::Open("ScaleFactors/"+fn+".root");
-    if (!tempFile) {
-      std::cout << "WARNING: can not find SF " << fn << std::endl;
-      continue;
-    }
-    else {
-      tempHist = (TH1F*)tempFile->Get(fn); tempHist->SetDirectory(m_histoDir);
-      m_SF_hist[fn] = tempHist;
-      tempHist = (TH1F*)tempFile->Get(fn+"_up"); tempHist->SetDirectory(m_histoDir);
-      m_SF_hist[fn+"_up"] = tempHist;
-      tempHist = (TH1F*)tempFile->Get(fn+"_down"); tempHist->SetDirectory(m_histoDir);
-      m_SF_hist[fn+"_down"] = tempHist;
-      std::cout << "INFO: find SF " << fn << std::endl;
-    }
-    tempFile->Close(); delete tempFile; tempFile = 0;
-  }
+  aFile->Close();
+
 }
 //______________________________________________________________________________________________
 

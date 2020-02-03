@@ -128,7 +128,15 @@ double JetFakesReweight::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsReweight_Bveto1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
           (fSysName.Contains("FakeFactor_WjetsReweight_Bveto3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
           (fSysName.Contains("FakeFactor_WjetsReweight_Btag1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Btag3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
+          (fSysName.Contains("FakeFactor_WjetsReweight_Btag3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
         ) {
     if (f_n_bjets == 0)
       retval = retval+fabs(retval-1.0);
@@ -139,7 +147,15 @@ double JetFakesReweight::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsReweight_Bveto1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
           (fSysName.Contains("FakeFactor_WjetsReweight_Bveto3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
           (fSysName.Contains("FakeFactor_WjetsReweight_Btag1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_WjetsReweight_Btag3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
+          (fSysName.Contains("FakeFactor_WjetsReweight_Btag3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) || 
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBveto3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBveto3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_ElHadBtag3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_JetFakesReweight_MuHadBtag3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
          ) {
     if (f_n_bjets ==0 )
       retval = retval-fabs(retval-1.0);
