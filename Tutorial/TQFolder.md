@@ -249,6 +249,16 @@ charged with the task to add the `Unicorn` to the `Mammals`, `Birds` and
 ```
 to our TQFolder definition file. Use the familiar command to confirm that it works.
 
+It is often helpful to have tag value, which contains (or equals) the name of
+the TQFolder it contains. This can be set via the 'magic' BASEFOLDERNAME
+syntax, e.g. '<whoami="$(BASEFOLDERNAME)>'.
+
+Similarly, you can set a name of a SampleFolder by using a tag name by using
+the '$(~tagname)' syntax, which helps creating multiple similar SampleFolders
+at once. An example can be found on slide 8 of
+https://indico.cern.ch/event/875315/contributions/3689030/attachments/1979936/3296736/talk.pdf
+Here 'tagname' = 'region'.
+
 So far so good, we can now create a TQFolder. In the next section we will learn to interact with it.
 
 # API
