@@ -56,13 +56,13 @@ Building the project
 ---------------------
 
 ```bash
-mkdir build run
+mkdir build
 cd build
 asetup AnalysisBase,21.2.102
 cmake ../BSMtautauCAF
-source setupAnalysis.sh
+asetup source setupAnalysis.sh # this configures asetup to automatically call setupAnalysis.sh next time
+cafbuild # build the code (check details by typing "type cafbuild")
 export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
-make -j4
 cd -
 ```
 
@@ -75,8 +75,7 @@ Navigate to the working directory and
 setupATLAS
 lsetup git
 cd build
-asetup --restore
-source setupAnalysis.sh
+asetup
 export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
 cd -
 ```

@@ -249,6 +249,16 @@ charged with the task to add the `Unicorn` to the `Mammals`, `Birds` and
 ```
 to our TQFolder definition file. Use the familiar command to confirm that it works.
 
+It is often helpful to have tag value, which contains (or equals) the name of
+the TQFolder it contains. This can be set via the 'magic' BASEFOLDERNAME
+syntax, e.g. '<whoami="$(BASEFOLDERNAME)>'.
+
+Similarly, you can set a name of a SampleFolder by using a tag name by using
+the '$(~tagname)' syntax, which helps creating multiple similar SampleFolders
+at once. An example can be found on slide 8 of
+https://indico.cern.ch/event/875315/contributions/3689030/attachments/1979936/3296736/talk.pdf
+Here 'tagname' = 'region'.
+
 So far so good, we can now create a TQFolder. In the next section we will learn to interact with it.
 
 # API
@@ -499,7 +509,7 @@ pass the TQFolder string directly to `importFromText`.
 
 # Advanced
 So far, all the methods were static. The TQFolder syntax defines functions which
-are executed once the folder is loaded. These functions modify the tree structure
+are executed while the folder is loaded. These functions modify the tree structure
 and influence the way the file is parsed. These functions are particularly powerful
 in a patch files where you can change an existing structure. All these
 functions start with a `$` sign followed by their name and
@@ -583,11 +593,41 @@ $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('copy.tqfol
 
 If we want to rename the folder on the fly, we can append `::NewName` to the
 argument. Lets say, by mistake the folder named `Hummingbird` should represent
-the pidgin instead, we could write
+the pigeon instead, we could write
 
 ```
-$copy("Animals/Mammals/Hummingbird >> Animals/Birds::Pidgin");
+$copy("Animals/Mammals/Hummingbird >> Animals/Birds::Pigeon");
 ```
+
+## $move
+The `move` method lets you move parts of the TQFolder tree to a new location.
+The syntax of `move` is identical to `copy`.
+
+> Task: We want to move the hummingbird folder from the mammals to the
+  birds.
+
+<!-- console
+```
+$ cp animals_advanced.tqfolder move.tqfolder
+```
+-->
+
+<!-- append move.tqfolder
+```
+$move("Animals/Mammals/Hummingbird>>Animals/Birds");
+```
+-->
+
+<!-- Let us check that the syntax above is correct. -->
+<!-- console
+```
+$ echo "Move"
+$ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('move.tqfolder').printContents(':dtr2')"
+```
+-->
+
+Be careful never to move a folder into itself or into a subfolder of itself.
+Possible side effects include crashes that are very hard to debug.
 
 ## $create
 The `create` method creates a new `TQFolder` or `TQSampleFolder`. The function
@@ -598,6 +638,9 @@ takes the two named arguments `path` and `type`.  The type can be either "f" or
 ```
 $create(path="path/to/new/folder", type="f or sf");
 ```
+
+For TQFolders the '+' operator can be used as well as 'create'. Main use case
+for the 'create' method is making TQSampleFolders, which cannot be done via '+'.
 
 > Task: Create a new TQFolder for the mammal zebra.
 
@@ -898,33 +941,6 @@ $modify(path="?/?/?",tag="number_of_legs",operator="/",value=2);
 ```
 $ echo "Modify"
 $ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('modify.tqfolder').printContents(':dtr2')"
-```
--->
-
-## $move
-The `move` method lets you move parts of the TQFolder tree to a new location.
-The syntax of `move` is identical to `copy`.
-
-> Task: We want to move the hummingbird folder from the mammals to the
-  birds.
-
-<!-- console
-```
-$ cp animals_advanced.tqfolder move.tqfolder
-```
--->
-
-<!-- append move.tqfolder
-```
-$move("Animals/Mammals/Hummingbird>>Animals/Birds");
-```
--->
-
-<!-- Let us check that the syntax above is correct. -->
-<!-- console
-```
-$ echo "Move"
-$ python -c "import QFramework; QFramework.TQFolder.loadFromTextFile('move.tqfolder').printContents(':dtr2')"
 ```
 -->
 

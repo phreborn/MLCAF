@@ -1,12 +1,10 @@
 # jobs file for xAOD example analysis
-# the time requirements can depend on the batch system
-# 60 minutes is quite generous for the condor system using lxplus
 
-!time=60
+!time=20
 !memory=2000.
+!maxSampleSize=5000
 
 bkg/?/c16a/Zjets_Powheg
-# bkg/?/c16a/Zjets_Sherpa2p2p1
 bkg/?/c16a/diboson/NonWW/ZZ
 bkg/?/c16a/diboson/NonWW/WZgammaStar
 bkg/?/c16a/diboson/WW
@@ -16,7 +14,6 @@ bkg/?/c16a/Vgamma
 data/?/c16a
 
 bkg/?/c16d/Zjets_Powheg
-# bkg/?/c16d/Zjets_Sherpa2p2p1
 bkg/?/c16d/diboson/NonWW/ZZ
 bkg/?/c16d/diboson/NonWW/WZgammaStar
 bkg/?/c16d/diboson/WW
@@ -26,7 +23,6 @@ bkg/?/c16d/Vgamma
 data/?/c16d
 
 bkg/?/c16e/Zjets_Powheg
-# bkg/?/c16e/Zjets_Sherpa2p2p1
 bkg/?/c16e/diboson/NonWW/ZZ
 bkg/?/c16e/diboson/NonWW/WZgammaStar
 bkg/?/c16e/diboson/WW
