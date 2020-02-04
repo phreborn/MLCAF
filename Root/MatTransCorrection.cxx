@@ -131,7 +131,7 @@ MatTransCorrection::MatTransCorrection(const TString& expression) : LepHadObserv
 
   TFile* tempFile=0;
 
-  std::cout << "INFO: MatTransCorrection getting functions " << std::endl;
+  INFOclass("MatTransCorrection getting functions...");
 
   tempFile = TFile::Open("Systematics/material_transport.root");
   TGraphAsymmErrors* tempGraph = 0;

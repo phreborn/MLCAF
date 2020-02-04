@@ -235,7 +235,7 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
   TFile* tempFile=0;
 
   //std::cout << "INFO: LPXKfactor.cxx getting histograms from files. " << std::endl;
-  std::cout << "INFO: LPXKfactor getting functions " << std::endl;
+  INFOclass("LPXKfactor getting functions...");
 
   ///////////////////////////////
   // LPX kfactor
