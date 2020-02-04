@@ -10,11 +10,6 @@ $create(path="/bkg/?/?/Fakes/ID/mc", type="sf");
 
 # copy /data into the /bkg/.../Fakes folder
 # currently, this is repeated for manually for each channel - try to find a way to compact this
-@ /data/lephad {
-    @ ? {
-        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/Fakes/ID/data");
-    }
-}
 @ /data/muhad {
     @ ? {
         $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/Fakes/ID/data");

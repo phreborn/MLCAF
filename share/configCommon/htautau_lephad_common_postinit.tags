@@ -7,10 +7,9 @@ $printline("Applying post-initialize tags...");
 <isData=false> @ /.;
 <isData=true> @ /data;
 
-# channel (lephad is inclusive)
+# channels
 <channel="ehad"> @ ?/ehad;
 <channel="muhad"> @ ?/muhad;
-<channel="lephad"> @ ?/lephad;
 
 # wildcard channels for job submission
 <wildcarded=true> @ /data/?, /bkg/?, /sig/?;
