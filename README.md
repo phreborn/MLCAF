@@ -63,6 +63,7 @@ cmake ../BSMtautauCAF
 asetup source setupAnalysis.sh # this configures asetup to automatically call setupAnalysis.sh next time
 cafbuild # build the code (check details by typing "type cafbuild")
 export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
+export CAFOUTPUTDIR="${CAFANALYSISSHARE}"
 cd -
 ```
 
@@ -77,6 +78,7 @@ lsetup git
 cd build
 asetup
 export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
+export CAFOUTPUTDIR="${CAFANALYSISSHARE}"
 cd -
 ```
 
