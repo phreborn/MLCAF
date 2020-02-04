@@ -15,16 +15,16 @@ $include("configCommon/htautau_lephad_common_cuts.def");
 @*/CutMaterialCorrection{
     +CutTruth{
         <.cutExpression = "{ ($(isData)||$(isSig)||$(isAntiISO)) ? 1 :
-                            ( ($(isInc)&&([TruthSelector]==30 || [TruthSelector]==20 || [TruthSelector]==5)) ) }",
+                            ( ($(isInc)&&([TruthTauSelector]==30 || [TruthTauSelector]==20 || [TruthTauSelector]==5)) ) }",
          .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvar)] }", .title="Truth">
         +CutAll{
             <.cutExpression = " [lep_0_id_medium==1 && lep_0_p4.Pt()>30 && tau_0_p4.Pt()>25 && fabs(tau_0_p4.Eta())<2.3 && lephad_dphi>2.4]", .title="All">
             +CutISO{
                 <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 )) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))",
-                .weightExpression = "$(isAntiISO)?($(UseQCDSF)?[isoreweight_$(isovar)]*[QCDReweight_$(isovar)]:[isoreweight_$(isovar)]):1", .title="ISO">
+                .weightExpression = "$(isAntiISO)?($(UseQCDSF)?[LeptonFakes_$(isovar)]*[LeptonFakesReweight_$(isovar)]:[LeptonFakes_$(isovar)]):1", .title="ISO">
                 +CutID{
                     <.cutExpression = " $(isAntiID) ? (tau_0_jet_bdt_score_trans>$(TauBDTCut) && tau_0_jet_bdt_medium==0) : tau_0_jet_bdt_medium==1",
-                    .weightExpression = "$(isAntiID)?($(UseWjetsSF)?[ptreweight_$(fakevar)]*[WjetsReweight_$(fakevar)]:[ptreweight_$(fakevar)]):1",.title="ID">
+                    .weightExpression = "$(isAntiID)?($(UseWjetsSF)?[JetFakes_$(fakevar)]*[JetFakesReweight_$(fakevar)]:[JetFakes_$(fakevar)]):1",.title="ID">
                 }
             }
         }

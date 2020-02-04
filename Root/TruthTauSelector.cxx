@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/TruthSelector.h"
+#include "BSMtautauCAF/TruthTauSelector.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -10,11 +10,11 @@
 // otherwise, it will show no effect
 #include "QFramework/TQLibrary.h"
 
-ClassImp(TruthSelector)
+ClassImp(TruthTauSelector)
 
 //______________________________________________________________________________________________
 
-TruthSelector::TruthSelector(){
+TruthTauSelector::TruthTauSelector(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -24,7 +24,7 @@ TruthSelector::TruthSelector(){
 
 //______________________________________________________________________________________________
 
-TruthSelector::~TruthSelector(){
+TruthTauSelector::~TruthTauSelector(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -32,21 +32,14 @@ TruthSelector::~TruthSelector(){
 
 //______________________________________________________________________________________________
 
-TObjArray* TruthSelector::getBranchNames() const {
+TObjArray* TruthTauSelector::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
-  DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-
-  //bnames->SetOwner(true);
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
+  TObjArray* bnames = LepHadObservable::getBranchNames();
 
   bnames->Add(new TObjString("tau_0_truth_isHadTau"));
   bnames->Add(new TObjString("tau_0_truth_isEle"));
   bnames->Add(new TObjString("tau_0_truth_isMuon"));
-  bnames->Add(new TObjString("tau_0_truth_pdgId"));
   bnames->Add(new TObjString("tau_0_truth_classifierParticleType"));
 
   return bnames;
@@ -54,31 +47,15 @@ TObjArray* TruthSelector::getBranchNames() const {
 
 //______________________________________________________________________________________________
 
-double TruthSelector::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
+double TruthTauSelector::getValue() const {
 
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-  const double retval = this->fFormula->Eval(0.);
-  */
-  /* exmple block for TTree::SetBranchAddress method:
-  const double retval = this->fBranch1 + this->fBranch2;
-  */
+  if (isData()) return 1.0;
 
-  //std::cout<<" In getValue "<<std::endl;
-
-  int retval = -666;
-  if (isData()) return retval;
+  double retval = -9999;
 
   int temp_tau_0_truth_isHadTau = this->tau_0_truth_isHadTau->EvalInstance();
   int temp_tau_0_truth_isEle    = this->tau_0_truth_isEle->EvalInstance();
   int temp_tau_0_truth_isMuon   = this->tau_0_truth_isMuon->EvalInstance();
-  int temp_tau_0_truth_pdgId    = this->tau_0_truth_pdgId->EvalInstance();
   int temp_tau_0_truth_type     = this->tau_0_truth_classifierParticleType->EvalInstance();
 
   bool isTrueEleFake = temp_tau_0_truth_isEle == 1 && temp_tau_0_truth_type == 2;
@@ -98,13 +75,11 @@ double TruthSelector::getValue() const {
     retval = -30; //Jet fake
   }
 
-  DEBUGclass("returning");
-  //return 0;
   return retval;
 }
 //______________________________________________________________________________________________
 
-TruthSelector::TruthSelector(const TString& expression):
+TruthTauSelector::TruthTauSelector(const TString& expression):
 LepHadObservable(expression)
 {
   // constructor with expression argument
@@ -118,62 +93,34 @@ LepHadObservable(expression)
 
 //______________________________________________________________________________________________
 
-const TString& TruthSelector::getExpression() const {
+const TString& TruthTauSelector::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool TruthSelector::hasExpression() const {
+bool TruthTauSelector::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void TruthSelector::setExpression(const TString& expr){
+void TruthTauSelector::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
-//______________________________________________________________________________________________
-
-bool TruthSelector::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
 
 //______________________________________________________________________________________________
 
-void TruthSelector::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString TruthSelector::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-
-  return this->getExpression();
-}
-
-//______________________________________________________________________________________________
-
-bool TruthSelector::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))) {
-    return false;
-  }
-  if (!this->fSample->getTag("~isData", _isData)) {
-    ERROR("tag isData missing");
-    return false;
-  }
+bool TruthTauSelector::initializeSelf(){
+  if (! LepHadObservable::initializeSelf()) return false;
 
   if ( !isData()) {
     this->tau_0_truth_isHadTau  = new TTreeFormula("tau_0_truth_isHadTau",  "tau_0_truth_isHadTau", this->fTree);
     this->tau_0_truth_isEle     = new TTreeFormula("tau_0_truth_isEle",     "tau_0_truth_isEle",    this->fTree);
     this->tau_0_truth_isMuon    = new TTreeFormula("tau_0_truth_isMuon",    "tau_0_truth_isMuon",   this->fTree);
-    this->tau_0_truth_pdgId     = new TTreeFormula("tau_0_truth_pdgId",     "tau_0_truth_pdgId",    this->fTree);
     this->tau_0_truth_classifierParticleType      = new TTreeFormula("tau_0_truth_classifierParticleType",      "tau_0_truth_classifierParticleType",     this->fTree);
   }
   return true;
@@ -181,15 +128,13 @@ bool TruthSelector::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool TruthSelector::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
+bool TruthTauSelector::finalizeSelf(){
+  if (! LepHadObservable::finalizeSelf()) return false;
 
   if ( !isData()) {
     delete this->tau_0_truth_isHadTau;
     delete this->tau_0_truth_isEle;
     delete this->tau_0_truth_isMuon;
-    delete this->tau_0_truth_pdgId;
     delete this->tau_0_truth_classifierParticleType;
   }
 

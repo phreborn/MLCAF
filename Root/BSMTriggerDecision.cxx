@@ -32,20 +32,9 @@ BSMTriggerDecision::~BSMTriggerDecision(){
 TObjArray* BSMTriggerDecision::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
-  DEBUGclass("retrieving branch names");
-  TObjArray* bnames = new TObjArray();
-  bnames->SetOwner(false);
-
-  // add the branch names needed by your observable here, e.g.
-  // bnames->Add(new TObjString("someBranch"));
-
-  bnames->Add(new TObjString("run_number"));
-
-  if( this->NOMINAL_pileup_random_run_number ) bnames->Add(new TObjString("NOMINAL_pileup_random_run_number"));
-
-  bnames->Add(new TObjString("lep_0_pt"));
-  bnames->Add(new TObjString("lep_0"));
-
+  TObjArray* bnames = LepHadObservable::getBranchNames();
+ 
+  // electron 
   // 2015 trigger
   bnames->Add(new TObjString("HLT_e24_lhmedium_L1EM20VH"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"));
@@ -53,6 +42,9 @@ TObjArray* BSMTriggerDecision::getBranchNames() const {
   bnames->Add(new TObjString("HLT_e60_lhmedium"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e60_lhmedium"));
 
+  bnames->Add(new TObjString("HLT_e120_lhloose"));
+  bnames->Add(new TObjString("eleTrigMatch_0_HLT_e120_lhloose"));
+  
   // 2016 trigger
   bnames->Add(new TObjString("HLT_e26_lhtight_nod0_ivarloose"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose"));
@@ -60,14 +52,10 @@ TObjArray* BSMTriggerDecision::getBranchNames() const {
   bnames->Add(new TObjString("HLT_e60_lhmedium_nod0"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e60_lhmedium_nod0"));
 
-  // 2015 trigger
-  bnames->Add(new TObjString("HLT_e120_lhloose"));
-  bnames->Add(new TObjString("eleTrigMatch_0_HLT_e120_lhloose"));
-
-  // 2016 trigger
   bnames->Add(new TObjString("HLT_e140_lhloose_nod0"));
   bnames->Add(new TObjString("eleTrigMatch_0_HLT_e140_lhloose_nod0"));
 
+  // muon
   // 2015 trigger
   bnames->Add(new TObjString("HLT_mu20_iloose_L1MU15"));
   bnames->Add(new TObjString("muTrigMatch_0_HLT_mu20_iloose_L1MU15"));
@@ -85,38 +73,24 @@ TObjArray* BSMTriggerDecision::getBranchNames() const {
 //______________________________________________________________________________________________
 
 double BSMTriggerDecision::getValue() const {
-  // in the rest of this function, you should retrieve the data and calculate your return value
-  // here is the place where most of your custom code should go
-  // a couple of comments should guide you through the process
-  // when writing your code, please keep in mind that this code can be executed several times on every event
-  // make your code efficient. catch all possible problems. when in doubt, contact experts!
-
-  // here, you should calculate your return value
-  // of course, you can use other data members of your observable at any time
-  /* example block for TTreeFormula method:
-     const double retval = this->fFormula->Eval(0.);
-     */
-  /* exmple block for TTree::SetBranchAddress method:
-     const double retval = this->fBranch1 + this->fBranch2;
-     */
-
-  UInt_t    run_number = this->run_number->EvalInstance();
-
-  if( this->NOMINAL_pileup_random_run_number ) run_number = this->NOMINAL_pileup_random_run_number->EvalInstance();
+  UInt_t    run_number = this->x_run_number->EvalInstance();
 
   bool Is2016 = 0;
   if( run_number>290000 )  Is2016 = 1;
 
   int    value_of_lep_0    = this->lep_0->EvalInstance();
-
   double value_of_lep_0_pt = this->lep_0_pt->EvalInstance();
 
+  /// electron
   // 2015 trigger
   int value_of_HLT_e24_lhmedium_L1EM              = this->HLT_e24_lhmedium_L1EM20VH                ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH = this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH ->EvalInstance();
 
   int value_of_HLT_e60_lhmedium                   = this->HLT_e60_lhmedium                                ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e60_lhmedium    = this->eleTrigMatch_0_HLT_e60_lhmedium                 ->EvalInstance();
+  
+  int value_of_HLT_e120_lhloose                   = this->HLT_e120_lhloose                                ->EvalInstance();
+  int value_of_eleTrigMatch_0_HLT_e120_lhloose    = this->eleTrigMatch_0_HLT_e120_lhloose                 ->EvalInstance();
 
   // 2016 trigger
   int value_of_HLT_e26_lhtight_nod0_ivarloose       = this->HLT_e26_lhtight_nod0_ivarloose                ->EvalInstance();
@@ -124,15 +98,11 @@ double BSMTriggerDecision::getValue() const {
 
   int value_of_HLT_e60_lhmedium_nod0                = this->HLT_e60_lhmedium_nod0                          ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e60_lhmedium_nod0 = this->eleTrigMatch_0_HLT_e60_lhmedium_nod0           ->EvalInstance();
-
-  // 2015 trigger
-  int value_of_HLT_e120_lhloose                   = this->HLT_e120_lhloose                                ->EvalInstance();
-  int value_of_eleTrigMatch_0_HLT_e120_lhloose    = this->eleTrigMatch_0_HLT_e120_lhloose                 ->EvalInstance();
-
-  // 2016 trigger
+  
   int value_of_HLT_e140_lhloose_nod0                  = this->HLT_e140_lhloose_nod0                       ->EvalInstance();
   int value_of_eleTrigMatch_0_HLT_e140_lhloose_nod0   = this->eleTrigMatch_0_HLT_e140_lhloose_nod0        ->EvalInstance();
 
+  /// muon
   // 2015 trigger
   int value_of_HLT_mu20_iloose_L1MU15                 = this->HLT_mu20_iloose_L1MU15               ->EvalInstance();
   int value_of_muTrigMatch_0_HLT_mu20_iloose_L1MU15   = this->muTrigMatch_0_HLT_mu20_iloose_L1MU15 ->EvalInstance();
@@ -144,61 +114,47 @@ double BSMTriggerDecision::getValue() const {
   int value_of_HLT_mu50                   = this->HLT_mu50               ->EvalInstance();
   int value_of_muTrigMatch_0_HLT_mu50     = this->muTrigMatch_0_HLT_mu50 ->EvalInstance();
 
-
-  bool passEleTrig = 0;
-
+  bool passTrigger = 0;
   bool passEleTrigLow    = 0;
   bool passEleTrigHigh   = 0;
   bool passEleTrigHigher = 0;
-
-  if(value_of_lep_0==2) {
-    if(!Is2016) {
-      //2015
-      passEleTrigLow    = value_of_HLT_e24_lhmedium_L1EM==1 && value_of_eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH==1;
-      passEleTrigHigher = value_of_HLT_e120_lhloose==1 && value_of_eleTrigMatch_0_HLT_e120_lhloose==1;
-      passEleTrigHigh  = value_of_HLT_e60_lhmedium==1 && value_of_eleTrigMatch_0_HLT_e60_lhmedium==1;
-    }
-    else{
-      //2016
-      passEleTrigLow    = value_of_HLT_e26_lhtight_nod0_ivarloose==1 && value_of_eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose==1;
-      passEleTrigHigher = value_of_HLT_e140_lhloose_nod0==1 && value_of_eleTrigMatch_0_HLT_e140_lhloose_nod0==1;
-      passEleTrigHigh   = value_of_HLT_e60_lhmedium_nod0==1 && value_of_eleTrigMatch_0_HLT_e60_lhmedium_nod0==1;
-    }
-
-  }
-
-  if( passEleTrigLow || passEleTrigHigh || passEleTrigHigher ) {
-    passEleTrig = 1;
-  }
-
-  bool passMuTrig = 0;
-
-  if(value_of_lep_0==1) {
-    if (value_of_lep_0_pt > 55 ) {
-      passMuTrig = value_of_HLT_mu50==1 && value_of_muTrigMatch_0_HLT_mu50==1;
-    }
-    else {
-      if(!Is2016) {
-        //2015
-        passMuTrig = value_of_HLT_mu20_iloose_L1MU15==1 && value_of_muTrigMatch_0_HLT_mu20_iloose_L1MU15==1;
+  
+  switch(value_of_lep_0) {
+    case 1: // muon
+      if (value_of_lep_0_pt > 55 ) 
+        passTrigger = value_of_HLT_mu50==1 && value_of_muTrigMatch_0_HLT_mu50==1;
+      else {
+        if(!Is2016) 
+          passTrigger = value_of_HLT_mu20_iloose_L1MU15==1 && value_of_muTrigMatch_0_HLT_mu20_iloose_L1MU15==1;
+        else
+          passTrigger = value_of_HLT_mu26_ivarmedium==1 && value_of_muTrigMatch_0_HLT_mu26_ivarmedium==1;
       }
-      else{
-        //2016
-        passMuTrig = value_of_HLT_mu26_ivarmedium==1 && value_of_muTrigMatch_0_HLT_mu26_ivarmedium==1;
+      break;
+    case 2: // electron
+      if (!Is2016) {
+        passEleTrigLow    = value_of_HLT_e24_lhmedium_L1EM==1 && value_of_eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH==1;
+        passEleTrigHigh  = value_of_HLT_e60_lhmedium==1 && value_of_eleTrigMatch_0_HLT_e60_lhmedium==1;
+        passEleTrigHigher = value_of_HLT_e120_lhloose==1 && value_of_eleTrigMatch_0_HLT_e120_lhloose==1;
       }
-    }
+      else {
+        passEleTrigLow    = value_of_HLT_e26_lhtight_nod0_ivarloose==1 && value_of_eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose==1;
+        passEleTrigHigh   = value_of_HLT_e60_lhmedium_nod0==1 && value_of_eleTrigMatch_0_HLT_e60_lhmedium_nod0==1;
+        passEleTrigHigher = value_of_HLT_e140_lhloose_nod0==1 && value_of_eleTrigMatch_0_HLT_e140_lhloose_nod0==1;
+      }
+      passTrigger = passEleTrigLow || passEleTrigHigh || passEleTrigHigher;
+      break;
+    default:
+      break;
   }
+  double retval = 0.0;
+  if (passTrigger) retval = 1.0;
 
-  double retval = -1;
-  if(passEleTrig || passMuTrig) retval = 1;
-
-  DEBUGclass("returning");
   return retval;
 }
 //______________________________________________________________________________________________
 
 BSMTriggerDecision::BSMTriggerDecision(const TString& expression):
-TQTreeObservable(expression)
+LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -233,44 +189,13 @@ void BSMTriggerDecision::setExpression(const TString& expr){
 }
 //______________________________________________________________________________________________
 
-bool BSMTriggerDecision::parseExpression(const TString& expr){
-  // parse the expression
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void BSMTriggerDecision::clearParsedExpression(){
-  // clear the current expression
-}
-
-//______________________________________________________________________________________________
-
-TString BSMTriggerDecision::getActiveExpression() const {
-  // retrieve the expression associated with this incarnation
-  return "" ;/* you have to build the expression here */;
-}
-
-//______________________________________________________________________________________________
-
 bool BSMTriggerDecision::initializeSelf(){
-  // initialize self - compile container name, construct accessor
-  if(!this->parseExpression(TQObservable::compileExpression(this->fExpression,this->fSample))){
-    return false;
-  }
+  if (! LepHadObservable::initializeSelf()) return false;
 
-  this->run_number = new TTreeFormula( "run_number", "run_number", this->fTree);
+  this->HLT_e24_lhmedium_L1EM20VH                 = new TTreeFormula( "HLT_e24_lhmedium_L1EM20VH", "HLT_e24_lhmedium_L1EM20VH", this->fTree);
+  this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH  = new TTreeFormula( "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , this->fTree);
 
-  if( this->fTree->FindLeaf("NOMINAL_pileup_random_run_number") )
-    this->NOMINAL_pileup_random_run_number = new TTreeFormula( "NOMINAL_pileup_random_run_number", "NOMINAL_pileup_random_run_number", this->fTree);
-
-  this->lep_0_pt      = new TTreeFormula("lep_0_pt", "lep_0_p4.Pt()", this->fTree);
-  this->lep_0         = new TTreeFormula("lep_0",    "lep_0",    this->fTree);
-
-    this->HLT_e24_lhmedium_L1EM20VH                 = new TTreeFormula( "HLT_e24_lhmedium_L1EM20VH", "HLT_e24_lhmedium_L1EM20VH", this->fTree);
-    this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH  = new TTreeFormula( "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , "eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH"  , this->fTree);
-
-  this->HLT_e26_lhtight_nod0_ivarloose                 = new TTreeFormula( "HLT_e26_lhtight_nod0_ivarloose", "HLT_e26_lhtight_nod0_ivarloose", this->fTree);
+  this->HLT_e26_lhtight_nod0_ivarloose            = new TTreeFormula( "HLT_e26_lhtight_nod0_ivarloose", "HLT_e26_lhtight_nod0_ivarloose", this->fTree);
   this->eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose  = new TTreeFormula( "eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose"  , "eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose"  , this->fTree);
   this->HLT_e60_lhmedium                               = new TTreeFormula( "HLT_e60_lhmedium"               , "HLT_e60_lhmedium"               , this->fTree);
   this->eleTrigMatch_0_HLT_e60_lhmedium                = new TTreeFormula( "eleTrigMatch_0_HLT_e60_lhmedium", "eleTrigMatch_0_HLT_e60_lhmedium", this->fTree);
@@ -297,19 +222,10 @@ bool BSMTriggerDecision::initializeSelf(){
 //______________________________________________________________________________________________
 
 bool BSMTriggerDecision::finalizeSelf(){
-  // finalize self - delete accessor
-  this->clearParsedExpression();
+  if (! LepHadObservable::finalizeSelf()) return false;
 
-  delete  this->run_number;
-
-  if( this->NOMINAL_pileup_random_run_number ) delete this->NOMINAL_pileup_random_run_number;
-  this->NOMINAL_pileup_random_run_number = NULL;
-
-  delete  this->lep_0_pt;
-  delete  this->lep_0   ;
-
-    delete  this->HLT_e24_lhmedium_L1EM20VH                ;
-    delete  this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH ;
+  delete  this->HLT_e24_lhmedium_L1EM20VH                ;
+  delete  this->eleTrigMatch_0_HLT_e24_lhmedium_L1EM20VH ;
 
   delete  this->HLT_e26_lhtight_nod0_ivarloose                ;
   delete  this->eleTrigMatch_0_HLT_e26_lhtight_nod0_ivarloose ;
