@@ -190,12 +190,17 @@ JetFakes::JetFakes(const TString& expression) : LepHadObservable(expression)
 
   fSysName = expression;
 
-  TFile* aFile= TFile::Open("FakeFactors/WFR_FF.root");
-  if (!aFile) {
-    std::cout << "ERROR: can not find WFR_FF.root " << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsFF", false) ) {
+    INFOclass("Skipping file load...");
+    return;
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  TFile* aFile= TFile::Open("FakeFactors/WFR_FF.root");
+  if (!aFile) {
+    ERRORclass("Can not find WFR_FF.root");
+  }
+
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);

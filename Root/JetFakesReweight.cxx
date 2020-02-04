@@ -183,12 +183,17 @@ JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable
 
   fSysName = expression;
 
-  TFile* aFile= TFile::Open("ScaleFactors/WFR_SF.root");
-  if (!aFile) {
-    std::cout << "ERROR: can not find WFR_SF.root " << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsSF", false) ) {
+    INFOclass("Skipping file load...");
+    return;
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  TFile* aFile= TFile::Open("ScaleFactors/WFR_SF.root");
+  if (!aFile) {
+    ERRORclass("Can not find WFR_SF.root");
+  }
+
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -203,7 +208,6 @@ JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable
     }
   }
   aFile->Close();
-
 }
 //______________________________________________________________________________________________
 

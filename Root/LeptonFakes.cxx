@@ -157,13 +157,18 @@ LeptonFakes::LeptonFakes(const TString& expression) : LepHadObservable(expressio
   this->setExpression(expression);
 
   fSysName = expression;
-  
-  TFile* aFile= TFile::Open("FakeFactors/LFR_FF.root");
-  if (!aFile) {
-    std::cout << "ERROR: can not find LFR_FF.root " << std::endl;
+
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseLeptonFF", false) ) {
+    INFOclass("Skipping file load...");
+    return;
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  TFile* aFile= TFile::Open("FakeFactors/LFR_FF.root");
+  if (!aFile) {
+    ERRORclass("Can not find LFR_FF.root");
+  }
+
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
