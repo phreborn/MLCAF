@@ -183,10 +183,8 @@ JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable
 
   fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsSF", false) ) {
-    INFOclass("Skipping file load...");
-    return;
-  }
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsSF", false) ) return;
+  INFOclass("Loading file...");
 
   TFile* aFile= TFile::Open("ScaleFactors/WFR_SF.root");
   if (!aFile) {

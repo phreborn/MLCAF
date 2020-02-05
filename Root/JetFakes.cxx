@@ -190,10 +190,8 @@ JetFakes::JetFakes(const TString& expression) : LepHadObservable(expression)
 
   fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsFF", false) ) {
-    INFOclass("Skipping file load...");
-    return;
-  }
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsFF", false) ) return;
+  INFOclass("Loading file...");
 
   TFile* aFile= TFile::Open("FakeFactors/WFR_FF.root");
   if (!aFile) {

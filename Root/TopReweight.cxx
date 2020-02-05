@@ -132,10 +132,8 @@ TopReweight::TopReweight(const TString& expression) : LepHadObservable(expressio
 
   fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) {
-    INFOclass("Skipping file load...");
-    return;
-  }
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) return;
+  INFOclass("Loading file...");
 
   TFile* aFile= TFile::Open("ScaleFactors/TCR_SF.root");
   if (!aFile) {

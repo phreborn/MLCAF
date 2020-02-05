@@ -146,10 +146,8 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
 
   fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDSF", false) ) {
-    INFOclass("Skipping file load...");
-    return;
-  }
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDSF", false) ) return;
+  INFOclass("Loading file...");
 
   TFile* aFile= TFile::Open("ScaleFactors/LFR_SF.root");
   if (!aFile) {
