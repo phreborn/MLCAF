@@ -69,6 +69,7 @@ TObjArray* LepHadObservable::getBranchNames() const {
   bnames->Add(new TObjString("met_reco_et"));
   bnames->Add(new TObjString("met_reco_etx"));
   bnames->Add(new TObjString("met_reco_ety"));
+  bnames->Add(new TObjString("met_reco_phi"));
 
   bnames->Add(new TObjString("lephad_met_lep0_cos_dphi"));
   bnames->Add(new TObjString("lephad_met_lep1_cos_dphi"));
@@ -216,6 +217,7 @@ bool LepHadObservable::initializeSelf(){
   this->met_reco_et = new TTreeFormula( "met_reco_et", "met_reco_p4.Pt()", this->fTree);
   this->met_reco_etx = new TTreeFormula( "met_reco_etx", "met_reco_p4.Px()", this->fTree);
   this->met_reco_ety = new TTreeFormula( "met_reco_ety", "met_reco_p4.Py()", this->fTree);
+  this->met_reco_phi = new TTreeFormula( "met_reco_phi", "met_reco_p4.Phi()", this->fTree);
 
   this->lephad_mt_lep0_met = new TTreeFormula( "lephad_mt_lep0_met", "lephad_mt_lep0_met", this->fTree);
   this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
@@ -254,6 +256,7 @@ bool LepHadObservable::finalizeSelf(){
   delete this->met_reco_et;
   delete this->met_reco_etx;
   delete this->met_reco_ety;
+  delete this->met_reco_phi;
   
   delete this->lephad_mt_lep0_met;
   delete this->lephad_mt_lep1_met;
