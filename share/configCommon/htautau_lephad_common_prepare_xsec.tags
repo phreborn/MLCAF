@@ -1,6 +1,7 @@
 # -*- mode: tqfolder -*-
 
 # With MC samples having their Xsec collected from file, override for any individual samples
+$printline("Overriding individual Xsec...");
 
 # normalise signal cross-sections
 <.xsp.xSection=1.0> @ /sig/?/?/?/?/?;

@@ -16,7 +16,6 @@ $printline("Applying post-initialize tags...");
 
 # set cutflow counter and histogram pooling higher in the sample folder
 # this also helps to reduce memory consumption
-
 ##### data #####
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /data/?/?;
 
@@ -37,6 +36,6 @@ $printline("Applying post-initialize tags...");
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/munu;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/taunu;
 
-## sig ##
+##### sig #####
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/ggH/?;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/bbH/?;

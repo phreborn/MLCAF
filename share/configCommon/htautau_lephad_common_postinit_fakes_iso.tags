@@ -32,4 +32,6 @@ $create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
 <isFailData=true> @ /bkg/?/?/Fakes/ISO/data;
 <isData=true> @ /bkg/?/?/Fakes/ISO/data;
 
+# re-set cutflow counter and histogram pooling higher in the data sample folder
+# this also helps to reduce memory consumption
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fakes/ISO/data;

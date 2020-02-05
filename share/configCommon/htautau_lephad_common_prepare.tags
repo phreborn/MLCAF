@@ -4,6 +4,7 @@
 # /(data,bkg,sig)/(channel)/(campaign)/(process)/...
 
 # prepare tags: /data folder has yet to be initialized, MC samples are yet to collect weights
+$printline("Applying post-prepare tags...");
 
 # use MC weights collected from initialize
 <usemcweights=false> @ /.;
