@@ -5,7 +5,7 @@
 
 # prepare tags: /data folder has yet to be initialized, MC samples are yet to collect weights
 
-# collect and use MC weights during initialize
+# use MC weights collected from initialize
 <usemcweights=false> @ /.;
 <usemcweights=true> @ /bkg, /sig;
 

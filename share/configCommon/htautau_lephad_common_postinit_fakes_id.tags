@@ -9,16 +9,8 @@ $create(path="/bkg/?/?/Fakes/ID/data", type="sf");
 $create(path="/bkg/?/?/Fakes/ID/mc", type="sf");
 
 # copy /data into the /bkg/.../Fakes folder
-# currently, this is repeated for manually for each channel - try to find a way to compact this
-@ /data/muhad {
-    @ ? {
-        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/Fakes/ID/data");
-    }
-}
-@ /data/ehad {
-    @ ? {
-        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/Fakes/ID/data");
-    }
+@ /data/?/?/? {
+    $copy("../$(BASEFOLDERNAME) >> /bkg/$(channel)/$(campaign)/Fakes/ID/data");
 }
 # copy each /bkg into the Fakes folder, excluding Wjets MC, including ISO fakes
 @ /bkg/? {
@@ -32,10 +24,7 @@ $create(path="/bkg/?/?/Fakes/ID/mc", type="sf");
 }
 
 # tag the anti-ID region
-# try to decide which of the 2 tag names to use
-<isFailID=false> @ /.;
 <isAntiID=false> @ /.;
-<isFailID=true> @ /bkg/?/?/Fakes/ID;
 <isAntiID=true> @ /bkg/?/?/Fakes/ID;
 
 # re-mark fake data as data
