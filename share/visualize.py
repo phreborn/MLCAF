@@ -5,6 +5,9 @@ from CommonAnalysisHelpers import common,visualize
 def main(config):
     """visualize the results of your analysis according to the given configuration (can be created from a config file)"""
 
+    # BSMtautauCAF: combine custom-created plotlabel splitting
+    config.setTagString("plotlabel",config.getTagStringDefault("plotlabel.analysis","")+" ("+config.getTagStringDefault("plotlabel.region","")+")")
+
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nVisualizing Analysis ROOT File\n"))
 
