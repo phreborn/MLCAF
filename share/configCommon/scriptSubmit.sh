@@ -26,7 +26,7 @@ done
 
 # submission
 echo "Submitting..."
-submit.py "${REGION}/${CONFIG}.cfg" --jobs "${REGION}/${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 "${OPTIONS[@]}"
+submit.py "${REGION}/${CONFIG}.cfg" --jobs "${REGION}/${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --mergeConfig "configCommon/merge.cfg" "${OPTIONS[@]}"
 echo "Finished submitting!"
 
 # cleanup temp jobs file
