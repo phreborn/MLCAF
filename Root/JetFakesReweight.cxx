@@ -77,7 +77,8 @@ double JetFakesReweight::getValue() const {
   TString param = "";
   TString param_tag = "";
   float variable = 0.0;
-  if(!this->fSample->getTag("~WjetsSFParam",param_tag)) std::cout<<"ERROR: Can not find WjetsSFParam tag" << std::endl;
+  //if(!this->fSample->getTag("~WjetsSFParam",param_tag)) std::cout<<"ERROR: Can not find WjetsSFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WjetsSFParam", param_tag) ) ERRORclass("Can not get WjetsSFParam tag");
   if (param_tag == "LeptonPt") {
     param = "LeptonPt";
     variable = f_lep_0_pt;

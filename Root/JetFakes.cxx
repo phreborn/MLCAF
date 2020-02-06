@@ -72,7 +72,8 @@ double JetFakes::getValue() const {
   // peiriod: Combined or Separated
   TString period = "";
   TString period_tag = "";
-  if(!this->fSample->getTag("~WFFPeriod",period_tag)) std::cout<<"ERROR: Can not get WFFPeriod tag" << std::endl;
+  //if(!this->fSample->getTag("~WFFPeriod",period_tag)) std::cout<<"ERROR: Can not get WFFPeriod tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WFFPeriod", period_tag) ) ERRORclass("Can not get WFFPeriod tag");
   if ("Combined" == period_tag)
     period = "All";
   else if ("Separated" == period_tag) {
@@ -86,7 +87,8 @@ double JetFakes::getValue() const {
   // parameterization
   TString param = "";
   TString param_tag = "";
-  if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Can not get WFFParam tag" << std::endl;
+  //if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Can not get WFFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WFFParam", param_tag) ) ERRORclass("Can not get WFFParam tag");
   if ( "TauPt" == param_tag ) {
     param = "TauPt";
   }

@@ -61,7 +61,8 @@ double LeptonFakes::getValue() const {
   // peiriod: Combined or Separated
   TString period = "";
   TString period_tag = "";
-  if(!this->fSample->getTag("~LFFPeriod",period_tag)) std::cout<<"ERROR: Can not get LFFPeriod tag" << std::endl;
+  //if(!this->fSample->getTag("~LFFPeriod",period_tag)) std::cout<<"ERROR: Can not get LFFPeriod tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("LFFPeriod", period_tag) ) ERRORclass("Can not get LFFPeriod tag");
   if ("Combined" == period_tag)
     period = "All";
   else if ("Separated" == period_tag) {
@@ -70,12 +71,13 @@ double LeptonFakes::getValue() const {
     if (is2018()) period = "18";
   }
   else
-    std::cout << "ERROR: Unknown LFFPeriod tag" << std::endl;
+    ERRORclass("Unknown LFFPeriod tag");
 
   // parameterization: 1D LeptonPt or 2D LeptonPt x Dphi
   TString param = "";
   TString param_tag = "";
-  if(!this->fSample->getTag("~LFFParam",param_tag)) std::cout<<"ERROR: Can not get LFFParam tag" << std::endl;
+  //if(!this->fSample->getTag("~LFFParam",param_tag)) std::cout<<"ERROR: Can not get LFFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("LFFParam", param_tag) ) ERRORclass("Can not get LFFParam tag");
 
   if ( "LeptonPt" == param_tag ) {
     param = "LeptonPtFF";
