@@ -103,8 +103,8 @@ Running the analysis
 --------------------
 
 For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
-All these fake-factors and there systematic uncertaintiees are avaiable in the latest master branch. In case 
-you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
+All these fake-factors and their systematic uncertaintiees can be found in `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`. 
+In case you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
 
 ### Prepare the inputs for the nominal analysis
 If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
@@ -120,6 +120,9 @@ source configCommon/scriptPrepareInitialize.sh
 
 ### Running the SR/VR/TCR in the nominal analysis
 ```bash
+# Copy the fake factors and scale factors
+cp -r /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2/* .
+
 # Debug test before sending the jobs to a cluster
 source configSignalControlRegion/scriptDebug.sh
 
@@ -131,6 +134,12 @@ source configSignalControlRegion/scriptMerge.sh
 
 # Visialize plots
 source configSignalControlRegion/scriptVisualize.sh 
+
+# Obtain the extrapolation systematic uncertainty of jet fake factors
+python scripts/calculateScaleFactors.py VR
+
+# Put the systematic uncertainties into one root file
+hadd ScaleFactors/VR_SF.root ScaleFactors/VR*SF.root
 ```
 
 ### Prepare the inputs for the systematic analysis
@@ -178,4 +187,3 @@ hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ad
 
 ### Generate the worksapce
 For Att analysis, workapce are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).
-
