@@ -102,10 +102,6 @@ l_lpxvars=[
 ]
 
 l_topvars=[
-['topvar', 'TTBAR_Radiation_1up'],
-['topvar', 'TTBAR_Radiation_1down'],
-['topvar', 'TTBAR_ShowerUE_1up'],
-['topvar', 'TTBAR_ShowerUE_1down'],
 ['topvar', 'TTBar_ME'],
 ['topvar', 'TTBar_PS'],
 ['topvar', 'TTBar_ISR_1up'],
