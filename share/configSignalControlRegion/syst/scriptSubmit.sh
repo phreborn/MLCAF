@@ -13,10 +13,11 @@ echo "Setting NCORES = ${NCORES}"
 
 echo "Running over $1 set..."
 if [ "$1" == "NOM" ]; then
+    declare -a SYSTYPES=("isovar" "fakevar" "weightvar" "lpxvar" "topvar")
     ## running with NOMINAL branch of standard samples
     #declare -a SYSTYPES=("isovar" "fakevar")
     ## running with NOMINAL branch of sys samples
-    declare -a SYSTYPES=("weightvar" "lpxvar" "topvar")
+    #declare -a SYSTYPES=("weightvar" "lpxvar" "topvar")
 elif [ "$1" == "SYS" ]; then
     # running with specific branch of sys samples
     declare -a SYSTYPES=("treevar")

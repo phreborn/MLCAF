@@ -16,7 +16,7 @@ source configLeptonFakeRegion/scriptDebug.sh
 source configLeptonFakeRegion/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configSignalControlRegion/scriptMerge.sh
+source configLeptonFakeRegion/scriptMerge.sh
 
 # Calculate the lepton fake factor based on the histgrams 
 python scripts/calculateFakeFactor.py LFR
@@ -29,16 +29,16 @@ After obtaining the LFF, we perform a closure test to check the modeling by appl
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configLeptonFakeRegion/appFF/scriptDebug.sh
+source configLeptonFakeRegion/applyFF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configLeptonFakeRegion/appFF/scriptSubmit.sh
+source configLeptonFakeRegion/applyFF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configLeptonFakeRegion/appFF/scriptMerge.sh
+source configLeptonFakeRegion/applyFF/scriptMerge.sh
 
 # Visialize plots
-source configLeptonFakeRegion/appFF/scriptVisualize.sh
+source configLeptonFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 From the above plots, we find the tau pT in muhad channel is not modelled well. Thus, a correction of the fake factor
@@ -55,16 +55,16 @@ After obtaining the scale factor, we need to perfrom the closure test again.
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configLeptonFakeRegion/appFF/appSF/scriptDebug.sh
+source configLeptonFakeRegion/applyFF/applySF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configLeptonFakeRegion/appFF/appSF/scriptSubmit.sh
+source configLeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configLeptonFakeRegion/appFF/appSF/scriptMerge.sh
+source configLeptonFakeRegion/applyFF/applySF/scriptMerge.sh
 
 # Visialize plots
-source configLeptonFakeRegion/appFF/appSF/scriptVisualize.sh
+source configLeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
 ``` 
 
 
@@ -95,16 +95,16 @@ After obtaining the WFF, we perform a closure test to check the modeling by appl
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configWjetsFakeRegion/appFF/scriptDebug.sh
+source configWjetsFakeRegion/applyFF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configWjetsFakeRegion/appFF/scriptSubmit.sh
+source configWjetsFakeRegion/applyFF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configWjetsFakeRegion/appFF/scriptMerge.sh
+source configWjetsFakeRegion/applyFF/scriptMerge.sh
 
 # Visialize plots
-source configWjetsFakeRegion/appFF/scriptVisualize.sh
+source configWjetsFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 From the above plots, we find the lepton pT is not modelled well. Thus, a correction of the fake factor
@@ -129,14 +129,14 @@ After obtaining the scale factors, we need to perfrom the closure test again.
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configWjetsFakeRegion/appFF/appSF/scriptDebug.sh
+source configWjetsFakeRegion/applyFF/applySF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configWjetsFakeRegion/appFF/appSF/scriptSubmit.sh
+source configWjetsFakeRegion/applyFF/applySF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configWjetsFakeRegion/appFF/appSF/scriptMerge.sh
+source configWjetsFakeRegion/applyFF/applySF/scriptMerge.sh
 
 # Visialize plots
-source configWjetsFakeRegion/appFF/appSF/scriptVisualize.sh
+source configWjetsFakeRegion/applyFF/applySF/scriptVisualize.sh
 ``` 
