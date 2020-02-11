@@ -132,12 +132,15 @@ source configCommon/scriptPrepareInitialize.sh
 ```
 
 ### Fake background estimation
-For the LepHad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method.  
-All these fake-factors and their systematic uncertaintiees are avaiable in the repository.  
+For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method.
+All these fake-factors and their systematic uncertaintiees can be found in `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`.
 In case you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
 
 ### Running the SR/VR/TCR in the nominal analysis
 ```bash
+# Copy the fake factors and scale factors
+cp -r /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2/* .
+
 # Debug test before sending the jobs to a cluster
 source configSignalControlRegion/scriptDebug.sh
 
@@ -149,6 +152,12 @@ source configSignalControlRegion/scriptMerge.sh
 
 # Visualize plots
 source configSignalControlRegion/scriptVisualize.sh 
+
+# Obtain the extrapolation systematic uncertainty of jet fake factors
+python scripts/calculateScaleFactors.py VR
+
+# Put the systematic uncertainties into one root file
+hadd ScaleFactors/VR_SF.root ScaleFactors/VR*SF.root
 ```
 
 ### Prepare the inputs for the systematic analysis
