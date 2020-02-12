@@ -102,10 +102,6 @@ l_lpxvars=[
 ]
 
 l_topvars=[
-['topvar', 'TTBAR_Radiation_1up'],
-['topvar', 'TTBAR_Radiation_1down'],
-['topvar', 'TTBAR_ShowerUE_1up'],
-['topvar', 'TTBAR_ShowerUE_1down'],
 ['topvar', 'TTBar_ME'],
 ['topvar', 'TTBar_PS'],
 ['topvar', 'TTBar_ISR_1up'],
@@ -272,7 +268,9 @@ def create_cmd_log(option, sys, stage):
     # different files to be copied
     l_files = []
     jobs_file = ''
-    l_files.append('unmerged_*_data_X_c16?*.root')
+    
+    if sys == 'NOMINAL':
+      l_files.append('unmerged_*_data_X_c16?*.root')
     if option=='fakevar':
       l_files.append('unmerged_*_bkg_X_c16?_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_Top*.root')
@@ -310,7 +308,7 @@ def create_cmd_log(option, sys, stage):
     # copy those files which should not be run over for this particular systematic;
     for files in l_files:
       l_file = []
-      if "Fake" in files:
+      if "Fake" in files or "data" in files:
         l_file = glob.glob('{:s}/{:s}'.format(s_standard_dir,files))
       else:
         l_file = glob.glob('{:s}/{:s}'.format(s_nominal_dir,files))

@@ -34,7 +34,6 @@ git clone --recursive https://:@gitlab.cern.ch:8443/${USER}/BSMtautauCAF.git
 
 # While your 'origin' would be set to your fork, you can also set the 'upstream' to the main repository.
 # This way, you are able to pull in the latest updates from the main upstream repository to your fork
-
 cd BSMtautauCAF
 
 # Kerberos
@@ -44,10 +43,12 @@ git remote add upstream https://:@gitlab.cern.ch:8443/atlas-phys-hdbs-htautau/BS
 # https
 #git remote add upstream https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF.git
 
+# obtain updates from upstream
+git fetch upstream
+
 # You should also avoid working on your master, and instead work from a development branch.
 # This way, you can keep your master synced with the main upstream repository
-
-git checkout myDevBranch
+git checkout -b myDevBranch upstream/master --no-track
 
 cd -
 ```
@@ -114,6 +115,7 @@ cd BSMtautauCAF/share
 ### Preparing and initializing inputs for the nominal analysis
 First you need to collect the list of input sample ROOT files you will be running over in the nominal analysis.  
 Our framework is currently designed to run over flat ntuples produced by the [xTauFramework](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/xTauFramework).  
+It may be preferable to use pre-slimmed/skimmed samples where possible, in order to gain an improvement in performance.  
 Unless you change these samples, this step will only need to be run once.
 ```bash
 # Define the remote locations of your input samples by pinging them on EOS through XRootD
@@ -132,8 +134,8 @@ source configCommon/scriptPrepareInitialize.sh
 ```
 
 ### Fake background estimation
-For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method.
-All these fake-factors and their systematic uncertaintiees can be found in `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`.
+For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
+All these fake-factors and their systematic uncertaintiees can be found in `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`. 
 In case you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
 
 ### Running the SR/VR/TCR in the nominal analysis
@@ -154,7 +156,7 @@ source configSignalControlRegion/scriptMerge.sh
 source configSignalControlRegion/scriptVisualize.sh 
 
 # Obtain the extrapolation systematic uncertainty of jet fake factors
-python scripts/calculateScaleFactors.py VR
+python scripts/calculateScaleFactor.py VR
 
 # Put the systematic uncertainties into one root file
 hadd ScaleFactors/VR_SF.root ScaleFactors/VR*SF.root
@@ -164,7 +166,7 @@ hadd ScaleFactors/VR_SF.root ScaleFactors/VR*SF.root
 If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
 ```bash
 # Initialize the samples with 10 subprocesses to speed up
-source configSignalControlRegion/syst/scriptPrepareInitialize.sh 10
+source configSignalControlRegion/syst/scriptInitialize.sh 10
 ```
 
 ### Running the SR/VR/TCR in the systematic analysis
@@ -175,14 +177,14 @@ The systematic uncertainties are classified into two types:
 ```bash
 # First, run SYS
 # Submit the anslysis into a cluster
-souce configSignalControlRegion/syst/scriptSubmit SYS 10
+source configSignalControlRegion/syst/scriptSubmit.sh SYS 10
 
 # Merge the output after all jobs are finished successfully
 source configSignalControlRegion/syst/scriptMerge.sh SYS 10
 
 # Then, run NOM
 # Submit the anslysis into a cluster
-souce configSignalControlRegion/syst/scriptSubmit NOM 10
+source configSignalControlRegion/syst/scriptSubmit.sh NOM 10
 
 # Merge the output after all jobs are finished successfully
 source configSignalControlRegion/syst/scriptMerge.sh NOM 10
