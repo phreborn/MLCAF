@@ -168,10 +168,14 @@ double JetFakes::getValue() const {
       retval -= retval_error;
   }
   else {
-    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks) 
+    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks){ 
+      retval *= 1.0; 
       retval *= 0.862;
-    else if (f_n_bjets>0 && 3==f_tau_0_n_charged_tracks)
+    }
+    else if (f_n_bjets>0 && 3==f_tau_0_n_charged_tracks){
+      retval *= 1.0; 
       retval *= 0.881;
+    }
   }
 
   return retval;
