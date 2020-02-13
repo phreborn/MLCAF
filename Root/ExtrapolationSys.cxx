@@ -160,7 +160,7 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
 
   fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoFF", false) ) return;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
   INFOclass("Loading file...");
 
   TFile* aFile= TFile::Open("ScaleFactors/VR_SF.root");
