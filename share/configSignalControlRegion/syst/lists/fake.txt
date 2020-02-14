@@ -1,0 +1,16 @@
+FakeFactor_WjetsBtag1p,                _1down, _1up
+#FakeFactor_WjetsBtag3p,                _1down, _1up
+#FakeFactor_WjetsBveto1p,               _1down, _1up
+#FakeFactor_WjetsBveto3p,               _1down, _1up
+#FakeFactor_WjetsReweight_ElHadBveto1p, _1down, _1up
+#FakeFactor_WjetsReweight_ElHadBveto3p, _1down, _1up
+FakeFactor_WjetsReweight_ElHadBtag1p,  _1down, _1up
+#FakeFactor_WjetsReweight_ElHadBtag3p,  _1down, _1up
+#FakeFactor_WjetsReweight_MuHadBveto1p, _1down, _1up
+#FakeFactor_WjetsReweight_MuHadBveto3p, _1down, _1up
+#FakeFactor_WjetsReweight_MuHadBtag1p,  _1down, _1up
+#FakeFactor_WjetsReweight_MuHadBtag3p,  _1down, _1up
+#FakeFactor_ExtraSysBveto1p,            _1down, _1up
+#FakeFactor_ExtraSysBveto3p,            _1down, _1up
+FakeFactor_ExtraSysBtag1p,             _1down, _1up
+#FakeFactor_ExtraSysBtag3p,             _1down, _1up

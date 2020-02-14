@@ -36,35 +36,58 @@ def prepareSystematics(config, samples):
                 # right now, we are treating p4 systematics and sf systematics as uncorrelated
                 # we do only look at the diagonal terms where one systematic is activated
                 # crossover terms are neglected for now, hence we have two separate loops
-                for p4syst in config.getTagVStandardString("p4Systematics"):
-                    # for each p4 systematic, copy the channel folder
-                    if not p4syst or len(p4syst)<1: continue
-                    newname=c+"_"+p4syst
-                    newf = f.copy(newname)
-                    if not newf:
-                        QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),newname))
-                    sf.addFolder(newf)
-                    # set the appropriate tags
-                    newf.setTagString(".mcasv.channel",newname)
-                    newf.setTagString("sysVariation",p4syst)
-                    newf.setTagString("p4Variation",p4syst)
-                    #mcasvchannels.add(newname.Data())
-                    mcasvchannels.add(newname)
+                fileWithP4Variations = ROOT.TString()
+                if config.getTagString("p4SystematicsList", fileWithP4Variations):
+                    with open(QFramework.TQPathManager.findFileFromEnvVar(fileWithP4Variations, "CAFANALYSISSHARE")) as varFile:
+                        p4varList_ = varFile.readlines()
+                        p4varList = ["".join(x.split()) for x in p4varList_]
+                        for p4vars in p4varList:
+                            #remove/skip comment lines:
+                            if p4vars == "" or p4vars[0]=="#": continue
+                            # split syst name, down and up variations
+                            p4systs_ = p4vars.split(",")
+                            p4systs = [p4systs_[0]+p4systs_[1], p4systs_[0]+p4systs_[2]]
+                            for p4syst in p4systs: # splits up and down variation
+                                p4syst = p4syst.strip()
+                                # for each p4 systematic, copy the channel folder
+                                if not p4syst or len(p4syst)<1: continue
+                                newname=c+"_"+p4syst
+                                newf = f.copy(newname)
+                                if not newf:
+                                    QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),newname))
+                                sf.addFolder(newf)
+                                # set the appropriate tags
+                                newf.setTagString(".mcasv.channel",newname)
+                                newf.setTagString("p4Variation",p4syst)
+                                #mcasvchannels.add(newname.Data())
+                                mcasvchannels.add(newname)
+
                 for sftype in config.getTagVString("sfSystematics"):
-                    for sfsyst in config.getTagVString("sfSystematics."+sftype):
-                        # for each sf systematic, copy the channel folder
-                        if not sfsyst or len(sfsyst)<1: continue
-                        newname = c+"_"+sfsyst
-                        newf = f.copy(newname)
-                        if not newf:
-                            QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),newname))
-                        sf.addFolder(newf)
-                        # set the appropriate tags
-                        newf.setTagString(".mcasv.channel",newname)
-                        newf.setTagString("sysVariation",sfsyst)
-                        newf.setTagString("sfVariation."+sftype,sfsyst)
-                        #mcasvchannels.add(newname.Data())
-                        mcasvchannels.add(newname)
+                    fileWithSFVariations = ROOT.TString()
+                    if config.getTagString("sfSystematicsList."+sftype, fileWithSFVariations):
+                        with open(QFramework.TQPathManager.findFileFromEnvVar(fileWithSFVariations, "CAFANALYSISSHARE")) as varFile:
+                            sfvarList_ = varFile.readlines()
+                            sfvarList = ["".join(x.split()) for x in sfvarList_]
+                            for sfvars in sfvarList:
+                                #remove/skip comment lines:
+                                if sfvars == "" or sfvars[0]=="#": continue
+                                # split syst name, down and up variations
+                                sfsysts_ = sfvars.split(",")
+                                sfsysts = [sfsysts_[0]+sfsysts_[1], sfsysts_[0]+sfsysts_[2]]
+                                for sfsyst in sfsysts: # splits up and down sfvar
+                                    sfsyst = sfsyst.strip()
+                                    # for each sf systematic, copy the channel folder
+                                    if not sfsyst or len(sfsyst)<1: continue
+                                    newname = c+"_"+sfsyst
+                                    newf = f.copy(newname)
+                                    if not newf:
+                                        QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),newname))
+                                    sf.addFolder(newf)
+                                    # set the appropriate tags
+                                    newf.setTagString(".mcasv.channel",newname)
+                                    newf.setTagString("sfVariation."+sftype,sfsyst)
+                                    #mcasvchannels.add(newname.Data())
+                                    mcasvchannels.add(newname)
 
                 # if no nominal analysis was requested, we can remove the nominal channels
                 if not doNominal:
@@ -73,7 +96,6 @@ def prepareSystematics(config, samples):
                     f.setTagString(".mcasv.channel",f.GetName())
 
     # Add some nominal top level tags, even if systematics aren't being added
-    samples.setTagString("sysVariation","nominal")
     samples.setTagString("p4Variation","nominal")
     for sftype in config.getTagVString("sfSystematics"):
         samples.setTagString("sfVariation."+sftype,"nominal")
