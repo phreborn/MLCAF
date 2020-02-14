@@ -158,7 +158,7 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
   INFOclass("Loading file...");
@@ -208,6 +208,9 @@ void ExtrapolationSys::setExpression(const TString& expr){
 
 bool ExtrapolationSys::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.fake)","~");
+
   return true;
 }
 

@@ -144,7 +144,7 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDSF", false) ) return;
   INFOclass("Loading file...");
@@ -194,6 +194,9 @@ void LeptonFakesReweight::setExpression(const TString& expr){
 
 bool LeptonFakesReweight::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.iso)","~");
+
   return true;
 }
 

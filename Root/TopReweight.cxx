@@ -130,7 +130,7 @@ TopReweight::TopReweight(const TString& expression) : LepHadObservable(expressio
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) return;
   INFOclass("Loading file...");
@@ -180,6 +180,9 @@ void TopReweight::setExpression(const TString& expr){
 
 bool TopReweight::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.top)","~");
+
   return true;
 }
 

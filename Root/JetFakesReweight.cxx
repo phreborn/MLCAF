@@ -182,7 +182,7 @@ JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsSF", false) ) return;
   INFOclass("Loading file...");
@@ -233,6 +233,9 @@ void JetFakesReweight::setExpression(const TString& expr){
 
 bool JetFakesReweight::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.fake)","~");
+
   return true;
 }
 

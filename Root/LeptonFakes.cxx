@@ -158,7 +158,7 @@ LeptonFakes::LeptonFakes(const TString& expression) : LepHadObservable(expressio
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseLeptonFF", false) ) return;
   INFOclass("Loading file...");
@@ -209,6 +209,9 @@ void LeptonFakes::setExpression(const TString& expr){
 
 bool LeptonFakes::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.iso)","~");
+
   return true;
 }
 

@@ -226,7 +226,7 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   // when files are closed histograms also dissapear, so detatch them and keep in this directory:
   //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
@@ -323,6 +323,9 @@ void LPXKfactor::setExpression(const TString& expr){
 
 bool LPXKfactor::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lpx)","~");
+
   return true;
 }
 
