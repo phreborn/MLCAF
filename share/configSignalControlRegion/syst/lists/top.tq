@@ -1,0 +1,10 @@
+# -*- mode: tqfolder -*-
+
++Systematics {
+    +TTBar_ME  { <Up = "$(BASEFOLDERNAME)"> }
+    +TTBar_PS  { <Up = "$(BASEFOLDERNAME)"> }
+    +TTBar_ISR { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+    +TTBar_FSR { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+}
+
+$include("createVariations.tq");

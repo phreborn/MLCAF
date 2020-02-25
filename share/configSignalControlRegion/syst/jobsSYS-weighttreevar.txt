@@ -1,0 +1,41 @@
+# ------------------------------ options ------------------------------ #
+!time=4320
+!memory=2048
+
+# ------------------------------ samples ------------------------------ #
+# ----------- c16a ----------- #
+##### bkg #####
+/bkg/?/c16a/Ztautau
+/bkg/?/c16a/Zll
+/bkg/?/c16a/Top/ttbar/NOMINAL
+/bkg/?/c16a/Top/single
+/bkg/?/c16a/Diboson
+
+##### signal  #####
+/sig/?/c16a/ggH/?
+/sig/?/c16a/bbH/?
+
+# ----------- c16d ----------- #
+##### bkg #####
+/bkg/?/c16d/Ztautau
+/bkg/?/c16d/Zll
+/bkg/?/c16d/Top/ttbar/NOMINAL
+/bkg/?/c16d/Top/single
+/bkg/?/c16d/Diboson
+
+##### signal  #####
+/sig/?/c16d/ggH/?
+/sig/?/c16d/bbH/?
+
+# ----------- c16e ----------- #
+##### bkg #####
+/bkg/?/c16e/Ztautau
+/bkg/?/c16e/Zll
+/bkg/?/c16e/Top/ttbar/NOMINAL
+/bkg/?/c16e/Top/single
+/bkg/?/c16e/Diboson
+
+##### signal  #####
+/sig/?/c16e/ggH/?
+/sig/?/c16e/bbH/?
+

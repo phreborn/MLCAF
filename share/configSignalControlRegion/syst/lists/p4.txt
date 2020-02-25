@@ -1,0 +1,35 @@
+MUON_ID,                                   _1down, _1up
+MUON_MS,                                   _1down, _1up
+MUON_SAGITTA_RESBIAS,                      _1down, _1up
+MUON_SAGITTA_RHO,                          _1down, _1up
+MUON_SCALE,                                _1down, _1up
+EG_RESOLUTION_ALL,                         _1down, _1up
+EG_SCALE_AF2,                              _1down, _1up
+EG_SCALE_ALL,                              _1down, _1up
+EG_SCALE_ALLCORR,                          _1down, _1up
+EG_SCALE_E4SCINTILLATOR,                   _1down, _1up
+EG_SCALE_LARCALIB_EXTRA2015PRE,            _1down, _1up
+EG_SCALE_LARTEMPERATURE_EXTRA2015PRE,      _1down, _1up
+EG_SCALE_LARTEMPERATURE_EXTRA2016PRE,      _1down, _1up
+TAUS_TRUEHADTAU_SME_TES_DETECTOR,          _1down, _1up
+TAUS_TRUEHADTAU_SME_TES_INSITU,            _1down, _1up
+TAUS_TRUEHADTAU_SME_TES_MODEL,             _1down, _1up
+JET_EtaIntercalibration_NonClosure_highE,  _1down, _1up
+JET_EtaIntercalibration_NonClosure_negEta, _1down, _1up
+JET_EtaIntercalibration_NonClosure_posEta, _1down, _1up
+JET_Flavor_Response,                       _1down, _1up
+JET_GroupedNP_1,                           _1down, _1up
+JET_GroupedNP_2,                           _1down, _1up
+JET_GroupedNP_3,                           _1down, _1up
+JET_JER_DataVsMC_MC16_1up
+JET_JER_EffectiveNP_1_1up
+JET_JER_EffectiveNP_2_1up
+JET_JER_EffectiveNP_3_1up
+JET_JER_EffectiveNP_4_1up
+JET_JER_EffectiveNP_5_1up
+JET_JER_EffectiveNP_6_1up
+JET_JER_EffectiveNP_7restTerm_1up
+JET_TILECORR_Uncertainty,                  _1down, _1up
+MET_SoftTrk_ResoPara
+MET_SoftTrk_ResoPerp
+MET_SoftTrk,                               _ScaleDown, _ScaleUp

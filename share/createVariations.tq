@@ -1,0 +1,12 @@
+# -*- mode: tqfolder -*-
+
+<Down = ""> @ /.;
+
+@ Systematics/? {
+    +/Variations/$(Down) {}
+    +/Variations/$(Up) {}
+}
+
+@ Variations/? {
+    <Variation = "_$(BASEFOLDERNAME)">
+}
