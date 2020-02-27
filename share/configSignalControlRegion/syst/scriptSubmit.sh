@@ -23,18 +23,9 @@ source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLI
 # config
 CONFIG="htautau_lephad_sr_sys_iso"
 IDENT="SRsysiso"
-#JOBSLIST=(
-#    "fakesISO"
-#    "fakesIDISO"
-#)
 JOBSLIST=(
-    "bkgCommon"
-    "bkgZjets"
-    "bkgTTbarNOMINAL"
     "fakesISO"
-    "fakesID"
     "fakesIDISO"
-    "signal"
 )
 
 # execute
@@ -44,10 +35,10 @@ source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLI
 # config
 CONFIG="htautau_lephad_sr_sys_fake"
 IDENT="SRsysfake"
-#JOBSLIST=(
-#    "fakesID"
-#    "fakesIDISO"
-#)
+JOBSLIST=(
+    "fakesID"
+    "fakesIDISO"
+)
 
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
@@ -56,21 +47,21 @@ return
 
 ### material
 # config
-CONFIG="htautau_lephad_sr_sys_material"
-IDENT="SRsysmaterial"
+#CONFIG="htautau_lephad_sr_sys_material"
+#IDENT="SRsysmaterial"
 #JOBSLIST=(
 #)
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+#source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### lpx
 # config
 CONFIG="htautau_lephad_sr_sys_lpx"
 IDENT="SRsyslpx"
-#JOBSLIST=(
-#    "bkgZjets"
-#)
+JOBSLIST=(
+    "bkgZjets"
+)
 
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
@@ -79,9 +70,12 @@ source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLI
 # config
 CONFIG="htautau_lephad_sr_sys_top"
 IDENT="SRsystop"
-#JOBSLIST=(
-#    "bkgTTbarNOMINAL"
-#)
+JOBSLIST=(
+    "bkgTTbarNOMINAL"
+    "bkgTTbarME"
+    "bkgTTbarPS"
+    "bkgTTbarISRup"
+)
 
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
@@ -90,12 +84,12 @@ source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLI
 # config
 CONFIG="htautau_lephad_sr_sys_weight"
 IDENT="SRsysweight"
-#JOBSLIST=(
-#    "bkgCommon"
-#    "bkgZjets"
-#    "bkgTTbarNOMINAL"
-#    "signal"
-#)
+JOBSLIST=(
+    "bkgCommon"
+    "bkgZjets"
+    "bkgTTbarNOMINAL"
+    "signal"
+)
 
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
@@ -104,12 +98,12 @@ source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLI
 # config
 CONFIG="htautau_lephad_sr_sys_p4"
 IDENT="SRsysp4"
-#JOBSLIST=(
-#    "bkgCommon"
-#    "bkgZjets"
-#    "bkgTTbarNOMINAL"
-#    "signal"
-#)
+JOBSLIST=(
+    "bkgCommon"
+    "bkgZjets"
+    "bkgTTbarNOMINAL"
+    "signal"
+)
 
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"

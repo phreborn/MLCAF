@@ -41,6 +41,9 @@ def prepareSystematics(config, samples):
                     if config.getTagString("p4SystematicsList."+p4type, fileWithP4Variations):
                         varFile = QFramework.TQFolder.loadFromTextFile(QFramework.TQPathManager.findFileFromEnvVar(fileWithP4Variations, "CAFANALYSISSHARE"))
                         if varFile:
+                            print("=="+str(c)+"==")
+                            print("==="+str(sf)+"===")
+                            print("===="+str(p4type)+"====")
                             for p4var in varFile.getListOfFolders("Variations/?"):
                                 p4syst = p4var.GetName()
                                 # for each p4 systematic, copy the channel folder
@@ -53,6 +56,17 @@ def prepareSystematics(config, samples):
                                 # set the appropriate tags
                                 newf.setTagString(".mcasv.channel",newname)
                                 newf.setTagString("p4Variation."+p4type,p4syst)
+                                # change tree location
+                                print("====="+p4syst+"=====")
+                                for sam in newf.getListOfSamples():
+                                    if sam.hasTag(".init.treename"):
+                                        sam.setTagString(".init.treename", p4syst)
+                                    # skip super-samples without a file/tree itself
+                                    if sam.hasSubSamples(): continue
+                                    origTreeFilename = sam.getFilename()
+                                    if origTreeFilename:
+                                        sam.setTreeLocation(origTreeFilename+":"+p4syst)
+                                        #print(sam.getTreeLocation())
                                 #mcasvchannels.add(newname.Data())
                                 mcasvchannels.add(newname)
 
@@ -84,7 +98,7 @@ def prepareSystematics(config, samples):
 
     # Add some nominal top level tags, even if systematics aren't being added
     for p4type in config.getTagVString("p4Systematics"):
-        samples.setTagString("p4Variation."+sftype,"nominal")
+        samples.setTagString("p4Variation."+p4type,"nominal")
     for sftype in config.getTagVString("sfSystematics"):
         samples.setTagString("sfVariation."+sftype,"nominal")
 
@@ -92,6 +106,7 @@ def prepareSystematics(config, samples):
     if config.getTagBoolDefault("showChannels",False):
         QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
         samples.printContents("r2dt")
+        samples.writeToFile("myPathedSampleFolder.root",1,2)
 
     # save the whole collection of channels (including now systematics)
     # for access later when creating the MCASV
