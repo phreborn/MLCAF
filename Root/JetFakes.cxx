@@ -246,7 +246,7 @@ void JetFakes::setExpression(const TString& expr){
 bool JetFakes::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.fake)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.wff)","~");
 
   return true;
 }

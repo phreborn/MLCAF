@@ -209,7 +209,7 @@ void ExtrapolationSys::setExpression(const TString& expr){
 bool ExtrapolationSys::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.fake)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.vsf)","~");
 
   return true;
 }

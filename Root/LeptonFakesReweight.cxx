@@ -195,7 +195,7 @@ void LeptonFakesReweight::setExpression(const TString& expr){
 bool LeptonFakesReweight::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.iso)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lsf)","~");
 
   return true;
 }

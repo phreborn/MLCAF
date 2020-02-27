@@ -19,10 +19,10 @@ JOBSLIST=(
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
-### iso
+### lff
 # config
-CONFIG="htautau_lephad_sr_sys_iso"
-IDENT="SRsysiso"
+CONFIG="htautau_lephad_sr_sys_lff"
+IDENT="SRsyslff"
 JOBSLIST=(
     "fakesISO"
     "fakesIDISO"
@@ -31,10 +31,46 @@ JOBSLIST=(
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
-### fake
+### lsf
 # config
-CONFIG="htautau_lephad_sr_sys_fake"
-IDENT="SRsysfake"
+CONFIG="htautau_lephad_sr_sys_lsf"
+IDENT="SRsyslsf"
+JOBSLIST=(
+    "fakesISO"
+    "fakesIDISO"
+)
+
+# execute
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+
+### wff
+# config
+CONFIG="htautau_lephad_sr_sys_wff"
+IDENT="SRsyswff"
+JOBSLIST=(
+    "fakesID"
+    "fakesIDISO"
+)
+
+# execute
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+
+### wsf
+# config
+CONFIG="htautau_lephad_sr_sys_wsf"
+IDENT="SRsyswsf"
+JOBSLIST=(
+    "fakesID"
+    "fakesIDISO"
+)
+
+# execute
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+
+### vsf
+# config
+CONFIG="htautau_lephad_sr_sys_vsf"
+IDENT="SRsysvsf"
 JOBSLIST=(
     "fakesID"
     "fakesIDISO"

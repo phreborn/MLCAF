@@ -210,7 +210,7 @@ void LeptonFakes::setExpression(const TString& expr){
 bool LeptonFakes::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.iso)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
 
   return true;
 }
