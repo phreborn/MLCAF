@@ -1,9 +1,0 @@
-# -*- mode: tqfolder -*-
-
-+Systematics {
-    +sys_a_2s { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
-    +sys_b_2s { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
-    +sys_c_1s { <Up = "$(BASEFOLDERNAME)"> }
-}
-
-$include("createVariations.tq");

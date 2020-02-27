@@ -1,4 +1,0 @@
-TTBar_ME
-TTBar_PS
-TTBar_ISR, _1down, _1up
-TTBar_FSR, _1down, _1up
