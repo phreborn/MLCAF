@@ -25,7 +25,7 @@
 #    +JET_GroupedNP_2                           { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
 #    +JET_GroupedNP_3                           { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
     +JET_JER_DataVsMC_MC16_1up                 { <Up = "$(BASEFOLDERNAME)"> }
-#    +JET_JER_EffectiveNP_1_1up                 { <Up = "$(BASEFOLDERNAME)"> }
+    +JET_JER_EffectiveNP_1_1up                 { <Up = "$(BASEFOLDERNAME)"> }
 #    +JET_JER_EffectiveNP_2_1up                 { <Up = "$(BASEFOLDERNAME)"> }
 #    +JET_JER_EffectiveNP_3_1up                 { <Up = "$(BASEFOLDERNAME)"> }
 #    +JET_JER_EffectiveNP_4_1up                 { <Up = "$(BASEFOLDERNAME)"> }

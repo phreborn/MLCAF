@@ -79,8 +79,6 @@ JOBSLIST=(
 # execute
 source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
-return
-
 ### material
 # config
 #CONFIG="htautau_lephad_sr_sys_material"
