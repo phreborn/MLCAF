@@ -106,9 +106,9 @@ CONFIG="htautau_lephad_sr_sys_top"
 IDENT="SRsystop"
 JOBSLIST=(
     "bkgTTbarNOMINAL"
-    "bkgTTbarME"
-    "bkgTTbarPS"
-    "bkgTTbarISRup"
+#    "bkgTTbarME"
+#    "bkgTTbarPS"
+#    "bkgTTbarISRup"
 )
 
 # execute
