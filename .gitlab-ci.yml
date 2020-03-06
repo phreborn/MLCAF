@@ -15,7 +15,7 @@ variables:
 # job defaults
 
 .asg: &asg
-  image: atlas/analysisbase:21.2.78
+  image: atlas/analysisbase:21.2.102
   tags:
     - cvmfs
 
@@ -27,6 +27,7 @@ variables:
   before_script:
     - sudo apt-get update
     - sudo apt-get -y install libboost-dev
+    - sed -i 's|CAFANALYSISBASE/../output|CAFANALYSISBASE/run|' setup/setupLocal.sh
 
 .asg_setup: &asg_setup
   before_script:
@@ -40,12 +41,18 @@ variables:
     - echo "${SSH_SERVER_HOSTKEYS}" >> ~/.ssh/known_hosts
     - echo -e "Host lxplus.cern.ch\n\tUser ${KRB_USERNAME}\n\tGSSAPIAuthentication yes\n\tGSSAPIDelegateCredentials yes\n\tProtocol 2\n\tForwardX11 no\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
     - cat ~/.ssh/config
+    - sed -i 's|CAFANALYSISBASE/../output|CAFANALYSISBASE/run|' setup/setupLocal.sh
 
 .BSMtautauCAF_script: &BSMtautauCAF_script
   script:
     - source build/setupAnalysis.sh
     - cd share
-    - echo "Insert analysis scripts here..."
+    - echo "Initialization:"
+    - source configCommon/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
+    - source configCommon/scriptPrepareInitialize.sh
+    - echo "Lepton Fake Region:"
+    - source configLeptonFakeRegion/scriptDebug.sh
+    - echo "To be continued..."
 
 ##########################################################################
 # job definitions

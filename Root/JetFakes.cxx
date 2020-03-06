@@ -72,7 +72,8 @@ double JetFakes::getValue() const {
   // peiriod: Combined or Separated
   TString period = "";
   TString period_tag = "";
-  if(!this->fSample->getTag("~WFFPeriod",period_tag)) std::cout<<"ERROR: Can not get WFFPeriod tag" << std::endl;
+  //if(!this->fSample->getTag("~WFFPeriod",period_tag)) std::cout<<"ERROR: Can not get WFFPeriod tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WFFPeriod", period_tag) ) ERRORclass("Can not get WFFPeriod tag");
   if ("Combined" == period_tag)
     period = "All";
   else if ("Separated" == period_tag) {
@@ -86,7 +87,8 @@ double JetFakes::getValue() const {
   // parameterization
   TString param = "";
   TString param_tag = "";
-  if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Can not get WFFParam tag" << std::endl;
+  //if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Can not get WFFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WFFParam", param_tag) ) ERRORclass("Can not get WFFParam tag");
   if ( "TauPt" == param_tag ) {
     param = "TauPt";
   }
@@ -192,14 +194,17 @@ JetFakes::JetFakes(const TString& expression) : LepHadObservable(expression)
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
+
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsFF", false) ) return;
+  INFOclass("Loading file...");
 
   TFile* aFile= TFile::Open("FakeFactors/WFR_FF.root");
   if (!aFile) {
-    std::cout << "ERROR: can not find WFR_FF.root " << std::endl;
+    ERRORclass("Can not find WFR_FF.root");
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -240,6 +245,9 @@ void JetFakes::setExpression(const TString& expr){
 
 bool JetFakes::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.wff)","~");
+
   return true;
 }
 

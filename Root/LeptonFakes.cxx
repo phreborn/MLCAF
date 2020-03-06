@@ -61,7 +61,8 @@ double LeptonFakes::getValue() const {
   // peiriod: Combined or Separated
   TString period = "";
   TString period_tag = "";
-  if(!this->fSample->getTag("~LFFPeriod",period_tag)) std::cout<<"ERROR: Can not get LFFPeriod tag" << std::endl;
+  //if(!this->fSample->getTag("~LFFPeriod",period_tag)) std::cout<<"ERROR: Can not get LFFPeriod tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("LFFPeriod", period_tag) ) ERRORclass("Can not get LFFPeriod tag");
   if ("Combined" == period_tag)
     period = "All";
   else if ("Separated" == period_tag) {
@@ -70,12 +71,13 @@ double LeptonFakes::getValue() const {
     if (is2018()) period = "18";
   }
   else
-    std::cout << "ERROR: Unknown LFFPeriod tag" << std::endl;
+    ERRORclass("Unknown LFFPeriod tag");
 
   // parameterization: 1D LeptonPt or 2D LeptonPt x Dphi
   TString param = "";
   TString param_tag = "";
-  if(!this->fSample->getTag("~LFFParam",param_tag)) std::cout<<"ERROR: Can not get LFFParam tag" << std::endl;
+  //if(!this->fSample->getTag("~LFFParam",param_tag)) std::cout<<"ERROR: Can not get LFFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("LFFParam", param_tag) ) ERRORclass("Can not get LFFParam tag");
 
   if ( "LeptonPt" == param_tag ) {
     param = "LeptonPtFF";
@@ -156,14 +158,17 @@ LeptonFakes::LeptonFakes(const TString& expression) : LepHadObservable(expressio
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
-  
+  //fSysName = expression;
+
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseLeptonFF", false) ) return;
+  INFOclass("Loading file...");
+
   TFile* aFile= TFile::Open("FakeFactors/LFR_FF.root");
   if (!aFile) {
-    std::cout << "ERROR: can not find LFR_FF.root " << std::endl;
+    ERRORclass("Can not find LFR_FF.root");
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -204,6 +209,9 @@ void LeptonFakes::setExpression(const TString& expr){
 
 bool LeptonFakes::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
+
   return true;
 }
 

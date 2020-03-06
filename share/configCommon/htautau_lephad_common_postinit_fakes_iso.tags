@@ -9,21 +9,8 @@ $create(path="/bkg/?/?/Fakes/ISO/data", type="sf");
 $create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
 
 # copy /data into the /bkg/.../Fakes folder
-# currently, this is repeated for manually for each channel - try to find a way to compact this
-@ /data/lephad {
-    @ ? {
-        $copy("? >> /bkg/lephad/$(BASEFOLDERNAME)/Fakes/ISO/data");
-    }
-}
-@ /data/muhad {
-    @ ? {
-        $copy("? >> /bkg/muhad/$(BASEFOLDERNAME)/Fakes/ISO/data");
-    }
-}
-@ /data/ehad {
-    @ ? {
-        $copy("? >> /bkg/ehad/$(BASEFOLDERNAME)/Fakes/ISO/data");
-    }
+@ /data/?/?/? {
+    $copy("../$(BASEFOLDERNAME) >> /bkg/$(channel)/$(campaign)/Fakes/ISO/data");
 }
 # copy each /bkg into the Fakes folder, including Wjets MC
 @ /bkg/? {
@@ -37,10 +24,7 @@ $create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
 }
 
 # tag the anti-iso region
-# try to decide which of the 2 tag names to use
-<isFailISO=false> @ /.;
 <isAntiISO=false> @ /.;
-<isFailISO=true> @ /bkg/?/?/Fakes/ISO;
 <isAntiISO=true> @ /bkg/?/?/Fakes/ISO;
 
 # re-mark fake data as data
@@ -48,4 +32,6 @@ $create(path="/bkg/?/?/Fakes/ISO/mc", type="sf");
 <isFailData=true> @ /bkg/?/?/Fakes/ISO/data;
 <isData=true> @ /bkg/?/?/Fakes/ISO/data;
 
+# re-set cutflow counter and histogram pooling higher in the data sample folder
+# this also helps to reduce memory consumption
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Fakes/ISO/data;

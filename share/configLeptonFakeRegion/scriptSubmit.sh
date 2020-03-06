@@ -1,15 +1,16 @@
 #!/bin/bash
 
-# add "contid" as argument to executing this script to run over contid
-
+# config
 REGION="configLeptonFakeRegion"
-JOBS="jobsLFR.txt"
 CONFIG="htautau_lephad_lfr"
 IDENT="LFR"
+JOBSLIST=(
+    "data"
+    "bkgCommon"
+    "bkgZjets"
+    "bkgTTbarNOMINAL"
+    "bkgWjets"
+)
 
-if [ "$1" == "contid" ]; then
-  CONFIG="${CONFIG}_contid"
-  IDENT="${IDENT}contid"
-fi
-
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${JOBS}" "${IDENT}"
+# execute
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"

@@ -1,0 +1,8 @@
+# -*- mode: tqfolder -*-
+
++Systematics {
+    +FakeFactor_QCDReweight_MuHadBtag  { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+    +FakeFactor_QCDReweight_MuHadBveto { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+}
+
+$include("createVariations.tq");

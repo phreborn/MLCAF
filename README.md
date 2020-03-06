@@ -1,9 +1,12 @@
 BSMtautau CAFCore Analysis
 =========================
 
-This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.
-Further help about the CAF can be found [here](http://atlas-caf.web.cern.ch). If there are any problems, please refer to the [FAQ](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/FAQ.md) first. If the problem is
-not listed there, feel free to contact the author (Email: xiaozhong.huang@cern.ch, t.zorbas@cern.ch).
+This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.  
+Further help about the Common Analysis Framework can be found [here](http://atlas-caf.web.cern.ch).  
+If there are any problems, please refer to the [FAQ](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/FAQ.md) first.  
+If the problem is not listed there, then please feel free to contact the project maintainers:  
+- Xiaozhong Huang (xiaozhong.huang@cern.ch)
+- Theodore Zorbas (t.zorbas@cern.ch)
 
 Cloning the project
 --------------------
@@ -31,7 +34,6 @@ git clone --recursive https://:@gitlab.cern.ch:8443/${USER}/BSMtautauCAF.git
 
 # While your 'origin' would be set to your fork, you can also set the 'upstream' to the main repository.
 # This way, you are able to pull in the latest updates from the main upstream repository to your fork
-
 cd BSMtautauCAF
 
 # Kerberos
@@ -55,13 +57,14 @@ Building the project
 ---------------------
 
 ```bash
-mkdir build run
+mkdir build
 cd build
-asetup AnalysisBase,21.2.78
+asetup AnalysisBase,21.2.102
 cmake ../BSMtautauCAF
-source setupAnalysis.sh
-export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
-make -j4
+asetup source setupAnalysis.sh # this configures asetup to automatically call setupAnalysis.sh next time
+cafbuild # build the code (check details by typing "type cafbuild")
+export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
+export CAFOUTPUTDIR="${CAFANALYSISSHARE}"
 cd -
 ```
 
@@ -74,9 +77,9 @@ Navigate to the working directory and
 setupATLAS
 lsetup git
 cd build
-asetup --restore
-source setupAnalysis.sh
-export PYTHONPATH=${CAFANALYSISBASE}/tools:${PYTHONPATH}
+asetup
+export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
+export CAFOUTPUTDIR="${CAFANALYSISSHARE}"
 cd -
 ```
 
@@ -104,21 +107,33 @@ cd -
 Running the analysis
 --------------------
 
-### Prepare the inputs for the nominal analysis
-If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
+Navigate to the execution directory
 ```bash
 cd BSMtautauCAF/share
+```
 
-# First set the input path to your samples by creating a symbolic link to the directory, please use the skimmed and slimmed samples when possible
-# original samples
-ln -sfiv /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190530 -T ${CAFANALYSISSHARE}/inputs
-# skimmed and slimmed samples
-#ln -sfiv /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/190530_HF2_reduced -T ${CAFANALYSISSHARE}/inputs
+### Preparing and initializing inputs for the nominal analysis
+First you need to collect the list of input sample ROOT files you will be running over in the nominal analysis.  
+Our framework is currently designed to run over flat ntuples produced by the [xTauFramework](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/xTauFramework).  
+It may be preferable to use pre-slimmed/skimmed samples where possible, in order to gain an improvement in performance.  
+Unless you change these samples, this step will only need to be run once.
+```bash
+# Define the remote locations of your input samples by pinging them on EOS through XRootD
+source configCommon/collectSamples.sh eosatlas "/eos/atlas/path/to/my/ntuples/YYMMDD"
+# Alternatively, this can be switched to access the EOS user area instead
+#source configCommon/collectSamples.sh eosuser "/eos/user/path/to/my/ntuples/YYMMDD"
+# Or, you could set the input path to your samples by pointing to any other local directory
+#source configCommon/collectSamples.sh local "/any/other/path/to/my/ntuples/YYMMDD"
+```
 
+Then prepare a `TQSampleFolder` representation of your input samples, with their weights initialized.  
+Unless you change the cross-section values, this step will also only need to be run once.
+```bash
 # Prepare and initialize your samples
 source configCommon/scriptPrepareInitialize.sh
 ```
 
+### Fake background estimation
 For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
 All these fake-factors and their systematic uncertaintiees can be found in `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`. 
 In case you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
@@ -137,7 +152,7 @@ source configSignalControlRegion/scriptSubmit.sh
 # Merge the output after all jobs are finished successfully
 source configSignalControlRegion/scriptMerge.sh
 
-# Visialize plots
+# Visualize plots
 source configSignalControlRegion/scriptVisualize.sh 
 
 # Obtain the extrapolation systematic uncertainty of jet fake factors
@@ -173,7 +188,6 @@ source configSignalControlRegion/syst/scriptSubmit.sh NOM 10
 
 # Merge the output after all jobs are finished successfully
 source configSignalControlRegion/syst/scriptMerge.sh NOM 10
-
 ```
 
 ### Produce the workspace inputs (SR, TCR)
@@ -186,9 +200,8 @@ python configSignalControlRegion/syst/scriptDumpHist.py
 python configSignalControlRegion/syst/scriptMergeHist.py
 
 # Produce the workspace inputs
-hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ade_sr*.root dumpHist/c16ade_tcr*.root 
-
+hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ade_sr*.root dumpHist/c16ade_tcr*.root
 ```
 
 ### Generate the worksapce
-For Att analysis, workapce are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).
+For Att analysis, workspace are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).

@@ -1,4 +1,5 @@
-# Diboson (Sherpa)
+### Background (bkg)
+## Diboson (Sherpa)
 363355 /bkg/$(channel)/$(campaign)/Diboson
 363356 /bkg/$(channel)/$(campaign)/Diboson
 363357 /bkg/$(channel)/$(campaign)/Diboson
@@ -11,12 +12,12 @@
 364254 /bkg/$(channel)/$(campaign)/Diboson
 364255 /bkg/$(channel)/$(campaign)/Diboson
 
-# Z+jets (PowhegPythia)
+## Z+jets (PowhegPythia)
 361106 /bkg/$(channel)/$(campaign)/Zll/ee/Z
 361107 /bkg/$(channel)/$(campaign)/Zll/mumu/Z
 361108 /bkg/$(channel)/$(campaign)/Ztautau/Z
 
-# DYee (PowhegPythia)
+## DYll (PowhegPythia)
 301000 /bkg/$(channel)/$(campaign)/Zll/ee/DY
 301001 /bkg/$(channel)/$(campaign)/Zll/ee/DY
 301002 /bkg/$(channel)/$(campaign)/Zll/ee/DY
@@ -37,7 +38,6 @@
 301017 /bkg/$(channel)/$(campaign)/Zll/ee/DY
 301018 /bkg/$(channel)/$(campaign)/Zll/ee/DY
 
-# DYmumu (PowhegPythia)
 301020 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
 301021 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
 301022 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
@@ -58,7 +58,6 @@
 301037 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
 301038 /bkg/$(channel)/$(campaign)/Zll/mumu/DY
 
-# DYtautau (PowhegPythia)
 301040 /bkg/$(channel)/$(campaign)/Ztautau/DY
 301041 /bkg/$(channel)/$(campaign)/Ztautau/DY
 301042 /bkg/$(channel)/$(campaign)/Ztautau/DY
@@ -79,7 +78,7 @@
 301057 /bkg/$(channel)/$(campaign)/Ztautau/DY
 301058 /bkg/$(channel)/$(campaign)/Ztautau/DY
 
-# W+jets (Sherpa)
+## W+jets (Sherpa)
 364156 /bkg/$(channel)/$(campaign)/Wjets/munu
 364157 /bkg/$(channel)/$(campaign)/Wjets/munu
 364158 /bkg/$(channel)/$(campaign)/Wjets/munu
@@ -125,7 +124,7 @@
 364196 /bkg/$(channel)/$(campaign)/Wjets/taunu
 364197 /bkg/$(channel)/$(campaign)/Wjets/taunu
 
-# Top (PowhegPythia)
+## Top (PowhegPythia)
 410644 /bkg/$(channel)/$(campaign)/Top/single
 410645 /bkg/$(channel)/$(campaign)/Top/single
 410646 /bkg/$(channel)/$(campaign)/Top/single
@@ -139,23 +138,24 @@
 # dilepton (alternatively, use for FF calculation since we are truth-matching anyway)
 #410472 /bkg/$(channel)/$(campaign)/Top/ttbar/NOMINAL
 
-# PMG ttbar systematics
-# ISRup
+## PMG ttbar systematics
+# ISRup (PowhegPythia)
 410480 /bkg/$(channel)/$(campaign)/Top/ttbar/ISRup
 410481 /bkg/$(channel)/$(campaign)/Top/ttbar/ISRup
 410482 /bkg/$(channel)/$(campaign)/Top/ttbar/ISRup
 
-# ME
+# ME (aMcNloPythia)
 410464 /bkg/$(channel)/$(campaign)/Top/ttbar/ME
 410465 /bkg/$(channel)/$(campaign)/Top/ttbar/ME
 410466 /bkg/$(channel)/$(campaign)/Top/ttbar/ME
 
-# PS
+# PS (PowhegHerwig)
 410557 /bkg/$(channel)/$(campaign)/Top/ttbar/PS
 410558 /bkg/$(channel)/$(campaign)/Top/ttbar/PS
 410559 /bkg/$(channel)/$(campaign)/Top/ttbar/PS
 
-# Signal (ggH)
+### Signal (sig)
+## ggH (PowhegPythia)
 342305 /sig/$(channel)/$(campaign)/ggH/200
 342308 /sig/$(channel)/$(campaign)/ggH/250
 342310 /sig/$(channel)/$(campaign)/ggH/300
@@ -171,7 +171,7 @@
 345297 /sig/$(channel)/$(campaign)/ggH/2000
 345301 /sig/$(channel)/$(campaign)/ggH/2500
 
-# Signal (bbH)
+## bbH (aMcNloPythia)
 341856 /sig/$(channel)/$(campaign)/bbH/125
 341857 /sig/$(channel)/$(campaign)/bbH/150
 341858 /sig/$(channel)/$(campaign)/bbH/200

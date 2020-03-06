@@ -339,12 +339,12 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   
   staticConditionsMask |= nominal;
   
-  if (expression == "ScaleFactor_nominal") {
+  if (fSysName == "nominal") {
      variation = nominal;
   }
    
   for (unsigned int i = 0; i < variations.size(); i++) {
-    if (expression.EndsWith(variations[i].first)) {
+    if (fSysName.EndsWith(variations[i].first)) {
         variation = variations[i].second;
     }
   }
@@ -356,6 +356,8 @@ bool ScaleFactor::initializeSelf() {
       ERROR("Initialization of LepHadObservable failed.");
       return false;
   }
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.weight)","~");
 
   for (unsigned int i = 0; i < branches.size(); i++) {
     Condition requirement = std::get<0>(branches[i]);

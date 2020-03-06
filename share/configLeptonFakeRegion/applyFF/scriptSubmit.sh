@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# add "contid" as argument to executing this script to run over contid
-
+# config
 REGION="configLeptonFakeRegion/applyFF"
-JOBS="jobsLFR_applyFF.txt"
 CONFIG="htautau_lephad_lfr_applyff"
 IDENT="LFRapplyFF"
+JOBSLIST=(
+    "fakesISO"
+)
 
-if [ "$1" == "contid" ]; then
-  CONFIG="${CONFIG}_contid"
-  IDENT="${IDENT}contid"
-fi
-
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${JOBS}" "${IDENT}"
+# execute
+source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"

@@ -127,11 +127,11 @@ MatTransCorrection::MatTransCorrection(const TString& expression) : LepHadObserv
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   TFile* tempFile=0;
 
-  std::cout << "INFO: MatTransCorrection getting functions " << std::endl;
+  INFOclass("MatTransCorrection getting functions...");
 
   tempFile = TFile::Open("Systematics/material_transport.root");
   TGraphAsymmErrors* tempGraph = 0;
@@ -196,6 +196,9 @@ void MatTransCorrection::setExpression(const TString& expr){
 
 bool MatTransCorrection::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.material)","~");
+
   return true;
 }
 

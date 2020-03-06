@@ -110,7 +110,7 @@ LepHadObservable(expression)
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 }
 
 //______________________________________________________________________________________________
@@ -137,6 +137,9 @@ void TopTheorySys::setExpression(const TString& expr){
 
 bool TopTheorySys::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.top)","~");
+
   // new systematics
   if( fSysName.Contains("TTBar_ISR_1up") ) {
     this->pmg_truth_weight_ISRHi = new TTreeFormula( "pmg_truth_weight_ISRHi", "pmg_truth_weight_ISRHi", this->fTree);

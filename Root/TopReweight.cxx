@@ -130,14 +130,17 @@ TopReweight::TopReweight(const TString& expression) : LepHadObservable(expressio
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
+
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) return;
+  INFOclass("Loading file...");
 
   TFile* aFile= TFile::Open("ScaleFactors/TCR_SF.root");
   if (!aFile) {
-    std::cout << "ERROR: can not find WFR_SF.root " << std::endl;
+    ERRORclass("Can not find WFR_SF.root");
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -152,7 +155,6 @@ TopReweight::TopReweight(const TString& expression) : LepHadObservable(expressio
     }
   }
   aFile->Close();
-
 }
 //______________________________________________________________________________________________
 
@@ -178,6 +180,9 @@ void TopReweight::setExpression(const TString& expr){
 
 bool TopReweight::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.top)","~");
+
   return true;
 }
 

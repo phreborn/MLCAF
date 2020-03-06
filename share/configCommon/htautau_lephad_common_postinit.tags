@@ -1,22 +1,21 @@
 # -*- mode: tqfolder -*-
 
 # post-initialize tags: /data folder has now been initialized, MC samples have now collected weights
+$printline("Applying post-initialize tags...");
 
 # is data
 <isData=false> @ /.;
 <isData=true> @ /data;
 
-# channel (lephad is inclusive)
+# channels
 <channel="ehad"> @ ?/ehad;
 <channel="muhad"> @ ?/muhad;
-<channel="lephad"> @ ?/lephad;
 
 # wildcard channels for job submission
 <wildcarded=true> @ /data/?, /bkg/?, /sig/?;
 
 # set cutflow counter and histogram pooling higher in the sample folder
 # this also helps to reduce memory consumption
-
 ##### data #####
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /data/?/?;
 
@@ -37,6 +36,6 @@
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/munu;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets/taunu;
 
-## sig ##
+##### sig #####
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/ggH/?;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/bbH/?;
