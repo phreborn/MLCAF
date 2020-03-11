@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PMG_XSEC_FILE="/cvmfs/atlas.cern.ch/repo/sw/database/GroupData/dev/PMGTools/PMGxsecDB_mc16.txt"
-OUTPUT_FILE="${CAFANALYSISSHARE:?}/configCommon/samples/XSec/XS.csv-$(date +"%Y-%m-%d")"
+OUTPUT_FILE="${CAFANALYSISSHARE:?}/config-Common/samples/XSec/XS.csv-$(date +"%Y-%m-%d")"
 
 echo -e "\e[93mUpdating Xsec...\e[39m"
 
