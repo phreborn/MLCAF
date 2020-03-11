@@ -17,20 +17,20 @@ elif [[ "${HOSTNAME}" == *".ihep.ac.cn" ]]; then
 fi
 
 # create temp jobs file
-JOBSFILE="jobs-${IDENT}.tmp"
-rm -f "${REGION}/${JOBSFILE}"
+JOBSFILE="${CAFANALYSISSHARE:?}/bsmtautau_lephad/${REGION}/jobs-${IDENT}.tmp"
+rm -f "${JOBSFILE:?}"
 
 for LIST in "${JOBSLIST[@]}"; do
-    cat "configCommon/jobLists/jobs_${LIST}_c16"*".txt" >> "${REGION}/${JOBSFILE}"
+    cat "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/jobLists/jobs_${LIST}_c16"*".txt" >> "${JOBSFILE}"
 done
 
 # submission
 echo "Submitting..."
-submit.py "${REGION}/${CONFIG}.cfg" --jobs "${REGION}/${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --mergeConfig "configCommon/merge.cfg" "${OPTIONS[@]}"
+submit.py "bsmtautau_lephad/${REGION}/${CONFIG}.cfg" --jobs "${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --mergeConfig "bsmtautau_lephad/submission/merge.cfg" "${OPTIONS[@]}"
 echo "Finished submitting!"
 
 # cleanup temp jobs file
-rm -f "${REGION}/${JOBSFILE}"
+rm -f "${JOBSFILE:?}"
 
 # use either --merge option (the script will wait for all jobs to finish)
 # or merge yourself with

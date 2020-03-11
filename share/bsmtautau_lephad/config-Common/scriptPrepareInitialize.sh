@@ -9,9 +9,9 @@ if [ "${IS_GITLAB_CI}" == "true" ]; then
 fi
 
 echo "Preparing..."
-prepare.py configCommon/htautau_lephad_common.cfg "${CI_OPTS[@]}"
+prepare.py "bsmtautau_lephad/config-Common/master/master.cfg" "${CI_OPTS[@]}"
 echo "Finished preparing!"
 
 echo "Initializing..."
-initialize.py configCommon/htautau_lephad_common.cfg "${CI_OPTS[@]}"
+initialize.py "bsmtautau_lephad/config-Common/master/master.cfg" "${CI_OPTS[@]}"
 echo "Finished initializing!"
