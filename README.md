@@ -119,18 +119,18 @@ It may be preferable to use pre-slimmed/skimmed samples where possible, in order
 Unless you change these samples, this step will only need to be run once.
 ```bash
 # Define the remote locations of your input samples by pinging them on EOS through XRootD
-source configCommon/collectSamples.sh eosatlas "/eos/atlas/path/to/my/ntuples/YYMMDD"
+source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/path/to/my/ntuples/YYMMDD"
 # Alternatively, this can be switched to access the EOS user area instead
-#source configCommon/collectSamples.sh eosuser "/eos/user/path/to/my/ntuples/YYMMDD"
+#source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh eosuser "/eos/user/path/to/my/ntuples/YYMMDD"
 # Or, you could set the input path to your samples by pointing to any other local directory
-#source configCommon/collectSamples.sh local "/any/other/path/to/my/ntuples/YYMMDD"
+#source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh local "/any/other/path/to/my/ntuples/YYMMDD"
 ```
 
 Then prepare a `TQSampleFolder` representation of your input samples, with their weights initialized.  
 Unless you change the cross-section values, this step will also only need to be run once.
 ```bash
 # Prepare and initialize your samples
-source configCommon/scriptPrepareInitialize.sh
+source bsmtautau_lephad/config-Common/scriptPrepareInitialize.sh
 ```
 
 ### Fake background estimation
