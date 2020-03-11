@@ -6,7 +6,7 @@ OUTPUT_FILE="${CAFANALYSISSHARE:?}/config-Common/samples/XSec/XS.csv-$(date +"%Y
 echo -e "\e[93mUpdating Xsec...\e[39m"
 
 # collect DSIDs from the map file, including commented samples
-DSIDS=$(grep -F '/$(channel)/' "${CAFANALYSISSHARE:?}/configCommon/htautau_lephad_common.map" | cut -d ' ' -f 1 | tr -d '#[:blank:]')
+DSIDS=$(grep -F '/$(channel)/' "${CAFANALYSISSHARE:?}/config-Common/samples/maps/map.map" | cut -d ' ' -f 1 | tr -d '#[:blank:]')
 
 # match DSIDs against the PMG file, sort, and apply a header line
 OUTPUT=$(grep -wF "${DSIDS:?}" "${PMG_XSEC_FILE:?}" | sort | sed '1i SampleID process xsectioninpb filtereff kfactor uncertup uncertdown generator etag')
