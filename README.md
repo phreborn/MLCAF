@@ -50,7 +50,7 @@ git fetch upstream
 # This way, you can keep your master synced with the main upstream repository
 git checkout -b myDevBranch upstream/master --no-track
 
-cd -
+cd ..
 ```
 
 Building the project
@@ -65,7 +65,7 @@ asetup source setupAnalysis.sh # this configures asetup to automatically call se
 cafbuild # build the code (check details by typing "type cafbuild")
 export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
 export CAFOUTPUTDIR="${CAFANALYSISSHARE}"
-cd -
+cd ..
 ```
 
 On Every Login
@@ -80,7 +80,7 @@ cd build
 asetup
 export PYTHONPATH="${CAFANALYSISBASE:?}/tools:${PYTHONPATH}"
 export CAFOUTPUTDIR="${CAFANALYSISSHARE}"
-cd -
+cd ..
 ```
 
 Recompiling the project
@@ -101,7 +101,7 @@ Further help can be found at the [ATLAS Git Workflow tutorial](https://atlassoft
 cd BSMtautauCAF
 git fetch upstream
 git pull upstream master
-cd -
+cd ..
 ```
 
 Running the analysis
