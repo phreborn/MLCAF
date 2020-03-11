@@ -27,7 +27,7 @@ else
 fi
 
 # declare global variables and functions
-STORAGE_DIR="${CAFANALYSISSHARE:?}/config-Common/samples/inputFileLists"
+STORAGE_DIR="${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/samples/inputFileLists"
 OUTPUT_BASE="${STORAGE_DIR:?}/FileList"
 
 collect_samples_local() {
