@@ -10,13 +10,13 @@ a function of lepton pT and dphi. To obtain the LFF,
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configLeptonFakeRegion/scriptDebug.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configLeptonFakeRegion/scriptSubmit.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configLeptonFakeRegion/scriptMerge.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/scriptMerge.sh
 
 # Calculate the lepton fake factor based on the histgrams 
 python scripts/calculateFakeFactor.py LFR
@@ -29,16 +29,16 @@ After obtaining the LFF, we perform a closure test to check the modeling by appl
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configLeptonFakeRegion/applyFF/scriptDebug.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configLeptonFakeRegion/applyFF/scriptSubmit.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configLeptonFakeRegion/applyFF/scriptMerge.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptMerge.sh
 
 # Visialize plots
-source configLeptonFakeRegion/applyFF/scriptVisualize.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 From the above plots, we find the tau pT in muhad channel is not modelled well. Thus, a correction of the fake factor
@@ -55,16 +55,16 @@ After obtaining the scale factor, we need to perfrom the closure test again.
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configLeptonFakeRegion/applyFF/applySF/scriptDebug.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configLeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configLeptonFakeRegion/applyFF/applySF/scriptMerge.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptMerge.sh
 
 # Visialize plots
-source configLeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
+source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
 ``` 
 
 
