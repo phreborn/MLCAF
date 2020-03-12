@@ -3,7 +3,9 @@ Fake background estimation
 
 Part of the background estimation for this analysis strongly involves contributions from misidentified candidates (fakes).  
 The fakes are estimated using a data-driven Fake Factor (FF) method, by comparing the ratio of data passing/failing certain requirements:  
-- formula here
+
+$`FF = \frac{ (N_{\textrm{data}} - N_{\textrm{bkg}})^{\textrm{pass}} }{ (N_{\textrm{data}} - N_{\textrm{bkg}})^{\textrm{fail}} }`$
+
 Fake Regions (FR) are defined to enrich the contributions from these fakes so that they can be accurately measured, although real background corrections are applied using MC.  
 
 The analysis categorises these fakes into two estimated components:  

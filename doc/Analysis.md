@@ -38,7 +38,7 @@ Fake Factors (FF) are derived as ROOT files which serve as input for the later a
 They can be calculated by following these [instructions](doc/Fakes.md).  
 
 To help shortcut with this procedure, we can also provide a pre-calculated set of FF ROOT files.  
-Please feel free to copy a set from within: `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`
+Please feel free to copy a set from within: `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`  
 However, it is highly recommended to process these FFs for yourself, especially in the case of a new ntuple or analysis developments.  
 
 Running the SR/VR/TCR in the nominal analysis
