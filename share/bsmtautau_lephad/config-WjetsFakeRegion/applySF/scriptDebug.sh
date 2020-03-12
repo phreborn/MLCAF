@@ -1,3 +1,3 @@
 #!/bin/bash
 
-analyze.py configWjetsFakeRegion/applySF/htautau_lephad_wfr_applysf.cfg --debug --restrict /bkg/?/c16a/Top/single
+analyze.py bsmtautau_lephad/config-WjetsFakeRegion/applySF/master/master.cfg --debug --restrict /bkg/?/c16a/Top/single
