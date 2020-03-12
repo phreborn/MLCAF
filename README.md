@@ -116,4 +116,4 @@ cafcompile
 Running the analysis
 --------------------
 
-To begin processing the analysis, please refer to the [documentation](docs/Analysis.md).
+To begin processing the analysis, please refer to the [documentation](doc/Analysis.md).
