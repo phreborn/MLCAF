@@ -1,4 +1,4 @@
-Running the $`\tau_{\textrm{lep}}\tau_{\textrm{had}}`$ analysis
+Running the $`\tau_{\textrm{Lep}}\tau_{\textrm{Had}}`$ analysis
 ===============================================================
 
 Navigate to the execution directory to begin
