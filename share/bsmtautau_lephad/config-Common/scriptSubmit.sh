@@ -26,12 +26,8 @@ done
 
 # submission
 echo "Submitting..."
-submit.py "bsmtautau_lephad/${REGION}/${CONFIG}.cfg" --jobs "${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --mergeConfig "bsmtautau_lephad/submission/merge.cfg" "${OPTIONS[@]}"
+submit.py "bsmtautau_lephad/${REGION}/master/${CONFIG}.cfg" --jobs "${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --mergeConfig "bsmtautau_lephad/submission/merge.cfg" "${OPTIONS[@]}"
 echo "Finished submitting!"
 
 # cleanup temp jobs file
 rm -f "${JOBSFILE:?}"
-
-# use either --merge option (the script will wait for all jobs to finish)
-# or merge yourself with
-# echo "tqmerge -o sampleFolders/analyzed/samples-analyzed-${CONFIG}.root -t analyze batchOutput/unmerged_${IDENT}/*.root"

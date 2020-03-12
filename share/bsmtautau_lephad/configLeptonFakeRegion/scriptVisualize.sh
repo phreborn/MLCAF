@@ -1,4 +1,4 @@
 #!/bin/bash
 
-visualize.py configLeptonFakeRegion/htautau_lephad_lfr.cfg
-source scripts/tqpdflatex.sh results/htautau_lephad_lfr/summary.tex
+visualize.py bsmtautau_lephad/config-LeptonFakeRegion/master/master.cfg
+source "${CAFANALYSISSHARE:?}/scripts/tqpdflatex.sh" results/bsmtautau_lephad_lfr/summary.tex

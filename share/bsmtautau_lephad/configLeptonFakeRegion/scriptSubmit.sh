@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # config
-REGION="configLeptonFakeRegion"
-CONFIG="htautau_lephad_lfr"
+REGION="config-LeptonFakeRegion"
+CONFIG="master"
 IDENT="LFR"
 JOBSLIST=(
     "data"
@@ -13,4 +13,4 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
