@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # config
-REGION="configLeptonFakeRegion/applyFF"
-CONFIG="htautau_lephad_lfr_applyff"
+REGION="config-LeptonFakeRegion/applyFF"
+CONFIG="master"
 IDENT="LFRapplyFF"
 JOBSLIST=(
     "fakesISO"
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
