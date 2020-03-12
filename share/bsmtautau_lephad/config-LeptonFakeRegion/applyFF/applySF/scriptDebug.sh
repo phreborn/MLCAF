@@ -1,3 +1,3 @@
 #!/bin/bash
 
-analyze.py configLeptonFakeRegion/applyFF/applySF/htautau_lephad_lfr_applyffsf.cfg --debug --restrict /bkg/?/c16a/Fakes/ISO/mc/Top/single
+analyze.py bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/master/master.cfg --debug --restrict /bkg/?/c16a/Fakes/ISO/mc/Top/single
