@@ -22,7 +22,7 @@ source bsmtautau_lephad/config-LeptonFakeRegion/scriptMerge.sh
 python scripts/calculateFakeFactor.py LFR
 
 # Put all the LFFs into one root file
-hadd FakeFactors/LFR_FF.root FakeFactors/LFR*FF.root
+hadd bsmtautau_lephad/auxData/FakeFactors/LFR_FF.root bsmtautau_lephad/auxData/FakeFactors/LFR*FF.root
 ```
 
 After obtaining the LFF, we perform a closure test to check the modeling by applying the LFF back to the LFR.
@@ -48,7 +48,7 @@ is applied to the LFF in muhad channel. To obatin the correction factor
 python scripts/calculateScaleFactor.py LFR
 
 # Put all the LSFs into one root file
-hadd ScaleFactors/LFR_SF.root ScaleFactors/LFR*SF.root
+hadd bsmtautau_lephad/auxData/ScaleFactors/LFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/LFR*SF.root
 ```
 
 After obtaining the scale factor, we need to perfrom the closure test again.
@@ -99,7 +99,7 @@ source configWjetsFakeRegion/scriptMerge.sh
 python scripts/calculateFakeFactor.py WFR
 
 # Put all the jet fake factos into one root file
-hadd FakeFactors/WFR_FF.root FakeFactors/WFR*FF.root
+hadd bsmtautau_lephad/auxData/FakeFactors/WFR_FF.root bsmtautau_lephad/auxData/FakeFactors/WFR*FF.root
 ```
 
 After obtaining the WFF, we perform a closure test to check the modeling by applying the WFF back to the WFR.
@@ -127,13 +127,13 @@ factor of top backgrounds are derived from TCR. To obtain these correction facto
 python scripts/calculateScaleFactor.py WFR
 
 # Put all the scale factors into one root file
-hadd ScaleFactors/WFR_SF.root ScaleFactors/WFR*SF.root
+hadd bsmtautau_lephad/auxData/ScaleFactors/WFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/WFR*SF.root
 
 # Obtain the correction factor for top samples
 python scripts/calculateScaleFactor.py TCR
 
 # Put all the scale factors into one root file
-hadd ScaleFactors/TCR_SF.root ScaleFactors/TCR*SF.root
+hadd bsmtautau_lephad/auxData/ScaleFactors/TCR_SF.root bsmtautau_lephad/auxData/ScaleFactors/TCR*SF.root
 ```
 
 After obtaining the scale factors, we need to perfrom the closure test again.
