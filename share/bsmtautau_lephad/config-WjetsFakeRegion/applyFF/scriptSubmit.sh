@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # config
-REGION="configWjetsFakeRegion/applyFF"
-CONFIG="htautau_lephad_wfr_applyff"
+REGION="config-WjetsFakeRegion/applyFF"
+CONFIG="master"
 IDENT="WFRapplyFF"
 JOBSLIST=(
     "fakesID"
@@ -10,4 +10,4 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"

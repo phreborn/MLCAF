@@ -87,13 +87,13 @@ factor between b-tag and b-veto cateogy. The detailed procedures are listed belo
 cafcomple
 
 # Debug test before sending the jobs to a cluster
-source configWjetsFakeRegion/scriptDebug.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configWjetsFakeRegion/scriptSubmit.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configWjetsFakeRegion/scriptMerge.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/scriptMerge.sh
 
 # Calculate the jet fake factor based on the histgrams 
 python scripts/calculateFakeFactor.py WFR
@@ -106,16 +106,16 @@ After obtaining the WFF, we perform a closure test to check the modeling by appl
 
 ```bash
 # Debug test before sending the jobs to a cluster
-source configWjetsFakeRegion/applyFF/scriptDebug.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configWjetsFakeRegion/applyFF/scriptSubmit.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configWjetsFakeRegion/applyFF/scriptMerge.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptMerge.sh
 
 # Visialize plots
-source configWjetsFakeRegion/applyFF/scriptVisualize.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 From the above plots, we find the lepton pT is not modelled well. Thus, a correction of the fake factor
@@ -147,14 +147,14 @@ After obtaining the scale factors, we need to perfrom the closure test again.
 cafcomple
 
 # Debug test before sending the jobs to a cluster
-source configWjetsFakeRegion/applyFF/applySF/scriptDebug.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptDebug.sh
 
 # Submit the analysis to a cluster
-source configWjetsFakeRegion/applyFF/applySF/scriptSubmit.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptSubmit.sh
 
 # Merge the output after all jobs are finished successfully
-source configWjetsFakeRegion/applyFF/applySF/scriptMerge.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptMerge.sh
 
 # Visialize plots
-source configWjetsFakeRegion/applyFF/applySF/scriptVisualize.sh
+source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptVisualize.sh
 ``` 
