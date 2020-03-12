@@ -163,7 +163,7 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("ScaleFactors/VR_SF.root");
+  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/VR_SF.root");
   if (!aFile) {
     ERRORclass("Can not find VR_SF.root");
   }
