@@ -133,10 +133,11 @@ MatTransCorrection::MatTransCorrection(const TString& expression) : LepHadObserv
 
   INFOclass("MatTransCorrection getting functions...");
 
-  tempFile = TFile::Open("Systematics/material_transport.root");
+  INFOclass("Loading file...");
+  tempFile = TFile::Open("bsmtautau_lephad/auxData/Systematics/material_transport.root");
   TGraphAsymmErrors* tempGraph = 0;
   if (!tempFile) {
-    std::cout << "WARNING: can not find material_transport.root " << std::endl;
+    WARNclass("Can not find material_transport.root");
     return;
   }
 
