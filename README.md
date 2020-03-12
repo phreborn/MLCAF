@@ -3,7 +3,7 @@ BSMtautau CAFCore Analysis
 
 This repository is meant to construct an analysis for the BSMtautau LepHad channel using the [CAFCore](https://gitlab.cern.ch/atlas-caf/CAFCore) framework.  
 Further help about the Common Analysis Framework can be found [here](http://atlas-caf.web.cern.ch).  
-If there are any problems, please refer to the [FAQ](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/FAQ.md) first.  
+If there are any problems, please refer to the [FAQ](doc/FAQ.md) first.  
 If the problem is not listed there, then please feel free to contact the project maintainers:  
 - Xiaozhong Huang (xiaozhong.huang@cern.ch)
 - Theodore Zorbas (t.zorbas@cern.ch)
@@ -136,7 +136,7 @@ source bsmtautau_lephad/config-Common/scriptPrepareInitialize.sh
 ### Fake background estimation
 For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
 All these fake-factors and their systematic uncertaintiees can be found in `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`. 
-In case you want to produce them yourself, please refer to the instructions [here](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/BSMtautauCAF/blob/master/doc/Fakes.md).
+In case you want to produce them yourself, please refer to the instructions [here](doc/Fakes.md).
 
 ### Running the SR/VR/TCR in the nominal analysis
 ```bash
