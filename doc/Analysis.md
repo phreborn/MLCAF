@@ -1,18 +1,19 @@
-Running the analysis
-====================
+Running the $`\tau_{\textrm{lep}}\tau_{\textrm{had}}`$ analysis
+===============================================================
 
 Navigate to the execution directory to begin
 ```bash
 cd BSMtautauCAF/share
 ```
 
-Preparing and initializing inputs for the nominal analysis
-----------------------------------------------------------
+Preparing and initializing inputs
+---------------------------------
 
-First you need to collect the list of input sample ROOT files you will be running over in the nominal analysis.  
+First you need to collect the list of input sample ROOT files you will be running over in the analysis.  
+These will include both data recorded by the ATLAS detector and simulated Monte Carlo (MC), for each year and campaign of operation.  
 Our framework is currently designed to run over flat ntuples produced by the [xTauFramework](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/xTauFramework).  
 It may be preferable to use pre-slimmed/skimmed samples where possible, in order to gain an improvement in performance.  
-Unless you change these samples, this step will only need to be run once.
+Unless you change these samples, this step will only need to be run once.  
 ```bash
 # Define the remote locations of your input samples by pinging them on EOS through XRootD
 source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/path/to/my/ntuples/YYMMDD"
@@ -22,8 +23,8 @@ source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh e
 #source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh local "/any/other/path/to/my/ntuples/YYMMDD"
 ```
 
-Then prepare a `TQSampleFolder` representation of your input samples, with their weights initialized.  
-Unless you change the cross-section values, this step will also only need to be run once.
+Then prepare a `TQSampleFolder` representation of your input samples, with their metadata weights initialized.  
+Unless you change the cross-section values, this step will also only need to be run once.  
 ```bash
 # Prepare and initialize your samples
 source bsmtautau_lephad/config-Common/scriptPrepareInitialize.sh
@@ -32,9 +33,13 @@ source bsmtautau_lephad/config-Common/scriptPrepareInitialize.sh
 Fake background estimation
 --------------------------
 
-For the lephad channel, the fakes (lepton/jet fake tau) are estimated using a data-driven fake-factor method. 
-All these fake-factors and their systematic uncertaintiees can be found in `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`. 
-In case you want to produce them yourself, please refer to the instructions [here](doc/Fakes.md).
+This step of the analysis calculates the background contribution from misidentified candidates (fakes).  
+Fake Factors (FF) are derived as ROOT files which serve as input for the later analysis.  
+They can be calculated by following these [instructions](doc/Fakes.md).  
+
+To help shortcut with this procedure, we can also provide a pre-calculated set of FF ROOT files.  
+Please feel free to copy a set from within: `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`
+However, it is highly recommended to process these FFs for yourself, especially in the case of a new ntuple or analysis developments.  
 
 Running the SR/VR/TCR in the nominal analysis
 ---------------------------------------------
