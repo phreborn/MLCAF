@@ -41,78 +41,33 @@ To help shortcut with this procedure, we can also provide a pre-calculated set o
 Please feel free to copy a set from within: `/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2`  
 However, it is highly recommended to process these FFs for yourself, especially in the case of a new ntuple or analysis developments.  
 
-Running the SR/VR/TCR in the nominal analysis
----------------------------------------------
+Real background estimation
+--------------------------
 
 ```bash
-# Copy the fake factors and scale factors
-cp -r /eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/CAFInput/Run2/* .
-
-# Debug test before sending the jobs to a cluster
+# Debug test the analysis before submitting the jobs to a cluster
 source configSignalControlRegion/scriptDebug.sh
 
-# Submit the analysis to a cluster
+# Submit the full analysis to a cluster
 source configSignalControlRegion/scriptSubmit.sh
 
-# Merge the output after all jobs are finished successfully
+# After all jobs are finished successfully, merge the output
 source configSignalControlRegion/scriptMerge.sh
 
-# Visualize plots
+# Visualize the plots
 source configSignalControlRegion/scriptVisualize.sh 
 
-# Obtain the extrapolation systematic uncertainty of jet fake factors
+# Calculate the scale factors based on the histograms
+# Merge into a single ROOT file
 python scripts/calculateScaleFactor.py VR
-
-# Put the systematic uncertainties into one root file
 hadd ScaleFactors/VR_SF.root ScaleFactors/VR*SF.root
 ```
 
-Prepare the inputs for the systematic analysis
-----------------------------------------------
+Signal estimation
+-----------------
 
-If there is no change to the input files or the cross-section files, this step is only needed to be run one time.
-```bash
-# Initialize the samples with 10 subprocesses to speed up
-source configSignalControlRegion/syst/scriptInitialize.sh 10
-```
+Signal Region
 
-Running the SR/VR/TCR in the systematic analysis
-------------------------------------------------
-
-The systematic uncertainties are classified into two types:
-- SYS: need to run over different trees in the systematic samples
-- NOM: need to run over NOMINAL tree in the systematic/nominal samples, need the output from SYS.
-
-```bash
-# First, run SYS
-# Submit the anslysis into a cluster
-source configSignalControlRegion/syst/scriptSubmit.sh SYS 10
-
-# Merge the output after all jobs are finished successfully
-source configSignalControlRegion/syst/scriptMerge.sh SYS 10
-
-# Then, run NOM
-# Submit the anslysis into a cluster
-source configSignalControlRegion/syst/scriptSubmit.sh NOM 10
-
-# Merge the output after all jobs are finished successfully
-source configSignalControlRegion/syst/scriptMerge.sh NOM 10
-```
-
-Produce the workspace inputs (SR, TCR)
---------------------------------------
-
-```bash
-# Dump systematic outputs to standard ROOT files
-python configSignalControlRegion/syst/scriptDumpHist.py
-
-# Merge the systematic outputs for each region
-python configSignalControlRegion/syst/scriptMergeHist.py
-
-# Produce the workspace inputs
-hadd -f -j 10 LimitHistograms.13teV.Attlh.mc16ade.YYMMDDD.v1.root dumpHist/c16ade_sr*.root dumpHist/c16ade_tcr*.root
-```
-
-Generate the workspace
-----------------------
-For Att analysis, workspace are generated using [WSMaker](https://gitlab.cern.ch/atlas-phys-hdbs-htautau/WSMaker_Htautau).
+Systematic uncertainty estimation
+---------------------------------
+Refer to [instructions](doc/Systematics.md).
