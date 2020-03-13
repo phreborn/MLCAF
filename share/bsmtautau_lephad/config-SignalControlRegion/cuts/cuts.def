@@ -10,7 +10,7 @@
 ##
 #################################################################
 
-$include("configCommon/htautau_lephad_common_cuts.def");
+$include("bsmtautau_lephad/config-Common/cuts/cuts.def");
 
 @*/CutMaterialCorrection{
     +CutTruth{
