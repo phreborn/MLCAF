@@ -37,7 +37,7 @@ This SF multiplicatively corrects the FF, while attributing its systematic uncer
 Lepton/QCD Fake Region (LFR)
 ----------------------------
 
-The Lepton/QCD Fake Factor (LFF) is parameterized as a function of lepton $`p_{\textrm{T}}`$ and $`d\phi`$.
+The Lepton/QCD Fake Factor (LFF) is parameterized as a function of lepton $`p_{\textrm{T}}`$ and $`d\phi`$.  
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
@@ -96,91 +96,76 @@ source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptVisualize.
 W+jets/Top Fake Region (WFR/TFR)
 --------------------------------
 
-The jet fake factor are derived from the W/Top fake region. The Multijet backgrounds in WFR are estimated 
-using the lepton fake factor. For the jet fake factor, it is parameterized as a function of tau pT.  
-The b-tag category suffers from huge backgrounds from Top samples which overshots data in TCR. 
-In order to obtain a accurate fake factor in b-tag category, we derive a top scale factor from TCR. 
-The jet fakes are one of the backgrounds in TCR. As a start point, we need to assume the jet fake factor are 
-the same as those in b-veto category when calculating the top scale factor. Then, we can derive the
-jet factor in WFR. It is found that the dependence on tauPt are similar in
-b-tag and b-veto category. So, we decide to apply the jet fake factors in b-veto category to b-tag cateogy
-with a normalization factor. The normalization factor is defined as the ratio of the overall (1 bin) jet fake 
-factor between b-tag and b-veto cateogy. The detailed procedures are listed below:
+The W+jets/Top Fake Factors (WFF/TFF) are parameterized as a function of tau $`p_{\textrm{T}}`$.  
+The WFF is calculated in the b-veto category, while the TFF is calculated in the b-tag category.  
+
+The LFF is applied into this region, forming part of the background subtraction, so it must be calculated first.  
+Likewise, while it may be inversely true that the WFF would form a contribution in the LFR, the W+jets fake component in the LFR is instead estimated by MC.  
+It would be found that an interative re-calculation of these pairs of fake factors leads to negligible differences in the results.  
 
 ```bash
-# As a starting point, assume the jet fake factor are the same between b-veto and b-tag category.
-# Edit ../Root/JetFakes.cxx, comment Line 173 and Line 176, and recompile
-cafcomple
-
-# Debug test before sending the jobs to a cluster
+# Debug test the analysis before submitting the jobs to a cluster
 source bsmtautau_lephad/config-WjetsFakeRegion/scriptDebug.sh
 
-# Submit the analysis to a cluster
+# Submit the full analysis to a cluster
 source bsmtautau_lephad/config-WjetsFakeRegion/scriptSubmit.sh
 
-# Merge the output after all jobs are finished successfully
+# After all jobs are finished successfully, merge the output
 source bsmtautau_lephad/config-WjetsFakeRegion/scriptMerge.sh
 
-# Calculate the jet fake factor based on the histgrams 
+# Calculate the fake factors based on the histograms
+# Merge into a single ROOT file
 python scripts/calculateFakeFactor.py WFR
-
-# Put all the jet fake factos into one root file
 hadd bsmtautau_lephad/auxData/FakeFactors/WFR_FF.root bsmtautau_lephad/auxData/FakeFactors/WFR*FF.root
 ```
 
-After obtaining the WFF, we perform a closure test to check the modeling by applying the WFF back to the WFR.
+After obtaining the WFF/TFF, perform a closure test to check the modelling by applying the WFF/TFF back into the WFR/TFR.  
 
 ```bash
-# Debug test before sending the jobs to a cluster
+# Debug test the analysis before submitting the jobs to a cluster
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptDebug.sh
 
-# Submit the analysis to a cluster
+# Submit the full analysis to a cluster
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptSubmit.sh
 
-# Merge the output after all jobs are finished successfully
+# After all jobs are finished successfully, merge the output
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptMerge.sh
 
-# Visialize plots
+# Visualize the plots
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptVisualize.sh
 ```
 
-From the above plots, we find the lepton pT is not modelled well. Thus, a correction of the fake factor
-is applied to the WFF. In addition, the top backgrounds in b-tag category is overestimated. A correction 
-factor of top backgrounds are derived from TCR. To obtain these correction factors,
+It is found that lepton $`p_{\textrm{T}}`$ in the WFR is not well modelled.  
+Thus, a W+jets Scale Factor (WSF) is calculated and the closure test re-performed.  
+
+Additionally, it is observed that the b-tag category would suffer from strong mismodelling in tau $`p_{\textrm{T}}`$ due to the real top-quark contribution.  
+As such, the Top Scale Factor (TSF) derived from the real Top Control Region (TCR) is required to obtain an accurate TFF.  
+However, since the TFF would form a contribution in the TCR, the TFF is instead assumed to be the same as the WFF from the b-veto category.  
+Once the TSF has been calculated, the TFF (now the same as the WFF) can then be reweighted to give more accurate modelling in the b-tag category.  
+But since the TFF itself is no longer being directly used, it still turns out that the dependence on tau $`p_{\textrm{T}}`$ between the b-veto and b-tag categories are not too dissimilar.  
+As such, the WFF is applied in the b-tag category with an additional normalisation factor, defined as the ratio of the overall (single bin) FF between the original TFF and the WFF.  
+These normalisation factors are evaluated separately for 1-prong and 3-prong taus.  
 
 ```bash
-# Obtain the correction factor for fake factor
+# Calculate the scale factors based on the histograms
+# Merge into a single ROOT file
 python scripts/calculateScaleFactor.py WFR
-
-# Put all the scale factors into one root file
 hadd bsmtautau_lephad/auxData/ScaleFactors/WFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/WFR*SF.root
 
-# Obtain the correction factor for top samples
+# Calculate the scale factors based on the histograms
+# Merge into a single ROOT file
 python scripts/calculateScaleFactor.py TCR
-
-# Put all the scale factors into one root file
 hadd bsmtautau_lephad/auxData/ScaleFactors/TCR_SF.root bsmtautau_lephad/auxData/ScaleFactors/TCR*SF.root
-```
 
-After obtaining the scale factors, we need to perfrom the closure test again.
-
-```bash
-# The dependence on tauPt are similar between b-veto and b-tag categoy. Thus, we apply the jet fake factor
-# in b-veto category to b-tag cateogy with a normalization factor. The normalization factor is defined as
-# the ratio of the overall jet fake factor between b-tag and b-veto category. The values are 0.862 and 0.881
-# for 1p and 3p, respectively. 
-# Edit ../Root/JetFakes.cxx, uncomment Line 173 and Line 176, and recompile
-cafcomple
-
-# Debug test before sending the jobs to a cluster
+# Debug test the analysis before submitting the jobs to a cluster
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptDebug.sh
 
-# Submit the analysis to a cluster
+# Submit the full analysis to a cluster
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptSubmit.sh
 
-# Merge the output after all jobs are finished successfully
+# After all jobs are finished successfully, merge the output
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptMerge.sh
 
-# Visialize plots
+# Visualize the plots
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptVisualize.sh
-``` 
+```

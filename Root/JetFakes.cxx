@@ -147,14 +147,21 @@ double JetFakes::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
+  float ratio_scale_1p = 1.0;
+  float ratio_scale_3p = 1.0;
+  if ( TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) {
+    ratio_scale_1p = 0.862;
+    ratio_scale_3p = 0.881;
+  }
+
   if    ( (fSysName.Contains("FakeFactor_WjetsBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
     if (f_n_bjets>0 && f_tau_0_n_charged_tracks==1)
-      retval *= (0.862+0.262);
+      retval *= (ratio_scale_1p+0.262);
     else if (f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
-      retval *= (0.881+0.262);
+      retval *= (ratio_scale_3p+0.262);
     else
       retval += retval_error;
   }
@@ -163,20 +170,18 @@ double JetFakes::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
     if (f_n_bjets>0 && f_tau_0_n_charged_tracks==1)
-      retval *= (0.862-0.262);
+      retval *= (ratio_scale_1p-0.262);
     else if (f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
-      retval *= (0.881-0.262);
+      retval *= (ratio_scale_3p-0.262);
     else
       retval -= retval_error;
   }
   else {
-    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks){ 
-      retval *= 1.0; 
-      retval *= 0.862;
+    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks){
+      retval *= ratio_scale_1p;
     }
     else if (f_n_bjets>0 && 3==f_tau_0_n_charged_tracks){
-      retval *= 1.0; 
-      retval *= 0.881;
+      retval *= ratio_scale_3p;
     }
   }
 
