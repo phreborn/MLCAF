@@ -14,5 +14,5 @@ source "${CAFANALYSISSHARE:?}/scripts/tqpdflatex.sh" results/bsmtautau_lephad_wf
 #source "${CAFANALYSISSHARE:?}/scripts/tqpdflatex.sh" results/bsmtautau_lephad_wfr_applyffsf_wjetsqcd/summary.tex
 
 ### TCR
-visualize.py bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/master_tcr.cfg
+visualize.py bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/master/master_tcr.cfg
 source "${CAFANALYSISSHARE:?}/scripts/tqpdflatex.sh" results/bsmtautau_lephad_tcr_applyffsf/summary.tex

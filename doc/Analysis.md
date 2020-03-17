@@ -46,21 +46,21 @@ Real background estimation
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
-source configSignalControlRegion/scriptDebug.sh
+source bsmtautau_lephad/config-SignalControlRegion/scriptDebug.sh
 
 # Submit the full analysis to a cluster
-source configSignalControlRegion/scriptSubmit.sh
+source bsmtautau_lephad/config-SignalControlRegion/scriptSubmit.sh
 
 # After all jobs are finished successfully, merge the output
-source configSignalControlRegion/scriptMerge.sh
+source bsmtautau_lephad/config-SignalControlRegion/scriptMerge.sh
 
 # Visualize the plots
-source configSignalControlRegion/scriptVisualize.sh 
+source bsmtautau_lephad/config-SignalControlRegion/scriptVisualize.sh
 
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
 python scripts/calculateScaleFactor.py VR
-hadd ScaleFactors/VR_SF.root ScaleFactors/VR*SF.root
+hadd bsmtautau_lephad/auxData/ScaleFactors/VR_SF.root bsmtautau_lephad/auxData/ScaleFactors/VR*SF.root
 ```
 
 Signal estimation
