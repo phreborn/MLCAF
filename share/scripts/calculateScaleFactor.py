@@ -190,7 +190,7 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
   SF_nom_down.SetName(SF_nom.GetName()+'_down')
   checkNegative(SF_nom_down)
 
-  outfile = TFile('ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile('bsmtautau_lephad/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   SF_nom.Write()
   SF_nom_up.Write()
@@ -228,13 +228,13 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
   elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr_applyff.root'
   elif region == 'TCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
   elif region == 'VR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')

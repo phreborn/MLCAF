@@ -1,0 +1,102 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+##
+##  FAKE FACTOR WFR
+##
+##  Cuts for Wjet FR FF.
+##  MC subtraction is made only with truth matched events, so
+##      use inclusive samples and truth match them.
+##  Use separate truth matching for studies and plotting.
+##  Both SS and OS regions are included in this file:
+##      SS for btag, OS for bveto.
+#################################################################
+
+$include("bsmtautau_lephad/config-Common/cuts/cuts.def");
+
+@*/CutMaterialCorrection{
+    +CutTruth{
+        <.cutExpression = "{ ($(isData)||$(isAntiISO)) ? 1 : ( $(isInc)? ([TruthTauSelector]==30 || [TruthTauSelector]==20 || [TruthTauSelector]==5) :
+                            (  ($(isTT)&&[TruthTauSelector]==30) || ($(isTL)&&([TruthTauSelector]==20||[TruthTauSelector]==5)) || ($(isJET)&&[TruthTauSelector]==-30) ) ) }",
+                            .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvar)] }", .title="Truth">
+        +CutAll {
+            <.cutExpression = " [lep_0_id_medium==1 && lep_0_p4.Pt()>30 && tau_0_p4.Pt()>25 && fabs(tau_0_p4.Eta())<2.3 && lephad_dphi>2.4]", .title="All">
+            +CutISO {
+                <.cutExpression = " $(isAntiISO) ? ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 )) : ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))",
+                .weightExpression = "$(isAntiISO) ? ($(UseQCDSF) ? [LeptonFakes_$(isovar)]*[LeptonFakesReweight_$(isovar)]:[LeptonFakes_$(isovar)]):1", .title="ISO">
+                +CutID {
+                    < .cutExpression="1", .title="ID">
+                }
+            }
+        }
+    }
+}
+
+
+# WCR OS
+@*/CutID {
+    +CutVisMassVeto {
+        <.cutExpression=" (lep_0==2 && n_bjets==0)? ( (lephad_p4.M() > 110 || lephad_p4.M() < 80)? 1 : 0 ) : 1 ", .title="Vis mass veto">
+        +CutMTOS{
+            <.cutExpression = "lephad_qxq==-1 && lephad_mt_lep0_met>60 && (n_bjets==0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)", .title="MTOS">
+            +CutBveto1pOSPassID{
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==1", .title="Bveto1pOSPassID">
+            }
+            +CutBveto3pOSPassID{
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1", .title="Bveto3pOSPassID">
+            }
+            +CutBveto1pOSFailID{
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Bveto1pOSFailID">
+            }
+            +CutBveto3pOSFailID{
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Bveto3pOSFailID">
+            }
+            +CutBtag1pOSPassID{
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==1",
+                .weightExpression = "$(isTop) && !($(isAntiISO)||$(isAntiID)) ? [TopReweight_$(topvar)]:1", .title="Btag1pOSPassID">
+            }
+            +CutBtag3pOSPassID{
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1",
+                .weightExpression = "$(isTop) && !($(isAntiISO)||$(isAntiID)) ? [TopReweight_$(topvar)]:1", .title="Btag3pOSPassID"> 
+            }
+            +CutBtag1pOSFailID{
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Btag1pOSFailID">
+            }
+            +CutBtag3pOSFailID{
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Btag3pOSFailID">
+            }
+        }
+    }
+}
+
+# WCR SS
+@*/CutID {
+    +CutMTSS{
+        <.cutExpression = "[lephad_mt_lep0_met>60. && lephad_qxq==1]",.title="MTSS">
+        +CutBtag1pSSPassID{
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==1", .title="Btag1pSSPassID">
+        }
+        +CutBtag3pSSPassID{
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1", .title="Btag3pSSPassID">
+        }
+        +CutBtag1pSSFailID{
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans > $(TauBDTCut)", .title="Btag1pSSFailID">
+        }
+        +CutBtag3pSSFailID{
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans > $(TauBDTCut)", .title="Btag3pSSFailID">
+        }
+    }
+}
+
+# TCR
+@*/CutID{
+    +CutTCRMTOS{
+        <.cutExpression = "lephad_mt_lep0_met>110. && lephad_qxq==-1", .title="TCRMTOS">
+        +CutTCRBtag1p{
+            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==1", .title="TCRBtag1p">
+        }
+        +CutTCRBtag3p{
+            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1", .title="TCRBtag3p">
+        }
+    }
+}

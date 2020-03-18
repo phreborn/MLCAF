@@ -207,7 +207,7 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
   FF_nom_down.SetName(FF_nom.GetName()+'_down')
   checkNegative(FF_nom_down)
 
-  outfile = TFile('FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile('bsmtautau_lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   FF_nom.Write()
   FF_nom_up.Write()
@@ -245,9 +245,9 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr.root'
   elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr.root'
   else:
     print ("ERROR: unsupported region: ", region)
     sys.exit()

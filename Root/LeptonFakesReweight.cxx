@@ -149,7 +149,7 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("ScaleFactors/LFR_SF.root");
+  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/LFR_SF.root");
   if (!aFile) {
     ERRORclass("Can not find LFR_SF.root");
   }

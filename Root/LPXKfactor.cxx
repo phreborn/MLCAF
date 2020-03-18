@@ -284,9 +284,10 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
 
   TGraphAsymmErrors* tempGraph = 0;
   for (auto sample : Sample_list) {
-    tempFile = TFile::Open("Systematics/LPK_k-Factors_"+sample+".root");
+    INFOclass("Loading file...");
+    tempFile = TFile::Open("bsmtautau_lephad/auxData/Systematics/LPK_k-Factors_"+sample+".root");
     if (!tempFile) {
-      std::cout << "ERROR: can not find LPX Kfactor for " << sample << std::endl;
+      ERRORclass("Can not find LPX Kfactor for '%s'",sample);
       continue;
     }
     else {
