@@ -48,10 +48,10 @@ variables:
     - source build/setupAnalysis.sh
     - cd share
     - echo "Initialization:"
-    - source configCommon/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
-    - source configCommon/scriptPrepareInitialize.sh
+    - source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/190530"
+    - source bsmtautau_lephad/config-Common/scriptPrepareInitialize.sh
     - echo "Lepton Fake Region:"
-    - source configLeptonFakeRegion/scriptDebug.sh
+    - source bsmtautau_lephad/config-LeptonFakeRegion/scriptDebug.sh
     - echo "To be continued..."
 
 ##########################################################################
