@@ -24,11 +24,11 @@
 
 
 ### signal ###
-.name="ggH200",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/200"
-.name="bbH200",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/200"
+.name="ggH400",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/400"
+.name="bbH400",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/400"
 
 .name="ggH1000", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/1000"
 .name="bbH1000", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/1000"
 
-.name="ggH2500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/2500"
-.name="bbH2500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/2500"
+.name="ggH1500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/1500"
+.name="bbH1500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/1500"
