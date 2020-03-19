@@ -10,51 +10,48 @@
 ##
 #################################################################
 
-# include common cut file
 $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
 
-@*/CutMaterialCorrection{
-    +CutAll{
-        <.cutExpression = " lep_0_id_medium==1 && lep_0_p4.Pt()>30  && lephad_mt_lep0_met<30 ", 
-        .weightExpression = "{ $(isData) ? 1 : [ScaleFactor] }", .title="All">
-        +CutISO{
-            <.cutExpression = "1", .title="ISO">
-        }
-    }
-}
+@ */CutMaterialCorrection {
+    +CutAll {
+        <.cutExpression="lep_0_id_medium == 1 && lep_0_p4.Pt() > 30  && lephad_mt_lep0_met < 30",
+         .weightExpression="$(isData) ? 1 : [ScaleFactor]", .title="All">
 
-@*/CutISO{
-    +CutBDT{
-        <.cutExpression = "tau_0_jet_bdt_score_trans<0.01 && n_taus>0 ", .title="BDT">
-        +CutBvetoBDTPassISO{
-            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))", .title="BvetoBDTPass">
-        }
-        +CutBtagBDTPassISO{
-            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))", .title="BtagBDTPass">
-        }
-        +CutBvetoBDTFailISO{
-            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 ))", .title="BvetoBDTFail">
-        }
-        +CutBtagBDTFailISO{
-            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 ))", .title="BtagBDTFail">
-        }
-    }
-}
+        +CutTau {
+            <.cutExpression="tau_0_jet_bdt_score_trans < 0.01 && n_taus > 0", .title="Tau">
 
-@*/CutBDT{
-    +CutBDTSL{
-        <.cutExpression = "(n_electrons+n_muons)==1",.title="BDTSL">
-        +CutBvetoBDTSLPassISO{
-            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))", .title="BvetoBDTSLPass">
-        }
-        +CutBtagBDTSLPassISO{
-            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))", .title="BtagBDTSLPass">
-        }
-        +CutBvetoBDTSLFailISO{
-            <.cutExpression = "n_bjets == 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 ))", .title="BvetoBDTSLFail">
-        }
-        +CutBtagBDTSLFailISO{
-            < .cutExpression = "n_bjets > 0 && ((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 ))", .title="BtagBDTSLFail">
-        }
-    }
-}
+            +CutSingleLepton {
+                <.cutExpression="(n_electrons + n_muons) == 1", .title="SingleLepton">
+
+                +CutAntiISO {
+                    <.cutExpression="$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0 )) : 1",
+                     .weightExpression="$(isAntiISO) ? (($(UseLeptonFF) ? [LeptonFakes] : 1) * ($(UseQCDSF) ? [LeptonFakesReweight] : 1)) : 1", .title="AntiISO">
+
+                    +CutBveto {
+                        <.cutExpression="n_bjets == 0", .title="Bveto">
+
+                        +CutBvetoPassISO {
+                            <.cutExpression="((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))", .title="BvetoPassISO">
+                        } #End: CutBvetoPassISO
+
+                        +CutBvetoFailISO {
+                            <.cutExpression="((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 ))", .title="BvetoFailISO">
+                        } #End: CutBvetoFailISO
+                    } #End: CutBveto
+
+                    +CutBtag {
+                        <.cutExpression="n_bjets > 0", .title="Btag">
+
+                        +CutBtagPassISO {
+                            <.cutExpression="((lep_0==2 && lep_0_iso_Gradient==1) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==1 ))", .title="BtagPassISO">
+                        } #End: CutBtagPassISO
+
+                        +CutBtagFailISO {
+                            <.cutExpression="((lep_0==2 && lep_0_iso_Gradient==0) || (lep_0==1 && lep_0_iso_FCTight_FixedRad==0 ))", .title="BtagFailISO">
+                        } #End: CutBtagFailISO
+                    } #End: CutBtag
+                } #End: CutAntiISO
+            } #End: CutSingleLepton
+        } #End: CutTau
+    } #End: CutAll
+} #End: CutMaterialCorrection
