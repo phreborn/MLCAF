@@ -307,10 +307,10 @@ if __name__=='__main__':
         
         prefix = region+period_name+channel_name
         # 2D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi3FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi4FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi3FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi1FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi2FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi3FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi4FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi1FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi2FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi3FF', prefix, 0.1,0.2)
