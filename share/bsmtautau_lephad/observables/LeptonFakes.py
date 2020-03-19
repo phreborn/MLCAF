@@ -1,11 +1,9 @@
 import QFramework
-import ROOT
 from BSMtautauCAF import LeptonFakes
 
 def addObservables(config):
-    variation = config.getTagStringDefault("isovar","nominal")
-    myObs = LeptonFakes("LeptonFakes_"+variation)
-    if not QFramework.TQTreeObservable.addObservable(myObs,"LeptonFakes_"+variation):
-        INFO("failed to add LeptonFakes Observable!")
+    myObs = LeptonFakes("LeptonFakes")
+    if not QFramework.TQTreeObservable.addObservable(myObs, myObs.getExpression().Data()):
+        QFramework.WARN("Failed to add observable '{:s}'".format(myObs.getExpression().Data()))
         return False
     return True

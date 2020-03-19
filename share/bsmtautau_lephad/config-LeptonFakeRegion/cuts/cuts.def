@@ -16,7 +16,7 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
 @*/CutMaterialCorrection{
     +CutAll{
         <.cutExpression = " lep_0_id_medium==1 && lep_0_p4.Pt()>30  && lephad_mt_lep0_met<30 ", 
-        .weightExpression = "{ $(isData) ? 1 : [ScaleFactor_$(weightvar)] }", .title="All">
+        .weightExpression = "{ $(isData) ? 1 : [ScaleFactor] }", .title="All">
         +CutISO{
             <.cutExpression = "1", .title="ISO">
         }

@@ -1,11 +1,9 @@
 import QFramework
-import ROOT
 from BSMtautauCAF import MTtot
 
 def addObservables(config):
     myObs = MTtot("MTtot")
-    if not QFramework.TQTreeObservable.addObservable(myObs,"MTtot"):
-        INFO("failed to add lephad_mttot observable")
+    if not QFramework.TQTreeObservable.addObservable(myObs, myObs.getExpression().Data()):
+        QFramework.WARN("Failed to add observable '{:s}'".format(myObs.getExpression().Data()))
         return False
-    #print(m_MTtot.getExpression())
     return True

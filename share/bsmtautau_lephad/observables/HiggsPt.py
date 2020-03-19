@@ -1,11 +1,9 @@
 import QFramework
-import ROOT
 from BSMtautauCAF import HiggsPt
 
 def addObservables(config):
-    myObs= HiggsPt("HiggsPt")
-    if not QFramework.TQTreeObservable.addObservable(myObs,"HiggsPt"):
-        INFO("failed to add lephad_higgspt observable")
+    myObs = HiggsPt("HiggsPt")
+    if not QFramework.TQTreeObservable.addObservable(myObs, myObs.getExpression().Data()):
+        QFramework.WARN("Failed to add observable '{:s}'".format(myObs.getExpression().Data()))
         return False
-    #print(m_HiggsPt.getExpression())
     return True
