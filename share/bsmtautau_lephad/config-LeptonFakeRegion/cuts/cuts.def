@@ -27,13 +27,13 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                     <.cutExpression="n_bjets == 0", .title="Bveto">
 
                     +CutBvetoPassISO {
-                        <.cutExpression="{$(isAntiISO) ? $(isFailISO) : $(isPassISO)}",
-                         .weightExpression="{$(isAntiISO) ? $(applyLFF) : 1}", .title="BvetoPassISO">
+                        <.cutExpression="($(isAntiISO) ? $(isFailISO) : $(isPassISO))",
+                         .weightExpression="($(isAntiISO) ? $(applyLFF) : 1)", .title="BvetoPassISO">
                     } #End: CutBvetoPassISO
 
                     +CutBvetoFailISO {
-                        <.cutExpression="{$(isAntiISO) ? $(isPassISO) : $(isFailISO)}",
-                         .weightExpression="{$(isAntiISO) ? 1 / $(applyLFF) : 1}", .title="BvetoFailISO">
+                        <.cutExpression="($(isAntiISO) ? $(isPassISO) : $(isFailISO))",
+                         .weightExpression="($(isAntiISO) ? 1 / $(applyLFF) : 1)", .title="BvetoFailISO">
                     } #End: CutBvetoFailISO
                 } #End: CutBveto
 
@@ -41,13 +41,13 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                     <.cutExpression="n_bjets > 0", .title="Btag">
 
                     +CutBtagPassISO {
-                        <.cutExpression="{$(isAntiISO) ? $(isFailISO) : $(isPassISO)}",
-                         .weightExpression="{$(isAntiISO) ? $(applyLFF) : 1}", .title="BtagPassISO">
+                        <.cutExpression="($(isAntiISO) ? $(isFailISO) : $(isPassISO))",
+                         .weightExpression="($(isAntiISO) ? $(applyLFF) : 1)", .title="BtagPassISO">
                     } #End: CutBtagPassISO
 
                     +CutBtagFailISO {
-                        <.cutExpression="{$(isAntiISO) ? $(isPassISO) : $(isFailISO)}",
-                         .weightExpression="{$(isAntiISO) ? 1 / $(applyLFF) : 1}", .title="BtagFailISO">
+                        <.cutExpression="($(isAntiISO) ? $(isPassISO) : $(isFailISO))",
+                         .weightExpression="($(isAntiISO) ? 1 / $(applyLFF) : 1)", .title="BtagFailISO">
                     } #End: CutBtagFailISO
                 } #End: CutBtag
             } #End: CutSingleLepton

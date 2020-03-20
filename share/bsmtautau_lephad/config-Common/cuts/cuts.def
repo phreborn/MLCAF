@@ -15,11 +15,11 @@
 +CutChannel {
     <.cutExpression="(('$(channel)' == 'ehad' && $(isElectron)) || ('$(channel)' == 'muhad' && $(isMuon)))", .title="Channel">
     +CutBase {
-        <.cutExpression="{$(isData) ? 1 : {$(isInclusiveZ) ? {([BSM_parent_p4.M()] < 120) ? 1 : 0} : 1}} && [BSMTriggerDecision] == 1",
-         .weightExpression="{((! $(isData)) && $(UseLPXKfactor)) ? [LPXKfactor] : 1}", .title="Base">
+        <.cutExpression="{$(isData) ? 1 : ($(isInclusiveZ) ? (([BSM_parent_p4.M()] < 120) ? 1 : 0) : 1)} && [BSMTriggerDecision] == 1",
+         .weightExpression="(((! $(isData)) && $(UseLPXKfactor)) ? [LPXKfactor] : 1)", .title="Base">
         +CutMaterialCorrection {
             <.cutExpression="1",
-             .weightExpression="{$(isData) ? 1 : {($(UseMaterialCorrection) && [TruthTauSelector] == 30) ? [MatTransCorrection] : 1}}", .title="Material Transport Correction">
+             .weightExpression="($(isData) ? 1 : (($(UseMaterialCorrection) && [TruthTauSelector] == 30) ? [MatTransCorrection] : 1))", .title="Material Transport Correction">
         } #End: CutMaterialCorrection
 	} #End: CutBase
 } #End: CutChannel
