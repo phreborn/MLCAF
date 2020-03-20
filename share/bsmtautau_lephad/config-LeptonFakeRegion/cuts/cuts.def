@@ -23,34 +23,33 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
             +CutSingleLepton {
                 <.cutExpression="(n_electrons + n_muons) == 1", .title="SingleLepton">
 
-                +CutAntiISO {
-                    <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0)) : 1}",
-                     .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="AntiISO">
+                +CutBveto {
+                    <.cutExpression="n_bjets == 0", .title="Bveto">
 
-                    +CutBveto {
-                        <.cutExpression="n_bjets == 0", .title="Bveto">
+                    +CutBvetoPassISO {
+                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0)) : ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1))}",
+                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BvetoPassISO">
+                    } #End: CutBvetoPassISO
 
-                        +CutBvetoPassISO {
-                            <.cutExpression="((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1))", .title="BvetoPassISO">
-                        } #End: CutBvetoPassISO
+                    +CutBvetoFailISO {
+                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1)) : ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0))}",
+                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BvetoFailISO">
+                    } #End: CutBvetoFailISO
+                } #End: CutBveto
 
-                        +CutBvetoFailISO {
-                            <.cutExpression="((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0))", .title="BvetoFailISO">
-                        } #End: CutBvetoFailISO
-                    } #End: CutBveto
+                +CutBtag {
+                    <.cutExpression="n_bjets > 0", .title="Btag">
 
-                    +CutBtag {
-                        <.cutExpression="n_bjets > 0", .title="Btag">
+                    +CutBtagPassISO {
+                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0)) : ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1))}",
+                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BtagPassISO">
+                    } #End: CutBtagPassISO
 
-                        +CutBtagPassISO {
-                            <.cutExpression="((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1))", .title="BtagPassISO">
-                        } #End: CutBtagPassISO
-
-                        +CutBtagFailISO {
-                            <.cutExpression="((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0))", .title="BtagFailISO">
-                        } #End: CutBtagFailISO
-                    } #End: CutBtag
-                } #End: CutAntiISO
+                    +CutBtagFailISO {
+                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1)) : ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0))}",
+                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BtagFailISO">
+                    } #End: CutBtagFailISO
+                } #End: CutBtag
             } #End: CutSingleLepton
         } #End: CutTau
     } #End: CutAll

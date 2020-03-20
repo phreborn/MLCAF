@@ -11,8 +11,6 @@
 .name=CutTau
 .name="|"
 .name=CutSingleLepton
-.name="|"
-.name=CutAntiISO
 
 .name="||"
 .name=CutBveto
