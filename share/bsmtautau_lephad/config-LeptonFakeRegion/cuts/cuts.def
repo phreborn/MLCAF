@@ -27,13 +27,13 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                     <.cutExpression="n_bjets == 0", .title="Bveto">
 
                     +CutBvetoPassISO {
-                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0)) : ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1))}",
-                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BvetoPassISO">
+                        <.cutExpression="{$(isAntiISO) ? $(isFailISO) : $(isPassISO)}",
+                         .weightExpression="{$(isAntiISO) ? $(applyLFF) : 1}", .title="BvetoPassISO">
                     } #End: CutBvetoPassISO
 
                     +CutBvetoFailISO {
-                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1)) : ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0))}",
-                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BvetoFailISO">
+                        <.cutExpression="{$(isAntiISO) ? $(isPassISO) : $(isFailISO)}",
+                         .weightExpression="{$(isAntiISO) ? 1 / $(applyLFF) : 1}", .title="BvetoFailISO">
                     } #End: CutBvetoFailISO
                 } #End: CutBveto
 
@@ -41,13 +41,13 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                     <.cutExpression="n_bjets > 0", .title="Btag">
 
                     +CutBtagPassISO {
-                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0)) : ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1))}",
-                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BtagPassISO">
+                        <.cutExpression="{$(isAntiISO) ? $(isFailISO) : $(isPassISO)}",
+                         .weightExpression="{$(isAntiISO) ? $(applyLFF) : 1}", .title="BtagPassISO">
                     } #End: CutBtagPassISO
 
                     +CutBtagFailISO {
-                        <.cutExpression="{$(isAntiISO) ? ((lep_0 == 2 && lep_0_iso_Gradient == 1) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 1)) : ((lep_0 == 2 && lep_0_iso_Gradient == 0) || (lep_0 == 1 && lep_0_iso_FCTight_FixedRad == 0))}",
-                         .weightExpression="{$(isAntiISO) ? ({$(UseLeptonFF) ? [LeptonFakes] : 1} * {$(UseQCDSF) ? [LeptonFakesReweight] : 1}) : 1}", .title="BtagFailISO">
+                        <.cutExpression="{$(isAntiISO) ? $(isPassISO) : $(isFailISO)}",
+                         .weightExpression="{$(isAntiISO) ? 1 / $(applyLFF) : 1}", .title="BtagFailISO">
                     } #End: CutBtagFailISO
                 } #End: CutBtag
             } #End: CutSingleLepton
