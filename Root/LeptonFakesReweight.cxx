@@ -47,8 +47,6 @@ TObjArray* LeptonFakesReweight::getBranchNames() const {
 
 //______________________________________________________________________________________________
 double LeptonFakesReweight::getValue() const {
-  if ( ! fileLoaded ) return 1.0;
-
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   double f_lep_0              = this->lep_0->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
@@ -170,7 +168,6 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
     }
   }
   aFile->Close();
-  fileLoaded = true;
 }
 //______________________________________________________________________________________________
 

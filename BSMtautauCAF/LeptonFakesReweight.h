@@ -28,7 +28,6 @@ class LeptonFakesReweight : public LepHadObservable {
     TString fSysName = "";
     TDirectory* m_histoDir = 0;
 
-    bool fileLoaded = false;
     std::map<TString, TH1F*> m_SF_hist;
 };
 #endif
