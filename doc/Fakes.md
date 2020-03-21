@@ -52,7 +52,7 @@ source bsmtautau_lephad/config-LeptonFakeRegion/scriptMerge.sh
 # Calculate the fake factors based on the histograms
 # Merge into a single ROOT file
 python scripts/calculateFakeFactor.py LFR
-hadd -f bsmtautau_lephad/auxData/FakeFactors/LFR_FF.root bsmtautau_lephad/auxData/FakeFactors/LFR*FF.root
+hadd -f bsmtautau_lephad/auxData/FakeFactors/LFR_FF.root bsmtautau_lephad/auxData/FakeFactors/LFRAll*FF.root
 ```
 
 After obtaining the LFF, perform a closure test to check the modelling by applying the LFF back into the LFR.  
@@ -78,7 +78,7 @@ Thus, a Lepton/QCD Scale Factor (LSF) is calculated and the closure test re-perf
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
 python scripts/calculateScaleFactor.py LFR
-hadd -f bsmtautau_lephad/auxData/ScaleFactors/LFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/LFR*SF.root
+hadd -f bsmtautau_lephad/auxData/ScaleFactors/LFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/LFRAll*SF.root
 
 # Debug test the analysis before submitting the jobs to a cluster
 source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptDebug.sh
@@ -116,7 +116,7 @@ source bsmtautau_lephad/config-WjetsFakeRegion/scriptMerge.sh
 # Calculate the fake factors based on the histograms
 # Merge into a single ROOT file
 python scripts/calculateFakeFactor.py WFR
-hadd -f bsmtautau_lephad/auxData/FakeFactors/WFR_FF.root bsmtautau_lephad/auxData/FakeFactors/WFR*FF.root
+hadd -f bsmtautau_lephad/auxData/FakeFactors/WFR_FF.root bsmtautau_lephad/auxData/FakeFactors/WFRAll*FF.root
 ```
 
 After obtaining the WFF/TFF, perform a closure test to check the modelling by applying the WFF/TFF back into the WFR/TFR.  
@@ -150,12 +150,12 @@ These normalisation factors are evaluated separately for 1-prong and 3-prong tau
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
 python scripts/calculateScaleFactor.py WFR
-hadd -f bsmtautau_lephad/auxData/ScaleFactors/WFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/WFR*SF.root
+hadd -f bsmtautau_lephad/auxData/ScaleFactors/WFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/WFRAll*SF.root
 
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
 python scripts/calculateScaleFactor.py TCR
-hadd -f bsmtautau_lephad/auxData/ScaleFactors/TCR_SF.root bsmtautau_lephad/auxData/ScaleFactors/TCR*SF.root
+hadd -f bsmtautau_lephad/auxData/ScaleFactors/TCR_SF.root bsmtautau_lephad/auxData/ScaleFactors/TCRAll*SF.root
 
 # Debug test the analysis before submitting the jobs to a cluster
 source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptDebug.sh

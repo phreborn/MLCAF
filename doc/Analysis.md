@@ -60,7 +60,7 @@ source bsmtautau_lephad/config-SignalControlRegion/scriptVisualize.sh
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
 python scripts/calculateScaleFactor.py VR
-hadd bsmtautau_lephad/auxData/ScaleFactors/VR_SF.root bsmtautau_lephad/auxData/ScaleFactors/VR*SF.root
+hadd -f bsmtautau_lephad/auxData/ScaleFactors/VR_SF.root bsmtautau_lephad/auxData/ScaleFactors/VRAll*SF.root
 ```
 
 Signal estimation
