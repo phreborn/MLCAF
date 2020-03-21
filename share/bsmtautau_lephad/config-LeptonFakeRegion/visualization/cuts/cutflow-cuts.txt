@@ -13,13 +13,13 @@
 .name=CutSingleLepton
 
 .name="||"
-.name=CutBveto
+.name=CutBvetoCategory
 .name="|"
 .name=CutBvetoPassISO
 .name=CutBvetoFailISO
 
 .name="||"
-.name=CutBtag
+.name=CutBtagCategory
 .name="|"
 .name=CutBtagPassISO
 .name=CutBtagFailISO
