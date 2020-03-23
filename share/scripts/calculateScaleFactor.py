@@ -324,14 +324,14 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ISO/[data-mc]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         # bveto 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi3SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi4SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi3SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi4SF', prefix, 0.1, 0.1)
         # btag 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
 
   elif region == 'TCR':
     # Loop over data taking period and channels

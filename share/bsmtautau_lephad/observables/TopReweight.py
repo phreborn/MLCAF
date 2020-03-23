@@ -1,11 +1,9 @@
 import QFramework
-import ROOT
 from BSMtautauCAF import TopReweight
 
 def addObservables(config):
-    variation = config.getTagStringDefault("topvar","nominal")
-    myObs = TopReweight("TopReweight_"+variation)
-    if not QFramework.TQTreeObservable.addObservable(myObs,"TopReweight_"+variation):
-        INFO("failed to add TopReweight Observable!")
+    myObs = TopReweight("TopReweight")
+    if not QFramework.TQTreeObservable.addObservable(myObs, myObs.getExpression().Data()):
+        QFramework.WARN("Failed to add observable '{:s}'".format(myObs.getExpression().Data()))
         return False
     return True

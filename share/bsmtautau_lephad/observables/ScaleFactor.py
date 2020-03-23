@@ -1,11 +1,9 @@
 import QFramework
-import ROOT
 from BSMtautauCAF import ScaleFactor
 
 def addObservables(config):
-    variation = config.getTagStringDefault("weightvar","nominal")
-    myObs = ScaleFactor("ScaleFactor_"+variation)
-    if not QFramework.TQTreeObservable.addObservable(myObs, "ScaleFactor_"+variation):
-        INFO("failed to add " + name + " Observable!")
+    myObs = ScaleFactor("ScaleFactor")
+    if not QFramework.TQTreeObservable.addObservable(myObs, myObs.getExpression().Data()):
+        QFramework.WARN("Failed to add observable '{:s}'".format(myObs.getExpression().Data()))
         return False
     return True

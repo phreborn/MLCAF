@@ -39,7 +39,6 @@ TObjArray* LeptonFakes::getBranchNames() const {
 
 //______________________________________________________________________________________________
 double LeptonFakes::getValue() const {
-  
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   int    f_lep_0          = this->lep_0->EvalInstance();
   float  f_lep_0_pt       = this->lep_0_pt->EvalInstance();
