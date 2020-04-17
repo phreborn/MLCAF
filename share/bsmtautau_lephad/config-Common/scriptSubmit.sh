@@ -26,7 +26,10 @@ done
 
 # submission
 echo "Submitting..."
-submit.py "bsmtautau_lephad/${REGION}/master/${CONFIG}.cfg" --jobs "${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges --time 4320 --memory 1024 --maxSampleSize 7000 --mergeConfig "bsmtautau_lephad/submission/merge.cfg" "${OPTIONS[@]}"
+submit.py "bsmtautau_lephad/${REGION}/master/${CONFIG}.cfg" \
+    --jobs "${JOBSFILE}" --identifier "${IDENT}" --allowArgChanges \
+    --time 4320 --memory 1024 --maxSampleSize 7000 \
+    --mergeConfig "bsmtautau_lephad/submission/merge.cfg" "${OPTIONS[@]}"
 echo "Finished submitting!"
 
 # cleanup temp jobs file

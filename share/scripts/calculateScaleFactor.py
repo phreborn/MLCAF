@@ -264,8 +264,8 @@ if __name__=='__main__':
         prefix = region+period_name+channel_name
 
         # 1D LeptonPt
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pLeptonPtSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pLeptonPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto1pPassID', 'Bveto1pLeptonPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto3pPassID', 'Bveto3pLeptonPtSF', prefix, 0.1, 0.1)
 
   elif region == 'VR':
     # Loop over data taking period and channels
