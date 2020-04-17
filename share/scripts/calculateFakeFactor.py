@@ -278,11 +278,11 @@ if __name__=='__main__':
         
         prefix = region+period_name+channel_name
         # bveto 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto1pPassID', 'CutOSBveto1pFailID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto3pPassID', 'CutOSBveto3pFailID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
         # btag 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBtag1pOSPassID',  'CutBtag1pOSFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtag3pOSPassID',  'CutBtag3pOSFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag1pPassID',  'CutOSBtag1pFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag3pPassID',  'CutOSBtag3pFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
 
   elif region == 'LFR':
     # Loop over data taking period and channels

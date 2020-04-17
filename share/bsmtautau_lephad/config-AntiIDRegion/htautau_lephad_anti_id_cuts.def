@@ -40,16 +40,16 @@ $include("configCommon/htautau_lephad_common_cuts.def");
         +CutMTOS{
             <.cutExpression = "lephad_qxq==-1 && lephad_mt_lep0_met>60 && (n_bjets==0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)", .title="MTOS">
             +CutWCRBveto1pOSFailID{
-                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="WCRBveto1pOSFailID">
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="WCRBveto1pOSFailID">
             }
             +CutWCRBveto3pOSFailID{
-                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="WCRBveto3pOSFailID">
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="WCRBveto3pOSFailID">
             }
             +CutWCRBtag1pOSFailID{
-                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="WCRBtag1pOSFailID">
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="WCRBtag1pOSFailID">
             }
             +CutWCRBtag3pOSFailID{
-                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="WCRBtag3pOSFailID">
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="WCRBtag3pOSFailID">
             }
         }
     }
@@ -60,16 +60,16 @@ $include("configCommon/htautau_lephad_common_cuts.def");
     +CutVRMTOS{
         <.cutExpression = "lephad_mt_lep0_met>40. && lephad_mt_lep0_met<60. && lephad_qxq==-1", .title="VRMTOS">
         +CutVRBveto1pOSFailID{
-            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="VRBveto1pOSFailID">
+            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="VRBveto1pOSFailID">
         }
         +CutVRBveto3pOSFailID{
-            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="VRBveto3pOSFailID">
+            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="VRBveto3pOSFailID">
         }
         +CutVRBtag1pOSFailID{
-            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="VRBtag1pOSFailID">
+            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="VRBtag1pOSFailID">
         }
         +CutVRBtag3pOSFailID{
-            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="VRBtag3pOSFailID">
+            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="VRBtag3pOSFailID">
         }
     }
 }
@@ -79,16 +79,16 @@ $include("configCommon/htautau_lephad_common_cuts.def");
     +CutSRMTOS{
         <.cutExpression = "lephad_mt_lep0_met<40. && lephad_qxq==-1", .title="SRMTOS">
         +CutSRBveto1pOSFailID{
-            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="SRBveto1pOSFailID">
+            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="SRBveto1pOSFailID">
         }
         +CutSRBveto3pOSFailID{
-            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="SRBveto3pOSFailID">
+            <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="SRBveto3pOSFailID">
         }
         +CutSRBtag1pOSFailID{
-            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="SRBtag1pOSFailID">
+            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="SRBtag1pOSFailID">
         }
         +CutSRBtag3pOSFailID{
-            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="SRBtag3pOSFailID">
+            <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="SRBtag3pOSFailID">
         }
     }
 }
@@ -98,10 +98,10 @@ $include("configCommon/htautau_lephad_common_cuts.def");
     +CutTCRMTOS{
         <.cutExpression = "lephad_mt_lep0_met>110. && lephad_qxq==-1", .title="TCRMTOS">
         +CutTCRBtag1pFailID{
-            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="TCRBtag1pFailID">
+            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="TCRBtag1pFailID">
         }
         +CutTCRBtag3p{
-            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>0.01", .title="TCRBtag3pFailID">
+            < .cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="TCRBtag3pFailID">
         }
     }
 }

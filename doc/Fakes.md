@@ -97,7 +97,8 @@ W+jets/Top Fake Region (WFR/TFR)
 --------------------------------
 
 The W+jets/Top Fake Factors (WFF/TFF) are parameterized as a function of tau $`p_{\textrm{T}}`$.  
-The WFF is calculated in the b-veto category, while the TFF is calculated in the b-tag category.  
+The WFF is calculated mainly in the b-veto category, while the TFF is calculated mainly in the b-tag category.  
+They can be distinguished by allocating the WFF to an Opposite Sign (OS) charged tau selection, and the TFF to a Same Sign (SS).  
 
 The LFF is applied into this region, forming part of the background subtraction, so it must be calculated first.  
 Likewise, while it may be inversely true that the WFF would form a contribution in the LFR, the W+jets fake component in the LFR is instead estimated by MC.  
@@ -139,7 +140,7 @@ It is found that lepton $`p_{\textrm{T}}`$ in the WFR is not well modelled.
 Thus, a W+jets Scale Factor (WSF) is calculated and the closure test re-performed.  
 
 Additionally, it is observed that the b-tag category would suffer from strong mismodelling in tau $`p_{\textrm{T}}`$ due to the real top-quark contribution.  
-As such, the Top Scale Factor (TSF) derived from the real Top Control Region (TCR) is required to obtain an accurate TFF.  
+As such, the Top Scale Factor (TSF) derived from the real Top Control Region (TCR) selected with OS taus is required to obtain an accurate TFF.  
 However, since the TFF would form a contribution in the TCR, the TFF is instead assumed to be the same as the WFF from the b-veto category.  
 Once the TSF has been calculated, the TFF (now the same as the WFF) can then be reweighted to give more accurate modelling in the b-tag category.  
 But since the TFF itself is no longer being directly used, it still turns out that the dependence on tau $`p_{\textrm{T}}`$ between the b-veto and b-tag categories are not too dissimilar.  

@@ -46,10 +46,10 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                 <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1", .title="Bveto3pOSPassID">
             }
             +CutBveto1pOSFailID{
-                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Bveto1pOSFailID">
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="Bveto1pOSFailID">
             }
             +CutBveto3pOSFailID{
-                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Bveto3pOSFailID">
+                <.cutExpression = "n_bjets==0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="Bveto3pOSFailID">
             }
             +CutBtag1pOSPassID{
                 <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==1",
@@ -60,10 +60,10 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                 .weightExpression = "$(isTop) && !($(isAntiISO)||$(isAntiID)) ? [TopReweight_$(topvar)]:1", .title="Btag3pOSPassID"> 
             }
             +CutBtag1pOSFailID{
-                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Btag1pOSFailID">
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="Btag1pOSFailID">
             }
             +CutBtag3pOSFailID{
-                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauBDTCut)", .title="Btag3pOSFailID">
+                <.cutExpression = "n_bjets> 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans>$(TauIDScoreCut)", .title="Btag3pOSFailID">
             }
         }
     }
@@ -80,10 +80,10 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
             <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==1", .title="Btag3pSSPassID">
         }
         +CutBtag1pSSFailID{
-            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans > $(TauBDTCut)", .title="Btag1pSSFailID">
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==1 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans > $(TauIDScoreCut)", .title="Btag1pSSFailID">
         }
         +CutBtag3pSSFailID{
-            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans > $(TauBDTCut)", .title="Btag3pSSFailID">
+            <.cutExpression = "n_bjets > 0 && tau_0_n_charged_tracks==3 && tau_0_jet_bdt_medium==0 && tau_0_jet_bdt_score_trans > $(TauIDScoreCut)", .title="Btag3pSSFailID">
         }
     }
 }

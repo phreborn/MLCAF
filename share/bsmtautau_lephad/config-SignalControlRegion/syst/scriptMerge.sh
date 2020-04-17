@@ -1,28 +1,10 @@
 #!/bin/bash
 
-if [ -z $1 ]; then
-    echo "No type specified."
-    return 1
-fi
-
-NCORES=1
-if [ ! -z $2 ]; then
-    NCORES=$2
-fi
-echo "Setting NCORES = ${NCORES}"
-
-echo "Running over $1 set..."
-if [ "$1" == "NOM" ]; then
-    declare -a SYSTYPES=("fakevar" "isovar" "weightvar" "topvar" "lpxvar")
-    #declare -a SYSTYPES=("fakevar" "isovar")
-    #declare -a SYSTYPES=("weightvar" "topvar" "lpxvar")
-elif [ "$1" == "SYS" ]; then
-    declare -a SYSTYPES=("treevar")
-else
-    echo "Systematic set not recognised."
-    return 1
-fi
-
-for systype in "${SYSTYPES[@]}"; do
-    python configSignalControlRegion/syst/submit_systematics.py --systype ${systype} --stage merge --ncores ${NCORES}
+### individual sys
+for SYS in "lff" "lsf" "wff" "wsf" "vsf" "lpx" "top" "weight" "p4"; do
+    # "material"
+    tqmerge -o sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr_sys_"${SYS}".root -t analyze batchOutput/unmerged_SRsys"${SYS}"/*.root
 done
+
+### all sys + nominal
+tqmerge -o sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr_sys.root -t analyze sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr_sys_*.root sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr.root

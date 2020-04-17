@@ -1,27 +1,11 @@
 #!/bin/bash
 
-### nominal
-# config
-REGION="configSignalControlRegion/syst"
-CONFIG="htautau_lephad_sr_nom"
-IDENT="SRnom"
-JOBSLIST=(
-    "data"
-    "bkgCommon"
-    "bkgZjets"
-    "bkgTTbarNOMINAL"
-    "fakesISO"
-    "fakesID"
-    "fakesIDISO"
-    "signal"
-)
-
-# execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+### common
+REGION="config-SignalControlRegion/syst"
 
 ### lff
 # config
-CONFIG="htautau_lephad_sr_sys_lff"
+CONFIG="master_sys_lff"
 IDENT="SRsyslff"
 JOBSLIST=(
     "fakesISO"
@@ -29,11 +13,11 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### lsf
 # config
-CONFIG="htautau_lephad_sr_sys_lsf"
+CONFIG="master_sys_lsf"
 IDENT="SRsyslsf"
 JOBSLIST=(
     "fakesISO"
@@ -41,11 +25,11 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### wff
 # config
-CONFIG="htautau_lephad_sr_sys_wff"
+CONFIG="master_sys_wff"
 IDENT="SRsyswff"
 JOBSLIST=(
     "fakesID"
@@ -53,11 +37,11 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### wsf
 # config
-CONFIG="htautau_lephad_sr_sys_wsf"
+CONFIG="master_sys_wsf"
 IDENT="SRsyswsf"
 JOBSLIST=(
     "fakesID"
@@ -65,11 +49,11 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### vsf
 # config
-CONFIG="htautau_lephad_sr_sys_vsf"
+CONFIG="master_sys_vsf"
 IDENT="SRsysvsf"
 JOBSLIST=(
     "fakesID"
@@ -77,32 +61,32 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### material
 # config
-#CONFIG="htautau_lephad_sr_sys_material"
+#CONFIG="master_sys_material"
 #IDENT="SRsysmaterial"
 #JOBSLIST=(
 #)
 
 # execute
-#source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+#source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### lpx
 # config
-CONFIG="htautau_lephad_sr_sys_lpx"
+CONFIG="master_sys_lpx"
 IDENT="SRsyslpx"
 JOBSLIST=(
     "bkgZjets"
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### top
 # config
-CONFIG="htautau_lephad_sr_sys_top"
+CONFIG="master_sys_top"
 IDENT="SRsystop"
 JOBSLIST=(
     "bkgTTbarNOMINAL"
@@ -112,11 +96,11 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### weight
 # config
-CONFIG="htautau_lephad_sr_sys_weight"
+CONFIG="master_sys_weight"
 IDENT="SRsysweight"
 JOBSLIST=(
     "bkgCommon"
@@ -126,11 +110,11 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
 
 ### p4
 # config
-CONFIG="htautau_lephad_sr_sys_p4"
+CONFIG="master_sys_p4"
 IDENT="SRsysp4"
 JOBSLIST=(
     "bkgCommon"
@@ -140,4 +124,4 @@ JOBSLIST=(
 )
 
 # execute
-source configCommon/scriptSubmit.sh "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
+source "${CAFANALYSISSHARE:?}/bsmtautau_lephad/config-Common/scriptSubmit.sh" "${REGION}" "${CONFIG}" "${IDENT}" "${JOBSLIST[@]}"
