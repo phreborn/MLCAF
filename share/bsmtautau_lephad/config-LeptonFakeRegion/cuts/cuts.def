@@ -24,11 +24,11 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                 <.cutExpression="(n_electrons + n_muons) == 1", .title="SingleLepton">
 
                 +CutBvetoCategory {
-                    <.cutExpression="n_bjets == 0", .title="BvetoCategory", region="veto">
+                    <.cutExpression="$(NbJets) == 0", .title="BvetoCategory", region="veto">
                 } #End: CutBvetoCategory
 
                 +CutBtagCategory {
-                    <.cutExpression="n_bjets > 0", .title="BtagCategory", region="tag">
+                    <.cutExpression="$(NbJets) > 0", .title="BtagCategory", region="tag">
                 } #End: CutBtagCategory
             } #End: CutSingleLepton
         } #End: CutTau

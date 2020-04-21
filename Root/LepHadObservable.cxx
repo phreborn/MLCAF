@@ -194,7 +194,7 @@ bool LepHadObservable::initializeSelf(){
     this->mc_channel_number = new TTreeFormula("mc_channel_number", "mc_channel_number", this->fTree);
   }
 
-  this->n_bjets = new TTreeFormula( "n_bjets", "n_bjets", this->fTree);
+  this->n_bjets = new TTreeFormula( "n_bjets", "n_bjets_DL1r_FixedCutBEff_70", this->fTree);
   this->n_muons = new TTreeFormula( "n_muons", "n_muons", this->fTree);
   this->n_electrons = new TTreeFormula( "n_electrons", "n_electrons", this->fTree);
   
