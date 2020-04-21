@@ -210,7 +210,7 @@ bool LepHadObservable::initializeSelf(){
   this->tau_0_pt = new TTreeFormula( "tau_0_pt", "tau_0_p4.Pt()", this->fTree);
   this->tau_0_eta = new TTreeFormula( "tau_0_eta", "tau_0_p4.Eta()", this->fTree);
   this->tau_0_phi = new TTreeFormula( "tau_0_phi", "tau_0_p4.Phi()", this->fTree);
-  this->tau_0_jet_bdt_medium = new TTreeFormula( "tau_0_jet_bdt_medium", "tau_0_jet_bdt_medium", this->fTree);
+  this->tau_0_jet_bdt_medium = new TTreeFormula( "tau_0_jet_bdt_medium", "tau_0_jet_rnn_medium", this->fTree);
   
   this->lephad_dphi = new TTreeFormula( "lephad_dphi", "lephad_dphi", this->fTree);
 

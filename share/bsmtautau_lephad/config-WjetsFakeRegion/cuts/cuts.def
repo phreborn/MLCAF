@@ -33,18 +33,18 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
 
 @ */CutISO {
     +CutMTOS {
-        <.cutExpression="lephad_qxq == -1 && lephad_mt_lep0_met > 60 && (n_bjets == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)",
+        <.cutExpression="lephad_qxq == -1 && lephad_mt_lep0_met > 60 && ($(NbJets) == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)",
          .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="MTOS">
 
         +CutVisMassVeto {
-            <.cutExpression="(lep_0 == 2 && n_bjets == 0) ? ((lephad_p4.M() > 110 || lephad_p4.M() < 80) ? 1 : 0) : 1", .title="VisMassVeto">
+            <.cutExpression="(lep_0 == 2 && $(NbJets) == 0) ? ((lephad_p4.M() > 110 || lephad_p4.M() < 80) ? 1 : 0) : 1", .title="VisMassVeto">
 
             +CutOSBvetoCategory {
-                <.cutExpression="n_bjets == 0", .title="OSBvetoCategory", region1="OSBveto">
+                <.cutExpression="$(NbJets) == 0", .title="OSBvetoCategory", region1="OSBveto">
             } #End: CutOSBvetoCategory
 
             +CutOSBtagCategory {
-                <.cutExpression="n_bjets > 0", .title="OSBtagCategory", region1="OSBtag">
+                <.cutExpression="$(NbJets) > 0", .title="OSBtagCategory", region1="OSBtag">
             } #End: CutOSBtagCategory
         } #End: CutVisMassVeto
     } #End: CutMTOS
@@ -53,7 +53,7 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
         <.cutExpression="lephad_mt_lep0_met > 60 && lephad_qxq == 1", .title="MTSS">
 
         +CutSSBtagCategory {
-            <.cutExpression="n_bjets > 0", .title="SSBtagCategory", region1="SSBtag">
+            <.cutExpression="$(NbJets) > 0", .title="SSBtagCategory", region1="SSBtag">
         } #End: CutSSBtagCategory
     } #End: CutMTSS
 } #End: CutISO
@@ -97,7 +97,7 @@ $replace("*/CutSSBtag3pTaus/*:*", region2="Btag3pSS");
          .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="TCRMTOS">
 
         +CutTCRBtagCategory {
-            <.cutExpression="n_bjets > 0", .title="TCRBtagCategory">
+            <.cutExpression="$(NbJets) > 0", .title="TCRBtagCategory">
 
             +CutTCRBtagPassID {
                 <.cutExpression="($(isAntiID) ? $(isFailID) : $(isPassID))",
