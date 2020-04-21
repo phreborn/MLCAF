@@ -157,7 +157,7 @@ bool TopTheorySys::initializeSelf(){
   // new systematics based on truth level analysis
   TFile* tempFile=0;
 
-  tempFile = TFile::Open("Systematics/LepHadCombined_TopSys.root");
+  tempFile = TFile::Open("bsmtautau_lephad/auxData/Systematics/LepHadCombined_TopSys.root");
   if (!tempFile) {
     std::cout << "WARNING: can not find top systematics " << std::endl;
     return false;  
