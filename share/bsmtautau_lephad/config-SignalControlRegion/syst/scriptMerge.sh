@@ -1,10 +1,29 @@
 #!/bin/bash
 
-### individual sys
-for SYS in "lff" "lsf" "wff" "wsf" "vsf" "lpx" "top" "weight" "p4"; do
-    # "material"
-    tqmerge -o sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr_sys_"${SYS}".root -t analyze batchOutput/unmerged_SRsys"${SYS}"/*.root
-done
+# common config
+SAMPLEBASE="sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr"
 
-### all sys + nominal
-tqmerge -o sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr_sys.root -t analyze sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr_sys_*.root sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr.root
+# handle arguments
+if [ -z "$*" ]; then
+    echo "No arguments provided!"
+    return
+fi
+echo "Accepting arguments: $*"
+
+# loop execute
+for ARG in "$@"; do
+    echo ""
+    if [ "${ARG}" == "ALL" ]; then
+        # merge all individual sys together with nominal
+        echo "Merging ALL systematics!"
+        tqmerge -t analyze \
+            "${SAMPLEBASE}"_sys_*.root "${SAMPLEBASE}".root \
+            -o "${SAMPLEBASE}"_sys.root
+    else
+        # merge individual sys
+        echo "Merging systematic: ${ARG}"
+        tqmerge -t analyze \
+            batchOutput/unmerged_SRsys"${ARG}"/*.root \
+            -o "${SAMPLEBASE}"_sys_"${ARG}".root
+    fi
+done
