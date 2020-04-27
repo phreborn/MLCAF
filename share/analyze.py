@@ -1,13 +1,14 @@
 #!/bin/env python
 
 from CommonAnalysisHelpers import common,analyze
+from BSMtautauCAF import analyzesyst
 
 def main(config):
     """execute your analysis according to the given configuration (can be created from a config file)"""
 
     # print a welcome message
     print(QFramework.TQStringUtils.makeBoldWhite("\nAnalyzing Analysis ROOT File\n"))
-    
+
     try:
         ROOT.StatusCode.enableFailure()
     except AttributeError:
@@ -90,28 +91,6 @@ def main(config):
     # apply patches as given by the config
     common.patchSampleFolder(config.getTagVStandardString("patches"), samples)
 
-    # BSMtautauCAF: get fake factors from config
-    LFFPeriod = config.getTagStringDefault("LFFPeriod","")
-    samples.setTagString("LFFPeriod", LFFPeriod)
-    LFFParam = config.getTagStringDefault("LFFParam","")
-    samples.setTagString("LFFParam", LFFParam)
-    WFFPeriod = config.getTagStringDefault("WFFPeriod","")
-    samples.setTagString("WFFPeriod", WFFPeriod)
-    WFFParam = config.getTagStringDefault("WFFParam","")
-    samples.setTagString("WFFParam", WFFParam)
-    WjetsSFParam = config.getTagStringDefault("WjetsSFParam","")
-    samples.setTagString("WjetsSFParam", WjetsSFParam)
-    UseTopSF = config.getTagBoolDefault("UseTopSF", False)
-    samples.setTagBool("UseTopSF", UseTopSF)
-    UseQCDSF = config.getTagBoolDefault("UseQCDSF", False)
-    samples.setTagBool("UseQCDSF", UseQCDSF)
-    UseWjetsSF = config.getTagBoolDefault("UseWjetsSF", False)
-    samples.setTagBool("UseWjetsSF", UseWjetsSF)
-    UseMaterialCorrection = config.getTagBoolDefault("UseMaterialCorrection", False)
-    samples.setTagBool("UseMaterialCorrection", UseMaterialCorrection)
-    UseLPXKfactor = config.getTagBoolDefault("UseLPXKfactor", False)
-    samples.setTagBool("UseLPXKfactor", UseLPXKfactor)
-
     # run a reduction step if scheduled, slimming down the sample folder to reduce future memory consumption
     if config.getTagBoolDefault("purgeSamples",False):
         common.reduceSampleFolder(config, samples)
@@ -129,7 +108,8 @@ def main(config):
 
     # perform any pre-processing of the sample folder for handling of systematic uncertainties
     # this step is likely to be highly analysis-dependent, so this is just an example implementation
-    analyze.prepareSystematicsExample(config, samples)
+    #analyze.prepareSystematicsExample(config, samples)
+    analyzesyst.prepareSystematics(config, samples)
 
     # load all the observables that allow access of the physics-content of your samples
     customobservables = analyze.loadObservables(config)
@@ -213,7 +193,7 @@ def main(config):
     #common.printUnreadKeys(config)
 
     # write and print some performance information like memory usage and runtime
-    common.printExecutionStatistics(config)
+    common.printExecutionSummary(config)
 
     # temporary fix to prevent segfaults in AnaBase 2.3.48 and beyond
     # update: still necessary in 21.2.4
@@ -239,4 +219,3 @@ if __name__ == "__main__":
 
     # call the main function
     main(config)
-

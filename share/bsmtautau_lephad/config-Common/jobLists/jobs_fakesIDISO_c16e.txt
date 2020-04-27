@@ -1,0 +1,14 @@
+# ------------------------------ c16e ------------------------------ #
+##### ID ISO fakes #####
+### data ###
+/bkg/?/c16e/Fakes/ID/ISO/data
+
+### bkg ###
+/bkg/?/c16e/Fakes/ID/ISO/mc/Ztautau
+/bkg/?/c16e/Fakes/ID/ISO/mc/Zll
+/bkg/?/c16e/Fakes/ID/ISO/mc/Top/ttbar/NOMINAL
+/bkg/?/c16e/Fakes/ID/ISO/mc/Top/single
+/bkg/?/c16e/Fakes/ID/ISO/mc/Diboson
+/bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/enu
+/bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/munu
+/bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/taunu

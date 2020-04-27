@@ -72,7 +72,8 @@ double JetFakes::getValue() const {
   // peiriod: Combined or Separated
   TString period = "";
   TString period_tag = "";
-  if(!this->fSample->getTag("~WFFPeriod",period_tag)) std::cout<<"ERROR: Can not get WFFPeriod tag" << std::endl;
+  //if(!this->fSample->getTag("~WFFPeriod",period_tag)) std::cout<<"ERROR: Can not get WFFPeriod tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WFFPeriod", period_tag) ) ERRORclass("Can not get WFFPeriod tag");
   if ("Combined" == period_tag)
     period = "All";
   else if ("Separated" == period_tag) {
@@ -86,7 +87,8 @@ double JetFakes::getValue() const {
   // parameterization
   TString param = "";
   TString param_tag = "";
-  if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Can not get WFFParam tag" << std::endl;
+  //if(!this->fSample->getTag("~WFFParam",param_tag)) std::cout<<"ERROR: Can not get WFFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WFFParam", param_tag) ) ERRORclass("Can not get WFFParam tag");
   if ( "TauPt" == param_tag ) {
     param = "TauPt";
   }
@@ -145,14 +147,21 @@ double JetFakes::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
+  float ratio_scale_1p = 1.0;
+  float ratio_scale_3p = 1.0;
+  if ( TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) {
+    ratio_scale_1p = 0.862;
+    ratio_scale_3p = 0.881;
+  }
+
   if    ( (fSysName.Contains("FakeFactor_WjetsBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
     if (f_n_bjets>0 && f_tau_0_n_charged_tracks==1)
-      retval *= (0.862+0.262);
+      retval *= (ratio_scale_1p+0.262);
     else if (f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
-      retval *= (0.881+0.262);
+      retval *= (ratio_scale_3p+0.262);
     else
       retval += retval_error;
   }
@@ -161,17 +170,19 @@ double JetFakes::getValue() const {
           (fSysName.Contains("FakeFactor_WjetsBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
     if (f_n_bjets>0 && f_tau_0_n_charged_tracks==1)
-      retval *= (0.862-0.262);
+      retval *= (ratio_scale_1p-0.262);
     else if (f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
-      retval *= (0.881-0.262);
+      retval *= (ratio_scale_3p-0.262);
     else
       retval -= retval_error;
   }
   else {
-    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks) 
-      retval *= 0.862;
-    else if (f_n_bjets>0 && 3==f_tau_0_n_charged_tracks)
-      retval *= 0.881;
+    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks){
+      retval *= ratio_scale_1p;
+    }
+    else if (f_n_bjets>0 && 3==f_tau_0_n_charged_tracks){
+      retval *= ratio_scale_3p;
+    }
   }
 
   return retval;
@@ -188,14 +199,17 @@ JetFakes::JetFakes(const TString& expression) : LepHadObservable(expression)
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
-  TFile* aFile= TFile::Open("FakeFactors/WFR_FF.root");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsFF", false) ) return;
+  INFOclass("Loading file...");
+
+  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/FakeFactors/WFR_FF.root");
   if (!aFile) {
-    std::cout << "ERROR: can not find WFR_FF.root " << std::endl;
+    ERRORclass("Can not find WFR_FF.root");
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -236,6 +250,9 @@ void JetFakes::setExpression(const TString& expr){
 
 bool JetFakes::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.wff)","~");
+
   return true;
 }
 

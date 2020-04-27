@@ -1,0 +1,11 @@
+# ------------------------------ c16a ------------------------------ #
+##### ID fakes #####
+### data ###
+/bkg/?/c16a/Fakes/ID/data
+
+### bkg ###
+/bkg/?/c16a/Fakes/ID/mc/Ztautau
+/bkg/?/c16a/Fakes/ID/mc/Zll
+/bkg/?/c16a/Fakes/ID/mc/Top/ttbar/NOMINAL
+/bkg/?/c16a/Fakes/ID/mc/Top/single
+/bkg/?/c16a/Fakes/ID/mc/Diboson

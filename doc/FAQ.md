@@ -4,11 +4,14 @@ FAQ
 1. Failed to submit jobs via HTCondor in IHEP
 
 For job submission in IHEP, we need to modify the controllers.
-In `CAFCore/CommonAnalysisHelpers/python/submissionControllers/condor.py`, replace
-`payload.append("+AccountingGroup = \"{:s}\"".format(accGroup))` with `payload.append("Accounting_Group = {:s}".format(accGroup))`
+In [condor.py](https://gitlab.cern.ch/atlas-caf/CAFCore/blob/master/CommonAnalysisHelpers/python/submissionControllers/condor.py), 
+add the following statement in Line 202.
+```
+payload.append("Accounting_Group = {:s}".format(accGroup))
+```
 
-2. For muhad channel, `ERROR in TQMultiChannelAnalysisSampleVisitor::analyseTree(...) : No cuts were activated for processing sample`
-is observedd.
+2. When running jobs in muhad channel with MCASV, the following error messages are observed:  
+```ERROR in TQMultiChannelAnalysisSampleVisitor::analyseTree(...) : No cuts were activated for processing sample```
 
-It is a known issue in CAF. We still obtain the right results with this error. For now, we need to live with it.
-
+It is a known issue in CAF. We still obtain the right results with this error. For now, we need to live with it.  
+Issue ticket with CAFCore open here: https://gitlab.cern.ch/atlas-caf/CAFCore/issues/281
