@@ -1,0 +1,10 @@
+# -*- mode: tqfolder -*-
+
++Systematics {
+    +FakeFactor_WjetsBtag1p                { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+    +FakeFactor_WjetsBtag3p                { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+    +FakeFactor_WjetsBveto1p               { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+    +FakeFactor_WjetsBveto3p               { <Down = "$(BASEFOLDERNAME)_1down", Up = "$(BASEFOLDERNAME)_1up"> }
+}
+
+$include("createVariations.tq");

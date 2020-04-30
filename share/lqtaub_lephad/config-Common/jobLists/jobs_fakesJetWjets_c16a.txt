@@ -1,0 +1,7 @@
+# ------------------------------ c16a ------------------------------ #
+##### Jet fakes #####
+### bkg ###
+# Wjets #
+/bkg/?/c16a/Fakes/JetFake/Wjets/enu
+/bkg/?/c16a/Fakes/JetFake/Wjets/munu
+/bkg/?/c16a/Fakes/JetFake/Wjets/taunu
