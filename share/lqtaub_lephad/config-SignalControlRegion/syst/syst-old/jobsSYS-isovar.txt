@@ -1,0 +1,74 @@
+# ------------------------------ options ------------------------------ #
+!time=4320
+!memory=1024
+
+
+# ------------------------------ samples ------------------------------ #
+# ----------- c16a ----------- #
+##### bkg from QCD jets #####
+/bkg/?/c16a/Fakes/ISO/data
+/bkg/?/c16a/Fakes/ISO/mc/Ztautau
+/bkg/?/c16a/Fakes/ISO/mc/Zll
+/bkg/?/c16a/Fakes/ISO/mc/Top/ttbar/NOMINAL
+/bkg/?/c16a/Fakes/ISO/mc/Top/single
+/bkg/?/c16a/Fakes/ISO/mc/Diboson
+/bkg/?/c16a/Fakes/ISO/mc/Wjets/enu
+/bkg/?/c16a/Fakes/ISO/mc/Wjets/munu
+/bkg/?/c16a/Fakes/ISO/mc/Wjets/taunu
+
+##### bkg from W+jets #####
+/bkg/?/c16a/Fakes/ID/ISO/data
+/bkg/?/c16a/Fakes/ID/ISO/mc/Ztautau
+/bkg/?/c16a/Fakes/ID/ISO/mc/Zll
+/bkg/?/c16a/Fakes/ID/ISO/mc/Top/ttbar/NOMINAL
+/bkg/?/c16a/Fakes/ID/ISO/mc/Top/single
+/bkg/?/c16a/Fakes/ID/ISO/mc/Diboson
+/bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/enu
+/bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/munu
+/bkg/?/c16a/Fakes/ID/ISO/mc/Wjets/taunu
+
+# ----------- c16d ----------- #
+##### bkg from QCD jets #####
+/bkg/?/c16d/Fakes/ISO/data
+/bkg/?/c16d/Fakes/ISO/mc/Ztautau
+/bkg/?/c16d/Fakes/ISO/mc/Zll
+/bkg/?/c16d/Fakes/ISO/mc/Top/ttbar/NOMINAL
+/bkg/?/c16d/Fakes/ISO/mc/Top/single
+/bkg/?/c16d/Fakes/ISO/mc/Diboson
+/bkg/?/c16d/Fakes/ISO/mc/Wjets/enu
+/bkg/?/c16d/Fakes/ISO/mc/Wjets/munu
+/bkg/?/c16d/Fakes/ISO/mc/Wjets/taunu
+
+##### bkg from W+jets #####
+/bkg/?/c16d/Fakes/ID/ISO/data
+/bkg/?/c16d/Fakes/ID/ISO/mc/Ztautau
+/bkg/?/c16d/Fakes/ID/ISO/mc/Zll
+/bkg/?/c16d/Fakes/ID/ISO/mc/Top/ttbar/NOMINAL
+/bkg/?/c16d/Fakes/ID/ISO/mc/Top/single
+/bkg/?/c16d/Fakes/ID/ISO/mc/Diboson
+/bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/enu
+/bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/munu
+/bkg/?/c16d/Fakes/ID/ISO/mc/Wjets/taunu
+
+# ----------- c16e ----------- #
+##### bkg from QCD jets #####
+/bkg/?/c16e/Fakes/ISO/data
+/bkg/?/c16e/Fakes/ISO/mc/Ztautau
+/bkg/?/c16e/Fakes/ISO/mc/Zll
+/bkg/?/c16e/Fakes/ISO/mc/Top/ttbar/NOMINAL
+/bkg/?/c16e/Fakes/ISO/mc/Top/single
+/bkg/?/c16e/Fakes/ISO/mc/Diboson
+/bkg/?/c16e/Fakes/ISO/mc/Wjets/enu
+/bkg/?/c16e/Fakes/ISO/mc/Wjets/munu
+/bkg/?/c16e/Fakes/ISO/mc/Wjets/taunu
+
+##### bkg from W+jets #####
+/bkg/?/c16e/Fakes/ID/ISO/data
+/bkg/?/c16e/Fakes/ID/ISO/mc/Ztautau
+/bkg/?/c16e/Fakes/ID/ISO/mc/Zll
+/bkg/?/c16e/Fakes/ID/ISO/mc/Top/ttbar/NOMINAL
+/bkg/?/c16e/Fakes/ID/ISO/mc/Top/single
+/bkg/?/c16e/Fakes/ID/ISO/mc/Diboson
+/bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/enu
+/bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/munu
+/bkg/?/c16e/Fakes/ID/ISO/mc/Wjets/taunu
