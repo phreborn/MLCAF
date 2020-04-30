@@ -58,4 +58,5 @@ TH1F('Btag3pSumOfPtSF','', {50.,100.,150.,200.,250.,300.,350.,400.,450.,500.,600
 @CutVRBtag*: BtagTransverseMassTauBJet,BtagTransverseMassLepBJet,BtagTransverseMassLepTau,BtagInvariantMassTauBJet;
 @CutTCRBtag*: BtagLeptonPt,BtagTauPt,BtagLepMETDphi,BtagTauMETDphi,BtagVisibleMassTauLep,BtagSumOfPt,BtagLepTauDphi;
 @CutTCRBtag*: BtagTransverseMassTauBJet,BtagTransverseMassLepBJet,BtagTransverseMassLepTau,BtagInvariantMassTauBJet;
-@CutTCRBtag*: Btag1pSumOfPtSF,Btag3pSumOfPtSF;
+@CutTCRBtag1p: Btag1pSumOfPtSF;
+@CutTCRBtag3p: Btag3pSumOfPtSF;
