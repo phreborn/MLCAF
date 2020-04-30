@@ -60,9 +60,18 @@ TObjArray* LepHadObservable::getBranchNames() const {
     
   bnames->Add(new TObjString("tau_0_n_charged_tracks"));  
   bnames->Add(new TObjString("tau_0_pt"));
+  bnames->Add(new TObjString("tau_0_px"));
+  bnames->Add(new TObjString("tau_0_py"));
+  bnames->Add(new TObjString("tau_0_pz"));
+  bnames->Add(new TObjString("tau_0_E"));
   bnames->Add(new TObjString("tau_0_eta"));
   bnames->Add(new TObjString("tau_0_phi"));
   bnames->Add(new TObjString("tau_0_jet_bdt_medium"));
+
+  bnames->Add(new TObjString("jet_0_pt"));
+  bnames->Add(new TObjString("jet_0_m"));
+  bnames->Add(new TObjString("jet_0_eta"));
+  bnames->Add(new TObjString("jet_0_phi"));
 
   bnames->Add(new TObjString("lephad_dphi"));
 
@@ -208,9 +217,18 @@ bool LepHadObservable::initializeSelf(){
  
   this->tau_0_n_charged_tracks = new TTreeFormula( "tau_0_n_charged_tracks", "tau_0_n_charged_tracks", this->fTree); 
   this->tau_0_pt = new TTreeFormula( "tau_0_pt", "tau_0_p4.Pt()", this->fTree);
+  this->tau_0_px = new TTreeFormula( "tau_0_px", "tau_0_p4.Px()", this->fTree);
+  this->tau_0_py = new TTreeFormula( "tau_0_py", "tau_0_p4.Py()", this->fTree);
+  this->tau_0_pz = new TTreeFormula( "tau_0_pz", "tau_0_p4.Pz()", this->fTree);
+  this->tau_0_E = new TTreeFormula( "tau_0_E", "tau_0_p4.Energy()", this->fTree);
   this->tau_0_eta = new TTreeFormula( "tau_0_eta", "tau_0_p4.Eta()", this->fTree);
   this->tau_0_phi = new TTreeFormula( "tau_0_phi", "tau_0_p4.Phi()", this->fTree);
   this->tau_0_jet_bdt_medium = new TTreeFormula( "tau_0_jet_bdt_medium", "tau_0_jet_rnn_medium", this->fTree);
+
+  this->jet_0_pt = new TTreeFormula( "jet_0_pt", "jet_0_p4.Pt()", this->fTree);
+  this->jet_0_eta = new TTreeFormula( "jet_0_eta", "jet_0_p4.Eta()", this->fTree);
+  this->jet_0_phi = new TTreeFormula( "jet_0_phi", "jet_0_p4.Phi()", this->fTree);
+  this->jet_0_m = new TTreeFormula( "jet_0_m", "jet_0_p4.M()", this->fTree);
   
   this->lephad_dphi = new TTreeFormula( "lephad_dphi", "lephad_dphi", this->fTree);
 
@@ -247,9 +265,18 @@ bool LepHadObservable::finalizeSelf(){
   
   delete this->tau_0_n_charged_tracks;
   delete this->tau_0_pt;
+  delete this->tau_0_px;
+  delete this->tau_0_py;
+  delete this->tau_0_pz;
+  delete this->tau_0_E;
   delete this->tau_0_eta;
   delete this->tau_0_phi;
   delete this->tau_0_jet_bdt_medium;
+
+  delete this->jet_0_pt;
+  delete this->jet_0_eta;
+  delete this->jet_0_phi;
+  delete this->jet_0_m;
   
   delete this->lephad_dphi;
   

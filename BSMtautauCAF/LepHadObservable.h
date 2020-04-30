@@ -69,9 +69,18 @@ class LepHadObservable : public TQTreeObservable {
     
     TTreeFormula* tau_0_n_charged_tracks = nullptr;
     TTreeFormula* tau_0_pt = nullptr;
+    TTreeFormula* tau_0_px = nullptr;
+    TTreeFormula* tau_0_py = nullptr;
+    TTreeFormula* tau_0_pz = nullptr;
+    TTreeFormula* tau_0_E = nullptr;
     TTreeFormula* tau_0_eta = nullptr;
     TTreeFormula* tau_0_phi = nullptr;
     TTreeFormula* tau_0_jet_bdt_medium = nullptr;
+
+    TTreeFormula* jet_0_pt = nullptr;
+    TTreeFormula* jet_0_eta = nullptr;
+    TTreeFormula* jet_0_phi = nullptr;
+    TTreeFormula* jet_0_m = nullptr;
 
     TTreeFormula* lephad_dphi = nullptr;
     
