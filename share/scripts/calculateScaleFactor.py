@@ -233,6 +233,8 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr_applyff.root'
   elif region == 'TCR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
+  elif region == 'LQTCR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_tcr.root'
   elif region == 'VR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr.root'
 
@@ -358,3 +360,29 @@ if __name__=='__main__':
         # btag 1D SF
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag1p', 'Btag1pTauPtSF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag3p', 'Btag3pTauPtSF', prefix, 0.1, 0.1)
+
+  elif region == 'LQTCR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Diboson+Fakes/ISO/[data-mc]+Fakes/ID/[data-[mc+ISO/[data-mc]]]]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/Top'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        # btag 1D SF
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag1p', 'Btag1pSumOfPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag3p', 'Btag3pSumOfPtSF', prefix, 0.1, 0.1)
