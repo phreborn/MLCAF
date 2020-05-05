@@ -190,7 +190,7 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
   SF_nom_down.SetName(SF_nom.GetName()+'_down')
   checkNegative(SF_nom_down)
 
-  outfile = TFile('bsmtautau_lephad/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile(analysis+'_lephad/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   SF_nom.Write()
   SF_nom_up.Write()
@@ -210,8 +210,10 @@ if __name__=='__main__':
   # argument
   if len(args)==0:
     print 'You must submit an argument REGION: \n\t WFR; \n\t LFR; \n\t etc.'
+    print 'And an argument Analysis: \n\t bsmtautau; \n\t lqtaub; \n\t etc.'
     sys.exit()
-  region = args[0]
+  analysis = args[0]
+  region   = args[1]
 
   from QFramework import *
   from math import *
@@ -228,15 +230,14 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_wfr_applyff.root'
   elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_lfr_applyff.root'
   elif region == 'TCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
-  elif region == 'LQTCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_tcr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_wfr_applyff.root'
+    #sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_tcr.root'
   elif region == 'VR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_sr.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
@@ -361,28 +362,5 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag1p', 'Btag1pTauPtSF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag3p', 'Btag3pTauPtSF', prefix, 0.1, 0.1)
 
-  elif region == 'LQTCR':
-    # Loop over data taking period and channels
-    periods = {
-                #'1516': 'c16a',
-                #'17': 'c16d',
-                #'18': 'c16e',
-                'All': '[c16a+c16d+c16e]',
-             }
-    channels = {
-                #'ehad': 'ehad',
-                #'muhad': 'muhad',
-                'lephad': '[ehad+muhad]',
-              }
-    
-    # We use same histograms for ehad, and muhad
-    # Btag/Bveto, 1p/3p appears in the name of the histograms
-    for channel_name, channel_path in channels.items():
-      for period_name, period_path in periods.items():
-        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Diboson+Fakes/ISO/[data-mc]+Fakes/ID/[data-[mc+ISO/[data-mc]]]]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/Top'.format(channel_path, period_path)
-        prefix = region+period_name+channel_name
-        # btag 1D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag1p', 'Btag1pSumOfPtSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag3p', 'Btag3pSumOfPtSF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag1p', 'Btag1pSumOfPtSF', prefix, 0.1, 0.1)
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag3p', 'Btag3pSumOfPtSF', prefix, 0.1, 0.1)
