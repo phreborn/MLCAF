@@ -78,7 +78,7 @@ double TopReweight::getValue() const {
   TString param = "";
   TString param_tag = "";
   float variable = 0.0;
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("TopSFParam", param_tag) ) ERRORclass("Can not get WjetsSFParam tag");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("TopSFParam", param_tag) ) ERRORclass("Can not get TopSFParam tag");
   if (param_tag == "TauPt") {
     param = "TauPt";
     variable = f_tau_0_pt;

@@ -42,7 +42,7 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
 
         +CutMTOS {
             <.cutExpression="lephad_mt_lep0_met <40 && lephad_qxq == -1",
-             .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweightLQ] : 1}", .title="MTOS">
+             .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="MTOS">
 
             +CutBtag1p {
                 <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="Btag1p">
@@ -60,7 +60,7 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
 @ */CutVisMassVeto {
     +CutVRMTOS {
         <.cutExpression="lephad_mt_lep0_met > 40 && lephad_mt_lep0_met < 60 && lephad_qxq == -1", 
-         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweightLQ] : 1}", .title="VRMTOS">
+         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="VRMTOS">
 
         +CutVRBtag1p {
             <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
