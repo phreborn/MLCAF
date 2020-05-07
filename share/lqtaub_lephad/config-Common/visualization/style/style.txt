@@ -1,0 +1,53 @@
+# -*- mode: tqfolder -*-
+
+# wildcard campaigns
+<wildcarded=true> @ /data/?/?, /bkg/?/?, /sig/?/?;
+
+<style.default.histFillStyle=1001, style.default.histLineWidth=2, style.default.histLineColor=kBlack> @ /bkg;
+<style.default.histLineWidth=3, style.default.histLineStyle=1> @ /sig;
+
+
+### data ###
+<style.default.title="Data", style.default.isHistogram=false, style.default.histLineColor=kBlack, style.default.histMarkerStyle=8, style.default.histMarkerSize=0.8> @ /data, /bkg/?/?/Fakes/?/data, /bkg/?/?/Fakes/ID/ISO/data;
+
+
+### fakes ###
+<style.default.title="$\ell$/QCD fake",                 style.default.histFillColor=kGray > @ /bkg/?/?/Fakes/ISO, /bkg/?/?/Fakes/ID/ISO;
+<style.default.title="W/Top fake",                      style.default.histFillColor=kRed+1> @ /bkg/?/?/Fakes/ID;
+
+<style.default.title="W+jets",                          style.default.histFillColor=kRed  > @ /bkg/?/?/Wjets, /bkg/?/?/Fakes/?/mc/Wjets, /bkg/?/?/Fakes/ID/ISO/mc/Wjets;
+
+<style.default.title="W+jets (true $\tau$)",                                      style.default.histFillColor=kRed-4   > @ /bkg/?/?/Fakes/TruthTau/Wjets;
+<style.default.title="W+jets ($\ell\rightarrow\tau$)",                            style.default.histFillColor=kRed-7   > @ /bkg/?/?/Fakes/LepFake/Wjets;
+<style.default.title="W+jets (jet$\rightarrow\tau$)",                             style.default.histFillColor=kRed-9   > @ /bkg/?/?/Fakes/JetFake/Wjets;
+<style.default.title="Z/$\gamma^{*}\rightarrow\tau\tau$ (true $\tau$)",           style.default.histFillColor=kBlue-4  > @ /bkg/?/?/Fakes/TruthTau/Ztautau;
+<style.default.title="Z/$\gamma^{*}\rightarrow\tau\tau$ ($\ell\rightarrow\tau$)", style.default.histFillColor=kBlue-7  > @ /bkg/?/?/Fakes/LepFake/Ztautau;
+<style.default.title="Z/$\gamma^{*}\rightarrow\tau\tau$ (jet$\rightarrow\tau$)",  style.default.histFillColor=kBlue-10 > @ /bkg/?/?/Fakes/JetFake/Ztautau;
+<style.default.title="Z/$\gamma^{*}\rightarrow\ell\ell$ (true $\tau$)",           style.default.histFillColor=kGreen-4 > @ /bkg/?/?/Fakes/TruthTau/Zll;
+<style.default.title="Z/$\gamma^{*}\rightarrow\ell\ell$ ($\ell\rightarrow\tau$)", style.default.histFillColor=kGreen-7 > @ /bkg/?/?/Fakes/LepFake/Zll;
+<style.default.title="Z/$\gamma^{*}\rightarrow\ell\ell$ (jet$\rightarrow\tau$)",  style.default.histFillColor=kGreen-10> @ /bkg/?/?/Fakes/JetFake/Zll;
+<style.default.title="Top (true $\tau$)",                                         style.default.histFillColor=kYellow-4> @ /bkg/?/?/Fakes/TruthTau/Top;
+<style.default.title="Top ($\ell\rightarrow\tau$)",                               style.default.histFillColor=kYellow-7> @ /bkg/?/?/Fakes/LepFake/Top;
+<style.default.title="Top (jet$\rightarrow\tau$)",                                style.default.histFillColor=kYellow-9> @ /bkg/?/?/Fakes/JetFake/Top;
+<style.default.title="Diboson (true $\tau$)",                                     style.default.histFillColor=kYellow+4> @ /bkg/?/?/Fakes/TruthTau/Diboson;
+<style.default.title="Diboson ($\ell\rightarrow\tau$)",                           style.default.histFillColor=kYellow-1> @ /bkg/?/?/Fakes/LepFake/Diboson;
+<style.default.title="Diboson (jet$\rightarrow\tau$)",                            style.default.histFillColor=kYellow-5> @ /bkg/?/?/Fakes/JetFake/Diboson;
+
+<style.default.title="Top (e$\rightarrow\tau$)",   style.default.histFillColor=kYellow-3> @ /bkg/?/?/Fakes/ElFake/Top;
+<style.default.title="Top ($\mu\rightarrow\tau$)", style.default.histFillColor=kYellow-6> @ /bkg/?/?/Fakes/MuFake/Top;
+
+
+### bkg ###
+<style.default.title="Z/$\gamma^{*}\rightarrow\tau\tau$", style.default.histFillColor=kBlue-9   > @ /bkg/?/?/Ztautau, /bkg/?/?/Fakes/?/mc/Ztautau, /bkg/?/?/Fakes/ID/ISO/mc/Ztautau;
+<style.default.title="Z/$\gamma^{*}\rightarrow\ell\ell$", style.default.histFillColor=kGreen-9  > @ /bkg/?/?/Zll,     /bkg/?/?/Fakes/?/mc/Zll,     /bkg/?/?/Fakes/ID/ISO/mc/Zll;
+<style.default.title="Top",                               style.default.histFillColor=kYellow-10> @ /bkg/?/?/Top,     /bkg/?/?/Fakes/?/mc/Top,     /bkg/?/?/Fakes/ID/ISO/mc/Top;
+<style.default.title="Diboson",                           style.default.histFillColor=kYellow-8 > @ /bkg/?/?/Diboson, /bkg/?/?/Fakes/?/mc/Diboson, /bkg/?/?/Fakes/ID/ISO/mc/Diboson;
+
+
+### sig ###
+<style.default.title="ggH (400)",  style.default.histLineColor=kYellow+2> @ /sig/?/?/ggH/400;
+<style.default.title="bbH (400)",  style.default.histLineColor=kYellow+3> @ /sig/?/?/bbH/400;
+<style.default.title="ggH (1000)", style.default.histLineColor=kRed+2   > @ /sig/?/?/ggH/1000;
+<style.default.title="bbH (1000)", style.default.histLineColor=kRed+3   > @ /sig/?/?/bbH/1000;
+<style.default.title="ggH (1500)", style.default.histLineColor=kOrange+5> @ /sig/?/?/ggH/1500;
+<style.default.title="bbH (1500)", style.default.histLineColor=kOrange+6> @ /sig/?/?/bbH/1500;
