@@ -95,39 +95,39 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   
   // 2015
   addScaleFactor(muon | y2015, highpt | mu_eff_trigsys, 
-    "lep_0_NOMINAL_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
+    "lep_0_NOMINAL_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium");
   addScaleFactor(muon | y2015 | mu_eff_trigstat_low, highpt, 
-    "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium");
   addScaleFactor(muon | y2015 | mu_eff_trigstat_high,  highpt,
-    "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium");
   addScaleFactor(muon | y2015 | mu_eff_trigsys_low, highpt,
-    "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium");
   addScaleFactor(muon | y2015 | mu_eff_trigsys_high, highpt,
-    "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu20_iloose_L1MU15_QualMedium");
   
   // 2016 - 2018
   addScaleFactor(muon, highpt | y2015 | mu_eff_trigsys, 
-    "lep_0_NOMINAL_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+    "lep_0_NOMINAL_MuEffSF_HLT_mu26_ivarmedium_QualMedium");
   addScaleFactor(muon | mu_eff_trigstat_low,  highpt | y2015, 
-    "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium");
   addScaleFactor(muon | mu_eff_trigstat_high, highpt | y2015,
-    "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium");
   addScaleFactor(muon | mu_eff_trigsys_low,   highpt | y2015,
-    "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu26_ivarmedium_QualMedium");
   addScaleFactor(muon | mu_eff_trigsys_high,  highpt | y2015,
-    "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu26_ivarmedium_QualMedium");
   
   // high pt 
   addScaleFactor(muon | highpt, mu_eff_trigsys, 
-    "lep_0_NOMINAL_MuEffSF_HLT_mu50_QualMedium_IsoNone");
+    "lep_0_NOMINAL_MuEffSF_HLT_mu50_QualMedium");
   addScaleFactor(muon | highpt | mu_eff_trigstat_low,
-    "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu50_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigStatUncertainty_1down_MuEffSF_HLT_mu50_QualMedium");
   addScaleFactor(muon | highpt | mu_eff_trigstat_high,
-    "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu50_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigStatUncertainty_1up_MuEffSF_HLT_mu50_QualMedium");
   addScaleFactor(muon | highpt | mu_eff_trigsys_low,
-    "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu50_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigSystUncertainty_1down_MuEffSF_HLT_mu50_QualMedium");
   addScaleFactor(muon | highpt | mu_eff_trigsys_high,
-    "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu50_QualMedium_IsoNone");
+    "lep_0_MUON_EFF_TrigSystUncertainty_1up_MuEffSF_HLT_mu50_QualMedium");
 
   // muon reco efficiency
   Condition mu_eff_stat_low = registerVariation("mu_eff_stat_low");
@@ -212,11 +212,11 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition tau_eff_jetid_highpt_high = registerVariation("tau_eff_jetid_highpt_high");
   Condition tau_eff_jetid_sys = tau_eff_jetid_total_low | tau_eff_jetid_total_high | tau_eff_jetid_highpt_low | tau_eff_jetid_highpt_high;
 
-  addScaleFactor(tauid, tau_eff_jetid_sys, "tau_0_NOMINAL_TauEffSF_JetBDTmedium");
-  addScaleFactor(tauid | tau_eff_jetid_total_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1down_TauEffSF_JetBDTmedium");
-  addScaleFactor(tauid | tau_eff_jetid_total_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1up_TauEffSF_JetBDTmedium");
-  addScaleFactor(tauid | tau_eff_jetid_highpt_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1down_TauEffSF_JetBDTmedium");
-  addScaleFactor(tauid | tau_eff_jetid_highpt_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1up_TauEffSF_JetBDTmedium");
+  addScaleFactor(tauid, tau_eff_jetid_sys, "tau_0_NOMINAL_TauEffSF_JetRNNmedium");
+  addScaleFactor(tauid | tau_eff_jetid_total_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1down_TauEffSF_JetRNNmedium");
+  addScaleFactor(tauid | tau_eff_jetid_total_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1up_TauEffSF_JetRNNmedium");
+  addScaleFactor(tauid | tau_eff_jetid_highpt_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1down_TauEffSF_JetRNNmedium");
+  addScaleFactor(tauid | tau_eff_jetid_highpt_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1up_TauEffSF_JetRNNmedium");
 
   ///////////////////////////////////////////////////////////////////////////////
   /// Jet Related
@@ -266,10 +266,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     btag_sys |= btag_b_low[i];
     btag_sys |= btag_b_high[i];
 
-    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_effSF_MV2c10", i));
-    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_ineffSF_MV2c10", i));
-    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_effSF_MV2c10", i));
-    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_ineffSF_MV2c10", i));
+    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_effSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_ineffSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_effSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_ineffSF_DL1r_FixedCutBEff_70", i));
   }
 
   // c
@@ -283,10 +283,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     btag_sys |= btag_c_low[i];
     btag_sys |= btag_c_high[i];
 
-    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_effSF_MV2c10", i));
-    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_ineffSF_MV2c10", i));
-    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_effSF_MV2c10", i));
-    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_ineffSF_MV2c10", i));
+    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_effSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_ineffSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_effSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_ineffSF_DL1r_FixedCutBEff_70", i));
   }
 
   // light
@@ -300,10 +300,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     btag_sys |= btag_light_low[i];
     btag_sys |= btag_light_high[i];
 
-    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_effSF_MV2c10", i));
-    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_ineffSF_MV2c10", i));
-    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_effSF_MV2c10", i));
-    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_ineffSF_MV2c10", i));
+    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_effSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_ineffSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_effSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_ineffSF_DL1r_FixedCutBEff_70", i));
   }
 
   // extrapolation
@@ -312,10 +312,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   btag_sys |= btag_extrapolation_low;
   btag_sys |= btag_extrapolation_high;
 
-  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_effSF_MV2c10");
-  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_effSF_MV2c10");
-  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_ineffSF_MV2c10");
-  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_ineffSF_MV2c10");
+  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_effSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_effSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_ineffSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_ineffSF_DL1r_FixedCutBEff_70");
 
   // extrapolation from charm
   Condition btag_extrapolation_from_charm_low = registerVariation("btag_extrapolation_from_charm_low");
@@ -323,14 +323,14 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   btag_sys |= btag_extrapolation_from_charm_low;
   btag_sys |= btag_extrapolation_from_charm_high;
 
-  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_effSF_MV2c10");
-  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_ineffSF_MV2c10");
-  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_effSF_MV2c10");
-  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_ineffSF_MV2c10");
+  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_effSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_ineffSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_effSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_ineffSF_DL1r_FixedCutBEff_70");
 
   /// eff and inff should be anti ?????
-  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_effSF_MV2c10");
-  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_ineffSF_MV2c10");
+  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_effSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_ineffSF_DL1r_FixedCutBEff_70");
 
   ////////////////////////////////////////////////////////////////////////////////
   // mc weight
@@ -339,12 +339,12 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   
   staticConditionsMask |= nominal;
   
-  if (expression == "ScaleFactor_nominal") {
+  if (fSysName == "nominal") {
      variation = nominal;
   }
    
   for (unsigned int i = 0; i < variations.size(); i++) {
-    if (expression.EndsWith(variations[i].first)) {
+    if (fSysName.EndsWith(variations[i].first)) {
         variation = variations[i].second;
     }
   }
@@ -356,6 +356,8 @@ bool ScaleFactor::initializeSelf() {
       ERROR("Initialization of LepHadObservable failed.");
       return false;
   }
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.weight)","~");
 
   for (unsigned int i = 0; i < branches.size(); i++) {
     Condition requirement = std::get<0>(branches[i]);

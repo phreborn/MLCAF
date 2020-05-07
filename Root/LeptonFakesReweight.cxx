@@ -47,7 +47,6 @@ TObjArray* LeptonFakesReweight::getBranchNames() const {
 
 //______________________________________________________________________________________________
 double LeptonFakesReweight::getValue() const {
-  
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   double f_lep_0              = this->lep_0->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
@@ -144,14 +143,17 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
-  TFile* aFile= TFile::Open("ScaleFactors/LFR_SF.root");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDSF", false) ) return;
+  INFOclass("Loading file...");
+
+  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/LFR_SF.root");
   if (!aFile) {
-    std::cout << "ERROR: can not find LFR_SF.root " << std::endl;
+    ERRORclass("Can not find LFR_SF.root");
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -191,6 +193,9 @@ void LeptonFakesReweight::setExpression(const TString& expr){
 
 bool LeptonFakesReweight::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lsf)","~");
+
   return true;
 }
 

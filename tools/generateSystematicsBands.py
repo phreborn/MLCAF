@@ -4,7 +4,7 @@ import argparse
 
 def main(args):
   from QFramework import INFO,BREAK,ERROR,START,END
-  from QFramework import TQSystematicsHandler,TQTaggable,TQFolder
+  from QFramework import TQSystematicsHandler,TQTaggable,TQFolder,TQMessageStream
   from ROOT import TString
   from ROOT.std import pair as cpair
   pair = cpair('TString','TString')
@@ -96,7 +96,9 @@ def main(args):
   # Table.printPlain() to write it as a LaTeX and a CSV file
   for cut in cuts:
     table = handler.getTable(cut)
+    table.setTagString("colAlign", "l")
     table.writeLaTeX(str(TQFolder.concatPaths(args.outputRankings,cut))+".tex", "ensureDirectory=true")
+    table.writeHTML(str(TQFolder.concatPaths(args.outputRankings,cut))+".html", "ensureDirectory=true")
    
   INFO("all done")
 

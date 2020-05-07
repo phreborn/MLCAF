@@ -77,7 +77,8 @@ double JetFakesReweight::getValue() const {
   TString param = "";
   TString param_tag = "";
   float variable = 0.0;
-  if(!this->fSample->getTag("~WjetsSFParam",param_tag)) std::cout<<"ERROR: Can not find WjetsSFParam tag" << std::endl;
+  //if(!this->fSample->getTag("~WjetsSFParam",param_tag)) std::cout<<"ERROR: Can not find WjetsSFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("WjetsSFParam", param_tag) ) ERRORclass("Can not get WjetsSFParam tag");
   if (param_tag == "LeptonPt") {
     param = "LeptonPt";
     variable = f_lep_0_pt;
@@ -181,14 +182,17 @@ JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
-  TFile* aFile= TFile::Open("ScaleFactors/WFR_SF.root");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsSF", false) ) return;
+  INFOclass("Loading file...");
+
+  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/WFR_SF.root");
   if (!aFile) {
-    std::cout << "ERROR: can not find WFR_SF.root " << std::endl;
+    ERRORclass("Can not find WFR_SF.root");
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -203,7 +207,6 @@ JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable
     }
   }
   aFile->Close();
-
 }
 //______________________________________________________________________________________________
 
@@ -230,6 +233,9 @@ void JetFakesReweight::setExpression(const TString& expr){
 
 bool JetFakesReweight::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.wsf)","~");
+
   return true;
 }
 

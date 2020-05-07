@@ -1,0 +1,102 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+##
+##  Full MC and data-driven Fakes cuts in Signal Region.
+##  CutTruth requires that sample folders would be tagged according
+##      to truth labels.
+##  The first cut CutChannel selects channel based on what is
+##      requested in config file.
+##
+#################################################################
+
+$include("bsmtautau_lephad/config-Common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{($(isData) || $(isSig) || $(isAntiISO)) ? 1 :
+                         (($(isInc) && ([TruthTauSelector] == 30 || [TruthTauSelector] == 20 || [TruthTauSelector] == 5)))}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutAll {
+            <.cutExpression="lep_0_id_medium == 1 && lep_0_p4.Pt() > 30 && tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && lephad_dphi > 2.4",
+             .weightExpression="{$(isTop) ? [TopTheorySys] : 1}", .title="All">
+
+            +CutISO {
+                <.cutExpression="($(isAntiISO) ? $(isFailISO) : $(isPassISO))",
+                 .weightExpression="($(isAntiISO) ? $(applyLFF) : 1)", .title="ISO">
+
+                +CutID {
+                    <.cutExpression="($(isAntiID) ? $(isFailID) : $(isPassID))",
+                     .weightExpression="($(isAntiID) ? ($(applyWFF) * $(applyVSF)) : 1)", .title="ID">
+                } #End: CutID
+            } #End: CutISO
+        } #End: CutAll
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+
+# Signal Region
+@ */CutID {
+    +CutVisMassVeto {
+        <.cutExpression="lep_0 == 1 ? 1 : ((lephad_p4.M() > 110 || lephad_p4.M() < 80) ? 1 : 0) ", .title="VisMassVeto">
+
+        +CutMTOS {
+            <.cutExpression="lephad_mt_lep0_met <40 && lephad_qxq == -1", .title="MTOS">
+
+            +CutBveto1p {
+                <.cutExpression="$(NbJets) == 0 && tau_0_n_charged_tracks == 1", .title="Bveto1p">
+            } #End: CutBveto1p
+
+            +CutBtag1p {
+                <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 1", .title="Btag1p">
+            } #End: CutBtag1p
+
+            +CutBveto3p {
+                <.cutExpression="$(NbJets) == 0 && tau_0_n_charged_tracks == 3", .title="Bveto3p">
+            } #End: CutBveto3p
+
+            +CutBtag3p{
+                <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 3", .title="Btag3p">
+            } #End: CutBtag3p
+        } #End: CutMTOS
+    } #End: CutVisMassVeto
+} #End: CutID
+
+# TCR
+@ */CutID {
+    +CutTCRMTOS {
+        <.cutExpression="lephad_mt_lep0_met > 110 && lephad_qxq == -1", .title="TCRMTOS">
+
+        +CutTCRBtag1p {
+            <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 1", .title="TCRBtag1p">
+        } #End: CutTCRBtag1p
+
+        +CutTCRBtag3p {
+            <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 3", .title="TCRBtag3p">
+        } #End: CutTCRBtag3p
+    } #End: CutTCRMTOS
+} #End: CutID
+
+# Validation Region
+@ */CutVisMassVeto {
+    +CutVRMTOS {
+        <.cutExpression="lephad_mt_lep0_met > 40 && lephad_mt_lep0_met < 60 && lephad_qxq == -1", 
+         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="VRMTOS">
+
+        +CutVRBveto1p {
+            <.cutExpression="$(NbJets) == 0 && tau_0_n_charged_tracks == 1", .title="VRBveto1p">
+        } #End: CutVRBveto1p
+
+        +CutVRBtag1p {
+            <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
+        } #End: CutVRBtag1p
+
+        +CutVRBveto3p {
+            <.cutExpression="$(NbJets) == 0 && tau_0_n_charged_tracks == 3", .title="VRBveto3p">
+        } #End: CutVRBveto3p
+
+        +CutVRBtag3p {
+            <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 3", .title="VRBtag3p">
+        } #End: CutVRBtag3p
+    } #End: CutVRMTOS
+} #End: CutVisMassVeto

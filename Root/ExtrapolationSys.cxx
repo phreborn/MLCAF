@@ -158,14 +158,17 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
-  
-  TFile* aFile= TFile::Open("ScaleFactors/VR_SF.root");
+  //fSysName = expression;
+
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
+  INFOclass("Loading file...");
+
+  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/VR_SF.root");
   if (!aFile) {
-    std::cout << "ERROR: can not find VR_SF.root " << std::endl;
+    ERRORclass("Can not find VR_SF.root");
   }
 
-  /// Read all the histgrams in the root files, and save it to a map so that we can find the 
+  /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = aFile->GetListOfKeys();
   TIter next(list);
@@ -180,7 +183,6 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
     }
   }
   aFile->Close();
-
 }
 //______________________________________________________________________________________________
 
@@ -206,6 +208,9 @@ void ExtrapolationSys::setExpression(const TString& expr){
 
 bool ExtrapolationSys::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.vsf)","~");
+
   return true;
 }
 

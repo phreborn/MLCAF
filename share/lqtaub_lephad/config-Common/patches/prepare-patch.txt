@@ -1,0 +1,34 @@
+# -*- mode: tqfolder -*-
+
+# sampleFolder structure:
+# /(data,bkg,sig)/(channel)/(campaign)/(process)/...
+
+# prepare tags: /data folder has yet to be initialized, MC samples are yet to collect weights
+$printline("Applying post-prepare tags...");
+
+# use MC weights collected from initialize
+<usemcweights=false> @ /.;
+<usemcweights=true> @ /bkg, /sig;
+
+# categorise each inclusive MC process
+<isInc=false> @ /.;
+
+<isZtt=false> @ /.;
+<isZtt=true, isInc=true> @ /bkg/?/?/Ztautau;
+
+<isZll=false> @ /.;
+<isZll=true, isInc=true> @ /bkg/?/?/Zll;
+
+<isTop=false> @ /.;
+<isTop=true, isInc=true> @ /bkg/?/?/Top;
+
+<isDib=false> @ /.;
+<isDib=true, isInc=true> @ /bkg/?/?/Diboson;
+
+# is signal (if it exists)
+<isSig=false> @ /.;
+<isSig=true, isInc=true> @ /sig;
+
+# use MC W+jets for modelling ID fakes in ISO fakes region
+<isWjets=false> @ /.;
+<isWjets=true, isInc=true> @ /bkg/?/?/Wjets;

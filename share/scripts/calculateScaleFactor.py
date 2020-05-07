@@ -190,7 +190,7 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
   SF_nom_down.SetName(SF_nom.GetName()+'_down')
   checkNegative(SF_nom_down)
 
-  outfile = TFile('ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile('bsmtautau_lephad/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   SF_nom.Write()
   SF_nom_up.Write()
@@ -228,13 +228,13 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
   elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr_applyff.root'
   elif region == 'TCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
   elif region == 'VR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_sr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
@@ -264,8 +264,8 @@ if __name__=='__main__':
         prefix = region+period_name+channel_name
 
         # 1D LeptonPt
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto1pOSPassID', 'Bveto1pLeptonPtSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBveto3pOSPassID', 'Bveto3pLeptonPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto1pPassID', 'Bveto1pLeptonPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto3pPassID', 'Bveto3pLeptonPtSF', prefix, 0.1, 0.1)
 
   elif region == 'VR':
     # Loop over data taking period and channels
@@ -324,14 +324,14 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ISO/[data-mc]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         # bveto 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi3SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoBDTSLPassISO', 'BvetoTauPtDphi4SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi3SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBvetoPassISO', 'BvetoTauPtDphi4SF', prefix, 0.1, 0.1)
         # btag 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagBDTSLPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutBtagPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
 
   elif region == 'TCR':
     # Loop over data taking period and channels

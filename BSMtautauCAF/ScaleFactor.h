@@ -29,6 +29,8 @@ class ScaleFactor : public LepHadObservable {
     virtual bool initializeSelf() override;
     virtual bool finalizeSelf() override;
   
+    TString fSysName = "";
+
     std::vector< std::pair<TString, Condition> > variations;
     Condition variation;
 

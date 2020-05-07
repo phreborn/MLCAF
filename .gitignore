@@ -2,7 +2,6 @@
 Root/LinkDef.h
 python/__init__.py
 setup/setupLocal.sh
-setup/setupAnalysis.sh
 build
 */sampleFolders
 */results
@@ -27,5 +26,7 @@ build
 .asetup.save
 *.DS_Store
 *.isDone
-share/inputs
-!share/Systematics/*.root
+FileList_*.txt
+.envBefore_asetup.sh*
+jobs-*.tmp
+XS.csv-*

@@ -226,7 +226,7 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  fSysName = expression;
+  //fSysName = expression;
 
   // when files are closed histograms also dissapear, so detatch them and keep in this directory:
   //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
@@ -235,7 +235,7 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
   TFile* tempFile=0;
 
   //std::cout << "INFO: LPXKfactor.cxx getting histograms from files. " << std::endl;
-  std::cout << "INFO: LPXKfactor getting functions " << std::endl;
+  INFOclass("LPXKfactor getting functions...");
 
   ///////////////////////////////
   // LPX kfactor
@@ -284,9 +284,10 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
 
   TGraphAsymmErrors* tempGraph = 0;
   for (auto sample : Sample_list) {
-    tempFile = TFile::Open("Systematics/LPK_k-Factors_"+sample+".root");
+    INFOclass("Loading file...");
+    tempFile = TFile::Open("bsmtautau_lephad/auxData/Systematics/LPK_k-Factors_"+sample+".root");
     if (!tempFile) {
-      std::cout << "ERROR: can not find LPX Kfactor for " << sample << std::endl;
+      ERRORclass("Can not find LPX Kfactor for '%s'",sample);
       continue;
     }
     else {
@@ -323,6 +324,9 @@ void LPXKfactor::setExpression(const TString& expr){
 
 bool LPXKfactor::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
+
+  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lpx)","~");
+
   return true;
 }
 

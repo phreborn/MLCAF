@@ -1,0 +1,42 @@
+# -*- mode: tqfolder -*-
+
++Systematics {
+    +mu_eff_stat                   { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_statlowpt              { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_sys                    { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_syslowpt               { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_trigstat               { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_trigsys                { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_isostat                { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_isosys                 { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_ttvastat               { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +mu_eff_ttvasys                { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +el_eff_id                     { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +el_eff_iso                    { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +el_eff_reco                   { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +el_eff_trigger                { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +tau_eff_reco_total            { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +tau_eff_reco_highpt           { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +tau_eff_eleolr_trueelectron   { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +tau_eff_eleolr_truehadtau     { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +tau_eff_jetid_total           { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +tau_eff_jetid_highpt          { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_b_0                      { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_b_1                      { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_b_2                      { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_c_0                      { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_c_1                      { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_c_2                      { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_c_3                      { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_light_0                  { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_light_1                  { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_light_2                  { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_light_3                  { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_light_4                  { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_extrapolation            { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +btag_extrapolation_from_charm { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +jet_jvteff                    { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+    +pu_prw                        { <Down = "$(BASEFOLDERNAME)_low", Up = "$(BASEFOLDERNAME)_high"> }
+}
+
+$include("createVariations.tq");

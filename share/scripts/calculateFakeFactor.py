@@ -207,7 +207,7 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
   FF_nom_down.SetName(FF_nom.GetName()+'_down')
   checkNegative(FF_nom_down)
 
-  outfile = TFile('FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile('bsmtautau_lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   FF_nom.Write()
   FF_nom_up.Write()
@@ -245,9 +245,9 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_wfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr.root'
   elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-htautau_lephad_lfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr.root'
   else:
     print ("ERROR: unsupported region: ", region)
     sys.exit()
@@ -278,11 +278,11 @@ if __name__=='__main__':
         
         prefix = region+period_name+channel_name
         # bveto 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto1pOSPassID', 'CutBveto1pOSFailID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBveto3pOSPassID', 'CutBveto3pOSFailID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto1pPassID', 'CutOSBveto1pFailID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto3pPassID', 'CutOSBveto3pFailID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
         # btag 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBtag1pOSPassID',  'CutBtag1pOSFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtag3pOSPassID',  'CutBtag3pOSFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag1pPassID',  'CutOSBtag1pFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag3pPassID',  'CutOSBtag3pFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
 
   elif region == 'LFR':
     # Loop over data taking period and channels
@@ -307,10 +307,10 @@ if __name__=='__main__':
         
         prefix = region+period_name+channel_name
         # 2D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi3FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoBDTSLPassISO', 'CutBvetoBDTSLFailISO', 'BvetoLeptonPtDphi4FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagBDTSLPassISO', 'CutBtagBDTSLFailISO', 'BtagLeptonPtDphi3FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi1FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi2FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi3FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi4FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi1FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi2FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi3FF', prefix, 0.1,0.2)
