@@ -18,7 +18,7 @@ TH1F('MTTOT'      ,'', 300,0,3000) <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
 #TH1F('TauIDScore','', 100,0,1) << (tau_0_jet_rnn_score_trans: "TauIDScore");
 #TH1F('TauJetWidth','', 100,0,1) << (tau_0_jet_width : "tau jet width" );
 #TH1F('mu','', 10, 0, 100)   <<   ( n_actual_int  : "number of interactions per bunch crossing" );
-TH1F('LeadingBJetPt','', 30, 0,300 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [jet_0_p4.Pt()]/1000 : -1] : "p_{T}^{bjet}" );
+TH1F('LeadingBJetPt','', 30, 0,300 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [jet_0_p4.Pt()] : -1] : "p_{T}^{bjet}" );
 
 
 TH1F('SumOfPt','', 3000, 0,3000 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? $(SumOfPt): -1] : "S_{T} [GeV]" );

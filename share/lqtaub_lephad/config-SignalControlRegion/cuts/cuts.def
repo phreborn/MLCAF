@@ -45,11 +45,11 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
              .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="MTOS">
 
             +CutBtag1p {
-                <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="Btag1p">
+                <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="Btag1p">
             } #End: CutBtag1p
 
             +CutBtag3p{
-                <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="Btag3p">
+                <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="Btag3p">
             } #End: CutBtag3p
         } #End: CutMTOS
     } #End: CutVisMassVeto
@@ -63,11 +63,11 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
          .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="VRMTOS">
 
         +CutVRBtag1p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
+            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
         } #End: CutVRBtag1p
 
         +CutVRBtag3p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="VRBtag3p">
+            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="VRBtag3p">
         } #End: CutVRBtag3p
     } #End: CutVRMTOS
 } #End: CutVisMassVeto
