@@ -24,5 +24,7 @@ class MTTauJet : public LepHadObservable {
     virtual bool finalizeSelf() override;
     TString fExpression = "";
 
+    TTreeFormula* taujet_dphi = nullptr;
+ 
 };
 #endif

@@ -58,13 +58,9 @@ double MTTauJet::getValue() const {
   
   float f_tau_0_pt                = this->tau_0_pt->EvalInstance();
   float f_jet_0_pt                = this->jet_0_pt->EvalInstance();
-  float f_tau_0_phi                = this->tau_0_phi->EvalInstance();
-  float f_jet_0_phi                = this->jet_0_phi->EvalInstance();
+  float f_taujet_dphi                = this->taujet_dphi->EvalInstance();
 
-  float f_taujet_dphi = 0.0;
-  f_taujet_dphi = 3.14-std::fabs(std::fabs(f_tau_0_phi-f_jet_0_phi)-3.14);
-
-  float retval = std::sqrt( 2.*f_tau_0_pt*(f_jet_0_pt/1000.)*(1-cos(f_taujet_dphi)) );
+  float retval = std::sqrt( 2. * f_tau_0_pt * f_jet_0_pt * (1-cos(f_taujet_dphi)) );
 
   return retval;
 }
@@ -72,6 +68,11 @@ double MTTauJet::getValue() const {
 
 bool MTTauJet::initializeSelf(){
   if (!LepHadObservable::initializeSelf())  return false;
+
+  TString taujet_dphi = "TVector2::Phi_mpi_pi( fabs(tau_0_p4.Phi()-jet_0_p4.Phi()) )";
+  DEBUGclass("Configured expression: %s",taujet_dphi.Data());
+  this->taujet_dphi = new TTreeFormula( "taujet_dphi", taujet_dphi.Data(), this->fTree);
+
   return true;
 }
 
@@ -79,6 +80,9 @@ bool MTTauJet::initializeSelf(){
 
 bool MTTauJet::finalizeSelf(){
   if (!LepHadObservable::finalizeSelf()) return false;
+
+  delete this->taujet_dphi;
+
   return true;
 }
 

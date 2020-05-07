@@ -24,5 +24,7 @@ class MTLepJet : public LepHadObservable {
     virtual bool finalizeSelf() override;
     TString fExpression = "";
 
+    TTreeFormula* lepjet_dphi = nullptr;
+
 };
 #endif

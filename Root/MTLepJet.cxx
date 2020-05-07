@@ -58,13 +58,9 @@ double MTLepJet::getValue() const {
   
   float f_lep_0_pt                = this->lep_0_pt->EvalInstance();
   float f_jet_0_pt                = this->jet_0_pt->EvalInstance();
-  float f_lep_0_phi                = this->lep_0_phi->EvalInstance();
-  float f_jet_0_phi                = this->jet_0_phi->EvalInstance();
+  float f_lepjet_dphi                = this->lepjet_dphi->EvalInstance();
 
-  float f_lepjet_dphi = 0.0;
-  f_lepjet_dphi = 3.14-std::fabs(std::fabs(f_lep_0_phi-f_jet_0_phi)-3.14);
-
-  float retval = std::sqrt( 2.*f_lep_0_pt*(f_jet_0_pt/1000.)*(1-cos(f_lepjet_dphi)) );
+  float retval = std::sqrt( 2. * f_lep_0_pt * f_jet_0_pt * (1-cos(f_lepjet_dphi)) );
 
   return retval;
 }
@@ -72,6 +68,11 @@ double MTLepJet::getValue() const {
 
 bool MTLepJet::initializeSelf(){
   if (!LepHadObservable::initializeSelf())  return false;
+
+  TString lepjet_dphi = "TVector2::Phi_mpi_pi( fabs(lep_0_p4.Phi()-jet_0_p4.Phi()) )";
+  DEBUGclass("Configured expression: %s",lepjet_dphi.Data());
+  this->lepjet_dphi = new TTreeFormula( "lepjet_dphi", lepjet_dphi.Data(), this->fTree);
+
   return true;
 }
 
@@ -79,6 +80,9 @@ bool MTLepJet::initializeSelf(){
 
 bool MTLepJet::finalizeSelf(){
   if (!LepHadObservable::finalizeSelf()) return false;
+
+  delete this->lepjet_dphi;
+
   return true;
 }
 
