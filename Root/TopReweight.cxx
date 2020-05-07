@@ -54,7 +54,7 @@ double TopReweight::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   
-  double f_SumOfPt = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt/1000;
+  double f_SumOfPt = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt;
 
   ///////////////////////////////////////////////////////////////
   // determine which SF to use
