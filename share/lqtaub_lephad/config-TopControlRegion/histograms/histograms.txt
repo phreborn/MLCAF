@@ -25,7 +25,7 @@ TH1F('SumOfPt','', 3000, 0,3000 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? $(Sum
 TH1F('TransverseMassLepTau','', 3000, 0,3000 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [MTLepTau] : -1] : "m_{T}^{\#tau\#oplus lep} [GeV]" );
 TH1F('TransverseMassTauBJet','', 3000, 0,3000 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [MTTauJet] : -1] : "m_{T}^{\#tau\#oplus bjet} [GeV]" );
 TH1F('TransverseMassLepBJet','', 3000, 0,3000 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [MTLepJet] : -1] : "m_{T}^{lep\#oplus bjet} [GeV]" );
-TH1F('InvariantMassTauBJet','', 3000, 0,3000 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [InvMTauJet] : -1] : "m_{inv}^{\#tau\#oplus bjet} [GeV]" );
+TH1F('InvariantMassTauBJet','', 3000, 0,3000 )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? $(InvMTauJet) : -1] : "m_{inv}^{\#tau\#oplus bjet} [GeV]" );
 
 @CutVRBtag*/*,CutTCRBtag*/*: LeptonPt,LeptonEta,TauPt,TauEta,VisibleMassTauLep,MET,LeadingBJetPt; 
 @CutVRBtag*/*,CutTCRBtag*/*: SumOfPt,TransverseMassLepTau,TransverseMassTauBJet,TransverseMassLepBJet,InvariantMassTauBJet; 
@@ -49,7 +49,7 @@ TH1F('BtagSumOfPt','', {50.,100.,150.,200.,250.,300.,350.,400.,450.,500.,600.,70
 TH1F('BtagTransverseMassLepTau','', {0.,50.,100.,150.,200.,250.,300.,400.,500.,700.,1000.} )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [MTLepTau] : -1] : "m_{T}^{\#tau\#oplus lep} [GeV]" );
 TH1F('BtagTransverseMassTauBJet','', {0.,50.,100.,150.,200.,250.,300.,400.,500.,700.,1000.} )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [MTTauJet] : -1] : "m_{T}^{\#tau\#oplus bjet} [GeV]" );
 TH1F('BtagTransverseMassLepBJet','', {0.,50.,100.,150.,200.,250.,300.,400.,500.,700.,1000.} )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [MTLepJet] : -1] : "m_{T}^{lep\#oplus bjet} [GeV]" );
-TH1F('BtagInvariantMassTauBJet','', {0.,10.,20.,30.,40.,50.,100.,150.,200.,250.,300.,400.,500.,700.,1000.} )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? [InvMTauJet] : -1] : "m_{inv}^{\#tau\#oplus bjet} [GeV]" );
+TH1F('BtagInvariantMassTauBJet','', {0.,10.,20.,30.,40.,50.,100.,150.,200.,250.,300.,400.,500.,700.,1000.} )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? $(InvMTauJet) : -1] : "m_{inv}^{\#tau\#oplus bjet} [GeV]" );
 
 TH1F('Btag1pSumOfPtSF','', {50.,100.,150.,200.,250.,300.,350.,400.,450.,500.,600.,700.,1000.} )   <<   ( [[tau_0_n_charged_tracks]==1 && $(NbJets)>=1 && $(isBTagged) ? $(SumOfPt) : -1] : "S_{T} [GeV]" );
 TH1F('Btag3pSumOfPtSF','', {50.,100.,150.,200.,250.,300.,350.,400.,450.,500.,600.,700.,1000.} )   <<   ( [[tau_0_n_charged_tracks]==3 && $(NbJets)>=1 && $(isBTagged) ? $(SumOfPt) : -1] : "S_{T} [GeV]" );
