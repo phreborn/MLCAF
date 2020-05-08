@@ -1,4 +1,0 @@
-The weight files must be hacked a bit to work in QFWK.
-In 'Internal', change formatting of input variables to what it was in the original TMVA training script.
-Ex.: lep_0_p4.Pt____ --> lep_0_p4.Pt()
-This affects mostly parentheses.
