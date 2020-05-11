@@ -29,7 +29,11 @@ ntuples: TMVA/dumpNtuples/ntuples.txt
 - if you want a specific signal mass, make sure to change the path in signal jobs lists, ex.: change `/sig/?/c16*/ggH/` to `/sig/?/c16*/ggH/200` 
 
 
-If you want to train a parameterised neural net (with the signal mass as an extra input variable), you have to add a new `signal_mass` branch to your ntuples. Use `copytree_addSignalMass.py` with appropriately set signal masses.
+If you want to train a parameterised neural net (with the signal mass as an extra input variable), you have to add a new `signal_mass` branch to your ntuples. This can be done with the `copytree_addSignalMass.py` script with appropriately set signal masses. To run the script, first install scipy:
+
+```bash
+pip install --user scipy
+```
 
 
 
