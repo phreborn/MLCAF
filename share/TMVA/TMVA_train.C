@@ -242,14 +242,14 @@ using namespace std;
     dataloader->AddVariable("lep_pt","lep_pt","GeV",'I');
     dataloader->AddVariable("tau_pt","tau_pt","GeV",'I');
     dataloader->AddVariable("MET","MET","GeV",'I');
-    dataloader->AddVariable("lephad_dphi","lephad_dphi",'I');
-    dataloader->AddVariable("lephad_met_lep0_cos_dphi","lephad_met_lep0_cos_dphi",'I');
-    dataloader->AddVariable("lephad_met_lep1_cos_dphi","lephad_met_lep1_cos_dphi",'I');
+    //dataloader->AddVariable("lephad_dphi","lephad_dphi",'I');
+    //dataloader->AddVariable("lephad_met_lep0_cos_dphi","lephad_met_lep0_cos_dphi",'I');
+    //dataloader->AddVariable("lephad_met_lep1_cos_dphi","lephad_met_lep1_cos_dphi",'I');
 
-    dataloader->AddVariable("lep_eta","lep_eta",'I');
-    dataloader->AddVariable("tau_eta","tau_eta",'I');
-    dataloader->AddVariable("lep_phi","lep_phi",'I');
-    dataloader->AddVariable("tau_phi","tau_phi",'I');
+    //dataloader->AddVariable("lep_eta","lep_eta",'I');
+    //dataloader->AddVariable("tau_eta","tau_eta",'I');
+    //dataloader->AddVariable("lep_phi","lep_phi",'I');
+    //dataloader->AddVariable("tau_phi","tau_phi",'I');
 
     //track
     /*dataloader->AddVariable("tau_track0_pt","track 0 pt", "GeV",'I');
