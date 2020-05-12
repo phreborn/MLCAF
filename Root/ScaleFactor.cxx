@@ -7,11 +7,9 @@
 
 // uncomment the following line to enable debug printouts
 // #define _DEBUG_
-// you can perform debug printouts with statements like this
-// DEBUG("error number %d occurred",someInteger);
-
 // be careful to not move the _DEBUG_ flag behind the following line
 // otherwise, it will show no effect
+
 #include "QFramework/TQLibrary.h"
 
 ClassImp(ScaleFactor)
@@ -78,10 +76,17 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition el_eff_iso_low = registerVariation("el_eff_iso_low");
   Condition el_eff_iso_high = registerVariation("el_eff_iso_high");
   Condition el_eff_iso_sys = el_eff_iso_low | el_eff_iso_high;
+  
+  TString eleIsoWP = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("ElectronIsoWP", eleIsoWP) ) {
+    ERRORclass("ElectronIsoWP not set !!!");
+  }
+  // TODO: for now, only the scale factor of Gradient WP is available
+  eleIsoWP = "Gradient";
 
-  addScaleFactor(electron | lepiso, el_eff_iso_sys, "lep_0_NOMINAL_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
-  addScaleFactor(electron | lepiso | el_eff_iso_low, "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
-  addScaleFactor(electron | lepiso | el_eff_iso_high, "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_Isolation_MediumLLH_d0z0_v13_Gradient");
+  addScaleFactor(electron | lepiso, el_eff_iso_sys, "lep_0_NOMINAL_EleEffSF_Isolation_MediumLLH_d0z0_v13_" + eleIsoWP);
+  addScaleFactor(electron | lepiso | el_eff_iso_low, "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1down_EleEffSF_Isolation_MediumLLH_d0z0_v13_" + eleIsoWP);
+  addScaleFactor(electron | lepiso | el_eff_iso_high, "lep_0_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR_1up_EleEffSF_Isolation_MediumLLH_d0z0_v13_" + eleIsoWP);
 
   ////////////////////////////////////////////////////////////////////////////////
   /// Muon related
@@ -151,18 +156,23 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(muon | mu_eff_syslowpt_low, "lep_0_MUON_EFF_RECO_SYS_LOWPT_1down_MuEffSF_Reco_QualMedium");
   addScaleFactor(muon | mu_eff_syslowpt_high, "lep_0_MUON_EFF_RECO_SYS_LOWPT_1up_MuEffSF_Reco_QualMedium");
   
-  // muon isolation efficient
+  // muon isolation efficiency
   Condition mu_eff_isostat_low = registerVariation("mu_eff_isostat_low");
   Condition mu_eff_isostat_high = registerVariation("mu_eff_isostat_high");
   Condition mu_eff_isosys_low = registerVariation("mu_eff_isosys_low");
   Condition mu_eff_isosys_high = registerVariation("mu_eff_isosys_high");
   Condition mu_eff_iso_sys = mu_eff_isostat_low | mu_eff_isostat_high | mu_eff_isosys_low | mu_eff_isosys_high; 
   
-  addScaleFactor(muon | lepiso, mu_eff_iso_sys, "lep_0_NOMINAL_MuEffSF_IsoFCTight_FixedRad");
-  addScaleFactor(muon | lepiso | mu_eff_isostat_low, "lep_0_MUON_EFF_ISO_STAT_1down_MuEffSF_IsoFCTight_FixedRad");
-  addScaleFactor(muon | lepiso | mu_eff_isostat_high, "lep_0_MUON_EFF_ISO_STAT_1up_MuEffSF_IsoFCTight_FixedRad");
-  addScaleFactor(muon | lepiso | mu_eff_isosys_low, "lep_0_MUON_EFF_ISO_SYS_1down_MuEffSF_IsoFCTight_FixedRad");
-  addScaleFactor(muon | lepiso | mu_eff_isosys_high, "lep_0_MUON_EFF_ISO_SYS_1up_MuEffSF_IsoFCTight_FixedRad");
+  TString muonIsoWP = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("MuonIsoWP", muonIsoWP) ) {
+    ERRORclass("MuonIsoWP not set !!!");
+  }
+
+  addScaleFactor(muon | lepiso, mu_eff_iso_sys, "lep_0_NOMINAL_MuEffSF_Iso" + muonIsoWP);
+  addScaleFactor(muon | lepiso | mu_eff_isostat_low, "lep_0_MUON_EFF_ISO_STAT_1down_MuEffSF_Iso" + muonIsoWP);
+  addScaleFactor(muon | lepiso | mu_eff_isostat_high, "lep_0_MUON_EFF_ISO_STAT_1up_MuEffSF_Iso" + muonIsoWP);
+  addScaleFactor(muon | lepiso | mu_eff_isosys_low, "lep_0_MUON_EFF_ISO_SYS_1down_MuEffSF_Iso" + muonIsoWP);
+  addScaleFactor(muon | lepiso | mu_eff_isosys_high, "lep_0_MUON_EFF_ISO_SYS_1up_MuEffSF_Iso" + muonIsoWP);
   
   // muon ttva
   Condition mu_eff_ttvastat_low = registerVariation("mu_eff_ttvastat_low");
@@ -212,11 +222,19 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition tau_eff_jetid_highpt_high = registerVariation("tau_eff_jetid_highpt_high");
   Condition tau_eff_jetid_sys = tau_eff_jetid_total_low | tau_eff_jetid_total_high | tau_eff_jetid_highpt_low | tau_eff_jetid_highpt_high;
 
-  addScaleFactor(tauid, tau_eff_jetid_sys, "tau_0_NOMINAL_TauEffSF_JetRNNmedium");
-  addScaleFactor(tauid | tau_eff_jetid_total_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1down_TauEffSF_JetRNNmedium");
-  addScaleFactor(tauid | tau_eff_jetid_total_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1up_TauEffSF_JetRNNmedium");
-  addScaleFactor(tauid | tau_eff_jetid_highpt_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1down_TauEffSF_JetRNNmedium");
-  addScaleFactor(tauid | tau_eff_jetid_highpt_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1up_TauEffSF_JetRNNmedium");
+  TString tauIDWP = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("TauIDWP", tauIDWP) ) {
+    ERRORclass("TauIDWP not set !!! ");
+  }
+  
+  // TauID WP name is different for SFs and alias
+  tauIDWP = getTauIDWPName(tauIDWP); 
+
+  addScaleFactor(tauid, tau_eff_jetid_sys, "tau_0_NOMINAL_TauEffSF_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_jetid_total_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1down_TauEffSF_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_jetid_total_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_SYST_1up_TauEffSF_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_jetid_highpt_low, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1down_TauEffSF_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_jetid_highpt_high, "tau_0_TAUS_TRUEHADTAU_EFF_JETID_HIGHPT_1up_TauEffSF_Jet" + tauIDWP);
 
   ///////////////////////////////////////////////////////////////////////////////
   /// Jet Related
@@ -254,7 +272,12 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   // btag
   ////////////////////////////////////////////////////////////////////////////////
   Condition btag_sys = none;
-  
+
+  TString btaggingWP = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("BtaggingWP", btaggingWP) ) {
+    ERRORclass("BtaggingWP not set !!! ");
+  }
+
   // b
   const int N_BTAG_B = 3;
   Condition btag_b_low[N_BTAG_B];
@@ -266,10 +289,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     btag_sys |= btag_b_low[i];
     btag_sys |= btag_b_high[i];
 
-    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_effSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_ineffSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_effSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_ineffSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_effSF_" + btaggingWP, i));
+    addScaleFactor(btag_b_low[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1down_global_ineffSF_" + btaggingWP, i));
+    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_effSF_" + btaggingWP, i));
+    addScaleFactor(btag_b_high[i], TString::Format("jet_FT_EFF_Eigen_B_%d_1up_global_ineffSF_" + btaggingWP, i));
   }
 
   // c
@@ -283,10 +306,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     btag_sys |= btag_c_low[i];
     btag_sys |= btag_c_high[i];
 
-    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_effSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_ineffSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_effSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_ineffSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_effSF_" + btaggingWP, i));
+    addScaleFactor(btag_c_low[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1down_global_ineffSF_" + btaggingWP, i));
+    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_effSF_" + btaggingWP, i));
+    addScaleFactor(btag_c_high[i], TString::Format("jet_FT_EFF_Eigen_C_%d_1up_global_ineffSF_" + btaggingWP, i));
   }
 
   // light
@@ -300,10 +323,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
     btag_sys |= btag_light_low[i];
     btag_sys |= btag_light_high[i];
 
-    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_effSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_ineffSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_effSF_DL1r_FixedCutBEff_70", i));
-    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_ineffSF_DL1r_FixedCutBEff_70", i));
+    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_effSF_" + btaggingWP, i));
+    addScaleFactor(btag_light_low[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1down_global_ineffSF_" + btaggingWP, i));
+    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_effSF_" + btaggingWP, i));
+    addScaleFactor(btag_light_high[i], TString::Format("jet_FT_EFF_Eigen_Light_%d_1up_global_ineffSF_" + btaggingWP, i));
   }
 
   // extrapolation
@@ -312,10 +335,10 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   btag_sys |= btag_extrapolation_low;
   btag_sys |= btag_extrapolation_high;
 
-  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_effSF_DL1r_FixedCutBEff_70");
-  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_effSF_DL1r_FixedCutBEff_70");
-  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_ineffSF_DL1r_FixedCutBEff_70");
-  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_ineffSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_effSF_" + btaggingWP);
+  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_effSF_" + btaggingWP);
+  addScaleFactor(btag_extrapolation_low, "jet_FT_EFF_extrapolation_1down_global_ineffSF_" + btaggingWP);
+  addScaleFactor(btag_extrapolation_high, "jet_FT_EFF_extrapolation_1up_global_ineffSF_" + btaggingWP);
 
   // extrapolation from charm
   Condition btag_extrapolation_from_charm_low = registerVariation("btag_extrapolation_from_charm_low");
@@ -323,14 +346,14 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   btag_sys |= btag_extrapolation_from_charm_low;
   btag_sys |= btag_extrapolation_from_charm_high;
 
-  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_effSF_DL1r_FixedCutBEff_70");
-  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_ineffSF_DL1r_FixedCutBEff_70");
-  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_effSF_DL1r_FixedCutBEff_70");
-  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_ineffSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_effSF_" + btaggingWP);
+  addScaleFactor(btag_extrapolation_from_charm_low, "jet_FT_EFF_extrapolation_from_charm_1down_global_ineffSF_" + btaggingWP);
+  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_effSF_" + btaggingWP);
+  addScaleFactor(btag_extrapolation_from_charm_high, "jet_FT_EFF_extrapolation_from_charm_1up_global_ineffSF_" + btaggingWP);
 
   /// eff and inff should be anti ?????
-  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_effSF_DL1r_FixedCutBEff_70");
-  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_ineffSF_DL1r_FixedCutBEff_70");
+  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_effSF_" + btaggingWP);
+  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_ineffSF_" + btaggingWP);
 
   ////////////////////////////////////////////////////////////////////////////////
   // mc weight
@@ -375,7 +398,7 @@ bool ScaleFactor::initializeSelf() {
   return true;
 }
 
-//______________________________________________________________________________________________
+
 
 bool ScaleFactor::finalizeSelf(){
 
@@ -390,7 +413,8 @@ bool ScaleFactor::finalizeSelf(){
   return true;
 }
 
-//______________________________________________________________________________________________
+
+
 Condition ScaleFactor::registerVariation(TString name) {
   Condition variation;
   variation.set(nextBitPosition);
@@ -403,12 +427,14 @@ Condition ScaleFactor::registerVariation(TString name) {
   return variation;
 }
 
-//______________________________________________________________________________________________
+
+
 void ScaleFactor::addScaleFactor(Condition requirement, TString branch) {
   addScaleFactor(requirement, none, branch);
 }
 
-//______________________________________________________________________________________________
+
+
 void ScaleFactor::addScaleFactor(Condition requirement, Condition veto, TString branch) {
   std::tuple<Condition, Condition, TString, TTreeFormula*> sf;
 
@@ -421,7 +447,31 @@ void ScaleFactor::addScaleFactor(Condition requirement, Condition veto, TString 
 }
 
 
-//______________________________________________________________________________________________
+
+// get the name of tau ID WP 
+TString ScaleFactor::getTauIDWPName(const TString& name) const {
+  TString result = "";
+  if (name == "rnn_medium") {
+    result = "RNNmedium";
+  }
+  else if (name == "rnn_tight") {
+    result = "RNNtight";
+  }
+  else if (name == "bdt_loose") {
+    result = "BDTloose";
+  }
+  else if (name == "bdt_medium") {
+    result = "BDTmedium";
+  }
+  else if (name == "bdt_tight") {
+    result = "BDTtight";
+  }
+
+  return result;
+}
+
+
+
 TObjArray* ScaleFactor::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
@@ -436,7 +486,7 @@ TObjArray* ScaleFactor::getBranchNames() const {
   return bnames;
 }
 
-//______________________________________________________________________________________________
+
 
 double ScaleFactor::getValue() const {
 
@@ -453,6 +503,7 @@ double ScaleFactor::getValue() const {
   if (isTauID())    { status |= tauid; }
   if (isLepISO())   { status |= lepiso; }
 
+  DEBUGclass("******************************************");
   // apply branches
   for (unsigned int i = 0; i < branches.size(); i++) {
     Condition requirement = std::get<0>(branches[i]);
@@ -460,18 +511,22 @@ double ScaleFactor::getValue() const {
     
     // some requirements are not met
     if ((requirement & ~status).any()) { continue; }
+
     // some vetos are triggered
     if ((veto & status ).any()) { continue; }
 
-    TTreeFormula* formula = std::get<3>(branches[i]);
-
     // skip unexpected pu weight (observed in bbH2500 sample)
-    if (std::get<2>(branches[i]) == "NOMINAL_pileup_combined_weight") {
+    TString name = std::get<2>(branches[i]);
+    TTreeFormula* formula = std::get<3>(branches[i]);
+    if (name == "NOMINAL_pileup_combined_weight") {
       if (fabs(formula->EvalInstance()) > 10000 ) {
-        std::cout << "ERROR: unexpected pileup weight: " << formula->EvalInstance() << std::endl;
+        ERRORclass("unexpected pileup weight: %f", formula->EvalInstance());
         continue;
       }
     }
+
+    DEBUGclass("%s: %f", name.Data(), formula->EvalInstance());
+
     scaleFac *= formula->EvalInstance();
   }
   return scaleFac;
