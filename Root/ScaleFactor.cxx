@@ -355,10 +355,6 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(none, btag_sys, "jet_NOMINAL_global_effSF_" + btaggingWP);
   addScaleFactor(none, btag_sys, "jet_NOMINAL_global_ineffSF_" + btaggingWP);
 
-  /// eff and inff should be anti ?????
-  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_effSF_MV2c10");
-  addScaleFactor(none, btag_sys, "jet_NOMINAL_global_ineffSF_MV2c10");
-
   ////////////////////////////////////////////////////////////////////////////////
   // mc weight
   ////////////////////////////////////////////////////////////////////////////////
