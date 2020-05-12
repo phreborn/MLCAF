@@ -137,13 +137,13 @@ using namespace std;
 
 
 
-    /*if (!gSystem->AccessPathName( "dumpNtuples/Ztautau.root" )) {
+    if (!gSystem->AccessPathName( "dumpNtuples/Ztautau.root" )) {
        input_Ztautau = TFile::Open( "dumpNtuples/Ztautau.root" ); // check if file exists in local directory
     }
     if (!input_Ztautau) {
        std::cout << "ERROR: could not open Ztautau file" << std::endl;
        exit(1);
-    }*/
+    }
 
 
 
@@ -151,6 +151,7 @@ using namespace std;
        input_FakesID = TFile::Open( "dumpNtuples/FakesID_c16a.root" ); 
     }
     if (!input_FakesID) {
+  
        std::cout << "ERROR: could not open fakes file" << std::endl;
        exit(1);
     }
@@ -168,8 +169,8 @@ using namespace std;
  
     // Register the training and test trees
 
-    //TTree *bkgTree_Ztautau                  = (TTree*)input_Ztautau->Get("NOMINAL");
-    TTree *bkgTree_FakesID             = (TTree*)input_FakesID->Get("NOMINAL");
+    //TTree *bkgTree_Ztautau                = (TTree*)input_Ztautau->Get("NOMINAL");
+    TTree *bkgTree_FakesID                  = (TTree*)input_FakesID->Get("NOMINAL");
     TTree *signalTree_ggH_200GeV            = (TTree*)input_ggH_200GeV->Get("NOMINAL"); 
 
 
@@ -236,7 +237,6 @@ using namespace std;
 
     //for parameterised neural net:
     //dataloader->AddVariable("sig_mass","sig_mass","GeV",'I');
-
     dataloader->AddVariable( "MTtot", "mttot", "GeV", 'I' ); //even though mttot is type float, training works better with type int for some reason
 
     dataloader->AddVariable("lep_pt","lep_pt","GeV",'I');
@@ -250,6 +250,7 @@ using namespace std;
     //dataloader->AddVariable("tau_eta","tau_eta",'I');
     //dataloader->AddVariable("lep_phi","lep_phi",'I');
     //dataloader->AddVariable("tau_phi","tau_phi",'I');
+
 
     //track
     /*dataloader->AddVariable("tau_track0_pt","track 0 pt", "GeV",'I');
@@ -322,8 +323,8 @@ using namespace std;
 
     //set signal and background trees
     //dataloader->AddBackgroundTree( bkgTree_Ztautau,       bkgWeight1 );
-    dataloader->AddBackgroundTree( bkgTree_FakesID,  bkgWeight2 );
-    dataloader->AddSignalTree( signalTree_ggH_200GeV,     signalWeight );
+    dataloader->AddBackgroundTree( bkgTree_FakesID,         bkgWeight2 );
+    dataloader->AddSignalTree( signalTree_ggH_200GeV,       signalWeight );
 
 
  

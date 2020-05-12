@@ -28,7 +28,9 @@ class ScaleFactor : public LepHadObservable {
   protected:
     virtual bool initializeSelf() override;
     virtual bool finalizeSelf() override;
-  
+ 
+    TString getTauIDWPName(const TString&) const;
+
     TString fSysName = "";
 
     std::vector< std::pair<TString, Condition> > variations;

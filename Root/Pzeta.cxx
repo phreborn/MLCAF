@@ -71,7 +71,6 @@ double Pzeta::getValue() const {
   float f_tau_0_pt                 = this->tau_0_pt->EvalInstance();
   float f_met_reco_phi             = this->met_reco_phi->EvalInstance();
   float f_met_reco_et              = this->met_reco_et->EvalInstance();
-  int   f_lep_0_iso_Gradient       = this->lep_0_iso_Gradient->EvalInstance();
 
 
   float zeta_phi   = p_z_phi_custom(f_lep_0_phi, f_tau_0_phi, 0.);
@@ -171,7 +170,6 @@ bool Pzeta::initializeSelf(){
   this->tau_0_pt                  = new TTreeFormula( "tau_0_pt",       "tau_0_p4.Pt()",      this->fTree);
   this->met_reco_phi              = new TTreeFormula( "met_reco_phi",     "met_reco_p4.Phi()",      this->fTree);
   this->met_reco_et               = new TTreeFormula( "met_reco_et",     "met_reco_p4.Et()",      this->fTree);
-  this->lep_0_iso_Gradient        = new TTreeFormula( "lep_0_iso_Gradient",     "lep_0_iso_Gradient",      this->fTree);
   return true;
 }
 
@@ -192,7 +190,6 @@ bool Pzeta::finalizeSelf(){
   delete this->tau_0_pt;
   delete this->met_reco_phi;
   delete this->met_reco_et;
-  delete this->lep_0_iso_Gradient;
 
   return true;
 }
