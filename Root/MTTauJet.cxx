@@ -48,6 +48,9 @@ TObjArray* MTTauJet::getBranchNames() const {
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
   TObjArray* bnames = LepHadObservable::getBranchNames();
+ 
+  bnames->Add(new TObjString("taujet_dphi"));
+
 
   return bnames;
 }

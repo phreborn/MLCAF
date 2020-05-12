@@ -79,5 +79,6 @@ class LepHadObservable : public TQTreeObservable {
     TTreeFormula* lephad_met_lep1_cos_dphi = nullptr;
     TTreeFormula* lephad_mt_lep0_met = nullptr;
     TTreeFormula* lephad_mt_lep1_met = nullptr;
+    TTreeFormula* jet_0_pt = nullptr;
 };
 #endif

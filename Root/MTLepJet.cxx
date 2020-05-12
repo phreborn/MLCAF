@@ -49,6 +49,8 @@ TObjArray* MTLepJet::getBranchNames() const {
   DEBUGclass("retrieving branch names");
   TObjArray* bnames = LepHadObservable::getBranchNames();
 
+  bnames->Add(new TObjString("lepjet_dphi"));
+
   return bnames;
 }
 

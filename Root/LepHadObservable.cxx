@@ -70,6 +70,7 @@ TObjArray* LepHadObservable::getBranchNames() const {
   bnames->Add(new TObjString("lephad_met_lep1_cos_dphi"));
   bnames->Add(new TObjString("lephad_mt_lep0_met"));
   bnames->Add(new TObjString("lephad_mt_lep1_met"));
+  bnames->Add(new TObjString("jet_0_pt"));
 
   return bnames;
 }
@@ -244,6 +245,7 @@ bool LepHadObservable::initializeSelf(){
   this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
   this->lephad_met_lep0_cos_dphi = new TTreeFormula( "lephad_met_lep0_cos_dphi", "lephad_met_lep0_cos_dphi", this->fTree);
   this->lephad_met_lep1_cos_dphi = new TTreeFormula( "lephad_met_lep1_cos_dphi", "lephad_met_lep1_cos_dphi", this->fTree);
+  this->jet_0_pt = new TTreeFormula( "jet_0_pt", "jet_0_p4.Pt()", this->fTree);
 
   return true;
 }
@@ -279,6 +281,7 @@ bool LepHadObservable::finalizeSelf(){
   delete this->lephad_mt_lep1_met;
   delete this->lephad_met_lep0_cos_dphi;
   delete this->lephad_met_lep1_cos_dphi;
+  delete this->jet_0_pt;
   
   return true;
 }
