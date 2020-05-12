@@ -130,7 +130,7 @@ using namespace std;
 
     //background
     //TFile *input_Ztautau(0);
-    TFile *input_failID_fakes(0);
+    TFile *input_FakesID(0);
 
     //signal
     TFile *input_ggH_200GeV(0);
@@ -148,9 +148,9 @@ using namespace std;
 
 
     if (!gSystem->AccessPathName( "dumpNtuples/FakesID_c16a.root" )) {
-       input_failID_fakes = TFile::Open( "dumpNtuples/FakesID_c16a.root" ); 
+       input_FakesID = TFile::Open( "dumpNtuples/FakesID_c16a.root" ); 
     }
-    if (!input_failID_fakes) {
+    if (!input_FakesID) {
        std::cout << "ERROR: could not open fakes file" << std::endl;
        exit(1);
     }
@@ -169,7 +169,7 @@ using namespace std;
     // Register the training and test trees
 
     //TTree *bkgTree_Ztautau                  = (TTree*)input_Ztautau->Get("NOMINAL");
-    TTree *bkgTree_failID_fakes             = (TTree*)input_failID_fakes->Get("NOMINAL");
+    TTree *bkgTree_FakesID             = (TTree*)input_FakesID->Get("NOMINAL");
     TTree *signalTree_ggH_200GeV            = (TTree*)input_ggH_200GeV->Get("NOMINAL"); 
 
 
@@ -322,7 +322,7 @@ using namespace std;
 
     //set signal and background trees
     //dataloader->AddBackgroundTree( bkgTree_Ztautau,       bkgWeight1 );
-    dataloader->AddBackgroundTree( bkgTree_failID_fakes,  bkgWeight2 );
+    dataloader->AddBackgroundTree( bkgTree_FakesID,  bkgWeight2 );
     dataloader->AddSignalTree( signalTree_ggH_200GeV,     signalWeight );
 
 
