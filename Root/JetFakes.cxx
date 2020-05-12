@@ -147,12 +147,8 @@ double JetFakes::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  float ratio_scale_1p = 1.0;
-  float ratio_scale_3p = 1.0;
-  if ( TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) {
-    ratio_scale_1p = 0.862;
-    ratio_scale_3p = 0.881;
-  }
+  float ratio_scale_1p = 0.862;
+  float ratio_scale_3p = 0.881;
 
   if    ( (fSysName.Contains("FakeFactor_WjetsBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_WjetsBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||

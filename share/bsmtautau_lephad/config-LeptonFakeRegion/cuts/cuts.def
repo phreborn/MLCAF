@@ -18,7 +18,7 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
          .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="All">
 
         +CutTau {
-            <.cutExpression="tau_0_jet_rnn_score_trans < $(TauIDScoreCut) && n_taus > 0", .title="Tau">
+            <.cutExpression="$(TauIDScore) < $(TauIDScoreCut) && n_taus > 0", .title="Tau">
 
             +CutSingleLepton {
                 <.cutExpression="(n_electrons + n_muons) == 1", .title="SingleLepton">
