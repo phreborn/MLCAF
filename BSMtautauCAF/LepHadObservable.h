@@ -49,8 +49,8 @@ class LepHadObservable : public TQTreeObservable {
     const long LIMIT_2017 = 341649;
     const long LIMIT_2018 = 364292;
 
-    bool _isData = false;
-    bool _isMC = false;
+    bool m_isData = false;
+    bool m_verbose = false;
 
     TTreeFormula* n_bjets = nullptr;
     TTreeFormula* lep_0_iso_electron = nullptr;
