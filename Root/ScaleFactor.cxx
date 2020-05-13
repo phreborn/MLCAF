@@ -502,8 +502,11 @@ double ScaleFactor::getValue() const {
   
   if (isTauID())    { status |= tauid; }
   if (isLepISO())   { status |= lepiso; }
-
-  DEBUGclass("******************************************");
+  
+  if (m_verbose) {
+    VERBOSEclass("******************************************");
+  }
+    
   // apply branches
   for (unsigned int i = 0; i < branches.size(); i++) {
     Condition requirement = std::get<0>(branches[i]);
@@ -524,8 +527,10 @@ double ScaleFactor::getValue() const {
         continue;
       }
     }
-
-    DEBUGclass("%s: %f", name.Data(), formula->EvalInstance());
+    
+    if (m_verbose) { 
+      VERBOSEclass("%s: %f", name.Data(), formula->EvalInstance());
+    }
 
     scaleFac *= formula->EvalInstance();
   }
