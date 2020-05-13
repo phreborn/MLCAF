@@ -176,6 +176,12 @@ bool LepHadObservable::isHighPt() const {
 }
 
 //______________________________________________________________________________________________
+float LepHadObservable::TransverseMass(float pt1, float pt2, float dphi) const{
+  float MT = std::sqrt( 2. * pt1 * pt2 * ( 1 - cos(dphi) ) );
+  return MT;
+} 
+
+//______________________________________________________________________________________________
 bool LepHadObservable::initializeSelf(){
    
   std::shared_ptr<TQTaggable> masterConfig = TQTaggable::getGlobalTaggable("master");

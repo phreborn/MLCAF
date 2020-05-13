@@ -35,6 +35,8 @@ class LepHadObservable : public TQTreeObservable {
     bool isLepISO() const;
   
     bool isHighPt() const;
+  
+    float TransverseMass(float pt1, float pt2, float dphi) const;
 
   protected:
     

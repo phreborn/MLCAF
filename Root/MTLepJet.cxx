@@ -62,7 +62,8 @@ double MTLepJet::getValue() const {
   float f_jet_0_pt                = this->jet_0_pt->EvalInstance();
   float f_lepjet_dphi                = this->lepjet_dphi->EvalInstance();
 
-  float retval = std::sqrt( 2. * f_lep_0_pt * f_jet_0_pt * (1-cos(f_lepjet_dphi)) );
+  //float retval = std::sqrt( 2. * f_lep_0_pt * f_jet_0_pt * (1-cos(f_lepjet_dphi)) );
+  float retval = LepHadObservable::TransverseMass(f_lep_0_pt, f_jet_0_pt, f_lepjet_dphi);
 
   return retval;
 }

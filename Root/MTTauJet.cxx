@@ -63,7 +63,8 @@ double MTTauJet::getValue() const {
   float f_jet_0_pt                = this->jet_0_pt->EvalInstance();
   float f_taujet_dphi                = this->taujet_dphi->EvalInstance();
 
-  float retval = std::sqrt( 2. * f_tau_0_pt * f_jet_0_pt * (1-cos(f_taujet_dphi)) );
+  //float retval = std::sqrt( 2. * f_tau_0_pt * f_jet_0_pt * (1-cos(f_taujet_dphi)) );
+  float retval = LepHadObservable::TransverseMass(f_tau_0_pt, f_jet_0_pt, f_taujet_dphi);
 
   return retval;
 }

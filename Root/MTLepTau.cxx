@@ -60,7 +60,8 @@ double MTLepTau::getValue() const {
   float f_tau_0_pt                = this->tau_0_pt->EvalInstance();
   float f_lephad_dphi             = this->lephad_dphi->EvalInstance();
 
-  float retval = std::sqrt( 2.*f_lep_0_pt*f_tau_0_pt*(1-cos(f_lephad_dphi)) );
+  //float retval = std::sqrt( 2.*f_lep_0_pt*f_tau_0_pt*(1-cos(f_lephad_dphi)) );
+  float retval = LepHadObservable::TransverseMass(f_lep_0_pt, f_tau_0_pt, f_lephad_dphi);
 
   return retval;
 }
