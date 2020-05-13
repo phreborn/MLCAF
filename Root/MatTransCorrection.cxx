@@ -134,7 +134,11 @@ MatTransCorrection::MatTransCorrection(const TString& expression) : LepHadObserv
   INFOclass("MatTransCorrection getting functions...");
 
   INFOclass("Loading file...");
-  tempFile = TFile::Open("bsmtautau_lephad/auxData/Systematics/material_transport.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  tempFile = TFile::Open(signalProcess+"_lephad/auxData/Systematics/material_transport.root");
   TGraphAsymmErrors* tempGraph = 0;
   if (!tempFile) {
     WARNclass("Can not find material_transport.root");

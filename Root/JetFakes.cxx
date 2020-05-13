@@ -200,7 +200,11 @@ JetFakes::JetFakes(const TString& expression) : LepHadObservable(expression)
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseWjetsFF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/FakeFactors/WFR_FF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/FakeFactors/WFR_FF.root");
   if (!aFile) {
     ERRORclass("Can not find WFR_FF.root");
   }
