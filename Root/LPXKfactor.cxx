@@ -283,9 +283,13 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
   Sample_list.emplace_back("DYtautau");
 
   TGraphAsymmErrors* tempGraph = 0;
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
   for (auto sample : Sample_list) {
     INFOclass("Loading file...");
-    tempFile = TFile::Open("bsmtautau_lephad/auxData/Systematics/LPK_k-Factors_"+sample+".root");
+    tempFile = TFile::Open(signalProcess+"_lephad/auxData/Systematics/LPK_k-Factors_"+sample+".root");
     if (!tempFile) {
       ERRORclass("Can not find LPX Kfactor for '%s'",sample);
       continue;

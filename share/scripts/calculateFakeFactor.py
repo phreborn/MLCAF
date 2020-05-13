@@ -207,7 +207,7 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
   FF_nom_down.SetName(FF_nom.GetName()+'_down')
   checkNegative(FF_nom_down)
 
-  outfile = TFile('bsmtautau_lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile(analysis+'_lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   FF_nom.Write()
   FF_nom_up.Write()
@@ -225,10 +225,12 @@ if __name__=='__main__':
 
   import sys
   # argument
-  if len(args)==0:
+  if len(args)==1:
     print 'You must submit an argument REGION: \n\t WFR; \n\t LFR; \n\t etc.'
+    print 'And an argument ANALYSIS: \n\t bsmtautau; \n\t lqtaub; \n\t etc.'
     sys.exit()
-  region = args[0]
+  analysis = args[0]
+  region   = args[1]
 
   from QFramework import *
   from math import *
@@ -245,9 +247,9 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_wfr.root'
   elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_lfr.root'
   else:
     print ("ERROR: unsupported region: ", region)
     sys.exit()

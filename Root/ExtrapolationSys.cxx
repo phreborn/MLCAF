@@ -163,7 +163,11 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/VR_SF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/FakeFactors/VR_SF.root");
   if (!aFile) {
     ERRORclass("Can not find VR_SF.root");
   }
