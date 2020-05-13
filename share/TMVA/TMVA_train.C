@@ -129,8 +129,8 @@ using namespace std;
     // Read training and test data
 
     //background
-    TFile *input_Ztautau(0);
-    //TFile *input_failID_fakes(0);
+    //TFile *input_Ztautau(0);
+    TFile *input_FakesID(0);
 
     //signal
     TFile *input_ggH_200GeV(0);
@@ -147,10 +147,11 @@ using namespace std;
 
 
 
-    if (!gSystem->AccessPathName( "dumpNtuples/failID_fakes.root" )) {
-       input_failID_fakes = TFile::Open( "dumpNtuples/failID_fakes.root" ); 
+    if (!gSystem->AccessPathName( "dumpNtuples/FakesID_c16a.root" )) {
+       input_FakesID = TFile::Open( "dumpNtuples/FakesID_c16a.root" ); 
     }
-    if (!input_failID_fakes) {
+    if (!input_FakesID) {
+  
        std::cout << "ERROR: could not open fakes file" << std::endl;
        exit(1);
     }
@@ -168,8 +169,8 @@ using namespace std;
  
     // Register the training and test trees
 
-    TTree *bkgTree_Ztautau                  = (TTree*)input_Ztautau->Get("NOMINAL");
-    TTree *bkgTree_failID_fakes             = (TTree*)input_failID_fakes->Get("NOMINAL");
+    //TTree *bkgTree_Ztautau                = (TTree*)input_Ztautau->Get("NOMINAL");
+    TTree *bkgTree_FakesID                  = (TTree*)input_FakesID->Get("NOMINAL");
     TTree *signalTree_ggH_200GeV            = (TTree*)input_ggH_200GeV->Get("NOMINAL"); 
 
 
@@ -236,20 +237,20 @@ using namespace std;
 
     //for parameterised neural net:
     //dataloader->AddVariable("sig_mass","sig_mass","GeV",'I');
-
-    dataloader->AddVariable( "mttot", "mttot", "GeV", 'I' ); //even though mttot is type float, training works better with type int for some reason
+    dataloader->AddVariable( "MTtot", "mttot", "GeV", 'I' ); //even though mttot is type float, training works better with type int for some reason
 
     dataloader->AddVariable("lep_pt","lep_pt","GeV",'I');
     dataloader->AddVariable("tau_pt","tau_pt","GeV",'I');
     dataloader->AddVariable("MET","MET","GeV",'I');
-    /*dataloader->AddVariable("lephad_dphi","lephad_dphi",'I');
-    dataloader->AddVariable("lephad_met_lep0_cos_dphi","lephad_met_lep0_cos_dphi",'I');
-    dataloader->AddVariable("lephad_met_lep1_cos_dphi","lephad_met_lep1_cos_dphi",'I');
+    //dataloader->AddVariable("lephad_dphi","lephad_dphi",'I');
+    //dataloader->AddVariable("lephad_met_lep0_cos_dphi","lephad_met_lep0_cos_dphi",'I');
+    //dataloader->AddVariable("lephad_met_lep1_cos_dphi","lephad_met_lep1_cos_dphi",'I');
 
-    dataloader->AddVariable("lep_eta","lep_eta",'I');
-    dataloader->AddVariable("tau_eta","tau_eta",'I');
-    dataloader->AddVariable("lep_phi","lep_phi",'I');
-    dataloader->AddVariable("tau_phi","tau_phi",'I');*/
+    //dataloader->AddVariable("lep_eta","lep_eta",'I');
+    //dataloader->AddVariable("tau_eta","tau_eta",'I');
+    //dataloader->AddVariable("lep_phi","lep_phi",'I');
+    //dataloader->AddVariable("tau_phi","tau_phi",'I');
+
 
     //track
     /*dataloader->AddVariable("tau_track0_pt","track 0 pt", "GeV",'I');
@@ -321,9 +322,9 @@ using namespace std;
  
 
     //set signal and background trees
-    dataloader->AddBackgroundTree( bkgTree_Ztautau,       bkgWeight1 );
-    dataloader->AddBackgroundTree( bkgTree_failID_fakes,  bkgWeight2 );
-    dataloader->AddSignalTree( signalTree_ggH_200GeV,     signalWeight );
+    //dataloader->AddBackgroundTree( bkgTree_Ztautau,       bkgWeight1 );
+    dataloader->AddBackgroundTree( bkgTree_FakesID,         bkgWeight2 );
+    dataloader->AddSignalTree( signalTree_ggH_200GeV,       signalWeight );
 
 
  

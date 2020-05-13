@@ -111,12 +111,12 @@ void LepHadObservable::setExpression(const TString& expr){
 
 //______________________________________________________________________________________________
 bool LepHadObservable::isData() const {
-  return _isData;
+  return m_isData;
 }
 
 //______________________________________________________________________________________________
 bool LepHadObservable::isMC() const {
-  return !_isData;
+  return !m_isData;
 }
 //______________________________________________________________________________________________
 bool LepHadObservable::is2015() const {
@@ -177,8 +177,11 @@ bool LepHadObservable::isHighPt() const {
 
 //______________________________________________________________________________________________
 bool LepHadObservable::initializeSelf(){
-  
-  if (!this->fSample->getTag("~isData", _isData)) {
+   
+  std::shared_ptr<TQTaggable> masterConfig = TQTaggable::getGlobalTaggable("master");
+  m_verbose = masterConfig->getTagBoolDefault("LepHadObservable.verbose", false);
+
+  if (!this->fSample->getTag("~isData", m_isData)) {
     ERROR("tag isData missing");
     return false;
   }
