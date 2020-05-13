@@ -225,7 +225,7 @@ if __name__=='__main__':
 
   import sys
   # argument
-  if len(args)==0:
+  if len(args)==1:
     print 'You must submit an argument REGION: \n\t WFR; \n\t LFR; \n\t etc.'
     print 'And an argument ANALYSIS: \n\t bsmtautau; \n\t lqtaub; \n\t etc.'
     sys.exit()

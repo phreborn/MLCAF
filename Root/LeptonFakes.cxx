@@ -162,7 +162,14 @@ LeptonFakes::LeptonFakes(const TString& expression) : LepHadObservable(expressio
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseLeptonFF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/FakeFactors/LFR_FF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+
+
+  //TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/FakeFactors/LFR_FF.root");
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/FakeFactors/LFR_FF.root");
   if (!aFile) {
     ERRORclass("Can not find LFR_FF.root");
   }
