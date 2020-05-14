@@ -111,7 +111,7 @@ double TopReweight::getValue() const {
   else std::cout << "error! unavailable FF: " << histName+"_down" << std::endl;
 
   // FF is a function of tauPt 
-  int binID = std::min(h_nominal->FindBin(f_tau_0_pt), h_nominal->GetNbinsX());
+  int binID = std::min(h_nominal->FindBin(variable), h_nominal->GetNbinsX());
 
   float retval = h_nominal->GetBinContent(binID);
   float retval_up = h_up->GetBinContent(binID);
