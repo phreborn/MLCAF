@@ -191,7 +191,7 @@ JetFakesReweight::JetFakesReweight(const TString& expression) : LepHadObservable
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/FakeFactors/WFR_SF.root");
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/WFR_SF.root");
   if (!aFile) {
     ERRORclass("Can not find WFR_SF.root");
   }
