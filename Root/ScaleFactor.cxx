@@ -451,7 +451,10 @@ void ScaleFactor::addScaleFactor(Condition requirement, Condition veto, TString 
 // get the name of tau ID WP 
 TString ScaleFactor::getTauIDWPName(const TString& name) const {
   TString result = "";
-  if (name == "rnn_medium") {
+  if (name == "rnn_loose") {
+    result = "RNNloose";
+  }
+  else if (name == "rnn_medium") {
     result = "RNNmedium";
   }
   else if (name == "rnn_tight") {
@@ -465,6 +468,9 @@ TString ScaleFactor::getTauIDWPName(const TString& name) const {
   }
   else if (name == "bdt_tight") {
     result = "BDTtight";
+  }
+  else {
+    throw std::runtime_error("Unsupported TauID WP: " + name);
   }
 
   return result;
