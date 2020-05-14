@@ -167,7 +167,7 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/FakeFactors/VR_SF.root");
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/VR_SF.root");
   if (!aFile) {
     ERRORclass("Can not find VR_SF.root");
   }

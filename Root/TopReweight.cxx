@@ -153,7 +153,7 @@ TopReweight::TopReweight(const TString& expression) : LepHadObservable(expressio
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/FakeFactors/TCR_SF.root");
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/TCR_SF.root");
   if (!aFile) {
     ERRORclass("Can not find TCR_SF.root");
   }
