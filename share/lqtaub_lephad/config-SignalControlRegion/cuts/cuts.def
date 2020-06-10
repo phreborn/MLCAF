@@ -14,12 +14,14 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
 
 @ */CutMaterialCorrection {
     +CutTruth {
-        <.cutExpression="{($(isData) || $(isSig) || $(isAntiISO)) ? 1 :
-                         (($(isInc) && ([TruthTauSelector] == 30 || [TruthTauSelector] == 20 || [TruthTauSelector] == 5)))}",
-         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+#        <.cutExpression="{($(isData) || $(isSig) || $(isAntiISO)) ? 1 :
+#                         (($(isInc) && ([TruthTauSelector] == 30 || [TruthTauSelector] == 20 || [TruthTauSelector] == 5)))}",
+        <.cutExpression="{($(isData) || $(isAntiISO)) ? 1 : ($(isInc) ? ([TruthTauSelector] == 30 || [TruthTauSelector] == 20 || [TruthTauSelector] == 5) : 
+                         (($(isTT) && [TruthTauSelector] == 30) || ($(isTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5)) || ($(isJET) && [TruthTauSelector] == -30)))}",
+        .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
 
         +CutAll {
-            <.cutExpression="lep_0_id_medium == 1 && lep_0_p4.Pt() > 30 && tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3",
+            <.cutExpression="lep_0_id_medium == 1 && lep_0_p4.Pt() > 30 && tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3",
              .weightExpression="{$(isTop) ? [TopTheorySys] : 1}", .title="All">
 
             +CutISO {
@@ -63,11 +65,11 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
          .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="VRMTOS">
 
         +CutVRBtag1p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
+            <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
         } #End: CutVRBtag1p
 
         +CutVRBtag3p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="VRBtag3p">
+            <.cutExpression="$(NbJets) > 0 && tau_0_n_charged_tracks == 3", .title="VRBtag3p">
         } #End: CutVRBtag3p
     } #End: CutVRMTOS
 } #End: CutVisMassVeto
