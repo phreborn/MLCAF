@@ -1,9 +1,0 @@
-.name=CutBase
-.name=CutTruth
-.name=CutAll
-
-.name=CutWCRBveto1pOSFailID
-.name=CutWCRBveto3pOSFailID
-
-.name=CutWCRBtag1pOSFailID
-.name=CutWCRBtag3pOSFailID

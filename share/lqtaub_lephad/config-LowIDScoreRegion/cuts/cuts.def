@@ -1,0 +1,134 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+##
+##  FAKE FACTOR WFR
+##
+##  Cuts for Wjet FR FF.
+##  MC subtraction is made only with truth matched events, so
+##      use inclusive samples and truth match them.
+##  Use separate truth matching for studies and plotting.
+##  Both SS and OS regions are included in this file:
+##      SS for btag, OS for bveto.
+#################################################################
+
+$include("lqtaub_lephad/config-Common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{($(isData) || $(isAntiISO)) ? 1 : ($(isInc) ? ([TruthTauSelector] == 30 || [TruthTauSelector] == 20 || [TruthTauSelector] == 5) :
+                         (($(isTT) && [TruthTauSelector] == 30) || ($(isTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5)) || ($(isJET) && [TruthTauSelector] == -30)))}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutAll {
+            <.cutExpression="lep_0_id_medium == 1 && lep_0_p4.Pt() > 30 && tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3", .title="All">
+
+            +CutISO {
+                <.cutExpression="($(isAntiISO) ? $(isFailISO) : $(isPassISO))",
+                 .weightExpression="($(isAntiISO) ? $(applyLFF) : 1)", .title="ISO">
+            } #End: CutISO
+        } #End: CutAll
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+
+@ */CutISO {
+    +CutMTOS {
+        <.cutExpression="lephad_qxq == -1 && lephad_mt_lep0_met > 60 && ($(NbJets) == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)",
+         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="MTOS">
+
+        +CutVisMassVeto {
+            <.cutExpression="(lep_0 == 2 && $(NbJets) == 0) ? ((lephad_p4.M() > 110 || lephad_p4.M() < 80) ? 1 : 0) : 1", .title="VisMassVeto">
+
+            +CutOSBvetoCategory {
+                <.cutExpression="$(NbJets) == 0", .title="OSBvetoCategory", region1="OSBveto">
+            } #End: CutOSBvetoCategory
+
+            +CutOSBtagCategory {
+                <.cutExpression="$(NbJets) > 0", .title="OSBtagCategory", region1="OSBtag">
+            } #End: CutOSBtagCategory
+        } #End: CutVisMassVeto
+    } #End: CutMTOS
+
+    +CutMTSS {
+        <.cutExpression="lephad_mt_lep0_met > 60 && lephad_qxq == 1", .title="MTSS">
+
+        +CutSSBtagCategory {
+            <.cutExpression="$(NbJets) > 0", .title="SSBtagCategory", region1="SSBtag">
+        } #End: CutSSBtagCategory
+    } #End: CutMTSS
+} #End: CutISO
+
+@ */Cut*SB*Category {
+    +Cut$(region1)1pTaus {
+        <.cutExpression="tau_0_n_charged_tracks == 1", .title="$(region1)1pTaus", region2="$(region1)1p">
+    } #End: Cut$(region1)1pTaus
+
+    +Cut$(region1)3pTaus {
+        <.cutExpression="tau_0_n_charged_tracks == 3", .title="$(region1)3pTaus", region2="$(region1)3p">
+    } #End: Cut$(region1)3pTaus
+} #End: Cut*SB*Category
+
+$replace("*/CutOSBvetoCategory/*:*", region1="OSBveto");
+$replace("*/CutOSBtagCategory/*:*", region1="OSBtag");
+$replace("*/CutSSBtagCategory/*:*", region1="SSBtag");
+
+@ */Cut*SB*pTaus {
+    +Cut$(region2)LowIDScore {
+        <.cutExpression="$(TauIDScore) < $(TauIDScoreCut)", .title="$(region2)LowIDScore">
+    } #End: Cut$(region2)LowIDScore
+} #End: Cut*SB*pTaus
+
+$replace("*/CutOSBveto1pTaus/*:*", region2="Bveto1pOS");
+$replace("*/CutOSBveto3pTaus/*:*", region2="Bveto3pOS");
+$replace("*/CutOSBtag1pTaus/*:*", region2="Btag1pOS");
+$replace("*/CutOSBtag3pTaus/*:*", region2="Btag3pOS");
+$replace("*/CutSSBtag1pTaus/*:*", region2="Btag1pSS");
+$replace("*/CutSSBtag3pTaus/*:*", region2="Btag3pSS");
+
+# Low TauID Score TCR
+@ */CutISO {
+    +CutTCRMTOS {
+        <.cutExpression="lephad_mt_lep0_met > 110 && lephad_qxq == -1",
+         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="TCRMTOS">
+
+        +CutTCRBtagCategory {
+            <.cutExpression="$(NbJets) > 0", .title="TCRBtagCategory">
+
+            +CutTCRBtagLowIDScore {
+                <.cutExpression="$(TauIDScore) < $(TauIDScoreCut)", .title="TCRBtagLowIDScore">
+
+                +CutTCRBtag1p {
+                    <.cutExpression="tau_0_n_charged_tracks == 1", .title="TCRBtag1p">
+                } #End: CutTCRBtag1p
+
+                +CutTCRBtag3p {
+                    <.cutExpression="tau_0_n_charged_tracks == 3", .title="TCRBtag3p">
+                } #End: CutTCRBtag3p
+            } #End: CutTCRBtagLowIDScore
+        } #End: CutTCRBtagCategory
+    } #End: CutTCRMTOS
+} #End: CutISO
+
+# Low TauID Score VR
+@ */CutISO {
+    +CutVRMTOS {
+        <.cutExpression="lephad_mt_lep0_met > 40 && lephad_mt_lep0_met < 60 && lephad_qxq == -1",
+         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="VRMTOS">
+
+        +CutVRBtagCategory {
+            <.cutExpression="$(NbJets) > 0", .title="VRBtagCategory">
+
+            +CutVRBtagLowIDScore {
+                <.cutExpression="$(TauIDScore) < $(TauIDScoreCut)", .title="VRBtagLowIDScore">
+
+                +CutVRBtag1p {
+                    <.cutExpression="tau_0_n_charged_tracks == 1", .title="VRBtag1p">
+                } #End: CutVRBtag1p
+
+                +CutVRBtag3p {
+                    <.cutExpression="tau_0_n_charged_tracks == 3", .title="VRBtag3p">
+                } #End: CutVRBtag3p
+            } #End: CutVRBtagLowIDScore
+        } #End: CutVRBtagCategory
+    } #End: CutVRMTOS
+} #End: CutISO
