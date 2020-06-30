@@ -10,7 +10,6 @@
 #include "TH2.h"
 
 
-typedef std::bitset<128> Condition;
 
 class ScaleFactor : public LepHadObservable {
 
@@ -24,7 +23,6 @@ class ScaleFactor : public LepHadObservable {
     virtual double getValue() const override;
     virtual TObjArray* getBranchNames() const override;
 
-  
   protected:
     virtual bool initializeSelf() override;
     virtual bool finalizeSelf() override;

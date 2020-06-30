@@ -5,6 +5,9 @@
 
 #include "TTreeFormula.h"
 #include "TMath.h"
+#include <bitset>
+    
+typedef std::bitset<128> Condition;
 
 class LepHadObservable : public TQTreeObservable {
   
