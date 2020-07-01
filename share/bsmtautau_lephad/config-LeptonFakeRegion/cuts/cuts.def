@@ -3,10 +3,9 @@
 ################################################################
 ##
 ##  Basic cuts for Fake Lepton CR.
-##
-##  Application of ScaleFactor is not entirely logical because
-##      if there is no tau then SF=0. If we use jets, dont apply full SF,
-##      but if taus only then use SF.
+##  -- lepton: pT > 30 GeV, pass medium ID
+##  -- tau: rnn score < 0.01
+##  -- mT < 30
 ##
 #################################################################
 
@@ -18,7 +17,7 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
          .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="All">
 
         +CutTau {
-            <.cutExpression="$(TauIDScore) < $(TauIDScoreCut) && n_taus > 0", .title="Tau">
+            <.cutExpression="$(TauIDScore) < $(TauIDScoreCut)", .title="Tau">
 
             +CutSingleLepton {
                 <.cutExpression="(n_electrons + n_muons) == 1", .title="SingleLepton">
