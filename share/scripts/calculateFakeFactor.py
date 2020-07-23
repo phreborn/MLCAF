@@ -51,7 +51,7 @@ def addSysError(oldHist,additionalHist):
     for binIndex in range(0,nBinsX+2):
         additionalError = additionalHist.GetBinContent(binIndex)
         oldError = oldHist.GetBinContent(binIndex)
-        totalError = sqrt(tempError**2+oldError**2)
+        totalError = sqrt(additionalError**2+oldError**2)
         oldHist.SetBinContent(binIndex, totalError)
 
 # force histogram to be non-negative
