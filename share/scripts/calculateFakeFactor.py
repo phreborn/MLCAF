@@ -1,11 +1,9 @@
 #!/user/bin/env python2
 
 def getOverallError(hist):
-  value = .0
   error = .0
-  for bin in range(1, hist.GetNbinsX()+1):
-    value += hist.GetBinContent(bin)
-    error += hist.GetBinError(bin) * hist.GetBinError(bin)
+  for binIndex in range(1, hist.GetNbinsX()+1):
+    error += hist.GetBinError(binIndex) * hist.GetBinError(binIndex)
   return sqrt(error)
 
 
@@ -43,17 +41,18 @@ def averageHist(hist1, hist2):
     return temp
 
 # add systematic uncertainty in quadrature
-def addSysError(histError,hist1):
-    # here we need to change histError - add hist1 in quadrature
-    nBinsX = hist1.GetNbinsX()
-    if nBinsX != histError.GetNbinsX():
+def addSysError(oldHist,additionalHist):
+    # here we need to change oldHist - add additionalHist in quadrature
+    nBinsX = additionalHist.GetNbinsX()
+    if nBinsX != oldHist.GetNbinsX():
         print "Error: different binning"
         return None
-    # add content to histError
-    for bin in range(0,nBinsX+2):
-        tempError = hist1.GetBinContent(bin)
-        oldError = histError.GetBinContent(bin)
-        histError.SetBinContent(bin, sqrt(tempError**2+oldError**2))
+    # add content to oldHist
+    for binIndex in range(0,nBinsX+2):
+        additionalError = additionalHist.GetBinContent(binIndex)
+        oldError = oldHist.GetBinContent(binIndex)
+        totalError = sqrt(tempError**2+oldError**2)
+        oldHist.SetBinContent(binIndex, totalError)
 
 # force histogram to be non-negative
 def checkNegative(hist):
@@ -84,8 +83,9 @@ def convertToAsyGraph(hist, up, down):
     gr = TGraphAsymmErrors(nBinsX,x,y,exl,exh,eyl,eyh)
     gr.GetXaxis().SetTitle(hist.GetXaxis().GetTitle())
     return gr
-# plotting FFs: hist error is MC statistics
-#               up/down is MC statistics and MC subtraction
+
+# plotting FFs: hist error is MC and data statistics
+#               up/down is MC and data statistics, and systematic uncertainties of MC subtraction
 def plotFakeFactor(hist,up,down,name='someFF'):
     print ' Now Plotting FakeFacotr: '+name
 
@@ -125,21 +125,15 @@ def plotFakeFactor(hist,up,down,name='someFF'):
     c1.Write()
 
 
-###############################################################
 # calculation of fake factor
 #       [datapath-mcpath]:nominator/histogram
 # FF =  ---------------------------------------
 #       [datapath-mcpath]:denominator/histogram
 # Considering statistical uncertainty and sys of mc subtraction 
 # FF will be saved to root files named prefix+histogram+'.root' 
-###############################################################
-def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix, mcVar1=0.1, mcVar2=0.1):
-  print '----------------------------------------------------------'
-  print 'Now running Fake Factor in ', prefix, histogram
-  print '--------------------------------------------------------\n'
+def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix, nomVar=0.1, denomVar=0.1):
+  print 'Calculate Fake Factor in ', prefix, histogram
 
-  doMCSys = True #True
-  
   # nominal histogram
   histoPass = reader.getHistogram('{:s}-{:s}'.format(dataPath,bkgpath),'{:s}/{:s}'.format(nominator,histogram))
   histoFail = reader.getHistogram('{:s}-{:s}'.format(dataPath,bkgpath),'{:s}/{:s}'.format(denominator,histogram))
@@ -160,11 +154,11 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
     FF_nom_error.SetBinContent(i, FF_nom_error.GetBinError(i))
     FF_nom_error.SetBinError(i, 0)
 
-  if doMCSys:
-    histoPass_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+mcVar1),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
-    histoPass_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-mcVar1),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
-    histoFail_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+mcVar2),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
-    histoFail_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-mcVar2),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
+  if nomVar != 0.0 or denomVar != 0.0:
+    histoPass_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+nomVar),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
+    histoPass_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-nomVar),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
+    histoFail_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+denomVar),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
+    histoFail_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-denomVar),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
     # add overflow
     addOverflow(histoPass_up)
     addOverflow(histoPass_down)
