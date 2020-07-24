@@ -4,15 +4,11 @@
 ##
 ##  FAKE FACTOR WFR
 ##
-##  Cuts for Wjet FR FF.
-##  MC subtraction is made only with truth matched events, so
-##      use inclusive samples and truth match them.
-##  Use separate truth matching for studies and plotting.
-##  Both SS and OS regions are included in this file:
-##      SS for btag, OS for bveto.
 #################################################################
 
 $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
+
+
 
 @ */CutMaterialCorrection {
     +CutTruth {
@@ -20,97 +16,130 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
                          (($(isTT) && [TruthTauSelector] == 30) || ($(isTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5)) || ($(isJET) && [TruthTauSelector] == -30)))}",
          .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
 
-        +CutAll {
-            <.cutExpression="lep_0_id_medium == 1 && lep_0_p4.Pt() > 30 && tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && lephad_dphi > 2.4", .title="All">
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) && $(TauIDScore) > $(TauIDScoreCut)", 
+                    .title="Tau basic cut">
+                
+                +CutLepTau {
+                    <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
 
-            +CutISO {
-                <.cutExpression="($(isAntiISO) ? $(isFailISO) : $(isPassISO))",
-                 .weightExpression="($(isAntiISO) ? $(applyLFF) : 1)", .title="ISO">
-            } #End: CutISO
-        } #End: CutAll
+                    +CutLeptonISO {
+                        <.cutExpression="($(isAntiISO) ? $(isFailISO) : $(isPassISO))",
+                        .weightExpression="($(isAntiISO) ? $(applyLFF) : 1)", .title="Lepton isolation">
+                    } #End: CutLeptonISO
+                } #End: CutLepTau
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
     } #End: CutTruth
 } #End: CutMaterialCorrection
 
-@ */CutISO {
-    +CutMTOS {
-        <.cutExpression="lephad_qxq == -1 && lephad_mt_lep0_met > 60 && ($(NbJets) == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)",
-         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="MTOS">
 
-        +CutVisMassVeto {
-            <.cutExpression="(lep_0 == 2 && $(NbJets) == 0) ? ((lephad_p4.M() > 110 || lephad_p4.M() < 80) ? 1 : 0) : 1", .title="VisMassVeto">
 
-            +CutOSBvetoCategory {
-                <.cutExpression="$(NbJets) == 0", .title="OSBvetoCategory", region1="OSBveto">
-            } #End: CutOSBvetoCategory
+# Divide to OS/SS region
+@ */CutLeptonISO {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", regionCharge="OS">
+    } #End: CutOS
+    
+    +CutSS {
+        <.cutExpression="lephad_qxq == 1", .title="SS", regionCharge="SS"> 
+    } #End: CutSS
+} #End: CutLepTau
 
-            +CutOSBtagCategory {
-                <.cutExpression="$(NbJets) > 0", .title="OSBtagCategory", region1="OSBtag">
-            } #End: CutOSBtagCategory
-        } #End: CutVisMassVeto
-    } #End: CutMTOS
 
-    +CutMTSS {
-        <.cutExpression="lephad_mt_lep0_met > 60 && lephad_qxq == 1", .title="MTSS">
 
-        +CutSSBtagCategory {
-            <.cutExpression="$(NbJets) > 0", .title="SSBtagCategory", region1="SSBtag">
-        } #End: CutSSBtagCategory
-    } #End: CutMTSS
-} #End: CutISO
+# Divide to Bveto/Btag region
+@ */CutLeptonISO/Cut*S {
+    +Cut$(regionCharge)Bveto {
+        <.cutExpression="$(NbJets)==0", .title="$(regionCharge)Bveto", regionNbjets="Bveto">
+    } #End: Cut[OS/SS]Bveto
 
-@ */Cut*SB*Category {
-    +Cut$(region1)1pTaus {
-        <.cutExpression="tau_0_n_charged_tracks == 1", .title="$(region1)1pTaus", region2="$(region1)1p">
-    } #End: Cut$(region1)1pTaus
+    +Cut$(regionCharge)Btag {
+        <.cutExpression="$(NbJets)>=1", .title="$(regionCharge)Btag", regionNbjets="Btag",
+        .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}">
+    } #End: Cut[OS/SS]Btag
+} #End: CutLeptonISO/Cut[OS/SS]
 
-    +Cut$(region1)3pTaus {
-        <.cutExpression="tau_0_n_charged_tracks == 3", .title="$(region1)3pTaus", region2="$(region1)3p">
-    } #End: Cut$(region1)3pTaus
-} #End: Cut*SB*Category
 
-$replace("*/CutOSBvetoCategory/*:*", region1="OSBveto");
-$replace("*/CutOSBtagCategory/*:*", region1="OSBtag");
-$replace("*/CutSSBtagCategory/*:*", region1="SSBtag");
 
-@ */Cut*SB*pTaus {
-    +Cut$(region2)PassID {
-        <.cutExpression="($(isAntiID) ? $(isFailID) : $(isPassID))",
-         .weightExpression="($(isAntiID) ? $(applyWFF) : 1)", .title="$(region2)PassID">
-    } #End: Cut$(region2)PassID
+# Divide to different MT region
+@ */CutLeptonISO/Cut*S/Cut*Bveto {
+    +Cut$(regionCharge)$(regionNbjets)WFR {
+        <.cutExpression="lephad_mt_lep0_met >= 60 && ($(NbJets) == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)", 
+        .title="$(regionCharge)$(regionNbjets)WFR", regionMT="WFR">
+        
+        +Cut$(regionCharge)$(regionNbjets)WFRZeeVeto {
+            <.cutExpression="(lep_0 == 2 && $(NbJets) == 0)  ? ((lephad_p4.M() > 110 || lephad_p4.M() < 80) ? 1 : 0) : 1", 
+             .title="$(regionCharge)$(regionNbjets)VisMassVeto"> 
+        }
+    } 
+}
 
-    +Cut$(region2)FailID {
-        <.cutExpression="($(isAntiID) ? $(isPassID) : $(isFailID))",
-         .weightExpression="($(isAntiID) ? 1 / $(applyWFF) : 1)", .title="$(region2)FailID">
-    } #End: Cut$(region2)FailID
-} #End: Cut*SB*pTaus
+@ */CutLeptonISO/Cut*S/Cut*Btag {
+    +Cut$(regionCharge)$(regionNbjets)WFR {
+        <.cutExpression="lephad_mt_lep0_met >= 60 && ($(NbJets) == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)", 
+        .title="$(regionCharge)$(regionNbjets)WFR", regionMT="WFR">
+    } 
+}
+    
+@ */CutLeptonISO/CutOS/Cut*Btag {
+    +Cut$(regionCharge)$(regionNbjets)TCR {
+        <.cutExpression="lephad_mt_lep0_met >= 110", 
+        .title="$(regionCharge)$(regionNbjets)TCR", regionMT="TCR">
+    } 
+}
 
-$replace("*/CutOSBveto1pTaus/*:*", region2="Bveto1pOS");
-$replace("*/CutOSBveto3pTaus/*:*", region2="Bveto3pOS");
-$replace("*/CutOSBtag1pTaus/*:*", region2="Btag1pOS");
-$replace("*/CutOSBtag3pTaus/*:*", region2="Btag3pOS");
-$replace("*/CutSSBtag1pTaus/*:*", region2="Btag1pSS");
-$replace("*/CutSSBtag3pTaus/*:*", region2="Btag3pSS");
 
-@ */CutISO {
-    +CutTCRMTOS {
-        <.cutExpression="lephad_mt_lep0_met > 110 && lephad_qxq == -1",
-         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="TCRMTOS">
 
-        +CutTCRBtagCategory {
-            <.cutExpression="$(NbJets) > 0", .title="TCRBtagCategory">
+# Divide to 1p/3p region
+@ */Cut*ZeeVeto {
+    +Cut$(regionCharge)$(regionNbjets)$(regionMT)1p {
+        <.cutExpression="tau_0_n_charged_tracks == 1", .title="$(regionCharge)$(regionNbjets)$(regionMT)1p", regionProng="1p">
+    }
+    
+    +Cut$(regionCharge)$(regionNbjets)$(regionMT)3p {
+        <.cutExpression="tau_0_n_charged_tracks == 3", .title="$(regionCharge)$(regionNbjets)$(regionMT)3p", regionProng="3p">
+    }
+}
 
-            +CutTCRBtagPassID {
-                <.cutExpression="($(isAntiID) ? $(isFailID) : $(isPassID))",
-                 .weightExpression="($(isAntiID) ? $(applyWFF) : 1)", .title="TCRBtagPassID">
+@ */Cut*Btag/Cut* {
+    +Cut$(regionCharge)$(regionNbjets)$(regionMT)1p {
+        <.cutExpression="tau_0_n_charged_tracks == 1", .title="$(regionCharge)$(regionNbjets)$(regionMT)1p", regionProng="1p">
+    }
+    
+    +Cut$(regionCharge)$(regionNbjets)$(regionMT)3p {
+        <.cutExpression="tau_0_n_charged_tracks == 3", .title="$(regionCharge)$(regionNbjets)$(regionMT)3p", regionProng="3p">
+    }
+}
 
-                +CutTCRBtag1p {
-                    <.cutExpression="tau_0_n_charged_tracks == 1", .title="TCRBtag1p">
-                } #End: CutTCRBtag1p
 
-                +CutTCRBtag3p {
-                    <.cutExpression="tau_0_n_charged_tracks == 3", .title="TCRBtag3p">
-                } #End: CutTCRBtag3p
-            } #End: CutTCRBtagPassID
-        } #End: CutTCRBtagCategory
-    } #End: CutTCRMTOS
-} #End: CutISO
+
+# Divide to PassID/FailID region
+@ */Cut*p {
+    +Cut$(regionCharge)$(regionNbjets)$(regionMT)$(regionProng)PassTauID {
+        <.cutExpression="$(isAntiID) ? $(isFailID) : $(isPassID)", 
+         .weightExpression="$(isAntiID) ? $(applyWFF) : 1",
+         .title="$(regionCharge)$(regionNbjets)$(regionMT)$(regionProng)PassTauID">
+    }
+    
+    +Cut$(regionCharge)$(regionNbjets)$(regionMT)$(regionProng)FailTauID {
+        <.cutExpression="$(isAntiID) ? $(isPassID) : $(isFailID)", 
+         .weightExpression="$(isAntiID) ? 1 / $(applyWFF) : 1",
+         .title="$(regionCharge)$(regionNbjets)$(regionMT)$(regionProng)FailTauID">
+    }
+}
+
+
+
+$replace("*/CutOS/*:*", regionCharge="OS");
+$replace("*/CutSS/*:*", regionCharge="SS");
+$replace("*/Cut*SBveto/*:*", regionNbjets="Bveto");
+$replace("*/Cut*SBtag/*:*", regionNbjets="Btag");
+$replace("*/Cut*WFR/*:*", regionMT="WFR");
+$replace("*/Cut*TCR/*:*", regionMT="TCR");
+$replace("*/Cut*1p/*:*", regionProng="1p");
+$replace("*/Cut*3p/*:*", regionProng="3p");
