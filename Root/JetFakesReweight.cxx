@@ -54,6 +54,7 @@ double JetFakesReweight::getValue() const {
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
   double f_tau_0_eta       = this->tau_0_eta->EvalInstance();
   double f_met_reco_et       = this->met_reco_et->EvalInstance();
+  double f_lephad_mt_lep0_met = this->lephad_mt_lep0_met->EvalInstance();
 
   ///////////////////////////////////////////////////////////////
   // determine which SF to use
@@ -90,6 +91,10 @@ double JetFakesReweight::getValue() const {
   else if (param_tag == "TauEta") {
     param = "TauEta";
     variable = f_tau_0_eta;
+  }
+  else if (param_tag == "MTLepMET") {
+    param = "MTLepMET";
+    variable = f_lephad_mt_lep0_met;
   }
 
   TString histName = "WFR"+ period + channel + region + param + "SF";

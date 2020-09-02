@@ -13,11 +13,12 @@ $printline("Applying post-prepare tags...");
 # categorise each inclusive MC process
 <isInc=false> @ /.;
 
+<isZjets=false> @ /.;
 <isZtt=false> @ /.;
-<isZtt=true, isInc=true> @ /bkg/?/?/Ztautau;
+<isZjets=true, isZtt=true, isInc=true> @ /bkg/?/?/Ztautau;
 
 <isZll=false> @ /.;
-<isZll=true, isInc=true> @ /bkg/?/?/Zll;
+<isZjets=true, isZll=true, isInc=true> @ /bkg/?/?/Zll;
 
 <isTop=false> @ /.;
 <isTop=true, isInc=true> @ /bkg/?/?/Top;

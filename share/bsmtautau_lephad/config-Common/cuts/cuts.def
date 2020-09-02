@@ -17,7 +17,7 @@
 
     +CutBase {
         <.cutExpression="{$(isData) ? 1 : ($(isInclusiveZ) ? (([BSM_parent_p4.M()] < 120) ? 1 : 0) : 1)} && [BSMTriggerDecision] == 1",
-         .weightExpression="(((! $(isData)) && $(UseLPXKfactor)) ? [LPXKfactor] : 1)", .title="Base">
+         .weightExpression="((($(isZjets)) && $(UseLPXKfactor)) ? [LPXKfactor] : 1)", .title="Base">
 
         +CutMaterialCorrection {
             <.cutExpression="1",
