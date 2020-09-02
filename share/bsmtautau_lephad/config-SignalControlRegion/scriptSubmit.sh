@@ -6,12 +6,12 @@ CONFIG="master"
 IDENT="SR"
 JOBSLIST=(
     "data"
-    "bkgCommon"
-    "bkgZjets"
-    "bkgTTbarNOMINAL"
-    "fakesISO"
-    "fakesID"
-    "fakesIDISO"
+    "bkg_common_TTL"
+    "bkg_Zjets_TTL"
+    "bkg_ttbar_nominal_TTL"
+    "bkg_QCDFakes_LFF"
+    "bkg_WTjetsFakes_TFF"
+    "bkg_WTjetsFakes_TFF_QCDFakes_LFF"
     "signal"
 )
 

@@ -1,0 +1,6 @@
+# ------------------------------ c16a ------------------------------ #
+##### bkg #####
+### Wjets ###
+/bkg/?/c16a/mc/TTL/Wjets/enu
+/bkg/?/c16a/mc/TTL/Wjets/munu
+/bkg/?/c16a/mc/TTL/Wjets/taunu

@@ -10,26 +10,21 @@ $printline("Applying post-prepare tags...");
 <usemcweights=false> @ /.;
 <usemcweights=true> @ /bkg, /sig;
 
-# categorise each inclusive MC process
-<isInc=false> @ /.;
+<isWjets=false> @ /.;
+<isWjets=true> @ /bkg/?/?/Wjets;
 
 <isZjets=false> @ /.;
 <isZtt=false> @ /.;
-<isZjets=true, isZtt=true, isInc=true> @ /bkg/?/?/Ztautau;
+<isZjets=true, isZtt=true> @ /bkg/?/?/Ztautau;
 
 <isZll=false> @ /.;
-<isZjets=true, isZll=true, isInc=true> @ /bkg/?/?/Zll;
+<isZjets=true, isZll=true> @ /bkg/?/?/Zll;
 
 <isTop=false> @ /.;
-<isTop=true, isInc=true> @ /bkg/?/?/Top;
+<isTop=true> @ /bkg/?/?/Top;
 
 <isDib=false> @ /.;
-<isDib=true, isInc=true> @ /bkg/?/?/Diboson;
+<isDib=true> @ /bkg/?/?/Diboson;
 
-# is signal (if it exists)
 <isSig=false> @ /.;
-<isSig=true, isInc=true> @ /sig;
-
-# use MC W+jets for modelling ID fakes in ISO fakes region
-<isWjets=false> @ /.;
-<isWjets=true, isInc=true> @ /bkg/?/?/Wjets;
+<isSig=true> @ /sig;

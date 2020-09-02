@@ -71,10 +71,10 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
           hist_new_name += "MuHad"
         else:
           BREAK("Unexpected channel {:s}".format(args.channel))
-        if "tcr" in region_name:
-          hist_new_name += "Tcr"
-        if "vr" in region_name:
-          hist_new_name += "Vr"
+        if "TCR" in region_name:
+          hist_new_name += "TCR"
+        if "VR" in region_name:
+          hist_new_name += "VR"
 
         hist_new_name += "_"+hist_rename
   
@@ -115,12 +115,12 @@ if __name__ == "__main__":
   ### The following Samples will be dumped
   sample_dict = {
     'data':         "data/{:s}/{:s}/",
-    'Top':          "bkg/{:s}/{:s}/Top/", 
-    'Diboson':      "bkg/{:s}/{:s}/Diboson/", 
-    'DYZ':          "bkg/{:s}/{:s}/Zll/", 
-    'ZplusJets':    "bkg/{:s}/{:s}/Ztautau/", 
-    'QCDFakes':     "bkg/{:s}/{:s}/Fakes/ISO/[data-mc]", 
-    'WJETSFakes':   "bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]", 
+    'Top':          "bkg/{:s}/{:s}/mc/TTL/Top/", 
+    'Diboson':      "bkg/{:s}/{:s}/mc/TTL/Diboson/", 
+    'DYZ':          "bkg/{:s}/{:s}/mc/TTL/Zll/", 
+    'ZplusJets':    "bkg/{:s}/{:s}/mc/TTL/Ztautau/", 
+    'QCDFakes':     "bkg/{:s}/{:s}/QCDFakes/[data-mc/[TTL+JFT]]", 
+    'WJETSFakes':   "bkg/{:s}/{:s}/WTjetsFakes/[data-mc/TTL-QCDFakes/[data-mc/[TTL+JFT]]]", 
     'bbHlh125':     "sig/{:s}/{:s}/bbH/125/",
     'bbHlh150':     "sig/{:s}/{:s}/bbH/150/",
     'bbHlh200':     "sig/{:s}/{:s}/bbH/200/",
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     'bbHlh700':     "sig/{:s}/{:s}/bbH/700/",
     'bbHlh800':     "sig/{:s}/{:s}/bbH/800/",
     'bbHlh1000':    "sig/{:s}/{:s}/bbH/1000/",
-    'bbHlh1200':     "sig/{:s}/{:s}/bbH/1200/",
+    'bbHlh1200':    "sig/{:s}/{:s}/bbH/1200/",
     'bbHlh1500':    "sig/{:s}/{:s}/bbH/1500/",
     'bbHlh2000':    "sig/{:s}/{:s}/bbH/2000/",
     'bbHlh2500':    "sig/{:s}/{:s}/bbH/2500/",
@@ -155,28 +155,25 @@ if __name__ == "__main__":
 
   ### The following regions will be dumped
   region_dict = {
-    "sr1pBtag"  :   'CutBtag1p',
-    "sr3pBtag"  :   'CutBtag3p',
-    "sr1pBveto" :   'CutBveto1p',
-    "sr3pBveto" :   'CutBveto3p',
-    "tcr1pBtag" :   'CutTCRBtag1p',
-    "tcr3pBtag" :   'CutTCRBtag3p',
-    "vr1pBtag"  :   'CutVRBtag1p',
-    "vr3pBtag"  :   'CutVRBtag3p',
-    "vr1pBveto" :   'CutVRBveto1p',
-    "vr3pBveto" :   'CutVRBveto3p',
+    "OSBtagSR1p"  :   'CutOSBtagSR1p',
+    "OSBtagSR3p"  :   'CutOSBtagSR3p',
+    "OSBvetoSR1p"  :   'CutOSBvetoSR1p',
+    "OSBvetoSR3p"  :   'CutOSBvetoSR3p',
+    #"OSBtagVR1p"  :   'CutOSBtagVR1p',
+    #"OSBtagVR3p"  :   'CutOSBtagVR3p',
+    #"OSBvetoVR1p"  :   'CutOSBvetoVR1p',
+    #"OSBvetoVR3p"  :   'CutOSBvetoVR3p',
   }
 
   ### The following hists will be dumped
   hist_dict = {
-    "BvetoTauPt"        : "BinTauPt",
-    "BtagTauPt"         : "BinTauPt",
-    "BvetoLeptonPt"     : "BinLeptonPt",
-    "BtagLeptonPt"      : "BinLeptonPt",
+    #"BvetoTauPt"        : "BinTauPt",
+    #"BtagTauPt"         : "BinTauPt",
+    #"BvetoLeptonPt"     : "BinLeptonPt",
+    #"BtagLeptonPt"      : "BinLeptonPt",
     "BvetoMTTOT"        : "BinMTTOT",
     "BtagMTTOT"         : "BinMTTOT",
-    "TCRBtagMTTOT"      : "BinMTTOT",
-    "MTTOT"             : "MTTOT",
+    #"MTTOT"             : "MTTOT",
   }
 
   main(args, dataset_dict, sample_dict, region_dict, hist_dict); 

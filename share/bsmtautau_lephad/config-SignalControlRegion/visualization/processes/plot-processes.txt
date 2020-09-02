@@ -11,8 +11,6 @@
 
 ### background ###
 .path="|"
-#.name="Ztautau_DY",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Ztautau/DY"
-#.name="Ztautau_Z",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Ztautau/Z"
 .name="Ztautau",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Ztautau"
 .name="Zll",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zll"
 .name="Top",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top"

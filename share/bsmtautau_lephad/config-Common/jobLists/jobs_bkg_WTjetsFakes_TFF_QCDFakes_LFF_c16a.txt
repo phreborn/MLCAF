@@ -1,0 +1,21 @@
+# ------------------------------ c16a ------------------------------ #
+##### FF method #####
+/bkg/?/c16a/WTjetsFakes/QCDFakes/data
+
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Ztautau
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Zll
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Top/single
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Top/ttbar/NOMINAL
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Diboson
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Wjets/enu
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Wjets/munu
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/TTL/Wjets/taunu
+
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Ztautau
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Zll
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Top/single
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Top/ttbar/NOMINAL
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Diboson
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Wjets/enu
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Wjets/munu
+/bkg/?/c16a/WTjetsFakes/QCDFakes/mc/JFT/Wjets/taunu
