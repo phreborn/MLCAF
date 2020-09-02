@@ -49,9 +49,12 @@ TObjArray* TopReweight::getBranchNames() const {
 double TopReweight::getValue() const {
   
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
+  double f_lep_0_pt = this->lep_0_pt->EvalInstance();
+  double f_jet_0_pt = this->jet_0_pt->EvalInstance();
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
-
+  
+  double f_SumOfPt = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt;
 
   ///////////////////////////////////////////////////////////////
   // determine which SF to use
@@ -72,7 +75,18 @@ double TopReweight::getValue() const {
   TString period = "All";
 
   // parameterization
-  TString param = "TauPt";
+  TString param = "";
+  TString param_tag = "";
+  float variable = 0.0;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("TopSFParam", param_tag) ) ERRORclass("Can not get TopSFParam tag");
+  if (param_tag == "TauPt") {
+    param = "TauPt";
+    variable = f_tau_0_pt;
+  }
+  else if (param_tag == "SumOfPt"){
+    param = "SumOfPt";
+    variable = f_SumOfPt;
+  }
 
   TString histName = "TCR"+ period + channel + region + param + "SF";
 
@@ -97,7 +111,7 @@ double TopReweight::getValue() const {
   else std::cout << "error! unavailable FF: " << histName+"_down" << std::endl;
 
   // FF is a function of tauPt 
-  int binID = std::min(h_nominal->FindBin(f_tau_0_pt), h_nominal->GetNbinsX());
+  int binID = std::min(h_nominal->FindBin(variable), h_nominal->GetNbinsX());
 
   float retval = h_nominal->GetBinContent(binID);
   float retval_up = h_up->GetBinContent(binID);
@@ -135,9 +149,13 @@ TopReweight::TopReweight(const TString& expression) : LepHadObservable(expressio
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseTopSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/TCR_SF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/TCR_SF.root");
   if (!aFile) {
-    ERRORclass("Can not find WFR_SF.root");
+    ERRORclass("Can not find TCR_SF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the

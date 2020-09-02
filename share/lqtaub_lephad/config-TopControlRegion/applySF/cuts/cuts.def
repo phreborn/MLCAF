@@ -46,14 +46,14 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
 @ */CutID {
     +CutTCRMTOS {
         <.cutExpression="lephad_mt_lep0_met > 110 && lephad_qxq == -1",
-         .weightExpression="{($(isTop) && $(UseLQTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweightLQ] : 1}", .title="TCRMTOS">
+         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="TCRMTOS">
 
         +CutTCRBtag1p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="TCRBtag1p">
+            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="TCRBtag1p">
         } #End: CutTCRBtag1p
 
         +CutTCRBtag3p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="TCRBtag3p">
+            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="TCRBtag3p">
         } #End: CutTCRBtag3p
     } #End: CutTCRMTOS
 } #End: CutID
@@ -62,14 +62,14 @@ $include("lqtaub_lephad/config-Common/cuts/cuts.def");
 @ */CutVisMassVeto {
     +CutVRMTOS {
         <.cutExpression="lephad_mt_lep0_met > 40 && lephad_mt_lep0_met < 60 && lephad_qxq == -1", 
-         .weightExpression="{($(isTop) && $(UseLQTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweightLQ] : 1}", .title="VRMTOS">
+         .weightExpression="{($(isTop) && $(UseTopSF) && ! ($(isAntiISO) || $(isAntiID))) ? [TopReweight] : 1}", .title="VRMTOS">
 
         +CutVRBtag1p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
+            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 1", .title="VRBtag1p">
         } #End: CutVRBtag1p
 
         +CutVRBtag3p {
-            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100000 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="VRBtag3p">
+            <.cutExpression="$(NbJets) > 0 && $(isBTagged) && jet_0_p4.Pt() > 100 && fabs(jet_0_p4.Eta()) < 2.5 && tau_0_n_charged_tracks == 3", .title="VRBtag3p">
         } #End: CutVRBtag3p
     } #End: CutVRMTOS
 } #End: CutVisMassVeto
