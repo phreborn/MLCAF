@@ -1,7 +1,0 @@
-# ------------------------------ c16d ------------------------------ #
-##### Jet fakes #####
-### bkg ###
-# Wjets #
-/bkg/?/c16d/Fakes/JetFake/Wjets/enu
-/bkg/?/c16d/Fakes/JetFake/Wjets/munu
-/bkg/?/c16d/Fakes/JetFake/Wjets/taunu

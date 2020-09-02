@@ -242,6 +242,8 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr.root'
   elif region == 'LFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_lfr.root'
+  elif region == "QCDTFR":
+    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_qcdtfr.root'
   else:
     print ("ERROR: unsupported region: ", region)
     sys.exit()
@@ -277,6 +279,35 @@ if __name__=='__main__':
         # btag 1D FF
         calcFakeFactor(dataPath, bkgPath, 'CutOSBtag1pPassID',  'CutOSBtag1pFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
         calcFakeFactor(dataPath, bkgPath, 'CutOSBtag3pPassID',  'CutOSBtag3pFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
+  
+  elif region == 'QCDTFR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/mc/TTL/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
+        
+        prefix = region+period_name+channel_name
+        # bveto 1D FF
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDTFR1pPassTauID', 'CutOSBvetoQCDTFR1pFailTauID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDTFR3pPassTauID', 'CutOSBvetoQCDTFR3pFailTauID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
+        # btag 1D FF
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDTFR1pPassTauID',  'CutOSBtagQCDTFR1pFailTauID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDTFR3pPassTauID',  'CutOSBtagQCDTFR3pFailTauID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
 
   elif region == 'LFR':
     # Loop over data taking period and channels

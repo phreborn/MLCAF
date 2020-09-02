@@ -1,0 +1,42 @@
+# -*- mode: tqfolder -*-
+
+# alternative method for including MC-driven fake contributions from the anti-ID region
+# as this is post-initialize, the MC samples should already have their weights collected
+$printline("Including Truth fakes...");
+
+# create /bkg subfolders for MC-driven ID fakes
+$create(path="/bkg/?/?/mc", type="sf");
+$create(path="/bkg/?/?/mc/TTL", type="sf");
+$create(path="/bkg/?/?/mc/JFT", type="sf");
+
+# copy ID fakes from MC, including Wjets MC
+@ /bkg/? {
+    @ ? {
+        $copy("Ztautau >> mc/TTL");
+        $copy("Ztautau >> mc/JFT");
+        
+        $copy("Zll >> mc/TTL");
+        $copy("Zll >> mc/JFT");
+        
+        $copy("Top >> mc/TTL");
+        $copy("Top >> mc/JFT");
+        
+        $copy("Diboson >> mc/TTL");
+        $copy("Diboson >> mc/JFT");
+
+        $copy("Wjets >> mc/TTL");
+        $copy("Wjets >> mc/JFT");
+    }
+}
+
+# tag truth taus and leptons
+<isTTL=false> @ /.;
+<isTTL=true> @ /bkg/?/?/mc/TTL;
+
+# tag jet fakes
+<isJFT=false> @ /.;
+<isJFT=true> @ /bkg/?/?/mc/JFT;
+
+# tag data-driven fakes
+<isQCDFakes=false> @ /.;
+<isWTjetsFakes=false> @ /.;

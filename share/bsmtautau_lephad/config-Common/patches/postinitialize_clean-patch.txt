@@ -3,11 +3,8 @@
 # remove unused samples in sys jobs
 $printline("Removing unused samples...");
 
-<isAntiID=false> @ /.;
-<isAntiISO=false> @ /.;
-
 $delete("/bkg/?/?/Wjets!");
-$delete("/bkg/?/?/Fakes!");
-$delete("/bkg/?/?/Top/ttbar/ISRup!");
-$delete("/bkg/?/?/Top/ttbar/ME!");
-$delete("/bkg/?/?/Top/ttbar/PS!");
+$delete("/bkg/?/?/Zll!");
+$delete("/bkg/?/?/Ztautau!");
+$delete("/bkg/?/?/Top!");
+$delete("/bkg/?/?/Diboson!");

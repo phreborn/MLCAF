@@ -1,0 +1,10 @@
+# ------------------------------ c16d ------------------------------ #
+##### FR method ##### 
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Ztautau
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Zll
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Top/single
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Top/ttbar/NOMINAL
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Diboson
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Wjets/enu
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Wjets/munu
+/bkg/?/c16d/WTjetsFakes/mc/JFT/Wjets/taunu

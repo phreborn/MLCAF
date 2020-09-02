@@ -48,7 +48,7 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
     +CutSS {
         <.cutExpression="lephad_qxq == 1", .title="SS", regionCharge="SS"> 
     } #End: CutSS
-} #End: CutLepTau
+} #End: CutLeptonISO
 
 
 
@@ -67,11 +67,12 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
 
 
 # Divide to different MT region
-@ */CutLeptonISO/Cut*S/Cut*Bveto {
+@ */CutLeptonISO/Cut*S/Cut*B* {
     +Cut$(regionCharge)$(regionNbjets)WFR {
         <.cutExpression="lephad_mt_lep0_met >= 60 && ($(NbJets) == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)", 
         .title="$(regionCharge)$(regionNbjets)WFR", regionMT="WFR">
-        
+    
+        # only apply Zee veto in B-veto category    
         +Cut$(regionCharge)$(regionNbjets)WFRZeeVeto {
             <.cutExpression="(lep_0 == 2 && $(NbJets) == 0)  ? ((lephad_p4.M() > 110 || lephad_p4.M() < 80) ? 1 : 0) : 1", 
              .title="$(regionCharge)$(regionNbjets)VisMassVeto"> 
@@ -79,13 +80,6 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
     } 
 }
 
-@ */CutLeptonISO/Cut*S/Cut*Btag {
-    +Cut$(regionCharge)$(regionNbjets)WFR {
-        <.cutExpression="lephad_mt_lep0_met >= 60 && ($(NbJets) == 0 ? lephad_mt_lep0_met < 150 : lephad_mt_lep0_met < 110)", 
-        .title="$(regionCharge)$(regionNbjets)WFR", regionMT="WFR">
-    } 
-}
-    
 @ */CutLeptonISO/CutOS/Cut*Btag {
     +Cut$(regionCharge)$(regionNbjets)TCR {
         <.cutExpression="lephad_mt_lep0_met >= 110", 
@@ -106,7 +100,7 @@ $include("bsmtautau_lephad/config-Common/cuts/cuts.def");
     }
 }
 
-@ */Cut*Btag/Cut* {
+@ */Cut*Btag/Cut*TCR {
     +Cut$(regionCharge)$(regionNbjets)$(regionMT)1p {
         <.cutExpression="tau_0_n_charged_tracks == 1", .title="$(regionCharge)$(regionNbjets)$(regionMT)1p", regionProng="1p">
     }
