@@ -1,6 +1,6 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __LPXKFACTORNEW__
-#define __LPXKFACTORNEW__
+#ifndef __LPXKFACTOR__
+#define __LPXKFACTOR__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 #include "TGraphAsymmErrors.h"
