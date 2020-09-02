@@ -38,6 +38,8 @@ class LepHadObservable : public TQTreeObservable {
     bool isLepISO() const;
   
     bool isHighPt() const;
+  
+    float TransverseMass(float pt1, float pt2, float dphi) const;
 
   protected:
     
@@ -52,8 +54,8 @@ class LepHadObservable : public TQTreeObservable {
     const long LIMIT_2017 = 341649;
     const long LIMIT_2018 = 364292;
 
-    bool _isData = false;
-    bool _isMC = false;
+    bool m_isData = false;
+    bool m_verbose = false;
 
     TTreeFormula* n_bjets = nullptr;
     TTreeFormula* lep_0_iso_electron = nullptr;
@@ -82,5 +84,6 @@ class LepHadObservable : public TQTreeObservable {
     TTreeFormula* lephad_met_lep1_cos_dphi = nullptr;
     TTreeFormula* lephad_mt_lep0_met = nullptr;
     TTreeFormula* lephad_mt_lep1_met = nullptr;
+    TTreeFormula* jet_0_pt = nullptr;
 };
 #endif
