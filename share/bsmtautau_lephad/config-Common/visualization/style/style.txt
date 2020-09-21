@@ -10,11 +10,12 @@
 <style.default.title="Data", style.default.isHistogram=false, style.default.histLineColor=kBlack, style.default.histMarkerStyle=8, style.default.histMarkerSize=0.8> @ /data, /bkg/?/?/QCDFakes/data, /bkg/?/?/WTjetsFakes/data, /bkg/?/?/WTjetsFakes/QCDFakes/data;
 
 ### mc truth tau (had + lep)
-<style.default.title="W+jets (true $\tau$)",                                      style.default.histFillColor=kRed-4   > @ /bkg/?/?/mc/TTL/Wjets;
-<style.default.title="Z/$\gamma^{*}\rightarrow\tau\tau$ (true $\tau$)",           style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mc/TTL/Ztautau;
-<style.default.title="Z/$\gamma^{*}\rightarrow\ell\ell$ (true $\tau$)",           style.default.histFillColor=kGreen-4 > @ /bkg/?/?/mc/TTL/Zll;
-<style.default.title="Top (true $\tau$)",                                         style.default.histFillColor=kYellow-4> @ /bkg/?/?/mc/TTL/Top;
-<style.default.title="Diboson (true $\tau$)",                                     style.default.histFillColor=kYellow+4> @ /bkg/?/?/mc/TTL/Diboson;
+<style.default.title="W+jets",                                      style.default.histFillColor=kRed-4   > @ /bkg/?/?/mc/TTL/Wjets;
+<style.default.title="Z/$\gamma^{*}\rightarrow\tau\tau$",           style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mc/TTL/Ztautau;
+<style.default.title="Z/$\gamma^{*}\rightarrow\ell\ell$",           style.default.histFillColor=kGreen-4 > @ /bkg/?/?/mc/TTL/Zll;
+<style.default.title="Top",                                         style.default.histFillColor=kYellow-4> @ /bkg/?/?/mc/TTL/Top;
+<style.default.title="Diboson",                                     style.default.histFillColor=kYellow+4> @ /bkg/?/?/mc/TTL/Diboson;
+<style.default.title="true $\tau/\ell\rightarrow\tau$",               style.default.histFillColor=kOrange>   @ /bkg/?/?/mc/TTL;
 
 ### mc fake tau
 <style.default.title="W+jets (jet$\rightarrow\tau$)",                             style.default.histFillColor=kRed-9   > @ /bkg/?/?/mc/JFT/Wjets;
@@ -24,7 +25,7 @@
 <style.default.title="Diboson (jet$\rightarrow\tau$)",                            style.default.histFillColor=kYellow-5> @ /bkg/?/?/mc/JFT/Diboson;
 
 ### data driven ###
-<style.default.title="$\ell$/QCD fake",                 style.default.histFillColor=kGray > @ /bkg/?/?/QCDFakes, /bkg/?/?/WTjetsFakes/QCDFakes;
+<style.default.title="QCD fake",                 style.default.histFillColor=kGray > @ /bkg/?/?/QCDFakes, /bkg/?/?/WTjetsFakes/QCDFakes;
 <style.default.title="W/Top fake",                      style.default.histFillColor=kRed+1> @ /bkg/?/?/WTjetsFakes, /bkg/?/?/QCDFakes/WTjetsFakes;
 
 ### sig ###

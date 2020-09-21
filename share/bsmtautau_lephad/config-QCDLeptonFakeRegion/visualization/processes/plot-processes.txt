@@ -1,0 +1,14 @@
+### data ###
+.path="||"
+.name="Data",     .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+
+
+### backgrounds ###
+.path="|"
+.path="TrueTauLepton", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/TTL/[Wjets+Ztautau+Zll+Top+Diboson]"
+.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/JFT/Wjets"
+.name="Ztautau",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/JFT/Ztautau"
+.name="Zll",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/JFT/Zll"
+.name="Top",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/JFT/Top"
+.name="Diboson",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/JFT/Diboson"

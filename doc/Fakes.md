@@ -9,7 +9,7 @@ $`FF = \frac{ (N_{\textrm{data}} - N_{\textrm{bkg}})^{\textrm{pass}} }{ (N_{\tex
 Fake Regions (FR) are defined to enrich the contributions from these fakes so that they can be accurately measured, although real background corrections are applied using MC.  
 
 The analysis categorises these fakes into two estimated components:  
-- Lepton/QCD Fake Region (LFR)
+- QCD Lepton Fake Region
   - Lepton/multi-jet (Quantum ChromoDynamic, QCD) processes faking leptons/taus
     - Both are closely orthogonal to each other
   - Generally sourced from gluon-initiated jets
@@ -34,41 +34,41 @@ In case of any further mismodelling, the process is essentially repeated by iden
 An additional Scale Factor (SF) ROOT file is calculated while parameterizing over those variables, where this should meet the difference.  
 This SF multiplicatively corrects the FF, while attributing its systematic uncertainity.  
 
-Lepton/QCD Fake Region (LFR)
+QCD Lepton fake region (QCDLFR)
 ----------------------------
 
-The Lepton/QCD Fake Factor (LFF) is parameterized as a function of lepton $`p_{\textrm{T}}`$ and $`d\phi`$.  
+The QCD Lepton Fake Factor (LFF) is parameterized as a function of lepton $`p_{\textrm{T}}`$ and $`d\phi`$.  
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-LeptonFakeRegion/scriptDebug.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptDebug.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-LeptonFakeRegion/scriptSubmit.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptSubmit.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-LeptonFakeRegion/scriptMerge.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptMerge.sh
 
 # Calculate the fake factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateFakeFactor.py LFR
-hadd -f bsmtautau_lephad/auxData/FakeFactors/LFR_FF.root bsmtautau_lephad/auxData/FakeFactors/LFRAll*FF.root
+python scripts/calculateFakeFactor.py QCDLFR
+hadd -f bsmtautau_lephad/auxData/FakeFactors/QCDLFR_FF.root bsmtautau_lephad/auxData/FakeFactors/QCDLFRAll*FF.root
 ```
 
-After obtaining the LFF, perform a closure test to check the modelling by applying the LFF back into the LFR.  
+After obtaining the LFF, perform a closure test to check the modelling by applying the LFF back into the QCDLFR.  
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptDebug.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptDebug.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptSubmit.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptSubmit.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptMerge.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptMerge.sh
 
 # Visualize the plots
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/scriptVisualize.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptVisualize.sh
 ```
 
 It is found that tau $`p_{\textrm{T}}`$ in the $`\tau_{\mu}\tau_{\textrm{had}}`$ channel is not well modelled.  
@@ -77,20 +77,20 @@ Thus, a Lepton/QCD Scale Factor (LSF) is calculated and the closure test re-perf
 ```bash
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateScaleFactor.py LFR
-hadd -f bsmtautau_lephad/auxData/ScaleFactors/LFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/LFRAll*SF.root
+python scripts/calculateScaleFactor.py QCDLFR
+hadd -f bsmtautau_lephad/auxData/ScaleFactors/QCDLFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/QCDLFRAll*SF.root
 
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptDebug.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptDebug.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptMerge.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptMerge.sh
 
 # Visualize the plots
-source bsmtautau_lephad/config-LeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
+source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
 ``` 
 
 W+jets/Top Fake Region (WFR/TFR)
