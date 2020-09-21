@@ -11,19 +11,19 @@
 
 #.name="WjetsTT",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Wjets"
 #.name="WjetsTL",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Wjets"
-.name="WjetsJET",   .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Wjets"
+#.name="WjetsJET",   .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Wjets"
 #.name="ZtautauTT",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Ztautau"
 #.name="ZtautauTL",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Ztautau"
-.name="ZtautauJET", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Ztautau"
+#.name="ZtautauJET", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Ztautau"
 #.name="ZllTT",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Zll"
 #.name="ZllTL",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Zll"
-.name="ZllJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Zll"
+#.name="ZllJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Zll"
 #.name="TopTT",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Top"
 #.name="TopTL",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Top"
-.name="TopJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Top/[ttbar/NOMINAL+single]"
+#.name="TopJET",     .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Top"
 #.name="DibosonTT",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/TruthTau/Diboson"
 #.name="DibosonTL",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/LepFake/Diboson"
-.name="DibosonJET", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Diboson"
+#.name="DibosonJET", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Fakes/JetFake/Diboson"
 
 
 ### background ###

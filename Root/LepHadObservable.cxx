@@ -70,6 +70,7 @@ TObjArray* LepHadObservable::getBranchNames() const {
   bnames->Add(new TObjString("lephad_met_lep1_cos_dphi"));
   bnames->Add(new TObjString("lephad_mt_lep0_met"));
   bnames->Add(new TObjString("lephad_mt_lep1_met"));
+  bnames->Add(new TObjString("jet_0_pt"));
 
   return bnames;
 }
@@ -110,12 +111,12 @@ void LepHadObservable::setExpression(const TString& expr){
 
 //______________________________________________________________________________________________
 bool LepHadObservable::isData() const {
-  return _isData;
+  return m_isData;
 }
 
 //______________________________________________________________________________________________
 bool LepHadObservable::isMC() const {
-  return !_isData;
+  return !m_isData;
 }
 //______________________________________________________________________________________________
 bool LepHadObservable::is2015() const {
@@ -175,9 +176,18 @@ bool LepHadObservable::isHighPt() const {
 }
 
 //______________________________________________________________________________________________
+float LepHadObservable::TransverseMass(float pt1, float pt2, float dphi) const{
+  float MT = std::sqrt( 2. * pt1 * pt2 * ( 1 - cos(dphi) ) );
+  return MT;
+} 
+
+//______________________________________________________________________________________________
 bool LepHadObservable::initializeSelf(){
-  
-  if (!this->fSample->getTag("~isData", _isData)) {
+   
+  std::shared_ptr<TQTaggable> masterConfig = TQTaggable::getGlobalTaggable("master");
+  m_verbose = masterConfig->getTagBoolDefault("LepHadObservable.verbose", false);
+
+  if (!this->fSample->getTag("~isData", m_isData)) {
     ERROR("tag isData missing");
     return false;
   }
@@ -244,6 +254,7 @@ bool LepHadObservable::initializeSelf(){
   this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
   this->lephad_met_lep0_cos_dphi = new TTreeFormula( "lephad_met_lep0_cos_dphi", "lephad_met_lep0_cos_dphi", this->fTree);
   this->lephad_met_lep1_cos_dphi = new TTreeFormula( "lephad_met_lep1_cos_dphi", "lephad_met_lep1_cos_dphi", this->fTree);
+  this->jet_0_pt = new TTreeFormula( "jet_0_pt", "jet_0_p4.Pt()", this->fTree);
 
   return true;
 }
@@ -279,6 +290,7 @@ bool LepHadObservable::finalizeSelf(){
   delete this->lephad_mt_lep1_met;
   delete this->lephad_met_lep0_cos_dphi;
   delete this->lephad_met_lep1_cos_dphi;
+  delete this->jet_0_pt;
   
   return true;
 }

@@ -147,8 +147,13 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
 
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDSF", false) ) return;
   INFOclass("Loading file...");
+ 
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/QCDLFR_SF.root");
 
-  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/ScaleFactors/QCDLFR_SF.root");
   if (!aFile) {
     ERRORclass("Can not find QCDLFR_SF.root");
   }

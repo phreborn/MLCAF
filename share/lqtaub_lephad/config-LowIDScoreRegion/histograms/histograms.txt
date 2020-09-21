@@ -1,6 +1,6 @@
-#######################################
-# Plotting histograms in SR/WCR/VR/TCR
-#######################################
+##################################
+##  Plotting Histograms in WCR
+##################################
 
 #################
 # All category
@@ -10,16 +10,23 @@
 #TH1F('TauPt',   '',  30,0,300)  <<  ( tau_0_p4.Pt() : "p_{T}^{\#tau} [GeV]" );
 #TH1F('LepMETDphi'   ,'', 30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" );
 #TH1F('TauMETDphi'   ,'', 30,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
-TH1F('MTTOT','', 500,0,2500) <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
-#TH1F('VisibleMassTauLep'   ,'', 30, 0, 300)   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
-#TH1F('TransverseMassLepMET','', 30, 0, 300)   <<   ( lephad_mt_lep0_met : "m_{T} [GeV]" );
-#TH1F('TransverseMassTauMET','', 30, 0, 300)   <<   ( lephad_mt_lep1_met : "m_{T}^{\#tau\#oplus met} [GeV]" );
+#TH1F('MTTOT','', {30.,40.,60.,70.,80.,90.,100.,114.,134.,162.,200.,250.,362.,600.}) <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
+TH1F('VisibleMassTauLep'   ,'', 30, 0, 300)   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
+TH1F('TransverseMassLepMET','', 30, 0, 300)   <<   ( lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]" );
+TH1F('TransverseMassTauMET','', 30, 0, 300)   <<   ( lephad_mt_lep1_met : "m_{T}(\#tau,MET) [GeV]" );
+TH1F('LeptonEta','', 25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\#eta^{lep}" );
+TH1F('TauEta','', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
+TH1F('TauIDScore','', 100,0,1) << (tau_0_jet_rnn_score_trans: "TauIDScore");
+TH1F('MET', '', 30, 0, 300) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]" );
+#TH1F('TauJetWidth','', 100,0,1) << (tau_0_jet_width : "tau jet width" );
 #TH1F('mu','', 10, 0, 100)   <<   ( n_actual_int  : "number of interactions per bunch crossing" );
 #TH1F('LeadingJetPt','', 30, 0,300 )   <<   ( [n_jets>0?jetPt[0]/1000:0.] : "p_{T}^{jet}" );
-#TH1F('LeptonEta','', 25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\#eta^{lep}" );
-#TH1F('TauEta','', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\#eta^{\#tau}" );
 
-@CutBveto*/*,CutBtag*/*, CutTCRBtag*/*: MTTOT;
+##@Cut*SB*p*ID*/*,CutTCRBtag*p/*,CutVRBtag*p/*:LeptonPt,TauPt,LepMETDphi,TauMETDphi,MTTOT,VisibleMassTauLep;
+#@Cut*SB*p*ID*/*,CutTCRBtag*p/*,CutVRBtag*p/*:VisibleMassTauLep,TransverseMassLepMET,TransverseMassTauMET;
+#@Cut*SB*p*ID*/*,CutTCRBtag*p/*,CutVRBtag*p/*:LeptonEta,TauEta,TauIDScore,MET;
+@CutB*PassISO/*:VisibleMassTauLep,TransverseMassLepMET,TransverseMassTauMET;
+@CutB*PassISO/*:LeptonEta,TauEta,TauIDScore,MET;
 
 #################
 # Bveto category
@@ -32,7 +39,8 @@ TH1F('BvetoLepMETDphi','',       30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi 
 TH1F('BvetoVisibleMassTauLep','', {50.,60.,65.,70.,75.,80.,85.,90.,95.,100.,106.,113.,121.,130.,140.,152.,166.,182.,200.,220.,250.,290.,350.})   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
 TH1F('BvetoMTTOT','',           {40.,48.,60.,64.,68.,72.,76.,81.,87.,94.,102.,111.,121.,132.,144.,158.,174.,192.,212.,236.,264.,298.,340.,390.,600.})    <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
 
-@CutBveto*,CutVRBveto*,CutWCRBveto*: BvetoLeptonPt,BvetoTauPt,BvetoLepMETDphi,BvetoTauMETDphi,BvetoMTTOT,BvetoVisibleMassTauLep;
+#@Cut*SBveto*p*ID*/*: BvetoLeptonPt,BvetoTauPt,BvetoLepMETDphi,BvetoTauMETDphi,BvetoMTTOT,BvetoVisibleMassTauLep;
+@CutBveto*PassISO/*: BvetoLeptonPt,BvetoTauPt,BvetoLepMETDphi,BvetoTauMETDphi,BvetoMTTOT,BvetoVisibleMassTauLep;
 
 #################
 # Btag category
@@ -44,6 +52,7 @@ TH1F('BtagTauMETDphi','',       {0.,1.,1.5,1.8,2.,2.2,2.4,2.6,2.8,3.,3.1416})   
 TH1F('BtagLepMETDphi','',       {0.,0.1,0.2,0.3,0.4,0.52,0.66,0.82,1.1,1.6,3.1416})   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" )
 TH1F('BtagVisibleMassTauLep','', 30, 0,300)   <<   ( lephad_p4.M() : "m_{vis} [GeV]" );
 TH1F('BtagMTTOT','',            {40.,48.,72.,84.,96.,108.,120.,134.,150.,168.,188.,212.,240.,274.,314.,400.,600.})    <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
+TH1F('BtagSumOfPt','', {50.,100.,150.,200.,250.,300.,350.,400.,450.,500.,600.,700.,1000.} )   <<   ( [$(NbJets)>=1 && $(isBTagged) ? $(SumOfPt) : -1] : "S_{T} [GeV]" );
 
-@CutBtag*,CutVRBtag*,CutTCRBtag*,CutWCRBtag*: BtagLeptonPt,BtagTauPt,BtagLepMETDphi,BtagTauMETDphi,BtagMTTOT,BtagVisibleMassTauLep;
-
+#@Cut*SBtag*p*ID*/*,CutTCRBtag*p/*,CutVRBtag*p/*: BtagLeptonPt,BtagTauPt,BtagLepMETDphi,BtagTauMETDphi,BtagMTTOT,BtagVisibleMassTauLep,BtagSumOfPt;
+@CutBtag*PassISO/*: BtagLeptonPt,BtagTauPt,BtagLepMETDphi,BtagTauMETDphi,BtagMTTOT,BtagVisibleMassTauLep,BtagSumOfPt;
