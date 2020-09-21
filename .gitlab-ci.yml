@@ -51,7 +51,7 @@ variables:
     - source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/200327"
     - source bsmtautau_lephad/config-Common/scriptPrepareInitialize.sh
     - echo "Lepton Fake Region:"
-    - source bsmtautau_lephad/config-LeptonFakeRegion/scriptDebug.sh
+    - source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptDebug.sh
     - echo "To be continued..."
 
 ##########################################################################

@@ -298,59 +298,59 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   Condition tau_eff_rnnid_sys = none;
 
   Condition tau_eff_rnnid_1p_2025_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_2025_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_2025_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_2025_up;
   Condition tau_eff_rnnid_1p_2025_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_2025_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_2025_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_2025_down;
   
   Condition tau_eff_rnnid_1p_2530_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_2530_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_2530_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_2530_up;
   Condition tau_eff_rnnid_1p_2530_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_2530_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_2530_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_2530_down;
   
   Condition tau_eff_rnnid_1p_3040_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_3040_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_3040_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_3040_up;
   Condition tau_eff_rnnid_1p_3040_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_3040_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_3040_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_3040_down;
   
   Condition tau_eff_rnnid_1p_ge40_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_ge40_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_ge40_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_ge40_up;
   Condition tau_eff_rnnid_1p_ge40_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_1p_ge40_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_1p_ge40_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_1p_ge40_down;
   
   Condition tau_eff_rnnid_3p_2025_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2025_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_2025_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2025_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_2025_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2025_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_2025_up;
   Condition tau_eff_rnnid_3p_2025_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2025_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_2025_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2025_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_2025_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2025_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_2025_down;
   
   Condition tau_eff_rnnid_3p_2530_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2530_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_2530_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2530_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_2530_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2530_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_2530_up;
   Condition tau_eff_rnnid_3p_2530_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2530_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_2530_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2530_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_2530_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2530_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_2530_down;
   
   Condition tau_eff_rnnid_3p_3040_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT3040_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_3040_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT3040_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_3040_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT3040_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_3040_up;
   Condition tau_eff_rnnid_3p_3040_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT3040_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_3040_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT3040_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_3040_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT3040_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_3040_down;
   
   Condition tau_eff_rnnid_3p_ge40_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPTGE40_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_ge40_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPTGE40_1up_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_ge40_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPTGE40_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_ge40_up;
   Condition tau_eff_rnnid_3p_ge40_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPTGE40_1down");
-  addScaleFactor(tauid | tau_eff_rnnid_3p_ge40_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPTGE40_1down_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_3p_ge40_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPTGE40_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_ge40_down;
   
   Condition tau_eff_rnnid_syst_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_SYST_1up");  
@@ -360,12 +360,12 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(tauid | tau_eff_rnnid_syst_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_SYST_1down_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_syst_down;
 
-  Condition tau_eff_rnnid_highpt_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT_1up");
-  addScaleFactor(tauid | tau_eff_rnnid_highpt_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT_1up_TauEffSF_Jet" + tauIDWP);
-  tau_eff_rnnid_sys |= tau_eff_rnnid_highpt_down;
   Condition tau_eff_rnnid_highpt_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT_1up");
   addScaleFactor(tauid | tau_eff_rnnid_highpt_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_highpt_up;
+  Condition tau_eff_rnnid_highpt_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT_1down");
+  addScaleFactor(tauid | tau_eff_rnnid_highpt_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT_1down_TauEffSF_Jet" + tauIDWP);
+  tau_eff_rnnid_sys |= tau_eff_rnnid_highpt_down;
 
   // -- nominal SF
   addScaleFactor(tauid, tau_eff_rnnid_sys, "tau_0_NOMINAL_TauEffSF_Jet" + tauIDWP);

@@ -84,7 +84,7 @@ double LeptonFakesReweight::getValue() const {
     else if (f_lephad_met_lep0_cos_dphi>=1) param = "TauPtDphi3";
   }
   
-  TString histName = "LFR"+ period + channel + region + param + "SF";
+  TString histName = "QCDLFR"+ period + channel + region + param + "SF";
   
   TH1F * h_nominal = 0;
   TH1F * h_up = 0;
@@ -152,9 +152,10 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/LFR_SF.root");
+  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/QCDLFR_SF.root");
+
   if (!aFile) {
-    ERRORclass("Can not find LFR_SF.root");
+    ERRORclass("Can not find QCDLFR_SF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
