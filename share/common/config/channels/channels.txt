@@ -1,0 +1,4 @@
+name path latex datapath
+ehad   ehad$(variation)  \tau_{e}\tau_{had}  ehad
+muhad   muhad$(variation)  \tau_{\mu}\tau_{had}  muhad
+lephad   [ehad$(variation)+muhad$(variation)]  \tau_{lep}\tau_{had}  [ehad+muhad]

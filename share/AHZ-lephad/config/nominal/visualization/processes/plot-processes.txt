@@ -1,0 +1,10 @@
+### data ###
+#.path="||"
+#.name="Data",     .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### background ###
+.path="|"
+#.name="Ztautau",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+#.name="Zll",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]"
+.name="Top",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
+#.name="Diboson",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"

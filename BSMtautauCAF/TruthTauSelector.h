@@ -12,7 +12,7 @@ class TruthTauSelector : public LepHadObservable {
   
     TruthTauSelector();
     TruthTauSelector(const TString& expression);
-    virtual ~TruthTauSelector();
+    virtual ~TruthTauSelector() = default;
   
     virtual bool hasExpression() const override;
     virtual const TString& getExpression() const override;
@@ -26,10 +26,9 @@ class TruthTauSelector : public LepHadObservable {
     TString fExpression = "";
     TString fOptionName = "";
 
-    TTreeFormula* tau_0_truth_isHadTau = NULL;
-    TTreeFormula* tau_0_truth_isEle    = NULL;
-    TTreeFormula* tau_0_truth_isMuon   = NULL;
-    TTreeFormula* tau_0_truth_classifierParticleType  = NULL;
-
+    TTreeFormula* tau_0_truth_isHadTau = nullptr;
+    TTreeFormula* tau_0_truth_isEle    = nullptr;
+    TTreeFormula* tau_0_truth_isMuon   = nullptr;
+    TTreeFormula* tau_0_truth_classifierParticleType  = nullptr;
 };
 #endif

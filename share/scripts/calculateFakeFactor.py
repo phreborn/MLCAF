@@ -270,15 +270,15 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/[mc/TTL/[Ztautau+Zll+Top+Diboson]+QCDFakes/[data-mc/[TTL+JFT]]]'.format(channel_path, period_path)
         
         prefix = region+period_name+channel_name
         # bveto 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto1pPassID', 'CutOSBveto1pFailID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto3pPassID', 'CutOSBveto3pFailID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoWFR1pPassTauID', 'CutOSBvetoWFR1pFailTauID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoWFR3pPassTauID', 'CutOSBvetoWFR3pFailTauID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
         # btag 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag1pPassID',  'CutOSBtag1pFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag3pPassID',  'CutOSBtag3pFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagWFR1pPassTauID',  'CutOSBtagWFR1pFailTauID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagWFR3pPassTauID',  'CutOSBtagWFR3pFailTauID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
   
   elif region == 'QCDTFR':
     # Loop over data taking period and channels

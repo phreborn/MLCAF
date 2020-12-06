@@ -1,0 +1,49 @@
+#name                                                  type        variation
+# Electron: 4
+EL_EFF_Trigger                                         weight      two
+EL_EFF_Reco_TOTAL                                      weight      two
+EL_EFF_ID_TOTAL                                        weight      two
+EL_EFF_Iso_TOTAL                                       weight      two
+
+# Muon: 6
+MUON_EFF_Trigger_STAT                                  weight      two                    
+MUON_EFF_Trigger_SYST                                  weight      two                       
+MUON_EFF_RECO_STAT                                     weight      two                                                         
+MUON_EFF_RECO_SYS                                      weight      two                       
+MUON_EFF_ISO_STAT                                      weight      two                           
+MUON_EFF_ISO_SYS                                       weight      two                           
+
+# Tau: 10 
+TAUS_TRUEHADTAU_EFF_RECO_TOTAL                         weight      two               
+TAUS_TRUEHADTAU_EFF_ELEOLR_TOTAL                       weight      two                   
+TAUS_TRUEELECTRON_EFF_ELEOLR_STAT                      weight      two                       
+TAUS_TRUEELECTRON_EFF_ELEOLR_SYST                      weight      two                   
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025         weight      two                       
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530         weight      two                
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040         weight      two                       
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40         weight      two                           
+TAUS_TRUEHADTAU_EFF_RNNID_SYST                         weight      two                           
+TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT                       weight      two                           
+
+# Flavor tagging: 14 
+FT_EFF_Eigen_B_0                                       weight      two                   
+FT_EFF_Eigen_B_1                                       weight      two                   
+FT_EFF_Eigen_B_2                                       weight      two                       
+FT_EFF_Eigen_C_0                                       weight      two                               
+FT_EFF_Eigen_C_1                                       weight      two                   
+FT_EFF_Eigen_C_2                                       weight      two                   
+FT_EFF_Eigen_C_3                                       weight      two                           
+FT_EFF_Eigen_Light_0                                   weight      two                       
+FT_EFF_Eigen_Light_1                                   weight      two                       
+FT_EFF_Eigen_Light_2                                   weight      two                               
+FT_EFF_Eigen_Light_3                                   weight      two                               
+FT_EFF_Eigen_Light_4                                   weight      two                       
+FT_EFF_extrapolation                                   weight      two                                       
+FT_EFF_extrapolation_from_charm                        weight      two                       
+
+# Jet: 1
+JET_JvtEfficiency                                      weight      two 
+
+# Others: 2
+PRW_DATASF                                             weight      two    
+MatTransCorr                                           weight      two                 

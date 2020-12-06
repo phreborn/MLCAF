@@ -1,0 +1,32 @@
+# -*- mode: tqfolder -*-
+
+# wildcard campaigns
+<wildcarded=true> @ /data/?/?, /bkg/?/?, /sig/?/?;
+
+<style.default.histFillStyle=1001, style.default.histLineWidth=2, style.default.histLineColor=kBlack> @ /bkg;
+<style.default.histLineWidth=3, style.default.histLineStyle=1> @ /sig;
+
+### mc truth tau (had + lep)
+<style.default.title="W+jets",                  style.default.histFillColor=kRed-4   > @ /bkg/?/?/mcReal/Wjets;
+<style.default.title="Z($\tau\tau$)+jets",      style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal/Zjets/tautau;
+<style.default.title="Z(ee/$\mu\mu$)+jets",     style.default.histFillColor=kGreen-4 > @ /bkg/?/?/mcReal/Zjets/ee;
+<style.default.title="Top",                     style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcReal/Top;
+<style.default.title="Diboson",                 style.default.histFillColor=kYellow+4> @ /bkg/?/?/mcReal/Diboson;
+
+### mc fake tau
+<style.default.title="W+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kRed-9   > @ /bkg/?/?/mcOtherJetsFake/Wjets;
+<style.default.title="Z+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kBlue-10 > @ /bkg/?/?/mcOtherJetsFake/Zjets;
+<style.default.title="Top (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow-9> @ /bkg/?/?/mcOtherJetsFake/Top;
+<style.default.title="Diboson (jet$\rightarrow\tau$)", style.default.histFillColor=kYellow-5> @ /bkg/?/?/mcOtherJetsFake/Diboson;
+
+### data driven ###
+<style.default.title="Multi-jet fake",  style.default.histFillColor=kGray > @ /bkg/?/?/MultiJetsFake, /bkg/?/?/ddOtherJetsFake/MultiJetsFake;
+<style.default.title="Other jet fake",  style.default.histFillColor=kRed+1> @ /bkg/?/?/ddOtherJetsFake;
+
+### sig ###
+<style.default.title="ggH (200)",  style.default.histLineColor=kYellow+2> @ /sig/?/?/ggH/200;
+<style.default.title="bbH (200)",  style.default.histLineColor=kYellow+3> @ /sig/?/?/bbH/200;
+<style.default.title="ggH (700)", style.default.histLineColor=kRed+2   > @ /sig/?/?/ggH/700;
+<style.default.title="bbH (700)", style.default.histLineColor=kRed+3   > @ /sig/?/?/bbH/700;
+<style.default.title="ggH (1500)", style.default.histLineColor=kOrange+5> @ /sig/?/?/ggH/1500;
+<style.default.title="bbH (1500)", style.default.histLineColor=kOrange+6> @ /sig/?/?/bbH/1500;

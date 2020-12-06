@@ -1,8 +1,0 @@
-x:
-  width: 2
-  mean: 0
-y:
-  width: 3
-  mean: 0
-correlation: -0.8
-n: 10000

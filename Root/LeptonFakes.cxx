@@ -39,6 +39,13 @@ TObjArray* LeptonFakes::getBranchNames() const {
 
 //______________________________________________________________________________________________
 double LeptonFakes::getValue() const {
+  // Check whether we want to apply the fake factor
+  bool applyFF = false;
+  if (! TQTaggable::getGlobalTaggable("aliases")->getTagBool("ApplyOtherJetsFF", applyFF)) {
+    ERRORclass("Can not get ApplyOtherJetsFF tag");
+  }
+  if (!applyFF) return 1.0;
+  
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   int    f_lep_0          = this->lep_0->EvalInstance();
   float  f_lep_0_pt       = this->lep_0_pt->EvalInstance();

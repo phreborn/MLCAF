@@ -1,0 +1,90 @@
+##################################
+##  Plotting Histograms in LFR
+##################################
+
+#################
+# All category
+#################
+
+TH1F('LeptonPt','', 30, 0,300)   <<   ( lep_0_p4.Pt() : "p_{T}^{lep} [GeV]" );
+TH1F('LeptonEta','', 25,-2.5,2.5)   <<   ( lep_0_p4.Eta() : "\eta^{lep}" );
+TH1F('TauPt',   '', 30, 0,300)   <<   ( tau_0_p4.Pt() : "p_{T}^{tau} [GeV]" );
+TH1F('TauEta'   ,'', 25,-2.5,2.5)   <<   ( tau_0_p4.Eta() : "\eta^{\#tau}" );
+TH1F('LepMETDphi','', 30,0,3.1416)   <<   ( lephad_met_lep0_cos_dphi : "\#Delta\#phi(lep,MET)" );
+TH1F('TauMETDphi','', 30,0,3.1416)   <<   ( lephad_met_lep1_cos_dphi : "\#Delta\#phi(\#tau,MET)" );
+TH1F('LepTauDphi','', 30,0,3.1416)   <<   ( lephad_dphi : "\#Delta\#phi(lep,\#tau)" );
+TH1F('MET', '', 30, 0, 300) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]" );
+TH1F('MTLepMET','', 30, 0, 300)   <<   (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
+TH1F('MTTOT','', {30.,40.,60.,70.,80.,90.,100.,114.,134.,162.,200.,250.,362.,600.}) <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
+TH1F('LeadingJetPt','', 30, 0,300 )   <<   ( [n_jets>0?jet_0_p4.Pt():0.] : "p_{T}^{jet}" );
+TH1F('TauPtOverLeptonPt', '', 30,0,3) << ( tau_0_p4.Pt()/lep_0_p4.Pt() : "p_{T}^{tau}/p_{T}^{lep}");
+TH1F('LeptonNum', '', 10,0,5) << ( (n_electrons + n_muons) : "N_{lep}");
+TH1F('TauIDScore', '', 100,0,1) << ( tau_0_jet_rnn_score_trans : "\#tau RNN score");
+#TH1F('mu','', 10, 0, 100)   <<   ( n_actual_int  : "number of interactions per bunch crossing" );
+
+@Cut*SB*ISO: TauPt,TauEta,LeptonPt,LeptonEta,LepMETDphi,TauMETDphi,LepTauDphi,MET,MTLepMET,MTTOT;
+@Cut*SB*ISO: LeadingJetPt,TauPtOverLeptonPt,LeptonNum,TauIDScore;
+
+##################
+# BvetoFF
+##################
+
+# 1D: LeptonPt
+TH1F('BvetoLeptonPtFF'   ,'',    {30, 35, 40, 45, 50, 60, 70, 80, 100, 300})     <<   ( lep_0_p4.Pt() : "p_{T}^{lep} [GeV]" );
+
+# 2D: LeptonPt, Dphi(Lep,MET)
+TH1F('BvetoLeptonPtDphi1FF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300})   <<   ( {[lephad_met_lep0_cos_dphi]<0.5?[lep_0_p4.Pt()]:-1} : "p_{T}^{lep} [GeV]" );
+TH1F('BvetoLeptonPtDphi2FF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300})   <<   ( {[lephad_met_lep0_cos_dphi]>=0.5&&[lephad_met_lep0_cos_dphi]<1.?[lep_0_p4.Pt()]:-1} : "p_{T}^{lep} [GeV]" );
+TH1F('BvetoLeptonPtDphi3FF'   ,'', {30.,32.,34.,36.,38.,41.,44.,50.,60.,80.,300})                <<   ( {[lephad_met_lep0_cos_dphi]>=1.&&[lephad_met_lep0_cos_dphi]<2.?[lep_0_p4.Pt()]:-1} : "p_{T}^{lep} [GeV]" );
+TH1F('BvetoLeptonPtDphi4FF'   ,'', {30.,32.,34.,36.,41.,50.,60.,300})                            <<   ( {[lephad_met_lep0_cos_dphi]>2.?[lep_0_p4.Pt()]:-1} : "p_{T}^{lep} [GeV]" );
+
+# 2D: LeptonPt, LeptonEta
+TH1F('BvetoLeptonPtCentralFF', '', {30, 35, 40, 45, 50, 60, 70, 80, 100, 300}) << ({[lep_0_p4.Eta()]<1.37?[lep_0_p4.Pt()]:-1}: "p_{T}^{lep} [GeV]");
+TH1F('BvetoLeptonPtForwardFF', '', {30, 35, 40, 45, 50, 60, 70, 80, 100, 300}) << ({[lep_0_p4.Eta()]>1.52?[lep_0_p4.Pt()]:-1}: "p_{T}^{lep} [GeV]");
+
+@Cut*SBveto*ISO: BvetoLeptonPtFF;
+@Cut*SBveto*ISO: BvetoLeptonPtCentralFF,BvetoLeptonPtForwardFF;
+@Cut*SBveto*ISO: BvetoLeptonPtDphi1FF,BvetoLeptonPtDphi2FF,BvetoLeptonPtDphi3FF,BvetoLeptonPtDphi4FF;
+
+##################
+# BtagFF
+##################
+
+# 1D: LeptonPt
+TH1F('BtagLeptonPtFF'   ,'',     {30.,34.,38.,42.,46.,50.,60.,70.,80.,100.,300})                 <<   ( lep_0_p4.Pt() : "p_{T}^{lep} [GeV]" );
+
+# 2D: LeptonPt, LeptonEta
+TH1F('BtagLeptonPtCentralFF', '', {30, 35, 40, 45, 50, 60, 70, 80, 100, 300}) << ({[lep_0_p4.Eta()]<1.37?[lep_0_p4.Pt()]:-1}: "p_{T}^{lep} [GeV]");
+TH1F('BtagLeptonPtForwardFF', '', {30, 35, 40, 45, 50, 60, 70, 80, 100, 300}) << ({[lep_0_p4.Eta()]>1.52?[lep_0_p4.Pt()]:-1}: "p_{T}^{lep} [GeV]");
+
+# 2D: LeptonPt, Dphi(Lep,MET)
+TH1F('BtagLeptonPtDphi1FF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300})                           <<   ( {[lephad_met_lep0_cos_dphi]<0.5?[lep_0_p4.Pt()]:-1} : "p_{T}^{lep} [GeV]" );
+TH1F('BtagLeptonPtDphi2FF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300})                       <<   ( {[lephad_met_lep0_cos_dphi]>=0.5&&[lephad_met_lep0_cos_dphi]<1.?[lep_0_p4.Pt()]:-1} : "p_{T}^{lep} [GeV]" );
+TH1F('BtagLeptonPtDphi3FF'   ,'',  {30.,34.,42.,50., 60.,300})                                        <<   ( {[lephad_met_lep0_cos_dphi]>=1.?[lep_0_p4.Pt()]:-1} : "p_{T}^{lep} [GeV]" );
+
+@Cut*SBtag*ISO: BtagLeptonPtFF;
+@Cut*SBtag*ISO: BtagLeptonPtCentralFF,BtagLeptonPtForwardFF;
+@Cut*SBtag*ISO: BtagLeptonPtDphi1FF,BtagLeptonPtDphi2FF,BtagLeptonPtDphi3FF;
+
+##################
+# BvetoSF
+##################
+
+# 2D: TauPt, Dphi(Lep,MET)
+TH1F('BvetoTauPtDphi1SF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[lephad_met_lep0_cos_dphi]<0.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BvetoTauPtDphi2SF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[lephad_met_lep0_cos_dphi]>=0.5&&[lephad_met_lep0_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BvetoTauPtDphi3SF'   ,'', {30.,32.,34.,36.,38.,41.,44.,50.,60.,80.,300.})                <<   ( {[lephad_met_lep0_cos_dphi]>=1.0&&[lephad_met_lep0_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BvetoTauPtDphi4SF'   ,'', {30.,32.,34.,36.,41.,50.,60.,300.})                            <<   ( {[lephad_met_lep0_cos_dphi]>2.0?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+
+@Cut*SBveto*ISO: BvetoTauPtDphi1SF,BvetoTauPtDphi2SF,BvetoTauPtDphi3SF,BvetoTauPtDphi4SF;
+
+##################
+# BtagSF
+##################
+
+# 2D: TauPt, Dphi(Lep,MET)
+TH1F('BtagTauPtDphi1SF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300.})                       <<   ( {[lephad_met_lep0_cos_dphi]<0.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BtagTauPtDphi2SF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300.})                       <<   ( {[lephad_met_lep0_cos_dphi]>=0.5&&[lephad_met_lep0_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BtagTauPtDphi3SF'   ,'',  {30.,34.,42.,50.,60.,300.})                                    <<   ( {[lephad_met_lep0_cos_dphi]>=1.0?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+
+@Cut*SBtag*ISO: BtagTauPtDphi1SF,BtagTauPtDphi2SF,BtagTauPtDphi3SF;

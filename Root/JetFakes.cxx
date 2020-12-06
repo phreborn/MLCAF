@@ -45,7 +45,13 @@ TObjArray* JetFakes::getBranchNames() const {
 
 //______________________________________________________________________________________________
 double JetFakes::getValue() const {
-  
+  // Check whether we want to apply the fake factor
+  bool applyFF = false;
+  if (! TQTaggable::getGlobalTaggable("aliases")->getTagBool("ApplyMultiJetsLFF", applyFF)) {
+    ERRORclass("Can not get ApplyMultiJetsLFF tag");
+  }
+  if (!applyFF) return 1.0;
+
   int f_n_bjets        = this->n_bjets->EvalInstance();
   int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   

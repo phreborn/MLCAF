@@ -1,6 +1,0 @@
-# -*- mode: tqfolder -*-
-
-+Systematics {
-}
-
-$include("createVariations.tq");

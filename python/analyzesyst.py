@@ -2,113 +2,161 @@ import QFramework
 import ROOT
 from CommonAnalysisHelpers import common
 
+
+
+def parseSystematicList(config):
+    sysFileName = config.getTagStringDefault("sysFileName",'')
+    if sysFileName.Length() == 0:
+        return list()
+    sysFullPath = QFramework.TQPathManager.findFileFromEnvVar(sysFileName, "CAFANALYSISSHARE")
+
+    indexLow = config.getTagIntegerDefault("indexLow", -1)
+    indexHigh = config.getTagIntegerDefault("indexHigh", -1)
+
+    sysList = list()
+    index = 1
+    with open(sysFullPath) as sysFile:
+        for line in sysFile.readlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            contents = line.split()
+            if len(contents) != 3:
+                QFramework.BREAK("Could not parse {:s} in file {:s}".format(line, sysFullPath))
+            
+            # only add selected variations based on the index (start from 1)
+            if indexLow >=0 and indexHigh >=0 and indexHigh >= indexLow:
+                if (index < indexLow or index > indexHigh): continue
+
+            sysName, sysType, sysVariation = contents
+            sysName = sysName.strip()
+            sysType = sysType.strip()
+            sysVariation = sysVariation.strip()
+
+            if sysVariation == 'one':
+                sysList.append({'name':sysName, 'type': sysType})
+            elif sysVariation == 'two':
+                sysList.append({'name':sysName+'_1up', 'type': sysType})
+                sysList.append({'name':sysName+'_1down', 'type': sysType})
+            else:
+                QFramework.BREAK("Unknown systematic variation {:s} for {:s}".format(sysVariation, sysName))
+            index = index + 1
+    return sysList
+
+
+
+''' 
+Add the systematic variations for a given channelm and sample folder
+'''
+def addSystematicVariations(c, sf, sysList, mcasvchannels):
+    f = sf.getSampleFolder(c)
+                
+    if not f:
+        QFramework.WARN("unable to retrieve sample folder '{:s}' from '{:s}'. Is this expected from your path restriction?".format(c,sf.GetName()))
+        sf.printContents()
+        return
+
+    for sys in sysList:
+        sysName = sys['name']
+        sysChannel = c + "_" + sysName
+        sysFolder = f.copy(sysChannel)
+        if not sysFolder:
+            QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),sysName))
+        sf.addFolder(sysFolder)
+        sysFolder.setTagString(".mcasv.channel", sysChannel)
+        mcasvchannels.add(sysChannel)
+
+        # set the appropriate tags
+        sysFolder.setTagString("variation", sysName)
+        
+        sysType = sys['type']
+        
+        if sysType == 'p4':
+            treeName = sysName
+
+            # treeName is sysName except for MET_SoftTrk_Scale
+            if sysName == "MET_SoftTrk_Scale_1up":
+                treeName = "MET_SoftTrk_ScaleUp"
+            elif sysName == "MET_SoftTrk_Scale_1down":
+                treeName = "MET_SoftTrk_ScaleDown"
+
+            for sample in sysFolder.getListOfSamples():
+                if sample.hasTag(".init.treename"):
+                    sample.setTagString(".init.treename", treeName)
+                
+                # skip super-samples without a file/tree itself
+                if sample.hasSubSamples(): 
+                    continue
+                
+                origTreeFilename = sample.getFilename()
+                if origTreeFilename:
+                    sample.setTreeLocation(origTreeFilename + ":" + treeName)
+        elif sysType != 'weight':
+            QFramework.BREAK("Unknown systematic type {:s} for {:s}".format(sysType, sysName))
+
+    return
+
+
+
 def prepareSystematics(config, samples):
     """prepare the systematic handling for your analysis"""
     QFramework.INFO("Preparing custom systematics...")
 
     CLI = config.getFolder("CLI+")
+  
     # flag indicating to run a robust analysis
     robust = CLI.getTagBoolDefault("robust",False)
+  
     # flag indicating to run a dummy analysis
     dummy = CLI.getTagBoolDefault("dummy",False)
 
     if not robust and not dummy:
         subfolders = samples.getListOfSampleFolders("?")
         doNominal = config.getTagBoolDefault("doNominal",True)
+    
         channels = config.getTagVStandardString("channels")
-        mcasvchannels = set([ c for c in channels ])
+        sysList = parseSystematicList(config) 
+
+        # will contain nominal channels even if doNominal = False
+        mcasvchannels = set([ c for c in channels ]) 
+    
         for c in channels:
             for sf in subfolders:
-                if sf.getTagBoolDefault("isData",False):
-                    # we're in a data SampleFolder
-                    # just set some nominal tags for this channel subfolder
-                    f = sf.getSampleFolder(c)
-                    if not f: continue
-                    f.setTagString(".mcasv.channel",f.getTagStringDefault("channel",""))
-                    continue
-                # we're in a MC SampleFolder
                 f = sf.getSampleFolder(c)
+                
                 if not f:
                     QFramework.WARN("unable to retrieve sample folder '{:s}' from '{:s}'. Is this expected from your path restriction?".format(c,sf.GetName()))
                     sf.printContents()
-                    continue #if this is not a valid folder, don't do anything with it, you'll get a null pointer exception otherwise!
-
-                # right now, we are treating p4 systematics and sf systematics as uncorrelated
-                # we do only look at the diagonal terms where one systematic is activated
-                # crossover terms are neglected for now, hence we have two separate loops
-                for p4type in config.getTagVString("p4Systematics"):
-                    fileWithP4Variations = ROOT.TString()
-                    if config.getTagString("p4SystematicsList."+p4type, fileWithP4Variations):
-                        varFile = QFramework.TQFolder.loadFromTextFile(QFramework.TQPathManager.findFileFromEnvVar(fileWithP4Variations, "CAFANALYSISSHARE"))
-                        if varFile:
-                            for p4var in varFile.getListOfFolders("Variations/?"):
-                                p4syst = p4var.GetName()
-                                # for each p4 systematic, copy the channel folder
-                                if not p4syst or len(p4syst)<1: continue
-                                newname=c+"_"+p4syst
-                                newf = f.copy(newname)
-                                if not newf:
-                                    QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),newname))
-                                sf.addFolder(newf)
-                                # set the appropriate tags
-                                newf.setTagString(".mcasv.channel",c)
-                                newf.setTagString("p4Variation."+p4type,p4syst)
-                                # change tree location
-                                for sam in newf.getListOfSamples():
-                                    if sam.hasTag(".init.treename"):
-                                        sam.setTagString(".init.treename", p4syst)
-                                    # skip super-samples without a file/tree itself
-                                    if sam.hasSubSamples(): continue
-                                    origTreeFilename = sam.getFilename()
-                                    if origTreeFilename:
-                                        sam.setTreeLocation(origTreeFilename+":"+p4syst)
-                                #mcasvchannels.add(newname.Data())
-                                mcasvchannels.add(newname)
-
-                for sftype in config.getTagVString("sfSystematics"):
-                    fileWithSFVariations = ROOT.TString()
-                    if config.getTagString("sfSystematicsList."+sftype, fileWithSFVariations):
-                        varFile = QFramework.TQFolder.loadFromTextFile(QFramework.TQPathManager.findFileFromEnvVar(fileWithSFVariations, "CAFANALYSISSHARE"))
-                        if varFile:
-                            for sfvar in varFile.getListOfFolders("Variations/?"):
-                                sfsyst = sfvar.GetName()
-                                # for each sf systematic, copy the channel folder
-                                if not sfsyst or len(sfsyst)<1: continue
-                                newname = c+"_"+sfsyst
-                                newf = f.copy(newname)
-                                if not newf:
-                                    QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),newname))
-                                sf.addFolder(newf)
-                                # set the appropriate tags
-                                newf.setTagString(".mcasv.channel",newname)
-                                newf.setTagString("sfVariation."+sftype,sfsyst)
-                                #mcasvchannels.add(newname.Data())
-                                mcasvchannels.add(newname)
-
+                    continue
+                
+                # set some noiminal flags for data sample
+                if sf.getTagBoolDefault("isData",False):
+                    f.setTagString(".mcasv.channel",f.getTagStringDefault("channel",""))
+                    continue
+                
+                # we're in a MC SampleFolder
+                f.setTagString("variation", "NOMINAL")
+                
+                # create additional channels for systematic variations
+                addSystematicVariations(c, sf, sysList, mcasvchannels)
+                
                 # if no nominal analysis was requested, we can remove the nominal channels
                 if not doNominal:
-                    f.detachFromBase()
+                  f.detachFromBase()
                 else:
-                    f.setTagString(".mcasv.channel",f.GetName())
-
-    # Add some nominal top level tags, even if systematics aren't being added
-    for p4type in config.getTagVString("p4Systematics"):
-        samples.setTagString("p4Variation."+p4type,"nominal")
-    for sftype in config.getTagVString("sfSystematics"):
-        samples.setTagString("sfVariation."+sftype,"nominal")
+                  f.setTagString(".mcasv.channel",f.GetName())
 
     # possibly print how the folder looks like now
     if config.getTagBoolDefault("showChannels",False):
         QFramework.INFO("after taking care of channel and systematics setup, your sample folder looks like this:")
         samples.printContents("r2dt")
-
+ 
     # save the whole collection of channels (including now systematics)
     # for access later when creating the MCASV
     runtime = config.getFolder("runtime+")
     for i, channel in enumerate(mcasvchannels):
         if "ROOT" in str(type(channel)):
-            from QFramework import WARN
             QFramework.WARN("Please make sure that every mcasvchannel is only booked once. The python set doesn't help when adding c++ ROOT instances (" + str(type(channel)) + ".")
         runtime.setTagString("mcasvchannels."+str(i), channel)
-
+  
     return
