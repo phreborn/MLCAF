@@ -127,8 +127,6 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("ElectronIsoWP", eleIsoWP) ) {
     ERRORclass("ElectronIsoWP not set !!!");
   }
-  // TODO: for now, only the scale factor of Gradient WP is available
-  eleIsoWP = "Gradient";
  
   // -- Systematic variations:  1x2
   Condition el_eff_iso_sys = none;
