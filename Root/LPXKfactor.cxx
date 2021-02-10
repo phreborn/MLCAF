@@ -194,14 +194,17 @@ void LPXKfactor::addScaleFactor(Condition requirement, TString branch) {
 
 
 void LPXKfactor::addScaleFactor(Condition requirement, Condition veto, TString branch) {
-  std::tuple<Condition, Condition, TString, TTreeFormula*> sf;
 
-  std::get<0>(sf) = requirement;
-  std::get<1>(sf) = veto;
-  std::get<2>(sf) = branch;
-  std::get<3>(sf) = NULL;
+  if (LepHadObservable::getBranchNames()->FindObject(branch) != 0) {
+    std::tuple<Condition, Condition, TString, TTreeFormula*> sf;
 
-  m_branches.push_back(sf);
+    std::get<0>(sf) = requirement;
+    std::get<1>(sf) = veto;
+    std::get<2>(sf) = branch;
+    std::get<3>(sf) = NULL;
+
+    m_branches.push_back(sf);
+  }
 }
 
 

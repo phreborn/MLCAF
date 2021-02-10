@@ -188,3 +188,40 @@
 341873 /sig/$(channel)/$(campaign)/bbH/1500
 345289 /sig/$(channel)/$(campaign)/bbH/2000
 345293 /sig/$(channel)/$(campaign)/bbH/2500
+
+## ZPrime (DYtautau LO)
+800302 /sig/$(channel)/$(campaign)/ZPrime/120MLL180
+800303 /sig/$(channel)/$(campaign)/ZPrime/180MLL250
+800304 /sig/$(channel)/$(campaign)/ZPrime/250MLL400
+800305 /sig/$(channel)/$(campaign)/ZPrime/400MLL600
+800306 /sig/$(channel)/$(campaign)/ZPrime/600MLL800
+800307 /sig/$(channel)/$(campaign)/ZPrime/800MLL1000
+800308 /sig/$(channel)/$(campaign)/ZPrime/1000MLL1250
+800309 /sig/$(channel)/$(campaign)/ZPrime/1250MLL1500
+800310 /sig/$(channel)/$(campaign)/ZPrime/1500MLL1750
+800311 /sig/$(channel)/$(campaign)/ZPrime/1750MLL2000
+800312 /sig/$(channel)/$(campaign)/ZPrime/2000MLL2250
+800313 /sig/$(channel)/$(campaign)/ZPrime/2250MLL2500
+800314 /sig/$(channel)/$(campaign)/ZPrime/2500MLL2750
+800315 /sig/$(channel)/$(campaign)/ZPrime/2750MLL3000
+800316 /sig/$(channel)/$(campaign)/ZPrime/3000MLL3500
+800317 /sig/$(channel)/$(campaign)/ZPrime/3500MLL4000
+800318 /sig/$(channel)/$(campaign)/ZPrime/4000MLL4500
+800319 /sig/$(channel)/$(campaign)/ZPrime/4500MLL5000
+800320 /sig/$(channel)/$(campaign)/ZPrime/5000MLL
+
+## LQ
+500299 /sig/$(channel)/$(campaign)/LQ/200
+500300 /sig/$(channel)/$(campaign)/LQ/300
+311005 /sig/$(channel)/$(campaign)/LQ/400
+500301 /sig/$(channel)/$(campaign)/LQ/500
+500302 /sig/$(channel)/$(campaign)/LQ/600
+311006 /sig/$(channel)/$(campaign)/LQ/700
+500303 /sig/$(channel)/$(campaign)/LQ/800
+311007 /sig/$(channel)/$(campaign)/LQ/900
+500304 /sig/$(channel)/$(campaign)/LQ/1000
+311008 /sig/$(channel)/$(campaign)/LQ/1200
+500305 /sig/$(channel)/$(campaign)/LQ/1500
+
+
+
