@@ -1,0 +1,13 @@
+### data ###
+.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### backgrounds ###
+.path="|"
+.name="TrueTau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal"
+.path="|"
+.name="Wjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top"
+#.name="Zjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Zjets"
+#.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Diboson"
+.name="OtherFakes",  .title="Other fakes", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/[Zjets+Diboson]", histFillColor=kOrange, histLineColor=kBlack

@@ -2,7 +2,6 @@
 
 $printline("Including fake folders");
 
-
 # split the MC samples
 # -- mc real tau or prompt lepton
 $create(path="/bkg/?/?/mcReal", type="sf");
@@ -15,14 +14,19 @@ $create(path="/bkg/?/?/mcReal", type="sf");
 
 # -- mc fake tau
 @ /bkg/?/? {
-    $copy("mcReal >> ::mcOtherJetsFake");
+    $copy("mcReal >> ::mcFake");
+}
+
+# -- mc fake tau corrected
+@ /bkg/?/? {
+    $copy("mcReal >> ::mcFakeCorrected");
 }
 
 <isTTL=false> @ /.;
 <isTTL=true> @ /bkg/?/?/mcReal;
 
 <isJet=false> @ /.;
-<isJet=true> @ /bkg/?/?/mcOtherJetsFake;
+<isJet=true> @ /bkg/?/?/mcFake, /bkg/?/?/mcFakeCorrected;
 
 # add dd fakes
 ## -- MultiJets
@@ -35,7 +39,7 @@ $create(path="/bkg/?/?/MultiJetsFake/data", type="sf");
 
 @ /bkg/?/? {
     $copy("mcReal >> MultiJetsFake");
-    $copy("mcOtherJetsFake >> MultiJetsFake");
+    $copy("mcFake >> MultiJetsFake");
 }
 
 <isMultiJetsFake=false> @ /.;
@@ -57,6 +61,10 @@ $create(path="/bkg/?/?/ddOtherJetsFake/data", type="sf");
 <isddOtherJetsFake=false> @ /.;
 <isddOtherJetsFake=true> @ /bkg/?/?/ddOtherJetsFake;
 
-<FakeNom = 1.0> @ /.;
-<FakeNom = -1.0> @ /bkg/?/?/MultiJetsFake/mcReal, /bkg/?/?/MultiJetsFake/mcOtherJetsFake;
-<FakeNom = -1.0> @ /bkg/?/?/ddOtherJetsFake/mcReal, /bkg/?/?/ddOtherJetsFake/MultiJetsFake/data;
+# data folder is not available in prepare stage
+<isData=false> @ /.;
+<isData=true> @ /data, /bkg/?/?/MultiJetsFake/data, /bkg/?/?/ddOtherJetsFake/data, /bkg/?/?/ddOtherJetsFake/MultiJetsFake/data;
+<isMC=true> @ /.;
+<isMC=false> @ /data, /bkg/?/?/MultiJetsFake/data, /bkg/?/?/ddOtherJetsFake/data, /bkg/?/?/ddOtherJetsFake/MultiJetsFake/data;
+<isMCOtherJetsFake=false> @ /.;
+<isMCOtherJetsFake=true> @ /bkg/?/?/mcOtherJetsFake;

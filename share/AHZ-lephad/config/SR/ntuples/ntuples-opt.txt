@@ -1,0 +1,25 @@
+NOMINAL:
+    int lep_0 << lep_0,
+    float lep_0_pt << lep_0_p4.Pt(), 
+    float lep_0_eta << lep_0_p4.Eta(),
+    
+    int tau_0_n_charged_tracks << tau_0_n_charged_tracks,
+    float tau_0_pt << tau_0_p4.Pt(),
+    float tau_0_eta << tau_0_p4.Eta(),
+    
+    float MET << met_reco_p4.Et(), 
+    
+    int n_bjets << n_bjets_DL1r_FixedCutBEff_70,
+   
+    float mt_lep_MET << lephad_mt_lep0_met, 
+    float vis_mass << lephad_p4.M(),
+    float MTtot << MTtot;
+             
+@CutBvetoNoMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_NoMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutBtagNoMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_NoMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutBvetoLowMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_LowMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutBtagLowMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_LowMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutBvetoMediumMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_MediumMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutBtagMediumMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_MediumMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutBvetoHighMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_HighMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutBtagHighMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_HighMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)

@@ -32,11 +32,5 @@ $printline("Applying post-prepare tags...");
 <isTop=false> @ /.;
 <isTop=true> @ /bkg/?/?/Top;
 
-<isData=false> @ /.;
-<isData=true> @ /data;
-
-<isMC=false> @ /.;
-<isMC=true> @ /bkg, /sig;
-
 <isSig=false> @ /.;
 <isSig=true> @ /sig;

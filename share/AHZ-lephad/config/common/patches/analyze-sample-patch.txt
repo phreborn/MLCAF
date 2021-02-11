@@ -1,0 +1,46 @@
+# -*- mode: tqfolder -*-
+
+# post-initialize tags: /data folder has now been initialized, MC samples have now collected weights
+$printline("Applying analyze tags...");
+
+<ntupleTreeName = "bbH125"> @ /sig/?/?/bbH/125;
+<ntupleTreeName = "bbH150"> @ /sig/?/?/bbH/150;
+<ntupleTreeName = "bbH200"> @ /sig/?/?/bbH/200;
+<ntupleTreeName = "bbH250"> @ /sig/?/?/bbH/250;
+<ntupleTreeName = "bbH300"> @ /sig/?/?/bbH/300;
+<ntupleTreeName = "bbH350"> @ /sig/?/?/bbH/350;
+<ntupleTreeName = "bbH400"> @ /sig/?/?/bbH/400;
+<ntupleTreeName = "bbH500"> @ /sig/?/?/bbH/500;
+<ntupleTreeName = "bbH600"> @ /sig/?/?/bbH/600;
+<ntupleTreeName = "bbH700"> @ /sig/?/?/bbH/700;
+<ntupleTreeName = "bbH800"> @ /sig/?/?/bbH/800;
+<ntupleTreeName = "bbH1000"> @ /sig/?/?/bbH/1000;
+<ntupleTreeName = "bbH1200"> @ /sig/?/?/bbH/1200;
+<ntupleTreeName = "bbH1500"> @ /sig/?/?/bbH/1500;
+<ntupleTreeName = "bbH2000"> @ /sig/?/?/bbH/2000;
+<ntupleTreeName = "bbH2500"> @ /sig/?/?/bbH/2500;
+
+<ntupleTreeName = "ggH200"> @ /sig/?/?/ggH/200;
+<ntupleTreeName = "ggH250"> @ /sig/?/?/ggH/250;
+<ntupleTreeName = "ggH300"> @ /sig/?/?/ggH/300;
+<ntupleTreeName = "ggH350"> @ /sig/?/?/ggH/350;
+<ntupleTreeName = "ggH400"> @ /sig/?/?/ggH/400;
+<ntupleTreeName = "ggH500"> @ /sig/?/?/ggH/500;
+<ntupleTreeName = "ggH600"> @ /sig/?/?/ggH/600;
+<ntupleTreeName = "ggH700"> @ /sig/?/?/ggH/700;
+<ntupleTreeName = "ggH800"> @ /sig/?/?/ggH/800;
+<ntupleTreeName = "ggH1000"> @ /sig/?/?/ggH/1000;
+<ntupleTreeName = "ggH1200"> @ /sig/?/?/ggH/1200;
+<ntupleTreeName = "ggH1500"> @ /sig/?/?/ggH/1500;
+<ntupleTreeName = "ggH2000"> @ /sig/?/?/ggH/2000;
+<ntupleTreeName = "ggH2500"> @ /sig/?/?/ggH/2500;
+
+<ntupleTreeName = "Diboson"> @ /bkg/?/?/mcReal/Diboson;
+<ntupleTreeName = "Top"> @ /bkg/?/?/mcReal/Top;
+<ntupleTreeName = "Zll"> @ /bkg/?/?/mcReal/Zjets/ee;
+<ntupleTreeName = "Zll"> @ /bkg/?/?/mcReal/Zjets/mumu;
+<ntupleTreeName = "Ztautau"> @ /bkg/?/?/mcReal/Zjets/tautau;
+<ntupleTreeName = "Wjets"> @ /bkg/?/?/mcReal/Wjets;
+<ntupleTreeName = "mcOtherJetsFake"> @ /bkg/?/?/mcFake;
+<ntupleTreeName = "MultiJetsFake"> @ /bkg/?/?/MultiJetsFake;
+<ntupleTreeName = "ddOtherJetsFake"> @ /bkg/?/?/ddOtherJetsFake;
