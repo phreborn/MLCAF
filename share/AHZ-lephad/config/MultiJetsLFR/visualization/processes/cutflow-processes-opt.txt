@@ -4,7 +4,7 @@
 
 ### backgrounds ###
 .path="||"
-.name="MultiJetsFake", .isBackground=true, .title="MultiJetsFake", .path="/data/$(channel)/$(campaign)-/bkg/$(channel)/$(campaign)/[mcReal+mcFake]"
+.name="MultiJetsFake", .isBackground=true, .title="Multi-Jets", .path="/data/$(channel)/$(campaign)-/bkg/$(channel)/$(campaign)/[mcReal+mcFake]"
 .path="|"
 .name="TrueTau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal"
 .path="|"
