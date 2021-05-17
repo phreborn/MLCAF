@@ -15,11 +15,11 @@ NOMINAL:
     float vis_mass << lephad_p4.M(),
     float MTtot << MTtot;
              
-@CutBvetoNoMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_NoMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
-@CutBtagNoMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_NoMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
-@CutBvetoLowMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_LowMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
-@CutBtagLowMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_LowMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
-@CutBvetoMediumMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_MediumMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
-@CutBtagMediumMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_MediumMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
-@CutBvetoHighMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_HighMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
-@CutBtagHighMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_HighMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBvetoNoMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_NoMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBtagNoMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_NoMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBvetoLowMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_LowMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBtagLowMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_LowMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBvetoMediumMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_MediumMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBtagMediumMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_MediumMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBvetoHighMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_bveto_HighMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)
+@CutOSBtagHighMT:  NOMINAL >> ntuples/unmerged_SR_opt/$(channel)_btag_HighMT_$(ntupleTreeName)_$(jobID).root:$(ntupleTreeName)

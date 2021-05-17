@@ -26,13 +26,9 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
                     +CutTauID {
                         <.cutExpression="$(isPassID)", .title="Tau ID">
 
-                        +CutOS {
-                            <.cutExpression="lephad_qxq == -1", .title="OS", regionCharge="OS">
-                        
-                            +CutLepHad {
-                                <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
-                            } #End: CutLepHad
-                        } #End: CutOS
+                        +CutLepHad {
+                            <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
+                        } #End: CutLepHad
                     } #End: CutTauID
                 } #End: CutLeptonISO
             } #End: CutTauBasic
@@ -42,36 +38,51 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
         
 
 
-# Divide to 0Btag/Btag region
+# Divide to SS/OS region
 @ */CutLepHad {
-    +CutBveto {
-        <.cutExpression="$(NbJets)==0", .title="Bveto", BJET="Bveto">
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
+    } #End: CutOS
+    
+    +CutSS {
+        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
+    } #End: CutSS
+} #End: CutLepHad
+
+
+
+# Divide to Bveto/Btag region
+@ */Cut*S {
+    +Cut$(CHARGE)Bveto {
+        <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
     } #End: CutBveto
 
-    +CutBtag {
-        <.cutExpression="$(NbJets)>=1", .title="Btag", BJET="Btag">
+    +Cut$(CHARGE)Btag {
+        <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag">
     } #End: CutBtag
 } #End: CutLepHad
 
 
 
 # Divide to different MT region
-@ */CutB* {
-    +Cut$(BJET)NoMT {
-        <.cutExpression="1", .title=$(BJET)NoMT>
+@ */Cut*SB* {
+    +Cut$(CHARGE)$(BJET)NoMT {
+        <.cutExpression="1", .title=$(CHARGE)$(BJET)NoMT>
     }
-    +Cut$(BJET)LowMT {
-        <.cutExpression="lephad_mt_lep0_met < 40", .title="$(BJET)LowMT">
+    +Cut$(CHARGE)$(BJET)LowMT {
+        <.cutExpression="lephad_mt_lep0_met < 40", .title="$(CHARGE)$(BJET)LowMT">
     } 
-    +Cut$(BJET)MediumMT {
-        <.cutExpression="lephad_mt_lep0_met >= 40 && lephad_mt_lep0_met<60", .title="$(BJET)MediumMT">
+    +Cut$(CHARGE)$(BJET)MediumMT {
+        <.cutExpression="lephad_mt_lep0_met >= 40 && lephad_mt_lep0_met<60", .title="$(CHARGE)$(BJET)MediumMT">
     }
-    +Cut$(BJET)HighMT {
-        <.cutExpression="$(NbJets)==0 ? lephad_mt_lep0_met>=150 : lephad_mt_lep0_met>=220", .title="$(BJET)HighMT">
+    +Cut$(CHARGE)$(BJET)HighMT {
+        <.cutExpression="$(NbJets)==0 ? lephad_mt_lep0_met>=150 : lephad_mt_lep0_met>=220", .title="$(CHARGE)$(BJET)HighMT">
     }
 }
 
 
 
-$replace("*/CutBveto/*:.name,.title", BJET="Bveto");
-$replace("*/CutBtag/*:.name,.title", BJET="Btag");
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/CutSS/*:.name,.title", CHARGE="SS");
+$replace("*/Cut*Bveto/*:.name,.title", BJET="Bveto");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");

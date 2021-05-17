@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/OtherJetsTFF.h"
+#include "BSMtautauCAF/OtherJetsSF.h"
 #include <limits>
 
 #include "QFramework/TQLibrary.h"
@@ -6,18 +6,19 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(OtherJetsTFF)
+ClassImp(OtherJetsSF)
 
 
 
-OtherJetsTFF::OtherJetsTFF() {
+OtherJetsSF::OtherJetsSF() {
   this->setExpression(this->GetName() );
   DEBUGclass("default constructor called");
 }
 
 
 
-OtherJetsTFF::OtherJetsTFF(const TString& expression) : LepHadObservable(expression) {
+OtherJetsSF::OtherJetsSF(const TString& expression) : LepHadObservable(expression)
+{
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
   // the predefined string member "expression" allows your observable to store an expression of your choice
@@ -25,34 +26,37 @@ OtherJetsTFF::OtherJetsTFF(const TString& expression) : LepHadObservable(express
   // you can use it to choose between different modes or pass configuration options to your observable
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
-  
+
+  //fSysName = expression;
+
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/OtherJetsTFR_FF.root");
-  if (!file) {
-    ERRORclass("Can not find OtherJetsTFR_FF.root");
+  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root");
+  if (!aFile) {
+    ERRORclass("Can not find OtherJetsTFR_SF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
-  TList* list = file->GetListOfKeys();
+  TList* list = aFile->GetListOfKeys();
   TIter next(list);
   TKey* key;
 
   while ( (key = (TKey*)next()) ) {
     TString className = key->GetClassName();
     if (className == "TH1F") {
-      TH1F* hist = (TH1F*)file->Get(key->GetName());
+      TH1F* hist = (TH1F*)aFile->Get(key->GetName());
       hist->SetDirectory(0);
-      m_FF_hist[key->GetName()] = hist;
+      m_SF_hist[key->GetName()] = hist;
     }
   }
-  file->Close();
+  aFile->Close();
 }
 
 
 
-TObjArray* OtherJetsTFF::getBranchNames() const {
+TObjArray* OtherJetsSF::getBranchNames() const {
   DEBUGclass("retrieving branch names");
   TObjArray* bnames = LepHadObservable::getBranchNames();
   return bnames;
@@ -60,8 +64,8 @@ TObjArray* OtherJetsTFF::getBranchNames() const {
 
 
 
-bool OtherJetsTFF::initializeSelf() {
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsTFF", false) ) return true;
+bool OtherJetsSF::initializeSelf() {
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsSF", false) ) return true;
   if (! LepHadObservable::initializeSelf()) return false;
   fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
 
@@ -70,23 +74,23 @@ bool OtherJetsTFF::initializeSelf() {
 
 
 
-bool OtherJetsTFF::finalizeSelf() {
+bool OtherJetsSF::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf()) return false;
   return true;
 }
 
 
 
-const TH1F* OtherJetsTFF::getFakeFactorHist() const {
-  // determine which FF hist we want: All
+double OtherJetsSF::getValue() const {
+  // determine which SF to use
   TString histName = "OtherJetsTFR";
-
+  
   // -- period: Combined or Separated
   TString period = "";
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("OtherJetsTFFPeriod", period) ) {
-    ERRORclass("Can not get OtherJetsTFFPeriod tag");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("OtherJetsSFPeriod", period) ) {
+    ERRORclass("Can not get OtherJetsSFPeriod tag");
   }
-
+  
   if ("Combined" == period) {
     histName += "All";
   }
@@ -96,10 +100,10 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
     if (is2018()) histName += "18";
   }
   else {
-    ERRORclass("Unknown OtherJetsTFFPeriod tag");
-    return nullptr;
+    ERRORclass("Unknown OtherJetsSFPeriod tag");
+    return 1.0;
   }
-
+  
   // -- channel: ehad/muhad
   if (isMuon()) {
     histName += "muhad";
@@ -109,9 +113,9 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
   }
   else {
     ERRORclass("Unknown channel");
-    return nullptr;
+    return 1.0;
   }
-
+  
   // -- charge: OS/SS
   if (this->lephad_qxq->EvalInstance() == -1) {
     histName += "OS";
@@ -119,7 +123,7 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
   else {
     histName += "SS";
   }
-
+  
   // -- category: Bveto/Btag
   if (bjetCount()>=1) {
     histName += "Btag";
@@ -127,9 +131,17 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
   else {
     histName += "Bveto";
   }
-
-  histName += "MediumMT";
   
+  // -- MT region
+  TString param = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("OtherJetsSFParam", param) ) ERRORclass("Can not get OtherJetsSFParam tag");
+  if (param != "MTLepMET") {
+    histName += "MediumMT";
+  }
+  else {
+    histName += "NoMT";
+  }
+
   // -- 1p/3p
   if (this->tau_0_n_charged_tracks->EvalInstance() == 1) {
     histName += "1p";
@@ -137,40 +149,47 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
   else {
     histName += "3p";
   }
-  
-  // -- parameterization
-  histName += "TauPtFF";
 
-  auto it = m_FF_hist.find(histName); 
-  if ( it != m_FF_hist.end() ) {
-    return it->second;
+  // -- parameterization
+  double variable = 0.0;
+  if (param == "LeptonPt") {
+    variable = this->lep_0_pt->EvalInstance();
+  }
+  else if (param == "MET") {
+    variable = this->met_reco_et->EvalInstance();
+  }
+  else if (param == "TauEta") {
+    variable = this->tau_0_eta->EvalInstance();
+  }
+  else if (param == "MTLepMET") {
+    variable = this->lephad_mt_lep0_met->EvalInstance();
+  }
+  else {
+    std::cout << "Unknown parameterization: " << param << std::endl;
+  }
+  histName += param;
+  histName += "SF";
+
+  // -- obtain the histogram
+  TH1F* hist = nullptr;
+
+  auto it = m_SF_hist.find(histName); 
+  if ( it != m_SF_hist.end() ) {
+    hist = it->second;
+  }
+
+  if (hist) {
+    int binID = std::min(hist->FindFixBin(variable), hist->GetNbinsX());
+    if (binID == 0) binID = 1;
+
+    return hist->GetBinContent(binID);
   }
   else {
     std::cout << "ERROR! Unavailable FF: " << histName << std::endl;
-    for (auto item : m_FF_hist) {
+    for (auto item : m_SF_hist) {
       std::cout << "Available FF: " << item.first << std::endl;
     }
-  } 
- 
-  return nullptr;
-}
-
-
-
-double OtherJetsTFF::getValue() const {
-  // Check whether we want to apply the fake factor
-  bool apply = false;
-  if (! TQTaggable::getGlobalTaggable("aliases")->getTagBool("ApplyOtherJetsTFF", apply)) {
-    ERRORclass("Can not get ApplyOtherJetsTFF tag");
   }
-  if (!apply) return 1.0;
-  
 
-  const TH1F* hist = getFakeFactorHist();
-
-  float f_tau_0_pt = this->tau_0_pt->EvalInstance();
-  int binID = std::min(hist->FindFixBin(f_tau_0_pt), hist->GetNbinsX());
-  if (binID == 0) binID = 1;
-  
-  return hist->GetBinContent(binID);
+  return 1.0;
 }

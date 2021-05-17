@@ -201,7 +201,7 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
   FF_nom_down.SetName(FF_nom.GetName()+'_down')
   checkNegative(FF_nom_down)
 
-  outfile = TFile('bsmtautau_lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile('AHZ-lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   FF_nom.Write()
   FF_nom_up.Write()
@@ -238,10 +238,10 @@ if __name__=='__main__':
   debug = options.debug
 
   # decide which file is needed:
-  if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr.root'
-  elif region == 'QCDLFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_qcdlfr.root'
+  if region == 'OtherJetsTFR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-AHZ-lephad-OtherJetsTFR-FF.root'
+  elif region == 'MultiJetsLFR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-AHZ-lephad-MultiJetsLFR-FF.root'
   elif region == "QCDTFR":
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_qcdtfr.root'
   else:
@@ -251,7 +251,7 @@ if __name__=='__main__':
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
   reader = TQSampleDataReader(samples)
 
-  if region == 'WFR':
+  if region == 'OtherJetsTFR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -270,15 +270,19 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/[mc/TTL/[Ztautau+Zll+Top+Diboson]+QCDFakes/[data-mc/[TTL+JFT]]]'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/[mcReal+MultiJetsFake]'.format(channel_path, period_path)
         
         prefix = region+period_name+channel_name
-        # bveto 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoWFR1pPassTauID', 'CutOSBvetoWFR1pFailTauID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoWFR3pPassTauID', 'CutOSBvetoWFR3pFailTauID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
-        # btag 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagWFR1pPassTauID',  'CutOSBtagWFR1pFailTauID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagWFR3pPassTauID',  'CutOSBtagWFR3pFailTauID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
+        
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT1pPassTauID', 'CutOSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT3pPassTauID', 'CutOSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT3p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT1pPassTauID', 'CutOSBtagMediumMT1pFailTauID', 'TauPtFF', prefix+"OSBtagMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT3pPassTauID', 'CutOSBtagMediumMT3pFailTauID', 'TauPtFF', prefix+"OSBtagMediumMT3p", 0.1,0.1)
+        
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT1pPassTauID', 'CutSSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT3pPassTauID', 'CutSSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT3p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT1pPassTauID', 'CutSSBtagMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBtagMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT3pPassTauID', 'CutSSBtagMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBtagMediumMT3p", 0.1,0.1)
   
   elif region == 'QCDTFR':
     # Loop over data taking period and channels
@@ -309,7 +313,7 @@ if __name__=='__main__':
         calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDTFR1pPassTauID',  'CutOSBtagQCDTFR1pFailTauID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
         calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDTFR3pPassTauID',  'CutOSBtagQCDTFR3pFailTauID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
 
-  elif region == 'QCDLFR':
+  elif region == 'MultiJetsLFR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -328,14 +332,16 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/mc/[TTL+JFT]/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Top+Diboson+Wjets]'.format(channel_path, period_path)
         
-        prefix = region+period_name+channel_name
+        prefix = region+"NoTopCorrection"+period_name+channel_name
         # 2D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDLFRPassISO', 'CutOSBvetoQCDLFRFailISO', 'BvetoLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDLFRPassISO', 'CutOSBvetoQCDLFRFailISO', 'BvetoLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDLFRPassISO', 'CutOSBvetoQCDLFRFailISO', 'BvetoLeptonPtDphi3FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDLFRPassISO', 'CutOSBvetoQCDLFRFailISO', 'BvetoLeptonPtDphi4FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDLFRPassISO', 'CutOSBtagQCDLFRFailISO', 'BtagLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDLFRPassISO', 'CutOSBtagQCDLFRFailISO', 'BtagLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDLFRPassISO', 'CutOSBtagQCDLFRFailISO', 'BtagLeptonPtDphi3FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
+        

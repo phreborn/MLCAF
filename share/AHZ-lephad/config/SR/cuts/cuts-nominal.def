@@ -43,7 +43,7 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
         
 
 
-# Divide to 0Btag/Btag region
+# Divide to Bveto/Btag region
 @ */CutLepHad {
     +CutBveto {
         <.cutExpression="$(NbJets)==0", .title="Bveto", BJET="Bveto">

@@ -72,28 +72,64 @@ def ComparePlot(map_to_compare, fig_name):
 
 
 if __name__ == '__main__':
+  '''
   map_to_compare = {
-                    'TCRAllehadBtag1pTauPtSF': 'ehad 1p', 
-                    'TCRAllmuhadBtag1pTauPtSF': 'muhad 1p',
+                    'TCRAlllephad2bTVRNoTauIDHighMTStSF2': '2b NoTauID HighMT', 
+                    'TCRAlllephad2bTVRNoTauIDMediumMTStSF2': '2b NoTauID MediumMT', 
+                    'TCRAlllephad2bTVRNoTauIDLowMTStSF2': '2b NoTauID LowMT', 
                     }
-  ComparePlot(map_to_compare, "TCRAllBtag1pTauPtSF_Compare.png")
-
+  ComparePlot(map_to_compare, "TVR_NoTauID.png")
+  
   map_to_compare = {
-                    'TCRAllehadBtag3pTauPtSF': 'ehad 3p', 
-                    'TCRAllmuhadBtag3pTauPtSF': 'muhad 3p',
+                    'TCRAlllephad2bTVRNoTauIDMediumMTStSF2': '2b NoTauID MediumMT', 
+                    'TCRAlllephad2bTVRTauIDMediumMTStSF2': '2b TauID MediumMT', 
                     }
-  ComparePlot(map_to_compare, "TCRAllBtag3pTauPtSF_Compare.png")
-
+  ComparePlot(map_to_compare, "TVR_MediumMT.png")
+  '''
   map_to_compare = {
-                    'TCRAlllephadBtag1pTauPtSF': 'lephad 1p', 
-                    'TCRAlllephadBtag3pTauPtSF': 'lephad 3p',
-                    }
-  ComparePlot(map_to_compare, "TCRAllBtagTauPtSF_Compare.png")
-
+                    "OtherJetsTFRAllmuhadOSBvetoMediumMT1pMTLepMETSF": "OS Bveto muhad 1p",
+                    "OtherJetsTFRAllmuhadOSBvetoMediumMT3pMTLepMETSF": "OS Bveto muhad 3p",
+                    "OtherJetsTFRAllehadOSBvetoMediumMT1pMTLepMETSF": "OS Bveto ehad 1p",
+                    "OtherJetsTFRAllehadOSBvetoMediumMT3pMTLepMETSF": "OS Bveto ehad 3p",
+                   }
+  ComparePlot(map_to_compare, "OS_Bveto.png")
+  
   map_to_compare = {
-                    'TCR1516lephadBtag3pTauPtSF': '1516 lephad 3p', 
-                    'TCR17lephadBtag3pTauPtSF': '17 lephad 3p',
-                    'TCR18lephadBtag3pTauPtSF': '18 lephad 3p',
-                    }
-  ComparePlot(map_to_compare, "TCRlephadBtag3pTauPtSF_Compare.png")
-
+                    "OtherJetsTFRAllmuhadSSBvetoNoMT1pMTLepMETSF": "SS Bveto muhad 1p",
+                    "OtherJetsTFRAllmuhadSSBvetoNoMT3pMTLepMETSF": "SS Bveto muhad 3p",
+                    "OtherJetsTFRAllehadSSBvetoNoMT1pMTLepMETSF": "SS Bveto ehad 1p",
+                    "OtherJetsTFRAllehadSSBvetoNoMT3pMTLepMETSF": "SS Bveto ehad 3p",
+                   }
+  ComparePlot(map_to_compare, "SS_Bveto.png")
+  
+  map_to_compare = {
+                    "OtherJetsTFRAllmuhadSSBvetoNoMT1pMTLepMETSF": "SS Bveto muhad 1p",
+                    "OtherJetsTFRAllehadSSBvetoNoMT1pMTLepMETSF": "SS Bveto ehad 1p",
+                    "OtherJetsTFRAllmuhadOSBvetoMediumMT1pMTLepMETSF": "OS Bveto muhad 1p",
+                    "OtherJetsTFRAllehadOSBvetoMediumMT1pMTLepMETSF": "OS Bveto ehad 1p",
+                   }
+  ComparePlot(map_to_compare, "SS_OS_Bveto.png")
+  
+  map_to_compare = {
+                    "OtherJetsTFRAllmuhadOSBtagMediumMT1pMTLepMETSF": "OS Btag muhad 1p",
+                    "OtherJetsTFRAllmuhadOSBtagMediumMT3pMTLepMETSF": "OS Btag muhad 3p",
+                    "OtherJetsTFRAllehadOSBtagMediumMT1pMTLepMETSF": "OS Btag ehad 1p",
+                    "OtherJetsTFRAllehadOSBtagMediumMT3pMTLepMETSF": "OS Btag ehad 3p",
+                   }
+  ComparePlot(map_to_compare, "OS_Btag.png")
+  
+  map_to_compare = {
+                    "OtherJetsTFRAllmuhadSSBtagNoMT1pMTLepMETSF": "SS Btag muhad 1p",
+                    "OtherJetsTFRAllmuhadSSBtagNoMT3pMTLepMETSF": "SS Btag muhad 3p",
+                    "OtherJetsTFRAllehadSSBtagNoMT1pMTLepMETSF": "SS Btag ehad 1p",
+                    "OtherJetsTFRAllehadSSBtagNoMT3pMTLepMETSF": "SS Btag ehad 3p",
+                   }
+  ComparePlot(map_to_compare, "SS_Btag.png")
+  
+  map_to_compare = {
+                    "OtherJetsTFRAllmuhadSSBtagNoMT1pMTLepMETSF": "SS Btag muhad 1p",
+                    "OtherJetsTFRAllehadSSBtagNoMT1pMTLepMETSF": "SS Btag ehad 1p",
+                    "OtherJetsTFRAllmuhadOSBtagMediumMT1pMTLepMETSF": "OS Btag muhad 1p",
+                    "OtherJetsTFRAllehadOSBtagMediumMT1pMTLepMETSF": "OS Btag ehad 1p",
+                   }
+  ComparePlot(map_to_compare, "SS_OS_Btag.png")

@@ -27,7 +27,7 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
                          .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
 
                         +CutZeeVeto {
-                            <.cutExpression="lep_0==2 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
+                            <.cutExpression="lep_0==2 && $(NbJets) == 0 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
                         } #End: CutZeeVeto
                     } #End: CutLeptonISO
                 } #End: CutLepTau
@@ -81,15 +81,15 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
     }
 
     +CutSSBvetoLowMT {
-        <.cutExpression="lephad_mt_lep0_met<=60", .title="SSBvetoLowMT", MT="LowMT">
+        <.cutExpression="lephad_mt_lep0_met<=40", .title="SSBvetoLowMT", MT="LowMT">
     }
     
     +CutSSBvetoMediumMT {
-        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=150", .title="SSBvetoMediumMT", MT="MediumMT">
+        <.cutExpression="lephad_mt_lep0_met>40&&lephad_mt_lep0_met<=60", .title="SSBvetoMediumMT", MT="MediumMT">
     }
-
+    
     +CutSSBvetoHighMT {
-        <.cutExpression="lephad_mt_lep0_met>=150", .title="SSBvetoHighMT", MT="HighMT">
+        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=150", .title="SSBvetoHighMT", MT="HighMT">
     }
 }
 
@@ -99,15 +99,15 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
     }
     
     +CutSSBtagLowMT {
-        <.cutExpression="lephad_mt_lep0_met<=60", .title="SSBtagLowMT", MT="LowMT">
+        <.cutExpression="lephad_mt_lep0_met<=40", .title="SSBtagLowMT", MT="LowMT">
     }
     
     +CutSSBtagMediumMT {
-        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=120", .title="SSBtagMediumMT", MT="MediumMT">
+        <.cutExpression="lephad_mt_lep0_met>40&&lephad_mt_lep0_met<=60", .title="SSBtagMediumMT", MT="MediumMT">
     }
-
+    
     +CutSSBtagHighMT {
-        <.cutExpression="lephad_mt_lep0_met>=220", .title="SSBtagHighMT", MT="HighMT">
+        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=120", .title="SSBtagHighMT", MT="HighMT">
     }
 }
 
@@ -128,7 +128,7 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
 @ */Cut*p {
     +Cut$(CHARGE)$(BJET)$(MT)$(PRONG)PassTauID {
         <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="$(CHARGE)$(BJET)$(MT)$(PRONG)PassTauID",
-         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(TauFakeNom)) : 1">
+         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1">
     }
     
     +Cut$(CHARGE)$(BJET)$(MT)$(PRONG)FailTauID {
@@ -141,11 +141,11 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
 
 $replace("*/CutOS/*:.name,.title", CHARGE="OS");
 $replace("*/CutSS/*:.name,.title", CHARGE="SS");
+$replace("*/Cut*Bveto/*:.name,.title", BJET="Bveto");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");
 $replace("*/Cut*NoMT/*:.name,.title", MT="NoMT");
 $replace("*/Cut*LowMT/*:.name,.title", MT="LowMT");
 $replace("*/Cut*MediumMT/*:.name,.title", MT="MediumMT");
 $replace("*/Cut*HighMT/*:.name,.title", MT="HighMT");
-$replace("*/Cut*Bveto/*:.name,.title", BJET="Bveto");
-$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");
 $replace("*/Cut*1p/*:.name,.title", PRONG="1p");
 $replace("*/Cut*3p/*:.name,.title", PRONG="3p");

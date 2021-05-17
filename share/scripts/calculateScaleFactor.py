@@ -145,6 +145,10 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
   SF_nom.SetName(prefix+histogram)
   checkNegative(SF_nom)
 
+  print "observed:\t", histoObs.GetSumOfWeights()
+  print "expected:\t", histoExp.GetSumOfWeights()
+  print "result:\t", histoObs.GetSumOfWeights()/histoExp.GetSumOfWeights()
+
   # create error hist, this should contain errors with respect to 0
   SF_nom_error = SF_nom.Clone()
   for i in range(0, SF_nom_error.GetNbinsX()+2):
@@ -190,7 +194,7 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
   SF_nom_down.SetName(SF_nom.GetName()+'_down')
   checkNegative(SF_nom_down)
 
-  outfile = TFile('bsmtautau_lephad/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile('AHZ-lephad/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   SF_nom.Write()
   SF_nom_up.Write()
@@ -227,12 +231,12 @@ if __name__=='__main__':
   debug = options.debug
 
   # decide which file is needed:
-  if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
+  if region == 'OtherJetsTFR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-AHZ-lephad-OtherJetsTFR-FF-closure.root'
   elif region == 'QCDLFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_qcdlfr_applyff.root'
   elif region == 'TCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_wfr_applyff.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-AHZ-lephad-TCR-SF.root'
   elif region == 'VR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr.root'
 
@@ -240,7 +244,7 @@ if __name__=='__main__':
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
   reader = TQSampleDataReader(samples)
 
-  if region == 'WFR':
+  if region == 'OtherJetsTFR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -259,17 +263,39 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/ddOtherJetsFake'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
 
-        # 1D LeptonPt
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto1pPassID', 'Bveto1pLeptonPtSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto3pPassID', 'Bveto3pLeptonPtSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT1pPassTauID', 'MTLepMETSF', prefix+"OSBvetoMediumMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT3pPassTauID', 'MTLepMETSF', prefix+"OSBvetoMediumMT3p", 0.1, 0.1)
         
-        # 1D MTLepMET
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto1pPassID', 'Bveto1pMTLepMETSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBveto3pPassID', 'Bveto3pMTLepMETSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT1pPassTauID', 'MTLepMETSF', prefix+"OSBtagMediumMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT3pPassTauID', 'MTLepMETSF', prefix+"OSBtagMediumMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT1pPassTauID', 'MTLepMETSF', prefix+"SSBvetoNoMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT3pPassTauID', 'MTLepMETSF', prefix+"SSBvetoNoMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT1pPassTauID', 'MTLepMETSF', prefix+"SSBtagNoMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT3pPassTauID', 'MTLepMETSF', prefix+"SSBtagNoMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT1pPassTauID', 'LeptonPtSF', prefix+"OSBvetoMediumMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT3pPassTauID', 'LeptonPtSF', prefix+"OSBvetoMediumMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"OSBtagMediumMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"OSBtagMediumMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT1pPassTauID', 'LeptonPtSF', prefix+"SSBvetoNoMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT3pPassTauID', 'LeptonPtSF', prefix+"SSBvetoNoMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagNoMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagNoMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBvetoMediumMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBvetoMediumMT3p", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
 
   elif region == 'VR':
     # Loop over data taking period and channels
@@ -356,9 +382,27 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Diboson+Fakes/ISO/[data-mc]+Fakes/ID/[data-[mc+ISO/[data-mc]]]]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/Top'.format(channel_path, period_path)
+        #bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFake]/[Zjets+Wjets+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
-        # btag 1D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag1p', 'Btag1pTauPtSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRBtag3p', 'Btag3pTauPtSF', prefix, 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDMediumMT', 'StSF1', prefix+"TCRTauIDMediumMT", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDLowMT', 'StSF1', prefix+"2bTVRTauIDLowMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDMediumMT', 'StSF1', prefix+"2bTVRTauIDMediumMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDHighMT', 'StSF1', prefix+"2bTVRTauIDHighMT", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDLowMT', 'StSF1', prefix+"2bTVRNoTauIDLowMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDMediumMT', 'StSF1', prefix+"2bTVRNoTauIDMediumMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDHighMT', 'StSF1', prefix+"2bTVRNoTauIDHighMT", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDMediumMT', 'StSF2', prefix+"TCRTauIDMediumMT", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDLowMT', 'StSF2', prefix+"2bTVRTauIDLowMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDMediumMT', 'StSF2', prefix+"2bTVRTauIDMediumMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDHighMT', 'StSF2', prefix+"2bTVRTauIDHighMT", 0.1, 0.1)
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDLowMT', 'StSF2', prefix+"2bTVRNoTauIDLowMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDMediumMT', 'StSF2', prefix+"2bTVRNoTauIDMediumMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDHighMT', 'StSF2', prefix+"2bTVRNoTauIDHighMT", 0.1, 0.1)
