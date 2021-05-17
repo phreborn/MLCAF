@@ -1,4 +1,6 @@
 .name="||"
+.name=CutEvent
+.name="||"
 .name=CutChannel
 .name="|"
 .name=CutZjets

@@ -42,6 +42,7 @@ MatTransCorrection::MatTransCorrection(const TString& expression) : LepHadObserv
 
   INFOclass("Loading file...");
   tempFile = TFile::Open("common/auxData/material_transport.root");
+
   TGraphAsymmErrors* tempGraph = 0;
   if (!tempFile) {
     WARNclass("Can not find material_transport.root");

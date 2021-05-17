@@ -26,3 +26,5 @@ $printline("Applying post-initialize pool tags...");
 # -- signal
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/ggH/?;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/bbH/?;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/ZPrime/?;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /sig/?/?/LQ/?;

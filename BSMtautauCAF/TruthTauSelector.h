@@ -32,3 +32,4 @@ class TruthTauSelector : public LepHadObservable {
     TTreeFormula* tau_0_matched_classifierParticleType  = nullptr;
 };
 #endif
+

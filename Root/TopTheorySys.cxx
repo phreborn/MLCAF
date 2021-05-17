@@ -157,7 +157,11 @@ bool TopTheorySys::initializeSelf(){
   // new systematics based on truth level analysis
   TFile* tempFile=0;
 
-  tempFile = TFile::Open("bsmtautau_lephad/auxData/Systematics/LepHadCombined_TopSys.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  tempFile = TFile::Open(signalProcess+"_lephad/auxData/Systematics/LepHadCombined_TopSys.root");
   if (!tempFile) {
     std::cout << "WARNING: can not find top systematics " << std::endl;
     return false;  

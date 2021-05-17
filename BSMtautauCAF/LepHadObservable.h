@@ -22,6 +22,7 @@ public:
   virtual bool hasExpression() const override;
   virtual const TString& getExpression() const override;
   virtual void setExpression(const TString& expr) override;
+  
 
   bool isData() const;
   bool isMC() const;
@@ -41,6 +42,8 @@ public:
   bool isLepISO() const;
 
   bool isHighPt() const;
+
+  float TransverseMass(float pt1, float pt2, float dphi) const;
 
 protected:
   
