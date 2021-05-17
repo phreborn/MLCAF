@@ -1,6 +1,0 @@
-# ------------------------------ c16e ------------------------------ #
-##### bkg #####
-### Wjets ###
-/bkg/?/c16e/mc/TTL/Wjets/enu
-/bkg/?/c16e/mc/TTL/Wjets/munu
-/bkg/?/c16e/mc/TTL/Wjets/taunu

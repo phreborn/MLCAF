@@ -1,0 +1,90 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+##  MultiJets Lepton Fake Factor.
+#################################################################
+
+$include("AHZ-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         ($(isJet) && [TruthTauSelector] == -30)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium == 1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 &&
+                  (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+
+                +CutLepTau {
+                    <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
+
+                    +CutTauIDScore {
+                        <.cutExpression="$(TauIDScore) < $(TauIDScoreCut)", .title="Tau score cut">
+                    } #End: CutTauIDScore
+                } #End: CutLepTau
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+
+
+
+# Divide to OS/SS region
+@ */CutTauIDScore {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
+    } #End: CutOS
+    
+    +CutSS {
+        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
+    } #End: CutSS
+} #End: CutTauIDScore
+
+
+
+# Divide to Bveto/Btag region
+@ */CutTauIDScore/Cut*S {
+    +Cut$(CHARGE)Bveto {
+        <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
+    } #End: Cut[OS/SS]Bveto
+
+    +Cut$(CHARGE)Btag {
+        <.cutExpression="$(NbJets)==1", .title="$(CHARGE)Btag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+    } #End: Cut[OS/SS]Btag
+} #End: CutTauIDScore/Cut[OS/SS]
+
+
+
+# Divide to different MT region
+@ */CutTauIDScore/Cut*S/Cut*B* {
+    +Cut$(CHARGE)$(BJET)MultiJetsLFR {
+        <.cutExpression="lephad_mt_lep0_met <= 30 && met_reco_p4.Et() <= 50", 
+        .title="$(CHARGE)$(BJET)MultiJetsLFR">
+    }
+}
+
+
+
+# Divide to PassISO/FailISO ergiion
+@ */Cut*MultiJetsLFR {
+    +Cut$(CHARGE)$(BJET)MultiJetsLFRPassISO {
+        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="$(CHARGE)$(BJET)MultiJetsLFRPassISO">
+    }
+
+    +Cut$(CHARGE)$(BJET)MultiJetsLFRFailISO {
+        <.cutExpression="$(isFailISO)", .title="$(CHARGE)$(BJET)MultiJetsLFRFailISO">
+    }
+}
+
+
+
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/CutSS/*:.name,.title", CHARGE="SS");
+$replace("*/Cut*SBveto/*:.name,.title", BJET="Bveto");
+$replace("*/Cut*SBtag/*:.name,.title", BJET="Btag");

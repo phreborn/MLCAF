@@ -1,0 +1,48 @@
+#name                                                  type        variation
+# Electron: 8
+EG_RESOLUTION_ALL                                      p4          two
+EG_SCALE_ALL                                           p4          two
+EG_SCALE_ALLCORR                                       p4          two
+EG_SCALE_AF2                                           p4          two  
+EG_SCALE_E4SCINTILLATOR                                p4          two  
+EG_SCALE_LARCALIB_EXTRA2015PRE                         p4          two                          
+EG_SCALE_LARTEMPERATURE_EXTRA2015PRE                   p4          two          
+EG_SCALE_LARTEMPERATURE_EXTRA2016PRE                   p4          two  
+
+# Muon: 5 
+MUON_ID                                                p4          two               
+MUON_MS                                                p4          two               
+MUON_SAGITTA_RESBIAS                                   p4          two               
+MUON_SAGITTA_RHO                                       p4          two               
+MUON_SCALE                                             p4          two               
+
+# Tau: 5
+TAUS_TRUEHADTAU_SME_TES_AFII                           p4          two                                                  
+TAUS_TRUEHADTAU_SME_TES_INSITUEXP                      p4          two           
+TAUS_TRUEHADTAU_SME_TES_INSITUFIT                      p4          two               
+TAUS_TRUEHADTAU_SME_TES_MODEL_CLOSURE                  p4          two           
+TAUS_TRUEHADTAU_SME_TES_PHYSICSLIST                    p4          two               
+
+# Jet: 17
+JET_EtaIntercalibration_NonClosure_highE               p4          two           
+JET_EtaIntercalibration_NonClosure_negEta              p4          two           
+JET_EtaIntercalibration_NonClosure_posEta              p4          two               
+JET_EtaIntercalibration_NonClosure_2018data            p4          two           
+JET_Flavor_Response                                    p4          two                   
+JET_GroupedNP_1                                        p4          two                       
+JET_GroupedNP_2                                        p4          two                   
+JET_GroupedNP_3                                        p4          two               
+JET_TILECORR_Uncertainty                               p4          two                       
+JET_JER_DataVsMC_MC16_1up                              p4          one                   
+JET_JER_EffectiveNP_1_1up                              p4          one                   
+JET_JER_EffectiveNP_2_1up                              p4          one                   
+JET_JER_EffectiveNP_3_1up                              p4          one                       
+JET_JER_EffectiveNP_4_1up                              p4          one                   
+JET_JER_EffectiveNP_5_1up                              p4          one                   
+JET_JER_EffectiveNP_6_1up                              p4          one                               
+JET_JER_EffectiveNP_7restTerm_1up                      p4          one                          
+
+# MET: 3
+MET_SoftTrk_ResoPara                                   p4          one
+MET_SoftTrk_ResoPerp                                   p4          one
+MET_SoftTrk_Scale                                      p4          two

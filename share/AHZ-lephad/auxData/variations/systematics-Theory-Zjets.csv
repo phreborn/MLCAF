@@ -1,0 +1,13 @@
+name                                                   type        variation
+LPX_KFACTOR_ALPHAS_Corr                                weight      two                 
+LPX_KFACTOR_BEAM_ENERGY_Corr                           weight      two               
+LPX_KFACTOR_PI_Corr                                    weight      two                       
+LPX_KFACTOR_PDF_Corr                                   weight      two                   
+LPX_KFACTOR_PDF_EW_Corr                                weight      two                       
+LPX_KFACTOR_PDF_epWZ16_Corr                            weight      two                           
+LPX_KFACTOR_SCALE_W_Corr                               weight      two                       
+LPX_KFACTOR_SCALE_Z_Corr                               weight      two                       
+LPX_KFACTOR_CHOICE_HERAPDF20_Corr                      weight      one                       
+LPX_KFACTOR_CHOICE_NNPDF30_Corr                        weight      one                   
+LPX_KFACTOR_CHOICE_epWZ16_Corr                         weight      one                               
+LPX_KFACTOR_REDCHOICE_NNPDF30_Corr                     weight      one                   

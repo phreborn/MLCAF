@@ -1,0 +1,13 @@
+### data ###
+.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### backgrounds ###
+.path="||"
+.name="MultiJetsFake", .title="Multi-Jets", .isBackground=true, .path="/data/$(channel)/$(campaign)-/bkg/$(channel)/$(campaign)/[mcReal+mcFake]", histFillColor=kGray, histLineColor=kBlack"
+.path="|"
+.name="TrueTau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal"
+.path="|"
+.name="Wjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top"
+.name="OtherFakes",  .title="Other jets fake", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/[Zjets+Diboson]", histFillColor=kOrange, histLineColor=kBlack

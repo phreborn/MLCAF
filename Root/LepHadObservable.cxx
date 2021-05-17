@@ -22,13 +22,6 @@ LepHadObservable::LepHadObservable(){
   DEBUGclass("default constructor called");
 }
 
-//______________________________________________________________________________________________
-
-LepHadObservable::~LepHadObservable(){
-  // default destructor
-  DEBUGclass("destructor called");
-}
-
 
 //______________________________________________________________________________________________
 
@@ -61,6 +54,8 @@ TObjArray* LepHadObservable::getBranchNames() const {
   bnames->Add(new TObjString("tau_0_pt"));
   bnames->Add(new TObjString("tau_0_eta"));
   bnames->Add(new TObjString("tau_0_phi"));
+  bnames->Add(new TObjString("lephad_qxq"));
+  bnames->Add(new TObjString("jet_0_pt"));
   bnames->Add(new TObjString("lephad_dphi"));
   bnames->Add(new TObjString("met_reco_et"));
   bnames->Add(new TObjString("met_reco_etx"));
@@ -152,6 +147,12 @@ bool LepHadObservable::isElectron() const {
   return lep_0->EvalInstance()==2;
 }
 
+
+unsigned int LepHadObservable::bjetCount() const {
+  return n_bjets->EvalInstance();
+}
+
+
 bool LepHadObservable::isTauID() const {
   return tau_0_jet_id->EvalInstance()==1;
 
@@ -235,26 +236,27 @@ bool LepHadObservable::initializeSelf(){
   }
 
   // other variables
-  this->n_muons = new TTreeFormula( "n_muons", "n_muons", this->fTree);
-  this->n_electrons = new TTreeFormula( "n_electrons", "n_electrons", this->fTree);
-  this->lep_0 = new TTreeFormula( "lep_0", "lep_0", this->fTree);
-  this->lep_0_pt = new TTreeFormula( "lep_0_pt", "lep_0_p4.Pt()", this->fTree);
-  this->lep_0_eta = new TTreeFormula( "lep_0_eta", "lep_0_p4.Eta()", this->fTree);
-  this->lep_0_phi = new TTreeFormula( "lep_0_phi", "lep_0_p4.Phi()", this->fTree);
-  this->tau_0_n_charged_tracks = new TTreeFormula( "tau_0_n_charged_tracks", "tau_0_n_charged_tracks", this->fTree); 
-  this->tau_0_pt = new TTreeFormula( "tau_0_pt", "tau_0_p4.Pt()", this->fTree);
-  this->tau_0_eta = new TTreeFormula( "tau_0_eta", "tau_0_p4.Eta()", this->fTree);
-  this->tau_0_phi = new TTreeFormula( "tau_0_phi", "tau_0_p4.Phi()", this->fTree);
-  this->lephad_dphi = new TTreeFormula( "lephad_dphi", "lephad_dphi", this->fTree);
-  this->met_reco_et = new TTreeFormula( "met_reco_et", "met_reco_p4.Pt()", this->fTree);
-  this->met_reco_etx = new TTreeFormula( "met_reco_etx", "met_reco_p4.Px()", this->fTree);
-  this->met_reco_ety = new TTreeFormula( "met_reco_ety", "met_reco_p4.Py()", this->fTree);
-  this->met_reco_phi = new TTreeFormula( "met_reco_phi", "met_reco_p4.Phi()", this->fTree);
-  this->lephad_mt_lep0_met = new TTreeFormula( "lephad_mt_lep0_met", "lephad_mt_lep0_met", this->fTree);
-  this->lephad_mt_lep1_met = new TTreeFormula( "lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
-  this->lephad_met_lep0_cos_dphi = new TTreeFormula( "lephad_met_lep0_cos_dphi", "lephad_met_lep0_cos_dphi", this->fTree);
-  this->lephad_met_lep1_cos_dphi = new TTreeFormula( "lephad_met_lep1_cos_dphi", "lephad_met_lep1_cos_dphi", this->fTree);
-  this->jet_0_pt = new TTreeFormula( "jet_0_pt", "jet_0_p4.Pt()", this->fTree);
+  this->n_muons = new TTreeFormula("n_muons", "n_muons", this->fTree);
+  this->n_electrons = new TTreeFormula("n_electrons", "n_electrons", this->fTree);
+  this->lep_0 = new TTreeFormula("lep_0", "lep_0", this->fTree);
+  this->lep_0_pt = new TTreeFormula("lep_0_pt", "lep_0_p4.Pt()", this->fTree);
+  this->lep_0_eta = new TTreeFormula("lep_0_eta", "lep_0_p4.Eta()", this->fTree);
+  this->lep_0_phi = new TTreeFormula("lep_0_phi", "lep_0_p4.Phi()", this->fTree);
+  this->tau_0_n_charged_tracks = new TTreeFormula("tau_0_n_charged_tracks", "tau_0_n_charged_tracks", this->fTree); 
+  this->tau_0_pt = new TTreeFormula("tau_0_pt", "tau_0_p4.Pt()", this->fTree);
+  this->tau_0_eta = new TTreeFormula("tau_0_eta", "tau_0_p4.Eta()", this->fTree);
+  this->tau_0_phi = new TTreeFormula("tau_0_phi", "tau_0_p4.Phi()", this->fTree);
+  this->lephad_qxq = new TTreeFormula("lephad_qxq", "lephad_qxq", this->fTree);
+  this->jet_0_pt = new TTreeFormula("jet_0_pt", "jet_0_p4.Pt()", this->fTree);
+  this->lephad_dphi = new TTreeFormula("lephad_dphi", "lephad_dphi", this->fTree);
+  this->met_reco_et = new TTreeFormula("met_reco_et", "met_reco_p4.Pt()", this->fTree);
+  this->met_reco_etx = new TTreeFormula("met_reco_etx", "met_reco_p4.Px()", this->fTree);
+  this->met_reco_ety = new TTreeFormula("met_reco_ety", "met_reco_p4.Py()", this->fTree);
+  this->met_reco_phi = new TTreeFormula("met_reco_phi", "met_reco_p4.Phi()", this->fTree);
+  this->lephad_mt_lep0_met = new TTreeFormula("lephad_mt_lep0_met", "lephad_mt_lep0_met", this->fTree);
+  this->lephad_mt_lep1_met = new TTreeFormula("lephad_mt_lep1_met", "lephad_mt_lep1_met", this->fTree);
+  this->lephad_met_lep0_cos_dphi = new TTreeFormula("lephad_met_lep0_cos_dphi", "lephad_met_lep0_cos_dphi", this->fTree);
+  this->lephad_met_lep1_cos_dphi = new TTreeFormula("lephad_met_lep1_cos_dphi", "lephad_met_lep1_cos_dphi", this->fTree);
 
   return true;
 }
@@ -281,6 +283,8 @@ bool LepHadObservable::finalizeSelf(){
   delete this->tau_0_pt;
   delete this->tau_0_eta;
   delete this->tau_0_phi;
+  delete this->lephad_qxq;
+  delete this->jet_0_pt;
   delete this->lephad_dphi;
   delete this->met_reco_et;
   delete this->met_reco_etx;

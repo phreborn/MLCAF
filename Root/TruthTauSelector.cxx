@@ -12,25 +12,13 @@
 
 ClassImp(TruthTauSelector)
 
-//______________________________________________________________________________________________
+
 
 TruthTauSelector::TruthTauSelector(){
-  // default constructor
-
-  this->setExpression(this->GetName() );
-
-  DEBUGclass("default constructor called");
-}
-
-//______________________________________________________________________________________________
-
-TruthTauSelector::~TruthTauSelector(){
-  // default destructor
-  DEBUGclass("destructor called");
+  this->setExpression(this->GetName());
 }
 
 
-//______________________________________________________________________________________________
 
 TObjArray* TruthTauSelector::getBranchNames() const {
   // retrieve the list of branch names
@@ -45,7 +33,7 @@ TObjArray* TruthTauSelector::getBranchNames() const {
   return bnames;
 }
 
-//______________________________________________________________________________________________
+
 
 double TruthTauSelector::getValue() const {
 
@@ -77,11 +65,11 @@ double TruthTauSelector::getValue() const {
 
   return retval;
 }
-//______________________________________________________________________________________________
+
+
 
 TruthTauSelector::TruthTauSelector(const TString& expression):
-LepHadObservable(expression)
-{
+LepHadObservable(expression) {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
   // the predefined string member "expression" allows your observable to store an expression of your choice
@@ -91,47 +79,47 @@ LepHadObservable(expression)
   this->setExpression(expression);
 }
 
-//______________________________________________________________________________________________
+
 
 const TString& TruthTauSelector::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
-//______________________________________________________________________________________________
+
 
 bool TruthTauSelector::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
-//______________________________________________________________________________________________
+
 
 void TruthTauSelector::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 
-//______________________________________________________________________________________________
+
 
 bool TruthTauSelector::initializeSelf(){
-  if (! LepHadObservable::initializeSelf()) return false;
+  if (!LepHadObservable::initializeSelf()) return false;
 
-  if ( !isData()) {
-    this->tau_0_matched_isHadTau  = new TTreeFormula("tau_0_matched_isHadTau",  "tau_0_matched_isHadTau", this->fTree);
-    this->tau_0_matched_isEle     = new TTreeFormula("tau_0_matched_isEle",     "tau_0_matched_isEle",    this->fTree);
-    this->tau_0_matched_isMuon    = new TTreeFormula("tau_0_matched_isMuon",    "tau_0_matched_isMuon",   this->fTree);
-    this->tau_0_matched_classifierParticleType      = new TTreeFormula("tau_0_matched_classifierParticleType",      "tau_0_matched_classifierParticleType",     this->fTree);
+  if (!isData()) {
+    this->tau_0_matched_isHadTau = new TTreeFormula("tau_0_matched_isHadTau", "tau_0_matched_isHadTau", this->fTree);
+    this->tau_0_matched_isEle = new TTreeFormula("tau_0_matched_isEle", "tau_0_matched_isEle", this->fTree);
+    this->tau_0_matched_isMuon = new TTreeFormula("tau_0_matched_isMuon", "tau_0_matched_isMuon", this->fTree);
+    this->tau_0_matched_classifierParticleType = new TTreeFormula("tau_0_matched_classifierParticleType", "tau_0_matched_classifierParticleType", this->fTree);
   }
   return true;
 }
 
-//______________________________________________________________________________________________
+
 
 bool TruthTauSelector::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf()) return false;
 
-  if ( !isData()) {
+  if (!isData()) {
     delete this->tau_0_matched_isHadTau;
     delete this->tau_0_matched_isEle;
     delete this->tau_0_matched_isMuon;

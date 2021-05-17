@@ -1,0 +1,70 @@
+# -*- mode: tqfolder -*-
+
+$printline("Including fake folders");
+
+# split the MC samples
+# -- mc real tau or prompt lepton
+$create(path="/bkg/?/?/mcReal", type="sf");
+@ /bkg/?/? {
+    $move("Diboson >> mcReal");
+    $move("Zjets >> mcReal");
+    $move("Wjets >> mcReal");
+    $move("Top >> mcReal");
+}
+
+# -- mc fake tau
+@ /bkg/?/? {
+    $copy("mcReal >> ::mcFake");
+}
+
+# -- mc fake tau corrected
+@ /bkg/?/? {
+    $copy("mcReal >> ::mcFakeCorrected");
+}
+
+<isTTL=false> @ /.;
+<isTTL=true> @ /bkg/?/?/mcReal;
+
+<isJet=false> @ /.;
+<isJet=true> @ /bkg/?/?/mcFake, /bkg/?/?/mcFakeCorrected;
+
+# add dd fakes
+## -- MultiJets
+$create(path="/bkg/?/?/MultiJetsFake", type="sf");
+$create(path="/bkg/?/?/MultiJetsFake/data", type="sf");
+
+@ /data/?/?/? {
+    $copy("../$(BASEFOLDERNAME) >> /bkg/$(channel)/$(campaign)/MultiJetsFake/data");
+}
+
+@ /bkg/?/? {
+    $copy("mcReal >> MultiJetsFake");
+    $copy("mcFake >> MultiJetsFake");
+}
+
+<isMultiJetsFake=false> @ /.;
+<isMultiJetsFake=true> @ /bkg/?/?/MultiJetsFake;
+
+## -- Other fakes
+$create(path="/bkg/?/?/ddOtherJetsFake", type="sf");
+$create(path="/bkg/?/?/ddOtherJetsFake/data", type="sf");
+
+@ /data/?/?/? {
+    $copy("../$(BASEFOLDERNAME) >> /bkg/$(channel)/$(campaign)/ddOtherJetsFake/data");
+}
+
+@ /bkg/?/? {
+    $copy("mcReal >> ddOtherJetsFake");
+    $copy("MultiJetsFake >> ddOtherJetsFake");
+}
+
+<isddOtherJetsFake=false> @ /.;
+<isddOtherJetsFake=true> @ /bkg/?/?/ddOtherJetsFake;
+
+# data folder is not available in prepare stage
+<isData=false> @ /.;
+<isData=true> @ /data, /bkg/?/?/MultiJetsFake/data, /bkg/?/?/ddOtherJetsFake/data, /bkg/?/?/ddOtherJetsFake/MultiJetsFake/data;
+<isMC=true> @ /.;
+<isMC=false> @ /data, /bkg/?/?/MultiJetsFake/data, /bkg/?/?/ddOtherJetsFake/data, /bkg/?/?/ddOtherJetsFake/MultiJetsFake/data;
+<isMCOtherJetsFake=false> @ /.;
+<isMCOtherJetsFake=true> @ /bkg/?/?/mcOtherJetsFake;
