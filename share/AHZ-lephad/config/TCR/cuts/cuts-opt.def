@@ -21,7 +21,7 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
             
                 +CutLeptonISO {
                     <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(FakeNom)) : 1)", .title="Lepton isolation">
+                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
                     
                     # SS has little statistics
                     +CutOS {

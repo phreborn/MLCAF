@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TASK="MultijetsLFR-FF-closure"
+TASK="MultiJetsLFR-FF-closure"
 
 visualize.py AHZ-lephad/config/MultiJetsLFR/master/visualize-${TASK}-os.cfg 
 source "${CAFANALYSISSHARE:?}/scripts/tqpdflatex.sh" results/AHZ-lephad-${TASK}-os/summary.tex

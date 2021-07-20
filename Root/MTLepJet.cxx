@@ -1,5 +1,6 @@
 #include "BSMtautauCAF/MTLepJet.h"
 #include <limits>
+#include "TObjString.h"
 
 // uncomment the following line to enable debug printouts
 // #define _DEBUG_

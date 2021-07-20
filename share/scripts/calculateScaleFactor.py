@@ -105,7 +105,7 @@ def plotScaleFactor(hist,up,down,name='someFF'):
     myText(0.37,0.79,kBlack, '\sqrt s=13TeV, \int L dt = {:s} fb^-1'.format(lumi));
     # derive what ff is this
     text = ''
-    text_list = ['LFR', 'WFR', 'TCR', 'ehad', 'muhad', 'lephad', '1p', '3p']
+    text_list = ['MFR', 'TFR', 'TCR', 'ehad', 'muhad', 'lephad', '1p', '3p']
     for t in text_list:
         if t in name:
             text += t
@@ -194,7 +194,7 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
   SF_nom_down.SetName(SF_nom.GetName()+'_down')
   checkNegative(SF_nom_down)
 
-  outfile = TFile(analysis+'-lephad/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile(analysis+'/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   SF_nom.Write()
   SF_nom_up.Write()
@@ -213,8 +213,8 @@ if __name__=='__main__':
   import sys
   # argument
   if len(args)==0:
-    print 'You must submit an argument REGION: \n\t WFR; \n\t LFR; \n\t etc.'
-    print 'And an argument Analysis: \n\t bsmtautau; \n\t lqtaub; \n\t etc.'
+    print 'You must submit an argument REGION: \n\t TCR; \n\t OtherJetsTFR; \n\t etc.'
+    print 'And an argument Analysis: \n\t AHZ-lephad; \n\t etc.'
     sys.exit()
   analysis = args[0]
   region   = args[1]
@@ -234,13 +234,50 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'OtherJetsTFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-lephad-OtherJetsTFR-FF-closure.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF-closure.root'
   elif region == 'TCR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-lephad-TCR-SF.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-SF.root'
+  elif region == 'MultiJetsLFR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
+  elif region == 'SSExtrap':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
   reader = TQSampleDataReader(samples)
+
+  if region == 'MultiJetsLFR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
+              }
+
+    # We use same histograms for ehad, and muhad
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/MultiJetsFake'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMultiJetsLFRPassISO', 'BvetoTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMultiJetsLFRPassISO', 'BvetoTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMultiJetsLFRPassISO', 'BvetoTauPtDphi3SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMultiJetsLFRPassISO', 'BvetoTauPtDphi4SF', prefix, 0.1, 0.1)
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMultiJetsLFRPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMultiJetsLFRPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMultiJetsLFRPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
+
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/MultiJetsLFR_SF.root AHZ-lephad/auxData/ScaleFactors/MultiJetsLFRAll*.root\033[0m")
 
   if region == 'OtherJetsTFR':
     # Loop over data taking period and channels
@@ -294,8 +331,10 @@ if __name__=='__main__':
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT1p", 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root AHZ-lephad/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
 
-  elif region == 'VR':
+
+  elif region == 'SSExtrap':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -314,52 +353,15 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/Fakes/ID/[data-[mc+ISO/[data-mc]]]'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/ddOtherJetsFake'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         # bveto 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto1p', 'Bveto1pTauPtDphi3SF', prefix, 0.1, 0.1)
-
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBveto3p', 'Bveto3pTauPtDphi3SF', prefix, 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBtag1p', 'Btag1pTauPtSF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVRBtag3p', 'Btag3pTauPtSF', prefix, 0.1, 0.1)
-
-  elif region == 'QCDLFR':
-    # Loop over data taking period and channels
-    periods = {
-                #'1516': 'c16a',
-                #'17': 'c16d',
-                #'18': 'c16e',
-                'All': '[c16a+c16d+c16e]',
-             }
-    channels = {
-                #'ehad': 'ehad',
-                'muhad': 'muhad',
-                #'lephad': '[ehad+muhad]',
-              }
-    
-    # We use same histograms for ehad, and muhad
-    # Btag/Bveto, 1p/3p appears in the name of the histograms
-    for channel_name, channel_path in channels.items():
-      for period_name, period_path in periods.items():
-        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/mc/[TTL+JFT]/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/QCDFakes/[data-mc]'.format(channel_path, period_path)
-        prefix = region+period_name+channel_name
-        # bveto 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoQCDLFRPassISO', 'BvetoTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoQCDLFRPassISO', 'BvetoTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoQCDLFRPassISO', 'BvetoTauPtDphi3SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoQCDLFRPassISO', 'BvetoTauPtDphi4SF', prefix, 0.1, 0.1)
-        # btag 2D SF
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagQCDLFRPassISO', 'BtagTauPtDphi1SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagQCDLFRPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagQCDLFRPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoLowMT', 'BvetoLowMT1pSF', prefix, 0.1, 0.1)        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoLowMT', 'BvetoLowMT3pSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagLowMT1pSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagLowMT3pSF', prefix, 0.1, 0.1)
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root AHZ-lephad/auxData/ScaleFactors/SSExtrapAll*.root\033[0m")
 
   elif region == 'TCR':
     # Loop over data taking period and channels
@@ -404,3 +406,5 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDLowMT', 'StSF2', prefix+"2bTVRNoTauIDLowMT", 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDMediumMT', 'StSF2', prefix+"2bTVRNoTauIDMediumMT", 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDHighMT', 'StSF2', prefix+"2bTVRNoTauIDHighMT", 0.1, 0.1)
+
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root AHZ-lephad/auxData/ScaleFactors/TCRAll*.root\033[0m")

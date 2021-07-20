@@ -10,6 +10,7 @@
 // otherwise, it will show no effect
 #include "QFramework/TQLibrary.h"
 #include "TFile.h"
+#include "TObjString.h"
 #include <map>
 
 ClassImp(TopTheorySys)

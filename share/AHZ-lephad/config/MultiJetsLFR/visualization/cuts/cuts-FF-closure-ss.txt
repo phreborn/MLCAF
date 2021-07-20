@@ -1,5 +1,5 @@
 .name="||"
-.name=CutEvent
+.name=CutDuplicate
 .name="||"
 .name=CutChannel
 .name="|"

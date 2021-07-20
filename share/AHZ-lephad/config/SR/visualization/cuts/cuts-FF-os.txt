@@ -1,5 +1,5 @@
 .name="||"
-.name=CutEvent
+.name=CutDuplicate
 .name="||"
 .name=CutChannel
 .name="|"
@@ -16,11 +16,11 @@
 .name="|"
 .name=CutTauBasic
 .name="|"
+.name=CutLepHad
+.name="|"
 .name=CutLeptonISO
 .name="|"
 .name=CutTauID
-.name="|"
-.name=CutLepHad
 .name="|"
 .name=CutOS
 

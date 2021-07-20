@@ -27,6 +27,7 @@ MCOtherJetsTFF::MCOtherJetsTFF(const TString& expression) : LepHadObservable(exp
   this->setExpression(expression);
   
   INFOclass("Loading file...");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMCOtherJetsTFF", false) ) return;
 
   TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MCOtherJetsTFR_FF.root");
   if (!file) {

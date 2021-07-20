@@ -45,3 +45,21 @@ TH1F('BtagLeptonPtFF', '', {30,35,40,45,50,60,70,80,100,300}) << (lep_0_p4.Pt() 
 TH1F('BtagLeptonPtCentralFF', '', {30,35,40,45,50,60,80,300}) << ({fabs([lep_0_p4.Eta()])<=1.52?[lep_0_p4.Pt()]:-1}: "lepton p_{T} [GeV]");
 TH1F('BtagLeptonPtForwardFF', '', {30,35,40,45,50,60,80,300}) << ({fabs([lep_0_p4.Eta()])>1.52?[lep_0_p4.Pt()]:-1}: "lepton p_{T} [GeV]");
 @Cut*SBtag*ISO: BtagLeptonPtCentralFF,BtagLeptonPtForwardFF;
+
+# Scale Factor  in B-veto category
+# -- 2D: TauPt, Dphi(Lep,MET)
+TH1F('BvetoTauPtDphi1SF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[lephad_met_lep0_cos_dphi]<0.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BvetoTauPtDphi2SF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[lephad_met_lep0_cos_dphi]>=0.5&&[lephad_met_lep0_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BvetoTauPtDphi3SF'   ,'', {30.,32.,34.,36.,38.,41.,44.,50.,60.,80.,300.})                <<   ( {[lephad_met_lep0_cos_dphi]>=1.0&&[lephad_met_lep0_cos_dphi]<2.?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BvetoTauPtDphi4SF'   ,'', {30.,32.,34.,36.,41.,50.,60.,300.})                            <<   ( {[lephad_met_lep0_cos_dphi]>2.0?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+
+@Cut*SBveto*ISO: BvetoTauPtDphi1SF,BvetoTauPtDphi2SF,BvetoTauPtDphi3SF,BvetoTauPtDphi4SF;
+
+# Scale Factor in B-tag category
+# 2D: TauPt, Dphi(Lep,MET)
+TH1F('BtagTauPtDphi1SF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300.})                       <<   ( {[lephad_met_lep0_cos_dphi]<0.5?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BtagTauPtDphi2SF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300.})                       <<   ( {[lephad_met_lep0_cos_dphi]>=0.5&&[lephad_met_lep0_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+TH1F('BtagTauPtDphi3SF'   ,'',  {30.,34.,42.,50.,60.,300.})                                    <<   ( {[lephad_met_lep0_cos_dphi]>=1.0?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
+
+@Cut*SBtag*ISO: BtagTauPtDphi1SF,BtagTauPtDphi2SF,BtagTauPtDphi3SF;
+

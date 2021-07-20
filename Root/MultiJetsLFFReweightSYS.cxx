@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/LeptonFakesReweight.h"
+#include "BSMtautauCAF/MultiJetsLFFReweightSYS.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(LeptonFakesReweight)
+ClassImp(MultiJetsLFFReweightSYS)
 
 //______________________________________________________________________________________________
 
-LeptonFakesReweight::LeptonFakesReweight(){
+MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,15 +27,14 @@ LeptonFakesReweight::LeptonFakesReweight(){
 
 //______________________________________________________________________________________________
 
-LeptonFakesReweight::~LeptonFakesReweight(){
+MultiJetsLFFReweightSYS::~MultiJetsLFFReweightSYS(){
   // default destructor
   DEBUGclass("destructor called");
 }
 
-
 //______________________________________________________________________________________________
 
-TObjArray* LeptonFakesReweight::getBranchNames() const {
+TObjArray* MultiJetsLFFReweightSYS::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -46,7 +45,7 @@ TObjArray* LeptonFakesReweight::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double LeptonFakesReweight::getValue() const {
+double MultiJetsLFFReweightSYS::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   double f_lep_0              = this->lep_0->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
@@ -84,13 +83,14 @@ double LeptonFakesReweight::getValue() const {
     else if (f_lephad_met_lep0_cos_dphi>=1) param = "TauPtDphi3";
   }
   
-  TString histName = "QCDLFR"+ period + channel + region + param + "SF";
-  
+  TString histName = "MultiJetsLFR"+ period + channel + region + param + "SF";
+
   TH1F * h_nominal = 0;
   TH1F * h_up = 0;
   TH1F * h_down = 0;
- 
-  auto it = m_SF_hist.find(histName); 
+  
+
+  auto it = m_SF_hist.find(histName);
   if ( it != m_SF_hist.end() ) h_nominal = it->second;
   else {
     std::cout << "ERROR! Unavailable SF: " << histName << std::endl;
@@ -133,7 +133,7 @@ double LeptonFakesReweight::getValue() const {
 }
 //______________________________________________________________________________________________
 
-LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObservable(expression)
+MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -145,17 +145,17 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
 
   //fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDSF", false) ) return;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMultiJetsLFFReweightSYS", false) ) return;
   INFOclass("Loading file...");
  
-  TString signalProcess = "";
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
-    ERRORclass("AnaChannel not set !!!");
-  }
-  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/QCDLFR_SF.root");
+//  TString signalProcess = "";
+ // if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+  //  ERRORclass("AnaChannel not set !!!");
+ // }
+  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/MultiJetsLFR_SF.root");
 
   if (!aFile) {
-    ERRORclass("Can not find QCDLFR_SF.root");
+    ERRORclass("Can not find MultiJetsLFR_SF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
@@ -176,27 +176,27 @@ LeptonFakesReweight::LeptonFakesReweight(const TString& expression) : LepHadObse
 }
 //______________________________________________________________________________________________
 
-const TString& LeptonFakesReweight::getExpression() const {
+const TString& MultiJetsLFFReweightSYS::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool LeptonFakesReweight::hasExpression() const {
+bool MultiJetsLFFReweightSYS::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void LeptonFakesReweight::setExpression(const TString& expr){
+void MultiJetsLFFReweightSYS::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool LeptonFakesReweight::initializeSelf(){
+bool MultiJetsLFFReweightSYS::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
 
   fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lsf)","~");
@@ -206,7 +206,7 @@ bool LeptonFakesReweight::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool LeptonFakesReweight::finalizeSelf(){
+bool MultiJetsLFFReweightSYS::finalizeSelf(){
   if (!LepHadObservable::finalizeSelf()) return false;
   return true;
 }

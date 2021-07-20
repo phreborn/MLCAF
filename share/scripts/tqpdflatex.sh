@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias tqpdflatex=/cvmfs/sft.cern.ch/lcg/external/texlive/2017/bin/x86_64-linux/pdflatex
+alias tqpdflatex=/cvmfs/sft.cern.ch/lcg/external/texlive/2020/bin/x86_64-linux/pdflatex
 
 OUTDIR=`dirname $1`
 OUTPUT=`basename $1`

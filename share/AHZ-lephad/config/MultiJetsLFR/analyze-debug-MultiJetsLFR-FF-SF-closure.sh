@@ -6,4 +6,6 @@ if [ "${GITLAB_CI}" == "true" ]; then
     CI_OPTS=(--options "lineUpdates=false" "consoleWidth=80" --snowflakeThresh 1)
 fi
 
-analyze.py AHZ-lephad/config/nominal/master/analyze-nominal.cfg --debug --restrict /bkg/?/c16a/mcReal/Top/single "${CI_OPTS[@]}" 
+analyze.py AHZ-lephad/config/MultiJetsLFR/master/analyze-MultiJetsLFR-FF-SF-closure.cfg --debug \
+      --restrict /bkg/?/c16a/MultiJetsFake/data \
+      "${CI_OPTS[@]}"

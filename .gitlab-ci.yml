@@ -15,18 +15,16 @@ variables:
 # job defaults
 
 .asg: &asg
-  image: atlas/analysisbase:21.2.102
+  image: atlas/analysisbase:21.2.122
   tags:
     - cvmfs
 
 .standalone: &standalone
   #image: rootproject/root-ubuntu:latest
-  image: gitlab-registry.cern.ch/atlas-caf/cafcore/cafcore-standalone-base:19.06.X
+  image: gitlab-registry.cern.ch/atlas-caf/cafcore/standalone-base:root6.22.06-python3.8
   tags:
     - cvmfs
   before_script:
-    - sudo apt-get update
-    - sudo apt-get -y install libboost-dev
     - sed -i 's|CAFANALYSISBASE/../output|CAFANALYSISBASE/run|' setup/setupLocal.sh
 
 .asg_setup: &asg_setup
@@ -48,10 +46,11 @@ variables:
     - source build/setupAnalysis.sh
     - cd share
     - echo "Initialization:"
-    - source bsmtautau_lephad/config-Common/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/200327"
-    - source bsmtautau_lephad/config-Common/scriptPrepareInitialize.sh
-    - echo "Lepton Fake Region:"
-    - source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptDebug.sh
+    - source AHZ-lephad/config/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/201215r0"
+    - source AHZ-lephad/config/common/prepare.sh
+    - source AHZ-lephad/config/common/initialize.sh
+    - echo "Multijet Fake Region:"
+    - source AHZ-lephad/config/MultiJetsLFR/analyze-debug-MultiJetsLFR-FF.sh
     - echo "To be continued..."
 
 ##########################################################################

@@ -12,6 +12,7 @@
 #include "TFile.h"
 #include "TMath.h"
 #include <map>
+#include "TF1.h"
 
 using namespace std;
 ClassImp(MatTransCorrection)
@@ -41,7 +42,7 @@ MatTransCorrection::MatTransCorrection(const TString& expression) : LepHadObserv
   INFOclass("MatTransCorrection getting functions...");
 
   INFOclass("Loading file...");
-  tempFile = TFile::Open("common/auxData/material_transport.root");
+  tempFile = TFile::Open("AHZ-lephad/auxData/Systematics/material_transport.root");
 
   TGraphAsymmErrors* tempGraph = 0;
   if (!tempFile) {

@@ -1,8 +1,8 @@
 import QFramework
-from BSMtautauCAF import LeptonFakesReweight
+from BSMtautauCAF import MultiJetsLFFReweightSYS
 
 def addObservables(config):
-    myObs = LeptonFakesReweight("LeptonFakesReweight")
+    myObs = MultiJetsLFFReweightSYS("MultiJetsLFFReweightSYS")
     if not QFramework.TQTreeObservable.addObservable(myObs, myObs.getExpression().Data()):
         QFramework.WARN("Failed to add observable '{:s}'".format(myObs.getExpression().Data()))
         return False

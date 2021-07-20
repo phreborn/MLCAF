@@ -1,4 +1,5 @@
 #include "BSMtautauCAF/LepHadObservable.h"
+#include "TObjString.h"
 
 // uncomment the following line to enable debug printouts
 //#define _DEBUG_
@@ -294,7 +295,6 @@ bool LepHadObservable::finalizeSelf(){
   delete this->lephad_mt_lep1_met;
   delete this->lephad_met_lep0_cos_dphi;
   delete this->lephad_met_lep1_cos_dphi;
-  delete this->jet_0_pt;
   
   return true;
 }

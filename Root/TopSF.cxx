@@ -27,6 +27,7 @@ TopSF::TopSF(const TString& expression) : LepHadObservable(expression) {
   this->setExpression(expression);
   
   INFOclass("Loading file...");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyTopSF", false) ) return;
 
   TFile* file= TFile::Open("AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root");
   if (!file) {

@@ -27,6 +27,7 @@ MultiJetsLFF::MultiJetsLFF(const TString& expression) : LepHadObservable(express
   this->setExpression(expression);
   
   INFOclass("Loading file...");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMultiJetsLFF", false) ) return;
 
   TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root");
   if (!file) {
@@ -79,7 +80,7 @@ bool MultiJetsLFF::finalizeSelf() {
 
 const TH1F* MultiJetsLFF::getFakeFactorHist() const {
   // determine which FF hist we want: All
-  TString histName = "MultiJetsLFR";
+  TString histName = "MultiJetsLFRTopCorrected";
 
   // -- period: Combined or Separated
   TString period = "";
