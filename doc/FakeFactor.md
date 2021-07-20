@@ -9,12 +9,12 @@ $`FF = \frac{ (N_{\textrm{data}} - N_{\textrm{bkg}})^{\textrm{pass}} }{ (N_{\tex
 Fake Regions (FR) are defined to enrich the contributions from these fakes so that they can be accurately measured, although real background corrections are applied using MC.  
 
 The analysis categorises these fakes into two estimated components:  
-- QCD Lepton Fake Region
+- QCD MultiJet Fake Region
   - Lepton/multi-jet (Quantum ChromoDynamic, QCD) processes faking leptons/taus
     - Both are closely orthogonal to each other
   - Generally sourced from gluon-initiated jets
   - Separated by passing/failing lepton isolation requirements
-- W+jets/Top Fake Region (WFR/TFR)
+- W+jets/Top (Other) Fake Region (WFR/TFR)
   - W+jets/top-quark processes faking taus
     - Depending on the presence of bottom-quarks in the event
       - W+jets fakes correlated with b-veto category (WFR)
@@ -34,66 +34,104 @@ In case of any further mismodelling, the process is essentially repeated by iden
 An additional Scale Factor (SF) ROOT file is calculated while parameterizing over those variables, where this should meet the difference.  
 This SF multiplicatively corrects the FF, while attributing its systematic uncertainity.  
 
-QCD Lepton fake region (QCDLFR)
+Top Correction Factor (TCR)
+----------------------------
+
+Firstly, to constrain the top background we calculate a top correction factor which is applied to the SR. 
+We must calculate this first as it is effective in the btag region as it prevents zero fake factor values. 
+
+```bash
+# Debug test the analysis before submitting the jobs to a cluster
+source AHZ-lephad/config/TCR/analyze-debug-TCR-SF.sh
+
+# Submit the full analysis to a cluster
+source AHZ-lephad/config/TCR/analyze-submit-TCR-SF.sh
+
+# After all jobs are finished successfully, merge the output
+source AHZ-lephad/config/TCR/analyze-merge-TCR-SF.sh
+
+# Calculate the fake factors based on the histograms
+# Merge into a single ROOT file
+python scripts/calculateScaleFactor.py AHZ-lephad TCR # Use the hadd command which is output
+
+```
+
+After obtaining the weight, perform a closure test to check the modelling by applying the TSF back into the TCR.
+
+```bash
+# Debug test the analysis before submitting the jobs to a cluster
+source AHZ-lephad/config/TCR/analyze-debug-TCR-SF-closure.sh
+
+# Submit the full analysis to a cluster
+source AHZ-lephad/config/TCR/analyze-submit-TCR-SF-closure.sh
+
+# After all jobs are finished successfully, merge the output
+source AHZ-lephad/config/TCR/analyze-merge-TCR-SF-closure.sh
+
+# Visualize the plots
+source AHZ-lephad/config/TCR/visualize-TCR-SF-closure.sh
+```
+
+QCD MultiJet fake region (QCDLFR)
 ----------------------------
 
 The QCD Lepton Fake Factor (LFF) is parameterized as a function of lepton $`p_{\textrm{T}}`$ and $`d\phi`$.  
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptDebug.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-debug-MultiJetsLFR-FF.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptSubmit.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-submit-MultiJetsLFR-FF.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/scriptMerge.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-merge-MultiJetsLFR-FF.sh
 
 # Calculate the fake factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateFakeFactor.py QCDLFR
-hadd -f bsmtautau_lephad/auxData/FakeFactors/QCDLFR_FF.root bsmtautau_lephad/auxData/FakeFactors/QCDLFRAll*FF.root
+python scripts/calculateFakeFactor.py AHZ-lephad MultiJetLFR # Use the hadd command which is output
+
 ```
 
 After obtaining the LFF, perform a closure test to check the modelling by applying the LFF back into the QCDLFR.  
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptDebug.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-debug-MultiJetsLFR-FF-closure.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptSubmit.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-submit-MultiJetsLFR-FF-closure.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptMerge.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-merge-MultiJetsLFR-FF-closure.sh
 
 # Visualize the plots
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/scriptVisualize.sh
+source AHZ-lephad/config/MultiJetsLFR/visualize-MultiJetsLFR-FF-closure.sh
 ```
 
-It is found that tau $`p_{\textrm{T}}`$ in the $`\tau_{\mu}\tau_{\textrm{had}}`$ channel is not well modelled.  
-Thus, a Lepton/QCD Scale Factor (LSF) is calculated and the closure test re-performed.  
+It is found that numerous parameters are still mismodelled, a correction gives limited improvement to the fake estimation
+Thus, a MultiJet Scale Factor (LSF) is calculated but used as a systematic uncertainty and not applied in the SR
 
+This part is not necessary if not running systematics but if you are it may be useful to check the closure
 ```bash
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateScaleFactor.py QCDLFR
-hadd -f bsmtautau_lephad/auxData/ScaleFactors/QCDLFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/QCDLFRAll*SF.root
+python scripts/calculateScaleFactor.py AHZ-lephad MultiJetsLFR # use the hadd command which is output
 
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptDebug.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-debug-MultiJetsLFR-FF-SF-closure.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptSubmit.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-submit-MultiJetsLFR-FF-SF-closure.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptMerge.sh
+source AHZ-lephad/config/MultiJetsLFR/analyze-merge-MultiJetsLFR-FF-SF-closure.sh
 
 # Visualize the plots
-source bsmtautau_lephad/config-QCDLeptonFakeRegion/applyFF/applySF/scriptVisualize.sh
+source AHZ-lephad/config/MultiJetsLFR/visualize-MultiJetsLFR-FF-SF-closure.sh
 ``` 
 
-W+jets/Top Fake Region (WFR/TFR)
+W+jets/Top (OtherJets) Fake Region (WFR/TFR)
 --------------------------------
 
 The W+jets/Top Fake Factors (WFF/TFF) are parameterized as a function of tau $`p_{\textrm{T}}`$.  
@@ -106,67 +144,54 @@ It would be found that an interative re-calculation of these pairs of fake facto
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-WjetsFakeRegion/scriptDebug.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-debug-FF.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-WjetsFakeRegion/scriptSubmit.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-submit-FF.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-WjetsFakeRegion/scriptMerge.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-merge-FF.sh
 
 # Calculate the fake factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateFakeFactor.py WFR
-hadd -f bsmtautau_lephad/auxData/FakeFactors/WFR_FF.root bsmtautau_lephad/auxData/FakeFactors/WFRAll*FF.root
+python scripts/calculateFakeFactor.py AHZ-lephad OtherJetsTFR # use the hadd command which is output
+
 ```
 
 After obtaining the WFF/TFF, perform a closure test to check the modelling by applying the WFF/TFF back into the WFR/TFR.  
 
 ```bash
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptDebug.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-debug-FF-closure.sh
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptSubmit.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-submit-FF-closure.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptMerge.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-merge-FF-closure.sh
 
 # Visualize the plots
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/scriptVisualize.sh
+source AHZ-lephad/config/OtherJetsTFR/visualize-FF-closure.sh
 ```
 
 It is found that lepton $`p_{\textrm{T}}`$ in the WFR is not well modelled.  
 Thus, a W+jets Scale Factor (WSF) is calculated and the closure test re-performed.  
 
-Additionally, it is observed that the b-tag category would suffer from strong mismodelling in tau $`p_{\textrm{T}}`$ due to the real top-quark contribution.  
-As such, the Top Scale Factor (TSF) derived from the real Top Control Region (TCR) selected with OS taus is required to obtain an accurate TFF.  
-However, since the TFF would form a contribution in the TCR, the TFF is instead assumed to be the same as the WFF from the b-veto category.  
-Once the TSF has been calculated, the TFF (now the same as the WFF) can then be reweighted to give more accurate modelling in the b-tag category.  
-But since the TFF itself is no longer being directly used, it still turns out that the dependence on tau $`p_{\textrm{T}}`$ between the b-veto and b-tag categories are not too dissimilar.  
-As such, the WFF is applied in the b-tag category with an additional normalisation factor, defined as the ratio of the overall (single bin) FF between the original TFF and the WFF.  
-These normalisation factors are evaluated separately for 1-prong and 3-prong taus.  
 
 ```bash
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateScaleFactor.py WFR
-hadd -f bsmtautau_lephad/auxData/ScaleFactors/WFR_SF.root bsmtautau_lephad/auxData/ScaleFactors/WFRAll*SF.root
-
-# Calculate the scale factors based on the histograms
-# Merge into a single ROOT file
-python scripts/calculateScaleFactor.py TCR
-hadd -f bsmtautau_lephad/auxData/ScaleFactors/TCR_SF.root bsmtautau_lephad/auxData/ScaleFactors/TCRAll*SF.root
+python scripts/calculateScaleFactor.py AHZ-lephad # use the hadd command which is output
 
 # Debug test the analysis before submitting the jobs to a cluster
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptDebug.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-debug-FF-SF-closure.sh 
 
 # Submit the full analysis to a cluster
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptSubmit.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-submit-FF-SF-closure.sh
 
 # After all jobs are finished successfully, merge the output
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptMerge.sh
+source AHZ-lephad/config/OtherJetsTFR/analyze-merge-FF-SF-closure.sh
 
 # Visualize the plots
-source bsmtautau_lephad/config-WjetsFakeRegion/applyFF/applySF/scriptVisualize.sh
+source AHZ-lephad/config/OtherJetsTFR/visualize-FF-SF-closure.sh
 ```

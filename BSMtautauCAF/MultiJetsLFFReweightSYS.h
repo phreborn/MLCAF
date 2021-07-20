@@ -1,18 +1,18 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __LEPTONFAKESREWEIGHT__
-#define __LEPTONFAKESREWEIGHT__
+#ifndef __MultiJetsLFFReweightSYS__
+#define __MultiJetsLFFReweightSYS__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class LeptonFakesReweight : public LepHadObservable {
+class MultiJetsLFFReweightSYS : public LepHadObservable {
 
   public:
 
-    ClassDef(LeptonFakesReweight, 1);
+    ClassDef(MultiJetsLFFReweightSYS, 1);
   
-    LeptonFakesReweight();
-    LeptonFakesReweight(const TString& expression);
-    ~LeptonFakesReweight();
+    MultiJetsLFFReweightSYS();
+    MultiJetsLFFReweightSYS(const TString& expression);
+    ~MultiJetsLFFReweightSYS();
 
     virtual bool hasExpression() const override;
     virtual const TString& getExpression() const override;

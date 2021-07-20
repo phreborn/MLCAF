@@ -44,3 +44,8 @@ $printline("Applying analyze tags...");
 <ntupleTreeName = "mcOtherJetsFake"> @ /bkg/?/?/mcFake;
 <ntupleTreeName = "MultiJetsFake"> @ /bkg/?/?/MultiJetsFake;
 <ntupleTreeName = "ddOtherJetsFake"> @ /bkg/?/?/ddOtherJetsFake;
+
+#<ntupleTreeName = "data1516"> @ /data/?/c16a/;
+#<ntupleTreeName = "data17"> @ /data/?/c16d/;
+#<ntupleTreeName = "data18"> @ /data/?/c16e/;
+

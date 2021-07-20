@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
     echo -e "\e[91mNo access type specified!\e[39m" >&2
     return 1
 else
-    ACCESS_TYPES=("local" "eosuser" "eosatlas")
+    ACCESS_TYPES=("local" "eosuser" "eosatlas" "grid")
     if [[ ! "${ACCESS_TYPES[*]}" =~ $1 ]]; then
         echo -e "\e[91mUnsupported access type '$1'!\e[39m" >&2
         echo -e "\e[91mPlease specify from: ${ACCESS_TYPES[*]}\e[39m" >&2
@@ -20,15 +20,25 @@ else
 fi
 
 if [ -z "$2" ]; then
-    echo -e "\e[91mNo location specified!\e[39m"
+    echo -e "\e[91mNo location/release specified!\e[39m"
     return 1
 else
-    NTUPLE_PATH="$2"
+    if [ "${ACCESS_TYPE}" == "grid" ]; then
+        RELEASE="$2"
+    else
+        NTUPLE_PATH="$2"
+    fi
 fi
+
 
 # declare global variables and functions
 STORAGE_DIR="${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/samples/inputFileLists"
 OUTPUT_BASE="${STORAGE_DIR:?}/FileList"
+
+if [ "${ACCESS_TYPE}" == "grid" ]; then
+     python $STORAGE_DIR/getGridSamples.py $RELEASE
+
+fi
 
 collect_samples_local() {
     local INPUT="$1"
@@ -43,6 +53,10 @@ collect_samples_remote() {
     xrdfs "${XRD_ADDRESS:?}" ls -R -u "${NTUPLE_PATH:?}/${INPUT:?}" | grep ".root"
 }
 
+collect_samples_grid() {
+    local INPUT="$1"
+    find -L "${STORAGE_DIR:?}/${RELEASE}/${INPUT:?}" -type f -name "*.root*"
+}
 # apply access type
 COLLECT_SAMPLES=""
 
@@ -50,6 +64,8 @@ if [ "${ACCESS_TYPE}" == "local" ]; then
     COLLECT_SAMPLES="collect_samples_local"
 elif [[ "${ACCESS_TYPE}" == "eos"* ]]; then
     COLLECT_SAMPLES="collect_samples_remote"
+elif [ "${ACCESS_TYPE}" == "grid" ]; then
+    COLLECT_SAMPLES="collect_samples_grid"
 fi
 
 # begin collecting samples
@@ -72,3 +88,5 @@ for TYPE in "nom" "sys"; do
 done
 
 echo -e "\e[92mDone!\e[39m"
+
+

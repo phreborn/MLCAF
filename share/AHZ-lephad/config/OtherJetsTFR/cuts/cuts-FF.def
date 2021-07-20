@@ -111,20 +111,43 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
     }
 }
 
-
-
-@ */Cut*MT {
-    +Cut$(CHARGE)$(BJET)$(MT)1p {
+### Split OS and SS up to prevent OS low and high mT categories which will be meaningless (save on processing)
+@ */CutOS*MediumMT {
+    +CutOS$(BJET)MediumMT1p {
         <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(MT)1p", PRONG="1p">
     }
 
-    +Cut$(CHARGE)$(BJET)$(MT)3p {
+    +CutOS$(BJET)MediumMT3p {
+        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(MT)3p", PRONG="3p">
+    }
+}
+
+@ */CutSS*MT {
+    +CutSS$(BJET)$(MT)1p {
+        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(MT)1p", PRONG="1p">
+    }
+
+    +CutSS$(BJET)$(MT)3p {
         <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(MT)3p", PRONG="3p">
     }
 }
 
 
+# Pass/Fail, split up again 
+#OS
+@ */CutOS*MediumMT*p {
+    +CutOS$(BJET)MediumMT$(PRONG)PassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="OS$(BJET)MediumMT$(PRONG)PassTauID",
+         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1">
+    }
 
+    +CutOS$(BJET)MediumMT$(PRONG)FailTauID {
+        <.cutExpression="$(isFailID)", .title="OS$(BJET)MediumMT$(PRONG)FailTauID",
+         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+    }
+}
+
+#SS
 @ */Cut*p {
     +Cut$(CHARGE)$(BJET)$(MT)$(PRONG)PassTauID {
         <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="$(CHARGE)$(BJET)$(MT)$(PRONG)PassTauID",

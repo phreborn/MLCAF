@@ -6,3 +6,6 @@
 	path = share/scripts/AtlasStyle
 	url = ../../atlas-publications-committee/atlasrootstyle
     branch = master
+[submodule "SubmissionHelpers"]
+	path = SubmissionHelpers
+	url = ../../atlas-caf/SubmissionHelpers

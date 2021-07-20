@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REGION="SR"
-TASK="nominal"
+TASK="alternateFR"
 
 # Configuration of the analyze stage
 CONFIG="AHZ-lephad/config/${REGION}/master/analyze-${TASK}.cfg"

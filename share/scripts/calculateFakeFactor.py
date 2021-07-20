@@ -201,7 +201,7 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
   FF_nom_down.SetName(FF_nom.GetName()+'_down')
   checkNegative(FF_nom_down)
 
-  outfile = TFile(analysis+'-lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile(analysis+'/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   FF_nom.Write()
   FF_nom_up.Write()
@@ -219,9 +219,9 @@ if __name__=='__main__':
 
   import sys
   # argument
-  if len(args)==1:
-    print 'You must submit an argument REGION: \n\t WFR; \n\t LFR; \n\t etc.'
-    print 'And an argument ANALYSIS: \n\t bsmtautau; \n\t lqtaub; \n\t etc.'
+  if len(args)==1: ##### Change
+    print 'You must submit an argument REGION: \n\t MultiJetsLFR; \n\t OtherJetsTFR; \n\t etc.'
+    print 'And an argument ANALYSIS: \n\t AHZ-lephad; \n\t etc.'
     sys.exit()
   analysis = args[0]
   region   = args[1]
@@ -241,9 +241,9 @@ if __name__=='__main__':
 
   # decide which file is needed:
   if region == 'OtherJetsTFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-lephad-OtherJetsTFR-FF.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF.root'
   elif region == 'MultiJetsLFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-lephad-MultiJetsLFR-FF.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF.root'
   else:
     print ("ERROR: unsupported region: ", region)
     sys.exit()
@@ -283,6 +283,8 @@ if __name__=='__main__':
         calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT3pPassTauID', 'CutSSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT3p", 0.1,0.1)
         calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT1pPassTauID', 'CutSSBtagMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBtagMediumMT1p", 0.1,0.1)
         calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT3pPassTauID', 'CutSSBtagMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBtagMediumMT3p", 0.1,0.1)
+
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/FakeFactors/OtherJetsTFR_FF.root AHZ-lephad/auxData/FakeFactors/OtherJetsTFRAll*.root\033[0m")
   
   elif region == 'QCDTFR':
     # Loop over data taking period and channels
@@ -334,7 +336,7 @@ if __name__=='__main__':
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Top+Diboson+Wjets]'.format(channel_path, period_path)
         
-        prefix = region+"NoTopCorrection"+period_name+channel_name
+        prefix = region+"TopCorrected"+period_name+channel_name
         # 2D FF
         calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
         calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
@@ -344,4 +346,5 @@ if __name__=='__main__':
         calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
         calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
         calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
-        
+
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root AHZ-lephad/auxData/FakeFactors/MultiJetsLFR*All*FF.root\033[0m")

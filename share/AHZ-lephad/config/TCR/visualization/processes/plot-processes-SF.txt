@@ -11,7 +11,7 @@
 .name="WjetsReal",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
 .name="TopReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
 .name="ZtautauReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
-.name="ZllReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/ll"
+.name="ZllReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]"
 .name="DibosonReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
 .path="|"
 .name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"

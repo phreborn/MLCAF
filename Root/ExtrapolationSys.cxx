@@ -67,8 +67,10 @@ double ExtrapolationSys::getValue() const {
   else if (1 <= f_n_bjets) region = "Btag";
   else std::cout << "ERROR: strange #bjets" << std::endl;
 
-  if ( 1 == f_tau_0_n_charged_tracks) region += "1p";
-  else if ( 3 == f_tau_0_n_charged_tracks) region += "3p";
+
+  TString prong = "";
+  if ( 1 == f_tau_0_n_charged_tracks) prong = "1p";
+  else if ( 3 == f_tau_0_n_charged_tracks) prong = "3p";
   else return 1.0;
 
   // peiriod: Combined or Separated
@@ -76,17 +78,10 @@ double ExtrapolationSys::getValue() const {
   
   // parameterization
   // dphi 1,2,3 in bveto/btag category
-  TString param = "";
-  if (0 == f_n_bjets) {
-    if (f_lephad_met_lep1_cos_dphi>=0.0&&f_lephad_met_lep1_cos_dphi<1) param = "TauPtDphi1";
-    else if (f_lephad_met_lep1_cos_dphi>=1&&f_lephad_met_lep1_cos_dphi<2) param = "TauPtDphi2";
-    else if (f_lephad_met_lep1_cos_dphi>=2) param = "TauPtDphi3";
-  }
-  else {
-    param = "TauPt";
-  }
+  TString param = "LowMT";
 
-  TString histName = "VR"+ period + channel + region + param + "SF";
+
+  TString histName = "SSExtrap"+ period + channel + region + param + "SF";
   
   TH1F * h_nominal = 0;
   
@@ -163,13 +158,9 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
   INFOclass("Loading file...");
 
-  TString signalProcess = "";
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
-    ERRORclass("AnaChannel not set !!!");
-  }
-  TFile* aFile= TFile::Open(signalProcess+"_lephad/auxData/ScaleFactors/VR_SF.root");
+  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/Extrap_SF.root");
   if (!aFile) {
-    ERRORclass("Can not find VR_SF.root");
+    ERRORclass("Can not find SSExtrap_SF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
