@@ -108,7 +108,7 @@ void MatTransCorrection::setExpression(const TString& expr){
 bool MatTransCorrection::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.material)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
   return true;
 }

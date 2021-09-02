@@ -56,10 +56,18 @@ def addSystematicVariations(c, sf, sysList, mcasvchannels):
         sf.printContents()
         return
 
+    with open("AHZ-lephad/auxData/variations/SysEqualNom.txt") as g:
+        dontCopy = g.read().splitlines()
+        dontCopy = [i for i in dontCopy if '#' not in i]
+
+
     for sys in sysList:
         sysName = sys['name']
         sysChannel = c + "_" + sysName
-        sysFolder = f.copy(sysChannel)
+        if sysChannel in dontCopy:
+            continue
+        else:
+            sysFolder = f.copy(sysChannel)
         if not sysFolder:
             QFramework.BREAK("unable to copy folder {:s} to new name {:s}".format(f.GetName(),sysName))
         sf.addFolder(sysFolder)
@@ -75,10 +83,10 @@ def addSystematicVariations(c, sf, sysList, mcasvchannels):
             treeName = sysName
 
             # treeName is sysName except for MET_SoftTrk_Scale
-            if sysName == "MET_SoftTrk_Scale_1up":
-                treeName = "MET_SoftTrk_ScaleUp"
-            elif sysName == "MET_SoftTrk_Scale_1down":
-                treeName = "MET_SoftTrk_ScaleDown"
+#            if sysName == "MET_SoftTrk_Scale_1up":
+#                treeName = "MET_SoftTrk_ScaleUp"
+ #           elif sysName == "MET_SoftTrk_Scale_1down":
+  #              treeName = "MET_SoftTrk_ScaleDown"
 
             for sample in sysFolder.getListOfSamples():
                 if sample.hasTag(".init.treename"):

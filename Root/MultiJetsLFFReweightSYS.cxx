@@ -117,13 +117,13 @@ double MultiJetsLFFReweightSYS::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  if    ( (fSysName.Contains("FakeFactor_QCDReweight_MuHadBtag_1up")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_QCDReweight_MuHadBveto_1up")   && f_n_bjets==0 )) {
+  if    ( (fSysName.Contains("FakeFactor_MFR_Reweight_MuBtag_1up")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_MFR_Reweight_MuBveto_1up")   && f_n_bjets==0 )) {
     //retval = retval+fabs(retval-1.0)/2.0;
     retval = retval+fabs(retval-1.0);
   }
-  else if((fSysName.Contains("FakeFactor_QCDReweight_MuHadBtag_1down")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_QCDReweight_MuHadBveto_1down")   && f_n_bjets==0 )) {
+  else if((fSysName.Contains("FakeFactor_MFR_Reweight_MuBtag_1down")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_MFR_Reweight_MuBveto_1down")   && f_n_bjets==0 )) {
     retval = retval-fabs(retval-1.0);
   }
 
@@ -199,7 +199,7 @@ void MultiJetsLFFReweightSYS::setExpression(const TString& expr){
 bool MultiJetsLFFReweightSYS::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lsf)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
   return true;
 }

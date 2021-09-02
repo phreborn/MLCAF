@@ -1,0 +1,83 @@
+## put this patch during the merge step to reduce the merged file size. syntax should be something like that ## tqmerge -t analyze merged.root unmergedfile*.root --downmerge generalize --patch downmerge.txt --patch trimmingAfterPooling.txt 
+
+
+<generalize.histograms=true> @data/?/?;
+<generalize.histograms=true> @sig/?/?/ggH/?/?;
+<generalize.histograms=true> @sig/?/?/bbH/?/?;
+<generalize.histograms=true> @sig/?/?/LQ/?/?;
+<generalize.histograms=true> @sig/?/?/ZPrime/?/?;
+<generalize.histograms=true> @bkg/?/?/mcReal/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/mcReal/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/mcReal/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/mcReal/Diboson/?/?;
+
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/data/?/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcFake/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcFake/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcFake/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcFake/Diboson/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcReal/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcReal/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcReal/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcReal/Diboson/?;
+
+#<generalize.histograms=true> @bkg/?/?/MultiJetsFake/data;
+#<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcFake;
+#<generalize.histograms=true> @bkg/?/?/MultiJetsFake/mcReal/;
+
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/data/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/mcReal/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/mcReal/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/mcReal/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/mcReal/Diboson/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/data/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Diboson/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Diboson/?;
+
+#<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/data;
+#<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/mcReal;
+#<generalize.histograms=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake;
+
+<generalize.cutflow=true> @data/?/?;
+<generalize.cutflow=true> @sig/?/?/ggH/?/?;
+<generalize.cutflow=true> @sig/?/?/bbH/?/?;
+<generalize.cutflow=true> @sig/?/?/LQ/?/?;
+<generalize.cutflow=true> @sig/?/?/ZPrime/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcReal/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcReal/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcReal/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcReal/Diboson/?/?;
+
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/data/?/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcFake/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcFake/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcFake/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcFake/Diboson/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcReal/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcReal/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcReal/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mcReal/Diboson/?;
+
+
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/data/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/mcReal/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/mcReal/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/mcReal/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/mcReal/Diboson/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/data/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcFake/Diboson/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/ddOtherJetsFake/MultiJetsFake/mcReal/Diboson/?;
+
+

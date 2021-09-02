@@ -1,0 +1,12 @@
+## put this patch during the merge step to reduce the merged file size. syntax should be something like that
+## tqmerge -t analyze merged.root unmergedfile*.root --downmerge generalize --patch downmergingfile.txt --patch trimmingAfterPooling.txt 
+
+# delete cutflows for individual samples first
+$delete(*/.cutflow/../?/*/.cutflow!, skipsilent=true);
+#$delete("*/.cutflow/initial-");
+
+# delete all samplefolders recursively starting from the layer where the cutflows were pooled to
+@*/.cutflow/../ {$delete(?!, filter=sf);}
+
+
+

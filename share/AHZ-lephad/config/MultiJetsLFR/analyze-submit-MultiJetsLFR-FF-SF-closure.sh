@@ -11,4 +11,5 @@ IDENTIFIER=${TASK}
 # Job list
 JOBLIST="jobs_MultiJetsLFR-FF-closure_c16a.txt jobs_MultiJetsLFR-FF-closure_c16d.txt jobs_MultiJetsLFR-FF-closure_c16e.txt"
 
-source "${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/submit.sh" 
+source "${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/submit.sh" "${CONFIG}" "${IDENTIFIER}" "${JOBLIST}"
+

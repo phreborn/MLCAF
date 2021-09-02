@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # common config
-SAMPLEBASE="sampleFolders/analyzed/samples-analyzed-bsmtautau_lephad_sr"
+SAMPLEBASE="sampleFolders/analyzed/samples-analyzed-AHZ-lephad-SR-FF"
 
 # handle arguments
 if [ -z "$*" ]; then
@@ -23,7 +23,10 @@ for ARG in "$@"; do
         # merge individual sys
         echo "Merging systematic: ${ARG}"
         tqmerge -t analyze \
-            batchOutput/unmerged_SRsys"${ARG}"/*.root \
-            -o "${SAMPLEBASE}"_sys_"${ARG}".root
+            batchOutput/unmerged_SYS-"${ARG}"-FF/*.root \
+            -o "${SAMPLEBASE}"-SYS-"${ARG}".root \
+            --downmerge generalize \
+            --patch AHZ-lephad/config/common/patches/downmerge.txt \
+            --patch AHZ-lephad/config/common/patches/trimmingAfterPooling.txt
     fi
 done

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# receive arguments
+CONFIG=$1
+IDENTIFIER=$2
+JOBSLIST=$3
+
 # Job submission
 OPTIONS=()
 if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
@@ -13,19 +18,21 @@ else
 fi
 
 
-JOBFILE="/tmp/${USER}/${IDENTIFIER}.list"
-rm -f "${JOBFILE:?}"
-for job in ${JOBLIST}
-do
-  cat AHZ-lephad/config/common/jobLists/${job} >> ${JOBFILE}
+JOBSFILE="/tmp/${USER}/${IDENTIFIER}.list"
+rm -f "${JOBSFILE:?}"
+
+for LIST in ${JOBSLIST}; do
+    cat "${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/jobLists/${LIST}" >> "${JOBSFILE}"
 done
 
-    #--mergeConfig AHZ-lephad/common/submission/merge.cfg \
-submit.py ${CONFIG} \
-    --jobs ${JOBFILE} \
-    --identifier ${IDENTIFIER} \
-    --allowArgChanges \
-    --time 4320 --memory 1024 \
-    "${OPTIONS[@]}"
 
-rm -f "${JOBFILE:?}"
+    #--mergeConfig AHZ-lephad/common/submission/merge.cfg 
+submit.py "${CONFIG}" \
+    --jobs "${JOBSFILE}" \
+    --identifier "${IDENTIFIER}" \
+    --allowArgChanges \
+#    --maxSampleSize 3000 \
+    --time 4320 --memory 1024 \
+#    --mergeConfig "AHZ-lephad/common/submission/merge.cfg" "${OPTIONS[@]}"
+
+rm -f "${JOBSFILE:?}"

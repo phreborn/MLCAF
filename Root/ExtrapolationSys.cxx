@@ -81,7 +81,10 @@ double ExtrapolationSys::getValue() const {
   TString param = "LowMT";
 
 
-  TString histName = "SSExtrap"+ period + channel + region + param + "SF";
+  TString histName = "SSExtrap"+ period + channel + region + param + prong + "SF";
+
+
+
   
   TH1F * h_nominal = 0;
   
@@ -102,38 +105,26 @@ double ExtrapolationSys::getValue() const {
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
   if    ( 
-          (fSysName.Contains("FakeFactor_ExtraSysBtag_1up")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag1p_1up")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag3p_1up")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag1p_1up")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag3p_1up")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto_1up")   && f_n_bjets==0 ) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) || 
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto1p_1up") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto3p_1up") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) || 
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto1p_1up") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto3p_1up") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto1p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto3p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag1p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag3p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto1p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto3p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag1p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag3p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1)
         ) {
     retval = 1.0+fabs(retval-1.0);
   }
   else if(
-          (fSysName.Contains("FakeFactor_ExtraSysBtag_1down")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBtag3p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag1p_1down")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBtag3p_1down")  && f_lep_0 == 2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag1p_1down")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBtag3p_1down")  && f_lep_0 == 1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto_1down")   && f_n_bjets==0 ) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) ||   
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto1p_1down") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysElHadBveto3p_1down") && f_lep_0 == 2 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3) || 
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto1p_1down") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
-          (fSysName.Contains("FakeFactor_ExtraSysMuHadBveto3p_1down") && f_lep_0 == 1 && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto1p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto3p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag1p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag3p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto1p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto3p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag1p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag3p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1)
           ) {
     retval = 1.0-fabs(retval-1.0);
   }
@@ -204,7 +195,7 @@ void ExtrapolationSys::setExpression(const TString& expr){
 bool ExtrapolationSys::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.vsf)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
   return true;
 }

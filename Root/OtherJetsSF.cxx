@@ -67,7 +67,7 @@ TObjArray* OtherJetsSF::getBranchNames() const {
 bool OtherJetsSF::initializeSelf() {
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsSF", false) ) return true;
   if (! LepHadObservable::initializeSelf()) return false;
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
   return true;
 }
@@ -171,25 +171,93 @@ double OtherJetsSF::getValue() const {
   histName += "SF";
 
   // -- obtain the histogram
-  TH1F* hist = nullptr;
+  TH1F * h_nominal = 0;
+  TH1F * h_up = 0;
+  TH1F * h_down = 0;
 
   auto it = m_SF_hist.find(histName); 
-  if ( it != m_SF_hist.end() ) {
-    hist = it->second;
-  }
-
-  if (hist) {
-    int binID = std::min(hist->FindFixBin(variable), hist->GetNbinsX());
-    if (binID == 0) binID = 1;
-
-    return hist->GetBinContent(binID);
-  }
+  if ( it != m_SF_hist.end() ) h_nominal = it->second;
   else {
-    std::cout << "ERROR! Unavailable FF: " << histName << std::endl;
-    for (auto item : m_SF_hist) {
-      std::cout << "Available FF: " << item.first << std::endl;
-    }
+    std::cout << "ERROR! Unavailable SF: " << histName << std::endl;
+    for (auto item : m_SF_hist)
+      std::cout << "Available SF: " << item.first << std::endl;
   }
 
-  return 1.0;
+  it = m_SF_hist.find(histName+"_up"); 
+  if ( it != m_SF_hist.end() ) h_up = it->second;
+  else std::cout << "ERROR! Unavailable SF: " << histName+"_up" << std::endl;
+  
+  it = m_SF_hist.find(histName+"_down"); 
+  if ( it != m_SF_hist.end() ) h_down = it->second;
+  else std::cout << "ERROR! Unavailable SF: " << histName+"_down" << std::endl;
+  
+
+  float f_tau_0_pt = this->tau_0_pt->EvalInstance();
+  int f_n_bjets        = this->n_bjets->EvalInstance();
+  int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
+  int f_lep_0 = this->lep_0_pt->EvalInstance();
+
+  // SF is a function of tau pT
+  int binID = std::min(h_nominal->FindBin(f_tau_0_pt), h_nominal->GetNbinsX());
+  if (binID == 0) binID = 1;
+
+  float retval = h_nominal->GetBinContent(binID);
+  float retval_up = h_up->GetBinContent(binID);
+  float retval_down = h_down->GetBinContent(binID);
+  float retval_error = fabs(retval_up - retval_down)/2.0;
+
+
+  ///////////////////////////////////////////////////////////////
+  // systematic uncertainty
+  ///////////////////////////////////////////////////////////////
+  if    ( 
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Bveto1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Bveto3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
+        ) {
+    if (f_n_bjets == 0)
+      retval = retval+fabs(retval-1.0);
+    else 
+      retval = 1.0+fabs(retval-1.0);
+  }
+  else if(
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Bveto1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Bveto3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) || 
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
+         ) {
+    if (f_n_bjets ==0 )
+      retval = retval-fabs(retval-1.0);
+    else 
+      retval = 1.0-fabs(retval-1.0);  
+  }
+  // no correction to btag
+  else if (f_n_bjets > 0) {
+    retval = 1.0;
+  }
+
+  return retval;
+
+
+  DEBUGclass("returning");
+
+  return retval;
+
 }

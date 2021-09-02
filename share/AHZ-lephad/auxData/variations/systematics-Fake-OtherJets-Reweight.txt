@@ -1,0 +1,7 @@
+#name                                                           type        variation
+FakeFactor_MFRReweight_ElBveto                                  weight      two
+FakeFactor_MFRReweight_ElBtag                                   weight      two
+FakeFactor_MFRReweight_MuBveto                                  weight      two
+FakeFactor_MFRReweight_MuBtag                                   weight      two
+
+

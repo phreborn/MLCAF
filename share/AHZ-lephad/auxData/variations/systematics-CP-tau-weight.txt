@@ -1,0 +1,13 @@
+#name                                                  type        variation
+# Tau: 10 
+TAUS_TRUEHADTAU_EFF_RECO_TOTAL                         weight      two               
+TAUS_TRUEHADTAU_EFF_ELEOLR_TOTAL                       weight      two                   
+TAUS_TRUEELECTRON_EFF_ELEOLR_STAT                      weight      two                       
+TAUS_TRUEELECTRON_EFF_ELEOLR_SYST                      weight      two                   
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025         weight      two                       
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530         weight      two                
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040         weight      two                       
+TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40         weight      two                           
+TAUS_TRUEHADTAU_EFF_RNNID_SYST                         weight      two                           
+TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT                       weight      two                           
+

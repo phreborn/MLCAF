@@ -20,7 +20,7 @@ protected:
   virtual bool initializeSelf() override;
   virtual bool finalizeSelf() override;
 
-  const TH1F* getFakeFactorHist() const;
+  auto getFakeFactorHist() const;
 
   TString fExpression = "";
   TString fSysName = "";

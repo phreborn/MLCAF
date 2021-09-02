@@ -64,7 +64,7 @@ TObjArray* MCOtherJetsTFF::getBranchNames() const {
 bool MCOtherJetsTFF::initializeSelf() {
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMCOtherJetsTFF", false) ) return true;
   if (! LepHadObservable::initializeSelf()) return false;
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
   return true;
 }
