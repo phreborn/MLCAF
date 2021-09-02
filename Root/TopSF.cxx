@@ -64,7 +64,7 @@ TObjArray* TopSF::getBranchNames() const {
 bool TopSF::initializeSelf() {
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyTopSF", false) ) return true;
   if (! LepHadObservable::initializeSelf()) return false;
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
   return true;
 }
@@ -78,7 +78,7 @@ bool TopSF::finalizeSelf() {
 
 
 
-const TH1F* TopSF::getFakeFactorHist() const {
+auto TopSF::getFakeFactorHist() const {
   // determine which SF hist we want: All
   TString histName = "TCR";
 
@@ -98,7 +98,6 @@ const TH1F* TopSF::getFakeFactorHist() const {
   }
   else {
     ERRORclass("Unknown TopSFPeriod tag");
-    return nullptr;
   }
 
   float f_lephad_dphi = this->lephad_dphi->EvalInstance();
@@ -108,19 +107,30 @@ const TH1F* TopSF::getFakeFactorHist() const {
   else if (f_lephad_dphi>1.8) {
     histName += "lephad2bTVRNoTauIDMediumMTStSF2";
   }
+// -- Get up down and nominal histos
+  const TH1F * h_nominal = 0;
+  const TH1F * h_up = 0;
+  const TH1F * h_down = 0;
 
   auto it = m_FF_hist.find(histName); 
-  if ( it != m_FF_hist.end() ) {
-    return it->second;
-  }
+  if ( it != m_FF_hist.end() ) h_nominal = it->second;
   else {
     std::cout << "ERROR! Unavailable FF: " << histName << std::endl;
     for (auto item : m_FF_hist) {
       std::cout << "Available FF: " << item.first << std::endl;
     }
-  } 
-  
-  return nullptr;
+  }
+
+  it = m_FF_hist.find(histName+"_up");
+  if ( it != m_FF_hist.end() ) h_up = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_up" << std::endl;
+ 
+  it = m_FF_hist.find(histName+"_down"); 
+  if ( it != m_FF_hist.end() ) h_down = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_down" << std::endl;
+
+  return std::make_tuple(h_nominal, h_up, h_down);
+
 }
 
 
@@ -133,16 +143,47 @@ double TopSF::getValue() const {
   }
   if (!apply) return 1.0;
   
+  const TH1F* h_nominal;
+  const TH1F* h_up;
+  const TH1F* h_down;
 
-  const TH1F* hist = getFakeFactorHist();
+  std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
+
 
   float f_lep_0_pt = this->lep_0_pt->EvalInstance();
+  int f_lep_0 = this->lep_0_pt->EvalInstance();
+  int f_n_bjets = this->n_bjets->EvalInstance();
   float f_tau_0_pt = this->tau_0_pt->EvalInstance();
   float f_jet_0_pt = this->jet_0_pt->EvalInstance();
   float st = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt;
 
-  int binID = std::min(hist->FindFixBin(st), hist->GetNbinsX());
+  int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
   if (binID == 0) binID = 1;
 
-  return hist->GetBinContent(binID);
+  float retval = h_nominal->GetBinContent(binID);
+  float retval_up = h_up->GetBinContent(binID);
+  float retval_down = h_down->GetBinContent(binID);
+  float retval_error = fabs(retval_up - retval_down)/2.0;
+
+
+  ///////////////////////////////////////////////////////////////
+  // systematic uncertainty
+  ///////////////////////////////////////////////////////////////
+  if ( (fSysName.Contains("FakeFactor_TCR_ElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_TCR_ElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
+       (fSysName.Contains("FakeFactor_TCR_MuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_TCR_MuBtag_1up") && f_lep_0==1 && f_n_bjets>0)  ) {
+    retval += retval_error;
+  }
+  else if(  (fSysName.Contains("FakeFactor_TCR_ElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_TCR_ElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
+            (fSysName.Contains("FakeFactor_TCR_MuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_TCR_MuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
+    retval -= retval_error;
+
+  }
+
+
+
+  return retval;
 }

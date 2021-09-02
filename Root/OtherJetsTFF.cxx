@@ -64,7 +64,7 @@ TObjArray* OtherJetsTFF::getBranchNames() const {
 bool OtherJetsTFF::initializeSelf() {
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsTFF", false) ) return true;
   if (! LepHadObservable::initializeSelf()) return false;
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(Variation)","~");
 
   return true;
 }
@@ -78,7 +78,7 @@ bool OtherJetsTFF::finalizeSelf() {
 
 
 
-const TH1F* OtherJetsTFF::getFakeFactorHist() const {
+auto OtherJetsTFF::getFakeFactorHist() const {
   // determine which FF hist we want: All
   TString histName = "OtherJetsTFR";
 
@@ -98,7 +98,6 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
   }
   else {
     ERRORclass("Unknown OtherJetsTFFPeriod tag");
-    return nullptr;
   }
 
   // -- channel: ehad/muhad
@@ -110,8 +109,7 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
   }
   else {
     ERRORclass("Unknown channel");
-    return nullptr;
-  }
+   }
 
   // -- charge: OS/SS
   if (this->lephad_qxq->EvalInstance() == -1) {
@@ -142,18 +140,30 @@ const TH1F* OtherJetsTFF::getFakeFactorHist() const {
   // -- parameterization
   histName += "TauPtFF";
 
+  // -- Get up down and nominal histos
+  const TH1F * h_nominal = 0;
+  const TH1F * h_up = 0;
+  const TH1F * h_down = 0;
+
   auto it = m_FF_hist.find(histName); 
-  if ( it != m_FF_hist.end() ) {
-    return it->second;
-  }
+  if ( it != m_FF_hist.end() ) h_nominal = it->second;
   else {
     std::cout << "ERROR! Unavailable FF: " << histName << std::endl;
     for (auto item : m_FF_hist) {
       std::cout << "Available FF: " << item.first << std::endl;
     }
-  } 
+  }
+
+  it = m_FF_hist.find(histName+"_up");
+  if ( it != m_FF_hist.end() ) h_up = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_up" << std::endl;
  
-  return nullptr;
+  it = m_FF_hist.find(histName+"_down"); 
+  if ( it != m_FF_hist.end() ) h_down = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_down" << std::endl;
+
+
+  return std::make_tuple(h_nominal, h_up, h_down);
 }
 
 
@@ -165,13 +175,65 @@ double OtherJetsTFF::getValue() const {
     ERRORclass("Can not get ApplyOtherJetsTFF tag");
   }
   if (!apply) return 1.0;
-  
 
-  const TH1F* hist = getFakeFactorHist();
+  const TH1F* h_nominal;
+  const TH1F* h_up;
+  const TH1F* h_down;
+
+  std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
+
 
   float f_tau_0_pt = this->tau_0_pt->EvalInstance();
-  int binID = std::min(hist->FindFixBin(f_tau_0_pt), hist->GetNbinsX());
+  int f_n_bjets        = this->n_bjets->EvalInstance();
+  int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
+
+  int binID = std::min(h_nominal->FindFixBin(f_tau_0_pt), h_nominal->GetNbinsX());
   if (binID == 0) binID = 1;
-  
-  return hist->GetBinContent(binID);
+
+  float retval = h_nominal->GetBinContent(binID);
+  float retval_up = h_up->GetBinContent(binID);
+  float retval_down = h_down->GetBinContent(binID);
+  float retval_error = fabs(retval_up - retval_down)/2.0;
+
+  ///////////////////////////////////////////////////////////////
+  // systematic uncertainty
+  ///////////////////////////////////////////////////////////////
+  float ratio_scale_1p = 0.862; // Needs re-evaluation
+  float ratio_scale_3p = 0.881;
+
+  if    ( (fSysName.Contains("FakeFactor_OtherJetsBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_OtherJetsBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_OtherJetsBveto1p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_OtherJetsBveto3p_1up") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
+    if (f_n_bjets>0 && f_tau_0_n_charged_tracks==1)
+      retval *= (ratio_scale_1p+0.262);
+    else if (f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
+      retval *= (ratio_scale_3p+0.262);
+    else
+      retval += retval_error;
+  }
+  else if((fSysName.Contains("FakeFactor_OtherJetsBtag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_OtherJetsBtag3p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
+          (fSysName.Contains("FakeFactor_OtherJetsBveto1p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==1) ||
+          (fSysName.Contains("FakeFactor_OtherJetsBveto3p_1down") && f_n_bjets==0 && f_tau_0_n_charged_tracks==3)    ) {
+    if (f_n_bjets>0 && f_tau_0_n_charged_tracks==1)
+      retval *= (ratio_scale_1p-0.262);
+    else if (f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
+      retval *= (ratio_scale_3p-0.262);
+    else
+      retval -= retval_error;
+  }
+  else {
+    if (f_n_bjets>0 && 1==f_tau_0_n_charged_tracks){
+      retval *= ratio_scale_1p;
+    }
+    else if (f_n_bjets>0 && 3==f_tau_0_n_charged_tracks){
+      retval *= ratio_scale_3p;
+    }
+  }
+
+  return retval;
+
+
+
 }

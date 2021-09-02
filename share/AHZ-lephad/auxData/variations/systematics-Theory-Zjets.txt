@@ -1,4 +1,4 @@
-name                                                   type        variation
+#name                                                   type        variation
 LPX_KFACTOR_ALPHAS_Corr                                weight      two                 
 LPX_KFACTOR_BEAM_ENERGY_Corr                           weight      two               
 LPX_KFACTOR_PI_Corr                                    weight      two                       

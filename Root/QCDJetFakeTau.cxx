@@ -197,7 +197,7 @@ void QCDJetFakeTau::setExpression(const TString& expr){
 bool QCDJetFakeTau::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
 
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lff)","~");
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
   return true;
 }

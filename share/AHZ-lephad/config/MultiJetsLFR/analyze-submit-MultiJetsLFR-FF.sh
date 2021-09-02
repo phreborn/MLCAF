@@ -1,4 +1,4 @@
-#!/bin/bash
+##!/bin/bash
 
 TASK="MultiJetsLFR-FF"
 
@@ -11,4 +11,4 @@ IDENTIFIER=${TASK}
 # Job list
 JOBLIST="jobs_${TASK}_c16a.txt jobs_${TASK}_c16d.txt jobs_${TASK}_c16e.txt"
 
-source "${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/submit.sh" 
+source "${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/submit.sh" "${CONFIG}" "${IDENTIFIER}" "${JOBLIST}"

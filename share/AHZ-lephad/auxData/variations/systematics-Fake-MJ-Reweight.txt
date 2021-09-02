@@ -1,0 +1,3 @@
+#name                                                            type        variation
+FakeFactor_MFR_Reweight_MuBveto                                  weight      two
+FakeFactor_MFR_Reweight_MuBtag                                   weight      two
