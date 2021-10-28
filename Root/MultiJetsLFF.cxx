@@ -100,6 +100,10 @@ auto MultiJetsLFF::getFakeFactorHist() const {
     ERRORclass("Unknown LFFPeriod tag");
   }
 
+  // We use the muhad uncertainty to the fake factors regardless of channel
+  TString histNameSYS = histName.Copy();
+  histNameSYS += "muhad";
+
   // -- channel: ehad/muhad
   if (isMuon()) {
     histName += "muhad";
@@ -113,22 +117,27 @@ auto MultiJetsLFF::getFakeFactorHist() const {
 
   // -- charge: OS/SS, use SS for now
   histName += "SS";
+  histNameSYS += "SS";
 
   // -- category: Bveto/Btag
   if (bjetCount()>=1) {
     histName += "Btag";
+    histNameSYS += "Btag";
   }
   else {
     histName += "Bveto";
+    histNameSYS += "Bveto";
   }
 
   // -- parameterization
   float f_lep_0_eta = this->lep_0_eta->EvalInstance();
   if (std::abs(f_lep_0_eta)<=1.52) {
     histName += "LeptonPtCentralFF";
+    histNameSYS += "LeptonPtCentralFF";
   }
   else {
     histName += "LeptonPtForwardFF";
+    histNameSYS += "LeptonPtForwardFF";
   }
 
   // -- Get up down and nominal histos

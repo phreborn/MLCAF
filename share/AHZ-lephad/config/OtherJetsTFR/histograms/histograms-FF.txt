@@ -28,8 +28,10 @@ TH1F('MTTOT', '', {30,40,60,70,80,90,100,114,134,162,200,250,362,600}) << (MTtot
 
 # Fake Factor
 TH1F('TauPtFF','', {25,30,35,40,45,50,60,70,90,120,200,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
-TH1F('TauPtSF','', {25,30,35,40,45,50,60,70,90,120,200,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
-TH1F('LeptonPtSF', '', {30,35,40,45,50,60,70,90,120,200,300}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
+TH1F('BTBinTauPtFF','', {25,30,35,40,45,50,60,100,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('TauPtSF','', {25,30,35,40,45,50,60,70,90,150,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('LeptonPtSF', '', {30,35,40,45,50,60,70,90,150,300}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
 TH1F('METSF', '', {0,10,20,25,30,35,40,45,50,60,80,120,300}) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
 TH1F('MTLepMETSF', '', {0,10,20,30,40,50,60,70,80,90,100,110,120,150,220,300}) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
-@Cut*ID: TauPtFF,TauPtSF,LeptonPtSF,METSF,MTLepMETSF;
+@Cut*Bveto*ID: TauPtFF,TauPtSF,LeptonPtSF,METSF,MTLepMETSF;
+@Cut*Btag*ID: BTBinTauPtFF,TauPtSF,LeptonPtSF,METSF,MTLepMETSF;

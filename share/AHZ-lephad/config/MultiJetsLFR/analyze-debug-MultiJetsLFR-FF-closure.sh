@@ -7,5 +7,5 @@ if [ "${GITLAB_CI}" == "true" ]; then
 fi
 
 analyze.py AHZ-lephad/config/MultiJetsLFR/master/analyze-MultiJetsLFR-FF-closure.cfg --debug \
-      --restrict /bkg/?/c16a/MultiJetsFake/mcReal/Top/single \
+      --restrict /bkg/?/c16a/MultiJetsFake/mc/Top/single \
       "${CI_OPTS[@]}"

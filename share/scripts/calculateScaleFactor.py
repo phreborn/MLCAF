@@ -240,7 +240,7 @@ if __name__=='__main__':
   elif region == 'MultiJetsLFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
   elif region == 'SSExtrap':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF.root'
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
@@ -361,6 +361,13 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoLowMT', 'BvetoLowMT3pSF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagLowMT1pSF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagLowMT3pSF', prefix, 0.1, 0.1)
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoLowMT', 'BvetoTauPt1pSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoLowMT', 'BvetoTauPt3pSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagTauPt1pSF', prefix, 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagTauPt3pSF', prefix, 0.1, 0.1)
+
+
     print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root AHZ-lephad/auxData/ScaleFactors/SSExtrapAll*.root\033[0m")
 
   elif region == 'TCR':

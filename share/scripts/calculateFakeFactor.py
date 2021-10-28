@@ -276,13 +276,13 @@ if __name__=='__main__':
         
         calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT1pPassTauID', 'CutOSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT1p", 0.1,0.1)
         calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT3pPassTauID', 'CutOSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT3p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT1pPassTauID', 'CutOSBtagMediumMT1pFailTauID', 'TauPtFF', prefix+"OSBtagMediumMT1p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT3pPassTauID', 'CutOSBtagMediumMT3pFailTauID', 'TauPtFF', prefix+"OSBtagMediumMT3p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT1pPassTauID', 'CutOSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT3pPassTauID', 'CutOSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT3p", 0.1,0.1)
         
         calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT1pPassTauID', 'CutSSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT1p", 0.1,0.1)
         calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT3pPassTauID', 'CutSSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT3p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT1pPassTauID', 'CutSSBtagMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBtagMediumMT1p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT3pPassTauID', 'CutSSBtagMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBtagMediumMT3p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT1pPassTauID', 'CutSSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT3pPassTauID', 'CutSSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT3p", 0.1,0.1)
 
     print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/FakeFactors/OtherJetsTFR_FF.root AHZ-lephad/auxData/FakeFactors/OtherJetsTFRAll*.root\033[0m")
   

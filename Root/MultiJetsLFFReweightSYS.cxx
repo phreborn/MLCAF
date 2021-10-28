@@ -56,7 +56,7 @@ double MultiJetsLFFReweightSYS::getValue() const {
   ///////////////////////////////////////////////////////////////
   // channel: only apply correction to muhad channel
   TString channel = "";
-  if (1==f_lep_0) channel = "muhad";
+  if (1==f_lep_0) channel = "Ehad";
   else if (2==f_lep_0) return 1.0;
   
   // region: bveto or btag
@@ -117,13 +117,13 @@ double MultiJetsLFFReweightSYS::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  if    ( (fSysName.Contains("FakeFactor_MFR_Reweight_MuBtag_1up")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_MFR_Reweight_MuBveto_1up")   && f_n_bjets==0 )) {
+  if    ( (fSysName.Contains("FakeFactor_MFR_Reweight_ElBtag_1up")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_MFR_Reweight_ElBveto_1up")   && f_n_bjets==0 )) {
     //retval = retval+fabs(retval-1.0)/2.0;
     retval = retval+fabs(retval-1.0);
   }
-  else if((fSysName.Contains("FakeFactor_MFR_Reweight_MuBtag_1down")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_MFR_Reweight_MuBveto_1down")   && f_n_bjets==0 )) {
+  else if((fSysName.Contains("FakeFactor_MFR_Reweight_ElBtag_1down")    && f_n_bjets>0) ||
+          (fSysName.Contains("FakeFactor_MFR_Reweight_ElBveto_1down")   && f_n_bjets==0 )) {
     retval = retval-fabs(retval-1.0);
   }
 

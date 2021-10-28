@@ -138,8 +138,12 @@ auto OtherJetsTFF::getFakeFactorHist() const {
   }
   
   // -- parameterization
-  histName += "TauPtFF";
-
+  if (bjetCount()>=1) {
+    histName += "BTBinTauPtFF";
+  }
+  else {
+    histName += "TauPtFF";
+  }
   // -- Get up down and nominal histos
   const TH1F * h_nominal = 0;
   const TH1F * h_up = 0;

@@ -1,11 +1,11 @@
 #name                                                         type        variation
 FakeFactor_Extrap_ElBveto1p                                   weight      two
 FakeFactor_Extrap_ElBveto3p                                   weight      two
-FakeFactor_Extrap_ElBtag3p                                    weight      two
+FakeFactor_Extrap_ElBtag1p                                    weight      two
 FakeFactor_Extrap_ElBtag3p                                    weight      two
 FakeFactor_Extrap_MuBveto1p                                   weight      two
 FakeFactor_Extrap_MuBveto3p                                   weight      two
-FakeFactor_Extrap_MuBtag3p                                    weight      two
+FakeFactor_Extrap_MuBtag1p                                    weight      two
 FakeFactor_Extrap_MuBtag3p                                    weight      two
 
 

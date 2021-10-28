@@ -46,7 +46,7 @@ variables:
     - source build/setupAnalysis.sh
     - cd share
     - echo "Initialization:"
-    - source AHZ-lephad/config/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/201215r0"
+    - source AHZ-lephad/config/common/samples/inputFileLists/collectSamples.sh eosatlas "/eos/atlas/atlascerngroupdisk/phys-higgs/HSG6/Htautau/lephad/ntuples/201215r0"
     - source AHZ-lephad/config/common/prepare.sh
     - source AHZ-lephad/config/common/initialize.sh
     - echo "Multijet Fake Region:"
