@@ -4,11 +4,9 @@
 
 ### backgrounds ###
 .path="||"
-.name="MultiJetsFake", .isBackground=true, .title="Multi-Jets", .path="/data/$(channel)/$(campaign)-/bkg/$(channel)/$(campaign)/[mcReal+mcFake]"
+.name="MultiJetsFake", .isBackground=true, .title="Multi-Jets", .path="/data/$(channel)/$(campaign)-/bkg/$(channel)/$(campaign)/mc"
 .path="|"
-.name="TrueTau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal"
-.path="|"
-.name="Wjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"
-.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top"
-.name="Zjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Zjets"
-.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Diboson"
+.name="Wjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Wjets"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Top"
+.name="Zjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Zjets"
+.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Diboson"

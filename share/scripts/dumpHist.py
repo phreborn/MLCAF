@@ -16,8 +16,21 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
   reader = TQSampleDataReader(samples)
 
   # systematic name
-  sys_name = file_path.split("-")[-1]
-  sys_name = sys_name.split(".")[0]
+  sys_name = file_path.split("-")[-1].split(".")[0]
+
+  if sys_name != "NOMINAL":
+  # Open the variation file
+    with open(args.variation_file) as f:
+      variation_names = f.readlines()
+      variation_names = [i.split()[0] for i in variation_names if 'FakeFactor' in i]
+    sys_name_list = ['ATLAS_'+i+'_1down' for i in variation_names]
+    sys_name_list.extend(['ATLAS_'+i+'_1up' for i in variation_names])
+
+  else:
+   sys_name_list = [args.channel]
+
+  #Temp change (not sure if stll needed
+  """
   # some hacks for systematics
   if sys_name != "NOMINAL":
     sys_name=sys_name.replace('ScaleUp', 'Scale_1up')
@@ -36,6 +49,8 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
     sys_name = "_".join(sys_name_list)
     sys_name = "ATLAS_"+sys_name
 
+  """
+
   # Output file dir
   dir_out = "dumpHist/{:s}/{:s}/{:s}".format(sys_name,args.datasets,args.channel) 
   os.system('mkdir -p {:s}'.format(dir_out))
@@ -46,38 +61,48 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
     fn_out = '{:s}_{:s}_{:s}.root'.format(args.datasets,region_name,args.channel)
     # Open output file
     f_out = TFile.Open("{:s}/{:s}".format(dir_out,fn_out),"RECREATE")
-    if sys_name != "NOMINAL":
-      dir_sys = f_out.mkdir(sys_name, sys_name)
-    for sample_name, sample_path in sample_dict.items():
-      sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
-      for hist_name, hist_rename in hist_dict.items():
-        hist = reader.getHistogram(sample_path, '{:s}/{:s}'.format(region_path,hist_name))
-        if not hist:
-          WARN("Unable to find hist {:s} : {:s}/{:s}".format(sample_path, region_path, hist_name))
-          continue
-        # hist name
 
-        if 'bbH' in sample_name or 'ggH' in sample_name:
-          if "Btag" in region_name:
-            hist_new_name = sample_name.split("tag")[0] + '1tag' + sample_name.split("tag")[1]
-          elif "Bveto" in region_name:
-            hist_new_name = sample_name.split("tag")[0] + '0tag' + sample_name.split("tag")[1]
-          else:
-            BREAK("Unexpected region name {:s}".format(region_name))
+    for sys in sys_name_list:
+      
+      if sys_name != 'NOMINAL':
+        channel = args.channel + sys.split("ATLAS")[1]
+        if "1up" in channel:
+          dir_sys = f_out.mkdir(sys.replace("1up", "_1up"), sys.replace("1up", "_1up"))
+        elif "1down" in channel:
+          dir_sys = f_out.mkdir(sys.replace("1down", "_1down"), sys.replace("1down", "_1down"))
+      for sample_name, sample_path in sample_dict.items():
+        if sample_name == 'data':
+          sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
         else:
-          hist_new_name = sample_name    
+          if sys_name != 'NOMINAL':
+            sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+          else:
+            sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
 
-#        hist_new_name += "_"+hist_rename
-  
-#        if sys_name != "NOMINAL":
- #         hist_new_name += "_"+sys_name
-        
-        hist.SetNameTitle(hist_new_name, hist_new_name)
-        f_out.cd()
-        if sys_name != "NOMINAL":
-          dir_sys.cd()
-        hist.Write()
-        del hist
+        for hist_name, hist_rename in hist_dict.items():
+          hist = reader.getHistogram(sample_path, '{:s}/{:s}'.format(region_path,hist_name))
+          if not hist:
+            WARN("Unable to find hist {:s} : {:s}/{:s}".format(sample_path, region_path, hist_name))
+            continue
+
+
+          if 'bbH' in sample_name or 'ggH' in sample_name:
+            if "Btag" in region_name:
+              hist_new_name = sample_name.split("tag")[0] + '1tag' + sample_name.split("tag")[1]
+            elif "Bveto" in region_name:
+              hist_new_name = sample_name.split("tag")[0] + '0tag' + sample_name.split("tag")[1]
+            else:
+              BREAK("Unexpected region name {:s}".format(region_name))
+          else:
+            hist_new_name = sample_name    
+
+
+          hist.SetNameTitle(hist_new_name, hist_new_name)
+          f_out.cd()
+          if sys_name != 'NOMINAL':
+            dir_sys.cd()
+          hist.Write()
+          del hist
     f_out.Write()
     f_out.Close()
     INFO("All histograms have been dumped !")
@@ -94,6 +119,9 @@ if __name__ == "__main__":
   parser.add_argument('channel', metavar='CHANNEL', type=str,
             default="ehad",
             help='channel to be used')
+  parser.add_argument('variation_file', metavar='VARFILE', type=str,
+            default = None,
+            help = 'File with sys variations')
   args = parser.parse_args()
 
   dataset_dict = {

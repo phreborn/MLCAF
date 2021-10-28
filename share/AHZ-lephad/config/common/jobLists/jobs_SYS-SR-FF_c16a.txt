@@ -1,16 +1,11 @@
 # ------------------------------ c16a ------------------------------ #
 ##### dd bkg #####
 /bkg/?/c16a/MultiJetsFake/data
-/bkg/?/c16a/MultiJetsFake/mcReal/Top/single
-/bkg/?/c16a/MultiJetsFake/mcReal/Top/ttbar/nominal
-/bkg/?/c16a/MultiJetsFake/mcReal/Zjets
-/bkg/?/c16a/MultiJetsFake/mcReal/Diboson
-/bkg/?/c16a/MultiJetsFake/mcReal/Wjets
-/bkg/?/c16a/MultiJetsFake/mcFake/Top/single
-/bkg/?/c16a/MultiJetsFake/mcFake/Top/ttbar/nominal
-/bkg/?/c16a/MultiJetsFake/mcFake/Zjets
-/bkg/?/c16a/MultiJetsFake/mcFake/Diboson
-/bkg/?/c16a/MultiJetsFake/mcFake/Wjets
+/bkg/?/c16a/MultiJetsFake/mc/Top/single
+/bkg/?/c16a/MultiJetsFake/mc/Top/ttbar/nominal
+/bkg/?/c16a/MultiJetsFake/mc/Zjets
+/bkg/?/c16a/MultiJetsFake/mc/Diboson
+/bkg/?/c16a/MultiJetsFake/mc/Wjets
 
 /bkg/?/c16a/ddOtherJetsFake/data
 /bkg/?/c16a/ddOtherJetsFake/mcReal/Top/single
@@ -20,16 +15,11 @@
 /bkg/?/c16a/ddOtherJetsFake/mcReal/Wjets
 
 /bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/data
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcReal/Top/single
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcReal/Top/ttbar/nominal
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcReal/Zjets
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcReal/Diboson
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcReal/Wjets
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcFake/Top/single
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcFake/Top/ttbar/nominal
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcFake/Zjets
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcFake/Diboson
-/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mcFake/Wjets
+/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mc/Top/single
+/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mc/Top/ttbar/nominal
+/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mc/Zjets
+/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mc/Diboson
+/bkg/?/c16a/ddOtherJetsFake/MultiJetsFake/mc/Wjets
 
 ##### mc bkg #####
 /bkg/?/c16a/mcReal/Top/single

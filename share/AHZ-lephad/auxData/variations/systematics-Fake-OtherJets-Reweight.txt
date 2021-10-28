@@ -1,7 +1,12 @@
 #name                                                           type        variation
-FakeFactor_MFRReweight_ElBveto                                  weight      two
-FakeFactor_MFRReweight_ElBtag                                   weight      two
-FakeFactor_MFRReweight_MuBveto                                  weight      two
-FakeFactor_MFRReweight_MuBtag                                   weight      two
+FakeFactor_OtherJetsReweight_ElBveto1p                                  weight      two
+FakeFactor_OtherJetsReweight_ElBveto3p                                  weight    two
+FakeFactor_OtherJetsReweight_ElBtag1p                                   weight      two
+FakeFactor_OtherJetsReweight_ElBtag3p                                   weight    two
+FakeFactor_OtherJetsReweight_MuBveto1p                                  weight      two
+FakeFactor_OtherJetsReweight_MuBveto3p                                  weight    two
+FakeFactor_OtherJetsReweight_MuBtag1p                                   weight      two
+FakeFactor_OtherJetsReweight_MuBtag3p                                   weight    two
+
 
 
