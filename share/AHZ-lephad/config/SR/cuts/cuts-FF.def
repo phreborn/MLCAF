@@ -24,11 +24,11 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
 
                     +CutLeptonISO {
                         <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                        .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                        .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsLFFReweightSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
 
                         +CutTauID {
                             <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-                            .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)", .title="PassTauID">
+                            .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(applyExtrap))*($(TauFakeNom)) : 1)", .title="PassTauID">
                         } #End: CutTauID
                      } #End: CutLeptonISO
                 } #End: CutLepHad

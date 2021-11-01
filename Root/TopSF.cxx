@@ -151,7 +151,7 @@ double TopSF::getValue() const {
 
 
   float f_lep_0_pt = this->lep_0_pt->EvalInstance();
-  int f_lep_0 = this->lep_0_pt->EvalInstance();
+  int f_lep_0 = this->lep_0->EvalInstance();
   int f_n_bjets = this->n_bjets->EvalInstance();
   float f_tau_0_pt = this->tau_0_pt->EvalInstance();
   float f_jet_0_pt = this->jet_0_pt->EvalInstance();

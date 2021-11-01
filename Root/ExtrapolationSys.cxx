@@ -78,7 +78,7 @@ double ExtrapolationSys::getValue() const {
   
   // parameterization
   // dphi 1,2,3 in bveto/btag category
-  TString param = "LowMT";
+  TString param = "TauPt";
 
 
   TString histName = "SSExtrap"+ period + channel + region + param + prong + "SF";
@@ -149,7 +149,7 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/Extrap_SF.root");
+  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root");
   if (!aFile) {
     ERRORclass("Can not find SSExtrap_SF.root");
   }

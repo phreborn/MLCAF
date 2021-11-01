@@ -56,7 +56,7 @@ double MultiJetsLFFReweightSYS::getValue() const {
   ///////////////////////////////////////////////////////////////
   // channel: only apply correction to muhad channel
   TString channel = "";
-  if (1==f_lep_0) channel = "Ehad";
+  if (1==f_lep_0) channel = "ehad";
   else if (2==f_lep_0) return 1.0;
   
   // region: bveto or btag

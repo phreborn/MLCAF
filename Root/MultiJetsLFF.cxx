@@ -183,7 +183,7 @@ double MultiJetsLFF::getValue() const {
 
 
   float f_lep_0_pt = this->lep_0_pt->EvalInstance();
-  int f_lep_0 = this->lep_0_pt->EvalInstance();
+  int f_lep_0 = this->lep_0->EvalInstance();
   int f_n_bjets = this->n_bjets->EvalInstance();
 
   int binID = std::min(h_nominal->FindFixBin(f_lep_0_pt), h_nominal->GetNbinsX());
