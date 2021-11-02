@@ -181,9 +181,7 @@ double MultiJetsLFF::getValue() const {
 
   std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
 
-
   float f_lep_0_pt = this->lep_0_pt->EvalInstance();
-  int f_lep_0 = this->lep_0->EvalInstance();
   int f_n_bjets = this->n_bjets->EvalInstance();
 
   int binID = std::min(h_nominal->FindFixBin(f_lep_0_pt), h_nominal->GetNbinsX());
@@ -197,16 +195,16 @@ double MultiJetsLFF::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  if ( (fSysName.Contains("FakeFactor_MFR_ElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
-       (fSysName.Contains("FakeFactor_MFR_ElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
-       (fSysName.Contains("FakeFactor_MFR_MuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
-       (fSysName.Contains("FakeFactor_MFR_MuBtag_1up") && f_lep_0==1 && f_n_bjets>0)  ) {
+  if ( (fSysName.Contains("FakeFactor_MFR_ElBveto_1up") && isElectron() && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_MFR_ElBtag_1up") && isElectron() && f_n_bjets>0) ||
+       (fSysName.Contains("FakeFactor_MFR_MuBveto_1up") && isMuon() && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_MFR_MuBtag_1up") && isMuon() && f_n_bjets>0)  ) {
     retval += retval_error;
   }
-  else if(  (fSysName.Contains("FakeFactor_MFR_ElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_MFR_ElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_MFR_MuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_MFR_MuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
+  else if(  (fSysName.Contains("FakeFactor_MFR_ElBveto_1down") && isElectron() && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_MFR_ElBtag_1down") && isElectron() && f_n_bjets>0) ||
+            (fSysName.Contains("FakeFactor_MFR_MuBveto_1down") && isMuon() && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_MFR_MuBtag_1down") && isMuon() && f_n_bjets>0) ) {
     retval -= retval_error;
 
   }

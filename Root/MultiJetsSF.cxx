@@ -47,7 +47,6 @@ TObjArray* MultiJetsSF::getBranchNames() const {
 //______________________________________________________________________________________________
 double MultiJetsSF::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
-  double f_lep_0              = this->lep_0->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
   double f_lephad_met_lep0_cos_dphi = this->lephad_met_lep0_cos_dphi->EvalInstance();
 
@@ -56,8 +55,8 @@ double MultiJetsSF::getValue() const {
   ///////////////////////////////////////////////////////////////
   // channel: only apply correction to muhad channel
   TString channel = "";
-  if (1==f_lep_0) channel = "ehad";
-  else if (2==f_lep_0) return 1.0;
+  if (isElectron()) channel = "ehad";
+  else if (isMuon()) return 1.0;
   
   // region: bveto or btag
   TString region = "";
