@@ -27,6 +27,8 @@ $create(path="/bkg/?/?/mcReal", type="sf");
 
 <isJet=false> @ /.;
 <isJet=true> @ /bkg/?/?/mcFake, /bkg/?/?/mcFakeCorrected;
+<ismcFakeCorrected=false> @ /.;
+<ismcFakeCorrected=true> @ /bkg/?/?/mcFakeCorrected;
 
 # add dd fakes
 ## -- MultiJets
@@ -73,6 +75,3 @@ $create(path="/bkg/?/?/ddOtherJetsFake/data", type="sf");
 <isData=true> @ /data, /bkg/?/?/MultiJetsFake/data, /bkg/?/?/ddOtherJetsFake/data, /bkg/?/?/ddOtherJetsFake/MultiJetsFake/data;
 <isMC=true> @ /.;
 <isMC=false> @ /data, /bkg/?/?/MultiJetsFake/data, /bkg/?/?/ddOtherJetsFake/data, /bkg/?/?/ddOtherJetsFake/MultiJetsFake/data;
-<isMCOtherJetsFake=false> @ /.;
-<isMCOtherJetsFake=true> @ /bkg/?/?/mcOtherJetsFake;
-

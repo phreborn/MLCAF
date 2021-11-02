@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/MCOtherJetsTFF.h"
+#include "BSMtautauCAF/OtherJetsTFR.h"
 #include <limits>
 
 #include "QFramework/TQLibrary.h"
@@ -6,18 +6,18 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(MCOtherJetsTFF)
+ClassImp(OtherJetsTFR)
 
 
 
-MCOtherJetsTFF::MCOtherJetsTFF() {
+OtherJetsTFR::OtherJetsTFR() {
   this->setExpression(this->GetName() );
   DEBUGclass("default constructor called");
 }
 
 
 
-MCOtherJetsTFF::MCOtherJetsTFF(const TString& expression) : LepHadObservable(expression) {
+OtherJetsTFR::OtherJetsTFR(const TString& expression) : LepHadObservable(expression) {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
   // the predefined string member "expression" allows your observable to store an expression of your choice
@@ -27,7 +27,7 @@ MCOtherJetsTFF::MCOtherJetsTFF(const TString& expression) : LepHadObservable(exp
   this->setExpression(expression);
   
   INFOclass("Loading file...");
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMCOtherJetsTFF", false) ) return;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsTFR", false) ) return;
 
   TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MCOtherJetsTFR_FF.root");
   if (!file) {
@@ -53,7 +53,7 @@ MCOtherJetsTFF::MCOtherJetsTFF(const TString& expression) : LepHadObservable(exp
 
 
 
-TObjArray* MCOtherJetsTFF::getBranchNames() const {
+TObjArray* OtherJetsTFR::getBranchNames() const {
   DEBUGclass("retrieving branch names");
   TObjArray* bnames = LepHadObservable::getBranchNames();
   return bnames;
@@ -61,8 +61,8 @@ TObjArray* MCOtherJetsTFF::getBranchNames() const {
 
 
 
-bool MCOtherJetsTFF::initializeSelf() {
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMCOtherJetsTFF", false) ) return true;
+bool OtherJetsTFR::initializeSelf() {
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsTFR", false) ) return true;
   if (! LepHadObservable::initializeSelf()) return false;
   fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
@@ -71,21 +71,21 @@ bool MCOtherJetsTFF::initializeSelf() {
 
 
 
-bool MCOtherJetsTFF::finalizeSelf() {
+bool OtherJetsTFR::finalizeSelf() {
   if (! LepHadObservable::finalizeSelf()) return false;
   return true;
 }
 
 
 
-const TH1F* MCOtherJetsTFF::getFakeFactorHist() const {
+const TH1F* OtherJetsTFR::getFakeFactorHist() const {
   // determine which FF hist we want: All
   TString histName = "MCOtherJetsTFR";
 
   // -- period: Combined or Separated
   TString period = "";
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("MCOtherJetsTFFPeriod", period) ) {
-    ERRORclass("Can not get MCOtherJetsTFFPeriod tag");
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("OtherJetsTFRPeriod", period) ) {
+    ERRORclass("Can not get OtherJetsTFRPeriod tag");
   }
 
   if ("Combined" == period) {
@@ -97,7 +97,7 @@ const TH1F* MCOtherJetsTFF::getFakeFactorHist() const {
     if (is2018()) histName += "18";
   }
   else {
-    ERRORclass("Unknown MCOtherJetsTFFPeriod tag");
+    ERRORclass("Unknown OtherJetsTFRPeriod tag");
     return nullptr;
   }
 
@@ -158,11 +158,11 @@ const TH1F* MCOtherJetsTFF::getFakeFactorHist() const {
 
 
 
-double MCOtherJetsTFF::getValue() const {
+double OtherJetsTFR::getValue() const {
   // Check whether we want to apply the fake factor
   bool apply = false;
-  if (! TQTaggable::getGlobalTaggable("aliases")->getTagBool("ApplyMCOtherJetsTFF", apply)) {
-    ERRORclass("Can not get ApplyMCOtherJetsTFF tag");
+  if (! TQTaggable::getGlobalTaggable("aliases")->getTagBool("ApplyOtherJetsTFR", apply)) {
+    ERRORclass("Can not get ApplyOtherJetsTFR tag");
   }
   if (!apply) return 1.0;
   

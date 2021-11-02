@@ -48,6 +48,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   // TAU: 2 (14x2)
   // JET: 2 (1x2)
   // Flavor Tagging: 28 (14x2)
+  // Top theory uncertainty: 0 (2x2)
   */
   
   // MC weight, should always be appiled
@@ -478,6 +479,22 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   // -- Nominal scale factor 
   addScaleFactor(none, btag_sys, "jet_NOMINAL_global_effSF_" + btaggingWP);
   addScaleFactor(none, btag_sys, "jet_NOMINAL_global_ineffSF_" + btaggingWP);
+
+
+  /*
+  // Top theory uncertainty: 0, systematic variations: 2x2
+  */
+  // -- ISR
+  Condition ttbar_ISR_up = registerVariation("TTbar_ISR_1up");
+  addScaleFactor(ttbar_ISR_up, "pmg_truth_weight_ISRHi");
+  Condition ttbar_ISR_down = registerVariation("TTbar_ISR_1down");
+  addScaleFactor(ttbar_ISR_down, "pmg_truth_weight_ISRLo");
+
+  // -- FSR
+  Condition ttbar_FSR_up = registerVariation("TTbar_FSR_1up");
+  addScaleFactor(ttbar_FSR_up, "pmg_truth_weight_FSRHi");
+  Condition ttbar_FSR_down = registerVariation("TTbar_FSR_1down");
+  addScaleFactor(ttbar_FSR_down, "pmg_truth_weight_FSRLo");
 }
 
 //______________________________________________________________________________________________

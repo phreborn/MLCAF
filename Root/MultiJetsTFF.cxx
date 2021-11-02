@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/QCDJetFakeTau.h"
+#include "BSMtautauCAF/MultiJetsTFF.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,32 +13,32 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(QCDJetFakeTau)
+ClassImp(MultiJetsTFF)
 
 //______________________________________________________________________________________________
 
-QCDJetFakeTau::QCDJetFakeTau(){
+MultiJetsTFF::MultiJetsTFF(){
   this->setExpression(this->GetName() );
   DEBUGclass("default constructor called");
 }
 
 //______________________________________________________________________________________________
 
-QCDJetFakeTau::~QCDJetFakeTau(){
+MultiJetsTFF::~MultiJetsTFF(){
   DEBUGclass("destructor called");
 }
 
 
 //______________________________________________________________________________________________
 
-TObjArray* QCDJetFakeTau::getBranchNames() const {
+TObjArray* MultiJetsTFF::getBranchNames() const {
   DEBUGclass("retrieving branch names");
   TObjArray* bnames = LepHadObservable::getBranchNames();
   return bnames;
 }
 
 //______________________________________________________________________________________________
-double QCDJetFakeTau::getValue() const {
+double MultiJetsTFF::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   int    f_lep_0          = this->lep_0->EvalInstance();
   int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
@@ -135,7 +135,7 @@ double QCDJetFakeTau::getValue() const {
 }
 //______________________________________________________________________________________________
 
-QCDJetFakeTau::QCDJetFakeTau(const TString& expression) : LepHadObservable(expression)
+MultiJetsTFF::MultiJetsTFF(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -174,27 +174,27 @@ QCDJetFakeTau::QCDJetFakeTau(const TString& expression) : LepHadObservable(expre
 
 //______________________________________________________________________________________________
 
-const TString& QCDJetFakeTau::getExpression() const {
+const TString& MultiJetsTFF::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool QCDJetFakeTau::hasExpression() const {
+bool MultiJetsTFF::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void QCDJetFakeTau::setExpression(const TString& expr){
+void MultiJetsTFF::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool QCDJetFakeTau::initializeSelf(){
+bool MultiJetsTFF::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
 
   fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
@@ -204,7 +204,7 @@ bool QCDJetFakeTau::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool QCDJetFakeTau::finalizeSelf(){
+bool MultiJetsTFF::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf()) return false;
   return true;
 }

@@ -12,17 +12,17 @@
 .path="|"
 .name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
 .name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
-.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]
+.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets"
 #.name="Wjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
 .name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
 
 
 ### signal ###
-#.name="ggH200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/200"
-#.name="bbH200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/200"
-#.name="ggH700", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/700"
-#.name="bbH700", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/700"
-#.name="ggH1200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/1200"
-#.name="bbH1200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/1200"
-#.name="ggH2500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/2500"
-#.name="bbH2500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/2500"
+.name="ggH200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/200"
+.name="bbH200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/200"
+.name="ggH700", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/700"
+.name="bbH700", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/700"
+.name="ggH1200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/1200"
+.name="bbH1200", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/1200"
+.name="ggH2500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggH/2500"
+.name="bbH2500", .isSignal=true, .path="/sig/$(channel)/$(campaign)/bbH/2500"

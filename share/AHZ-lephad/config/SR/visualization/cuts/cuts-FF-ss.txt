@@ -20,20 +20,18 @@
 .name="|"
 .name=CutTauID
 .name="|"
+.name=CutZeeVeto
+.name="|"
 .name=CutSS
 
 .name="||"
 .name=CutSSBveto
 .name="|"
-.name=CutSSBvetoNoMT
 .name=CutSSBvetoLowMT
 .name=CutSSBvetoMediumMT
-.name=CutSSBvetoHighMT
 
 .name="||"
 .name=CutSSBtag
 .name="|"
-.name=CutSSBtagNoMT
 .name=CutSSBtagLowMT
 .name=CutSSBtagMediumMT
-.name=CutSSBtagHighMT

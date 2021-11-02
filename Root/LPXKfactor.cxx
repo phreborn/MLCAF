@@ -2,8 +2,6 @@
 
 #include "QFramework/TQLibrary.h"
 
-#include "TAxis.h"
-#include "TFile.h"
 #include "TObjString.h"
 #include <limits>
 #include <iostream>
@@ -109,8 +107,8 @@ LPXKfactor::LPXKfactor(const TString& expression): LepHadObservable(expression) 
   addScaleFactor(lpx_kfactor_CHOICE_epWZ16, "LPX_KFACTOR_CHOICE_epWZ16_lpx_kfactor");
   addScaleFactor(lpx_kfactor_REDCHOICE_NNPDF30, "LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor");
 
+  DEBUGclass("There are %d SFs registered.", m_branches.size());
   m_staticConditionsMask |= nominal;
-  
 }
 
 
@@ -195,17 +193,14 @@ void LPXKfactor::addScaleFactor(Condition requirement, TString branch) {
 
 
 void LPXKfactor::addScaleFactor(Condition requirement, Condition veto, TString branch) {
+  std::tuple<Condition, Condition, TString, TTreeFormula*> sf;
 
-  if (LepHadObservable::getBranchNames()->FindObject(branch) != 0) {
-    std::tuple<Condition, Condition, TString, TTreeFormula*> sf;
+  std::get<0>(sf) = requirement;
+  std::get<1>(sf) = veto;
+  std::get<2>(sf) = branch;
+  std::get<3>(sf) = NULL;
 
-    std::get<0>(sf) = requirement;
-    std::get<1>(sf) = veto;
-    std::get<2>(sf) = branch;
-    std::get<3>(sf) = NULL;
-
-    m_branches.push_back(sf);
-  }
+  m_branches.push_back(sf);
 }
 
 
