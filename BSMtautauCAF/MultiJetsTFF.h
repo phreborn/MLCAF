@@ -1,17 +1,17 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __QCDJETFAKETAU__
-#define __QCDJETFAKETAU__
+#ifndef __MULTIJETSTFF__
+#define __MULTIJETSTFF__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class QCDJetFakeTau : public LepHadObservable {
+class MultiJetsTFF : public LepHadObservable {
 
   public:
-    ClassDef(QCDJetFakeTau, 1);
+    ClassDef(MultiJetsTFF, 1);
   
-    QCDJetFakeTau();
-    QCDJetFakeTau(const TString& expression);
-    ~QCDJetFakeTau();
+    MultiJetsTFF();
+    MultiJetsTFF(const TString& expression);
+    ~MultiJetsTFF();
   
     virtual double getValue() const override;
     virtual TObjArray* getBranchNames() const override;

@@ -89,7 +89,7 @@ source AHZ-lephad/config/MultiJetsLFR/analyze-merge-MultiJetsLFR-FF.sh
 
 # Calculate the fake factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateFakeFactor.py AHZ-lephad MultiJetLFR # Use the hadd command which is output
+python scripts/calculateFakeFactor.py AHZ-lephad MultiJetsLFR # Use the hadd command which is output
 
 ```
 
@@ -181,7 +181,7 @@ Thus, a W+jets Scale Factor (WSF) is calculated and the closure test re-performe
 ```bash
 # Calculate the scale factors based on the histograms
 # Merge into a single ROOT file
-python scripts/calculateScaleFactor.py AHZ-lephad # use the hadd command which is output
+python scripts/calculateScaleFactor.py AHZ-lephad OtherJetsTFR # use the hadd command which is output
 
 # Debug test the analysis before submitting the jobs to a cluster
 source AHZ-lephad/config/OtherJetsTFR/analyze-debug-FF-SF-closure.sh 

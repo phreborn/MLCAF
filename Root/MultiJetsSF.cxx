@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/MultiJetsLFFReweightSYS.h"
+#include "BSMtautauCAF/MultiJetsSF.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(MultiJetsLFFReweightSYS)
+ClassImp(MultiJetsSF)
 
 //______________________________________________________________________________________________
 
-MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(){
+MultiJetsSF::MultiJetsSF(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,14 +27,14 @@ MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(){
 
 //______________________________________________________________________________________________
 
-MultiJetsLFFReweightSYS::~MultiJetsLFFReweightSYS(){
+MultiJetsSF::~MultiJetsSF(){
   // default destructor
   DEBUGclass("destructor called");
 }
 
 //______________________________________________________________________________________________
 
-TObjArray* MultiJetsLFFReweightSYS::getBranchNames() const {
+TObjArray* MultiJetsSF::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -45,7 +45,7 @@ TObjArray* MultiJetsLFFReweightSYS::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double MultiJetsLFFReweightSYS::getValue() const {
+double MultiJetsSF::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
   double f_lep_0              = this->lep_0->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
@@ -133,7 +133,7 @@ double MultiJetsLFFReweightSYS::getValue() const {
 }
 //______________________________________________________________________________________________
 
-MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(const TString& expression) : LepHadObservable(expression)
+MultiJetsSF::MultiJetsSF(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -145,7 +145,7 @@ MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(const TString& expression) : Le
 
   //fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMultiJetsLFFReweightSYS", false) ) return;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMultiJetsSF", false) ) return;
   INFOclass("Loading file...");
  
 //  TString signalProcess = "";
@@ -176,27 +176,27 @@ MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(const TString& expression) : Le
 }
 //______________________________________________________________________________________________
 
-const TString& MultiJetsLFFReweightSYS::getExpression() const {
+const TString& MultiJetsSF::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool MultiJetsLFFReweightSYS::hasExpression() const {
+bool MultiJetsSF::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void MultiJetsLFFReweightSYS::setExpression(const TString& expr){
+void MultiJetsSF::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool MultiJetsLFFReweightSYS::initializeSelf(){
+bool MultiJetsSF::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
 
   fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
@@ -206,7 +206,7 @@ bool MultiJetsLFFReweightSYS::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool MultiJetsLFFReweightSYS::finalizeSelf(){
+bool MultiJetsSF::finalizeSelf(){
   if (!LepHadObservable::finalizeSelf()) return false;
   return true;
 }

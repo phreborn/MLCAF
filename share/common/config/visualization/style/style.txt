@@ -39,7 +39,7 @@
 <style.default.title="bbH (200)",  style.default.histLineColor=kYellow+3> @ /sig/?/?/bbH/200;
 <style.default.title="ggH (700)", style.default.histLineColor=kRed+2   > @ /sig/?/?/ggH/700;
 <style.default.title="bbH (700)", style.default.histLineColor=kRed+3   > @ /sig/?/?/bbH/700;
-<style.default.title="ggH (1500)", style.default.histLineColor=kOrange+5> @ /sig/?/?/ggH/1500;
-<style.default.title="bbH (1500)", style.default.histLineColor=kOrange+6> @ /sig/?/?/bbH/1500;
+<style.default.title="ggH (1200)", style.default.histLineColor=kBlue+5> @ /sig/?/?/ggH/1200;
+<style.default.title="bbH (1200)", style.default.histLineColor=kBlue+6> @ /sig/?/?/bbH/1200;
 <style.default.title="ggH (2500)", style.default.histLineColor=kOrange+5> @ /sig/?/?/ggH/2500;
 <style.default.title="bbH (2500)", style.default.histLineColor=kOrange+6> @ /sig/?/?/bbH/2500;

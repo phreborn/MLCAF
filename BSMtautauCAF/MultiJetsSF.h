@@ -1,18 +1,18 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __MultiJetsLFFReweightSYS__
-#define __MultiJetsLFFReweightSYS__
+#ifndef __MultiJetsSF__
+#define __MultiJetsSF__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class MultiJetsLFFReweightSYS : public LepHadObservable {
+class MultiJetsSF : public LepHadObservable {
 
   public:
 
-    ClassDef(MultiJetsLFFReweightSYS, 1);
+    ClassDef(MultiJetsSF, 1);
   
-    MultiJetsLFFReweightSYS();
-    MultiJetsLFFReweightSYS(const TString& expression);
-    ~MultiJetsLFFReweightSYS();
+    MultiJetsSF();
+    MultiJetsSF(const TString& expression);
+    ~MultiJetsSF();
 
     virtual bool hasExpression() const override;
     virtual const TString& getExpression() const override;
