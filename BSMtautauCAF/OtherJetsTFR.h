@@ -1,17 +1,17 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __MCOtherJetsTFF__
-#define __MCOtherJetsTFF__
+#ifndef __OtherJetsTFR__
+#define __OtherJetsTFR__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class MCOtherJetsTFF : public LepHadObservable {
+class OtherJetsTFR : public LepHadObservable {
 
 public:
-  ClassDef(MCOtherJetsTFF, 1);
+  ClassDef(OtherJetsTFR, 1);
 
-  MCOtherJetsTFF();
-  MCOtherJetsTFF(const TString& expression);
-  virtual ~MCOtherJetsTFF() = default;
+  OtherJetsTFR();
+  OtherJetsTFR(const TString& expression);
+  virtual ~OtherJetsTFR() = default;
 
   virtual TObjArray* getBranchNames() const override;
   virtual double getValue() const override;

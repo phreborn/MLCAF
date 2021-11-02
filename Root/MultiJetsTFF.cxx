@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/MultiJetsLFFReweightSYS.h"
+#include "BSMtautauCAF/MultiJetsTFF.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,127 +13,129 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(MultiJetsLFFReweightSYS)
+ClassImp(MultiJetsTFF)
 
 //______________________________________________________________________________________________
 
-MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(){
-  // default constructor
-
+MultiJetsTFF::MultiJetsTFF(){
   this->setExpression(this->GetName() );
-
   DEBUGclass("default constructor called");
 }
 
 //______________________________________________________________________________________________
 
-MultiJetsLFFReweightSYS::~MultiJetsLFFReweightSYS(){
-  // default destructor
+MultiJetsTFF::~MultiJetsTFF(){
   DEBUGclass("destructor called");
 }
 
+
 //______________________________________________________________________________________________
 
-TObjArray* MultiJetsLFFReweightSYS::getBranchNames() const {
-  // retrieve the list of branch names
-  // ownership of the list belongs to the caller of the function
+TObjArray* MultiJetsTFF::getBranchNames() const {
   DEBUGclass("retrieving branch names");
   TObjArray* bnames = LepHadObservable::getBranchNames();
-
-  //bnames->SetOwner(true);
   return bnames;
 }
 
 //______________________________________________________________________________________________
-double MultiJetsLFFReweightSYS::getValue() const {
+double MultiJetsTFF::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
-  double f_lep_0              = this->lep_0->EvalInstance();
-  double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
-  double f_lephad_met_lep0_cos_dphi = this->lephad_met_lep0_cos_dphi->EvalInstance();
+  int    f_lep_0          = this->lep_0->EvalInstance();
+  int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
+  float  f_tau_0_pt       = this->tau_0_pt->EvalInstance();
 
   ///////////////////////////////////////////////////////////////
-  // determine which SF to use
+  // determine which FF to use
   ///////////////////////////////////////////////////////////////
-  // channel: only apply correction to muhad channel
+  // channel: ehad or muhad
   TString channel = "";
-  if (1==f_lep_0) channel = "ehad";
-  else if (2==f_lep_0) return 1.0;
+  if (1==f_lep_0) channel = "muhad";
+  else if (2==f_lep_0) channel = "ehad";
   
   // region: bveto or btag
   TString region = "";
   if (0==f_n_bjets) region = "Bveto";
   else if (1<=f_n_bjets) region = "Btag";
   
+  if ( 1 == f_tau_0_n_charged_tracks) region += "1p";
+  else if ( 3 == f_tau_0_n_charged_tracks) region += "3p";
+  else return 1.0;
+
   // peiriod: Combined or Separated
-  TString period = "All";
+  TString period = "";
+  TString period_tag = "";
+  //if(!this->fSample->getTag("~QCDTFFPeriod",period_tag)) std::cout<<"ERROR: Can not get QCDTFFPeriod tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("QCDTFFPeriod", period_tag) ) ERRORclass("Can not get QCDTFFPeriod tag");
+  if ("Combined" == period_tag)
+    period = "All";
+  else if ("Separated" == period_tag) {
+    if (is2015() || is2016()) period = "1516";
+    if (is2017()) period = "17";
+    if (is2018()) period = "18";
+  }
+  else
+    ERRORclass("Unknown QCDTFFPeriod tag");
 
-  // parameterization: 2D TauPt x Dphi
+  // parameterization: 1D LeptonPt or 2D LeptonPt x Dphi
   TString param = "";
-  if (0 == f_n_bjets) {
-  // dphi 1,2,3,4 in bveto category
-    if (f_lephad_met_lep0_cos_dphi<0.5) param = "TauPtDphi1";
-    else if (f_lephad_met_lep0_cos_dphi>=0.5&&f_lephad_met_lep0_cos_dphi<1) param = "TauPtDphi2";
-    else if (f_lephad_met_lep0_cos_dphi>=1&&f_lephad_met_lep0_cos_dphi<2) param = "TauPtDphi3";
-    else if (f_lephad_met_lep0_cos_dphi>=2) param = "TauPtDphi4";
-  }
-  // dphi 1,2,3 in btag category
-  else {
-    if (f_lephad_met_lep0_cos_dphi<0.5) param = "TauPtDphi1";
-    else if (f_lephad_met_lep0_cos_dphi>=0.5&&f_lephad_met_lep0_cos_dphi<1) param = "TauPtDphi2";
-    else if (f_lephad_met_lep0_cos_dphi>=1) param = "TauPtDphi3";
-  }
-  
-  TString histName = "MultiJetsLFR"+ period + channel + region + param + "SF";
+  TString param_tag = "";
+  //if(!this->fSample->getTag("~QCDTFFParam",param_tag)) std::cout<<"ERROR: Can not get QCDTFFParam tag" << std::endl;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("QCDTFFParam", param_tag) ) ERRORclass("Can not get QCDTFFParam tag");
 
+  if ( "TauPt" == param_tag ) {
+    param = "TauPt";
+  }
+  TString histName = "QCDTFR"+ period + channel + region + param + "FF";
+  
   TH1F * h_nominal = 0;
   TH1F * h_up = 0;
   TH1F * h_down = 0;
-  
-
-  auto it = m_SF_hist.find(histName);
-  if ( it != m_SF_hist.end() ) h_nominal = it->second;
+ 
+  auto it = m_FF_hist.find(histName); 
+  if ( it != m_FF_hist.end() ) h_nominal = it->second;
   else {
-    std::cout << "ERROR! Unavailable SF: " << histName << std::endl;
-    for (auto item : m_SF_hist)
-      std::cout << "Available SF: " << item.first << std::endl;
+    std::cout << "ERROR! Unavailable FF: " << histName << std::endl;
+    for (auto item : m_FF_hist)
+      std::cout << "Available FF: " << item.first << std::endl;
   }
 
-  it = m_SF_hist.find(histName+"_up"); 
-  if ( it != m_SF_hist.end() ) h_up = it->second;
-  else std::cout << "ERROR! Unavailable SF: " << histName+"_up" << std::endl;
+  it = m_FF_hist.find(histName+"_up"); 
+  if ( it != m_FF_hist.end() ) h_up = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_up" << std::endl;
   
-  it = m_SF_hist.find(histName+"_down"); 
-  if ( it != m_SF_hist.end() ) h_down = it->second;
-  else std::cout << "ERROR! Unavailable SF: " << histName+"_down" << std::endl;
+  it = m_FF_hist.find(histName+"_down"); 
+  if ( it != m_FF_hist.end() ) h_down = it->second;
+  else std::cout << "ERROR! Unavailable FF: " << histName+"_down" << std::endl;
   
-  // SF is a function of tau pT
+  // FF is a function of tau pT
   int binID = std::min(h_nominal->FindBin(f_tau_0_pt), h_nominal->GetNbinsX());
 
   float retval = h_nominal->GetBinContent(binID);
   float retval_up = h_up->GetBinContent(binID);
   float retval_down = h_down->GetBinContent(binID);
   float retval_error = fabs(retval_up - retval_down)/2.0;
-  
+
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  if    ( (fSysName.Contains("FakeFactor_MFR_Reweight_ElBtag_1up")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_MFR_Reweight_ElBveto_1up")   && f_n_bjets==0 )) {
-    //retval = retval+fabs(retval-1.0)/2.0;
-    retval = retval+fabs(retval-1.0);
+  if ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_LepElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
+       (fSysName.Contains("FakeFactor_LepMuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_LepMuBtag_1up") && f_lep_0==1 && f_n_bjets>0)  ) {
+    retval += retval_error;
   }
-  else if((fSysName.Contains("FakeFactor_MFR_Reweight_ElBtag_1down")    && f_n_bjets>0) ||
-          (fSysName.Contains("FakeFactor_MFR_Reweight_ElBveto_1down")   && f_n_bjets==0 )) {
-    retval = retval-fabs(retval-1.0);
+  else if(  (fSysName.Contains("FakeFactor_LepElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_LepElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
+            (fSysName.Contains("FakeFactor_LepMuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_LepMuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
+    retval -= retval_error;
   }
-
-  DEBUGclass("returning");
 
   return retval;
 }
 //______________________________________________________________________________________________
 
-MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(const TString& expression) : LepHadObservable(expression)
+MultiJetsTFF::MultiJetsTFF(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -145,17 +147,12 @@ MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(const TString& expression) : Le
 
   //fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMultiJetsLFFReweightSYS", false) ) return;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseQCDTFF", false) ) return;
   INFOclass("Loading file...");
- 
-//  TString signalProcess = "";
- // if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
-  //  ERRORclass("AnaChannel not set !!!");
- // }
-  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/MultiJetsLFR_SF.root");
 
+  TFile* aFile= TFile::Open("bsmtautau_lephad/auxData/FakeFactors/QCDTFR_FF.root");
   if (!aFile) {
-    ERRORclass("Can not find MultiJetsLFR_SF.root");
+    ERRORclass("Can not find QCDTFR_FF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
@@ -169,35 +166,36 @@ MultiJetsLFFReweightSYS::MultiJetsLFFReweightSYS(const TString& expression) : Le
     if (className == "TH1F") {
       TH1F* hist = (TH1F*)aFile->Get(key->GetName());
       hist->SetDirectory(0);
-      m_SF_hist[key->GetName()] = hist;
+      m_FF_hist[key->GetName()] = hist;
     }
   }
   aFile->Close();
 }
+
 //______________________________________________________________________________________________
 
-const TString& MultiJetsLFFReweightSYS::getExpression() const {
+const TString& MultiJetsTFF::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool MultiJetsLFFReweightSYS::hasExpression() const {
+bool MultiJetsTFF::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void MultiJetsLFFReweightSYS::setExpression(const TString& expr){
+void MultiJetsTFF::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool MultiJetsLFFReweightSYS::initializeSelf(){
-  if (!LepHadObservable::initializeSelf()) return false;
+bool MultiJetsTFF::initializeSelf(){
+  if (! LepHadObservable::initializeSelf()) return false;
 
   fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
 
@@ -206,7 +204,7 @@ bool MultiJetsLFFReweightSYS::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool MultiJetsLFFReweightSYS::finalizeSelf(){
-  if (!LepHadObservable::finalizeSelf()) return false;
+bool MultiJetsTFF::finalizeSelf(){
+  if (! LepHadObservable::finalizeSelf()) return false;
   return true;
 }

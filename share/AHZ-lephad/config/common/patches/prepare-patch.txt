@@ -24,7 +24,7 @@ $printline("Applying post-prepare tags...");
 <isZjets=true> @ /bkg/?/?/Zjets;
 
 <isInclusiveZ=false> @ /.;
-<isInclusiveZ=true> @ /bkg/?/?/Zjets/inclusive;
+<isInclusiveZ=true> @ /bkg/?/?/Zjets/?/inclusive;
 
 <isWjets=false> @ /.;
 <isWjets=true> @ /bkg/?/?/Wjets;
