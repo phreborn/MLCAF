@@ -24,11 +24,11 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
 
                     +CutLeptonISO {
                         <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                        .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                        .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
 
                         +CutTauID {
                             <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-                            .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)", .title="PassTauID">
+                            .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)", .title="PassTauID">
 
                             +CutZeeVeto {
                                 <.cutExpression="lep_0==2 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">

@@ -40,7 +40,6 @@ TObjArray* MultiJetsTFF::getBranchNames() const {
 //______________________________________________________________________________________________
 double MultiJetsTFF::getValue() const {
   int    f_n_bjets        = this->n_bjets->EvalInstance();
-  int    f_lep_0          = this->lep_0->EvalInstance();
   int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   float  f_tau_0_pt       = this->tau_0_pt->EvalInstance();
 
@@ -49,8 +48,8 @@ double MultiJetsTFF::getValue() const {
   ///////////////////////////////////////////////////////////////
   // channel: ehad or muhad
   TString channel = "";
-  if (1==f_lep_0) channel = "muhad";
-  else if (2==f_lep_0) channel = "ehad";
+  if (isMuon()) channel = "muhad";
+  else if (isElectron()) channel = "ehad";
   
   // region: bveto or btag
   TString region = "";
@@ -118,16 +117,16 @@ double MultiJetsTFF::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  if ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && f_lep_0==2 && f_n_bjets==0) ||
-       (fSysName.Contains("FakeFactor_LepElBtag_1up") && f_lep_0==2 && f_n_bjets>0) ||
-       (fSysName.Contains("FakeFactor_LepMuBveto_1up") && f_lep_0==1 && f_n_bjets==0) ||
-       (fSysName.Contains("FakeFactor_LepMuBtag_1up") && f_lep_0==1 && f_n_bjets>0)  ) {
+  if ( (fSysName.Contains("FakeFactor_LepElBveto_1up") && isElectron() && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_LepElBtag_1up") && isElectron() && f_n_bjets>0) ||
+       (fSysName.Contains("FakeFactor_LepMuBveto_1up") && isMuon() && f_n_bjets==0) ||
+       (fSysName.Contains("FakeFactor_LepMuBtag_1up") && isMuon() && f_n_bjets>0)  ) {
     retval += retval_error;
   }
-  else if(  (fSysName.Contains("FakeFactor_LepElBveto_1down") && f_lep_0==2 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepElBtag_1down") && f_lep_0==2 && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_LepMuBveto_1down") && f_lep_0==1 && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_LepMuBtag_1down") && f_lep_0==1 && f_n_bjets>0) ) {
+  else if(  (fSysName.Contains("FakeFactor_LepElBveto_1down") && isElectron() && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_LepElBtag_1down") && isElectron() && f_n_bjets>0) ||
+            (fSysName.Contains("FakeFactor_LepMuBveto_1down") && isMuon() && f_n_bjets==0) ||
+            (fSysName.Contains("FakeFactor_LepMuBtag_1down") && isMuon() && f_n_bjets>0) ) {
     retval -= retval_error;
   }
 

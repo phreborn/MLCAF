@@ -195,7 +195,6 @@ double OtherJetsSF::getValue() const {
   float f_tau_0_pt = this->tau_0_pt->EvalInstance();
   int f_n_bjets        = this->n_bjets->EvalInstance();
   int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
-  int f_lep_0 = this->lep_0_pt->EvalInstance();
 
   // SF is a function of tau pT
   int binID = std::min(h_nominal->FindBin(f_tau_0_pt), h_nominal->GetNbinsX());
@@ -215,14 +214,14 @@ double OtherJetsSF::getValue() const {
           (fSysName.Contains("FakeFactor_OtherJetsReweight_Bveto3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
           (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag1p_1up") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
           (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag3p_1up") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag1p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag1p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag3p_1up") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag3p_1up") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBveto1p_1up") && isElectron() && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBveto1p_1up") && isMuon() && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBveto3p_1up") && isElectron() && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBveto3p_1up") && isMuon() && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBtag1p_1up") && isElectron() && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBtag1p_1up") && isMuon() && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBtag3p_1up") && isElectron() && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBtag3p_1up") && isMuon() && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
         ) {
     if (f_n_bjets == 0)
       retval = retval+fabs(retval-1.0);
@@ -234,14 +233,14 @@ double OtherJetsSF::getValue() const {
           (fSysName.Contains("FakeFactor_OtherJetsReweight_Bveto3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
           (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag1p_1down") && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
           (fSysName.Contains("FakeFactor_OtherJetsReweight_Btag3p_1down") && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) || 
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBveto3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBveto3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag1p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag1p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElHadBtag3p_1down") && f_lep_0 == 2 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
-          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuHadBtag3p_1down") && f_lep_0 == 1 && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBveto1p_1down") && isElectron() && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBveto1p_1down") && isMuon() && f_tau_0_n_charged_tracks == 1 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBveto3p_1down") && isElectron() && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBveto3p_1down") && isMuon() && f_tau_0_n_charged_tracks == 3 && f_n_bjets == 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBtag1p_1down") && isElectron() && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBtag1p_1down") && isMuon() && f_tau_0_n_charged_tracks == 1 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_ElBtag3p_1down") && isElectron() && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) ||
+          (fSysName.Contains("FakeFactor_OtherJetsReweight_MuBtag3p_1down") && isMuon() && f_tau_0_n_charged_tracks == 3 && f_n_bjets > 0) 
          ) {
     if (f_n_bjets ==0 )
       retval = retval-fabs(retval-1.0);

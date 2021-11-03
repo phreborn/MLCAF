@@ -47,7 +47,6 @@ TObjArray* ExtrapolationSys::getBranchNames() const {
 //______________________________________________________________________________________________
 double ExtrapolationSys::getValue() const {
   
-  double f_lep_0              = this->lep_0->EvalInstance();
   double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
   int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   int    f_n_bjets        = this->n_bjets->EvalInstance();
@@ -58,8 +57,8 @@ double ExtrapolationSys::getValue() const {
   ///////////////////////////////////////////////////////////////
   // channel: ehad or muhad
   TString channel = "";
-  if (1==f_lep_0) channel = "muhad";
-  else if (2==f_lep_0) channel = "ehad";
+  if (isMuon()) channel = "muhad";
+  else if (isElectron()) channel = "ehad";
 
   // region: bveto or btag, 1p or 3p
   TString region = "";
@@ -78,13 +77,10 @@ double ExtrapolationSys::getValue() const {
   
   // parameterization
   // dphi 1,2,3 in bveto/btag category
-  TString param = "LowMT";
+  TString param = "TauPt";
 
 
   TString histName = "SSExtrap"+ period + channel + region + param + prong + "SF";
-
-
-
   
   TH1F * h_nominal = 0;
   
@@ -105,26 +101,26 @@ double ExtrapolationSys::getValue() const {
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
   if    ( 
-         (fSysName.Contains("FakeFactor_Extrap_ElBveto1p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_ElBveto3p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_Eltag1p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_Eltag3p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBveto1p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBveto3p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBtag1p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBtag3p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1)
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto1p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto3p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag1p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag3p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto1p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && isMuon()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto3p_1up")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && isMuon()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag1p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && isMuon()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag3p_1up")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && isMuon())
         ) {
     retval = 1.0+fabs(retval-1.0);
   }
   else if(
-         (fSysName.Contains("FakeFactor_Extrap_ElBveto1p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_ElBveto3p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_Eltag1p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_Eltag3p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 2) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBveto1p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBveto3p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBtag1p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && f_lep_0 == 1) ||
-         (fSysName.Contains("FakeFactor_Extrap_MuBtag3p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && f_lep_0 == 1)
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto1p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_ElBveto3p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag1p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_Eltag3p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto1p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==1 && isMuon()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBveto3p_1down")  && f_n_bjets == 0 && f_tau_0_n_charged_tracks==3 && isMuon()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag1p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==1 && isMuon()) ||
+         (fSysName.Contains("FakeFactor_Extrap_MuBtag3p_1down")  && f_n_bjets > 0 && f_tau_0_n_charged_tracks==3 && isMuon())
           ) {
     retval = 1.0-fabs(retval-1.0);
   }
@@ -146,10 +142,10 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
 
   //fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("UseExtrapoSF", false) ) return;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyExtrapolationSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/Extrap_SF.root");
+  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root");
   if (!aFile) {
     ERRORclass("Can not find SSExtrap_SF.root");
   }
