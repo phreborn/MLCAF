@@ -151,7 +151,7 @@ if __name__ == "__main__":
     'bbHlhtag600':     "sig/{:s}/{:s}/bbH/600/",
     'bbHlhtag700':     "sig/{:s}/{:s}/bbH/700/",
     'bbHlhtag800':     "sig/{:s}/{:s}/bbH/800/",
-    'bbHlhtag1000':    "sig/{:s}/{:s}/bbH/1000/",
+    #'bbHlhtag1000':    "sig/{:s}/{:s}/bbH/1000/",
     'bbHlhtag1200':    "sig/{:s}/{:s}/bbH/1200/",
     'bbHlhtag1500':    "sig/{:s}/{:s}/bbH/1500/",
     'bbHlhtag2000':    "sig/{:s}/{:s}/bbH/2000/",
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     'ggHlhtag600':     "sig/{:s}/{:s}/ggH/600/",
     'ggHlhtag700':     "sig/{:s}/{:s}/ggH/700/",
     'ggHlhtag800':     "sig/{:s}/{:s}/ggH/800/",
-    'ggHlhtag1000':    "sig/{:s}/{:s}/ggH/1000/",
+    #'ggHlhtag1000':    "sig/{:s}/{:s}/ggH/1000/",
     'ggHlhtag1200':    "sig/{:s}/{:s}/ggH/1200/",
     'ggHlhtag1500':    "sig/{:s}/{:s}/ggH/1500/",
     'ggHlhtag2000':    "sig/{:s}/{:s}/ggH/2000/",
@@ -175,13 +175,7 @@ if __name__ == "__main__":
   ### The following regions will be dumped
   region_dict = {
     "OSBtagSR"  :   'CutOSBtagLowMT',
-#    "OSBtagSR3p"  :   'CutOSBtag3pLowMT',
     "OSBvetoSR"  :   'CutOSBvetoLowMT',
-#    "OSBvetoSR3p"  :   'CutOSBveto3pLowMT',
-    #"OSBtagVR1p"  :   'CutOSBtagVR1p',
-    #"OSBtagVR3p"  :   'CutOSBtagVR3p',
-    #"OSBvetoVR1p"  :   'CutOSBvetoVR1p',
-    #"OSBvetoVR3p"  :   'CutOSBvetoVR3p',
   }
 
   ### The following hists will be dumped
@@ -190,9 +184,9 @@ if __name__ == "__main__":
     #"BtagTauPt"         : "BinTauPt",
     #"BvetoLeptonPt"     : "BinLeptonPt",
     #"BtagLeptonPt"      : "BinLeptonPt",
-#    "BvetoMTTOT"        : "BinMTTOT",
- #   "BtagMTTOT"         : "BinMTTOT",
-    "MTTOT"             : "MTTOT",
+    #"BvetoMTTOT"        : "BinMTTOT",
+    #"BtagMTTOT"         : "BinMTTOT",
+    "MTTOT_fineBin"      : "MTTOT",
   }
 
   main(args, dataset_dict, sample_dict, region_dict, hist_dict); 
