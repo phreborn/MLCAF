@@ -32,7 +32,7 @@ submit.py "${CONFIG}" \
     --identifier "${IDENTIFIER}" \
     --allowArgChanges \
     --time 4320 --memory 1024 \
-#    --mergeConfig "AHZ-lephad/common/submission/merge.cfg" "${OPTIONS[@]}"
+    "${OPTIONS[@]}"
 #    --maxSampleSize 3000 \
 
 rm -f "${JOBSFILE:?}"
