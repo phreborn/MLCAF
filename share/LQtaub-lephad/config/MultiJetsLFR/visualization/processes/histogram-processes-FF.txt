@@ -1,0 +1,10 @@
+### data ###
+.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### backgrounds ###
+.path="|"
+.name="Wjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Wjets"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Top"
+.name="Zjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Zjets"
+.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mc/Diboson"

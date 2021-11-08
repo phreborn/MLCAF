@@ -1,0 +1,36 @@
+# -*- mode: tqfolder -*-
+
+# sampleFolder structure:
+# /(data,bkg,sig)/(channel)/(campaign)/(process)/...
+
+# prepare tags: /data folder has yet to be initialized, MC samples are yet to collect weights
+$printline("Applying post-prepare tags...");
+
+# use MC weights collected from initialize
+<usemcweights=false> @ /.;
+<usemcweights=true> @ /bkg, /sig;
+
+# wildcard for job submission
+<wildcarded=true> @ /data/?, /bkg/?, /sig/?;
+
+# useful tags for samples
+<channel="ehad"> @ ?/ehad;
+<channel="muhad"> @ ?/muhad;
+
+<isDiboson=false> @ /.;
+<isDiboson=true> @ /bkg/?/?/Diboson;
+
+<isZjets=false> @ /.;
+<isZjets=true> @ /bkg/?/?/Zjets;
+
+<isInclusiveZ=false> @ /.;
+<isInclusiveZ=true> @ /bkg/?/?/Zjets/?/inclusive;
+
+<isWjets=false> @ /.;
+<isWjets=true> @ /bkg/?/?/Wjets;
+
+<isTop=false> @ /.;
+<isTop=true> @ /bkg/?/?/Top;
+
+<isSig=false> @ /.;
+<isSig=true> @ /sig;
