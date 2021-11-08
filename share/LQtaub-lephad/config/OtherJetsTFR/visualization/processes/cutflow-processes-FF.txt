@@ -1,0 +1,14 @@
+### data ###
+.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### dd backgrounds ####
+.path="|"
+.name="MultiJetsFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
+
+### mc backgrounds ###
+.path="|"
+.name="WjetsReal",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
+.name="TopReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
+.name="ZjetsReal",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets"
+.name="DibosonReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"

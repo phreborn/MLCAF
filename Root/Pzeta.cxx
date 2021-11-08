@@ -1,6 +1,6 @@
 #include "BSMtautauCAF/Pzeta.h"
 #include <limits>
-
+#include "TObjString.h"
 // uncomment the following line to enable debug printouts
 // #define _DEBUG_
 // you can perform debug printouts with statements like this

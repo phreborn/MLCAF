@@ -1,0 +1,9 @@
+### mc backgrounds ###
+.path="||"
+.name="Expected", .title="Expected", .isData=true, .path="/bkg/$(channel)/$(campaign)/mcFake"
+.path="||"
+.name="Total", .title="Total", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected"
+.name="WjetsFakeCorrected",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Wjets"
+.name="TopFakeCorrected",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Top"
+.name="ZjetsFakeCorrected",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Zjets"
+.name="DibosonFakeCorrected",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Diboson"

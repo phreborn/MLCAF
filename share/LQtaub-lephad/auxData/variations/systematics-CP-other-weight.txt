@@ -1,0 +1,24 @@
+#name                                                  type        variation
+
+# Flavor tagging: 14 
+FT_EFF_Eigen_B_0                                       weight      two                   
+FT_EFF_Eigen_B_1                                       weight      two                   
+FT_EFF_Eigen_B_2                                       weight      two                       
+FT_EFF_Eigen_C_0                                       weight      two                               
+FT_EFF_Eigen_C_1                                       weight      two                   
+FT_EFF_Eigen_C_2                                       weight      two                   
+FT_EFF_Eigen_C_3                                       weight      two                           
+FT_EFF_Eigen_Light_0                                   weight      two                       
+FT_EFF_Eigen_Light_1                                   weight      two                       
+FT_EFF_Eigen_Light_2                                   weight      two                               
+FT_EFF_Eigen_Light_3                                   weight      two                               
+FT_EFF_Eigen_Light_4                                   weight      two                       
+FT_EFF_extrapolation                                   weight      two                                       
+FT_EFF_extrapolation_from_charm                        weight      two                       
+
+# Jet: 1
+JET_JvtEfficiency                                      weight      two 
+
+# Others: 2
+PRW_DATASF                                             weight      two    
+MatTransCorr                                           weight      two                 

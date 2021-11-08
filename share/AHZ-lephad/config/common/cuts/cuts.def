@@ -1,0 +1,30 @@
+# -*- mode: tqfolder -*-
+
+# Common cuts for lephad channel
+# CutChannel: split the channel
+# CutZjets: remove the overlap between the inclusive Zjets sample and mass sliced DY sample
+# CutTriggerMatch: apply trigger match
+
++CutDuplicate {
+    <.cutExpression="{$(isData) ? 1 : ([useEvent] == 1)}", .title="Not duplicate">
+
+    +CutChannel {
+        <.cutExpression="('$(channel)' == 'ehad' && $(isElectron)) || ('$(channel)' == 'muhad' && $(isMuon))", .title="Channel">
+    
+        +CutZjets { 
+            <.cutExpression="{$(isData) ? 1 : (($(isInclusiveZ) && [parent_p4.M()] >= 120) ? 0 : 1)}", 
+             .weightExpression="{($(isZjets) && $(ApplyLPXKfactor)) ? [LPXKfactor] : 1}", .title="Remove overlap of Zjets">
+    
+            +CutTriggerMatch {
+                <.cutExpression="[BSMTriggerDecision] == 1", .title="Trigger Match">
+    
+                # TODO: it should be included in the tau scale factor
+                +CutMaterialCorrection {
+                    <.cutExpression="1",
+                     .weightExpression="($(isMC) && $(ApplyMaterialCorrection) && [TruthTauSelector] == 30) ? [MatTransCorrection] : 1", 
+                     .title="Material Transport Correction">
+                } #End: CutMaterialCorrection
+            } #End: CutTriggerMatch
+    	} #End: Zjets
+    } #End: CutChannel
+}

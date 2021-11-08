@@ -1,0 +1,88 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, MT
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         ($(isJet) && [TruthTauSelector] == -30)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+                
+                +CutLeptonISO {
+                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                     .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+
+                    +CutTauID {
+                        <.cutExpression="$(isPassID)", .title="Tau ID">
+
+                        +CutLepHad {
+                            <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
+                        } #End: CutLepHad
+                    } #End: CutTauID
+                } #End: CutLeptonISO
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+# Divide to SS/OS region
+@ */CutLepHad {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
+    } #End: CutOS
+    
+    +CutSS {
+        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
+    } #End: CutSS
+} #End: CutLepHad
+
+
+
+# Divide to Bveto/Btag region
+@ */Cut*S {
+    +Cut$(CHARGE)Bveto {
+        <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
+    } #End: CutBveto
+
+    +Cut$(CHARGE)Btag {
+        <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag">
+    } #End: CutBtag
+} #End: CutLepHad
+
+
+
+# Divide to different MT region
+@ */Cut*SB* {
+    +Cut$(CHARGE)$(BJET)NoMT {
+        <.cutExpression="1", .title=$(CHARGE)$(BJET)NoMT>
+    }
+    +Cut$(CHARGE)$(BJET)LowMT {
+        <.cutExpression="lephad_mt_lep0_met < 40", .title="$(CHARGE)$(BJET)LowMT">
+    } 
+    +Cut$(CHARGE)$(BJET)MediumMT {
+        <.cutExpression="lephad_mt_lep0_met >= 40 && lephad_mt_lep0_met<60", .title="$(CHARGE)$(BJET)MediumMT">
+    }
+    +Cut$(CHARGE)$(BJET)HighMT {
+        <.cutExpression="$(NbJets)==0 ? lephad_mt_lep0_met>=150 : lephad_mt_lep0_met>=220", .title="$(CHARGE)$(BJET)HighMT">
+    }
+}
+
+
+
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/CutSS/*:.name,.title", CHARGE="SS");
+$replace("*/Cut*Bveto/*:.name,.title", BJET="Bveto");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");

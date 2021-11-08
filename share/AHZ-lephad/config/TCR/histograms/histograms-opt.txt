@@ -1,0 +1,14 @@
+#############################################
+##  Plotting Histograms in Multi-jets LFR  ##
+#############################################
+
+# General interest
+TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
+TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
+TH1F('St', '', 20, 0, 1000) << ($(St) : "S_{T} [GeV]");
+TH1F('MET', '', 30, 0, 300) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
+TH1F('MTLepMET', '', 30, 0, 300) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
+TH1F('LepTauDphi', '', 30, 0, 3.15) << (lephad_dphi : "\#Delta\#phi(lep,\#tau_{had-vis})");
+TH1F('LepTauDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,\#tau_{had-vis})");
+
+@Cut*Dphi: JetCount,BJetCount,St,MET,MTLepMET,LepTauDphi,LepTauDr;

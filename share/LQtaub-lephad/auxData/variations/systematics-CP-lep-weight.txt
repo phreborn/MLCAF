@@ -1,0 +1,15 @@
+#name                                                  type        variation
+# Electron: 4
+EL_EFF_Trigger                                         weight      two
+EL_EFF_Reco_TOTAL                                      weight      two
+EL_EFF_ID_TOTAL                                        weight      two
+EL_EFF_Iso_TOTAL                                       weight      two
+
+# Muon: 6
+MUON_EFF_Trigger_STAT                                  weight      two                    
+MUON_EFF_Trigger_SYST                                  weight      two                       
+MUON_EFF_RECO_STAT                                     weight      two                                                         
+MUON_EFF_RECO_SYS                                      weight      two                       
+MUON_EFF_ISO_STAT                                      weight      two                           
+MUON_EFF_ISO_SYS                                       weight      two                           
+

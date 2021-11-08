@@ -1,223 +1,29 @@
 #include "BSMtautauCAF/LPXKfactor.h"
-#include <limits>
 
-// uncomment the following line to enable debug printouts
-// #define _DEBUG_
-// you can perform debug printouts with statements like this
-// DEBUG("error number %d occurred",someInteger);
-
-// be careful to not move the _DEBUG_ flag behind the following line
-// otherwise, it will show no effect
 #include "QFramework/TQLibrary.h"
-#include "TFile.h"
-#include "TMath.h"
-#include <map>
+
+#include "TObjString.h"
+#include <limits>
+#include <iostream>
 
 ClassImp(LPXKfactor)
 
-//______________________________________________________________________________________________
 
-LPXKfactor::LPXKfactor(){
-  // default constructor
 
-  this->setExpression(this->GetName() );
-
+LPXKfactor::LPXKfactor() {
+  this->setExpression(this->GetName());
   DEBUGclass("default constructor called");
 }
 
-//______________________________________________________________________________________________
 
-LPXKfactor::~LPXKfactor(){
-  // default destructor
+
+LPXKfactor::~LPXKfactor() {
   DEBUGclass("destructor called");
 }
 
 
-//______________________________________________________________________________________________
 
-TObjArray* LPXKfactor::getBranchNames() const {
-  // retrieve the list of branch names
-  // ownership of the list belongs to the caller of the function
-  DEBUGclass("retrieving branch names");
-  TObjArray* bnames = LepHadObservable::getBranchNames();
-
-  return bnames;
-}
-
-//______________________________________________________________________________________________
-double LPXKfactor::getValue() const {
-  
-  if (isData()) return 1.0;
-  
-  int f_mc_channel_number = this->mc_channel_number->EvalInstance();
-
-  //////////////////////////////////////////////////////////////////////// 
-  // determine which LPX Kfactor to use
-  //////////////////////////////////////////////////////////////////////// 
-  
-  TString Sample = "";
-  if ( (f_mc_channel_number>=301000 && f_mc_channel_number<=301018) || f_mc_channel_number == 361106 )
-     Sample = "DYee";
-  else if ( (f_mc_channel_number>=301020 && f_mc_channel_number<=301038) || f_mc_channel_number == 361107 )
-     Sample = "DYmumu";
-  else if ( (f_mc_channel_number>=301040 && f_mc_channel_number<=301058) || f_mc_channel_number == 361108 )
-     Sample = "DYtautau"; 
-  else 
-     return 1.0;
-
-  // obtain the graph
-  TGraphAsymmErrors* graph_nominal = 0;
-  graph_nominal = m_SF_graph.at(Sample+"_LPX_kFactors");
-
-  // determine the bin
-  int bin = -1;
-  std::map<int, int>::const_iterator it;
-  it = m_DSID_bin.find(f_mc_channel_number);
-  
-  if (it == m_DSID_bin.end()) 
-  {
-    std::cout << "Error! Unknown DSID!" << std::endl;
-    return 1.0;
-  }
-  else bin = it->second;
-  
-  double retval = 1.0;
-  double x = 0.0;
-  graph_nominal ->GetPoint(bin, x, retval);
-
-  //////////////////////////////////////////////////////////////////////// 
-  // SYSTEMATICS
-  //////////////////////////////////////////////////////////////////////// 
-  
-  TGraphAsymmErrors* graph_sys = 0;
-  double relsys = 1.0;
-  if ( fSysName.Contains("LPX_KFACTOR_CHOICE_HERAPDF20_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_HERAPDF20__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_HERAPDF20_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_HERAPDF20__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= (2-relsys);
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_NNPDF30_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_NNPDF30_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= (2-relsys);
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_epWZ16_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_epWZ16__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_CHOICE_epWZ16_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_CHOICE_epWZ16__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= (2-relsys);
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_REDCHOICE_NNPDF30_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_REDCHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_REDCHOICE_NNPDF30_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_REDCHOICE_NNPDF30__1cont");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= (2-relsys);
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_ALPHAS_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_ALPHAS__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_ALPHAS_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_ALPHAS__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_BEAM_ENERGY_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_BEAM_ENERGY__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_BEAM_ENERGY_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_BEAM_ENERGY__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PDF_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PDF_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PDF_EW_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_EW__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PDF_EW_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_EW__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PDF_epWZ16_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_epWZ16__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PDF_epWZ16_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PDF_epWZ16__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PI_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PI__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_PI_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_PI__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_SCALE_W_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_W__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_SCALE_W_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_W__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_SCALE_Z_Corr_1up")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_Z__1up");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-  else if ( fSysName.Contains("LPX_KFACTOR_SCALE_Z_Corr_1down")) {
-    graph_sys = m_SF_graph.at(Sample+"_LPX_sys_weight_LPX_KFACTOR_SCALE_Z__1down");
-    graph_sys -> GetPoint(bin, x, relsys);
-    retval *= relsys;
-  }
-
-  return retval;
-}
-//______________________________________________________________________________________________
-
-LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
-{
+LPXKfactor::LPXKfactor(const TString& expression): LepHadObservable(expression) {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
   // the predefined string member "expression" allows your observable to store an expression of your choice
@@ -226,117 +32,219 @@ LPXKfactor::LPXKfactor(const TString& expression) : LepHadObservable(expression)
   this->SetName(TQObservable::makeObservableName(expression));
   this->setExpression(expression);
 
-  //fSysName = expression;
+  // LPX Kfactor
+  // --- ALPHAS
+  Condition lpx_kfactor_ALPHAS_down = registerVariation("LPX_KFACTOR_ALPHAS_Corr_1down");
+  Condition lpx_kfactor_ALPHAS_up = registerVariation("LPX_KFACTOR_ALPHAS_Corr_1up");
+  Condition lpx_kfactor_sys = lpx_kfactor_ALPHAS_down | lpx_kfactor_ALPHAS_up;
+  
+  // --- PI
+  Condition lpx_kfactor_PI_down = registerVariation("LPX_KFACTOR_PI_Corr_1down");
+  lpx_kfactor_sys |= lpx_kfactor_PI_down;
+  Condition lpx_kfactor_PI_up = registerVariation("LPX_KFACTOR_PI_Corr_1up");
+  lpx_kfactor_sys |= lpx_kfactor_PI_up;
+  
+  // --- BEAM_ENERGY
+  Condition lpx_kfactor_BEAM_ENERGY_down = registerVariation("LPX_KFACTOR_BEAM_ENERGY_Corr_1down");
+  lpx_kfactor_sys |= lpx_kfactor_BEAM_ENERGY_down;
+  Condition lpx_kfactor_BEAM_ENERGY_up = registerVariation("LPX_KFACTOR_BEAM_ENERGY_Corr_1up");
+  lpx_kfactor_sys |= lpx_kfactor_BEAM_ENERGY_up;
 
-  // when files are closed histograms also dissapear, so detatch them and keep in this directory:
-  //m_histoDir = new TDirectory("ffhistoDir","ffhistoDir");
-  m_histoDir = 0;
-  // temporary pointer to ff files:
-  TFile* tempFile=0;
+  // --- PDF
+  Condition lpx_kfactor_PDF_down = registerVariation("LPX_KFACTOR_PDF_Corr_1down");
+  lpx_kfactor_sys |= lpx_kfactor_PDF_down;
+  Condition lpx_kfactor_PDF_up = registerVariation("LPX_KFACTOR_PDF_Corr_1up");
+  lpx_kfactor_sys |= lpx_kfactor_PDF_up;
+  Condition lpx_kfactor_PDF_EW_down = registerVariation("LPX_KFACTOR_PDF_EW_Corr_1down");
+  lpx_kfactor_sys |= lpx_kfactor_PDF_EW_down;
+  Condition lpx_kfactor_PDF_EW_up = registerVariation("LPX_KFACTOR_PDF_EW_Corr_1up");
+  lpx_kfactor_sys |= lpx_kfactor_PDF_EW_up;
+  Condition lpx_kfactor_PDF_epWZ16_down = registerVariation("LPX_KFACTOR_PDF_epWZ16_Corr_1down");
+  lpx_kfactor_sys |= lpx_kfactor_PDF_epWZ16_down;
+  Condition lpx_kfactor_PDF_epWZ16_up = registerVariation("LPX_KFACTOR_PDF_epWZ16_Corr_1up");
+  lpx_kfactor_sys |= lpx_kfactor_PDF_epWZ16_up;
+  
+  // --- SCALE
+  Condition lpx_kfactor_SCALE_W_down = registerVariation("LPX_KFACTOR_SCALE_W_Corr_1down");
+  lpx_kfactor_sys |= lpx_kfactor_SCALE_W_down;
+  Condition lpx_kfactor_SCALE_W_up = registerVariation("LPX_KFACTOR_SCALE_W_Corr_1up");
+  lpx_kfactor_sys |= lpx_kfactor_SCALE_W_up; 
+  Condition lpx_kfactor_SCALE_Z_down = registerVariation("LPX_KFACTOR_SCALE_Z_Corr_1down");
+  lpx_kfactor_sys |= lpx_kfactor_SCALE_Z_down;
+  Condition lpx_kfactor_SCALE_Z_up = registerVariation("LPX_KFACTOR_SCALE_Z_Corr_1up");
+  lpx_kfactor_sys |= lpx_kfactor_SCALE_Z_up;
+  
+  // --- CHOICE
+  Condition lpx_kfactor_CHOICE_HERAPDF20 = registerVariation("LPX_KFACTOR_CHOICE_HERAPDF20_Corr");
+  lpx_kfactor_sys |= lpx_kfactor_CHOICE_HERAPDF20;
+  Condition lpx_kfactor_CHOICE_NNPDF30 = registerVariation("LPX_KFACTOR_CHOICE_NNPDF30_Corr");
+  lpx_kfactor_sys |= lpx_kfactor_CHOICE_NNPDF30;
+  Condition lpx_kfactor_CHOICE_epWZ16 = registerVariation("LPX_KFACTOR_CHOICE_epWZ16_Corr");
+  lpx_kfactor_sys |= lpx_kfactor_CHOICE_epWZ16;
+  Condition lpx_kfactor_REDCHOICE_NNPDF30 = registerVariation("LPX_KFACTOR_REDCHOICE_NNPDF30_Corr");
+  lpx_kfactor_sys |= lpx_kfactor_REDCHOICE_NNPDF30;
 
-  //std::cout << "INFO: LPXKfactor.cxx getting histograms from files. " << std::endl;
-  INFOclass("LPXKfactor getting functions...");
+  addScaleFactor(none, lpx_kfactor_sys, "NOMINAL_lpx_kfactor");
+  
+  addScaleFactor(lpx_kfactor_ALPHAS_down, "LPX_KFACTOR_ALPHAS_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_ALPHAS_up, "LPX_KFACTOR_ALPHAS_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PI_down, "LPX_KFACTOR_PI_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PI_up, "LPX_KFACTOR_PI_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_BEAM_ENERGY_down, "LPX_KFACTOR_BEAM_ENERGY_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_BEAM_ENERGY_up, "LPX_KFACTOR_BEAM_ENERGY_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PDF_down, "LPX_KFACTOR_PDF_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PDF_up, "LPX_KFACTOR_PDF_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PDF_EW_down, "LPX_KFACTOR_PDF_EW_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PDF_EW_up, "LPX_KFACTOR_PDF_EW_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PDF_epWZ16_down, "LPX_KFACTOR_PDF_epWZ16_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_PDF_epWZ16_up, "LPX_KFACTOR_PDF_epWZ16_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_SCALE_W_down, "LPX_KFACTOR_SCALE_W_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_SCALE_W_up, "LPX_KFACTOR_SCALE_W_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_SCALE_Z_down, "LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_SCALE_Z_up, "LPX_KFACTOR_SCALE_Z_1up_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_CHOICE_HERAPDF20, "LPX_KFACTOR_CHOICE_HERAPDF20_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_CHOICE_NNPDF30, "LPX_KFACTOR_CHOICE_NNPDF30_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_CHOICE_epWZ16, "LPX_KFACTOR_CHOICE_epWZ16_lpx_kfactor");
+  addScaleFactor(lpx_kfactor_REDCHOICE_NNPDF30, "LPX_KFACTOR_REDCHOICE_NNPDF30_lpx_kfactor");
 
-  ///////////////////////////////
-  // LPX kfactor
-  ///////////////////////////////
-  // first bin is for inclusive sample
-  for (int i = 0; i < 19; ++i) {
-    m_DSID_bin[301000+i] = i+1;  // DYee
-    m_DSID_bin[301020+i] = i+1;  // DYmumu
-    m_DSID_bin[301040+i] = i+1;  // DYtautau
+  DEBUGclass("There are %d SFs registered.", m_branches.size());
+  m_staticConditionsMask |= nominal;
+}
+
+
+
+bool LPXKfactor::initializeSelf() {
+  if (!LepHadObservable::initializeSelf()) {
+    ERROR("Initialization of LepHadObservable failed.");
+    return false;
   }
-  m_DSID_bin[361106] = 0;
-  m_DSID_bin[361107] = 0;
-  m_DSID_bin[361108] = 0;
 
-  std::vector<TString> SF_list;
-  SF_list.clear();
-  SF_list.reserve(64);
-  SF_list.emplace_back("LPX_kFactors");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_CHOICE_HERAPDF20__1cont");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_CHOICE_NNPDF30__1cont");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_REDCHOICE_NNPDF30__1cont");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_CHOICE_epWZ16__1cont");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PDF_EW__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PDF_EW__1down");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_ALPHAS__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_ALPHAS__1down");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_SCALE_W__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_SCALE_W__1down");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PI__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PI__1down");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PDF__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PDF__1down");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PDF_epWZ16__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_PDF_epWZ16__1down");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_SCALE_Z__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_SCALE_Z__1down");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_BEAM_ENERGY__1up");
-  SF_list.emplace_back("LPX_sys_weight_LPX_KFACTOR_BEAM_ENERGY__1down");
-
-  std::vector<TString> Sample_list;
-  Sample_list.clear();
-  Sample_list.reserve(3);
-  Sample_list.emplace_back("DYee");
-  Sample_list.emplace_back("DYmumu");
-  Sample_list.emplace_back("DYtautau");
-
-  TGraphAsymmErrors* tempGraph = 0;
-  TString signalProcess = "";
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
-    ERRORclass("AnaChannel not set !!!");
+  int sum = 0; 
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("lpxvar", fSysName) ) {
+    fSysName = "nominal";
+    m_variation = nominal;
+    ++sum;
   }
-  for (auto sample : Sample_list) {
-    INFOclass("Loading file...");
-    tempFile = TFile::Open(signalProcess+"_lephad/auxData/Systematics/LPK_k-Factors_"+sample+".root");
-    if (!tempFile) {
-      ERRORclass("Can not find LPX Kfactor for '%s'",sample);
-      continue;
-    }
-    else {
-      for (auto SF : SF_list) {
-        tempGraph = (TGraphAsymmErrors*)tempFile->Get(SF);
-        tempGraph->SetName(sample+"_"+SF);
-        m_SF_graph[tempGraph->GetName()] = tempGraph;
+  else { 
+    for (unsigned int i = 0; i < m_variations.size(); ++i) {
+      if (fSysName.EndsWith(m_variations[i].first)) {
+        m_variation = m_variations[i].second;
+        ++sum;
       }
-      tempFile->Close(); delete tempFile; tempFile = 0;
     }
+  }  
+
+  if (1 != sum) {
+    ERROR("%s triggers %d variations !", fSysName, sum);
+    throw std::runtime_error("Strange systematic:" + fSysName); 
   }
-}
-//______________________________________________________________________________________________
 
-const TString& LPXKfactor::getExpression() const {
-  // retrieve the expression associated with this observable
-  return this->fExpression;
-}
+  for (unsigned int i = 0; i < m_branches.size(); ++i) {
+    Condition requirement = std::get<0>(m_branches[i]);
+    Condition veto = std::get<1>(m_branches[i]);
+    TString name = std::get<2>(m_branches[i]);
+    std::get<3>(m_branches[i]) = NULL;
 
-//______________________________________________________________________________________________
+    // remove those, which are already impossible due to variation
+    if ( (requirement & m_staticConditionsMask & ~m_variation).any() ) { continue; }
+    if ( (veto & m_variation).any() ) { continue; }
 
-bool LPXKfactor::hasExpression() const {
-  // check if this observable type knows expressions
-  return true;
-}
-
-//______________________________________________________________________________________________
-
-void LPXKfactor::setExpression(const TString& expr){
-  // set the expression to a given string
-  this->fExpression = expr;
-}
-//______________________________________________________________________________________________
-
-bool LPXKfactor::initializeSelf(){
-  if (!LepHadObservable::initializeSelf()) return false;
-
-  fSysName = this->fSample->replaceInTextRecursive("$(sfVariation.lpx)","~");
+    std::get<3>(m_branches[i]) = new TTreeFormula(name, name, this->fTree);
+  }
 
   return true;
 }
 
-//______________________________________________________________________________________________
+
 
 bool LPXKfactor::finalizeSelf(){
-  if (!LepHadObservable::finalizeSelf()) return false;
+
+  for (unsigned int i = 0; i < m_branches.size(); i++) {
+    TTreeFormula* formula = std::get<3>(m_branches[i]);
+    if (formula != NULL) {
+      delete formula;
+      formula = NULL;
+    }
+  }
+
   return true;
+}
+
+
+
+Condition LPXKfactor::registerVariation(TString name) {
+  Condition variation;
+  variation.set(m_nextBitPosition);
+  m_staticConditionsMask.set(m_nextBitPosition);
+  m_nextBitPosition++;
+
+  std::pair<TString, Condition> pair(name, variation);
+  m_variations.push_back(pair);
+
+  return variation;
+}
+
+
+
+void LPXKfactor::addScaleFactor(Condition requirement, TString branch) {
+  addScaleFactor(requirement, none, branch);
+}
+
+
+
+void LPXKfactor::addScaleFactor(Condition requirement, Condition veto, TString branch) {
+  std::tuple<Condition, Condition, TString, TTreeFormula*> sf;
+
+  std::get<0>(sf) = requirement;
+  std::get<1>(sf) = veto;
+  std::get<2>(sf) = branch;
+  std::get<3>(sf) = NULL;
+
+  m_branches.push_back(sf);
+}
+
+
+
+TObjArray* LPXKfactor::getBranchNames() const {
+  // retrieve the list of branch names
+  // ownership of the list belongs to the caller of the function
+  DEBUGclass("retrieving branch names");
+  TObjArray* bnames = LepHadObservable::getBranchNames();
+
+  for (unsigned int i = 0; i < m_branches.size(); i++) {
+    TString name = std::get<2>(m_branches[i]);
+    bnames->Add(new TObjString(name.Data()));
+  }
+
+  return bnames;
+}
+
+
+
+double LPXKfactor::getValue() const {
+
+  double kfactor = 1.;
+
+  Condition status(m_variation);
+
+  DEBUGclass("******************************************");
+  // apply branches
+  for (unsigned int i = 0; i < m_branches.size(); i++) {
+    Condition requirement = std::get<0>(m_branches[i]);
+    Condition veto = std::get<1>(m_branches[i]);
+    
+    // some requirements are not met
+    if ((requirement & ~status).any()) { continue; }
+
+    // some vetos are triggered
+    if ((veto & status ).any()) { continue; }
+
+    TString name = std::get<2>(m_branches[i]);
+    TTreeFormula* formula = std::get<3>(m_branches[i]);
+    DEBUGclass("%s: %f", name.Data(), formula->EvalInstance());
+
+    kfactor *= formula->EvalInstance();
+  }
+
+  return kfactor;
 }

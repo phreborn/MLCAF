@@ -12,7 +12,7 @@ class MatTransCorrection : public LepHadObservable {
   
     MatTransCorrection();
     MatTransCorrection(const TString& expression);
-    ~MatTransCorrection();
+    virtual ~MatTransCorrection() = default;
 
     virtual bool hasExpression() const override;
     virtual const TString& getExpression() const override;

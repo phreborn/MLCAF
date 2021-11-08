@@ -1,0 +1,7 @@
+# ------------------------------ c16d ------------------------------ #
+##### mc bkg #####
+/bkg/?/c16d/mcFake/Top/single
+/bkg/?/c16d/mcFake/Top/ttbar/nominal
+/bkg/?/c16d/mcFake/Zjets
+/bkg/?/c16d/mcFake/Diboson
+/bkg/?/c16d/mcFake/Wjets

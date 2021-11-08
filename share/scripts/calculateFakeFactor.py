@@ -1,11 +1,9 @@
 #!/user/bin/env python2
 
 def getOverallError(hist):
-  value = .0
   error = .0
-  for bin in range(1, hist.GetNbinsX()+1):
-    value += hist.GetBinContent(bin)
-    error += hist.GetBinError(bin) * hist.GetBinError(bin)
+  for binIndex in range(1, hist.GetNbinsX()+1):
+    error += hist.GetBinError(binIndex) * hist.GetBinError(binIndex)
   return sqrt(error)
 
 
@@ -43,17 +41,18 @@ def averageHist(hist1, hist2):
     return temp
 
 # add systematic uncertainty in quadrature
-def addSysError(histError,hist1):
-    # here we need to change histError - add hist1 in quadrature
-    nBinsX = hist1.GetNbinsX()
-    if nBinsX != histError.GetNbinsX():
+def addSysError(oldHist,additionalHist):
+    # here we need to change oldHist - add additionalHist in quadrature
+    nBinsX = additionalHist.GetNbinsX()
+    if nBinsX != oldHist.GetNbinsX():
         print "Error: different binning"
         return None
-    # add content to histError
-    for bin in range(0,nBinsX+2):
-        tempError = hist1.GetBinContent(bin)
-        oldError = histError.GetBinContent(bin)
-        histError.SetBinContent(bin, sqrt(tempError**2+oldError**2))
+    # add content to oldHist
+    for binIndex in range(0,nBinsX+2):
+        additionalError = additionalHist.GetBinContent(binIndex)
+        oldError = oldHist.GetBinContent(binIndex)
+        totalError = sqrt(additionalError**2+oldError**2)
+        oldHist.SetBinContent(binIndex, totalError)
 
 # force histogram to be non-negative
 def checkNegative(hist):
@@ -84,8 +83,9 @@ def convertToAsyGraph(hist, up, down):
     gr = TGraphAsymmErrors(nBinsX,x,y,exl,exh,eyl,eyh)
     gr.GetXaxis().SetTitle(hist.GetXaxis().GetTitle())
     return gr
-# plotting FFs: hist error is MC statistics
-#               up/down is MC statistics and MC subtraction
+
+# plotting FFs: hist error is MC and data statistics
+#               up/down is MC and data statistics, and systematic uncertainties of MC subtraction
 def plotFakeFactor(hist,up,down,name='someFF'):
     print ' Now Plotting FakeFacotr: '+name
 
@@ -125,21 +125,15 @@ def plotFakeFactor(hist,up,down,name='someFF'):
     c1.Write()
 
 
-###############################################################
 # calculation of fake factor
 #       [datapath-mcpath]:nominator/histogram
 # FF =  ---------------------------------------
 #       [datapath-mcpath]:denominator/histogram
 # Considering statistical uncertainty and sys of mc subtraction 
 # FF will be saved to root files named prefix+histogram+'.root' 
-###############################################################
-def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix, mcVar1=0.1, mcVar2=0.1):
-  print '----------------------------------------------------------'
-  print 'Now running Fake Factor in ', prefix, histogram
-  print '--------------------------------------------------------\n'
+def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix, nomVar=0.1, denomVar=0.1):
+  print 'Calculate Fake Factor in ', prefix, histogram
 
-  doMCSys = True #True
-  
   # nominal histogram
   histoPass = reader.getHistogram('{:s}-{:s}'.format(dataPath,bkgpath),'{:s}/{:s}'.format(nominator,histogram))
   histoFail = reader.getHistogram('{:s}-{:s}'.format(dataPath,bkgpath),'{:s}/{:s}'.format(denominator,histogram))
@@ -160,11 +154,11 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
     FF_nom_error.SetBinContent(i, FF_nom_error.GetBinError(i))
     FF_nom_error.SetBinError(i, 0)
 
-  if doMCSys:
-    histoPass_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+mcVar1),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
-    histoPass_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-mcVar1),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
-    histoFail_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+mcVar2),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
-    histoFail_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-mcVar2),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
+  if nomVar != 0.0 or denomVar != 0.0:
+    histoPass_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+nomVar),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
+    histoPass_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-nomVar),bkgpath),'{:s}/{:s}'.format(nominator,histogram))
+    histoFail_up   = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1+denomVar),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
+    histoFail_down = reader.getHistogram('{:s}-{:s}*{:s}'.format(dataPath,str(1-denomVar),bkgpath),'{:s}/{:s}'.format(denominator,histogram))
     # add overflow
     addOverflow(histoPass_up)
     addOverflow(histoPass_down)
@@ -207,7 +201,7 @@ def calcFakeFactor(datapath, bkgpath, nominator, denominator, histogram, prefix,
   FF_nom_down.SetName(FF_nom.GetName()+'_down')
   checkNegative(FF_nom_down)
 
-  outfile = TFile(analysis+'_lephad/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
+  outfile = TFile(analysis+'/auxData/FakeFactors/'+FF_nom.GetName()+'.root','RECREATE')
   outfile.cd()
   FF_nom.Write()
   FF_nom_up.Write()
@@ -225,9 +219,9 @@ if __name__=='__main__':
 
   import sys
   # argument
-  if len(args)==1:
-    print 'You must submit an argument REGION: \n\t WFR; \n\t LFR; \n\t etc.'
-    print 'And an argument ANALYSIS: \n\t bsmtautau; \n\t lqtaub; \n\t etc.'
+  if len(args)==1: ##### Change
+    print 'You must submit an argument REGION: \n\t MultiJetsLFR; \n\t OtherJetsTFR; \n\t etc.'
+    print 'And an argument ANALYSIS: \n\t AHZ-lephad; \n\t etc.'
     sys.exit()
   analysis = args[0]
   region   = args[1]
@@ -246,10 +240,10 @@ if __name__=='__main__':
   debug = options.debug
 
   # decide which file is needed:
-  if region == 'WFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_wfr.root'
-  elif region == 'LFR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'_lephad_lfr.root'
+  if region == 'OtherJetsTFR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF.root'
+  elif region == 'MultiJetsLFR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF.root'
   else:
     print ("ERROR: unsupported region: ", region)
     sys.exit()
@@ -257,7 +251,7 @@ if __name__=='__main__':
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
   reader = TQSampleDataReader(samples)
 
-  if region == 'WFR':
+  if region == 'OtherJetsTFR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -276,17 +270,52 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Fakes/ISO/[data-mc]]'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/[mcReal+MultiJetsFake]'.format(channel_path, period_path)
+        
+        prefix = region+period_name+channel_name
+        
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT1pPassTauID', 'CutOSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT3pPassTauID', 'CutOSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT3p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT1pPassTauID', 'CutOSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT3pPassTauID', 'CutOSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT3p", 0.1,0.1)
+        
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT1pPassTauID', 'CutSSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT3pPassTauID', 'CutSSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT3p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT1pPassTauID', 'CutSSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT3pPassTauID', 'CutSSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT3p", 0.1,0.1)
+
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/FakeFactors/OtherJetsTFR_FF.root AHZ-lephad/auxData/FakeFactors/OtherJetsTFRAll*.root\033[0m")
+  
+  elif region == 'QCDTFR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/mc/TTL/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
         
         prefix = region+period_name+channel_name
         # bveto 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto1pPassID', 'CutOSBveto1pFailID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBveto3pPassID', 'CutOSBveto3pFailID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDTFR1pPassTauID', 'CutOSBvetoQCDTFR1pFailTauID', 'Bveto1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoQCDTFR3pPassTauID', 'CutOSBvetoQCDTFR3pFailTauID', 'Bveto3pTauPtFF', prefix, 0.1,0.1)
         # btag 1D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag1pPassID',  'CutOSBtag1pFailID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtag3pPassID',  'CutOSBtag3pFailID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDTFR1pPassTauID',  'CutOSBtagQCDTFR1pFailTauID', 'Btag1pTauPtFF', prefix, 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagQCDTFR3pPassTauID',  'CutOSBtagQCDTFR3pFailTauID', 'Btag3pTauPtFF', prefix, 0.1,0.1)
 
-  elif region == 'LFR':
+  elif region == 'MultiJetsLFR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -305,14 +334,17 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/[Ztautau+Zll+Top+Diboson+Wjets]'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Top+Diboson+Wjets]'.format(channel_path, period_path)
         
-        prefix = region+period_name+channel_name
+        prefix = region+"TopCorrected"+period_name+channel_name
         # 2D FF
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi3FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBvetoPassISO', 'CutBvetoFailISO', 'BvetoLeptonPtDphi4FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi1FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi2FF', prefix, 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutBtagPassISO', 'CutBtagFailISO', 'BtagLeptonPtDphi3FF', prefix, 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
+
+    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root AHZ-lephad/auxData/FakeFactors/MultiJetsLFR*All*FF.root\033[0m")
