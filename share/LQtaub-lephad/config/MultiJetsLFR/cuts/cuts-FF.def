@@ -19,13 +19,13 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
                 <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 &&
                   (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
 
-                +CutLepTau {
-                    <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
+                +CutSingleLepton {
+                    <.cutExpression="(n_electrons + n_muons) == 1", .title="SingleLepton">
 
                     +CutTauIDScore {
                         <.cutExpression="$(TauIDScore) < $(TauIDScoreCut)", .title="Tau score cut">
                     } #End: CutTauIDScore
-                } #End: CutLepTau
+                } #End: CutSingleLepton
             } #End: CutTauBasic
         } #End: CutLeptonBasic
     } #End: CutTruth

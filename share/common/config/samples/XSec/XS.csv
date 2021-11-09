@@ -190,3 +190,7 @@ SampleID, process,                                                      xsection
 800318,   Py8EG_A14NNPDF23LO_DYtautau_4000MLL4500,                      7.5859e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Pythia8(v.244p3)+EvtGen(v.1.7.0),                            e8118
 800319,   Py8EG_A14NNPDF23LO_DYtautau_4500MLL5000,                      2.4352e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Pythia8(v.244p3)+EvtGen(v.1.7.0),                            e8118
 800320,   Py8EG_A14NNPDF23LO_DYtautau_5000MLL,                          1.1655e-07,   1.0000E+00, 1.0,           0.0,      0.0,        Pythia8(v.244p3)+EvtGen(v.1.7.0),                            e8118
+508685,   MGPy8EG_S1TbLQtau_NoFilter_M900_l1_0,                         4.6685e-03,   1.0000E+00, 1.0,           0.0,      0.0,        MadGraph+Pythia8+EvtGen,                                     e8307
+508686,   MGPy8EG_S1TbLQtau_NoFilter_M900_l2_0,                         4.6393e-02,   1.0000E+00, 1.0,           0.0,      0.0,        MadGraph+Pythia8+EvtGen,                                     e8307
+508687,   MGPy8EG_S1TbLQtau_NoFilter_M2500_l1_0,                        5.1394e-05,   1.0000E+00, 1.0,           0.0,      0.0,        MadGraph+Pythia8+EvtGen,                                     e8307
+508688,   MGPy8EG_S1TbLQtau_NoFilter_M2500_l2_0,                        8.1247e-04,   1.0000E+00, 1.0,           0.0,      0.0,        MadGraph+Pythia8+EvtGen,                                     e8307

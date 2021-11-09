@@ -16,7 +16,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
             <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium == 1", .title = "Lepton basic cut">
         
             +CutTauBasic {
-                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 &&
+                <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 &&
                   (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
             
                 +CutLeptonISO {
@@ -38,26 +38,9 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 # Divide to different btag region
 @ */CutOS {
     +CutTCR {
-        <.cutExpression="$(NbJets)>=1 && lephad_dphi>2.4", .title="TCR">
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25 && lephad_met_lep0_cos_dphi >= 2.5", .title="TCR">
     } #End: CutTCR
-    
-    +Cut2bTVR {
-        <.cutExpression="$(NbJets)>=2 && lephad_dphi>=1.8 && lephad_dphi<=2.4", .title="2bTVR">
-    } #End: Cut2bTVR
 } #End: CutOS
-
-
-
-# Divide to NoID/ID region
-@ */Cut2bTVR {
-    +Cut2bTVRNoTauID {
-        <.cutExpression="1", TAU="NoTauID", .title="2bTVRNoTauID">
-    }
-    
-    +Cut2bTVRTauID {
-        <.cutExpression="$(isPassID)", TAU="TauID", .title="2bTVRTauID">
-    }
-}
 
 @ */CutTCR {
     +CutTCRTauID {
@@ -65,37 +48,9 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     }
 }
 
-
-
-# Divide to different MT region
-@ */Cut2bTVR*TauID {
-    +Cut2bTVR$(TAU)NoMT {
-        <.cutExpression="1", .title="2bTVR$(TAU)NoMT",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    }
-    
-    +Cut2bTVR$(TAU)LowMT {
-        <.cutExpression="lephad_mt_lep0_met<120", .title="2bTVR$(TAU)LowMT",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    }
-
-    +Cut2bTVR$(TAU)MediumMT {
-        <.cutExpression="lephad_mt_lep0_met>=120 && lephad_mt_lep0_met<220", .title="2bTVR$(TAU)MediumMT",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    }
-
-    +Cut2bTVR$(TAU)HighMT {
-        <.cutExpression="lephad_mt_lep0_met>=220", title="2bTVR$(TAU)HighMT", .title=""2bTVR$(TAU)HighMT, 
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    }
-}
-
 @ */CutTCRTauID {
-    +CutTCRTauIDMediumMT {
-        <.cutExpression="lephad_mt_lep0_met>=120 && lephad_mt_lep0_met<220", .title="TCRTauIDMediumMT",
+    +CutTCRTauIDHighST {
+        <.cutExpression="$(St) > 300", .title="TCRTauIDHighST",
          .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
     }
 }
-
-$replace("*/Cut2bTVRNoTauID/*:.title,.name", TAU="NoTauID");
-$replace("*/Cut2bTVRTauID/*:.title,.name", TAU="TauID");

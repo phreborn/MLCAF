@@ -394,24 +394,6 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDMediumMT', 'StSF1', prefix+"TCRTauIDMediumMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDHighST', 'StSF', prefix+"TCRTauIDHighST", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDLowMT', 'StSF1', prefix+"2bTVRTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDMediumMT', 'StSF1', prefix+"2bTVRTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDHighMT', 'StSF1', prefix+"2bTVRTauIDHighMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDLowMT', 'StSF1', prefix+"2bTVRNoTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDMediumMT', 'StSF1', prefix+"2bTVRNoTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDHighMT', 'StSF1', prefix+"2bTVRNoTauIDHighMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDMediumMT', 'StSF2', prefix+"TCRTauIDMediumMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDLowMT', 'StSF2', prefix+"2bTVRTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDMediumMT', 'StSF2', prefix+"2bTVRTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDHighMT', 'StSF2', prefix+"2bTVRTauIDHighMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDLowMT', 'StSF2', prefix+"2bTVRNoTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDMediumMT', 'StSF2', prefix+"2bTVRNoTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDHighMT', 'StSF2', prefix+"2bTVRNoTauIDHighMT", 0.1, 0.1)
-
     print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root AHZ-lephad/auxData/ScaleFactors/TCRAll*.root\033[0m")
