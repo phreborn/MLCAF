@@ -29,7 +29,12 @@ MultiJetsLFF::MultiJetsLFF(const TString& expression) : LepHadObservable(express
   INFOclass("Loading file...");
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMultiJetsLFF", false) ) return;
 
-  TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root");
+  //TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root");
   if (!file) {
     ERRORclass("Can not find MultiJetsLFR_FF.root");
   }

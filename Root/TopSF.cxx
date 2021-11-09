@@ -29,7 +29,12 @@ TopSF::TopSF(const TString& expression) : LepHadObservable(expression) {
   INFOclass("Loading file...");
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyTopSF", false) ) return;
 
-  TFile* file= TFile::Open("AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF.root");
+  //TFile* file= TFile::Open("AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root");
   if (!file) {
     ERRORclass("Can not find TopCR_SF.root");
   }
