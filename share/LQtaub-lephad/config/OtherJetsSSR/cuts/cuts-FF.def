@@ -1,0 +1,120 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, ST
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         ($(isJet) && [TruthTauSelector] == -30)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+                
+                +CutLeptonISO {
+                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                     .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                } #End: CutLeptonISO
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+@ */CutLeptonISO {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
+    } #End: CutOS
+    
+    +CutSS {
+        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
+    } #End: CutSS
+} #End: CutLeptonISO
+
+
+
+@ */CutLeptonISO/Cut*S {
+    +Cut$(CHARGE)Btag {
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="$(CHARGE)Btag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+    } #End: Cut[OS/SS]Btag
+} #End: CutLeptonISO/Cut[OS/SS]
+
+@ */CutOSBtag {
+    +CutOSBtagHighST {
+        <.cutExpression="$(St) > 300", .title="OSBtagHighST", ST="HighST">
+    }
+}
+
+@ */CutSSBtag {
+    +CutSSBtagHighST {
+        <.cutExpression="$(St) > 300", .title="SSBtagHighST", ST="HighST">
+    }
+}
+
+### Split OS and SS up to prevent OS low and high mT categories which will be meaningless (save on processing)
+@ */CutOSBtagHighST {
+    +CutOSBtagHighST1p {
+        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(ST)1p", PRONG="1p">
+    }
+
+    +CutOSBtagHighST3p {
+        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(ST)3p", PRONG="3p">
+    }
+}
+
+@ */CutSSBtagHighST {
+    +CutSSBtagHighST1p {
+        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(ST)1p", PRONG="1p">
+    }
+
+    +CutSSBtagHighST3p {
+        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(ST)3p", PRONG="3p">
+    }
+}
+
+
+# Pass/Fail, split up again 
+#OS
+@ */CutOSBtagHighST*p {
+    +CutOSBtagHighST$(PRONG)PassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="OS$(BJET)HighST$(PRONG)PassTauID",
+         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1">
+    }
+
+    +CutOSBtagHighST$(PRONG)FailTauID {
+        <.cutExpression="$(isFailID)", .title="OS$(BJET)HighST$(PRONG)FailTauID",
+         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+    }
+}
+
+#SS
+@ */CutSSBtagHighST*p {
+    +CutSSBtagHighST$(PRONG)PassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="$(CHARGE)$(BJET)$(ST)$(PRONG)PassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(isMCFakeCorrected) ? [MCFakesSYS] : 1)">
+    }
+    
+    +CutSSBtagHighST$(PRONG)FailTauID {
+        <.cutExpression="$(isFailID)", .title="$(CHARGE)$(BJET)$(ST)$(PRONG)FailTauID",
+         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+    }
+}
+
+
+
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/CutSS/*:.name,.title", CHARGE="SS");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");
+$replace("*/Cut*HighST/*:.name,.title", ST="HighST");
+$replace("*/Cut*1p/*:.name,.title", PRONG="1p");
+$replace("*/Cut*3p/*:.name,.title", PRONG="3p");

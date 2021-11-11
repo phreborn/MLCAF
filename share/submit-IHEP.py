@@ -22,7 +22,7 @@ def main():
     if "_wrapper" in submitfile:
       print "Submitting "+submitfile
       #command = "hep_sub -e submissionWorkloadTemp/ -o submissionWorkloadTemp/ -g atlas submissionWorkloadTemp/"+submitfile
-      command = "hep_sub -os SL7 -e submissionWorkloadTemp/ -o submissionWorkloadTemp/ -g atlas submissionWorkloadTemp/"+submitfile
+      command = "hep_sub -np 2 -mem 3000 -os SL7 -e submissionWorkloadTemp/ -o submissionWorkloadTemp/ -g atlas submissionWorkloadTemp/"+submitfile
       os.system(command)
       jobNum += 1
 

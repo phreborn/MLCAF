@@ -24,7 +24,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
                 
                     +CutLeptonISO {
                         <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
 
                         +CutZeeVeto {
                             <.cutExpression="lep_0==2 && $(NbJets) == 0 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">

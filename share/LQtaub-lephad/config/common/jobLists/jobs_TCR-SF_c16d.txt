@@ -20,5 +20,8 @@
 /bkg/?/c16d/mcFake/Diboson
 /bkg/?/c16d/mcFake/Wjets
 
+##### sig #####
+/sig/?/c16d/LQ
+
 ##### data #####
 /data/?/c16d

@@ -277,7 +277,7 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMultiJetsLFRPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMultiJetsLFRPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
 
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/MultiJetsLFR_SF.root AHZ-lephad/auxData/ScaleFactors/MultiJetsLFRAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/MultiJetsLFR_SF.root "+analysis+"/auxData/ScaleFactors/MultiJetsLFRAll*.root\033[0m")
 
   if region == 'OtherJetsTFR':
     # Loop over data taking period and channels
@@ -331,7 +331,7 @@ if __name__=='__main__':
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT1p", 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root AHZ-lephad/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsTFR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
 
 
   elif region == 'SSExtrap':
@@ -368,7 +368,7 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagTauPt3pSF', prefix, 0.1, 0.1)
 
 
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root AHZ-lephad/auxData/ScaleFactors/SSExtrapAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/SSExtrap_SF.root "+analysis+"/auxData/ScaleFactors/SSExtrapAll*.root\033[0m")
 
   elif region == 'TCR':
     # Loop over data taking period and channels
@@ -396,4 +396,4 @@ if __name__=='__main__':
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDHighST', 'StSF', prefix+"TCRTauIDHighST", 0.1, 0.1)
         
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root AHZ-lephad/auxData/ScaleFactors/TCRAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF.root "+analysis+"/auxData/ScaleFactors/TCRAll*.root\033[0m")

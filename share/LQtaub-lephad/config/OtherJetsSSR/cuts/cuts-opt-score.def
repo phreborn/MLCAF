@@ -1,0 +1,81 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, MT
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         ($(isJet) && [TruthTauSelector] == -30)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+                
+                +CutLepTau {
+                    <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
+                
+                    +CutLeptonISO {
+                        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+
+                        +CutZeeVeto {
+                            <.cutExpression="lep_0==2 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
+                        } #End: CutZeeVeto
+                    } #End: CutLeptonISO
+                } #End: CutLepTau
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+@ */CutZeeVeto {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
+    } #End: CutOS
+    
+    +CutSS {
+        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
+    } #End: CutSS
+} #End: CutZeeVeto
+
+
+
+@ */CutZeeVeto/Cut*S {
+    +Cut$(CHARGE)Bveto {
+        <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
+    } #End: Cut[OS/SS]Bveto
+
+    +Cut$(CHARGE)Btag {
+        <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+    } #End: Cut[OS/SS]Btag
+} #End: CutZeeVeto/Cut[OS/SS]
+
+
+
+@ */Cut*SB* {
+    +Cut$(CHARGE)$(BJET)1p {
+        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)1p", PRONG="1p">
+    }
+
+    +Cut$(CHARGE)$(BJET)3p {
+        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)3p", PRONG="3p">
+    }
+}
+
+
+
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/CutSS/*:.name,.title", CHARGE="SS");
+$replace("*/Cut*Bveto/*:.name,.title", BJET="Bveto");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");

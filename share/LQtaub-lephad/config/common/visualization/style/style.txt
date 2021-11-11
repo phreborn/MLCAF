@@ -1,0 +1,41 @@
+# -*- mode: tqfolder -*-
+
+# wildcard campaigns
+<wildcarded=true> @ /data/?/?, /bkg/?/?, /sig/?/?;
+
+<style.default.histFillStyle=1001, style.default.histLineWidth=2, style.default.histLineColor=kBlack> @ /bkg;
+<style.default.histLineWidth=3, style.default.histLineStyle=1> @ /sig;
+
+### data ###
+<style.default.title="Data", style.default.isHistogram=false, style.default.histLineColor=kBlack, style.default.histMarkerStyle=8, style.default.histMarkerSize=0.8> @ /data;
+
+### mc truth tau (had + lep)
+<style.default.title="W+jets",                  style.default.histFillColor=kRed-4   > @ /bkg/?/?/mcReal/Wjets;
+<style.default.title="Z+jets",                  style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal/Zjets;
+<style.default.title="Z($\tau\tau$)+jets",      style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal/Zjets/tautau;
+<style.default.title="Z(ee/$\mu\mu$)+jets",     style.default.histFillColor=kGreen-4 > @ /bkg/?/?/mcReal/Zjets/ll;
+<style.default.title="Top",                     style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcReal/Top;
+<style.default.title="Diboson",                 style.default.histFillColor=kYellow+4> @ /bkg/?/?/mcReal/Diboson;
+<style.default.title="True $\tau$",             style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal; 
+
+### mc fake tau
+<style.default.title="W+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kRed-9   > @ /bkg/?/?/mcFake/Wjets;
+<style.default.title="Z+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kBlue-10 > @ /bkg/?/?/mcFake/Zjets;
+<style.default.title="Top (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow-9> @ /bkg/?/?/mcFake/Top;
+<style.default.title="Diboson (jet$\rightarrow\tau$)", style.default.histFillColor=kYellow-5> @ /bkg/?/?/mcFake/Diboson;
+
+### mc fake tau corrected
+<style.default.title="W+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kRed-9   > @ /bkg/?/?/mcFakeCorrected/Wjets;
+<style.default.title="Z+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kBlue-10 > @ /bkg/?/?/mcFakeCorrected/Zjets;
+<style.default.title="Top (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow-9> @ /bkg/?/?/mcFakeCorrected/Top;
+<style.default.title="Diboson (jet$\rightarrow\tau$)", style.default.histFillColor=kYellow-5> @ /bkg/?/?/mcFakeCorrected/Diboson;
+
+### data driven ###
+<style.default.title="Multi-jet fake",  style.default.histFillColor=kGray > @ /bkg/?/?/MultiJetsFake, /bkg/?/?/ddOtherJetsFake/MultiJetsFake;
+<style.default.title="Other jet fake",  style.default.histFillColor=kRed+1> @ /bkg/?/?/ddOtherJetsFake;
+
+### sig ###
+<style.default.title="LQ(900,1.0)",  style.default.histLineColor=kPink+9     > @ /sig/?/?/LQ/M900_l1_0;
+<style.default.title="LQ(900,2.0)",  style.default.histLineColor=kGreen+1    > @ /sig/?/?/LQ/M900_l2_0;
+<style.default.title="LQ(2500,1.0)", style.default.histLineColor=kViolet-1   > @ /sig/?/?/LQ/M2500_l1_0;
+<style.default.title="LQ(2500,2.0)", style.default.histLineColor=kAzure+1    > @ /sig/?/?/LQ/M2500_l2_0;

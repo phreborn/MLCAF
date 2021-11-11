@@ -1,0 +1,7 @@
+# ------------------------------ c16a ------------------------------ #
+##### mc bkg #####
+/bkg/?/c16a/mcFakeCorrected/Top/single
+/bkg/?/c16a/mcFakeCorrected/Top/ttbar/nominal
+/bkg/?/c16a/mcFakeCorrected/Zjets
+/bkg/?/c16a/mcFakeCorrected/Diboson
+/bkg/?/c16a/mcFakeCorrected/Wjets

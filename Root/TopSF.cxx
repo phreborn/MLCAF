@@ -148,27 +148,65 @@ double TopSF::getValue() const {
   }
   if (!apply) return 1.0;
   
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+
   const TH1F* h_nominal;
   const TH1F* h_up;
   const TH1F* h_down;
 
-  std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
-
+  //std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
 
   float f_lep_0_pt = this->lep_0_pt->EvalInstance();
   int f_n_bjets = this->n_bjets->EvalInstance();
   float f_tau_0_pt = this->tau_0_pt->EvalInstance();
   float f_jet_0_pt = this->jet_0_pt->EvalInstance();
+  float f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
   float st = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt;
+  float SumOfPt = f_lep_0_pt + f_tau_0_pt + f_bjet_0_pt;
 
-  int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
-  if (binID == 0) binID = 1;
+  float variable = 0.0;
+  variable = SumOfPt;
+  if (variable < 300.) variable = 300.;
+  if (variable > 1000.) variable = 1000.;
 
-  float retval = h_nominal->GetBinContent(binID);
-  float retval_up = h_up->GetBinContent(binID);
-  float retval_down = h_down->GetBinContent(binID);
-  float retval_error = fabs(retval_up - retval_down)/2.0;
+  //int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
+  //if (binID == 0) binID = 1;
 
+  float retval = 1.0;
+  float retval_up = 1.0;
+  float retval_down = 1.0;
+  float retval_error = 0.0;
+
+  if ("LQtaub" == signalProcess){
+    retval = -5.5e-04 * variable + 1.08;
+    	 	
+    TFile* aFile= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF_CL.root");
+    if (!aFile) {
+      ERRORclass("Can not find TopCR_SF_CL.root");
+    }
+    TString histName = "TopCR_SF_68CL";
+    TH1F * hist = (TH1F*)aFile->Get(histName);
+    if (!hist) {
+      std::cout << "Error! unavailable SF fitted error: " << histName << std::endl;
+    }
+    int error_binID = std::min(hist->FindFixBin(variable), hist->GetNbinsX());
+    retval_error = hist->GetBinError(error_binID);
+    aFile->Close();
+  }
+  else{
+        std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
+
+        int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
+        if (binID == 0) binID = 1; 
+
+ 	retval = h_nominal->GetBinContent(binID);
+  	retval_up = h_up->GetBinContent(binID);
+  	retval_down = h_down->GetBinContent(binID);
+  	retval_error = fabs(retval_up - retval_down)/2.0;
+  }
 
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty

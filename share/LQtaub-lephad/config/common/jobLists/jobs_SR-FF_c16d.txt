@@ -29,8 +29,7 @@
 /bkg/?/c16d/mcReal/Wjets
 
 ##### sig #####
-/sig/?/c16d/ggH
-/sig/?/c16d/bbH
+/sig/?/c16d/LQ
 
 ##### data (For SS SR region) #####
 /data/?/c16d
