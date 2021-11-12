@@ -121,28 +121,25 @@ auto MultiJetsLFF::getFakeFactorHist() const {
   }
 
   // -- charge: OS/SS, use SS for now
+  // -- SS+OS in lephad. SS is just a label.
   histName += "SS";
-  histNameSYS += "SS";
 
   // -- category: Bveto/Btag
-  if (bjetCount()>=1) {
-    histName += "Btag";
-    histNameSYS += "Btag";
-  }
-  else {
-    histName += "Bveto";
-    histNameSYS += "Bveto";
-  }
+  //if (bjetCount()>=1) {
+  //  histName += "Btag";
+  //}
+  //else {
+  //  histName += "Bveto";
+  //}
+  histName += "Btag";
 
   // -- parameterization
   float f_lep_0_eta = this->lep_0_eta->EvalInstance();
   if (std::abs(f_lep_0_eta)<=1.52) {
     histName += "LeptonPtCentralFF";
-    histNameSYS += "LeptonPtCentralFF";
   }
   else {
     histName += "LeptonPtForwardFF";
-    histNameSYS += "LeptonPtForwardFF";
   }
 
   // -- Get up down and nominal histos

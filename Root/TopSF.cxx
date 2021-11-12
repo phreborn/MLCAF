@@ -33,11 +33,23 @@ TopSF::TopSF(const TString& expression) : LepHadObservable(expression) {
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF.root");
-  //TFile* file= TFile::Open("AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root");
-  if (!file) {
-    ERRORclass("Can not find TopCR_SF.root");
+  TFile* file=0;
+  if ("AHZ" == signalProcess) {
+    file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF.root");
+    //TFile* file= TFile::Open("AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root");
+    if (!file) {
+      ERRORclass("Can not find TopCR_SF.root");
+    }
   }
+  else if ("LQtaub" == signalProcess) {
+    file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF_CL.root");    
+    if (!file) {
+      ERRORclass("Can not find TopCR_SF_CL.root");
+    }
+  }
+  if (!file) {
+    ERRORclass("Can not find any ROOT file of Top SFs");
+  } 
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
@@ -182,19 +194,18 @@ double TopSF::getValue() const {
 
   if ("LQtaub" == signalProcess){
     retval = -5.5e-04 * variable + 1.08;
-    	 	
-    TFile* aFile= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF_CL.root");
-    if (!aFile) {
-      ERRORclass("Can not find TopCR_SF_CL.root");
-    }
+
     TString histName = "TopCR_SF_68CL";
-    TH1F * hist = (TH1F*)aFile->Get(histName);
-    if (!hist) {
-      std::cout << "Error! unavailable SF fitted error: " << histName << std::endl;
+    TH1F * hist = 0;      
+    auto it = m_FF_hist.find(histName);
+    if ( it != m_FF_hist.end() ) hist = it->second;
+    else {
+      std::cout << "error! unavailable SF fitted error: " << histName << std::endl;
+      for (auto item : m_FF_hist)
+        std::cout << "available SF fitted error: " << item.first << std::endl;
     }
-    int error_binID = std::min(hist->FindFixBin(variable), hist->GetNbinsX());
-    retval_error = hist->GetBinError(error_binID);
-    aFile->Close();
+    int binID = std::min(hist->FindFixBin(variable), hist->GetNbinsX());   
+    retval_error = hist->GetBinError(binID); 
   }
   else{
         std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();

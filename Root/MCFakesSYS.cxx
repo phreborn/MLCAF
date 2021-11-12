@@ -84,7 +84,7 @@ bool MCFakesSYS::finalizeSelf() {
 
 const TH1F* MCFakesSYS::getFakeFactorHist() const {
   // determine which FF hist we want: All
-  TString histName = "MCFakesSYS";
+  TString histName = "OtherJetsSSR";
 
   // -- period: Combined or Separated
   //TString period = "";
@@ -120,20 +120,19 @@ const TH1F* MCFakesSYS::getFakeFactorHist() const {
   }
 
   // -- charge: OS/SS, use SS for now
-  //if (this->lephad_qxq->EvalInstance() == -1) {
-  //  histName += "OS";
-  //}
-  //else {
-  //  histName += "SS";
-  //}
+  if (this->lephad_qxq->EvalInstance() == -1) {
+    histName += "OS";
+  }
+  else {
+    histName += "SS";
+  }
 
   // -- category: Bveto/Btag
   if (bjetCount()>=1) {
     histName += "Btag";
   }
   else {
-    //histName += "Bveto";
-    return 1.0;
+    histName += "Bveto";
   }
 
   // -- 1p/3p
@@ -183,11 +182,13 @@ double MCFakesSYS::getValue() const {
   
   float f_SumOfPt = f_tau_0_pt + f_lep_0_pt + f_bjet_0_pt;
 
+  if (0 == f_n_bjets) { return 1.0;}
+
   int binID = std::min(hist->FindFixBin(f_SumOfPt), hist->GetNbinsX());
   if (binID == 0) binID = 1;
 
   float retval = 1.0;
-  float error = h_nominal->GetBinContent(binID);
+  float error = hist->GetBinContent(binID);
 
   if    (
          (fSysName.Contains("MCFakes_ElHadBtag1p_1up")  && f_lep_0==2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||

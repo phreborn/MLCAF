@@ -80,7 +80,7 @@ double TopExtrapolationSys::getValue() const {
   // dphi 1,2,3 in bveto/btag category
   TString param = "St";
 
-  TString histName = "TopExtrap"+ period + channel + region + param + prong + "SF";
+  TString histName = "VR"+ period + channel + region + param + prong + "SF";
   
   TH1F * h_nominal = 0;
   
