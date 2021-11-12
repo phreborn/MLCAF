@@ -337,14 +337,18 @@ if __name__=='__main__':
         bkgPath = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Top+Diboson+Wjets]'.format(channel_path, period_path)
         
         prefix = region+"TopCorrected"+period_name+channel_name
+        if "AHZ-lephad" == analysis:
         # 2D FF
-        #calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
-        #calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
-        #calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
-        #calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMultiJetsLFRPassISO', 'CutOSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMultiJetsLFRPassISO', 'CutSSBvetoMultiJetsLFRFailISO', 'BvetoLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"OS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
+        else:
+          calcFakeFactor(dataPath, bkgPath, 'CutBtagMultiJetsLFRPassISO', 'CutBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.1,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutBtagMultiJetsLFRPassISO', 'CutBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/FakeFactors/MultiJetsLFR_FF.root "+analysis+"/auxData/FakeFactors/MultiJetsLFR*All*FF.root\033[0m")
