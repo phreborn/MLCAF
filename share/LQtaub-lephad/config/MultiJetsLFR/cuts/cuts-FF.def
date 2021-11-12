@@ -31,60 +31,56 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     } #End: CutTruth
 } #End: CutMaterialCorrection
 
-
-
-# Divide to OS/SS region
+# Divide to Bveto/Btag region
 @ */CutTauIDScore {
-    +CutOS {
-        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
-    } #End: CutOS
-    
-    +CutSS {
-        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
-    } #End: CutSS
+    #+CutBveto {
+    #    <.cutExpression="$(NbJets)==0", .title="Bveto", BJET="Bveto">
+    #} #End: CutBveto
+
+    +CutBtag {
+        <.cutExpression="$(NbJets)>=1", .title="Btag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+    } #End: CutBtag
 } #End: CutTauIDScore
 
 
 
-# Divide to Bveto/Btag region
-@ */CutTauIDScore/Cut*S {
-    +Cut$(CHARGE)Bveto {
-        <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
-    } #End: Cut[OS/SS]Bveto
-
-    +Cut$(CHARGE)Btag {
-        <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    } #End: Cut[OS/SS]Btag
-} #End: CutTauIDScore/Cut[OS/SS]
-
-
-
 # Divide to different MT region
-@ */CutTauIDScore/Cut*S/Cut*B* {
-    +Cut$(CHARGE)$(BJET)MultiJetsLFR {
+#@ */CutBveto {
+#    +CutBvetoMultiJetsLFR {
+#        <.cutExpression="lephad_mt_lep0_met <= 30", 
+#        .title="BvetoMultiJetsLFR">
+#    }
+#}
+@ */CutBtag {
+    +CutBtagMultiJetsLFR {
         <.cutExpression="lephad_mt_lep0_met <= 30", 
-        .title="$(CHARGE)$(BJET)MultiJetsLFR">
+        .title="BtagMultiJetsLFR">
     }
 }
 
 
 
 # Divide to PassISO/FailISO ergiion
-@ */Cut*MultiJetsLFR {
-    +Cut$(CHARGE)$(BJET)MultiJetsLFRPassISO {
+#@ */CutBvetoMultiJetsLFR {
+#    +CutBvetoMultiJetsLFRPassISO {
+#        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+#         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="BvetoMultiJetsLFRPassISO">
+#    }
+
+#    +CutBvetoMultiJetsLFRFailISO {
+#        <.cutExpression="$(isFailISO)", .title="BvetoMultiJetsLFRFailISO">
+#    }
+#}
+
+@ */CutBtagMultiJetsLFR {
+    +CutBtagMultiJetsLFRPassISO {
         <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="$(CHARGE)$(BJET)MultiJetsLFRPassISO">
+         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="BtagMultiJetsLFRPassISO">
     }
 
-    +Cut$(CHARGE)$(BJET)MultiJetsLFRFailISO {
-        <.cutExpression="$(isFailISO)", .title="$(CHARGE)$(BJET)MultiJetsLFRFailISO">
+    +CutBtagMultiJetsLFRFailISO {
+        <.cutExpression="$(isFailISO)", .title="BtagMultiJetsLFRFailISO">
     }
 }
 
-
-
-$replace("*/CutOS/*:.name,.title", CHARGE="OS");
-$replace("*/CutSS/*:.name,.title", CHARGE="SS");
-$replace("*/Cut*SBveto/*:.name,.title", BJET="Bveto");
-$replace("*/Cut*SBtag/*:.name,.title", BJET="Btag");
