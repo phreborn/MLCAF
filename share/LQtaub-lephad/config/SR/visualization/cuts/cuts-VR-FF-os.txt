@@ -20,22 +20,16 @@
 .name="|"
 .name=CutTauID
 .name="|"
-.name=CutLepHad
-.name="|"
 .name=CutOS
 
 .name="||"
-.name=CutOSBveto
-.name="|"
-.name=CutOSBvetoNoMT
-.name=CutOSBvetoLowMT
-.name=CutOSBvetoMediumMT
-.name=CutOSBvetoHighMT
+.name=CutOSBtag
 
 .name="||"
-.name=CutOSBtag
+.name=CutVR
 .name="|"
-.name=CutOSBtagNoMT
-.name=CutOSBtagLowMT
-.name=CutOSBtagMediumMT
-.name=CutOSBtagHighMT
+.name=CutVROSBtagHighST
+.name="|"
+.name=CutVROSBtagLowBJetPt
+.name=CutVROSBtagHighBJetPt
+

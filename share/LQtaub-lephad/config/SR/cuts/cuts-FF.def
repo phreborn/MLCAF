@@ -25,7 +25,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
                     +CutTauID {
                         <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-                        .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(isMCFakeCorrected) ? [MCFakesSYS] : 1)", .title="PassTauID">
+                        .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)", .title="PassTauID">
 
                     } #End: CutTauID
                 } #End: CutLeptonISO
@@ -86,14 +86,6 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 @ */CutVR {
     +CutVROSBtagHighST {
         <.cutExpression="$(St) > 300", .title="VR$(CHARGE)$(BJET)HighST">
-
-        +CutVROSBtagLowBJetPt {
-            <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="VROSBtagLowBJetPt"> 
-        }
-   
-        +CutVROSBtagHighBJetPt {
-            <.cutExpression="bjet_0_p4.Pt() > 200",.title="VROSBtagHighBJetPt"> 
-        }
     } 
 }
 

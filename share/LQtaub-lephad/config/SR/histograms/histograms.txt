@@ -3,35 +3,52 @@
 #############################################
 
 # General interest
+TH1F('LeptonPt', '', 50, 0, 500) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
+TH1F('LeptonPtMoreBin', '', 50, 0, 2500) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
+TH1F('LeptonEta', '',25, -2.5, 2.5) << (lep_0_p4.Eta() : "lepton \eta");
+TH1F('TauPt', '',50, 0, 500) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('TauPtMoreBin', '',50, 0, 2500) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
 TH1F('TauEta', '', 25, -2.5, 2.5) << (tau_0_p4.Eta() : "\#tau_{had-vis} \eta");
+TH1F('JetPt', '',50, 0, 500) << (jet_0_p4.Pt() : "jet p_{T} [GeV]");
+TH1F('JetEta', '', 25, -2.5, 2.5) << (jet_0_p4.Eta() : "jet \eta");
+TH1F('NJets','', 10, 0,10 )   <<   ( n_jets : "N_{jet}" );
+TH1F('BjetPt', '',50, 0, 500) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+TH1F('BjetPtMoreBin', '',50, 0, 2500) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+TH1F('BjetEta', '', 25, -2.5, 2.5) << (bjet_0_p4.Eta() : "b-jet \eta");
+TH1F('NBJets','', 5, 0,5 )   <<   ( $(NbJets) : "N_{bjet}" );
+TH1F('MET', '', 50, 0, 500) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
+TH1F('METMoreBin', '', 50, 0, 2500) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
+TH1F('MTLepMET', '', 50, 0, 500) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
+TH1F('MTTauMET', '', 50, 0, 500) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis},MET) [GeV]");
+TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
 TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
-TH1F('MET', '', 30, 0, 300) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
-TH1F('MTLepMET', '', 30, 0, 300) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
-TH1F('LepTauDphi', '', 30, 0, 3.15) << (lephad_dphi : "\#Delta\#phi(lep,\#tau_{had-vis})");
-TH1F('MTTOT', '', {55,65,75,85,100,115,135,160,200,250,350,600,900,1200,1500}) << (MTtot : "m_{T}^{TOT} [GeV]");
-TH1F('MTTOT_fineBin'      ,'', 300,0,3000) <<   ( MTtot : "m_{T}^{TOT} [GeV]" );
-TH1F('VisibleMass'   ,'', 30, 0, 300)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
+TH1F('VisibleMass'   ,'', 50, 0, 500)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
+@CutOSBtag*BJetPt,CutVROSBtag*ST: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass;
+@CutOSBtag*BJetPt: LeptonPtMoreBin,TauPtMoreBin,BjetPtMoreBin,METMoreBin;
 
-@Cut*MT: TauEta,BJetCount,MET,MTLepMET,LepTauDphi,MTTOT,MTTOT_fineBin,VisibleMass;
+TH1F('LepTauDphi', '', 30, -3.15, 3.15) << ($(LepTauDphi) : "\#Delta\#phi(lep,\#tau_{had-vis})");
+TH1F('LepMETDphi', '', 30, -3.15, 3.15) << ($(LepMETDphi) : "\#Delta\#phi(lep,MET)");
+TH1F('TauMETDphi', '', 30, -3.15, 3.15) << ($(TauMETDphi) : "\#Delta\#phi(\#tau_{had-vis},MET)");
+TH1F('LepJetDphi', '', 30, -3.15, 3.15) << ($(LepJetDphi) : "\#Delta\#phi(lep,b-jet)");
+TH1F('TauJetDphi', '', 30, -3.15, 3.15) << ($(TauJetDphi) : "\#Delta\#phi(\#tau_{had-vis},b-jet)");
+@CutOSBtag*BJetPt,CutVROSBtag*ST: LepTauDphi,LepMETDphi,TauMETDphi,LepJetDphi,TauJetDphi;
+
+TH1F('LepTauDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,\#tau_{had-vis})");
+TH1F('LepJetDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,b-jet)");
+TH1F('TauJetDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(\#tau_{had-vis},b-jet)");
+@CutOSBtag*BJetPt,CutVROSBtag*ST: LepTauDr,LepJetDr,TauJetDr; 
+
+TH1F('TauPtOverLeptonPt', '', 30, 0, 3) << (tau_0_p4.Pt()/lep_0_p4.Pt() : "p_{T} fraction(\#tau_{had-vis},lep)");
+TH1F('TauPtOverBJetPt', '', 30, 0, 3) << (tau_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} fraction(\#tau_{had-vis},b-jet)");
+TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} fraction(lep,b-jet)");
+@CutOSBtag*BJetPt,CutVROSBtag*ST: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 
 TH1F('St', '', {100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
-@Cut*MT: St;
+TH1F('St_fineBin', '', 2900, 100,3000) << ($(St) : "S_{T} [GeV]");
+TH1F('StMoreBin', '', 29, 100., 3000.) << ($(St) : "S_{T} [GeV]");
+@CutOSBtag*BJetPt,CutVROSBtag*ST: St,St_fineBin;
+@CutOSBtag*BJetPt: StMoreBin;
 
-# Extrapolation SYS
-TH1F('BvetoLowMT1pSF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[tau_0_n_charged_tracks]==1? [lephad_mt_lep0_met]:-1} : "m_{T}(lep,MET) [GeV]" );
-TH1F('BvetoLowMT3pSF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[tau_0_n_charged_tracks]==3? [lephad_mt_lep0_met]:-1} : "m_{T}(lep,MET) [GeV]" );
-TH1F('BvetoTauPt1pSF','', {25,30,35,40,45,50,60,70,90,150,300}) << ({[tau_0_n_charged_tracks]==1? [tau_0_p4.Pt()]:-1} : "\#tau_{had-vis} p_{T} [GeV]");
-TH1F('BvetoTauPt3pSF','', {25,30,35,40,45,50,60,70,90,150,300}) << ({[tau_0_n_charged_tracks]==3? [tau_0_p4.Pt()]:-1} : "\#tau_{had-vis} p_{T} [GeV]");
-@CutSSBvetoLowMT: BvetoLowMT1pSF,BvetoLowMT3pSF,BvetoTauPt1pSF,BvetoTauPt3pSF;
-@CutSSBvetoMediumMT: BvetoTauPt1pSF, BvetoTauPt3pSF;
-
-
-TH1F('BtagLowMT1pSF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[tau_0_n_charged_tracks]==1? [lephad_mt_lep0_met]:-1} : "m_{T}(lep,MET) [GeV]" );
-TH1F('BtagLowMT3pSF'   ,'', {30.,32.,34.,36.,38.,41.,44.,47.,50.,60.,70.,80.,100.,300.})   <<   ( {[tau_0_n_charged_tracks]==3? [lephad_mt_lep0_met]:-1} : "m_{T}(lep,MET) [GeV]" );
-TH1F('BtagTauPt1pSF','', {25,30,35,40,45,50,60,70,90,150,300}) << ({[tau_0_n_charged_tracks]==1? [tau_0_p4.Pt()]:-1} : "\#tau_{had-vis} p_{T} [GeV]");
-TH1F('BtagTauPt3pSF','', {25,30,35,40,45,50,60,70,90,150,300}) << ({[tau_0_n_charged_tracks]==3? [tau_0_p4.Pt()]:-1} : "\#tau_{had-vis} p_{T} [GeV]");
-
-@CutSSBtagLowMT: BtagLowMT1pSF,BtagLowMT3pSF,BtagTauPt1pSF,BtagTauPt3pSF;
-@CutSSBtagMediumMT: BtagTauPt1pSF,BtagTauPt3pSF;
-
-
+# Top Extrapolation SYS
+TH1F('StSF','', {100.,150.,200.,250.,300.,350.,400.,450.,500.,550.,600.,1000.} )   <<   ( $(St) : "S_{T}[GeV]" );
+@CutVROSBtag*ST: StSF;
