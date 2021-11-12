@@ -22,11 +22,11 @@ JOBSFILE="/tmp/${USER}/${IDENTIFIER}.list"
 rm -f "${JOBSFILE:?}"
 
 for LIST in ${JOBSLIST}; do
-    cat "${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/jobLists/${LIST}" >> "${JOBSFILE}"
+    cat "${CAFANALYSISSHARE:?}/LQtaub-lephad/config/common/jobLists/${LIST}" >> "${JOBSFILE}"
 done
 
 
-    #--mergeConfig AHZ-lephad/common/submission/merge.cfg 
+    #--mergeConfig LQtaub-lephad/common/submission/merge.cfg 
 submit.py "${CONFIG}" \
     --jobs "${JOBSFILE}" \
     --identifier "${IDENTIFIER}" \
