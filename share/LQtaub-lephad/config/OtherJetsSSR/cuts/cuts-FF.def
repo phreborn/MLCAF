@@ -31,10 +31,6 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 
 @ */CutLeptonISO {
-    +CutOS {
-        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
-    } #End: CutOS
-    
     +CutSS {
         <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
     } #End: CutSS
@@ -42,18 +38,12 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 
 
-@ */CutLeptonISO/Cut*S {
-    +Cut$(CHARGE)Btag {
-        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="$(CHARGE)Btag", BJET="Btag",
+@ */CutSS {
+    +CutSSBtag {
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="SSBtag", BJET="Btag",
          .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    } #End: Cut[OS/SS]Btag
-} #End: CutLeptonISO/Cut[OS/SS]
-
-@ */CutOSBtag {
-    +CutOSBtagHighST {
-        <.cutExpression="$(St) > 300", .title="OSBtagHighST", ST="HighST">
-    }
-}
+    } #End: CutSSBtag
+} #End: CutSS
 
 @ */CutSSBtag {
     +CutSSBtagHighST {
@@ -62,59 +52,27 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 }
 
 ### Split OS and SS up to prevent OS low and high mT categories which will be meaningless (save on processing)
-@ */CutOSBtagHighST {
-    +CutOSBtagHighST1p {
-        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(ST)1p", PRONG="1p">
-    }
-
-    +CutOSBtagHighST3p {
-        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(ST)3p", PRONG="3p">
-    }
-}
-
 @ */CutSSBtagHighST {
     +CutSSBtagHighST1p {
-        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(ST)1p", PRONG="1p">
+        <.cutExpression="tau_0_n_charged_tracks==1", .title="SSBtagHighST1p", PRONG="1p">
     }
 
     +CutSSBtagHighST3p {
-        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(ST)3p", PRONG="3p">
+        <.cutExpression="tau_0_n_charged_tracks==3", .title="SSBtagHighST3p", PRONG="3p">
     }
 }
 
 
 # Pass/Fail, split up again 
-#OS
-@ */CutOSBtagHighST*p {
-    +CutOSBtagHighST$(PRONG)PassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="OS$(BJET)HighST$(PRONG)PassTauID",
-         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1">
-    }
-
-    +CutOSBtagHighST$(PRONG)FailTauID {
-        <.cutExpression="$(isFailID)", .title="OS$(BJET)HighST$(PRONG)FailTauID",
-         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
-    }
-}
-
 #SS
 @ */CutSSBtagHighST*p {
     +CutSSBtagHighST$(PRONG)PassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="$(CHARGE)$(BJET)$(ST)$(PRONG)PassTauID",
-         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(isMCFakeCorrected) ? [MCFakesSYS] : 1)">
-    }
-    
-    +CutSSBtagHighST$(PRONG)FailTauID {
-        <.cutExpression="$(isFailID)", .title="$(CHARGE)$(BJET)$(ST)$(PRONG)FailTauID",
-         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtagHighST$(PRONG)PassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)">
     }
 }
 
 
 
-$replace("*/CutOS/*:.name,.title", CHARGE="OS");
-$replace("*/CutSS/*:.name,.title", CHARGE="SS");
-$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");
-$replace("*/Cut*HighST/*:.name,.title", ST="HighST");
 $replace("*/Cut*1p/*:.name,.title", PRONG="1p");
 $replace("*/Cut*3p/*:.name,.title", PRONG="3p");
