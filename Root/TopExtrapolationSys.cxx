@@ -102,14 +102,14 @@ double TopExtrapolationSys::getValue() const {
   ///////////////////////////////////////////////////////////////
   if    ( 
          (fSysName.Contains("FakeFactor_TopExtrap_Btag_1up")  && f_n_bjets > 0) ||
-         (fSysName.Contains("FakeFactor_TopExtrap_Eltag_1up")  && f_n_bjets > 0 && isElectron()) ||
+         (fSysName.Contains("FakeFactor_TopExtrap_ElBtag_1up")  && f_n_bjets > 0 && isElectron()) ||
          (fSysName.Contains("FakeFactor_TopExtrap_MuBtag_1up")  && f_n_bjets > 0 && isMuon())
         ) {
     retval = 1.0+fabs(retval-1.0);
   }
   else if(
          (fSysName.Contains("FakeFactor_TopExtrap_Btag_1down")  && f_n_bjets > 0) ||
-         (fSysName.Contains("FakeFactor_TopExtrap_Eltag_1down")  && f_n_bjets > 0  && isElectron()) ||
+         (fSysName.Contains("FakeFactor_TopExtrap_ElBtag_1down")  && f_n_bjets > 0  && isElectron()) ||
          (fSysName.Contains("FakeFactor_TopExtrap_MuBtag_1down")  && f_n_bjets > 0 && isMuon())
           ) {
     retval = 1.0-fabs(retval-1.0);
