@@ -1,0 +1,3 @@
+#name                                                   type        variation
+FakeFactor_TopExtrap_ElBtag                             weight      two
+FakeFactor_TopExtrap_MuBtag                             weight      two

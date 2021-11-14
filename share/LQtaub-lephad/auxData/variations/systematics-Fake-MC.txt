@@ -1,0 +1,5 @@
+#name                                                 type        variation
+MCFakes_ElHadBtag1p                                   weight      two
+MCFakes_ElHadBtag3p                                   weight      two
+MCFakes_MuHadBtag1p                                   weight      two
+MCFakes_MuHadBtag3p                                   weight      two

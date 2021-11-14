@@ -8,6 +8,10 @@ TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2025         weight      two
 TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT2530         weight      two                
 TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPT3040         weight      two                       
 TAUS_TRUEHADTAU_EFF_RNNID_1PRONGSTATSYSTPTGE40         weight      two                           
+TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2025         weight      two                       
+TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT2530         weight      two                
+TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPT3040         weight      two                       
+TAUS_TRUEHADTAU_EFF_RNNID_3PRONGSTATSYSTPTGE40         weight      two                           
 TAUS_TRUEHADTAU_EFF_RNNID_SYST                         weight      two                           
 TAUS_TRUEHADTAU_EFF_RNNID_HIGHPT                       weight      two                           
 
