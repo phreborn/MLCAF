@@ -12,7 +12,7 @@ if [[ "${HOSTNAME}" == *".shef.ac.uk" ]]; then
   OPTIONS=(--submit condor --maxSampleSize 20000)
 elif [[ "${HOSTNAME}" == *".ihep.ac.cn" ]]; then
   # IHEP
-  OPTIONS=(--submit condor --account atlas --maxSampleSize 10000)
+  OPTIONS=(--submit condor --account atlas --maxSampleSize 5000)
 else
   OPTIONS=(--maxSampleSize 7000)
 fi
