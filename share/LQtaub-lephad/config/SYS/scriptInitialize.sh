@@ -1,3 +1,3 @@
 #!/bin/bash
 
-initialize.py "AHZ-lephad/config/SYS/master/initialize-systematics.cfg"
+initialize.py "LQtaub-lephad/config/SYS/master/initialize-systematics.cfg"

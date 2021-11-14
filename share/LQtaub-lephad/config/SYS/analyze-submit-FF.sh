@@ -18,11 +18,11 @@ for ARG in "$@"; do
     echo "Submitting systematic: ${ARG}"
 
     # config
-    CONFIG="AHZ-lephad/config/${REGION}/master/analyze-systematics-${ARG}.cfg"
+    CONFIG="LQtaub-lephad/config/${REGION}/master/analyze-systematics-${ARG}.cfg"
     IDENTIFIER="SR-FF-${REGION}-${ARG}"
 
     # execute
-    source "${CAFANALYSISSHARE:?}/AHZ-lephad/config/common/submit.sh" "${CONFIG}" "${IDENTIFIER}" "${JOBLIST}"
+    source "${CAFANALYSISSHARE:?}/LQtaub-lephad/config/common/submit.sh" "${CONFIG}" "${IDENTIFIER}" "${JOBLIST}"
 done
 
 

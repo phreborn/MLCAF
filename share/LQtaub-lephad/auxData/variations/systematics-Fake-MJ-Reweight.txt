@@ -1,3 +1,0 @@
-#name                                                            type        variation
-FakeFactor_MFR_Reweight_ElBveto                                  weight      two
-FakeFactor_MFR_Reweight_ElBtag                                   weight      two

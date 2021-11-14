@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # common config
-SAMPLEBASE="sampleFolders/analyzed/samples-analyzed-AHZ-lephad-SR-FF"
+SAMPLEBASE="sampleFolders/analyzed/samples-analyzed-LQtaub-lephad-SR-FF"
 
 # handle arguments
 if [ -z "$*" ]; then
@@ -27,7 +27,7 @@ for ARG in "$@"; do
             batchOutput/unmerged_SR-FF/unmerged_SR-FF_data*.root \
             -o "${SAMPLEBASE}"-SYS-"${ARG}".root \
             --downmerge generalize \
-            --patch AHZ-lephad/config/common/patches/downmerge.txt \
-            --patch AHZ-lephad/config/common/patches/trimmingAfterPooling.txt
+            --patch LQtaub-lephad/config/common/patches/downmerge.txt \
+            --patch LQtaub-lephad/config/common/patches/trimmingAfterPooling.txt
     fi
 done
