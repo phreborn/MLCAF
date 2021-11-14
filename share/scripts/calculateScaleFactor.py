@@ -241,7 +241,7 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
   elif region == 'SSExtrap':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
-  elif region == 'OtherJetsSSR':
+  elif region == 'SSR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsSSR-FF.root'
   elif region == 'VR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
@@ -402,7 +402,7 @@ if __name__=='__main__':
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF.root "+analysis+"/auxData/ScaleFactors/TCRAll*.root\033[0m")
 
-  if region == 'OtherJetsSSR':
+  if region == 'SSR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -425,9 +425,9 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top+Diboson]]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
 
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtag1pPassTauID', 'StSF', prefix+"SSBtag1pStSF", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtag3pPassTauID', 'StSF', prefix+"SSBtag3pStSF", 0.1, 0.1)
-    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/MCFakesSYS_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsSSRAll*.root\033[0m")
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagHighST1pPassTauID', 'StSF', prefix+"SSBtag1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagHighST3pPassTauID', 'StSF', prefix+"SSBtag3p", 0.1, 0.1)
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/MCFakesSYS_SF.root "+analysis+"/auxData/ScaleFactors/SSRAll*.root\033[0m")
 
   elif region == 'VR':
     # Loop over data taking period and channels
@@ -453,6 +453,6 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVROSBtagHighST', 'StSF', prefix+"BtagSF", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVROSBtagHighST', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopExtrap_SF.root "+analysis+"/auxData/ScaleFactors/VRAll*.root\033[0m")

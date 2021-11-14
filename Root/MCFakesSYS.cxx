@@ -84,7 +84,7 @@ bool MCFakesSYS::finalizeSelf() {
 
 const TH1F* MCFakesSYS::getFakeFactorHist() const {
   // determine which FF hist we want: All
-  TString histName = "OtherJetsSSR";
+  TString histName = "SSR";
 
   // -- period: Combined or Separated
   //TString period = "";
