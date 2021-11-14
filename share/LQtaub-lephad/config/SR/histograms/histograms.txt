@@ -50,5 +50,5 @@ TH1F('StMoreBin', '', 29, 100., 3000.) << ($(St) : "S_{T} [GeV]");
 @CutOSBtag*BJetPt: StMoreBin;
 
 # Top Extrapolation SYS
-TH1F('StSF','', {100.,150.,200.,250.,300.,350.,400.,450.,500.,550.,600.,1000.} )   <<   ( $(St) : "S_{T}[GeV]" );
+TH1F('StSF','', {100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000} )   <<   ( $(St) : "S_{T}[GeV]" );
 @CutVROSBtag*ST: StSF;

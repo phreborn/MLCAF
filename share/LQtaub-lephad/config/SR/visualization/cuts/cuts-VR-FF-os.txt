@@ -29,7 +29,4 @@
 .name=CutVR
 .name="|"
 .name=CutVROSBtagHighST
-.name="|"
-.name=CutVROSBtagLowBJetPt
-.name=CutVROSBtagHighBJetPt
 

@@ -13,10 +13,3 @@
 .name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
 .name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
 .name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
-
-
-### signal ###
-.name="LQ(900,1.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l1_0"
-.name="LQ(900,2.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l2_0"
-.name="LQ(2500,1.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l1_0"
-.name="LQ(2500,2.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l2_0"
