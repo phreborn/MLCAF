@@ -145,7 +145,12 @@ ExtrapolationSys::ExtrapolationSys(const TString& expression) : LepHadObservable
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyExtrapolationSF", false) ) return;
   INFOclass("Loading file...");
 
-  TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* aFile= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/SSExtrap_SF.root");
+  //TFile* aFile= TFile::Open("AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root");
   if (!aFile) {
     ERRORclass("Can not find SSExtrap_SF.root");
   }

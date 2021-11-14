@@ -29,7 +29,12 @@ MultiJetsLFF::MultiJetsLFF(const TString& expression) : LepHadObservable(express
   INFOclass("Loading file...");
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyMultiJetsLFF", false) ) return;
 
-  TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root");
+  //TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MultiJetsLFR_FF.root");
   if (!file) {
     ERRORclass("Can not find MultiJetsLFR_FF.root");
   }
@@ -116,28 +121,25 @@ auto MultiJetsLFF::getFakeFactorHist() const {
   }
 
   // -- charge: OS/SS, use SS for now
+  // -- SS+OS in lephad. SS is just a label.
   histName += "SS";
-  histNameSYS += "SS";
 
   // -- category: Bveto/Btag
-  if (bjetCount()>=1) {
-    histName += "Btag";
-    histNameSYS += "Btag";
-  }
-  else {
-    histName += "Bveto";
-    histNameSYS += "Bveto";
-  }
+  //if (bjetCount()>=1) {
+  //  histName += "Btag";
+  //}
+  //else {
+  //  histName += "Bveto";
+  //}
+  histName += "Btag";
 
   // -- parameterization
   float f_lep_0_eta = this->lep_0_eta->EvalInstance();
   if (std::abs(f_lep_0_eta)<=1.52) {
     histName += "LeptonPtCentralFF";
-    histNameSYS += "LeptonPtCentralFF";
   }
   else {
     histName += "LeptonPtForwardFF";
-    histNameSYS += "LeptonPtForwardFF";
   }
 
   // -- Get up down and nominal histos

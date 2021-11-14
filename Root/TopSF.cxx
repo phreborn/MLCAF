@@ -29,10 +29,27 @@ TopSF::TopSF(const TString& expression) : LepHadObservable(expression) {
   INFOclass("Loading file...");
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyTopSF", false) ) return;
 
-  TFile* file= TFile::Open("AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root");
-  if (!file) {
-    ERRORclass("Can not find TopCR_SF.root");
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
   }
+  TFile* file=0;
+  if ("AHZ" == signalProcess) {
+    file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF.root");
+    //TFile* file= TFile::Open("AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root");
+    if (!file) {
+      ERRORclass("Can not find TopCR_SF.root");
+    }
+  }
+  else if ("LQtaub" == signalProcess) {
+    file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF_CL.root");    
+    if (!file) {
+      ERRORclass("Can not find TopCR_SF_CL.root");
+    }
+  }
+  if (!file) {
+    ERRORclass("Can not find any ROOT file of Top SFs");
+  } 
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
@@ -143,27 +160,64 @@ double TopSF::getValue() const {
   }
   if (!apply) return 1.0;
   
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+
   const TH1F* h_nominal;
   const TH1F* h_up;
   const TH1F* h_down;
 
-  std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
-
+  //std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
 
   float f_lep_0_pt = this->lep_0_pt->EvalInstance();
   int f_n_bjets = this->n_bjets->EvalInstance();
   float f_tau_0_pt = this->tau_0_pt->EvalInstance();
   float f_jet_0_pt = this->jet_0_pt->EvalInstance();
+  float f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
   float st = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt;
+  float SumOfPt = f_lep_0_pt + f_tau_0_pt + f_bjet_0_pt;
 
-  int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
-  if (binID == 0) binID = 1;
+  float variable = 0.0;
+  variable = SumOfPt;
+  if (variable < 300.) variable = 300.;
+  if (variable > 1000.) variable = 1000.;
 
-  float retval = h_nominal->GetBinContent(binID);
-  float retval_up = h_up->GetBinContent(binID);
-  float retval_down = h_down->GetBinContent(binID);
-  float retval_error = fabs(retval_up - retval_down)/2.0;
+  //int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
+  //if (binID == 0) binID = 1;
 
+  float retval = 1.0;
+  float retval_up = 1.0;
+  float retval_down = 1.0;
+  float retval_error = 0.0;
+
+  if ("LQtaub" == signalProcess){
+    retval = -5.5e-04 * variable + 1.08;
+
+    TString histName = "TopCR_SF_68CL";
+    TH1F * hist = 0;      
+    auto it = m_FF_hist.find(histName);
+    if ( it != m_FF_hist.end() ) hist = it->second;
+    else {
+      std::cout << "error! unavailable SF fitted error: " << histName << std::endl;
+      for (auto item : m_FF_hist)
+        std::cout << "available SF fitted error: " << item.first << std::endl;
+    }
+    int binID = std::min(hist->FindFixBin(variable), hist->GetNbinsX());   
+    retval_error = hist->GetBinError(binID); 
+  }
+  else{
+        std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
+
+        int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
+        if (binID == 0) binID = 1; 
+
+ 	retval = h_nominal->GetBinContent(binID);
+  	retval_up = h_up->GetBinContent(binID);
+  	retval_down = h_down->GetBinContent(binID);
+  	retval_error = fabs(retval_up - retval_down)/2.0;
+  }
 
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty

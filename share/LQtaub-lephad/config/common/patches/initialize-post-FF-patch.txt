@@ -5,6 +5,8 @@ $printline("Including fake folders");
 # split the MC samples
 # -- mc real tau or prompt lepton
 $create(path="/bkg/?/?/mcReal", type="sf");
+$create(path="/bkg/?/?/mcFake", type="sf");
+$create(path="/bkg/?/?/mcFakeCorrected", type="sf");
 @ /bkg/?/? {
     $move("Diboson >> mcReal");
     $move("Zjets >> mcReal");
@@ -14,12 +16,18 @@ $create(path="/bkg/?/?/mcReal", type="sf");
 
 # -- mc fake tau
 @ /bkg/?/? {
-    $copy("mcReal >> ::mcFake");
+    $copy("mcReal/Diboson >> mcFake");
+    $copy("mcReal/Zjets >> mcFake");
+    $copy("mcReal/Wjets >> mcFake");
+    $copy("mcReal/Top >> mcFake");
 }
 
 # -- mc fake tau corrected
 @ /bkg/?/? {
-    $copy("mcReal >> ::mcFakeCorrected");
+    $copy("mcReal/Diboson >> mcFakeCorrected");
+    $copy("mcReal/Zjets >> mcFakeCorrected");
+    $copy("mcReal/Wjets >> mcFakeCorrected");
+    $copy("mcReal/Top >> mcFakeCorrected");
 }
 
 <isTTL=false> @ /.;
@@ -28,7 +36,7 @@ $create(path="/bkg/?/?/mcReal", type="sf");
 <isJet=false> @ /.;
 <isJet=true> @ /bkg/?/?/mcFake, /bkg/?/?/mcFakeCorrected;
 <ismcFakeCorrected=false> @ /.;
-<ismcFakeCorrected=true> @ /bkg/?/?/mcFakeCorrected;
+<ismcFakeCorrected=true> @ /bkg/?/?/mcFakeCorrected,/bkg/?/?/mcReal/Wjets;
 
 # add dd fakes
 ## -- MultiJets

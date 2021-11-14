@@ -19,18 +19,18 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
                 <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
                     (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
                 
-                +CutLeptonISO {
-                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                     .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                +CutLepTau {
+                    <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
+                
+                    +CutLeptonISO {
+                        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
 
-                    +CutTauID {
-                        <.cutExpression="$(isPassID)", .title="Tau ID">
-
-                        +CutLepHad {
-                            <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
-                        } #End: CutLepHad
-                    } #End: CutTauID
-                } #End: CutLeptonISO
+                        +CutZeeVeto {
+                            <.cutExpression="lep_0==2 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
+                        } #End: CutZeeVeto
+                    } #End: CutLeptonISO
+                } #End: CutLepTau
             } #End: CutTauBasic
         } #End: CutLeptonBasic
     } #End: CutTruth
@@ -38,8 +38,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
         
 
 
-# Divide to SS/OS region
-@ */CutLepHad {
+@ */CutZeeVeto {
     +CutOS {
         <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
     } #End: CutOS
@@ -47,36 +46,30 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     +CutSS {
         <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
     } #End: CutSS
-} #End: CutLepHad
+} #End: CutZeeVeto
 
 
 
-# Divide to Bveto/Btag region
-@ */Cut*S {
+@ */CutZeeVeto/Cut*S {
     +Cut$(CHARGE)Bveto {
         <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
-    } #End: CutBveto
+    } #End: Cut[OS/SS]Bveto
 
     +Cut$(CHARGE)Btag {
-        <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag">
-    } #End: CutBtag
-} #End: CutLepHad
+        <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+    } #End: Cut[OS/SS]Btag
+} #End: CutZeeVeto/Cut[OS/SS]
 
 
 
-# Divide to different MT region
 @ */Cut*SB* {
-    +Cut$(CHARGE)$(BJET)NoMT {
-        <.cutExpression="1", .title=$(CHARGE)$(BJET)NoMT>
+    +Cut$(CHARGE)$(BJET)1p {
+        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)1p", PRONG="1p">
     }
-    +Cut$(CHARGE)$(BJET)LowMT {
-        <.cutExpression="lephad_mt_lep0_met < 40", .title="$(CHARGE)$(BJET)LowMT">
-    } 
-    +Cut$(CHARGE)$(BJET)MediumMT {
-        <.cutExpression="lephad_mt_lep0_met >= 40 && lephad_mt_lep0_met<60", .title="$(CHARGE)$(BJET)MediumMT">
-    }
-    +Cut$(CHARGE)$(BJET)HighMT {
-        <.cutExpression="$(NbJets)==0 ? lephad_mt_lep0_met>=150 : lephad_mt_lep0_met>=220", .title="$(CHARGE)$(BJET)HighMT">
+
+    +Cut$(CHARGE)$(BJET)3p {
+        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)3p", PRONG="3p">
     }
 }
 

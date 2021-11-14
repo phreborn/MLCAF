@@ -14,24 +14,18 @@
 .name="|"
 .name=CutTauBasic
 .name="|"
-.name=CutLepHad
-.name="|"
 .name=CutLeptonISO
-.name="|"
-.name=CutTauID
-.name="|"
-.name=CutZeeVeto
-.name="|"
+
+.name="||"
 .name=CutSS
 
 .name="||"
-.name=CutSSBveto
-.name="|"
-.name=CutSSBvetoLowMT
-.name=CutSSBvetoMediumMT
+.name=CutSSBtag
 
 .name="||"
-.name=CutSSBtag
+.name=CutSSBtagHighST
 .name="|"
-.name=CutSSBtagLowMT
-.name=CutSSBtagMediumMT
+.name=CutSSBtagHighST1p
+.name=CutSSBtagHighST1pPassTauID
+.name=CutSSBtagHighST3p
+.name=CutSSBtagHighST3pPassTauID

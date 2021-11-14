@@ -1,6 +1,7 @@
 #!/bin/bash
 
-REGION="SR"
-TASK="alternateFR"
+REGION="OtherJetsSSR"
+TASK="FF"
+
 analyze.py LQtaub-lephad/config/${REGION}/master/analyze-${TASK}.cfg --debug \
-      --restrict /sig/?/c16a/bbH \
+      --restrict /bkg/?/c16d/mcFakeCorrected/Top/single \

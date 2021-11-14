@@ -74,7 +74,7 @@ $include("AHZ-lephad/config/common/cuts/cuts.def");
 @ */Cut*MultiJetsLFR {
     +Cut$(CHARGE)$(BJET)MultiJetsLFRPassISO {
         <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsLFFReweightSYS))*($(LeptonFakeNom)) : 1)", .title="$(CHARGE)$(BJET)MultiJetsLFRPassISO">
+         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="$(CHARGE)$(BJET)MultiJetsLFRPassISO">
     }
 
     +Cut$(CHARGE)$(BJET)MultiJetsLFRFailISO {

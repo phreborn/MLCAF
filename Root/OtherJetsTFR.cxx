@@ -28,8 +28,13 @@ OtherJetsTFR::OtherJetsTFR(const TString& expression) : LepHadObservable(express
   
   INFOclass("Loading file...");
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyOtherJetsTFR", false) ) return;
-
-  TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MCOtherJetsTFR_FF.root");
+  
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/FakeFactors/MCOtherJetsTFR_FF.root");
+  //TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/MCOtherJetsTFR_FF.root");
   if (!file) {
     ERRORclass("Can not find MCOtherJetsTFR_FF.root");
   }

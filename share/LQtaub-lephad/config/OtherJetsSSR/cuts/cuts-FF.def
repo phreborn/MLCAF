@@ -1,0 +1,78 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, ST
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         ($(isJet) && [TruthTauSelector] == -30)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+                
+                +CutLeptonISO {
+                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                     .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                } #End: CutLeptonISO
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+@ */CutLeptonISO {
+    +CutSS {
+        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
+    } #End: CutSS
+} #End: CutLeptonISO
+
+
+
+@ */CutSS {
+    +CutSSBtag {
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="SSBtag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+    } #End: CutSSBtag
+} #End: CutSS
+
+@ */CutSSBtag {
+    +CutSSBtagHighST {
+        <.cutExpression="$(St) > 300", .title="SSBtagHighST", ST="HighST">
+    }
+}
+
+### Split OS and SS up to prevent OS low and high mT categories which will be meaningless (save on processing)
+@ */CutSSBtagHighST {
+    +CutSSBtagHighST1p {
+        <.cutExpression="tau_0_n_charged_tracks==1", .title="SSBtagHighST1p", PRONG="1p">
+    }
+
+    +CutSSBtagHighST3p {
+        <.cutExpression="tau_0_n_charged_tracks==3", .title="SSBtagHighST3p", PRONG="3p">
+    }
+}
+
+
+# Pass/Fail, split up again 
+#SS
+@ */CutSSBtagHighST*p {
+    +CutSSBtagHighST$(PRONG)PassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtagHighST$(PRONG)PassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)">
+    }
+}
+
+
+
+$replace("*/Cut*1p/*:.name,.title", PRONG="1p");
+$replace("*/Cut*3p/*:.name,.title", PRONG="3p");

@@ -241,6 +241,10 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
   elif region == 'SSExtrap':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
+  elif region == 'SSR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsSSR-FF.root'
+  elif region == 'VR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
@@ -277,7 +281,7 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMultiJetsLFRPassISO', 'BtagTauPtDphi2SF', prefix, 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMultiJetsLFRPassISO', 'BtagTauPtDphi3SF', prefix, 0.1, 0.1)
 
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/MultiJetsLFR_SF.root AHZ-lephad/auxData/ScaleFactors/MultiJetsLFRAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/MultiJetsLFR_SF.root "+analysis+"/auxData/ScaleFactors/MultiJetsLFRAll*.root\033[0m")
 
   if region == 'OtherJetsTFR':
     # Loop over data taking period and channels
@@ -331,7 +335,7 @@ if __name__=='__main__':
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT1p", 0.1, 0.1)
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root AHZ-lephad/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsTFR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
 
 
   elif region == 'SSExtrap':
@@ -368,7 +372,7 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagLowMT', 'BtagTauPt3pSF', prefix, 0.1, 0.1)
 
 
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/SSExtrap_SF.root AHZ-lephad/auxData/ScaleFactors/SSExtrapAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/SSExtrap_SF.root "+analysis+"/auxData/ScaleFactors/SSExtrapAll*.root\033[0m")
 
   elif region == 'TCR':
     # Loop over data taking period and channels
@@ -394,24 +398,61 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDMediumMT', 'StSF1', prefix+"TCRTauIDMediumMT", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDHighST', 'StSF', prefix+"TCRTauIDHighST", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDLowMT', 'StSF1', prefix+"2bTVRTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDMediumMT', 'StSF1', prefix+"2bTVRTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDHighMT', 'StSF1', prefix+"2bTVRTauIDHighMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDLowMT', 'StSF1', prefix+"2bTVRNoTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDMediumMT', 'StSF1', prefix+"2bTVRNoTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDHighMT', 'StSF1', prefix+"2bTVRNoTauIDHighMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDMediumMT', 'StSF2', prefix+"TCRTauIDMediumMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDLowMT', 'StSF2', prefix+"2bTVRTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDMediumMT', 'StSF2', prefix+"2bTVRTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRTauIDHighMT', 'StSF2', prefix+"2bTVRTauIDHighMT", 0.1, 0.1)
-        
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDLowMT', 'StSF2', prefix+"2bTVRNoTauIDLowMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDMediumMT', 'StSF2', prefix+"2bTVRNoTauIDMediumMT", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'Cut2bTVRNoTauIDHighMT', 'StSF2', prefix+"2bTVRNoTauIDHighMT", 0.1, 0.1)
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF.root "+analysis+"/auxData/ScaleFactors/TCRAll*.root\033[0m")
 
-    print("\033[92mHadd command: \nhadd AHZ-lephad/auxData/ScaleFactors/TopCR_SF.root AHZ-lephad/auxData/ScaleFactors/TCRAll*.root\033[0m")
+  if region == 'SSR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal/[Zjets+Top+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top+Diboson]]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagHighST1pPassTauID', 'StSF', prefix+"SSBtag1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagHighST3pPassTauID', 'StSF', prefix+"SSBtag3p", 0.1, 0.1)
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/MCFakesSYS_SF.root "+analysis+"/auxData/ScaleFactors/SSRAll*.root\033[0m")
+
+  elif region == 'VR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        #bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFake]/[Zjets+Wjets+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVROSBtagHighST', 'StSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopExtrap_SF.root "+analysis+"/auxData/ScaleFactors/VRAll*.root\033[0m")
