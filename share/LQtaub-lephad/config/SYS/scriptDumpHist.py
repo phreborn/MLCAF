@@ -6,14 +6,14 @@ def create_cmd_log_list(input_files, campaigns, channels, variations):
     for campaign in campaigns:
       for channel in channels:
         variation_file = variations[input_file.split("/")[-1]]
-        cmd = 'python scripts/dumpHist.py {0} {1} {2} {3}'.format(input_file, campaign, channel, variation_file)
+        cmd = 'python scripts/dumpHist_lq.py {0} {1} {2} {3} {4} {5}'.format(input_file, campaign, channel, variation_file, args.version, args.coupling)
         cmd_list.append(cmd)
         syst_name = input_file.split('.')[0].split('-')[-1]
         
-        log_dir = 'logs/dump_hist/{0}/{1}'.format(campaign, channel)
+        log_dir = 'logs/dump_hist/{0}/{1}/{2}_l{3}'.format(campaign, channel, args.version, args.coupling)
         if not os.path.isdir(log_dir):
           os.makedirs(log_dir)
-        log = '{0}/{1}_{2}_{3}.log'.format(log_dir, campaign, channel, syst_name)
+        log = '{0}/{1}_{2}_{3}_l{4}_{5}.log'.format(log_dir, campaign, channel, args.version, args.coupling, syst_name)
         log_list.append(log)
 
   return cmd_list, log_list
@@ -22,9 +22,22 @@ def create_cmd_log_list(input_files, campaigns, channels, variations):
 if __name__ == '__main__':
 
   import os
+  import subprocess
+  import argparse
+  import commands
   from JobHandler import LocalJobHandler
 
   """Script to dump histograms"""
+
+  parser = argparse.ArgumentParser(description='Dump histogram for statistical analysis.')
+  parser.add_argument('version', metavar='VERSION', type=str,
+            default="st300",
+            help='version to be used')
+  parser.add_argument('coupling', metavar='COUPLING', type=str,
+            default="1_0",
+            help='coupling to be used')
+  args = parser.parse_args()
+
 
   # colours
   ENDC = '\033[0m'
@@ -36,19 +49,16 @@ if __name__ == '__main__':
   channels = ['ehad', 'muhad'] 
 
   variations = {'samples-analyzed-LQtaub-lephad-SR-FF-NOMINAL.root': None,
-                #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-OtherJetsTFR_Reweight.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-OtherJets-Reweight.txt',
-                #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-OtherJetsTFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-OtherJets.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MultijetsLFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ.txt',
-                #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MultijetsLFR_Reweight.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ-Reweight.txt',
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MCFakes.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MC.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_jet_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-jet-p4.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_lep_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-p4.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_lep_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-weight.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_tau_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-tau-weight.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_other_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-other-weight.txt',
-                #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Zjets.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Zjets.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Top_Reweight.root': 'LQtaub-lephad/auxData/variations/systematics-Top-Reweight.txt',
-                #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Extrapolation.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-Extrapolation.txt'
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Top_Extrapolation.root': 'LQtaub-lephad/auxData/variations/systematics-Top-Extrapolation.txt',
                 }  
 
   # Get the input files
