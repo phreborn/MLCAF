@@ -22,7 +22,7 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
   # Open the variation file
     with open(args.variation_file) as f:
       variation_names = f.readlines()
-      variation_names = [i.split()[0] for i in variation_names if 'FakeFactor' in i]
+      variation_names = [i.split()[0] for i in variation_names if '#name' not in i]
     sys_name_list = ['ATLAS_'+i+'_1down' for i in variation_names]
     sys_name_list.extend(['ATLAS_'+i+'_1up' for i in variation_names])
 
@@ -91,20 +91,34 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
             WARN("Unable to find hist {:s} : {:s}/{:s}".format(sample_path, region_path, hist_name))
             continue
 
-
-          if 'LQ' in sample_name:
-            if "Btag" in region_name:
-              hist_new_name = sample_name.split("tag")[0] + '1tag' + sample_name.split("tag")[1]
-              if "Low" in region_name:
-                hist_new_name += "lowbjetpt_"
-              elif "High" in region_name:
-                hist_new_name += "highbjetpt_"
-            elif "Bveto" in region_name:
-              hist_new_name = sample_name.split("tag")[0] + '0tag' + sample_name.split("tag")[1]
-            else:
-              BREAK("Unexpected region name {:s}".format(region_name))
+          # hist name
+          hist_new_name = sample_name
+          if "Btag" in region_name:
+            hist_new_name += "_1tag0jet_0ptv_"
+            if "Low" in region_name:
+              hist_new_name += "lowbjetpt_"
+            elif "High" in region_name:
+              hist_new_name += "highbjetpt_"
+          elif "Bveto" in region_name:
+            hist_new_name += "_0tag0jet_0ptv_"
           else:
-            hist_new_name = sample_name    
+            BREAK("Unexpcted region name {:s}".format(region_name))
+
+          if args.channel == "ehad":
+            hist_new_name += "ElHad"
+          elif args.channel == "muhad":
+            hist_new_name += "MuHad"
+          else:
+            BREAK("Unexpected channel {:s}".format(args.channel))
+          if "TCR" in region_name:
+            hist_new_name += "TCR"
+          if "VR" in region_name:
+            hist_new_name += "VR"
+
+          hist_new_name += "_"+hist_rename
+
+          if sys_name != "NOMINAL":
+            hist_new_name += "_"+sys_name
 
 
           hist.SetNameTitle(hist_new_name, hist_new_name)
@@ -168,11 +182,12 @@ if __name__ == "__main__":
 
   ### The following hists will be dumped
   hist_dict = {
-    "BtagTauPt"         : "TauPt",
-    "BtagLeptonPt"      : "LeptonPt",
-    "BtagBjetPt"        : "BjetPt",
-    "BtagMET"           : "MET",
-    "St_fineBin"        : "St",
+    "TauPt"     : "TauPt",
+    "LeptonPt"  : "LeptonPt",
+    "BjetPt"    : "BjetPt",
+    "MET"       : "MET",
+    "St"        : "St",
+    "St_fineBin"        : "StFineBin",
   }
 
   main(args, dataset_dict, sample_dict, region_dict, hist_dict); 

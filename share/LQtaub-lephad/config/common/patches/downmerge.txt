@@ -10,6 +10,14 @@
 <generalize.histograms=true> @bkg/?/?/mcReal/Wjets/?/?;
 <generalize.histograms=true> @bkg/?/?/mcReal/Top/?/?;
 <generalize.histograms=true> @bkg/?/?/mcReal/Diboson/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFake/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFake/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFake/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFake/Diboson/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFakeCorrected/Zjets/?/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFakeCorrected/Wjets/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFakeCorrected/Top/?/?;
+<generalize.histograms=true> @bkg/?/?/mcFakeCorrected/Diboson/?/?;
 
 <generalize.histograms=true> @bkg/?/?/MultiJetsFake/data/?/?;
 <generalize.histograms=true> @bkg/?/?/MultiJetsFake/mc/Zjets/?/?/?;
@@ -48,6 +56,14 @@
 <generalize.cutflow=true> @bkg/?/?/mcReal/Wjets/?/?;
 <generalize.cutflow=true> @bkg/?/?/mcReal/Top/?/?;
 <generalize.cutflow=true> @bkg/?/?/mcReal/Diboson/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFake/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFake/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFake/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFake/Diboson/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFakeCorrected/Zjets/?/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFakeCorrected/Wjets/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFakeCorrected/Top/?/?;
+<generalize.cutflow=true> @bkg/?/?/mcFakeCorrected/Diboson/?/?;
 
 <generalize.cutflow=true> @bkg/?/?/MultiJetsFake/data/?/?;
 <generalize.cutflow=true> @bkg/?/?/MultiJetsFake/mc/Zjets/?/?/?;
