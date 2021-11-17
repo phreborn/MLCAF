@@ -18,13 +18,34 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
   # systematic name
   sys_name = file_path.split("-")[-1].split(".")[0]
 
+  sys_name_list = []
   if sys_name != "NOMINAL":
   # Open the variation file
     with open(args.variation_file) as f:
       variation_names = f.readlines()
-      variation_names = [i.split()[0] for i in variation_names if '#name' not in i]
-    sys_name_list = ['ATLAS_'+i+'_1down' for i in variation_names]
-    sys_name_list.extend(['ATLAS_'+i+'_1up' for i in variation_names])
+      #variation_names = [i.split()[0] for i in variation_names if i.startswith('#') or not len(i)]
+    for i in variation_names:
+      i = i.strip()
+      if not len(i) or i.startswith('#'):
+        continue
+      if i.split()[-1] == 'one':
+        INFO(i)
+        sysName = i.split()[0]
+        INFO(sysName)
+        #if '1up' in sysName:
+        #  sysName = sysName.split('_1up')[0]
+        #elif '1down' in sysName:
+        #  sysName = sysName.split('_1down')[0]
+        #INFO(sysName)
+        sys_name_list.append('ATLAS_'+sysName)
+      elif i.split()[-1] == 'two':
+        INFO(i)
+        sysName = i.split()[0]
+        INFO(sysName)
+        sys_name_list.append('ATLAS_'+sysName+'_1up')
+        sys_name_list.append('ATLAS_'+sysName+'_1down')
+    #sys_name_list = ['ATLAS_'+i+'_1down' for i in variation_names]
+    #sys_name_list.extend(['ATLAS_'+i+'_1up' for i in variation_names])
 
   else:
    sys_name_list = [args.channel]
@@ -66,10 +87,16 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
       
       if sys_name != 'NOMINAL':
         channel = args.channel + sys.split("ATLAS")[1]
-        if "1up" in channel:
+        INFO(channel)
+        if 'JET_JER' in sys:
+          sys = sys.replace("_1up", "")
+        if "1up" in sys:
           dir_sys = f_out.mkdir(sys.replace("1up", "_1up"), sys.replace("1up", "_1up"))
-        elif "1down" in channel:
+        elif "1down" in sys:
           dir_sys = f_out.mkdir(sys.replace("1down", "_1down"), sys.replace("1down", "_1down"))
+        else:
+          dir_sys = f_out.mkdir(sys, sys)
+
       for sample_name, sample_path in sample_dict.items():
         if sample_name == 'data':
           sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
