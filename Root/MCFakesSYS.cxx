@@ -107,12 +107,12 @@ const TH1F* MCFakesSYS::getFakeFactorHist() const {
 
   histName += "All";
 
-  // -- channel: ehad/muhad
+  // -- channel: muhad
   if (isMuon()) {
     histName += "muhad";
   } 
   else if (isElectron()) {
-    histName += "ehad";
+    histName += "muhad";
   }
   else {
     ERRORclass("Unknown channel");
@@ -120,20 +120,10 @@ const TH1F* MCFakesSYS::getFakeFactorHist() const {
   }
 
   // -- charge: OS/SS, use SS for now
-  if (this->lephad_qxq->EvalInstance() == -1) {
-    histName += "OS";
-  }
-  else {
-    histName += "SS";
-  }
+  histName += "SS";
 
   // -- category: Bveto/Btag
-  if (bjetCount()>=1) {
-    histName += "Btag";
-  }
-  else {
-    histName += "Bveto";
-  }
+  histName += "Btag";
 
   // -- 1p/3p
   if (this->tau_0_n_charged_tracks->EvalInstance() == 1) {
