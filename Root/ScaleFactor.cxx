@@ -485,16 +485,16 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   // Top theory uncertainty: 0, systematic variations: 2x2
   */
   // -- ISR
-  Condition ttbar_ISR_up = registerVariation("TTbar_ISR_1up");
-  addScaleFactor(ttbar_ISR_up, "pmg_truth_weight_ISRHi");
-  Condition ttbar_ISR_down = registerVariation("TTbar_ISR_1down");
-  addScaleFactor(ttbar_ISR_down, "pmg_truth_weight_ISRLo");
+  //Condition ttbar_ISR_up = registerVariation("TTbar_ISR_1up");
+  //addScaleFactor(ttbar_ISR_up, "pmg_truth_weight_ISRHi");
+  //Condition ttbar_ISR_down = registerVariation("TTbar_ISR_1down");
+  //addScaleFactor(ttbar_ISR_down, "pmg_truth_weight_ISRLo");
 
   // -- FSR
-  Condition ttbar_FSR_up = registerVariation("TTbar_FSR_1up");
-  addScaleFactor(ttbar_FSR_up, "pmg_truth_weight_FSRHi");
-  Condition ttbar_FSR_down = registerVariation("TTbar_FSR_1down");
-  addScaleFactor(ttbar_FSR_down, "pmg_truth_weight_FSRLo");
+  //Condition ttbar_FSR_up = registerVariation("TTbar_FSR_1up");
+  //addScaleFactor(ttbar_FSR_up, "pmg_truth_weight_FSRHi");
+  //Condition ttbar_FSR_down = registerVariation("TTbar_FSR_1down");
+  //addScaleFactor(ttbar_FSR_down, "pmg_truth_weight_FSRLo");
 }
 
 //______________________________________________________________________________________________
