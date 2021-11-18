@@ -10,12 +10,18 @@
 ##### mc bkg #####
 /bkg/?/c16e/mcReal/Top/single
 /bkg/?/c16e/mcReal/Top/ttbar/nominal
+/bkg/?/c16e/mcReal/Top/ttbar/ME
+/bkg/?/c16e/mcReal/Top/ttbar/PS
+/bkg/?/c16e/mcReal/Top/ttbar/ISRup
 /bkg/?/c16e/mcReal/Zjets
 /bkg/?/c16e/mcReal/Diboson
 /bkg/?/c16e/mcReal/Wjets
 
 /bkg/?/c16e/mcFake/Top/single
 /bkg/?/c16e/mcFake/Top/ttbar/nominal
+/bkg/?/c16e/mcFake/Top/ttbar/ME
+/bkg/?/c16e/mcFake/Top/ttbar/PS
+/bkg/?/c16e/mcFake/Top/ttbar/ISRup
 /bkg/?/c16e/mcFake/Zjets
 /bkg/?/c16e/mcFake/Diboson
 /bkg/?/c16e/mcFake/Wjets

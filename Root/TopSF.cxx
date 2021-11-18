@@ -235,6 +235,13 @@ double TopSF::getValue() const {
     retval -= retval_error;
 
   }
+  else if( fSysName.Contains("TTBar_ME") && f_n_bjets>0 ) {
+    retval = -5.4e-04 * variable + 1.07;
+  }
+  else if( fSysName.Contains("TTBar_PS") && f_n_bjets>0 ) {
+    retval = -5.7e-04 * variable + 1.17;
+  }
+     
 
 
 
