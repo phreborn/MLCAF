@@ -33,9 +33,14 @@ TH1F('LepJetDphi', '', 30, -3.15, 3.15) << ($(LepJetDphi) : "\#Delta\#phi(lep,b-
 TH1F('TauJetDphi', '', 30, -3.15, 3.15) << ($(TauJetDphi) : "\#Delta\#phi(\#tau_{had-vis},b-jet)");
 @CutOSBtag*BJetPt,CutVROSBtag*ST: LepTauDphi,LepMETDphi,TauMETDphi,LepJetDphi,TauJetDphi;
 
+TH1F('LepTauDeta', '', 50, -5, 5) << ($(LepTauDeta) : "\#Delta\eta(lep,\#tau_{had-vis})");
+TH1F('LepJetDeta', '', 50, -5, 5) << ($(LepJetDeta) : "\#Delta\eta(lep,b-jet)");
+TH1F('TauJetDeta', '', 50, -5, 5) << ($(TauJetDeta) : "\#Delta\eta(\#tau_{had-vis},b-jet)");
+@CutOSBtag*BJetPt,CutVROSBtag*ST: LepTauDeta,LepJetDeta,TauJetDeta; 
+
 TH1F('LepTauDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,\#tau_{had-vis})");
-TH1F('LepJetDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,b-jet)");
-TH1F('TauJetDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(\#tau_{had-vis},b-jet)");
+TH1F('LepJetDr', '', 25, 0, 5) << ($(LepJetDr) : "\#DeltaR(lep,b-jet)");
+TH1F('TauJetDr', '', 25, 0, 5) << ($(TauJetDr) : "\#DeltaR(\#tau_{had-vis},b-jet)");
 @CutOSBtag*BJetPt,CutVROSBtag*ST: LepTauDr,LepJetDr,TauJetDr; 
 
 TH1F('TauPtOverLeptonPt', '', 30, 0, 3) << (tau_0_p4.Pt()/lep_0_p4.Pt() : "p_{T} fraction(\#tau_{had-vis},lep)");
