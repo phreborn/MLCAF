@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
   # Get the usual campaigns and channels
   campaigns = ['c16ade']
-  channels = ['ehad'] 
+  channels = ['ehad','muhad'] 
 
   variations = {
                 #'samples-analyzed-LQtaub-lephad-SR-FF-NOMINAL.root': None,
@@ -54,11 +54,12 @@ if __name__ == '__main__':
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MCFakes.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MC.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Top_Reweight.root': 'LQtaub-lephad/auxData/variations/systematics-Top-Reweight.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Top_Extrapolation.root': 'LQtaub-lephad/auxData/variations/systematics-Top-Extrapolation.txt',
-                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_jet_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-jet-p4.txt',
+                #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_jet_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-jet-p4.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_lep_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-p4.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_lep_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-weight.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_tau_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-tau-weight.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_other_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-other-weight.txt',
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Zjets.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Zjets.txt',
                 }  
 
@@ -72,7 +73,7 @@ if __name__ == '__main__':
 
   cmd_list, log_list = create_cmd_log_list(files, campaigns, channels, variations)  
   cmd_log = zip(cmd_list, log_list)
-  NCORES = 1
+  NCORES = 8
   
   if NCORES == 1:
     for cmd in cmd_list:

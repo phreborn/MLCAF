@@ -97,6 +97,16 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
         else:
           dir_sys = f_out.mkdir(sys, sys)
 
+      if sys == 'TTBar_ME':
+        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/ME]"
+        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/ME]+Diboson]]"
+      if sys == 'TTBar_PS':
+        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/PS]"
+        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/PS]+Diboson]]"
+      if sys == 'TTBar_ISR__1up':
+        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/ISRup]"
+        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/ISRup]+Diboson]]"
+        
       for sample_name, sample_path in sample_dict.items():
         if sample_name == 'data':
           sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
@@ -191,14 +201,14 @@ if __name__ == "__main__":
   ### The following Samples will be dumped
   sample_dict = {
     'data':         "data/{:s}/{:s}/",
-    'Top':          "bkg/{:s}/{:s}/mcReal/Top/", 
     'Diboson':      "bkg/{:s}/{:s}/mcReal/Diboson/", 
+    'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/nominal]",
     'DYZ':          "bkg/{:s}/{:s}/mcReal/Zjets/[ee+mumu]", 
     'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
+    'WJETSFakes':   "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/nominal]+Diboson]]",
     'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
-    'WJETSFakes':   "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top+Diboson]]",
-    'LQlh900'    :  "sig/{:s}/{:s}/LQ/M900_l{:s}/",
-    'LQlh2500'   :  "sig/{:s}/{:s}/LQ/M2500_l{:s}/",
+    'LQlh900':      "sig/{:s}/{:s}/LQ/M900_l{:s}/",
+    'LQlh2500':     "sig/{:s}/{:s}/LQ/M2500_l{:s}/",
   }
 
   ### The following regions will be dumped

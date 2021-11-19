@@ -1,5 +1,5 @@
 #name                                                   type        variation
 TTBar_ME                                               weight      one
 TTBar_PS                                               weight      one
-TTBar_ISR                                              weight      two
-TTBar_FSR                                              weight      two
+#TTBar_ISR                                              weight      two
+#TTBar_FSR                                              weight      two
