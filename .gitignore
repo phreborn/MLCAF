@@ -8,6 +8,8 @@ build
 */batchOutput
 */htcondorWorkloadTemp
 */submissionWorkloadTemp
+*/mergeWorkloadTemp
+*/condor_logs
 */jobslist.txt
 */logs
 */backups
