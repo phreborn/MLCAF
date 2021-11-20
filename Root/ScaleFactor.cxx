@@ -505,6 +505,8 @@ bool ScaleFactor::initializeSelf() {
   }
   
   int sum = 0; 
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
+  std::cout << fSysName << std::endl; 
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("weightvar", fSysName) ) {
     fSysName = "nominal";
     variation = nominal;
