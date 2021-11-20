@@ -120,19 +120,17 @@ bool LPXKfactor::initializeSelf() {
   }
 
   int sum = 0; 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("lpxvar", fSysName) ) {
-    fSysName = "nominal";
-    m_variation = nominal;
-    ++sum;
-  }
-  else { 
-    for (unsigned int i = 0; i < m_variations.size(); ++i) {
-      if (fSysName.EndsWith(m_variations[i].first)) {
-        m_variation = m_variations[i].second;
-        ++sum;
-      }
+  fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
+  for (unsigned int i = 0; i < m_variations.size(); ++i) {
+    if (fSysName.EndsWith(m_variations[i].first)) {
+      m_variation = m_variations[i].second;
+      ++sum;
     }
-  }  
+  }
+  if ( 0 == sum ) {
+    m_variation = nominal; 
+    ++sum;
+  } 
 
   if (1 != sum) {
     ERROR("%s triggers %d variations !", fSysName, sum);

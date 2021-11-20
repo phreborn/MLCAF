@@ -506,20 +506,18 @@ bool ScaleFactor::initializeSelf() {
   
   int sum = 0; 
   fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
-  std::cout << fSysName << std::endl; 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("weightvar", fSysName) ) {
-    fSysName = "nominal";
+  for (unsigned int i = 0; i < variations.size(); ++i) {
+    if (fSysName.EndsWith(variations[i].first)) {
+      variation = variations[i].second;
+      ++sum;
+    }
+  }
+  if ( 0 == sum) {
+    std::cout << fSysName << std::endl;
     variation = nominal;
     ++sum;
   }
-  else { 
-    for (unsigned int i = 0; i < variations.size(); ++i) {
-      if (fSysName.EndsWith(variations[i].first)) {
-        variation = variations[i].second;
-        ++sum;
-      }
-    }
-  }  
+   
 
   if (1 != sum) {
     ERROR("%s triggers %d variations !", fSysName, sum);
