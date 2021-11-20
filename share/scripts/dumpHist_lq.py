@@ -98,14 +98,14 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
           dir_sys = f_out.mkdir(sys, sys)
 
       if sys == 'TTBar_ME':
-        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/ME]"
-        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/ME]+Diboson]]"
+        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/ME]"
+        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/ME]+Diboson]]"
       if sys == 'TTBar_PS':
-        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/PS]"
-        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/PS]+Diboson]]"
+        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/PS]"
+        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/PS]+Diboson]]"
       if sys == 'TTBar_ISR__1up':
-        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/ISRup]"
-        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/ISRup]+Diboson]]"
+        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/ISRup]"
+        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/ISRup]+Diboson]]"
         
       for sample_name, sample_path in sample_dict.items():
         if sample_name == 'data':
@@ -155,8 +155,12 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
           hist_new_name += "_"+hist_rename
 
           if sys_name != "NOMINAL":
-            hist_new_name += "_"+sys_name
+            hist_new_name += "_"+sys
 
+          if '1up' in sys:
+            hist_new_name = hist_new_name.replace('1up','_1up')
+          elif '1down' in sys:
+            hist_new_name = hist_new_name.replace('1down','_1down')
 
           hist.SetNameTitle(hist_new_name, hist_new_name)
           f_out.cd()
@@ -202,10 +206,10 @@ if __name__ == "__main__":
   sample_dict = {
     'data':         "data/{:s}/{:s}/",
     'Diboson':      "bkg/{:s}/{:s}/mcReal/Diboson/", 
-    'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single+ttabr/nominal]",
+    'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/nominal]",
     'DYZ':          "bkg/{:s}/{:s}/mcReal/Zjets/[ee+mumu]", 
     'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
-    'WJETSFakes':   "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttabr/nominal]+Diboson]]",
+    'WJETSFakes':   "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/nominal]+Diboson]]",
     'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
     'LQlh900':      "sig/{:s}/{:s}/LQ/M900_l{:s}/",
     'LQlh2500':     "sig/{:s}/{:s}/LQ/M2500_l{:s}/",

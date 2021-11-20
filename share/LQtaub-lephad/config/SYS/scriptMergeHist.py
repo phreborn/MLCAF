@@ -27,9 +27,9 @@ if __name__ == '__main__':
       for region in regions:
         merge_to = root_file_name
         if 'Btag' in region:
-          merge_to += '1tag0jet_0ptv_'
+          merge_to += '1tag0jet_0ptv_'+region+'_'
         else:
-          merge_to += '0tag0jet_0ptv_'
+          merge_to += '0tag0jet_0ptv_'+region+'_'
         if 'ehad' in channel:
           merge_to += 'ElHad_'
         else:

@@ -42,9 +42,9 @@ TopSF::TopSF(const TString& expression) : LepHadObservable(expression) {
     }
   }
   else if ("LQtaub" == signalProcess) {
-    file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF_CL.root");    
+    file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_SF_CL_nominal.root");    
     if (!file) {
-      ERRORclass("Can not find TopCR_SF_CL.root");
+      ERRORclass("Can not find TopCR_SF_CL_nominal.root");
     }
   }
   if (!file) {
@@ -195,7 +195,7 @@ double TopSF::getValue() const {
   if ("LQtaub" == signalProcess){
     retval = -5.5e-04 * variable + 1.08;
 
-    TString histName = "TopCR_SF_68CL";
+    TString histName = "TopCR_SF_68CL_nominal";
     TH1F * hist = 0;      
     auto it = m_FF_hist.find(histName);
     if ( it != m_FF_hist.end() ) hist = it->second;

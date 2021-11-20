@@ -5,11 +5,11 @@
 ### dd backgrounds ####
 .path="|"
 .name="MultiJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
-.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[mcReal/Wjets+mcFake/[Wjets+Top+Zjets+Diboson]]", .title="Other jet fake", histFillColor=kRed+1, histFillStyle=1001
+.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[mcReal/Wjets+mcFake/[Wjets+Top/[single+ttbar/nominal]+Zjets+Diboson]]", .title="Other jet fake", histFillColor=kRed+1, histFillStyle=1001
 
 ### mc backgrounds ###
 .path="|"
 .name="DibosonReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
 .name="ZllReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]"
 .name="ZtautauReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
-.name="TopReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
+.name="TopReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single+ttbar/nominal]"
