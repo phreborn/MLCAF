@@ -354,7 +354,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   tau_eff_rnnid_sys |= tau_eff_rnnid_3p_ge40_down;
   
   Condition tau_eff_rnnid_syst_up = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_SYST_1up");  
-  addScaleFactor(tauid | tau_eff_rnnid_syst_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_SYST_1down_TauEffSF_Jet" + tauIDWP);
+  addScaleFactor(tauid | tau_eff_rnnid_syst_up, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_SYST_1up_TauEffSF_Jet" + tauIDWP);
   tau_eff_rnnid_sys |= tau_eff_rnnid_syst_up;
   Condition tau_eff_rnnid_syst_down = registerVariation("TAUS_TRUEHADTAU_EFF_RNNID_SYST_1down");  
   addScaleFactor(tauid | tau_eff_rnnid_syst_down, "tau_0_TAUS_TRUEHADTAU_EFF_RNNID_SYST_1down_TauEffSF_Jet" + tauIDWP);
@@ -513,7 +513,6 @@ bool ScaleFactor::initializeSelf() {
     }
   }
   if ( 0 == sum) {
-    std::cout << fSysName << std::endl;
     variation = nominal;
     ++sum;
   }
