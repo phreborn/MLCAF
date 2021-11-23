@@ -111,11 +111,48 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
         if sample_name == 'data':
           sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
         else:
-          if sys_name != 'NOMINAL':
-            if 'LQ' in sample_name:
+          if sys_name == 'CP_jet_p4' or sys_name == 'CP_lep_p4':
+            if 'QCDFakes' in sample_name or 'WJETSFakes' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets], args.coupling)
             else:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+          elif sys_name == 'CP_lep_weight' or sys_name == 'CP_tau_weight' or sys_name == 'CP_other_weight':
+            if 'QCDFakes' in sample_name or 'WJETSFakes' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets], args.coupling)
+            else:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+          elif sys_name == 'MCFakes':
+            if 'WJETSFakes' in sample_name:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
+            else:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+          elif sys_name == 'MultiJetsLFR':
+            if 'QCDFakes' in sample_name:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
+            else:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+          elif sys_name == 'Top_Reweight' or sys_name == 'Top_Extrapolation' or sys_name == 'Theory_Top':
+            if 'Top' in sample_name:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
+            else:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+          elif sys_name == 'Theory_Zjets':
+            if 'DYZ' in sample_name or 'ZplusJets' in sample_name:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
+            else:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets]) 
           else:
             if 'LQ' in sample_name:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
