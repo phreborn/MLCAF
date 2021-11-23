@@ -24,7 +24,6 @@ for ARG in "$@"; do
         echo "Merging systematic: ${ARG}"
         tqmerge -t analyze \
             batchOutput/unmerged_SR-FF-SYS-"${ARG}"/*.root \
-            batchOutput/unmerged_SR-FF/unmerged_SR-FF_data*.root \
             -o "${SAMPLEBASE}"-SYS-"${ARG}".root \
             --downmerge generalize \
             --patch LQtaub-lephad/config/common/patches/downmerge.txt \
