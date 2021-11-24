@@ -260,11 +260,12 @@ if __name__ == "__main__":
 
   ### The following hists will be dumped
   hist_dict = {
-    "TauPt"     : "TauPt",
-    "LeptonPt"  : "LeptonPt",
-    "BjetPt"    : "BjetPt",
-    "MET"       : "MET",
-    "St"        : "St",
+    "TauPt"     	: "TauPt",
+    "LeptonPt"  	: "LeptonPt",
+    "BjetPt"    	: "BjetPt",
+    "MET"       	: "MET",
+    "StLowBJetPt"       : "StLowBJetPt",
+    "StHighBJetPt"      : "StHighBJetPt",
     "St_fineBin"        : "StFineBin",
   }
 
