@@ -61,13 +61,13 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   
   // -- Systematic variatiions: 1x2
   Condition prw_sys = none;
-
+  // One-side systematic variatiion
   Condition prw_up = registerVariation("PRW_DATASF_1up");
   addScaleFactor(prw_up, "PRW_DATASF_1up_pileup_combined_weight");
   prw_sys |= prw_up;
-  Condition prw_down = registerVariation("PRW_DATASF_1down");
-  addScaleFactor(prw_down, "PRW_DATASF_1down_piledown_combined_weight");
-  prw_sys |= prw_down;
+  //Condition prw_down = registerVariation("PRW_DATASF_1down");
+  //addScaleFactor(prw_down, "PRW_DATASF_1down_piledown_combined_weight");
+  //prw_sys |= prw_down;
 
   // Nominal scale factor
   addScaleFactor(none, prw_sys, "NOMINAL_pileup_combined_weight");
