@@ -6,7 +6,7 @@ import argparse
 from JobHandler import LocalJobHandler
 
 # The results of some jobs will not be changed for the systematics, these jobs will be copied from the following dir
-s_nominal_dir='batchOutput/unmerged_SR-FF'
+s_nominal_dir='batchOutput/unmerged_SR-FF-SYS-NOMINAL'
 
 def copyJobs(sys):
     # different files to be copied
