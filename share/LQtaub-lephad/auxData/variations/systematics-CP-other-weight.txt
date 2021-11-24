@@ -20,5 +20,5 @@ FT_EFF_extrapolation_from_charm                        weight      two
 JET_JvtEfficiency                                      weight      two 
 
 # Others: 2
-PRW_DATASF                                             weight      two    
-MatTransCorr                                           weight      two                 
+PRW_DATASF_1up                                         weight      one 
+#MatTransCorr                                           weight      two                 
