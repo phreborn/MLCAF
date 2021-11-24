@@ -262,18 +262,18 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   addScaleFactor(tau_eff_reco_total_down, "tau_0_TAUS_TRUEHADTAU_EFF_RECO_TOTAL_1down_TauEffSF_selection");
   tau_eff_reco_sys |= tau_eff_reco_total_down;
 
-  Condition tau_eff_eleolr_trueelectron_stat_up = registerVariation("TAUS_TRUEELECTRON_EFF_ELEOLR_STAT_1up");
-  addScaleFactor(tau_eff_eleolr_trueelectron_stat_up, "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_STAT_1up_TauEffSF_selection");
+  Condition tau_eff_eleolr_trueelectron_stat_up = registerVariation("TAUS_TRUEELECTRON_EFF_ELEBDT_STAT_1up");
+  addScaleFactor(tau_eff_eleolr_trueelectron_stat_up, "tau_0_TAUS_TRUEELECTRON_EFF_ELEBDT_STAT_1up_TauEffSF_selection");
   tau_eff_reco_sys |= tau_eff_eleolr_trueelectron_stat_up;
-  Condition tau_eff_eleolr_trueelectron_stat_down = registerVariation("TAUS_TRUEELECTRON_EFF_ELEOLR_STAT_1down");
-  addScaleFactor(tau_eff_eleolr_trueelectron_stat_down, "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_STAT_1down_TauEffSF_selection");
+  Condition tau_eff_eleolr_trueelectron_stat_down = registerVariation("TAUS_TRUEELECTRON_EFF_ELEBDT_STAT_1down");
+  addScaleFactor(tau_eff_eleolr_trueelectron_stat_down, "tau_0_TAUS_TRUEELECTRON_EFF_ELEBDT_STAT_1down_TauEffSF_selection");
   tau_eff_reco_sys |= tau_eff_eleolr_trueelectron_stat_down;
   
-  Condition tau_eff_eleolr_trueelectron_syst_up = registerVariation("TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1up");
-  addScaleFactor(tau_eff_eleolr_trueelectron_syst_up, "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1up_TauEffSF_selection");
+  Condition tau_eff_eleolr_trueelectron_syst_up = registerVariation("TAUS_TRUEELECTRON_EFF_ELEBDT_SYST_1up");
+  addScaleFactor(tau_eff_eleolr_trueelectron_syst_up, "tau_0_TAUS_TRUEELECTRON_EFF_ELEBDT_SYST_1up_TauEffSF_selection");
   tau_eff_reco_sys |= tau_eff_eleolr_trueelectron_syst_up;
-  Condition tau_eff_eleolr_trueelectron_syst_down = registerVariation("TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1down");
-  addScaleFactor(tau_eff_eleolr_trueelectron_syst_down, "tau_0_TAUS_TRUEELECTRON_EFF_ELEOLR_SYST_1down_TauEffSF_selection");
+  Condition tau_eff_eleolr_trueelectron_syst_down = registerVariation("TAUS_TRUEELECTRON_EFF_ELEBDT_SYST_1down");
+  addScaleFactor(tau_eff_eleolr_trueelectron_syst_down, "tau_0_TAUS_TRUEELECTRON_EFF_ELEBDT_SYST_1down_TauEffSF_selection");
   tau_eff_reco_sys |= tau_eff_eleolr_trueelectron_syst_down;
   
   Condition tau_eff_eleolr_truehadtau_total_up = registerVariation("TAUS_TRUEHADTAU_EFF_ELEOLR_TOTAL_1up");
