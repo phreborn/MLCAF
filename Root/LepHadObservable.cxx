@@ -148,6 +148,10 @@ bool LepHadObservable::isElectron() const {
   return lep_0->EvalInstance()==2;
 }
 
+//______________________________________________________________________________________________
+bool LepHadObservable::isTTBar() const {
+  return m_isTTBar;
+}
 
 unsigned int LepHadObservable::bjetCount() const {
   return n_bjets->EvalInstance();
@@ -191,6 +195,11 @@ bool LepHadObservable::initializeSelf(){
 
   if (!this->fSample->getTag("~isData", m_isData)) {
     ERROR("tag isData missing");
+    return false;
+  }
+  
+  if (!this->fSample->getTag("~isTTBar", m_isTTBar)) {
+    ERROR("tag isTTBar missing");
     return false;
   }
   

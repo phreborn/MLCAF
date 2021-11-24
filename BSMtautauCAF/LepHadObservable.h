@@ -38,6 +38,7 @@ public:
 
   bool isMuon() const;
   bool isElectron() const;
+  bool isTTBar() const;
   bool isTauID() const;
   bool isLepISO() const;
 
@@ -60,6 +61,7 @@ protected:
 
   bool m_isData = false;
   bool m_isMC = false;
+  bool m_isTTBar = false;
 
   bool m_verbose = false;
 

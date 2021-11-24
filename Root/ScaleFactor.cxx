@@ -484,11 +484,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
   /*
   // Top theory uncertainty: 0, systematic variations: 2x2
   */
-  bool isTTBar = false;
-  if (!this->fSample->getTag("~isTTBar", isTTBar)) {
-    ERROR("tag isTTBar missing");
-  }
-  if ( isTTBar ) {
+  if ( isTTBar() ) {
     // -- ISR
     //Condition ttbar_ISR_up = registerVariation("TTbar_ISR_1up");
     //addScaleFactor(ttbar_ISR_up, "pmg_truth_weight_ISRHi");
@@ -505,6 +501,9 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 
 //______________________________________________________________________________________________
 bool ScaleFactor::initializeSelf() {
+  
+  if ( isTTBar() ) { std::cout << "Using ttbar nominal samples" << std::endl; }
+
   if (!LepHadObservable::initializeSelf()) {
       ERROR("Initialization of LepHadObservable failed.");
       return false;
