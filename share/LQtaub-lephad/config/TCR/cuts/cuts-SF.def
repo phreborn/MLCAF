@@ -44,7 +44,8 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutTCR {
     +CutTCRTauID {
-        <.cutExpression="$(isPassID)", TAU="TauID", .title="TCRTauID">
+        <.cutExpression="$(isPassID)", TAU="TauID", .title="TCRTauID",
+         .weightExpression="$(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight)) : 1">
     }
 }
 
