@@ -50,6 +50,7 @@ def copyJobs(sys):
     elif sys=='Theory_Top':
       l_files.append('unmerged_*_bkg_X_c16?_mcReal_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_mcReal_Z*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_mcReal_Top_single*.root')
       l_files.append('unmerged_*_bkg_X_c16?_mcReal_Wjets*.root')
       l_files.append('unmerged_*_bkg_X_c16?_mcFakeCorrected*.root')
       l_files.append('unmerged_*_bkg_X_c16?_MultiJetsFake_*.root')
