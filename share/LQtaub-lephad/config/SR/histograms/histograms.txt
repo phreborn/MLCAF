@@ -52,8 +52,8 @@ TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{
 @CutOSBtag*BJetPt,CutVROSBtag*ST: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 
 TH1F('St', '', {100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
-TH1F('StLowBJetPt', '', {300, 400, 450, 500,550,600,680,3000}) << ($(St) : "S_{T} [GeV]");
-TH1F('StHighBJetPt', '', {300, 400, 450, 500,550,600,650,700,800,930,3000}) << ($(St) : "S_{T} [GeV]");
+TH1F('StLowBJetPt', '', {300, 400, 450, 500,550,600,680,1000}) << ($(St) : "S_{T} [GeV]");
+TH1F('StHighBJetPt', '', {300, 400, 450, 500,550,600,650,700,800,930,1000}) << ($(St) : "S_{T} [GeV]");
 TH1F('St_fineBin', '', 2900, 100,3000) << ($(St) : "S_{T} [GeV]");
 TH1F('StMoreBin', '', 29, 100., 3000.) << ($(St) : "S_{T} [GeV]");
 @CutOSBtag*BJetPt,CutVROSBtag*ST: St,St_fineBin,StLowBJetPt,StHighBJetPt;
