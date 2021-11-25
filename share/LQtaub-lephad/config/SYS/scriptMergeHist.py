@@ -19,7 +19,8 @@ if __name__ == '__main__':
   NCORES = 8
   variable = 'St'
   regions = []
-  regions.extend(['OSBtagSRLowBJetPt', 'OSBtagSRHighBJetPt'])
+  #regions.extend(['OSBtagSRLowBJetPt', 'OSBtagSRHighBJetPt'])
+  regions.extend(['VROSBtag'])
 
   root_file_name = '13TeV_OneLepton_CUT_'
   for campaign in campaigns:

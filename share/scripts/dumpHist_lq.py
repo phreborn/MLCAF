@@ -88,7 +88,7 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
       if sys_name != 'NOMINAL':
         channel = args.channel + sys.split("ATLAS")[1]
         INFO(channel)
-        if 'JET_JER' in sys:
+        if 'JET_JER' in sys or 'PRW_DATASF' in sys:
           sys = sys.replace("_1up", "")
         if "1up" in sys:
           dir_sys = f_out.mkdir(sys.replace("1up", "_1up"), sys.replace("1up", "_1up"))
@@ -256,6 +256,7 @@ if __name__ == "__main__":
   region_dict = {
     "OSBtagSRLowBJetPt"   :   "CutOSBtagLowBJetPt",
     "OSBtagSRHighBJetPt"  :   "CutOSBtagHighBJetPt",
+    "VROSBtag"            :   "CutVROSBtagHighST",
   }
 
   ### The following hists will be dumped
