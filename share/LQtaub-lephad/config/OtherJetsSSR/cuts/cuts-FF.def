@@ -70,6 +70,11 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
         <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtagHighST$(PRONG)PassTauID",
          .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)">
     }
+
+    +CutSSBtagHighST$(PRONG)FailTauID {
+        <.cutExpression="$(isFailID)", .title="SSBtagHighST$(PRONG)FailTauID",
+         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+    }
 }
 
 

@@ -33,12 +33,19 @@ OtherJetsTFF::OtherJetsTFF(const TString& expression) : LepHadObservable(express
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/FakeFactors/OtherJetsTFR_FF.root");
-  //TFile* file= TFile::Open("AHZ-lephad/auxData/FakeFactors/OtherJetsTFR_FF.root");
-  if (!file) {
-    ERRORclass("Can not find OtherJetsTFR_FF.root");
+  TFile* file=0;
+  if ("AHZ" == signalProcess) {
+    file= TFile::Open("AHZ-lephad/auxData/FakeFactors/OtherJetsTFR_FF.root");
+    if (!file) {
+      ERRORclass("Can not find OtherJetsTFR_FF.root");
+    }
   }
-
+  else if ("LQtaub" == signalProcess) {
+    file= TFile::Open(signalProcess+"-lephad/auxData/FakeFactors/OtherJetsSSR_FF.root");
+    if (!file) {
+      ERRORclass("Can not find OtherJetsSSR_FF.root");
+    }
+  }
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = file->GetListOfKeys();
@@ -84,8 +91,14 @@ bool OtherJetsTFF::finalizeSelf() {
 
 
 auto OtherJetsTFF::getFakeFactorHist() const {
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
   // determine which FF hist we want: All
   TString histName = "OtherJetsTFR";
+  if ("LQtaub" == signalProcess) { histName = "OtherJetsSSR";}
+
 
   // -- period: Combined or Separated
   TString period = "";
@@ -118,7 +131,12 @@ auto OtherJetsTFF::getFakeFactorHist() const {
 
   // -- charge: OS/SS
   if (this->lephad_qxq->EvalInstance() == -1) {
-    histName += "OS";
+    if ("LQtaub" == signalProcess) { 
+      histName += "SS";
+    }
+    else {
+      histName += "OS";
+    } 
   }
   else {
     histName += "SS";
@@ -129,11 +147,21 @@ auto OtherJetsTFF::getFakeFactorHist() const {
     histName += "Btag";
   }
   else {
-    histName += "Bveto";
+    if ("LQtaub" == signalProcess) { 
+      histName += "Btag";
+    }
+    else {
+      histName += "Bveto";
+    }
   }
 
-  histName += "MediumMT";
-  
+  if ("LQtaub" == signalProcess) {
+    histName += "";
+  }
+  else {
+    histName += "MediumMT";
+  }  
+
   // -- 1p/3p
   if (this->tau_0_n_charged_tracks->EvalInstance() == 1) {
     histName += "1p";
@@ -143,11 +171,16 @@ auto OtherJetsTFF::getFakeFactorHist() const {
   }
   
   // -- parameterization
-  if (bjetCount()>=1) {
-    histName += "BTBinTauPtFF";
+  if ("LQtaub" == signalProcess) {
+    histName += "TauPtFF";
   }
   else {
-    histName += "TauPtFF";
+    if (bjetCount()>=1) {
+      histName += "BTBinTauPtFF";
+    }
+    else {
+      histName += "TauPtFF";
+    }
   }
   // -- Get up down and nominal histos
   const TH1F * h_nominal = 0;
@@ -178,6 +211,12 @@ auto OtherJetsTFF::getFakeFactorHist() const {
 
 
 double OtherJetsTFF::getValue() const {
+  TString signalProcess = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
+    ERRORclass("AnaChannel not set !!!");
+  }
+
+
   // Check whether we want to apply the fake factor
   bool apply = false;
   if (! TQTaggable::getGlobalTaggable("aliases")->getTagBool("ApplyOtherJetsTFF", apply)) {
@@ -192,11 +231,25 @@ double OtherJetsTFF::getValue() const {
   std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
 
 
-  float f_tau_0_pt = this->tau_0_pt->EvalInstance();
   int f_n_bjets        = this->n_bjets->EvalInstance();
   int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
+  float f_lep_0_pt = this->lep_0_pt->EvalInstance();
+  float f_tau_0_pt = this->tau_0_pt->EvalInstance();
+  float f_jet_0_pt = this->jet_0_pt->EvalInstance();
+  float f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
+  float st = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt;
+  float SumOfPt = f_lep_0_pt + f_tau_0_pt + f_bjet_0_pt;
 
-  int binID = std::min(h_nominal->FindFixBin(f_tau_0_pt), h_nominal->GetNbinsX());
+  float variable = 0.0;
+  if ("LQtaub" == signalProcess) {
+    variable = f_tau_0_pt;
+  }
+  else {
+    variable = f_tau_0_pt;
+  }
+
+
+  int binID = std::min(h_nominal->FindFixBin(variable), h_nominal->GetNbinsX());
   if (binID == 0) binID = 1;
 
   float retval = h_nominal->GetBinContent(binID);
@@ -207,8 +260,16 @@ double OtherJetsTFF::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  float ratio_scale_1p = 0.862; // Needs re-evaluation
-  float ratio_scale_3p = 0.881;
+  float ratio_scale_1p = 1.0; // Needs re-evaluation
+  float ratio_scale_3p = 1.0;
+  if ("LQtaub" == signalProcess) {
+    ratio_scale_1p = 1.0; // Needs re-evaluation
+    ratio_scale_3p = 1.0;
+  }
+  else {
+    ratio_scale_1p = 0.862; // Needs re-evaluation
+    ratio_scale_3p = 0.881;
+  }
 
   if    ( (fSysName.Contains("FakeFactor_OtherJetsBtag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
           (fSysName.Contains("FakeFactor_OtherJetsBtag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||

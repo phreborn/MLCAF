@@ -27,7 +27,5 @@
 .name="|"
 .name=CutSSBtagHighST1p
 .name=CutSSBtagHighST1pPassTauID
-.name=CutSSBtagHighST1pFailTauID
 .name=CutSSBtagHighST3p
 .name=CutSSBtagHighST3pPassTauID
-.name=CutSSBtagHighST3pFailTauID

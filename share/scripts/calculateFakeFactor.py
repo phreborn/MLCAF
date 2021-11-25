@@ -242,6 +242,8 @@ if __name__=='__main__':
   # decide which file is needed:
   if region == 'OtherJetsTFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF.root'
+  elif region == 'OtherJetsSSR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsSSR-FF.root'
   elif region == 'MultiJetsLFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF.root'
   else:
@@ -352,3 +354,32 @@ if __name__=='__main__':
           calcFakeFactor(dataPath, bkgPath, 'CutBtagMultiJetsLFRPassISO', 'CutBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/FakeFactors/MultiJetsLFR_FF.root "+analysis+"/auxData/FakeFactors/MultiJetsLFR*All*FF.root\033[0m")
+
+  if region == 'OtherJetsSSR':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/[mcReal+MultiJetsFake]'.format(channel_path, period_path)
+        
+        prefix = region+period_name+channel_name
+        
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagHighST1pPassTauID', 'CutSSBtagHighST1pFailTauID', 'TauPtFF', prefix+"SSBtag1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagHighST3pPassTauID', 'CutSSBtagHighST3pFailTauID', 'TauPtFF', prefix+"SSBtag3p", 0.1,0.1)
+
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/FakeFactors/OtherJetsSSR_FF.root "+analysis+"/auxData/FakeFactors/OtherJetsSSRAll*.root\033[0m")
+  
