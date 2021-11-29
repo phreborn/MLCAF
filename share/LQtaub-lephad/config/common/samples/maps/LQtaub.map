@@ -159,7 +159,9 @@
 ### -- LQtaub (MG5)
 ## l = 1.0
 508685 /sig/$(channel)/$(campaign)/LQ/M900_l1_0
+508989 /sig/$(channel)/$(campaign)/LQ/M1600_l1_0
 508687 /sig/$(channel)/$(campaign)/LQ/M2500_l1_0
 ## l = 2.0
 508686 /sig/$(channel)/$(campaign)/LQ/M900_l2_0
+508990 /sig/$(channel)/$(campaign)/LQ/M1600_l2_0
 508688 /sig/$(channel)/$(campaign)/LQ/M2500_l2_0
