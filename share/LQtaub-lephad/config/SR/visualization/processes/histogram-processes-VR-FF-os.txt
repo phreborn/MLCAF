@@ -1,6 +1,6 @@
 ### data ###
 #.path="||"
-.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+#.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
 
 ### dd backgrounds ####
 .path="|"
