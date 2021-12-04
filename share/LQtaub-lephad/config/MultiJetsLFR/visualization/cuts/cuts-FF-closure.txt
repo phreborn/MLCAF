@@ -21,6 +21,16 @@
 .name="||"
 .name=CutBtag
 .name="|"
+.name=CutSS
+.name="||"
 .name=CutBtagMultiJetsLFR
 .name="|"
-.name=CutBtagMultiJetsLFRPassISO
+.name=CutSSBtagMultiJetsLFRPassISO
+.name="||"
+.name=CutBtagMultiJetsWFR
+.name="|"
+.name=CutSSBtagMultiJetsWFRPassISO
+.name="||"
+.name=CutBtagMultiJetsTFR
+.name="|"
+.name=CutSSBtagMultiJetsTFRPassISO
