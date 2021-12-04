@@ -5,6 +5,13 @@
 ### dd backgrounds ####
 .path="|"
 .name="MultiJetsFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
+.name="TotalBkg", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[MultiJetsFake+mcReal/[Wjets+Top/[single+ttbar/nominal]+Zjets/tautau+Zjets/[ee+mumu]+Diboson]+mcFake/[Wjets+Top/[single+ttbar/nominal]+Zjets+Diboson]]"
+
+.path="|"
+.name="LQ900_l1_0",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l1_0"
+.name="LQ900_l2_0",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l2_0"
+.name="LQ2500_l1_0", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l1_0"
+.name="LQ2500_l2_0", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l2_0"
 
 ### mc backgrounds ###
 .path="|"

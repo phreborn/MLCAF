@@ -9,7 +9,7 @@
 
 ### mc backgrounds ###
 .path="|"
-.name="DibosonReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
-.name="ZllReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]"
-.name="ZtautauReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
-.name="TopReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single+ttbar/nominal]"
+.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
+.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]",.title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
+.name="Ztautau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single+ttbar/nominal]"
