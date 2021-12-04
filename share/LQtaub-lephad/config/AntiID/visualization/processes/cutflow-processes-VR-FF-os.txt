@@ -1,0 +1,17 @@
+### data ###
+#.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### dd backgrounds ####
+.path="|"
+.name="MultiJetsFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
+.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/[Wjets+Top+Zjets+Diboson]"
+#.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/ddOtherJetsFake"
+
+### mc backgrounds ###
+.path="|"
+.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
+.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
+.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets"
+.name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
