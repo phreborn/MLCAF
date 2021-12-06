@@ -1,6 +1,0 @@
-### mc backgrounds ###
-.path="|"
-.name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"
-.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top"
-.name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Zjets"
-.name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Diboson"

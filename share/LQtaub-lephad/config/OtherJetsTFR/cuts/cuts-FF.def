@@ -16,21 +16,13 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
             <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
         
             +CutTauBasic {
-                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
                     (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
-                
-                +CutLepTau {
-                    <.cutExpression="lephad_dphi>2.4", .title="Lephad dphi">
-                
-                    +CutLeptonISO {
-                        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
-
-                        +CutZeeVeto {
-                            <.cutExpression="lep_0==2 && $(NbJets) == 0 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
-                        } #End: CutZeeVeto
-                    } #End: CutLeptonISO
-                } #End: CutLepTau
+               
+                +CutLeptonISO {
+                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                } #End: CutLeptonISO
             } #End: CutTauBasic
         } #End: CutLeptonBasic
     } #End: CutTruth
@@ -38,137 +30,53 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
         
 
 
-@ */CutZeeVeto {
+# Divide to SS/OS region
+@ */CutLeptonISO {
     +CutOS {
         <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
     } #End: CutOS
-    
-    +CutSS {
-        <.cutExpression="lephad_qxq == 1", .title="SS", CHARGE="SS"> 
-    } #End: CutSS
-} #End: CutZeeVeto
+} #End: CutTauID
 
 
 
-@ */CutZeeVeto/Cut*S {
-    +Cut$(CHARGE)Bveto {
-        <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
-    } #End: Cut[OS/SS]Bveto
-
-    +Cut$(CHARGE)Btag {
+# Divide to Bveto/Btag region
+@ */CutOS {
+    +CutOSBtag {
         <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    } #End: Cut[OS/SS]Btag
-} #End: CutZeeVeto/Cut[OS/SS]
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopExtrapolationSF)) : 1">
+    } #End: CutOSBtag
+} #End: CutOS
 
 
 
-@ */CutOSBveto {
-    +Cut$(CHARGE)BvetoMediumMT {
-        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=150", .title="$(CHARGE)BvetoMediumMT", MT="MediumMT">
-    }
-}
-
+# Divide to different MT region
 @ */CutOSBtag {
-    +CutOSBtagMediumMT {
-        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=120", .title="OSBtagMediumMT", MT="MediumMT">
+    +CutTFR {
+        <.cutExpression="lephad_met_lep0_cos_dphi >= 1.5 && lephad_met_lep0_cos_dphi < 2.5", .title="TFR">  
+
+        +CutTFROSBtagLowMT {
+            <.cutExpression="jet_0_p4.Pt() >= 100 && jet_0_p4.Pt() < 200 && lephad_mt_lep0_met >= 50 && lephad_mt_lep0_met < 120",.title="OSTFRBtagLowMT">
+        }
     }
 }
 
-@ */CutSSBveto {
-    +CutSSBvetoNoMT {
-        <.cutExpression="1", .title="SSBvetoNoMT", MT="NoMT">
-    }
-
-    +CutSSBvetoLowMT {
-        <.cutExpression="lephad_mt_lep0_met<=40", .title="SSBvetoLowMT", MT="LowMT">
-    }
-    
-    +CutSSBvetoMediumMT {
-        <.cutExpression="lephad_mt_lep0_met>40&&lephad_mt_lep0_met<=60", .title="SSBvetoMediumMT", MT="MediumMT">
-    }
-    
-    +CutSSBvetoHighMT {
-        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=150", .title="SSBvetoHighMT", MT="HighMT">
+@ */CutTFROSBtagLowMT {
+    +CutHighST {
+        <.cutExpression="$(St) > 300",.title="OSTFRBtagLowMT">
+ 
+        +CutTFRPassTauID {
+            <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+             .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1", .title="TFRPassTauID">
+        }
+        +CutTFRFailTauID {
+            <.cutExpression="$(isFailID)",
+             .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1", .title="TFRFailTauID">
+        }
     }
 }
 
-@ */CutSSBtag {
-    +CutSSBtagNoMT {
-        <.cutExpression="1", .title="SSBvetoNoMT", MT="NoMT">
-    }
-    
-    +CutSSBtagLowMT {
-        <.cutExpression="lephad_mt_lep0_met<=40", .title="SSBtagLowMT", MT="LowMT">
-    }
-    
-    +CutSSBtagMediumMT {
-        <.cutExpression="lephad_mt_lep0_met>40&&lephad_mt_lep0_met<=60", .title="SSBtagMediumMT", MT="MediumMT">
-    }
-    
-    +CutSSBtagHighMT {
-        <.cutExpression="lephad_mt_lep0_met>60&&lephad_mt_lep0_met<=120", .title="SSBtagHighMT", MT="HighMT">
-    }
-}
-
-### Split OS and SS up to prevent OS low and high mT categories which will be meaningless (save on processing)
-@ */CutOS*MediumMT {
-    +CutOS$(BJET)MediumMT1p {
-        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(MT)1p", PRONG="1p">
-    }
-
-    +CutOS$(BJET)MediumMT3p {
-        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(MT)3p", PRONG="3p">
-    }
-}
-
-@ */CutSS*MT {
-    +CutSS$(BJET)$(MT)1p {
-        <.cutExpression="tau_0_n_charged_tracks==1", .title="$(CHARGE)$(BJET)$(MT)1p", PRONG="1p">
-    }
-
-    +CutSS$(BJET)$(MT)3p {
-        <.cutExpression="tau_0_n_charged_tracks==3", .title="$(CHARGE)$(BJET)$(MT)3p", PRONG="3p">
-    }
-}
-
-
-# Pass/Fail, split up again 
-#OS
-@ */CutOS*MediumMT*p {
-    +CutOS$(BJET)MediumMT$(PRONG)PassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="OS$(BJET)MediumMT$(PRONG)PassTauID",
-         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1">
-    }
-
-    +CutOS$(BJET)MediumMT$(PRONG)FailTauID {
-        <.cutExpression="$(isFailID)", .title="OS$(BJET)MediumMT$(PRONG)FailTauID",
-         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
-    }
-}
-
-#SS
-@ */Cut*p {
-    +Cut$(CHARGE)$(BJET)$(MT)$(PRONG)PassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="$(CHARGE)$(BJET)$(MT)$(PRONG)PassTauID",
-         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1">
-    }
-    
-    +Cut$(CHARGE)$(BJET)$(MT)$(PRONG)FailTauID {
-        <.cutExpression="$(isFailID)", .title="$(CHARGE)$(BJET)$(MT)$(PRONG)FailTauID",
-         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
-    }
-}
 
 
 
 $replace("*/CutOS/*:.name,.title", CHARGE="OS");
-$replace("*/CutSS/*:.name,.title", CHARGE="SS");
-$replace("*/Cut*Bveto/*:.name,.title", BJET="Bveto");
 $replace("*/Cut*Btag/*:.name,.title", BJET="Btag");
-$replace("*/Cut*NoMT/*:.name,.title", MT="NoMT");
-$replace("*/Cut*LowMT/*:.name,.title", MT="LowMT");
-$replace("*/Cut*MediumMT/*:.name,.title", MT="MediumMT");
-$replace("*/Cut*HighMT/*:.name,.title", MT="HighMT");
-$replace("*/Cut*1p/*:.name,.title", PRONG="1p");
-$replace("*/Cut*3p/*:.name,.title", PRONG="3p");
