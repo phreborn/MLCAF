@@ -1,0 +1,67 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, MT
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ ($(isGluon) && [TruthTauSelector] == 100) || ($(isbottom) && [TruthTauSelector] == 200) || ($(ischarm) && [TruthTauSelector] == 300) ||
+         ($(isuds) && [TruthTauSelector] == 400) || ($(isother) && [TruthTauSelector] == 500)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+               
+                +CutLeptonISO {
+                    <.cutExpression="$(isPassISO)", .title="Lepton isolation">
+                } #End: CutLeptonISO
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+# Divide to SS/OS region
+@ */CutLeptonISO {
+    +CutBtag {
+        <.cutExpression="$(NbJets)>=1", .title="Btag">
+
+        +CutOSBtag {
+            <.cutExpression="lephad_qxq == -1", .title="OSBtag">
+        } #End: CutOSBtag
+
+        +CutSSBtag {
+            <.cutExpression="lephad_qxq == 1", .title="SSBtag">
+        } #End: CutSSBtag
+    } #End: CutBtag
+} #End: CutTauID
+
+
+# Divide to different regions
+@ */CutOSBtag {
+    +CutHighST {
+        <.cutExpression="$(St) > 300", .title="HighST">
+
+        +CutSR {
+            <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="SR">
+        } 
+   
+        +CutVR {
+            <.cutExpression="lephad_met_lep0_cos_dphi >= 1.5 && lephad_met_lep0_cos_dphi < 2.5", .title="VR">  
+        }
+    }
+}
+
+@ */CutSSBtag {
+    +CutSSR {
+        <.cutExpression="$(St) > 300", .title="SSR">
+    }
+}

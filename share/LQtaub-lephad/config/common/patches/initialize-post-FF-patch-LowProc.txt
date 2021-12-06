@@ -1,0 +1,54 @@
+# -*- mode: tqfolder -*-
+
+$printline("Including fake folders");
+
+# split the MC samples
+# -- mc real tau or prompt lepton
+$create(path="/bkg/?/?/mc", type="sf");
+@ /bkg/?/? {
+    $move("Wjets >> mc");
+    $move("Top >> mc");
+}
+
+# -- mc fake tau
+@ /bkg/?/? {
+    $copy("mc >> ::Gluon");
+}
+
+@ /bkg/?/? {
+    $copy("mc >> ::bottom");
+}
+
+@ /bkg/?/? {
+    $copy("mc >> ::charm");
+}
+
+@ /bkg/?/? {
+    $copy("mc >> ::uds");
+}
+
+@ /bkg/?/? {
+    $copy("mc >> ::other");
+}
+
+
+<isGluon=false> @ /.;
+<isGluon=true> @ /bkg/?/?/Gluon;
+
+<isbottom=false> @ /.;
+<isbottom=true> @ /bkg/?/?/bottom;
+
+<ischarm=false> @ /.;
+<ischarm=true> @ /bkg/?/?/charm;
+
+<isuds=false> @ /.;
+<isuds=true> @ /bkg/?/?/uds;
+
+<isother=false> @ /.;
+<isother=true> @ /bkg/?/?/other;
+
+
+<isData=false> @ /.;
+<isData=true> @ /data;
+<isMC=true> @ /.;
+<isMC=false> @ /data;

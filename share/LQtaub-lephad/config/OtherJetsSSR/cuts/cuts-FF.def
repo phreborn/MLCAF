@@ -36,48 +36,45 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     } #End: CutSS
 } #End: CutLeptonISO
 
-
-
 @ */CutSS {
     +CutSSBtag {
-        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="SSBtag", BJET="Btag",
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25 && lephad_met_lep0_cos_dphi < 2.5", .title="SSBtag", BJET="Btag",
          .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
     } #End: CutSSBtag
 } #End: CutSS
 
 @ */CutSSBtag {
-    +CutSSBtagHighST {
-        <.cutExpression="$(St) > 300", .title="SSBtagHighST", ST="HighST">
+    +CutSSBtag1p {
+        <.cutExpression="tau_0_n_charged_tracks == 1",.title="SSBtag1p">
     }
-}
-
-### Split OS and SS up to prevent OS low and high mT categories which will be meaningless (save on processing)
-@ */CutSSBtagHighST {
-    +CutSSBtagHighST1p {
-        <.cutExpression="tau_0_n_charged_tracks==1", .title="SSBtagHighST1p", PRONG="1p">
-    }
-
-    +CutSSBtagHighST3p {
-        <.cutExpression="tau_0_n_charged_tracks==3", .title="SSBtagHighST3p", PRONG="3p">
+    +CutSSBtag3p {
+        <.cutExpression="tau_0_n_charged_tracks == 3",.title="SSBtag3p">
     }
 }
 
 
 # Pass/Fail, split up again 
 #SS
-@ */CutSSBtagHighST*p {
-    +CutSSBtagHighST$(PRONG)PassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtagHighST$(PRONG)PassTauID",
+@ */CutSSBtag1p {
+    +CutSSBtag1pPassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtag1pPassTauID",
          .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)">
     }
 
-    +CutSSBtagHighST$(PRONG)FailTauID {
-        <.cutExpression="$(isFailID)", .title="SSBtagHighST$(PRONG)FailTauID",
+    +CutSSBtag1pFailTauID {
+        <.cutExpression="$(isFailID)", .title="SSBtag1pFailTauID",
          .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
     }
 }
 
+@ */CutSSBtag3p {
+    +CutSSBtag3pPassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtag3pPassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)">
+    }
 
-
-$replace("*/Cut*1p/*:.name,.title", PRONG="1p");
-$replace("*/Cut*3p/*:.name,.title", PRONG="3p");
+    +CutSSBtag3pFailTauID {
+        <.cutExpression="$(isFailID)", .title="SSBtag3pFailTauID",
+         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+    }
+}
