@@ -22,12 +22,15 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
                 +CutLeptonISO {
                     <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
                     .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
-                    
-                    # SS has little statistics
-                    +CutOS {
-                        <.cutExpression="lephad_qxq == -1", .title="OS">
-                    } #End: CutOS
-               } #End: CutLeptonISO
+
+                    +CutZeeVeto {
+                        <.cutExpression="lep_0==2 && $(NbJets) == 0 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
+                                        
+                        +CutOS {
+                            <.cutExpression="lephad_qxq == -1", .title="OS">
+                        } #End: CutOS
+                    } #End: CutZeeVeto
+                } #End: CutLeptonISO
             } #End: CutTauBasic
         } #End: CutLeptonBasic
     } #End: CutTruth
@@ -37,21 +40,25 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 # Divide to different btag region
 @ */CutOS {
-    +CutTCR {
-        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25 && lephad_met_lep0_cos_dphi >= 2.5", .title="TCR">
-    } #End: CutTCR
+    +CutBtag {
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="Btag">
+   
+        +CutTCR {
+            <.cutExpression="$(St) < 1000 && lephad_met_lep0_cos_dphi >= 2.5", .title="TCR", 
+             .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+        } #End: CutTCR
+    } #End: CutBtag
 } #End: CutOS
 
+
+
 @ */CutTCR {
-    +CutTCRTauID {
-        <.cutExpression="$(isPassID)", TAU="TauID", .title="TCRTauID",
+    +CutTCRPassTauID {
+        <.cutExpression="$(isPassID)", TAU="TauID", .title="TCRPassTauID",
          .weightExpression="$(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight)) : 1">
     }
 }
 
-@ */CutTCRTauID {
-    +CutTCRTauIDHighST {
-        <.cutExpression="$(St) > 300", .title="TCRTauIDHighST",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    }
-}
+
+
+

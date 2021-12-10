@@ -16,10 +16,12 @@
 .name="|"
 .name=CutLeptonISO
 .name="|"
+.name=CutZeeVeto
+.name="|"
 .name=CutOS
+.name="|"
+.name=CutBtag
 .name="|"
 .name=CutTCR
 .name="|"
-.name=CutTCRTauID
-.name="|"
-.name=CutTCRTauIDHighST
+.name=CutTCRPassTauID

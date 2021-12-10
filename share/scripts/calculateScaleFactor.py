@@ -202,6 +202,84 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
   plotScaleFactor(SF_nom,SF_nom_up,SF_nom_down,SF_nom.GetName())
   outfile.Close()
 
+def calcDiscrepancy(datapath, bkgpath, cut, histogram, prefix, mcVar1=0.1, mcVar2=0.1):
+  print '----------------------------------------------------------'
+  print 'Now running Scale Factor in ', prefix, histogram
+  print '--------------------------------------------------------\n'
+
+  doMCSys = False #True
+  
+  # nominal histogram
+  histoObs = reader.getHistogram('{:s}'.format(dataPath),'{:s}/{:s}'.format(cut,histogram))
+  histoExp = reader.getHistogram('{:s}'.format(bkgpath),'{:s}/{:s}'.format(cut,histogram))
+
+  # add overflow
+  addOverflow(histoObs)
+  addOverflow(histoExp)
+
+  # calculate nominal SF
+  SF_nom = histoObs.Clone()
+  SF_nom.Divide(histoExp)
+  SF_nom.SetName(prefix+histogram)
+  checkNegative(SF_nom)
+
+  print "observed:\t", histoObs.GetSumOfWeights()
+  print "expected:\t", histoExp.GetSumOfWeights()
+  print "result:\t", histoObs.GetSumOfWeights()/histoExp.GetSumOfWeights()
+
+  # create error hist, this should contain errors with respect to 0
+  SF_nom_error = SF_nom.Clone()
+  for i in range(0, SF_nom_error.GetNbinsX()+2):
+    SF_nom_error.SetBinContent(i, SF_nom_error.GetBinError(i))
+    SF_nom_error.SetBinError(i, 0)
+
+  if doMCSys:
+    histoObs_up   = reader.getHistogram('{:s}'.format(dataPath),'{:s}/{:s}'.format(cut,histogram))
+    histoObs_down = reader.getHistogram('{:s}'.format(dataPath),'{:s}/{:s}'.format(cut,histogram))
+    histoExp_up   = reader.getHistogram('{:s}*{:s}'.format(str(1+mcVar2),bkgpath),'{:s}/{:s}'.format(cut,histogram))
+    histoExp_down = reader.getHistogram('{:s}*{:s}'.format(str(1-mcVar2),bkgpath),'{:s}/{:s}'.format(cut,histogram))
+    # add overflow
+    addOverflow(histoObs_up)
+    addOverflow(histoObs_down)
+    addOverflow(histoExp_up)
+    addOverflow(histoExp_down)
+
+    # up variation
+    temp_up =histoObs_up.Clone()
+    temp_up.Divide(histoExp_down)
+    # down variation
+    temp_down =histoObs_down.Clone()
+    temp_down.Divide(histoExp_up)
+
+    # difference
+    temp_up.Add(SF_nom,-1)
+    temp_down.Add(SF_nom,-1)
+    
+    # make positive definite and find average
+    temp_ave = averageHist(temp_up, temp_down)
+
+    # add difference to error hist
+    addSysError(SF_nom_error,temp_ave)
+
+  # at this point SF_nom_error contain stat and, if doMCSys, mc subtraction error
+  SF_nom_up = SF_nom.Clone()
+  SF_nom_up.Add(SF_nom_error)
+  SF_nom_up.SetName(SF_nom.GetName()+'_up')
+  checkNegative(SF_nom_up)
+
+  SF_nom_down = SF_nom.Clone()
+  SF_nom_down.Add(SF_nom_error,-1)
+  SF_nom_down.SetName(SF_nom.GetName()+'_down')
+  checkNegative(SF_nom_down)
+
+  outfile = TFile(analysis+'/auxData/ScaleFactors/'+SF_nom.GetName()+'.root','RECREATE')
+  outfile.cd()
+  SF_nom.Write()
+  SF_nom_up.Write()
+  SF_nom_down.Write()
+  plotScaleFactor(SF_nom,SF_nom_up,SF_nom_down,SF_nom.GetName())
+  outfile.Close()
+
 if __name__=='__main__':
   from optparse import OptionParser
 
@@ -303,38 +381,45 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+MultiJetsFake]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/ddOtherJetsFake'.format(channel_path, period_path)
+        #bkgPath2 = 'bkg/{:s}/{:s}/ddOtherJetsFake'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
 
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT1pPassTauID', 'MTLepMETSF', prefix+"OSBvetoMediumMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT3pPassTauID', 'MTLepMETSF', prefix+"OSBvetoMediumMT3p", 0.1, 0.1)
+        if 'LQtaub-lephad' not in analysis:
+          bkgPath2 = 'bkg/{:s}/{:s}/ddOtherJetsFake'.format(channel_path, period_path)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT1pPassTauID', 'MTLepMETSF', prefix+"OSBvetoMediumMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT3pPassTauID', 'MTLepMETSF', prefix+"OSBvetoMediumMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT1pPassTauID', 'MTLepMETSF', prefix+"OSBtagMediumMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT3pPassTauID', 'MTLepMETSF', prefix+"OSBtagMediumMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT1pPassTauID', 'MTLepMETSF', prefix+"OSBtagMediumMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT3pPassTauID', 'MTLepMETSF', prefix+"OSBtagMediumMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT1pPassTauID', 'MTLepMETSF', prefix+"SSBvetoNoMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT3pPassTauID', 'MTLepMETSF', prefix+"SSBvetoNoMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT1pPassTauID', 'MTLepMETSF', prefix+"SSBvetoNoMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT3pPassTauID', 'MTLepMETSF', prefix+"SSBvetoNoMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT1pPassTauID', 'MTLepMETSF', prefix+"SSBtagNoMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT3pPassTauID', 'MTLepMETSF', prefix+"SSBtagNoMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT1pPassTauID', 'MTLepMETSF', prefix+"SSBtagNoMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT3pPassTauID', 'MTLepMETSF', prefix+"SSBtagNoMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT1pPassTauID', 'LeptonPtSF', prefix+"OSBvetoMediumMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT3pPassTauID', 'LeptonPtSF', prefix+"OSBvetoMediumMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT1pPassTauID', 'LeptonPtSF', prefix+"OSBvetoMediumMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBvetoMediumMT3pPassTauID', 'LeptonPtSF', prefix+"OSBvetoMediumMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"OSBtagMediumMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"OSBtagMediumMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"OSBtagMediumMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutOSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"OSBtagMediumMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT1pPassTauID', 'LeptonPtSF', prefix+"SSBvetoNoMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT3pPassTauID', 'LeptonPtSF', prefix+"SSBvetoNoMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT1pPassTauID', 'LeptonPtSF', prefix+"SSBvetoNoMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoNoMT3pPassTauID', 'LeptonPtSF', prefix+"SSBvetoNoMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagNoMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagNoMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagNoMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagNoMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagNoMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBvetoMediumMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBvetoMediumMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBvetoMediumMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBvetoMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBvetoMediumMT3p", 0.1, 0.1)
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT1pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT1p", 0.1, 0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
+        elif 'LQtaub-lephad' == analysis:
+          bkgPath2 = 'bkg/{:s}/{:s}/mcFake'.format(channel_path, period_path)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtFF', prefix+"Btag1p", 0.1,0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtFF', prefix+"Btag1p", 0.1,0.1)
+
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsTFR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
 
 
@@ -393,14 +478,121 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        #bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFake]/[Zjets+Wjets+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDHighST', 'StSF', prefix+"TCRTauIDHighST", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_nominal.root "+analysis+"/auxData/ScaleFactors/TCR_nominalAll*.root\033[0m")
+
+  elif region == 'TCR_FSRdo':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_FSRdo.root "+analysis+"/auxData/ScaleFactors/TCR_FSRdoAll*.root\033[0m")
+
+  elif region == 'TCR_FSRup':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_FSRup.root "+analysis+"/auxData/ScaleFactors/TCR_FSRupAll*.root\033[0m")
+
+  elif region == 'TCR_ISRdo':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ISRdo.root "+analysis+"/auxData/ScaleFactors/TCR_ISRdoAll*.root\033[0m")
+
+  elif region == 'TCR_ISRup':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ISRup]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ISRup.root "+analysis+"/auxData/ScaleFactors/TCR_ISRupAll*.root\033[0m")
 
   elif region == 'TCR_ME':
     # Loop over data taking period and channels
@@ -421,12 +613,11 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        #bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFake]/[Zjets+Wjets+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ME]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDHighST', 'StSF', prefix+"TCRTauIDHighST", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ME.root "+analysis+"/auxData/ScaleFactors/TCR_MEAll*.root\033[0m")
 
@@ -454,7 +645,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/PS]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRTauIDHighST', 'StSF', prefix+"TCRTauIDHighST", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_PS.root "+analysis+"/auxData/ScaleFactors/TCR_PSAll*.root\033[0m")
 
@@ -477,12 +668,11 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal/[Zjets+Top+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top+Diboson]]'.format(channel_path, period_path)
+        bkgPath = 'bkg/{:s}/{:s}/[mcReal/[Wjets+Zjets+Top+Diboson]+mcFakeCorrected/[Wjets+Zjets+Top+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
 
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagHighST1pPassTauID', 'StSF', prefix+"SSBtag1p", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagHighST3pPassTauID', 'StSF', prefix+"SSBtag3p", 0.1, 0.1)
+        calcDiscrepancy(dataPath, bkgPath, 'CutSSBtagHighST1pPassTauID', 'StSF', prefix+"SSBtag1p", 0.0, 0.0)
+        calcDiscrepancy(dataPath, bkgPath, 'CutSSBtagHighST3pPassTauID', 'StSF', prefix+"SSBtag3p", 0.0, 0.0)
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/MCFakesSYS_SF.root "+analysis+"/auxData/ScaleFactors/SSRAll*.root\033[0m")
 
   elif region == 'VR':
