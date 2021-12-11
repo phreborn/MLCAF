@@ -1,17 +1,17 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __MCFAKESSYS__
-#define __MCFAKESSYS__
+#ifndef __MCFAKESSF__
+#define __MCFAKESSF__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class MCFakesSYS : public LepHadObservable {
+class MCFakesSF : public LepHadObservable {
 
 public:
-  ClassDef(MCFakesSYS, 1);
+  ClassDef(MCFakesSF, 1);
 
-  MCFakesSYS();
-  MCFakesSYS(const TString& expression);
-  virtual ~MCFakesSYS() = default;
+  MCFakesSF();
+  MCFakesSF(const TString& expression);
+  virtual ~MCFakesSF() = default;
 
   virtual TObjArray* getBranchNames() const override;
   virtual double getValue() const override;
@@ -20,7 +20,7 @@ protected:
   virtual bool initializeSelf() override;
   virtual bool finalizeSelf() override;
 
-  const TH1F* getFakeFactorHist() const;
+  auto getFakeFactorHist() const;
 
   TString fExpression = "";
   TString fSysName = "";
