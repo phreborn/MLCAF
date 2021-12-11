@@ -26,9 +26,14 @@
 .name=CutOSBtag
 
 .name="||"
-.name=CutSR
+.name=CutLowDPhi
 .name="|"
 .name=CutOSBtagHighST
+.name="||"
+.name=CutHighVisMass
 .name="|"
 .name=CutOSBtagLowBJetPt
 .name=CutOSBtagHighBJetPt
+.name="||"
+.name=CutZCRHighST
+.name=CutZCR
