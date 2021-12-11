@@ -20,17 +20,11 @@
 
 .name="||"
 .name=CutBtag
-.name="|"
-.name=CutSS
 .name="||"
 .name=CutBtagMultiJetsLFR
 .name="|"
-.name=CutSSBtagMultiJetsLFRPassISO
+.name=CutBtagMultiJetsLFRPassISO
 .name="||"
 .name=CutBtagMultiJetsWFR
 .name="|"
-.name=CutSSBtagMultiJetsWFRPassISO
-.name="||"
-.name=CutBtagMultiJetsTFR
-.name="|"
-.name=CutSSBtagMultiJetsTFRPassISO
+.name=CutBtagMultiJetsWFRPassISO

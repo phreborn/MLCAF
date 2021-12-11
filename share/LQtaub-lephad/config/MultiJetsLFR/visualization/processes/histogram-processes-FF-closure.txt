@@ -8,8 +8,14 @@
 
 ### mc backgrounds ###
 .path="|"
-.name="Wjets",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[mcReal+mcFake]/Wjets",           .title="W+jets",              histFillColor=kRed-9
-.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[mcReal+mcFake]/Top",             .title="Top",                 histFillColor=kYellow+2
-.name="Ztautau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[mcReal+mcFake]/Zjets/tautau",    .title="Z($\tau\tau$)+jets",  histFillColor=kBlue-10
-.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[mcReal+mcFake]/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen+2
-.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[mcReal+mcFake]/Diboson",         .title="Diboson",             histFillColor=kOrange+1
+.name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"
+.name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Diboson"
+.name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Zjets"
+.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top/[single+ttbar/nominal]"
+
+.path="|"
+.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
+.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
+.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]",.title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
+.name="Ztautau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single+ttbar/nominal]"

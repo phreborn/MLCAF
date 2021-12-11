@@ -36,52 +36,59 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 } #End: CutTauIDScore
 
 # Divide into OS/SS region
-@ */CutBtag {
-    +CutSS {
-        <.cutExpression="lephad_qxq == 1", .title="SS">
-    } #End: CutSS
-} #End: CutBtag
+#@ */CutBtag {
+#    +CutSS {
+#        <.cutExpression="lephad_qxq == 1", .title="SS">
+#    } #End: CutSS
+#} #End: CutBtag
 
 
 # Divide to different MT region
-@ */CutSS {
+@ */CutBtag {
     +CutBtagMultiJetsLFR {
         <.cutExpression="lephad_mt_lep0_met <= 30 && met_reco_p4.Et() <= 50", 
         .title="BtagMultiJetsLFR">
     }
     +CutBtagMultiJetsWFR {
-        <.cutExpression="lephad_mt_lep0_met > 60 && lephad_mt_lep0_met <= 120", 
+        <.cutExpression="lephad_mt_lep0_met > 60", 
         .title="BtagMultiJetsWFR">
-    }
-    +CutBtagMultiJetsTFR {
-        <.cutExpression="lephad_mt_lep0_met > 120", 
-        .title="BtagMultiJetsTFR">
     }
 }
 
 # Divide to PassISO/FailISO region
 @ */CutBtagMultiJetsLFR {
-    +CutSSBtagMultiJetsLFRPassISO {
+    +CutBtagMultiJetsLFRPassISO {
         <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="SSBtagMultiJetsLFRPassISO">
+         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="BtagMultiJetsLFRPassISO">
     }
 
-    +CutSSBtagMultiJetsLFRFailISO {
-        <.cutExpression="$(isFailISO)", .title="SSBtagMultiJetsLFRFailISO">
+    +CutBtagMultiJetsLFRFailISO {
+        <.cutExpression="$(isFailISO)", .title="BtagMultiJetsLFRFailISO">
     }
 }
 
 # Divide to different MT region
 @ */CutBtagMultiJetsWFR {
-    +CutSSBtagMultiJetsWFRPassISO {
+    +CutBtagMultiJetsWFRPassISO {
         <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="SSBtagMultiJetsWFRPassISO">
+         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="BtagMultiJetsWFRPassISO">
     }
 }
 
-@ */CutBtagMultiJetsTFR {
-    +CutSSBtagMultiJetsTFRPassISO {
-        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="SSBtagMultiJetsTFRPassISO">
-    }
+@ */CutTauBasic {
+    +CutNoIDBtag {
+        <.cutExpression="$(NbJets)==1", .title="NoIDBtag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+        
+        +CutNoIDBtagMultiJetsWFR {
+            <.cutExpression="lephad_mt_lep0_met > 60", .title="NoIDBtagMultiJetsWFR">    
+        } 
+    } #End: CutNoIDBtag
 }
+
+@ */CutNoIDBtagMultiJetsWFR {
+    +CutNoIDBtagMultiJetsWFRPassISO {
+        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="NoIDBtagMultiJetsWFRPassISO">
+    }
+}   

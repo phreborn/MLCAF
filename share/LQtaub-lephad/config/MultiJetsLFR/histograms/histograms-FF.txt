@@ -3,42 +3,42 @@
 #############################################
 
 # General interest
-TH1F('LeptonPt', '', 50, 0, 500) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
+TH1F('LeptonPt', '', 50, 0, 300) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
 TH1F('LeptonEta', '',25, -2.5, 2.5) << (lep_0_p4.Eta() : "lepton \eta");
-TH1F('TauPt', '',50, 0, 500) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('TauPt', '',50, 0, 300) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
 TH1F('TauEta', '', 25, -2.5, 2.5) << (tau_0_p4.Eta() : "\#tau_{had-vis} \eta");
-TH1F('MET', '', 50, 0, 500) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
-TH1F('MTLepMET', '', 50, 0, 500) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
-TH1F('MTTauMET', '', 50, 0, 500) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis},MET) [GeV]");
+TH1F('MET', '', 50, 0, 300) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
+TH1F('MTLepMET', '', 50, 0, 300) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
+TH1F('MTTauMET', '', 50, 0, 300) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis},MET) [GeV]");
 TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
 TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
 TH1F('mu','', 10, 0, 100)   <<   (n_actual_int  : "number of interactions per bunch crossing");
-@CutSSBtag*ISO: LeptonPt,LeptonEta,TauPt,TauEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,mu;
+@Cut*Btag*ISO: LeptonPt,LeptonEta,TauPt,TauEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,mu;
 
-TH1F('JetPt','', 50, 0, 500) << ([n_jets>0?jet_0_p4.Pt():0] : "jet p_{T}");
-TH1F('BjetPt', '',50, 0, 500) << ([$(NbJets)>0?bjet_0_p4.Pt():0] : "b-jet p_{T} [GeV]");
+TH1F('JetPt','', 50, 0, 300) << ([n_jets>0?jet_0_p4.Pt():0] : "jet p_{T}");
+TH1F('BjetPt', '',50, 0, 300) << ([$(NbJets)>0?bjet_0_p4.Pt():0] : "b-jet p_{T} [GeV]");
 TH1F('TauPtOverLeptonPt', '', 30, 0, 3) << (tau_0_p4.Pt()/lep_0_p4.Pt() : "p_{T} fraction");
-@CutSSBtag*ISO: JetPt,BjetPt,TauPtOverLeptonPt;
+@Cut*Btag*ISO: JetPt,BjetPt,TauPtOverLeptonPt;
 
 TH1F('LepTauDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,\#tau_{had-vis})");
 TH1F('LepTauDphi', '', 30, -3.15, 3.15) << ($(LepTauDphi) : "\#Delta\#phi(lep,\#tau_{had-vis})");
 TH1F('LepMETDphi', '', 30, -3.15, 3.15) << ($(LepMETDphi) : "\#Delta\#phi(lep,MET)");
 TH1F('TauMETDphi', '', 30, -3.15, 3.15) << ($(TauMETDphi) : "\#Delta\#phi(\#tau_{had-vis},MET)");
-@CutSSBtag*ISO: LepTauDphi,LepTauDr,LepMETDphi,TauMETDphi; 
+@Cut*Btag*ISO: LepTauDphi,LepTauDr,LepMETDphi,TauMETDphi; 
 
 TH1F('St', '', {100.,150.,200.,250.,300.,350.,400.,450.,500.,550.,600.,700.,1000.}) << ([$(NbJets)>0?$(St):-1] : "S_{T} [GeV]");
-@CutSSBtag*ISO: St;
+@Cut*Btag*ISO: St;
 
 
 # Fake Factor in B-tag category
 # -- 1D: LeptonPt
 TH1F('BtagLeptonPtFF', '', {30,35,40,45,50,60,70,80,100,300}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
-@CutSSBtag*ISO: BtagLeptonPtFF;
+@Cut*Btag*ISO: BtagLeptonPtFF;
 
 # -- 2D: LeptonPt, LeptonEta
 TH1F('BtagLeptonPtCentralFF', '', {30,35,40,45,50,60,80,300}) << ({fabs([lep_0_p4.Eta()])<=1.52?[lep_0_p4.Pt()]:-1}: "lepton p_{T} [GeV]");
 TH1F('BtagLeptonPtForwardFF', '', {30,35,40,45,50,60,80,300}) << ({fabs([lep_0_p4.Eta()])>1.52?[lep_0_p4.Pt()]:-1}: "lepton p_{T} [GeV]");
-@CutSSBtag*ISO: BtagLeptonPtCentralFF,BtagLeptonPtForwardFF;
+@Cut*Btag*ISO: BtagLeptonPtCentralFF,BtagLeptonPtForwardFF;
 
 # Scale Factor in B-tag category
 # 2D: TauPt, Dphi(Lep,MET)
@@ -46,5 +46,5 @@ TH1F('BtagTauPtDphi1SF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300.})        
 TH1F('BtagTauPtDphi2SF'   ,'',  {30.,34.,38.,42.,46.,50.,60.,100.,300.})                       <<   ( {[lephad_met_lep0_cos_dphi]>=0.5&&[lephad_met_lep0_cos_dphi]<1.?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
 TH1F('BtagTauPtDphi3SF'   ,'',  {30.,34.,42.,50.,60.,300.})                                    <<   ( {[lephad_met_lep0_cos_dphi]>=1.0?[tau_0_p4.Pt()]:-1} : "p_{T}^{\#tau} [GeV]" );
 
-@CutSSBtag*ISO: BtagTauPtDphi1SF,BtagTauPtDphi2SF,BtagTauPtDphi3SF;
+@Cut*Btag*ISO: BtagTauPtDphi1SF,BtagTauPtDphi2SF,BtagTauPtDphi3SF;
 
