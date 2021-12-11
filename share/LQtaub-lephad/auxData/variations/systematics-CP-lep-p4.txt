@@ -16,10 +16,10 @@ MUON_SAGITTA_RESBIAS                                   p4          two
 MUON_SAGITTA_RHO                                       p4          two               
 MUON_SCALE                                             p4          two               
 
-# Tau: 5
+# Tau: 6
 TAUS_TRUEHADTAU_SME_TES_AFII                           p4          two                                                  
 TAUS_TRUEHADTAU_SME_TES_INSITUEXP                      p4          two           
 TAUS_TRUEHADTAU_SME_TES_INSITUFIT                      p4          two               
 TAUS_TRUEHADTAU_SME_TES_MODEL_CLOSURE                  p4          two           
 TAUS_TRUEHADTAU_SME_TES_PHYSICSLIST                    p4          two               
-
+TAUS_TRUEHADTAU_SME_TES_DETECTOR                       p4          two

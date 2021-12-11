@@ -9,6 +9,9 @@ def create_cmd_log_list(input_files, campaigns, channels, variations):
         cmd = 'python scripts/dumpHist_lq.py {0} {1} {2} {3} {4} {5}'.format(input_file, campaign, channel, variation_file, args.version, args.coupling)
         cmd_list.append(cmd)
         syst_name = input_file.split('.')[0].split('-')[-1]
+
+        if channel == '[ehad+muhad]': 
+          channel = 'lephad'
         
         log_dir = 'logs/dump_hist/{0}/{1}/{2}_l{3}'.format(campaign, channel, args.version, args.coupling)
         if not os.path.isdir(log_dir):
@@ -46,9 +49,14 @@ if __name__ == '__main__':
 
   # Get the usual campaigns and channels
   campaigns = ['c16ade']
-  channels = ['ehad','muhad'] 
+  #channels = ['ehad','muhad'] 
+  channels = ['[ehad+muhad]'] 
 
   variations = {
+                #'samples-analyzed-LQtaub-lephad-TCR-SF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-MultiJetsLFR-FF-closure-NOMINAL.root': None,
+                'samples-analyzed-LQtaub-lephad-OtherJetsTFR-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-SR-FF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MultiJetsLFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MCFakes.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MC.txt',
@@ -58,7 +66,7 @@ if __name__ == '__main__':
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_lep_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-p4.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_lep_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-weight.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_tau_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-tau-weight.txt',
-                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_other_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-other-weight.txt',
+                #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-CP_other_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-other-weight.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top.txt',
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Zjets.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Zjets.txt',
                 }  
