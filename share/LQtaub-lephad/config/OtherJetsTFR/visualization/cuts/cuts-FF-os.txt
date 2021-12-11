@@ -15,20 +15,28 @@
 .name=CutTauBasic
 .name="|"
 .name=CutLeptonISO
+.name="|"
+.name=CutZeeVeto
 
 .name="||"
 .name=CutOS
 .name="|"
 .name=CutOSBtag
-.name="|"
+.name="||"
 .name=CutTFR
 .name="|"
 .name=CutTFROSBtagLowMT
 .name="|"
-.name=CutHighST
+.name=CutTFRLowST
 .name="|"
-.name=CutTFRPassTauID
-.name=CutTFRFailTauID
+.name=CutTFR1pPassTauID
+.name=CutTFR1pFailTauID
+.name=CutTFR3pPassTauID
+.name=CutTFR3pFailTauID
 
-
-
+.name="||"
+.name=CutFVR
+.name="|"
+.name=CutFVRLowST
+.name="|"
+.name=CutFVRPassTauID

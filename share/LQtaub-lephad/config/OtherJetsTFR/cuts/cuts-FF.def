@@ -22,6 +22,10 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
                 +CutLeptonISO {
                     <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
                     .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+        
+                    +CutZeeVeto {
+                        <.cutExpression="lep_0==2 && $(NbJets) == 0 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
+                    } #End: CutZeeVeto
                 } #End: CutLeptonISO
             } #End: CutTauBasic
         } #End: CutLeptonBasic
@@ -31,11 +35,11 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 
 # Divide to SS/OS region
-@ */CutLeptonISO {
+@ */CutZeeVeto {
     +CutOS {
         <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
     } #End: CutOS
-} #End: CutTauID
+} #End: CutZeeVeto
 
 
 
@@ -55,28 +59,54 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
         <.cutExpression="lephad_met_lep0_cos_dphi >= 1.5 && lephad_met_lep0_cos_dphi < 2.5", .title="TFR">  
 
         +CutTFROSBtagLowMT {
-            <.cutExpression="jet_0_p4.Pt() >= 100 && jet_0_p4.Pt() < 200 && lephad_mt_lep0_met >= 50 && lephad_mt_lep0_met < 120",.title="OSTFRBtagLowMT">
+            <.cutExpression="lephad_mt_lep0_met >= 50 && lephad_mt_lep0_met < 120",.title="OSTFRBtagLowMT">
         }
     }
 }
 
 @ */CutTFROSBtagLowMT {
-    +CutHighST {
-        <.cutExpression="$(St) > 300",.title="OSTFRBtagLowMT">
- 
-        +CutTFRPassTauID {
-            <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-             .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1", .title="TFRPassTauID">
+    +CutTFRLowST {
+        <.cutExpression="$(St) < 300",.title="TFRLowST">
+
+        +CutTFR1p {
+            <.cutExpression="tau_0_n_charged_tracks==1", .title="TFR1p", PRONG="1p">
         }
-        +CutTFRFailTauID {
-            <.cutExpression="$(isFailID)",
-             .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1", .title="TFRFailTauID">
+
+        +CutTFR3p {
+            <.cutExpression="tau_0_n_charged_tracks==3", .title="TFR3p", PRONG="3p">
+        }
+    }
+}
+
+@ */CutTFR*p {
+    +CutTFR$(PRONG)PassTauID {
+        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1", .title="TFR$(PRONG)PassTauID">
+    }
+        
+    +CutTFR$(PRONG)FailTauID {
+        <.cutExpression="$(isFailID)",
+         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1", .title="TFR$(PRONG)FailTauID">
+    }
+}
+
+@ */CutOSBtag {
+    +CutFVR {
+        <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="FVR">
+      
+        +CutFVRLowST {
+            <.cutExpression="$(St) < 300",.title="FVRLowST">
+
+            +CutFVRPassTauID {
+                <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+                 .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1", .title="FVRPassTauID">
+            }
         }
     }
 }
 
 
-
-
 $replace("*/CutOS/*:.name,.title", CHARGE="OS");
 $replace("*/Cut*Btag/*:.name,.title", BJET="Btag");
+$replace("*/Cut*1p/*:.name,.title", PRONG="1p");
+$replace("*/Cut*3p/*:.name,.title", PRONG="3p");
