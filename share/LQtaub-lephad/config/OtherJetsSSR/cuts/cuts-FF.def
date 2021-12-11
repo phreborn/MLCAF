@@ -38,7 +38,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutSS {
     +CutSSBtag {
-        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25 && lephad_met_lep0_cos_dphi < 2.5", .title="SSBtag", BJET="Btag",
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="SSBtag", BJET="Btag",
          .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
     } #End: CutSSBtag
 } #End: CutSS
@@ -56,25 +56,25 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 # Pass/Fail, split up again 
 #SS
 @ */CutSSBtag1p {
-    +CutSSBtag1pPassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtag1pPassTauID",
-         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)">
+    +CutSS1pPassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SS1pPassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)">
     }
 
-    +CutSSBtag1pFailTauID {
-        <.cutExpression="$(isFailID)", .title="SSBtag1pFailTauID",
+    +CutSS1pFailTauID {
+        <.cutExpression="$(isFailID)", .title="SS1pFailTauID",
          .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
     }
 }
 
 @ */CutSSBtag3p {
-    +CutSSBtag3pPassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBtag3pPassTauID",
-         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSYS] : 1)">
+    +CutSS3pPassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SS3pPassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)">
     }
 
-    +CutSSBtag3pFailTauID {
-        <.cutExpression="$(isFailID)", .title="SSBtag3pFailTauID",
+    +CutSS3pFailTauID {
+        <.cutExpression="$(isFailID)", .title="SS3pFailTauID",
          .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
     }
 }

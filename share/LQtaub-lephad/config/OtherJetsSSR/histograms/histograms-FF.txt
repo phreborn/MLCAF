@@ -3,44 +3,55 @@
 #############################################
 
 # General interest
-TH1F('LeptonPt', '', {30.,70.,110.,140.,170.,210.,250.,300.,400.,500.}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
-TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.,400.,500.}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
-#TH1F('JetPt', '',{0.,25.,50.,75.,100.,150.,200.,250.,300.,400.,500.}) << (jet_0_p4.Pt() : "jet p_{T} [GeV]");
-TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,250.,300.,400.,500.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+TH1F('LeptonPt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
+TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('JetPt', '',{0.,25.,50.,75.,100.,150.,200.,250.,300.}) << (jet_0_p4.Pt() : "jet p_{T} [GeV]");
+TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,250.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
 
-#TH1F('LeptonEta', '',25, -2.5, 2.5) << (lep_0_p4.Eta() : "lepton \eta");
-#TH1F('TauEta', '', 25, -2.5, 2.5) << (tau_0_p4.Eta() : "\#tau_{had-vis} \eta");
-#TH1F('JetEta', '', 25, -2.5, 2.5) << (jet_0_p4.Eta() : "jet \eta");
-#TH1F('BjetEta', '', 25, -2.5, 2.5) << (bjet_0_p4.Eta() : "b-jet \eta");
-
-#TH1F('NJets','', 10, 0,10 )   <<   ( n_jets : "N_{jet}" );
+TH1F('LeptonEta', '',25, -2.5, 2.5) << (lep_0_p4.Eta() : "lepton \eta");
+TH1F('TauEta', '', 25, -2.5, 2.5) << (tau_0_p4.Eta() : "\#tau_{had-vis} \eta");
+TH1F('JetEta', '', 25, -2.5, 2.5) << (jet_0_p4.Eta() : "jet \eta");
+TH1F('NJets','', 10, 0,10 )   <<   ( n_jets : "N_{jet}" );
+TH1F('BjetEta', '', 25, -2.5, 2.5) << (bjet_0_p4.Eta() : "b-jet \eta");
 TH1F('NBJets','', 5, 0,5 )   <<   ( $(NbJets) : "N_{bjet}" );
-#TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
-#TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
-#TH1F('mu','', 10, 0, 100)   <<   (n_actual_int  : "number of interactions per bunch crossing");
-
-TH1F('MET', '', {0.,25.,50.,75.,100.,125.,150.,200.,250.,300.,400.,500.}) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
-#TH1F('MTLepMET', '', 50, 0, 500) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
-#TH1F('MTTauMET', '', 50, 0, 500) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis},MET) [GeV]");
-#TH1F('TauPtOverLeptonPt', '', 30, 0, 3) << (tau_0_p4.Pt()/lep_0_p4.Pt() : "p_{T} fraction");
-@CutSSBtag*TauID: LeptonPt,TauPt,BjetPt;
+TH1F('MET', '', 30, 0, 300) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
+TH1F('MTLepMET', '', 30, 0, 300) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
+TH1F('MTTauMET', '', 30, 0, 300) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis},MET) [GeV]");
+TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
+TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
+TH1F('VisibleMass'   ,'', 30, 0, 300)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
+@Cut*ID: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass;
 
 TH1F('TauIDScore','', 25,0,0.25) << ($(TauIDScore): "\#tau_{had-vis} ID score");
-@CutSSBtag*TauID: TauIDScore;
+@Cut*ID: TauIDScore;
 
+TH1F('LepTauDphi', '', 30, -3.15, 3.15) << ($(LepTauDphi) : "\#Delta\#phi(lep,\#tau_{had-vis})");
+TH1F('LepMETDphi', '', 30, -3.15, 3.15) << ($(LepMETDphi) : "\#Delta\#phi(lep,MET)");
+TH1F('TauMETDphi', '', 30, -3.15, 3.15) << ($(TauMETDphi) : "\#Delta\#phi(\#tau_{had-vis},MET)");
+TH1F('LepJetDphi', '', 30, -3.15, 3.15) << ($(LepJetDphi) : "\#Delta\#phi(lep,b-jet)");
+TH1F('TauJetDphi', '', 30, -3.15, 3.15) << ($(TauJetDphi) : "\#Delta\#phi(\#tau_{had-vis},b-jet)");
+@Cut*ID: LepTauDphi,LepMETDphi,TauMETDphi,LepJetDphi,TauJetDphi;
 
-#TH1F('LepTauDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,\#tau_{had-vis})");
-#TH1F('LepTauDphi', '', 30, 0, 3.15) << (fabs($(LepTauDphi)) : "\#Delta\#phi(lep,\#tau_{had-vis})");
-#TH1F('LepMETDphi', '', 30, 0, 3.15) << (fabs($(LepMETDphi)) : "\#Delta\#phi(lep,MET)");
-#TH1F('TauMETDphi', '', 30, 0, 3.15) << (fabs($(TauMETDphi)) : "\#Delta\#phi(\#tau_{had-vis},MET)");
-#@CutSSBtag*TauID: LepTauDphi,LepTauDr,LepMETDphi,TauMETDphi; 
+TH1F('LepTauDeta', '', 50, -5, 5) << ($(LepTauDeta) : "\#Delta\eta(lep,\#tau_{had-vis})");
+TH1F('LepJetDeta', '', 50, -5, 5) << ($(LepJetDeta) : "\#Delta\eta(lep,b-jet)");
+TH1F('TauJetDeta', '', 50, -5, 5) << ($(TauJetDeta) : "\#Delta\eta(\#tau_{had-vis},b-jet)");
+@Cut*ID: LepTauDeta,LepJetDeta,TauJetDeta; 
 
-# Scale Factor
-TH1F('TauPtFF','', {50,100,200,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
-#TH1F('BTBinTauPtFF','', {25,30,35,40,45,50,60,100,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
-#TH1F('TauPtSF','', {25,30,35,40,45,50,60,70,90,150,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
-#TH1F('LeptonPtSF', '', {30,35,40,45,50,60,70,90,150,300}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
-#TH1F('METSF', '', {0,10,20,25,30,35,40,45,50,60,80,120,300}) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
-#TH1F('MTLepMETSF', '', {0,10,20,30,40,50,60,70,80,90,100,110,120,150,220,300}) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
-TH1F('St', '', {100.,200.,300.,400.,1000.}) << ($(St) : "S_{T} [GeV]");
-@CutSSBtag*TauID: St,TauPtFF;
+TH1F('LepTauDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,\#tau_{had-vis})");
+TH1F('LepJetDr', '', 25, 0, 5) << ($(LepJetDr) : "\#DeltaR(lep,b-jet)");
+TH1F('TauJetDr', '', 25, 0, 5) << ($(TauJetDr) : "\#DeltaR(\#tau_{had-vis},b-jet)");
+@Cut*ID: LepTauDr,LepJetDr,TauJetDr; 
+
+TH1F('TauPtOverLeptonPt', '', 30, 0, 3) << (tau_0_p4.Pt()/lep_0_p4.Pt() : "p_{T} fraction(\#tau_{had-vis},lep)");
+TH1F('TauPtOverBJetPt', '', 30, 0, 3) << (tau_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} fraction(\#tau_{had-vis},b-jet)");
+TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} fraction(lep,b-jet)");
+@Cut*ID: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
+
+TH1F('St', '', {0,50,100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000, 1500}) << ($(St) : "S_{T} [GeV]");
+TH1F('HtMET', '', {0,50,100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000, 1500}) << ($(HtMET) : "H_{T} [GeV]");
+@Cut*ID: St,HtMET;
+
+# Top Fake Factors
+TH1F('TauPtFF','', {50,100,150,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('TauPtSF','', {50,100,150,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+@Cut*ID: TauPtFF,TauPtSF;

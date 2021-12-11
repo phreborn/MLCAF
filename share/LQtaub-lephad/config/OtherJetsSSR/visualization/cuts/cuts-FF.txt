@@ -24,10 +24,10 @@
 .name="|"
 .name=CutSSBtag1p
 .name="|"
-.name=CutSSBtag1pPassTauID
-.name=CutSSBtag1pFailTauID
+.name=CutSS1pPassTauID
+.name=CutSS1pFailTauID
 .name="|"
 .name=CutSSBtag3p
 .name="|"
-.name=CutSSBtag3pPassTauID
-.name=CutSSBtag3pFailTauID
+.name=CutSS3pPassTauID
+.name=CutSS3pFailTauID

@@ -21,11 +21,11 @@
 
 .name="||"
 .name=CutSSBtag
-
-.name="||"
-.name=CutSSBtagHighST
 .name="|"
-.name=CutSSBtagHighST1p
-.name=CutSSBtagHighST1pPassTauID
-.name=CutSSBtagHighST3p
-.name=CutSSBtagHighST3pPassTauID
+.name=CutSSBtag1p
+.name="|"
+.name=CutSS1pPassTauID
+.name="|"
+.name=CutSSBtag3p
+.name="|"
+.name=CutSS3pPassTauID
