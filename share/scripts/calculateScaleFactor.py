@@ -313,13 +313,15 @@ if __name__=='__main__':
   # decide which file is needed:
   if region == 'OtherJetsTFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF-closure.root'
+    if analysis == 'LQtaub-lephad':
+      sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF.root'
   elif 'TCR' in region:
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-SF.root'
   elif region == 'MultiJetsLFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
   elif region == 'SSExtrap':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
-  elif region == 'SSR':
+  elif region == 'OtherJetsSSR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsSSR-FF.root'
   elif region == 'VR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
@@ -417,8 +419,8 @@ if __name__=='__main__':
           calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
         elif 'LQtaub-lephad' == analysis:
           bkgPath2 = 'bkg/{:s}/{:s}/mcFake'.format(channel_path, period_path)
-          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtFF', prefix+"Btag1p", 0.1,0.1)
-          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtFF', prefix+"Btag1p", 0.1,0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtSF', prefix+"Btag1p", 0.1,0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR3pPassTauID', 'TauPtSF', prefix+"Btag3p", 0.1,0.1)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsTFR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
 
@@ -649,7 +651,7 @@ if __name__=='__main__':
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_PS.root "+analysis+"/auxData/ScaleFactors/TCR_PSAll*.root\033[0m")
 
-  if region == 'SSR':
+  if region == 'OtherJetsSSR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -668,12 +670,14 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath = 'bkg/{:s}/{:s}/[mcReal/[Wjets+Zjets+Top+Diboson]+mcFakeCorrected/[Wjets+Zjets+Top+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal/[Wjets+Zjets+Top+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top+Diboson]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
 
-        calcDiscrepancy(dataPath, bkgPath, 'CutSSBtagHighST1pPassTauID', 'StSF', prefix+"SSBtag1p", 0.0, 0.0)
-        calcDiscrepancy(dataPath, bkgPath, 'CutSSBtagHighST3pPassTauID', 'StSF', prefix+"SSBtag3p", 0.0, 0.0)
-    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/MCFakesSYS_SF.root "+analysis+"/auxData/ScaleFactors/SSRAll*.root\033[0m")
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtSF', prefix+"Btag1p", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtSF', prefix+"Btag3p", 0.1, 0.1)
+
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsSSR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsSSRAll*.root\033[0m")
 
   elif region == 'VR':
     # Loop over data taking period and channels

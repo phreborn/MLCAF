@@ -85,6 +85,7 @@ protected:
   TTreeFormula* tau_0_phi = nullptr;
   TTreeFormula* jet_0_pt = nullptr;
   TTreeFormula* bjet_0_pt = nullptr;
+  TTreeFormula* jets_scalar_sum_pt = nullptr;
   TTreeFormula* lephad_qxq = nullptr;
   TTreeFormula* lephad_dphi = nullptr;
   TTreeFormula* met_reco_et = nullptr;

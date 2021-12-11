@@ -276,16 +276,21 @@ if __name__=='__main__':
         bkgPath = 'bkg/{:s}/{:s}/[mcReal+MultiJetsFake]'.format(channel_path, period_path)
         
         prefix = region+period_name+channel_name
+        if 'LQtaub-lephad' not in analysis: 
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT1pPassTauID', 'CutOSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT1p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT3pPassTauID', 'CutOSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT3p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT1pPassTauID', 'CutOSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT1p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT3pPassTauID', 'CutOSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT3p", 0.1,0.1)
         
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT1pPassTauID', 'CutOSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT1p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBvetoMediumMT3pPassTauID', 'CutOSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"OSBvetoMediumMT3p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT1pPassTauID', 'CutOSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT1p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMediumMT3pPassTauID', 'CutOSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"OSBtagMediumMT3p", 0.1,0.1)
-        
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT1pPassTauID', 'CutSSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT1p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT3pPassTauID', 'CutSSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT3p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT1pPassTauID', 'CutSSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT1p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT3pPassTauID', 'CutSSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT3p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT1pPassTauID', 'CutSSBvetoMediumMT1pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT1p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBvetoMediumMT3pPassTauID', 'CutSSBvetoMediumMT3pFailTauID', 'TauPtFF', prefix+"SSBvetoMediumMT3p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT1pPassTauID', 'CutSSBtagMediumMT1pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT1p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMediumMT3pPassTauID', 'CutSSBtagMediumMT3pFailTauID', 'BTBinTauPtFF', prefix+"SSBtagMediumMT3p", 0.1,0.1)
+        elif 'LQtaub-lephad' == analysis:
+          calcFakeFactor(dataPath, bkgPath, 'CutTFR1pPassTauID', 'CutTFR1pFailTauID', 'TauPtFF', prefix+"Btag1p", 0.1,0.1)
+          calcFakeFactor(dataPath, bkgPath, 'CutTFR3pPassTauID', 'CutTFR3pFailTauID', 'TauPtFF', prefix+"Btag3p", 0.1,0.1)
+          
+
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/FakeFactors/OtherJetsTFR_FF.root "+analysis+"/auxData/FakeFactors/OtherJetsTFRAll*.root\033[0m")
   
@@ -351,8 +356,8 @@ if __name__=='__main__':
           calcFakeFactor(dataPath, bkgPath, 'CutOSBtagMultiJetsLFRPassISO', 'CutOSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"OS", 0.1,0.2)
           calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.1,0.2)
         else:
-          calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.15,0.2)
-          calcFakeFactor(dataPath, bkgPath, 'CutSSBtagMultiJetsLFRPassISO', 'CutSSBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.15,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutBtagMultiJetsLFRPassISO', 'CutBtagMultiJetsLFRFailISO', 'BtagLeptonPtCentralFF', prefix+"SS", 0.15,0.2)
+          calcFakeFactor(dataPath, bkgPath, 'CutBtagMultiJetsLFRPassISO', 'CutBtagMultiJetsLFRFailISO', 'BtagLeptonPtForwardFF', prefix+"SS", 0.15,0.2)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/FakeFactors/MultiJetsLFR_FF.root "+analysis+"/auxData/FakeFactors/MultiJetsLFR*All*FF.root\033[0m")
 
@@ -379,8 +384,8 @@ if __name__=='__main__':
         
         prefix = region+period_name+channel_name
         
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagHighST1pPassTauID', 'CutSSBtagHighST1pFailTauID', 'TauPtFF', prefix+"SSBtag1p", 0.1,0.1)
-        calcFakeFactor(dataPath, bkgPath, 'CutSSBtagHighST3pPassTauID', 'CutSSBtagHighST3pFailTauID', 'TauPtFF', prefix+"SSBtag3p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSS1pPassTauID', 'CutSS1pFailTauID', 'TauPtFF', prefix+"Btag1p", 0.1,0.1)
+        calcFakeFactor(dataPath, bkgPath, 'CutSS3pPassTauID', 'CutSS3pFailTauID', 'TauPtFF', prefix+"Btag3p", 0.1,0.1)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/FakeFactors/OtherJetsSSR_FF.root "+analysis+"/auxData/FakeFactors/OtherJetsSSRAll*.root\033[0m")
   
