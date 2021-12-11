@@ -71,15 +71,23 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
     sys_name = "ATLAS_"+sys_name
 
   """
-
+  outputdir_channel = args.channel
+  if '[ehad+muhad]' == args.channel:
+    outputdir_channel = 'lephad'
   # Output file dir
-  dir_out = "dumpHist_{:s}_l{:s}/{:s}/{:s}/{:s}".format(args.version,args.coupling,sys_name,args.datasets,args.channel) 
+  #dir_out = "dumpHist_{:s}_l{:s}/{:s}/{:s}/{:s}".format(args.version,args.coupling,sys_name,args.datasets,args.channel) 
+  dir_out = "dumpHist_{:s}_l{:s}/{:s}/{:s}/{:s}".format(args.version,args.coupling,sys_name,args.datasets,outputdir_channel) 
   os.system('mkdir -p {:s}'.format(dir_out))
 
   # Dump hists reduce files !! channel campain region
   for region_name, region_path in region_dict.items():
+    output_channel = args.channel
+    if '[ehad+muhad]' == args.channel:
+      output_channel = 'lephad'
+
     # Output file name
-    fn_out = '{:s}_{:s}_{:s}.root'.format(args.datasets,region_name,args.channel)
+    #fn_out = '{:s}_{:s}_{:s}.root'.format(args.datasets,region_name,args.channel)
+    fn_out = '{:s}_{:s}_{:s}.root'.format(args.datasets,region_name,output_channel)
     # Open output file
     f_out = TFile.Open("{:s}/{:s}".format(dir_out,fn_out),"RECREATE")
 
@@ -97,15 +105,12 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
         else:
           dir_sys = f_out.mkdir(sys, sys)
 
-      if sys == 'TTBar_ME':
-        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/ME]"
-        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/ME]+Diboson]]"
-      if sys == 'TTBar_PS':
-        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/PS]"
-        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/PS]+Diboson]]"
-      if sys == 'TTBar_ISR__1up':
-        sample_dict['Top'] = "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/ISRup]"
-        sample_dict['WJETSFakes'] = "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/ISRup]+Diboson]]"
+      if 'TTBar_ME' in sys:
+        sample_dict['Top'] = "bkg/[["+args.channel+"/{1}/mcReal/Top/single]+[{0}/{1}/mcReal/Top/ttbar/ME]]"
+      if 'TTBar_PS' in sys:
+        sample_dict['Top'] = "bkg/[["+args.channel+"/{1}/mcReal/Top/single]+[{0}/{1}/mcReal/Top/ttbar/PS]]"
+      if 'TTBar_ISR__1up' in sys:
+        sample_dict['Top'] = "bkg/[["+args.channel+"/{1}/mcReal/Top/single]+[{0}/{1}/mcReal/Top/ttbar/PS]]"
         
       for sample_name, sample_path in sample_dict.items():
         if sample_name == 'data':
@@ -158,7 +163,7 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
             else:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
-
+        INFO(sample_path)
         for hist_name, hist_rename in hist_dict.items():
           hist = reader.getHistogram(sample_path, '{:s}/{:s}'.format(region_path,hist_name))
           if not hist:
@@ -182,6 +187,8 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
             hist_new_name += "ElHad"
           elif args.channel == "muhad":
             hist_new_name += "MuHad"
+          elif args.channel == "[ehad+muhad]":
+            hist_new_name += "LepHad"
           else:
             BREAK("Unexpected channel {:s}".format(args.channel))
           if "TCR" in region_name:
@@ -246,7 +253,8 @@ if __name__ == "__main__":
     'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/nominal]",
     'DYZ':          "bkg/{:s}/{:s}/mcReal/Zjets/[ee+mumu]", 
     'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
-    'WJETSFakes':   "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/nominal]+Diboson]]",
+    #'WJETSFakes':   "bkg/{:s}/{:s}/[mcReal/Wjets+mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/nominal]+Diboson]]",
+    'WJETSFakes':   "bkg/{:s}/{:s}/[mcReal/Wjets+mcFake/[Wjets+Zjets+Top/[single+ttbar/nominal]+Diboson]]",
     'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
     'LQlh900':      "sig/{:s}/{:s}/LQ/M900_l{:s}/",
     'LQlh2500':     "sig/{:s}/{:s}/LQ/M2500_l{:s}/",
@@ -254,20 +262,30 @@ if __name__ == "__main__":
 
   ### The following regions will be dumped
   region_dict = {
-    "OSBtagSRLowBJetPt"   :   "CutOSBtagLowBJetPt",
-    "OSBtagSRHighBJetPt"  :   "CutOSBtagHighBJetPt",
-    "VROSBtag"            :   "CutVROSBtagHighST",
+    #"OSBtagSRLowBJetPt"   :   "CutOSBtagLowBJetPt",
+    #"OSBtagSRHighBJetPt"  :   "CutOSBtagHighBJetPt",
+    #"OSBtagSR"  :   "CutOSBtagHighST",
+    #"VROSBtagLowBJetPt"   :   "CutVROSBtagLowBJetPt",
+    #"VROSBtagHighBJetPt"  :   "CutVROSBtagHighBJetPt",
+    #"VROSBtag"  :   "CutVROSBtagHighST",
+    "TCROSBtag"  :   "CutTCRPassTauID",
+    #"TFROSBtag"  :   "CutTFRPassTauID",
+    #"LFROSBtag"  :   "CutBtagMultiJetsLFRPassISO",
+    #"WFROSBtag"  :   "CutBtagMultiJetsWFRPassISO",
+    #"WFROSBtag"  :   "CutNoIDBtagMultiJetsWFRPassISO",
+    #"LFROSBtag"  :   "CutBtagMultiJetsWFRPassISO",
   }
 
   ### The following hists will be dumped
   hist_dict = {
-    "TauPt"     	: "TauPt",
-    "LeptonPt"  	: "LeptonPt",
-    "BjetPt"    	: "BjetPt",
-    "MET"       	: "MET",
-    "StLowBJetPt"       : "StLowBJetPt",
-    "StHighBJetPt"      : "StHighBJetPt",
-    "St_fineBin"        : "StFineBin",
+    #"TauPt"     	: "TauPt",
+    #"LeptonPt"  	: "LeptonPt",
+    #"BjetPt"    	: "BjetPt",
+    #"MET"       	: "MET",
+    #"StLowBJetPt"       : "StLowBJetPt",
+    #"StHighBJetPt"      : "StHighBJetPt",
+    "St"                : "St",
+    #"St_fineBin"        : "St",
   }
 
   main(args, dataset_dict, sample_dict, region_dict, hist_dict); 
