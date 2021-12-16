@@ -1,4 +1,4 @@
 # ------------------------------ c16a ------------------------------ #
 ##### mc bkg #####
-/bkg/?/c16a/mcReal/Zjets
-/bkg/?/c16a/mcFakeCorrected/Zjets
+/bkg/?/c16e/mcReal/Top/ttbar/ISRup
+/bkg/?/c16e/mcFake/Top/ttbar/ISRup

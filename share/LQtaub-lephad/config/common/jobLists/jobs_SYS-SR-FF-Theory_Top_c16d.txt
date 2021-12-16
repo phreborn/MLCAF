@@ -4,3 +4,7 @@
 /bkg/?/c16d/mcReal/Top/ttbar/ME
 /bkg/?/c16d/mcReal/Top/ttbar/PS
 /bkg/?/c16d/mcReal/Top/ttbar/ISRup
+/bkg/?/c16d/mcFakeCorrected/Top/ttbar/nominal
+/bkg/?/c16d/mcFakeCorrected/Top/ttbar/ME
+/bkg/?/c16d/mcFakeCorrected/Top/ttbar/PS
+/bkg/?/c16d/mcFakeCorrected/Top/ttbar/ISRup
