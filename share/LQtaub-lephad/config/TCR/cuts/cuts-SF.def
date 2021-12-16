@@ -41,7 +41,8 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 # Divide to different btag region
 @ */CutOS {
     +CutBtag {
-        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="Btag">
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="Btag",
+         .weightExpression="$(isISRup) ? ($(ISRHiWeight)) : 1">
    
         +CutTCR {
             <.cutExpression="$(St) < 1000 && lephad_met_lep0_cos_dphi >= 2.5", .title="TCR", 

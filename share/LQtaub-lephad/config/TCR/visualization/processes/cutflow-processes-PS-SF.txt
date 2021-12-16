@@ -1,0 +1,27 @@
+### data ###
+.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### dd backgrounds ####
+.path="|"
+.name="MultiJetsFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
+.name="TotalBkg", .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[MultiJetsFake+mcReal/[Wjets+Top/[single+ttbar/PS]+Zjets/tautau+Zjets/[ee+mumu]+Diboson]+mcFake/[Wjets+Top/[single+ttbar/PS]+Zjets+Diboson]]"
+
+.path="|"
+.name="LQ900_l1_0",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l1_0"
+.name="LQ900_l2_0",  .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l2_0"
+.name="LQ2500_l1_0", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l1_0"
+.name="LQ2500_l2_0", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l2_0"
+
+### mc backgrounds ###
+.path="|"
+.name="WjetsReal",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
+.name="TopReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single+ttbar/PS]"
+.name="ZtautauReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+.name="ZllReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]"
+.name="DibosonReal",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
+.path="|"
+.name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"
+.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top/[single+ttbar/PS]"
+.name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Zjets"
+.name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Diboson"

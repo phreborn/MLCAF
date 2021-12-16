@@ -315,8 +315,22 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF-closure.root'
     if analysis == 'LQtaub-lephad':
       sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF.root'
-  elif 'TCR' in region:
+  elif region == 'TCR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-SF.root'
+  elif region == 'TCR_nominal':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-SF.root'
+  elif region == 'TCR_PS':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-PS-SF.root'
+  elif region == 'TCR_ME':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-ME-SF.root'
+  elif region == 'TCR_ISRup':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-ISRup-SF.root'
+  elif region == 'TCR_ISRdo':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-ISRdo-SF.root'
+  elif region == 'TCR_FSRup':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-FSRup-SF.root'
+  elif region == 'TCR_FSRdo':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-FSRdo-SF.root'
   elif region == 'MultiJetsLFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
   elif region == 'SSExtrap':

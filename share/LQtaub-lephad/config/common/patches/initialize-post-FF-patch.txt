@@ -79,7 +79,10 @@ $create(path="/bkg/?/?/ddOtherJetsFake/data", type="sf");
 <isddOtherJetsFake=true> @ /bkg/?/?/ddOtherJetsFake;
 
 <isTTBar=false> @ /.;
-<isTTBar=true> @ /bkg/?/?/mcReal/Top/ttbar/nominal;
+<isTTBar=true> @ /bkg/?/?/mcReal/Top/ttbar/nominal, /bkg/?/?/mcFake/Top/ttbar/nominal, /bkg/?/?/mcFakeCorrected/Top/ttbar/nominal;
+
+<isISRup=false> @ /.;
+<isISRup=true> @ /bkg/?/?/mcReal/Top/ttbar/ISRup, /bkg/?/?/mcFake/Top/ttbar/ISRup, /bkg/?/?/mcFakeCorrected/Top/ttbar/ISRup;
 
 # data folder is not available in prepare stage
 <isData=false> @ /.;
