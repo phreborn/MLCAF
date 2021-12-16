@@ -15,19 +15,25 @@
 <style.default.title="Z($\tau\tau$)+jets",      style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal/Zjets/tautau;
 <style.default.title="Z(ee/$\mu\mu$)+jets",     style.default.histFillColor=kGreen-4 > @ /bkg/?/?/mcReal/Zjets/ll;
 <style.default.title="Top",                     style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcReal/Top;
+<style.default.title="$t\bar{t}$",              style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcReal/Top/ttbar;
+<style.default.title="Single t",                style.default.histFillColor=kYellow-10> @ /bkg/?/?/mcReal/Top/single;
 <style.default.title="Diboson",                 style.default.histFillColor=kOrange+2> @ /bkg/?/?/mcReal/Diboson;
 <style.default.title="True $\tau$",             style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal; 
 
 ### mc fake tau
-<style.default.title="W+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kRed-9   > @ /bkg/?/?/mcFake/Wjets;
-<style.default.title="Z+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kBlue-10 > @ /bkg/?/?/mcFake/Zjets;
-<style.default.title="Top (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow+2> @ /bkg/?/?/mcFake/Top;
+<style.default.title="W+jets (jet$\rightarrow\tau$)",       style.default.histFillColor=kRed-9   > @ /bkg/?/?/mcFake/Wjets;
+<style.default.title="Z+jets (jet$\rightarrow\tau$)",       style.default.histFillColor=kBlue-10 > @ /bkg/?/?/mcFake/Zjets;
+<style.default.title="Top (jet$\rightarrow\tau$)",          style.default.histFillColor=kYellow+2> @ /bkg/?/?/mcFake/Top;
+<style.default.title="$t\bar{t}$ (jet$\rightarrow\tau$)",   style.default.histFillColor=kYellow+2> @ /bkg/?/?/mcFake/Top/ttbar;
+<style.default.title="Single t (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow-8> @ /bkg/?/?/mcFake/Top/single;
 <style.default.title="Diboson (jet$\rightarrow\tau$)", style.default.histFillColor=kOrange+1> @ /bkg/?/?/mcFake/Diboson;
 
 ### mc fake tau corrected
-<style.default.title="W+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kRed-9   > @ /bkg/?/?/mcFakeCorrected/Wjets;
-<style.default.title="Z+jets (jet$\rightarrow\tau$)",  style.default.histFillColor=kBlue-10 > @ /bkg/?/?/mcFakeCorrected/Zjets;
-<style.default.title="Top (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow+2> @ /bkg/?/?/mcFakeCorrected/Top;
+<style.default.title="W+jets (jet$\rightarrow\tau$)",       style.default.histFillColor=kRed-9   > @ /bkg/?/?/mcFakeCorrected/Wjets;
+<style.default.title="Z+jets (jet$\rightarrow\tau$)",       style.default.histFillColor=kBlue-10 > @ /bkg/?/?/mcFakeCorrected/Zjets;
+<style.default.title="Top (jet$\rightarrow\tau$)",          style.default.histFillColor=kYellow+2> @ /bkg/?/?/mcFakeCorrected/Top;
+<style.default.title="$t\bar{t}$ (jet$\rightarrow\tau$)",   style.default.histFillColor=kYellow+2> @ /bkg/?/?/mcFakeCorrected/Top/ttbar;
+<style.default.title="Single t (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow-8> @ /bkg/?/?/mcFakeCorrected/Top/single;
 <style.default.title="Diboson (jet$\rightarrow\tau$)", style.default.histFillColor=kOrange+1> @ /bkg/?/?/mcFakeCorrected/Diboson;
 
 ### data driven ###
