@@ -239,16 +239,16 @@ double TopSF::getValue() const {
     retval = -1.36e-04 * Ht + 1.02;
   }
   else if( fSysName.Contains("TTBar_ISR_1up") && f_n_bjets>0 ) {
-    retval = -1.77e-04 * Ht + 1.04;
+    retval = -1.57e-04 * Ht + 0.95;
   }
   else if( fSysName.Contains("TTBar_ISR_1down") && f_n_bjets>0 ) {
-    retval = -4.36e-05 * Ht + 1.02;
+    retval = -5.27e-05 * Ht + 1.03;
   }
   else if( fSysName.Contains("TTBar_FSR_1up") && f_n_bjets>0 ) {
-    retval = -1.04e-04 * Ht + 1.94;
+    retval = -9.21e-05 * Ht + 0.93;
   }
   else if( fSysName.Contains("TTBar_FSR_1down") && f_n_bjets>0 ) {
-    retval = -4.44e-05 * Ht + 0.94;
+    retval = -7.41e-05 * Ht + 0.96;
   }
      
 
