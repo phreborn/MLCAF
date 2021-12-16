@@ -59,7 +59,7 @@ TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{
 @CutVROSBtag*ST,CutVROSBtag*BJetPt: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 @CutZCR: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 
-TH1F('St', '', {300, 350, 400, 450, 500, 600, 700, 1000, 1500}) << ($(St) : "S_{T} [GeV]");
+TH1F('St', '', {300, 350, 400, 450, 500, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
 TH1F('StLowBJetPt', '', {300, 400, 450, 500, 550, 600, 700, 1500}) << ($(St) : "S_{T} [GeV]");
 TH1F('StHighBJetPt', '', {300, 400, 450, 500, 550, 600, 650, 700, 800, 960, 1500}) << ($(St) : "S_{T} [GeV]");
 TH1F('St_fineBin', '', 2900, 100,3000) << ($(St) : "S_{T} [GeV]");
@@ -71,7 +71,3 @@ TH1F('HtMET', '', {0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700,
 @CutOSBtag*BJetPt,CutOSBtag*ST: HtMET;
 @CutVROSBtag*ST,CutVROSBtag*BJetPt: HtMET;
 @CutZCR: HtMET;
-
-# Top Extrapolation SYS
-TH1F('StSF','', {100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000} )   <<   ( $(St) : "S_{T}[GeV]" );
-@CutVROSBtag*ST,CutVROSBtag*BJetPt: StSF;
