@@ -45,10 +45,14 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 # Divide to Bveto/Btag region
 @ */CutOS {
-    +CutOSBtag {
-        <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopExtrapolationSF)) : 1">
-    } #End: CutOSBtag
+    +CutOSHighMT {
+        <.cutExpression="lephad_mt_lep0_met >= 50",.title="OSHighMT">
+      
+        +CutOSBtag {
+            <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag",
+             .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopExtrapolationSF)) : 1">
+        } #End: CutOSBtag
+    } #End: CutOSHighMT 
 } #End: CutOS
 
 
@@ -56,15 +60,11 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 # Divide to different MT region
 @ */CutOSBtag {
     +CutTFR {
-        <.cutExpression="lephad_met_lep0_cos_dphi >= 1.5 && lephad_met_lep0_cos_dphi < 2.5", .title="TFR">  
-
-        +CutTFROSBtagLowMT {
-            <.cutExpression="lephad_mt_lep0_met >= 50 && lephad_mt_lep0_met < 120",.title="OSTFRBtagLowMT">
-        }
+        <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="TFR">  
     }
 }
 
-@ */CutTFROSBtagLowMT {
+@ */CutTFR {
     +CutTFRLowST {
         <.cutExpression="$(St) < 300",.title="TFRLowST">
 
@@ -81,7 +81,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 @ */CutTFR*p {
     +CutTFR$(PRONG)PassTauID {
         <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-         .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1", .title="TFR$(PRONG)PassTauID">
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="TFR$(PRONG)PassTauID">
     }
         
     +CutTFR$(PRONG)FailTauID {
@@ -89,22 +89,6 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
          .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1", .title="TFR$(PRONG)FailTauID">
     }
 }
-
-@ */CutOSBtag {
-    +CutFVR {
-        <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="FVR">
-      
-        +CutFVRLowST {
-            <.cutExpression="$(St) < 300",.title="FVRLowST">
-
-            +CutFVRPassTauID {
-                <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-                 .weightExpression="$(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1", .title="FVRPassTauID">
-            }
-        }
-    }
-}
-
 
 $replace("*/CutOS/*:.name,.title", CHARGE="OS");
 $replace("*/Cut*Btag/*:.name,.title", BJET="Btag");

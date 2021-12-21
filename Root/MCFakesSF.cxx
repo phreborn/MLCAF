@@ -33,9 +33,13 @@ MCFakesSF::MCFakesSF(const TString& expression) : LepHadObservable(expression) {
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsSSR_SF.root");
+  //TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsSSR_SF.root");
+  //if (!file) {
+  //  ERRORclass("Can not find OtherJetsSSR_SF.root");
+  //}
+  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root");
   if (!file) {
-    ERRORclass("Can not find OtherJetsSSR_SF.root");
+    ERRORclass("Can not find OtherJetsTFR_SF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
@@ -84,7 +88,8 @@ bool MCFakesSF::finalizeSelf() {
 
 auto MCFakesSF::getFakeFactorHist() const {
   // determine which FF hist we want: All
-  TString histName = "OtherJetsSSR";
+  //TString histName = "OtherJetsSSR";
+  TString histName = "OtherJetsTFR";
 
   histName += "All";
 
@@ -115,7 +120,13 @@ auto MCFakesSF::getFakeFactorHist() const {
   }
   
   // -- parameterization
-  histName += "TauPtSF";
+  //histName += "TauPtSF";
+  if (this->tau_0_n_charged_tracks->EvalInstance() == 1) {
+    histName += "TauPt1pSF";
+  }
+  else {
+    histName += "TauPt3pSF";
+  }
 
   const TH1F * h_nominal = 0;
   const TH1F * h_up = 0;

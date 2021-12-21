@@ -21,11 +21,11 @@
 .name="||"
 .name=CutOS
 .name="|"
+.name=CutOSHighMT
+.name="|"
 .name=CutOSBtag
 .name="||"
 .name=CutTFR
-.name="|"
-.name=CutTFROSBtagLowMT
 .name="|"
 .name=CutTFRLowST
 .name="|"
@@ -33,10 +33,3 @@
 .name=CutTFR1pFailTauID
 .name=CutTFR3pPassTauID
 .name=CutTFR3pFailTauID
-
-.name="||"
-.name=CutFVR
-.name="|"
-.name=CutFVRLowST
-.name="|"
-.name=CutFVRPassTauID
