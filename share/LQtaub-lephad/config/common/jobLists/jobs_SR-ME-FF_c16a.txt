@@ -1,0 +1,7 @@
+# ------------------------------ c16a ------------------------------ #
+##### mc bkg #####
+/bkg/?/c16a/mcReal/Top/single
+/bkg/?/c16a/mcReal/Top/ttbar/ME
+
+/bkg/?/c16a/mcFakeCorrected/Top/single
+/bkg/?/c16a/mcFakeCorrected/Top/ttbar/ME
