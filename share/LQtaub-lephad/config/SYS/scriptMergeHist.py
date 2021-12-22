@@ -15,17 +15,18 @@ if __name__ == '__main__':
 
   "Merge the histograms"
   campaigns = ['c16ade']
-  #channels = ['ehad', 'muhad']
-  channels = ['lephad']
+  channels = ['ehad', 'muhad']
+  #channels = ['lephad']
   NCORES = 8
   variable = 'St'
   #variable = 'BjetPt'
   regions = []
-  #regions.extend(['OSBtagSRLowBJetPt', 'OSBtagSRHighBJetPt'])
+  regions.extend(['OSBtagSRLowBJetPt', 'OSBtagSRHighBJetPt'])
   #regions.extend(['TFROSBtagLowBJetPt'])
   #regions.extend(['VROSBtag'])
-  regions.extend(['TCROSBtag'])
+  #regions.extend(['TCROSBtag'])
   #regions.extend(['TFROSBtag'])
+  #regions.extend(['TVROSBtag'])
   #regions.extend(['LFROSBtag'])
   #regions.extend(['WFROSBtag'])
   #regions.extend(['OSBtagSR'])

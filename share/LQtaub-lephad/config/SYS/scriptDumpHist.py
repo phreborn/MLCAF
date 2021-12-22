@@ -53,9 +53,22 @@ if __name__ == '__main__':
   channels = ['[ehad+muhad]'] 
 
   variations = {
+                #'samples-analyzed-LQtaub-lephad-TCR-PS-SF-closure-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-ME-SF-closure-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-FSRdo-SF-closure-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-FSRup-SF-closure-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-ISRdo-SF-closure-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-ISRup-SF-closure-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-SF-closure-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-TCR-SF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-MultiJetsLFR-FF-closure-NOMINAL.root': None,
-                'samples-analyzed-LQtaub-lephad-OtherJetsTFR-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-OtherJetsTFR-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-SR-PS-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-SR-ME-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-SR-ISRup-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-SR-ISRdo-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-SR-FSRup-FF-NOMINAL.root': None,
+                'samples-analyzed-LQtaub-lephad-SR-FSRdo-FF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MultiJetsLFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ.txt',
