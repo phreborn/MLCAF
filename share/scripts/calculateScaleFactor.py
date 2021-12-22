@@ -433,8 +433,10 @@ if __name__=='__main__':
           calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSSBtagMediumMT3pPassTauID', 'LeptonPtSF', prefix+"SSBtagMediumMT3p", 0.1, 0.1)
         elif 'LQtaub-lephad' == analysis:
           bkgPath2 = 'bkg/{:s}/{:s}/mcFake'.format(channel_path, period_path)
-          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtSF', prefix+"Btag1p", 0.1,0.1)
-          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR3pPassTauID', 'TauPtSF', prefix+"Btag3p", 0.1,0.1)
+          #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtSF', prefix+"Btag1p", 0.1,0.1)
+          #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR3pPassTauID', 'TauPtSF', prefix+"Btag3p", 0.1,0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPt1pSF', prefix+"Btag1p", 0.1,0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR3pPassTauID', 'TauPt3pSF', prefix+"Btag3p", 0.1,0.1)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsTFR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
 
