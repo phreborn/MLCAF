@@ -39,7 +39,8 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 # Divide to SS/OS region
 @ */CutTauID {
     +CutOS {
-        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS",
+         .weightExpression="($(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight)) : 1)*($(isISRup) ? ($(ISRHiWeight)) : 1)">
     } #End: CutOS
 } #End: CutTauID
 
