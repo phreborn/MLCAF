@@ -33,14 +33,14 @@ MCFakesSF::MCFakesSF(const TString& expression) : LepHadObservable(expression) {
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  //TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsSSR_SF.root");
-  //if (!file) {
-  //  ERRORclass("Can not find OtherJetsSSR_SF.root");
-  //}
-  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root");
+  TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsSSR_SF.root");
   if (!file) {
-    ERRORclass("Can not find OtherJetsTFR_SF.root");
+    ERRORclass("Can not find OtherJetsSSR_SF.root");
   }
+  //TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root");
+  //if (!file) {
+  //  ERRORclass("Can not find OtherJetsTFR_SF.root");
+  //}
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
@@ -88,22 +88,23 @@ bool MCFakesSF::finalizeSelf() {
 
 auto MCFakesSF::getFakeFactorHist() const {
   // determine which FF hist we want: All
-  //TString histName = "OtherJetsSSR";
-  TString histName = "OtherJetsTFR";
+  TString histName = "OtherJetsSSR";
+  //TString histName = "OtherJetsTFR";
 
   histName += "All";
 
   // -- channel: muhad
-  if (isMuon()) {
-    histName += "muhad";
-  } 
-  else if (isElectron()) {
-    histName += "ehad";
-  }
-  else {
-    ERRORclass("Unknown channel");
+  histName += "muhad";
+  //if (isMuon()) {
+  //  histName += "muhad";
+  //} 
+  //else if (isElectron()) {
+  //  histName += "ehad";
+  //}
+  //else {
+  //  ERRORclass("Unknown channel");
     //return nullptr;
-  }
+  //}
 
   // -- charge: OS/SS, use SS for now
   //histName += "SS";
@@ -120,13 +121,13 @@ auto MCFakesSF::getFakeFactorHist() const {
   }
   
   // -- parameterization
-  //histName += "TauPtSF";
-  if (this->tau_0_n_charged_tracks->EvalInstance() == 1) {
-    histName += "TauPt1pSF";
-  }
-  else {
-    histName += "TauPt3pSF";
-  }
+  histName += "TauPtSF";
+  //if (this->tau_0_n_charged_tracks->EvalInstance() == 1) {
+  //  histName += "TauPt1pSF";
+  //}
+  //else {
+  //  histName += "TauPt3pSF";
+  //}
 
   const TH1F * h_nominal = 0;
   const TH1F * h_up = 0;
@@ -188,6 +189,19 @@ double MCFakesSF::getValue() const {
   float retval_down = h_down->GetBinContent(binID);
   float retval_error = fabs(retval_up - retval_down)/2.0;
 
+  // relative difference between OS and SS SFs
+  // SFs of OS and SS SFs (SF_OS/SF_SS)
+  // 1p: 0.92 +- 0.22
+  // 3p: 1.05 +- 0.50
+  float retval_scale_1p = 0.08; // 1 - 0.92
+  float retval_scale_3p = 0.05; // 1 - 1.05
+
+  if (f_tau_0_n_charged_tracks==1) {
+    retval_error = sqrt(retval_error*retval_error + retval_scale_1p*retval_scale_1p);
+  }
+  else if (f_tau_0_n_charged_tracks==3) {
+    retval_error = sqrt(retval_error*retval_error + retval_scale_3p*retval_scale_3p);
+  }
 
   if    (
          (fSysName.Contains("MCFakes_ElHadBtag1p_1up")  && f_lep_0==2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
