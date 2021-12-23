@@ -53,6 +53,7 @@ TH1F('HtMET', '', {0,50,100, 150, 200, 250, 300,350,400,500}) << ($(HtMET) : "H_
 
 # Top Fake Factors
 TH1F('TauPtSF','', {50, 65, 300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('TauPtSFOneBin','', {50, 300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
 TH1F('TauPt1pSF','', {50, 65, 300}) << ([tau_0_n_charged_tracks == 1 ? tau_0_p4.Pt() : -1] : "\#tau_{had-vis} p_{T} [GeV]");
 TH1F('TauPt3pSF','', {50, 300}) << ([tau_0_n_charged_tracks == 3 ? tau_0_p4.Pt() : -1] : "\#tau_{had-vis} p_{T} [GeV]");
-@Cut*ID: TauPtSF,TauPt1pSF,TauPt3pSF;
+@Cut*ID: TauPtSF,TauPtSFOneBin,TauPt1pSF,TauPt3pSF;

@@ -54,4 +54,5 @@ TH1F('HtMET', '', {0,50,100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1
 # Top Fake Factors
 TH1F('TauPtFF','', {50,100,150,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
 TH1F('TauPtSF','', {50,100,150,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
-@Cut*ID: TauPtFF,TauPtSF;
+TH1F('TauPtSFOneBin','', {50,300}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+@Cut*ID: TauPtFF,TauPtSF,TauPtSFOneBin;
