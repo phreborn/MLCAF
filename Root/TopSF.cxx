@@ -190,7 +190,7 @@ double TopSF::getValue() const {
   float retval_error = 0.0;
 
   if ("LQtaub" == signalProcess){
-    retval = -7.75e-05 * Ht + 0.94;
+    retval = -3.15e-05 * Ht + 0.91;
 
     TString histName = "TopCR_SF_68CL_nominal";
     TH1F * hist = 0;      
@@ -233,22 +233,22 @@ double TopSF::getValue() const {
 
   }
   else if( fSysName.Contains("TTBar_ME") && f_n_bjets>0 ) {
-    retval = 3.18e-05 * Ht + 0.86;
+    retval = 2.44e-05 * Ht + 0.86;
   }
   else if( fSysName.Contains("TTBar_PS") && f_n_bjets>0 ) {
-    retval = -1.36e-04 * Ht + 1.02;
+    retval = -1.02e-04 * Ht + 1.01;
   }
   else if( fSysName.Contains("TTBar_ISR_1up") && f_n_bjets>0 ) {
-    retval = -1.57e-04 * Ht + 0.95;
+    retval = -1.37e-04 * Ht + 0.93;
   }
   else if( fSysName.Contains("TTBar_ISR_1down") && f_n_bjets>0 ) {
-    retval = -5.27e-05 * Ht + 1.03;
+    retval = 1.42e-05 * Ht + 0.99;
   }
   else if( fSysName.Contains("TTBar_FSR_1up") && f_n_bjets>0 ) {
-    retval = -9.21e-05 * Ht + 0.93;
+    retval = -5.36e-05 * Ht + 0.91;
   }
   else if( fSysName.Contains("TTBar_FSR_1down") && f_n_bjets>0 ) {
-    retval = -7.41e-05 * Ht + 0.96;
+    retval = 4.35e-05 * Ht + 0.89;
   }
      
 

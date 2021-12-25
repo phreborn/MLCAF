@@ -191,10 +191,10 @@ double MCFakesSF::getValue() const {
 
   // relative difference between OS and SS SFs
   // SFs of OS and SS SFs (SF_OS/SF_SS)
-  // 1p: 0.92 +- 0.22
-  // 3p: 1.05 +- 0.50
-  float retval_scale_1p = 0.08; // 1 - 0.92
-  float retval_scale_3p = 0.05; // 1 - 1.05
+  // 1p: 0.96 +- 0.23
+  // 3p: 1.11 +- 0.51
+  float retval_scale_1p = 0.04; // 1 - 0.96
+  float retval_scale_3p = 0.11; // 1 - 1.11
 
   if (f_tau_0_n_charged_tracks==1) {
     retval_error = sqrt(retval_error*retval_error + retval_scale_1p*retval_scale_1p);
