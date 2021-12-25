@@ -8,6 +8,11 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutMaterialCorrection {
     +CutTruth {
+        #<.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         #($(isTLTT) && ([TruthLepSelector] == 10 || [TruthLepSelector] == 20) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         #($(isChargeNotMatched) && ([TruthLepSelector] == 10 || [TruthLepSelector] == 20) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30) && ([tau_0_q] * [tau_0_matched_q] != 1)) || 
+         #($(isChargeMatched) && ([TruthLepSelector] == 10 || [TruthLepSelector] == 20) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30) && ([tau_0_q] * [tau_0_matched_q] == 1)) || 
+         #($(isFLTT) && [TruthLepSelector] == 30 && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
         <.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
          ($(isJet) && [TruthTauSelector] == -30)}",
          .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">

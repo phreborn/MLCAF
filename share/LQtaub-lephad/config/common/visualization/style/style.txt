@@ -36,6 +36,15 @@
 <style.default.title="Single t (jet$\rightarrow\tau$)",     style.default.histFillColor=kYellow-8> @ /bkg/?/?/mcFakeCorrected/Top/single;
 <style.default.title="Diboson (jet$\rightarrow\tau$)", style.default.histFillColor=kOrange+1> @ /bkg/?/?/mcFakeCorrected/Diboson;
 
+### mc true prompt lepton and true tau
+<style.default.title="Top(TLTT)",                     style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcTLTT/Top;
+### mc fake prompt lepton and true tau
+<style.default.title="Top(FLTT)",                     style.default.histFillColor=kYellow-8> @ /bkg/?/?/mcFLTT/Top;
+
+### mc true prompt lepton and true tau with charge matched or not matched
+<style.default.title="Top(CM)",                     style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcChargeMatched/Top;
+<style.default.title="Top(noCM)",                     style.default.histFillColor=kWhite> @ /bkg/?/?/mcChargeNotMatched/Top;
+
 ### data driven ###
 <style.default.title="Multi-jet fake",  style.default.histFillColor=kGray > @ /bkg/?/?/MultiJetsFake, /bkg/?/?/ddOtherJetsFake/MultiJetsFake;
 <style.default.title="Other jet fake",  style.default.histFillColor=kRed+1> @ /bkg/?/?/ddOtherJetsFake;

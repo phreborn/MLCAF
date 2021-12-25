@@ -30,13 +30,61 @@ $create(path="/bkg/?/?/mcFakeCorrected", type="sf");
     $copy("mcReal/Top >> mcFakeCorrected");
 }
 
+# -- mc real prompt lepton and real tau
+$create(path="/bkg/?/?/mcTLTT", type="sf");
+$create(path="/bkg/?/?/mcFLTT", type="sf");
+$create(path="/bkg/?/?/mcChargeMatched", type="sf");
+$create(path="/bkg/?/?/mcChargeNotMatched", type="sf");
+@ /bkg/?/? {
+    $copy("mcReal/Diboson >> mcTLTT");
+    $copy("mcReal/Zjets >> mcTLTT");
+    $copy("mcReal/Wjets >> mcTLTT");
+    $copy("mcReal/Top >> mcTLTT");
+}
+
+# -- mc fake lepton and real tau
+@ /bkg/?/? {
+    $copy("mcReal/Diboson >> mcFLTT");
+    $copy("mcReal/Zjets >> mcFLTT");
+    $copy("mcReal/Wjets >> mcFLTT");
+    $copy("mcReal/Top >> mcFLTT");
+}
+
+# -- mc real tau charge matched
+@ /bkg/?/? {
+    $copy("mcReal/Diboson >> mcChargeMatched");
+    $copy("mcReal/Zjets >> mcChargeMatched");
+    $copy("mcReal/Wjets >> mcChargeMatched");
+    $copy("mcReal/Top >> mcChargeMatched");
+}
+
+# -- mc real tau charge not matched
+@ /bkg/?/? {
+    $copy("mcReal/Diboson >> mcChargeNotMatched");
+    $copy("mcReal/Zjets >> mcChargeNotMatched");
+    $copy("mcReal/Wjets >> mcChargeNotMatched");
+    $copy("mcReal/Top >> mcChargeNotMatched");
+}
+
 <isTTL=false> @ /.;
 <isTTL=true> @ /bkg/?/?/mcReal;
 
 <isJet=false> @ /.;
 <isJet=true> @ /bkg/?/?/mcFake, /bkg/?/?/mcFakeCorrected;
 <ismcFakeCorrected=false> @ /.;
-<ismcFakeCorrected=true> @ /bkg/?/?/mcFakeCorrected,/bkg/?/?/mcReal/Wjets;
+<ismcFakeCorrected=true> @ /bkg/?/?/mcFakeCorrected;
+
+<isTLTT=false> @ /.;
+<isTLTT=true> @ /bkg/?/?/mcTLTT;
+
+<isFLTT=false> @ /.;
+<isFLTT=true> @ /bkg/?/?/mcFLTT;
+
+<isChargeMatched=false> @ /.;
+<isChargeMatched=true> @ /bkg/?/?/mcChargeMatched;
+
+<isChargeNotMatched=false> @ /.;
+<isChargeNotMatched=true> @ /bkg/?/?/mcChargeNotMatched;
 
 # add dd fakes
 ## -- MultiJets
