@@ -45,7 +45,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
          .weightExpression="$(isISRup) ? ($(ISRHiWeight)) : 1">
    
         +CutTCR {
-            <.cutExpression="$(St) < 1000 && lephad_met_lep0_cos_dphi >= 2.5", .title="TCR", 
+            <.cutExpression="lephad_met_lep0_cos_dphi >= 2.5", .title="TCR", 
              .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
         } #End: CutTCR
     } #End: CutBtag
