@@ -3,6 +3,7 @@
 /bkg/?/c16e/mcReal/Top/single
 /bkg/?/c16e/mcReal/Top/ttbar/nominal
 /bkg/?/c16e/mcReal/Zjets
+/bkg/?/c16e/mcReal/Wjets
 /bkg/?/c16e/mcReal/Diboson
 
 ##### sig #####
