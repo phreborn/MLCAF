@@ -49,8 +49,8 @@ if __name__ == '__main__':
 
   # Get the usual campaigns and channels
   campaigns = ['c16ade']
-  #channels = ['ehad','muhad'] 
-  channels = ['[ehad+muhad]'] 
+  channels = ['ehad','muhad'] 
+  #channels = ['[ehad+muhad]'] 
 
   variations = {
                 #'samples-analyzed-LQtaub-lephad-TCR-PS-SF-closure-NOMINAL.root': None,
@@ -68,7 +68,7 @@ if __name__ == '__main__':
                 #'samples-analyzed-LQtaub-lephad-SR-ISRup-FF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-ISRdo-FF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FSRup-FF-NOMINAL.root': None,
-                'samples-analyzed-LQtaub-lephad-SR-FSRdo-FF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-SR-FSRdo-FF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-NOMINAL.root': None,
                 #'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MultiJetsLFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ.txt',
