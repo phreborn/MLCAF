@@ -1,0 +1,2 @@
+#name                                                  type        variation
+TTBar_FSR_1down                                        weight      one
