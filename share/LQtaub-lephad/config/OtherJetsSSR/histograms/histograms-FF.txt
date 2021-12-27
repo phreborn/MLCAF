@@ -3,10 +3,10 @@
 #############################################
 
 # General interest
-TH1F('LeptonPt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
+TH1F('LeptonPt', '', {30.,70.,110.,300.}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
 TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
 TH1F('JetPt', '',{0.,25.,50.,75.,100.,150.,200.,250.,300.}) << (jet_0_p4.Pt() : "jet p_{T} [GeV]");
-TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,250.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+TH1F('BjetPt', '',{25.,75.,125.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
 
 TH1F('LeptonEta', '',25, -2.5, 2.5) << (lep_0_p4.Eta() : "lepton \eta");
 TH1F('TauEta', '', 25, -2.5, 2.5) << (tau_0_p4.Eta() : "\#tau_{had-vis} \eta");
@@ -47,7 +47,7 @@ TH1F('TauPtOverBJetPt', '', 30, 0, 3) << (tau_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} 
 TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} fraction(lep,b-jet)");
 @Cut*ID: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 
-TH1F('St', '', {0,50,100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000, 1500}) << ($(St) : "S_{T} [GeV]");
+TH1F('St', '', {0,50,100, 200, 300, 1000}) << ($(St) : "S_{T} [GeV]");
 TH1F('HtMET', '', {0,50,100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000, 1500}) << ($(HtMET) : "H_{T} [GeV]");
 @Cut*ID: St,HtMET;
 
