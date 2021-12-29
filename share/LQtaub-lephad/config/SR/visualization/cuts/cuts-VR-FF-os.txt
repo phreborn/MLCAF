@@ -29,6 +29,7 @@
 .name=CutMediumDPhi
 .name="|"
 .name=CutVROSBtagHighST
+.name=CutVRHighVisMass
 .name="|"
 .name=CutVROSBtagLowBJetPt
 .name=CutVROSBtagHighBJetPt

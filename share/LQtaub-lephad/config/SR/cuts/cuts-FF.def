@@ -101,12 +101,16 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     +CutVROSBtagHighST {
         <.cutExpression="$(St) > 300", .title="VR$(CHARGE)$(BJET)HighST">
 
-        +CutVROSBtagLowBJetPt {
-            <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="OSVRBtagLowBJetPt">
-        }
+        +CutVRHighVisMass {
+            <.cutExpression="lephad_p4.M() > 100",.title="VRHighVisMass">        
 
-        +CutVROSBtagHighBJetPt {
-            <.cutExpression="bjet_0_p4.Pt() > 200",.title="OSVRBtagHighBJetPt">
+            +CutVROSBtagLowBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="OSVRBtagLowBJetPt">
+            }
+
+            +CutVROSBtagHighBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 200",.title="OSVRBtagHighBJetPt">
+            }
         }
     }
 }
