@@ -27,7 +27,7 @@ def copyJobs(sys):
       l_files.append('unmerged_*_bkg_X_c16?_mcReal_Wjets*.root')
       l_files.append('unmerged_*_bkg_X_c16?_mcFakeCorrected*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
-    elif sys=='Top_Reweight':
+    elif sys=='Top_Reweight' or sys=='Top_Residual':
       l_files.append('unmerged_*_bkg_X_c16?_mcReal_Diboson*.root')
       l_files.append('unmerged_*_bkg_X_c16?_mcReal_Z*.root')
       l_files.append('unmerged_*_bkg_X_c16?_mcReal_Wjets*.root')

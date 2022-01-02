@@ -50,7 +50,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
       
         +CutOSBtag {
             <.cutExpression="$(NbJets)>=1", .title="$(CHARGE)Btag", BJET="Btag",
-             .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopExtrapolationSF)) : 1">
+             .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopResidualSF)) : 1">
         } #End: CutOSBtag
     } #End: CutOSHighMT 
 } #End: CutOS

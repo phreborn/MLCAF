@@ -1,17 +1,17 @@
 //this file looks like plain C, but it's actually -*- c++ -*-
-#ifndef __TOPEXTRAPOLATIONSYS__
-#define __TOPEXTRAPOLATIONSYS__
+#ifndef __TOPRESIDUALSYS__
+#define __TOPRESIDUALSYS__
 
 #include "BSMtautauCAF/LepHadObservable.h"
 
-class TopExtrapolationSys : public LepHadObservable {
+class TopResidualSys : public LepHadObservable {
 
   public:
-    ClassDef(TopExtrapolationSys, 1);
+    ClassDef(TopResidualSys, 1);
     
-    TopExtrapolationSys();
-    TopExtrapolationSys(const TString& expression);
-    ~TopExtrapolationSys();
+    TopResidualSys();
+    TopResidualSys(const TString& expression);
+    ~TopResidualSys();
     
     virtual double getValue() const override;
     virtual TObjArray* getBranchNames() const override;

@@ -1,4 +1,4 @@
-#include "BSMtautauCAF/TopExtrapolationSys.h"
+#include "BSMtautauCAF/TopResidualSys.h"
 #include <limits>
 
 // uncomment the following line to enable debug printouts
@@ -13,11 +13,11 @@
 #include "TMath.h"
 #include <map>
 
-ClassImp(TopExtrapolationSys)
+ClassImp(TopResidualSys)
 
 //______________________________________________________________________________________________
 
-TopExtrapolationSys::TopExtrapolationSys(){
+TopResidualSys::TopResidualSys(){
   // default constructor
 
   this->setExpression(this->GetName() );
@@ -27,7 +27,7 @@ TopExtrapolationSys::TopExtrapolationSys(){
 
 //______________________________________________________________________________________________
 
-TopExtrapolationSys::~TopExtrapolationSys(){
+TopResidualSys::~TopResidualSys(){
   // default destructor
   DEBUGclass("destructor called");
 }
@@ -35,7 +35,7 @@ TopExtrapolationSys::~TopExtrapolationSys(){
 
 //______________________________________________________________________________________________
 
-TObjArray* TopExtrapolationSys::getBranchNames() const {
+TObjArray* TopResidualSys::getBranchNames() const {
   // retrieve the list of branch names
   // ownership of the list belongs to the caller of the function
   DEBUGclass("retrieving branch names");
@@ -45,42 +45,30 @@ TObjArray* TopExtrapolationSys::getBranchNames() const {
 }
 
 //______________________________________________________________________________________________
-double TopExtrapolationSys::getValue() const {
+double TopResidualSys::getValue() const {
   
-  double f_tau_0_pt       = this->tau_0_pt->EvalInstance();
-  int    f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
-  int    f_n_bjets        = this->n_bjets->EvalInstance();
-  double f_lephad_met_lep1_cos_dphi = this->lephad_met_lep1_cos_dphi->EvalInstance();
+  int f_n_bjets        = this->n_bjets->EvalInstance();
   double f_lep_0_pt = this->lep_0_pt->EvalInstance();
-  double f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
-
-  double f_SumOfPt = f_lep_0_pt + f_tau_0_pt + f_bjet_0_pt;
 
   ///////////////////////////////////////////////////////////////
   // determine which SF to use
   ///////////////////////////////////////////////////////////////
+
+  TString histName = "TCRClosure"; 
+  histName += "All";
+
+
   // channel: ehad or muhad
-  TString channel = "lephad";
+  if (isMuon()) {
+    histName += "muhad";
+  } 
+  else if (isElectron()) {
+    histName += "ehad";
+  }
 
-  // region: bveto or btag, 1p or 3p
-  TString region = "";
-  if ( 0 == f_n_bjets) return 1.0;
-  else if (1 <= f_n_bjets) region = "Btag";
-  else std::cout << "ERROR: strange #bjets" << std::endl;
+  histName += "Btag";
 
-
-  TString prong = "";
-  if ( 1 == f_tau_0_n_charged_tracks || 3 == f_tau_0_n_charged_tracks) prong = "";
-  else return 1.0;
-
-  // peiriod: Combined or Separated
-  TString period = "All";
-  
-  // parameterization
-  // dphi 1,2,3 in bveto/btag category
-  TString param = "St";
-
-  TString histName = "VR"+ period + channel + region + param + prong + "SF";
+  histName += "LeptonPtSF";
   
   TH1F * h_nominal = 0;
   
@@ -93,7 +81,7 @@ double TopExtrapolationSys::getValue() const {
   }
  
   // SF is a function of variable
-  int binID = std::min(h_nominal->FindBin(f_SumOfPt), h_nominal->GetNbinsX());
+  int binID = std::min(h_nominal->FindBin(f_lep_0_pt), h_nominal->GetNbinsX());
 
   float retval = h_nominal->GetBinContent(binID);
 
@@ -101,16 +89,16 @@ double TopExtrapolationSys::getValue() const {
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
   if    ( 
-         (fSysName.Contains("FakeFactor_TopExtrap_Btag_1up")  && f_n_bjets > 0) ||
-         (fSysName.Contains("FakeFactor_TopExtrap_ElBtag_1up")  && f_n_bjets > 0 && isElectron()) ||
-         (fSysName.Contains("FakeFactor_TopExtrap_MuBtag_1up")  && f_n_bjets > 0 && isMuon())
+         (fSysName.Contains("TopResi_Btag_1up")  && f_n_bjets > 0) ||
+         (fSysName.Contains("TopResi_ElBtag_1up")  && f_n_bjets > 0 && isElectron()) ||
+         (fSysName.Contains("TopResi_MuBtag_1up")  && f_n_bjets > 0 && isMuon())
         ) {
     retval = 1.0+fabs(retval-1.0);
   }
   else if(
-         (fSysName.Contains("FakeFactor_TopExtrap_Btag_1down")  && f_n_bjets > 0) ||
-         (fSysName.Contains("FakeFactor_TopExtrap_ElBtag_1down")  && f_n_bjets > 0  && isElectron()) ||
-         (fSysName.Contains("FakeFactor_TopExtrap_MuBtag_1down")  && f_n_bjets > 0 && isMuon())
+         (fSysName.Contains("TopResi_Btag_1down")  && f_n_bjets > 0) ||
+         (fSysName.Contains("TopResi_ElBtag_1down")  && f_n_bjets > 0  && isElectron()) ||
+         (fSysName.Contains("TopResi_MuBtag_1down")  && f_n_bjets > 0 && isMuon())
           ) {
     retval = 1.0-fabs(retval-1.0);
   }
@@ -120,7 +108,7 @@ double TopExtrapolationSys::getValue() const {
 }
 //______________________________________________________________________________________________
 
-TopExtrapolationSys::TopExtrapolationSys(const TString& expression) : LepHadObservable(expression)
+TopResidualSys::TopResidualSys(const TString& expression) : LepHadObservable(expression)
 {
   // constructor with expression argument
   DEBUGclass("constructor called with '%s'",expression.Data());
@@ -132,16 +120,16 @@ TopExtrapolationSys::TopExtrapolationSys(const TString& expression) : LepHadObse
 
   //fSysName = expression;
 
-  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyTopExtrapolationSF", false) ) return;
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagBoolDefault("ApplyTopResidualSF", false) ) return;
   INFOclass("Loading file...");
 
   TString signalProcess = "";
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* aFile= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopExtrap_SF.root");
+  TFile* aFile= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_Closure_SF.root");
   if (!aFile) {
-    ERRORclass("Can not find TopExtrap_SF.root");
+    ERRORclass("Can not find TopCR_Closure_SF.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
@@ -162,27 +150,27 @@ TopExtrapolationSys::TopExtrapolationSys(const TString& expression) : LepHadObse
 }
 //______________________________________________________________________________________________
 
-const TString& TopExtrapolationSys::getExpression() const {
+const TString& TopResidualSys::getExpression() const {
   // retrieve the expression associated with this observable
   return this->fExpression;
 }
 
 //______________________________________________________________________________________________
 
-bool TopExtrapolationSys::hasExpression() const {
+bool TopResidualSys::hasExpression() const {
   // check if this observable type knows expressions
   return true;
 }
 
 //______________________________________________________________________________________________
 
-void TopExtrapolationSys::setExpression(const TString& expr){
+void TopResidualSys::setExpression(const TString& expr){
   // set the expression to a given string
   this->fExpression = expr;
 }
 //______________________________________________________________________________________________
 
-bool TopExtrapolationSys::initializeSelf(){
+bool TopResidualSys::initializeSelf(){
   if (! LepHadObservable::initializeSelf()) return false;
 
   fSysName = this->fSample->replaceInTextRecursive("$(variation)","~");
@@ -192,7 +180,7 @@ bool TopExtrapolationSys::initializeSelf(){
 
 //______________________________________________________________________________________________
 
-bool TopExtrapolationSys::finalizeSelf(){
+bool TopResidualSys::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf())  return false;
   return true;
 }
