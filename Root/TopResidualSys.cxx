@@ -48,27 +48,29 @@ TObjArray* TopResidualSys::getBranchNames() const {
 double TopResidualSys::getValue() const {
   
   int f_n_bjets        = this->n_bjets->EvalInstance();
-  double f_lep_0_pt = this->lep_0_pt->EvalInstance();
+  float f_lep_0_pt = this->lep_0_pt->EvalInstance();
+  float f_tau_0_pt = this->tau_0_pt->EvalInstance();
+  float f_jets_scalar_sum_pt = this->jets_scalar_sum_pt->EvalInstance();
+  float f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
+  float f_met = this->met_reco_et->EvalInstance();
+
+  float Ht = f_lep_0_pt + f_tau_0_pt + f_jets_scalar_sum_pt + f_met;
 
   ///////////////////////////////////////////////////////////////
   // determine which SF to use
   ///////////////////////////////////////////////////////////////
 
-  TString histName = "TCRClosure"; 
-  histName += "All";
-
+  TString histName = "unc_ttbarCor_vs_topCor_"; 
 
   // channel: ehad or muhad
-  if (isMuon()) {
-    histName += "muhad";
+  if ( f_bjet_0_pt >= 25 && f_bjet_0_pt < 200) {
+    histName += "lowbjetpt_";
   } 
-  else if (isElectron()) {
-    histName += "ehad";
+  else if (f_bjet_0_pt >= 200) {
+    histName += "highbjetpt_";
   }
 
-  histName += "Btag";
-
-  histName += "LeptonPtSF";
+  histName += "lephad";
   
   TH1F * h_nominal = 0;
   
@@ -81,7 +83,7 @@ double TopResidualSys::getValue() const {
   }
  
   // SF is a function of variable
-  int binID = std::min(h_nominal->FindBin(f_lep_0_pt), h_nominal->GetNbinsX());
+  int binID = std::min(h_nominal->FindBin(Ht), h_nominal->GetNbinsX());
 
   float retval = h_nominal->GetBinContent(binID);
 
@@ -127,9 +129,9 @@ TopResidualSys::TopResidualSys(const TString& expression) : LepHadObservable(exp
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){
     ERRORclass("AnaChannel not set !!!");
   }
-  TFile* aFile= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/TopCR_Closure_SF.root");
+  TFile* aFile= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/Unc_TopCorrection_VS_TTBarCorrection_LepHad.root");
   if (!aFile) {
-    ERRORclass("Can not find TopCR_Closure_SF.root");
+    ERRORclass("Can not find Unc_TopCorrection_VS_TTBarCorrection_LepHad.root");
   }
 
   /// Read all the histgrams in the root files, and save it to a map so that we can find the

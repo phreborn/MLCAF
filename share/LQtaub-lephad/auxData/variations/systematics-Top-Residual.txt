@@ -1,3 +1,2 @@
-#name                                      type        variation
-TopResi_ElBtag                             weight      two
-TopResi_MuBtag                             weight      two
+#name                                    type        variation
+TopResi_Btag                             weight      two

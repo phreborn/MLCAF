@@ -190,7 +190,9 @@ double TopSF::getValue() const {
   float retval_error = 0.0;
 
   if ("LQtaub" == signalProcess){
-    retval = -3.15e-05 * Ht + 0.91;
+    retval = -3.15e-05 * Ht + 0.91; // top correction
+    //retval = -5.66e-05 * Ht + 0.92; // ttbar correction
+
 
     TString histName = "TopCR_SF_68CL_nominal";
     TH1F * hist = 0;      
