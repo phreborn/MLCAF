@@ -86,6 +86,24 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 }
 
 @ */CutLowDPhi {
+    +CutOSBtagHighSTSideBand {
+        <.cutExpression="$(St) > 300 && $(St) < 450", .title="$(CHARGE)$(BJET)HighSTSideBand">
+    
+        +CutHighVisMassSideBand {
+            <.cutExpression="lephad_p4.M() > 100",.title="HighVisMassSideBand">
+  
+            +CutOSBtagLowBJetPtSideBand {
+                <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="OSBtagLowBJetPtSideBand"> 
+            }
+   
+            +CutOSBtagHighBJetPtSideBand {
+                <.cutExpression="bjet_0_p4.Pt() > 200",.title="OSBtagHighBJetPtSideBand"> 
+            }
+        }
+    } 
+}
+
+@ */CutLowDPhi {
     +CutZCRHighST {
         <.cutExpression="$(St) > 300", .title="ZCRHighST">
         
@@ -99,8 +117,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutMediumDPhi {
     +CutVROSBtagHighST {
-        #<.cutExpression="$(St) > 300", .title="VR$(CHARGE)$(BJET)HighST">
-        <.cutExpression="$(St) >= 300 && $(St) < 600", .title="VR$(CHARGE)$(BJET)HighST">
+        <.cutExpression="$(St) > 300 && $(St) < 600", .title="VR$(CHARGE)$(BJET)HighST">
 
         +CutVRHighVisMass {
             <.cutExpression="lephad_p4.M() > 100",.title="VRHighVisMass">        
