@@ -317,7 +317,7 @@ if __name__=='__main__':
       sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsTFR-FF.root'
   elif region == 'TCRClosure':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-SF-closure.root'
-  elif region == 'TCR':
+  elif region == 'TTBar_nominal':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-SF.root'
   elif region == 'TCR_nominal':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-SF.root'
@@ -508,6 +508,33 @@ if __name__=='__main__':
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_Closure_SF.root "+analysis+"/auxData/ScaleFactors/TCRClosureAll*.root\033[0m")
 
+  elif region == 'TTBar_nominal':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson+Top/single]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/nominal'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TTBarCor_SF_nominal.root "+analysis+"/auxData/ScaleFactors/TTBar_nominalAll*.root\033[0m")
+
   elif region == 'TCR_nominal':
     # Loop over data taking period and channels
     periods = {
@@ -531,7 +558,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_nominal.root "+analysis+"/auxData/ScaleFactors/TCR_nominalAll*.root\033[0m")
 
@@ -558,7 +585,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_FSRdo.root "+analysis+"/auxData/ScaleFactors/TCR_FSRdoAll*.root\033[0m")
 
@@ -585,7 +612,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_FSRup.root "+analysis+"/auxData/ScaleFactors/TCR_FSRupAll*.root\033[0m")
 
@@ -612,7 +639,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ISRdo.root "+analysis+"/auxData/ScaleFactors/TCR_ISRdoAll*.root\033[0m")
 
@@ -639,7 +666,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ISRup]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ISRup.root "+analysis+"/auxData/ScaleFactors/TCR_ISRupAll*.root\033[0m")
 
@@ -666,7 +693,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ME]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ME.root "+analysis+"/auxData/ScaleFactors/TCR_MEAll*.root\033[0m")
 
@@ -694,7 +721,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/PS]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'HtMETSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_PS.root "+analysis+"/auxData/ScaleFactors/TCR_PSAll*.root\033[0m")
 

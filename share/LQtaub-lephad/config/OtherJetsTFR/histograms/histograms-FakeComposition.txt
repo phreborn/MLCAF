@@ -1,0 +1,7 @@
+#############################################
+##  Plotting Histograms in Multi-jets LFR  ##
+#############################################
+
+# General interest
+TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
+@CutTFRLowST: TauPt;

@@ -1,0 +1,81 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, MT
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ ($(isGluon) && [TruthTauSelectorFakeComposition] == 100) || ($(isbottom) && [TruthTauSelectorFakeComposition] == 200) || ($(ischarm) && [TruthTauSelectorFakeComposition] == 300) ||
+        ($(isuds) && [TruthTauSelectorFakeComposition] == 400) || ($(isother) && [TruthTauSelectorFakeComposition] == 500)}",
+        .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+               
+                +CutLeptonISO {
+                    <.cutExpression="($(isPassISO))", .title="Lepton isolation">
+
+                    +CutTauID {
+                        <.cutExpression="($(isPassID))", .title="PassTauID">
+
+                    } #End: CutTauID
+                } #End: CutLeptonISO
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+# Divide to SS/OS region
+@ */CutTauID {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
+    } #End: CutOS
+} #End: CutTauID
+
+
+
+# Divide to Bveto/Btag region
+@ */CutOS {
+    +CutOSBtag {
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="$(CHARGE)Btag", BJET="Btag">
+    } #End: CutOSBtag
+} #End: CutOS
+
+
+
+# Divide to different MT region
+@ */CutOSBtag {
+    +CutLowDPhi {
+        <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="LowDPhi">
+    } 
+}
+
+@ */CutLowDPhi {
+    +CutOSBtagHighST {
+        <.cutExpression="$(St) > 300", .title="$(CHARGE)$(BJET)HighST">
+    
+        +CutHighVisMass {
+            <.cutExpression="lephad_p4.M() > 100",.title="HighVisMass">
+  
+            +CutOSBtagLowBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="OSBtagLowBJetPt"> 
+            }
+   
+            +CutOSBtagHighBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 200",.title="OSBtagHighBJetPt"> 
+            }
+        }
+    } 
+}
+
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");

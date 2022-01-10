@@ -16,7 +16,7 @@
 .name="|"
 .name=CutLeptonISO
 .name="|"
-.name=CutZeeVeto
+.name=CutHighVisMass
 
 .name="||"
 .name=CutOS

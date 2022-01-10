@@ -21,11 +21,11 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
                
                 +CutLeptonISO {
                     <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
-        
-                    +CutZeeVeto {
-                        <.cutExpression="lep_0==2 && $(NbJets) == 0 ? (lephad_p4.M()<80 || lephad_p4.M()>110) : 1", .title="Veto Zee">
-                    } #End: CutZeeVeto
+                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation"> 
+            
+                    +CutHighVisMass {
+                        <.cutExpression="lephad_p4.M() > 100",.title="HighVisMass"> 
+                    } #End: CutHighVisMass
                 } #End: CutLeptonISO
             } #End: CutTauBasic
         } #End: CutLeptonBasic
@@ -35,11 +35,11 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 
 # Divide to SS/OS region
-@ */CutZeeVeto {
+@ */CutHighVisMass {
     +CutOS {
         <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS">
     } #End: CutOS
-} #End: CutZeeVeto
+} #End: CutHighVisMass
 
 
 
@@ -66,7 +66,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutTFR {
     +CutTFRLowST {
-        <.cutExpression="$(St) < 300",.title="TFRLowST">
+        <.cutExpression="$(St) > 300",.title="TFRLowST">
 
         +CutTFR1p {
             <.cutExpression="tau_0_n_charged_tracks==1", .title="TFR1p", PRONG="1p">
@@ -80,7 +80,8 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutTFR*p {
     +CutTFR$(PRONG)PassTauID {
-        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+        #<.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassIDFailMediumID))",
          .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="TFR$(PRONG)PassTauID">
     }
         

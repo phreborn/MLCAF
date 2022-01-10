@@ -6,7 +6,8 @@
 TH1F('LeptonPt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
 TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
 TH1F('JetPt', '',{0.,25.,50.,75.,100.,150.,200.,250.,300.}) << (jet_0_p4.Pt() : "jet p_{T} [GeV]");
-TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,250.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+#TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,250.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,225.,250.,275.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
 
 TH1F('LeptonEta', '',25, -2.5, 2.5) << (lep_0_p4.Eta() : "lepton \eta");
 TH1F('TauEta', '', 25, -2.5, 2.5) << (tau_0_p4.Eta() : "\#tau_{had-vis} \eta");
@@ -63,5 +64,6 @@ TH1F('St_lowSB_VR', '', 300, 300,600) << ($(St) : "S_{T} [GeV]");
 @CutVROSBtag*ST,CutVROSBtag*BJetPt: St,St_fineBin,St_lowSB_SR,St_lowSB_VR,StLowBJetPt,StHighBJetPt;
 
 TH1F('HtMET', '', {100.,200.,300.,400.,500.,600.,700.,800.,900.,1000.,1500.}) << ($(HtMET) : "H_{T} [GeV]");
-@CutOSBtag*BJetPt*,CutHighVisMass*: HtMET;
-@CutVROSBtag*ST,CutVROSBtag*BJetPt: HtMET;
+TH1F('Gt', '', {100.,150.,200.,250.,300.,350.,400.,450.,500.,550.,600.,700.,1000.}) << ($(StMET) : "G_{T} [GeV]");
+@CutOSBtag*BJetPt*,CutHighVisMass*: HtMET,Gt;
+@CutVROSBtag*ST,CutVROSBtag*BJetPt: HtMET,Gt;
