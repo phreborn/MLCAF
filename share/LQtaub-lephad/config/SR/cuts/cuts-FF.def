@@ -103,18 +103,6 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     } 
 }
 
-@ */CutLowDPhi {
-    +CutZCRHighST {
-        <.cutExpression="$(St) > 300", .title="ZCRHighST">
-        
-        +CutZCR {
-            <.cutExpression="lephad_p4.M() < 100",.title="ZCR">
-        }
-    }
-}
-
-
-
 @ */CutMediumDPhi {
     +CutVROSBtagHighST {
         <.cutExpression="$(St) > 300 && $(St) < 600", .title="VR$(CHARGE)$(BJET)HighST">

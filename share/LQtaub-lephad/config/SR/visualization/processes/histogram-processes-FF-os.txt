@@ -4,27 +4,29 @@
 
 ### dd backgrounds ####
 .path="|"
-.name="MultiJetsFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
-#.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/[Wjets+Top+Zjets+Diboson]", .title="Other jet fake", histFillColor=kRed+1, histFillStyle=1001
-#.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/ddOtherJetsFake"
+#.name="MultiJetsFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
+.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/[Wjets+Top+Zjets+Diboson]", .title="Other jet fake", histFillColor=kYellow+2, histFillStyle=1001
+.name="Others",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[MultiJetsFake+mcReal/[Wjets+Diboson+Zjets]]", .title="Others", histFillColor=kRed+1, histFillStyle=1001
 
 ### mc backgrounds ###
-.path="|"
-.name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Wjets"
-.name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Diboson"
-.name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Zjets"
-.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Top/[single+ttbar/nominal]"
+#.path="|"
+#.name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Wjets"
+#.name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Diboson"
+#.name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Zjets"
+#.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Top/[single+ttbar/nominal]"
 
 .path="|"
-.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
-.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
-.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
-.name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+#.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
+#.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
+#.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
+#.name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
 .name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
 
 
 ### signal ###
-.name="LQ(900,1.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l1_0"
-.name="LQ(900,2.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M900_l2_0"
-.name="LQ(2500,1.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l1_0"
-.name="LQ(2500,2.0)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/LQ/M2500_l2_0"
+.name="LQ(900,1.0)", .isSignal=true, .path="0.00466*/sig/$(channel)/$(campaign)/LQ/M900_l1_0"
+.name="LQ(900,2.0)", .isSignal=true, .path="0.046*/sig/$(channel)/$(campaign)/LQ/M900_l2_0"
+#.name="LQ(1600,1.0)", .isSignal=true, .path="0.000328*/sig/$(channel)/$(campaign)/LQ/M1600_l1_0"
+#.name="LQ(1600,2.0)", .isSignal=true, .path="0.00467*/sig/$(channel)/$(campaign)/LQ/M1600_l2_0"
+.name="LQ(2500,1.0)", .isSignal=true, .path="0.0000512*/sig/$(channel)/$(campaign)/LQ/M2500_l1_0"
+.name="LQ(2500,2.0)", .isSignal=true, .path="0.000812*/sig/$(channel)/$(campaign)/LQ/M2500_l2_0"

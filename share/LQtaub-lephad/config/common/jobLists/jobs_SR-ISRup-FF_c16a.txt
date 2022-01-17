@@ -1,7 +1,5 @@
 # ------------------------------ c16a ------------------------------ #
 ##### mc bkg #####
-/bkg/?/c16a/mcReal/Top/single
 /bkg/?/c16a/mcReal/Top/ttbar/ISRup
 
-/bkg/?/c16a/mcFakeCorrected/Top/single
 /bkg/?/c16a/mcFakeCorrected/Top/ttbar/ISRup
