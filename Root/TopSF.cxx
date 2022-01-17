@@ -180,7 +180,7 @@ double TopSF::getValue() const {
   float f_met = this->met_reco_et->EvalInstance();
   float st = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt;
   float Gt = f_lep_0_pt + f_tau_0_pt + f_jet_0_pt + f_met;
-  //float Ht = f_lep_0_pt + f_tau_0_pt + f_jets_scalar_sum_pt + f_met;
+  float Ht = f_lep_0_pt + f_tau_0_pt + f_jets_scalar_sum_pt + f_met;
 
   //int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
   //if (binID == 0) binID = 1;
@@ -191,8 +191,8 @@ double TopSF::getValue() const {
   float retval_error = 0.0;
 
   if ("LQtaub" == signalProcess){
-    retval = -2.54e-04 * Gt + 0.99; // top correction, Gt
-    //retval = -3.18e-04 * Gt + 1.00; // ttbar correction, Gt
+    retval = -4.26e-04 * st + 1.01; // top correction, St
+    //retval = -5.47e-04 * st + 1.04; // ttbar correction, St
     //retval = -3.15e-05 * Ht + 0.91; // top correction, Ht+MET
     //retval = -5.66e-05 * Ht + 0.92; // ttbar correction, Ht+MET
 
@@ -206,8 +206,9 @@ double TopSF::getValue() const {
       for (auto item : m_FF_hist)
         std::cout << "available SF fitted error: " << item.first << std::endl;
     }
-    int binID = std::min(hist->FindFixBin(Gt), hist->GetNbinsX());   
+    int binID = std::min(hist->FindFixBin(st), hist->GetNbinsX());   
     retval_error = hist->GetBinError(binID); 
+
   }
   else{
         std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();
@@ -238,22 +239,22 @@ double TopSF::getValue() const {
 
   }
   else if( fSysName.Contains("TTBar_ME") && f_n_bjets>0 ) {
-    retval = 2.44e-05 * Gt + 0.86;
+    retval = -3.19e-04 * st + 0.95;
   }
   else if( fSysName.Contains("TTBar_PS") && f_n_bjets>0 ) {
-    retval = -1.02e-04 * Gt + 1.01;
+    retval = -3.59e-04 * st + 1.06;
   }
   else if( fSysName.Contains("TTBar_ISR_1up") && f_n_bjets>0 ) {
-    retval = -1.37e-04 * Gt + 0.93;
+    retval = -4.21e-04 * st + 0.98;
   }
   else if( fSysName.Contains("TTBar_ISR_1down") && f_n_bjets>0 ) {
-    retval = 1.42e-05 * Gt + 0.99;
+    retval = -5.76e-04 * st + 1.15;
   }
   else if( fSysName.Contains("TTBar_FSR_1up") && f_n_bjets>0 ) {
-    retval = -5.36e-05 * Gt + 0.91;
+    retval = -4.49e-04 * st + 1.01;
   }
   else if( fSysName.Contains("TTBar_FSR_1down") && f_n_bjets>0 ) {
-    retval = 4.35e-05 * Gt + 0.89;
+    retval = -5.11e-04 * st + 1.06;
   }
      
 

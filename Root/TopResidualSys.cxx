@@ -54,7 +54,7 @@ double TopResidualSys::getValue() const {
   float f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
   float f_met = this->met_reco_et->EvalInstance();
 
-  float Ht = f_lep_0_pt + f_tau_0_pt + f_jets_scalar_sum_pt + f_met;
+  float st = f_lep_0_pt + f_tau_0_pt + f_bjet_0_pt;
 
   ///////////////////////////////////////////////////////////////
   // determine which SF to use
@@ -62,8 +62,8 @@ double TopResidualSys::getValue() const {
 
   TString histName = "unc_ttbarCor_vs_topCor_"; 
 
-  // channel: ehad or muhad
-  if ( f_bjet_0_pt >= 25 && f_bjet_0_pt < 200) {
+  // category: low bjet pt or high bjet pt
+  if ( f_bjet_0_pt < 200) {
     histName += "lowbjetpt_";
   } 
   else if (f_bjet_0_pt >= 200) {
@@ -77,13 +77,13 @@ double TopResidualSys::getValue() const {
   auto it = m_SF_hist.find(histName); 
   if ( it != m_SF_hist.end() ) h_nominal = it->second;
   else {
-    std::cout << "error! unavailable FF: " << histName << std::endl;
+    std::cout << "error! unavailable unc.: " << histName << std::endl;
     for (auto item : m_SF_hist)
-      std::cout << "available FF: " << item.first << std::endl;
+      std::cout << "available unc.: " << item.first << std::endl;
   }
  
   // SF is a function of variable
-  int binID = std::min(h_nominal->FindBin(Ht), h_nominal->GetNbinsX());
+  int binID = std::min(h_nominal->FindBin(st), h_nominal->GetNbinsX());
 
   float retval = h_nominal->GetBinContent(binID);
 
