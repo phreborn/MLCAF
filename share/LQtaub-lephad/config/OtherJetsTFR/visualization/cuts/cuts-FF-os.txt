@@ -30,6 +30,4 @@
 .name=CutTFRLowST
 .name="|"
 .name=CutTFR1pPassTauID
-.name=CutTFR1pFailTauID
 .name=CutTFR3pPassTauID
-.name=CutTFR3pFailTauID

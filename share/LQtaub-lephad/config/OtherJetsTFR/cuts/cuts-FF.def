@@ -55,9 +55,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     } #End: CutOSHighMT 
 } #End: CutOS
 
-
-
-# Divide to different MT region
+# Divide to different regions
 @ */CutOSBtag {
     +CutTFR {
         <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="TFR">  
@@ -66,7 +64,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutTFR {
     +CutTFRLowST {
-        <.cutExpression="$(St) > 300",.title="TFRLowST">
+        <.cutExpression="$(St) < 300",.title="TFRLowST">
 
         +CutTFR1p {
             <.cutExpression="tau_0_n_charged_tracks==1", .title="TFR1p", PRONG="1p">
@@ -80,14 +78,12 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 
 @ */CutTFR*p {
     +CutTFR$(PRONG)PassTauID {
-        #<.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassIDFailMediumID))",
+        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
          .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="TFR$(PRONG)PassTauID">
-    }
-        
-    +CutTFR$(PRONG)FailTauID {
-        <.cutExpression="$(isFailID)",
-         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1", .title="TFR$(PRONG)FailTauID">
+
+        +CutTFR$(PRONG)5JetsPassID {
+            <.cutExpression="n_jets >=5 && ( $(NbJets) == 1 || $(NbJets)== 2 )", .title="TFR$(PRONG)5JetsPassID">
+        }
     }
 }
 
