@@ -42,47 +42,31 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 } #End: CutLeptonISO
 
 @ */CutSS {
-    +CutSSBtag {
-        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="SSBtag", BJET="Btag",
-         .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
-    } #End: CutSSBtag
+    +CutSSBveto {
+        <.cutExpression="$(NbJets)==0 && lephad_mt_lep0_met < 50 && lephad_p4.M() < 100 && lephad_met_sum_cos_dphi >-0.15", .title="SSBveto", BJET="Bveto">
+    } #End: CutSSBveto
 } #End: CutSS
 
-@ */CutSSBtag {
-    +CutHighMT {
-        <.cutExpression="lephad_mt_lep0_met > 60", .title="HighMT">
 
-        +CutSSBtag1p {
-            <.cutExpression="tau_0_n_charged_tracks == 1",.title="SSBtag1p">
-        }
-        +CutSSBtag3p {
-            <.cutExpression="tau_0_n_charged_tracks == 3",.title="SSBtag3p">
-        }
+@ */CutSSBveto {
+    +CutSSBveto1p {
+        <.cutExpression="tau_0_n_charged_tracks == 1",.title="SSBveto1p">
+    }   
+    +CutSSBveto3p {
+        <.cutExpression="tau_0_n_charged_tracks == 3",.title="SSBveto3p">
     }
 }
 
-# Pass/Fail, split up again 
-#SS
-@ */CutSSBtag1p {
-    +CutSS1pPassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SS1pPassTauID",
-         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)">
-    }
-
-    +CutSS1pFailTauID {
-        <.cutExpression="$(isFailID)", .title="SS1pFailTauID",
-         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+@ */CutSSBveto1p {
+    +CutSSBveto1pPassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBveto1pPassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismc    FakeCorrected) ? [MCFakesSF] : 1)">
     }
 }
 
-@ */CutSSBtag3p {
-    +CutSS3pPassTauID {
-        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SS3pPassTauID",
-         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)">
-    }
-
-    +CutSS3pFailTauID {
-        <.cutExpression="$(isFailID)", .title="SS3pFailTauID",
-         .weightExpression="$(isddOtherJetsFake) ? $(TauFakeNom) : 1">
+@ */CutSSBveto3p {
+    +CutSSBveto3pPassTauID {
+        <.cutExpression="$(isddOtherJetsFake) ? $(isFailID) : $(isPassID)", .title="SSBveto3pPassTauID",
+         .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(TauFakeNom)) : 1)*($(ismc    FakeCorrected) ? [MCFakesSF] : 1)">
     }
 }
