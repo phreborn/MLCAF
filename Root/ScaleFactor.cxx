@@ -679,6 +679,12 @@ double ScaleFactor::getValue() const {
         continue;
       }
     }
+    //if (name == "weight_mc") {
+    //  if (fabs(formula->EvalInstance()) >= 100 ) {
+    //    ERRORclass("unexpected mc weight: %f", formula->EvalInstance());
+    //    continue;
+    //  }
+    //}
     
     if (m_verbose) { 
       VERBOSEclass("%s: %f", name.Data(), formula->EvalInstance());
