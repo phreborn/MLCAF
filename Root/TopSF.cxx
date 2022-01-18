@@ -185,6 +185,10 @@ double TopSF::getValue() const {
   //int binID = std::min(h_nominal->FindFixBin(st), h_nominal->GetNbinsX());
   //if (binID == 0) binID = 1;
 
+  if (st > 1000) {
+    st = 1000;
+  }
+
   float retval = 1.0;
   float retval_up = 1.0;
   float retval_down = 1.0;
