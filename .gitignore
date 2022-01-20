@@ -9,7 +9,7 @@ build
 */htcondorWorkloadTemp
 */submissionWorkloadTemp
 */mergeWorkloadTemp
-*/condor_logs
+*/condor_submission*
 */jobslist.txt
 */logs
 */backups
