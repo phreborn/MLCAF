@@ -50,9 +50,9 @@
 <style.default.title="Other jet fake",  style.default.histFillColor=kRed+1> @ /bkg/?/?/ddOtherJetsFake;
 
 ### sig ###
-<style.default.title="LQ(900,1.0)",   style.default.histLineColor=kPink+9     > @ /sig/?/?/LQ/M900_l1_0;
-<style.default.title="LQ(900,2.0)",   style.default.histLineColor=kGreen+1    > @ /sig/?/?/LQ/M900_l2_0;
-<style.default.title="LQ(1600,1.0)",  style.default.histLineColor=kBlue+5     > @ /sig/?/?/LQ/M1600_l1_0;
-<style.default.title="LQ(1600,2.0)",  style.default.histLineColor=kBlue+6    > @ /sig/?/?/LQ/M1600_l2_0;
-<style.default.title="LQ(2500,1.0)",  style.default.histLineColor=kViolet-1   > @ /sig/?/?/LQ/M2500_l1_0;
-<style.default.title="LQ(2500,2.0)",  style.default.histLineColor=kAzure+1    > @ /sig/?/?/LQ/M2500_l2_0;
+<style.default.title="LQ(900,1.0)",   style.default.histLineColor=kGreen        > @ /sig/?/?/LQ/M900_l1_0;
+<style.default.title="LQ(900,2.0)",   style.default.histLineColor=kViolet       > @ /sig/?/?/LQ/M900_l2_0;
+<style.default.title="LQ(1600,1.0)",  style.default.histLineColor=kGreen+1      > @ /sig/?/?/LQ/M1600_l1_0;
+<style.default.title="LQ(1600,2.0)",  style.default.histLineColor=kViolet+1     > @ /sig/?/?/LQ/M1600_l2_0;
+<style.default.title="LQ(2500,1.0)",  style.default.histLineColor=kGreen+2      > @ /sig/?/?/LQ/M2500_l1_0;
+<style.default.title="LQ(2500,2.0)",  style.default.histLineColor=kViolet+2     > @ /sig/?/?/LQ/M2500_l2_0;

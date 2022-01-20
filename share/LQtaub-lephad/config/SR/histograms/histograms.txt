@@ -8,6 +8,8 @@ TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << (tau_0_p4.Pt() : "\#tau_{had-
 TH1F('JetPt', '',{0.,25.,50.,75.,100.,150.,200.,250.,300.}) << (jet_0_p4.Pt() : "jet p_{T} [GeV]");
 #TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,250.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
 TH1F('BjetPt', '',{25.,50.,75.,100.,150.,200.,225.,250.,275.,300.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+TH1F('BjetPtHigh', '',{200.,225.,250.,275.,300.,325.,350.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
+TH1F('BjetPtLow', '',{25.,50.,75.,100.,125.,150.,175.,200.}) << (bjet_0_p4.Pt() : "b-jet p_{T} [GeV]");
 
 TH1F('LeptonEta', '',25, -2.5, 2.5) << (lep_0_p4.Eta() : "lepton \eta");
 TH1F('TauEta', '', 25, -2.5, 2.5) << (tau_0_p4.Eta() : "\#tau_{had-vis} \eta");
@@ -21,8 +23,8 @@ TH1F('MTTauMET', '', 30, 0, 300) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis}
 TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
 TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
 TH1F('VisibleMass'   ,'', 30, 0, 300)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
-@CutOSBtag*BJetPt*,CutHighVisMass*: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass;
-@CutVROSBtag*ST,CutVROSBtag*BJetPt: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass;
+@CutOSBtag*BJetPt*,CutHighVisMass*: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass,BjetPtHigh,BjetPtLow;
+@CutVROSBtag*ST,CutVROSBtag*BJetPt: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass,BjetPtHigh,BjetPtLow;
 
 TH1F('TauIDScore','', 25,0,0.25) << ($(TauIDScore): "\#tau_{had-vis} ID score");
 @CutOSBtag*BJetPt*,CutHighVisMass*: TauIDScore;
@@ -54,9 +56,9 @@ TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{
 @CutOSBtag*BJetPt*,CutHighVisMass*: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 @CutVROSBtag*ST,CutVROSBtag*BJetPt: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 
-TH1F('St', '', {300, 350, 400, 450, 500, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
-TH1F('StLowBJetPt', '', {300, 400, 450, 500, 550, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
-TH1F('StHighBJetPt', '', {300, 400, 450, 500, 550, 600, 650, 700, 800, 960, 1000}) << ($(St) : "S_{T} [GeV]");
+TH1F('St', '', {300.,350.,400.,450.,500.,550.,600.,700.,1000.}) << ($(St) : "S_{T} [GeV]");
+TH1F('StLowBJetPt', '', {300, 350, 400, 450, 500, 550, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
+TH1F('StHighBJetPt', '', {300,350,400,450,500,550,600,650,700,800,900,1000}) << ($(St) : "S_{T} [GeV]");
 TH1F('St_fineBin', '', 2700, 300,3000) << ($(St) : "S_{T} [GeV]");
 TH1F('St_lowSB_SR', '', 150, 300,450) << ($(St) : "S_{T} [GeV]");
 TH1F('St_lowSB_VR', '', 300, 300,600) << ($(St) : "S_{T} [GeV]");

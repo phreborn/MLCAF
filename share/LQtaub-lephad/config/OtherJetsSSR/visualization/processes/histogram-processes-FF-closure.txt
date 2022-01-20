@@ -4,15 +4,21 @@
 
 ### dd backgrounds ####
 .path="|"
-.name="MultiJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
+#.name="MultiJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
+.name="Others",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[MultiJetsFake+mcReal/[Wjets+Diboson+Zjets]]", .title="Others", histFillColor=kRed+1, histFillStyle=1001
+
 
 ### mc backgrounds ###
 .path="|"
-.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
-.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
-.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]",.title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
-.name="Ztautau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+#.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"
+#.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
+#.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]",.title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
+#.name="Ztautau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
 .name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single+ttbar/nominal]"
+#.name="Top(TLTT)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcTLTT/Top/[single+ttbar/nominal]"
+#.name="Top(CM)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcChargeMatched/Top/[single+ttbar/nominal]"
+#.name="Top(noCM)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcChargeNotMatched/Top/[single+ttbar/nominal]"
+#.name="Top(FLTT)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFLTT/Top/[single+ttbar/nominal]"
 
 .path="|"
 .name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Diboson"

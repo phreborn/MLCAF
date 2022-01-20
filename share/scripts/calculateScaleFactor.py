@@ -441,6 +441,8 @@ if __name__=='__main__':
           calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR3pPassTauID', 'TauPt3pSF', prefix+"Btag3p", 0.1,0.1)
           calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1pPassTauID', 'TauPtSFOneBin', prefix+"Btag1p", 0.1,0.1)
           calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR3pPassTauID', 'TauPtSFOneBin', prefix+"Btag3p", 0.1,0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR1p5JetsPassID', 'TauPt1pSF', prefix+"Btag1p5Jets", 0.1,0.1)
+          calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTFR3p5JetsPassID', 'TauPt3pSF', prefix+"Btag3p5Jets", 0.1,0.1)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsTFR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsTFRAll*.root\033[0m")
 
@@ -531,7 +533,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/nominal'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TTBarCor_SF_nominal.root "+analysis+"/auxData/ScaleFactors/TTBar_nominalAll*.root\033[0m")
 
@@ -558,7 +560,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_nominal.root "+analysis+"/auxData/ScaleFactors/TCR_nominalAll*.root\033[0m")
 
@@ -585,7 +587,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_FSRdo.root "+analysis+"/auxData/ScaleFactors/TCR_FSRdoAll*.root\033[0m")
 
@@ -612,7 +614,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_FSRup.root "+analysis+"/auxData/ScaleFactors/TCR_FSRupAll*.root\033[0m")
 
@@ -639,7 +641,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ISRdo.root "+analysis+"/auxData/ScaleFactors/TCR_ISRdoAll*.root\033[0m")
 
@@ -666,7 +668,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ISRup]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ISRup.root "+analysis+"/auxData/ScaleFactors/TCR_ISRupAll*.root\033[0m")
 
@@ -693,7 +695,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ME]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_ME.root "+analysis+"/auxData/ScaleFactors/TCR_MEAll*.root\033[0m")
 
@@ -721,7 +723,7 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/PS]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'GtSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_PS.root "+analysis+"/auxData/ScaleFactors/TCR_PSAll*.root\033[0m")
 
