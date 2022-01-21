@@ -193,15 +193,15 @@ double MCFakesSF::getValue() const {
   // SFs of OS and SS SFs (SF_OS/SF_SS)
   // 1p: 0.96 +- 0.23
   // 3p: 1.11 +- 0.51
-  float retval_scale_1p = 0.04; // 1 - 0.96
-  float retval_scale_3p = 0.11; // 1 - 1.11
+  //float retval_scale_1p = 0.04; // 1 - 0.96
+  //float retval_scale_3p = 0.11; // 1 - 1.11
 
-  if (f_tau_0_n_charged_tracks==1) {
-    retval_error = sqrt(retval_error*retval_error + retval_scale_1p*retval_scale_1p);
-  }
-  else if (f_tau_0_n_charged_tracks==3) {
-    retval_error = sqrt(retval_error*retval_error + retval_scale_3p*retval_scale_3p);
-  }
+  //if (f_tau_0_n_charged_tracks==1) {
+  //  retval_error = sqrt(retval_error*retval_error + retval_scale_1p*retval_scale_1p);
+  //}
+  //else if (f_tau_0_n_charged_tracks==3) {
+  //  retval_error = sqrt(retval_error*retval_error + retval_scale_3p*retval_scale_3p);
+  //}
 
   if    (
          (fSysName.Contains("MCFakes_ElHadBtag1p_1up")  && f_lep_0==2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
