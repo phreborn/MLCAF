@@ -200,6 +200,11 @@ double TopSF::getValue() const {
     //retval = -3.15e-05 * Ht + 0.91; // top correction, Ht+MET
     //retval = -5.66e-05 * Ht + 0.92; // ttbar correction, Ht+MET
 
+    float retval_alter = 0.0;
+    float error_alter = 0.0;
+    retval_alter = -0.15 * TMath::Log(st) + 1.72;
+    error_alter = retval_alter - retval;
+
 
     TString histName = "TopCR_SF_68CL_nominal";
     TH1F * hist = 0;      
@@ -211,7 +216,11 @@ double TopSF::getValue() const {
         std::cout << "available SF fitted error: " << item.first << std::endl;
     }
     int binID = std::min(hist->FindFixBin(st), hist->GetNbinsX());   
-    retval_error = hist->GetBinError(binID); 
+    float error = 0.0;
+    error = hist->GetBinError(binID);
+    //retval_error = hist->GetBinError(binID); 
+
+    retval_error = sqrt(error*error + error_alter*error_alter);
 
   }
   else{
