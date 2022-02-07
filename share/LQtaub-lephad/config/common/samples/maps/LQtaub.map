@@ -157,11 +157,49 @@
 
 ### Signal
 ### -- LQtaub (MG5)
-## l = 1.0
+## S1Tilde
+509359 /sig/$(channel)/$(campaign)/LQ/M400_l1_0
+509360 /sig/$(channel)/$(campaign)/LQ/M400_l1_5
+509361 /sig/$(channel)/$(campaign)/LQ/M400_l1_7
+509362 /sig/$(channel)/$(campaign)/LQ/M400_l2_0
+509363 /sig/$(channel)/$(campaign)/LQ/M400_l2_5
+509364 /sig/$(channel)/$(campaign)/LQ/M700_l1_0
+509365 /sig/$(channel)/$(campaign)/LQ/M700_l1_5
+509366 /sig/$(channel)/$(campaign)/LQ/M700_l1_7
+509367 /sig/$(channel)/$(campaign)/LQ/M700_l2_0
+509368 /sig/$(channel)/$(campaign)/LQ/M700_l2_5
 508685 /sig/$(channel)/$(campaign)/LQ/M900_l1_0
-508989 /sig/$(channel)/$(campaign)/LQ/M1600_l1_0
-508687 /sig/$(channel)/$(campaign)/LQ/M2500_l1_0
-## l = 2.0
+509369 /sig/$(channel)/$(campaign)/LQ/M900_l1_5
+509370 /sig/$(channel)/$(campaign)/LQ/M900_l1_7
 508686 /sig/$(channel)/$(campaign)/LQ/M900_l2_0
+509371 /sig/$(channel)/$(campaign)/LQ/M900_l2_5
+509372 /sig/$(channel)/$(campaign)/LQ/M1100_l1_0
+509373 /sig/$(channel)/$(campaign)/LQ/M1100_l1_5
+509374 /sig/$(channel)/$(campaign)/LQ/M1100_l1_7
+509375 /sig/$(channel)/$(campaign)/LQ/M1100_l2_0
+509376 /sig/$(channel)/$(campaign)/LQ/M1100_l2_5
+509377 /sig/$(channel)/$(campaign)/LQ/M1300_l1_0
+509378 /sig/$(channel)/$(campaign)/LQ/M1300_l1_5
+509379 /sig/$(channel)/$(campaign)/LQ/M1300_l1_7
+509380 /sig/$(channel)/$(campaign)/LQ/M1300_l2_0
+509381 /sig/$(channel)/$(campaign)/LQ/M1300_l2_5
+508989 /sig/$(channel)/$(campaign)/LQ/M1600_l1_0
+509382 /sig/$(channel)/$(campaign)/LQ/M1600_l1_5
+509383 /sig/$(channel)/$(campaign)/LQ/M1600_l1_7
 508990 /sig/$(channel)/$(campaign)/LQ/M1600_l2_0
+509384 /sig/$(channel)/$(campaign)/LQ/M1600_l2_5
+509385 /sig/$(channel)/$(campaign)/LQ/M1900_l1_0
+509386 /sig/$(channel)/$(campaign)/LQ/M1900_l1_5
+509387 /sig/$(channel)/$(campaign)/LQ/M1900_l1_7
+509388 /sig/$(channel)/$(campaign)/LQ/M1900_l2_0
+509389 /sig/$(channel)/$(campaign)/LQ/M1900_l2_5
+509390 /sig/$(channel)/$(campaign)/LQ/M2200_l1_0
+509391 /sig/$(channel)/$(campaign)/LQ/M2200_l1_5
+509392 /sig/$(channel)/$(campaign)/LQ/M2200_l1_7
+509393 /sig/$(channel)/$(campaign)/LQ/M2200_l2_0
+509394 /sig/$(channel)/$(campaign)/LQ/M2200_l2_5
+508687 /sig/$(channel)/$(campaign)/LQ/M2500_l1_0
+509395 /sig/$(channel)/$(campaign)/LQ/M2500_l1_5
+509396 /sig/$(channel)/$(campaign)/LQ/M2500_l1_7
 508688 /sig/$(channel)/$(campaign)/LQ/M2500_l2_0
+509397 /sig/$(channel)/$(campaign)/LQ/M2500_l2_5
