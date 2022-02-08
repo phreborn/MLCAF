@@ -126,6 +126,9 @@ $create(path="/bkg/?/?/ddOtherJetsFake/data", type="sf");
 <isddOtherJetsFake=false> @ /.;
 <isddOtherJetsFake=true> @ /bkg/?/?/ddOtherJetsFake;
 
+<isSTop=false> @ /.;
+<isSTop=true> @ /bkg/?/?/mcReal/Top/single/nominal, /bkg/?/?/mcFake/Top/single/nominal, /bkg/?/?/mcFakeCorrected/Top/single/nominal;
+
 <isTTBar=false> @ /.;
 <isTTBar=true> @ /bkg/?/?/mcReal/Top/ttbar/nominal, /bkg/?/?/mcFake/Top/ttbar/nominal, /bkg/?/?/mcFakeCorrected/Top/ttbar/nominal;
 

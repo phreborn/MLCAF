@@ -16,7 +16,9 @@ $printline("Applying post-initialize pool tags...");
 # -- Wjets
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets;
 # -- Top
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/nominal;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/ME;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/PS;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar/nominal;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar/ISRup;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar/ME;
