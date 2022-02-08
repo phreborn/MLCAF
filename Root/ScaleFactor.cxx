@@ -503,6 +503,7 @@ ScaleFactor::ScaleFactor(const TString& expression): LepHadObservable(expression
 bool ScaleFactor::initializeSelf() {
   
   if ( isTTBar() ) { std::cout << "Using ttbar nominal samples" << std::endl; }
+  if ( isSTop() ) { std::cout << "Using single top nominal samples" << std::endl; }
 
   if (!LepHadObservable::initializeSelf()) {
       ERROR("Initialization of LepHadObservable failed.");
