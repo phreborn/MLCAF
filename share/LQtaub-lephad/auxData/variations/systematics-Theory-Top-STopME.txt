@@ -1,0 +1,2 @@
+#name                                                  type        variation
+STop_ME                                               weight      one
