@@ -130,13 +130,25 @@
 364197 /bkg/$(channel)/$(campaign)/Wjets/taunu
 
 ### Top production
-### -- single top (PowhegPythia8)
-410644 /bkg/$(channel)/$(campaign)/Top/single
-410645 /bkg/$(channel)/$(campaign)/Top/single
-410646 /bkg/$(channel)/$(campaign)/Top/single
-410647 /bkg/$(channel)/$(campaign)/Top/single
-410658 /bkg/$(channel)/$(campaign)/Top/single
-410659 /bkg/$(channel)/$(campaign)/Top/single
+### -- single top 
+### -- Nominal: PowhegPythia8
+410644 /bkg/$(channel)/$(campaign)/Top/single/nominal
+410645 /bkg/$(channel)/$(campaign)/Top/single/nominal
+410646 /bkg/$(channel)/$(campaign)/Top/single/nominal
+410647 /bkg/$(channel)/$(campaign)/Top/single/nominal
+410658 /bkg/$(channel)/$(campaign)/Top/single/nominal
+410659 /bkg/$(channel)/$(campaign)/Top/single/nominal
+### -- Matrix Element: aMcNloPythia8
+412004 /bkg/$(channel)/$(campaign)/Top/single/ME
+412005 /bkg/$(channel)/$(campaign)/Top/single/ME
+412002 /bkg/$(channel)/$(campaign)/Top/single/ME
+### -- Fragmentation/Hadronization model : PowhegHerwig7
+411032 /bkg/$(channel)/$(campaign)/Top/single/PS
+411033 /bkg/$(channel)/$(campaign)/Top/single/PS
+411034 /bkg/$(channel)/$(campaign)/Top/single/PS
+411035 /bkg/$(channel)/$(campaign)/Top/single/PS
+411036 /bkg/$(channel)/$(campaign)/Top/single/PS
+411037 /bkg/$(channel)/$(campaign)/Top/single/PS
 
 ### -- pair production 
 ### -- Nominal: PowhegPythia8
