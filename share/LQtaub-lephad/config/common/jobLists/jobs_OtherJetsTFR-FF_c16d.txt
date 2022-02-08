@@ -1,20 +1,20 @@
 # ------------------------------ c16d ------------------------------ #
 ##### dd bkg #####
 /bkg/?/c16d/MultiJetsFake/data
-/bkg/?/c16d/MultiJetsFake/mc/Top/single
+/bkg/?/c16d/MultiJetsFake/mc/Top/single/nominal
 /bkg/?/c16d/MultiJetsFake/mc/Top/ttbar/nominal
 /bkg/?/c16d/MultiJetsFake/mc/Zjets
 /bkg/?/c16d/MultiJetsFake/mc/Diboson
 /bkg/?/c16d/MultiJetsFake/mc/Wjets
 
 ##### mc bkg #####
-/bkg/?/c16d/mcReal/Top/single
+/bkg/?/c16d/mcReal/Top/single/nominal
 /bkg/?/c16d/mcReal/Top/ttbar/nominal
 /bkg/?/c16d/mcReal/Zjets
 /bkg/?/c16d/mcReal/Diboson
 /bkg/?/c16d/mcReal/Wjets
 
-/bkg/?/c16d/mcFake/Top/single
+/bkg/?/c16d/mcFake/Top/single/nominal
 /bkg/?/c16d/mcFake/Top/ttbar/nominal
 /bkg/?/c16d/mcFake/Zjets
 /bkg/?/c16d/mcFake/Diboson
