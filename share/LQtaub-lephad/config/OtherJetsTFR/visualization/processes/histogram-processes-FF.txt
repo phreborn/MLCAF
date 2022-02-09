@@ -12,7 +12,7 @@
 .name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Wjets"
 .name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Diboson"
 .name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Zjets"
-.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top/[single+ttbar/nominal]"
+.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFake/Top/[single/nominal+ttbar/nominal]"
 
 .path="|"
 #.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Wjets"

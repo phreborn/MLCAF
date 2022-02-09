@@ -12,7 +12,7 @@
 .name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
 .name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]",.title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
 .name="Ztautau",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
-.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single+ttbar/nominal]"
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/[single/nominal+ttbar/nominal]"
 
 .path="|"
 .name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Diboson"

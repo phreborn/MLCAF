@@ -333,6 +333,18 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-FSRup-SF.root'
   elif region == 'TCR_FSRdo':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-FSRdo-SF.root'
+  elif region == 'TCR_STopPS':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopPS-SF.root'
+  elif region == 'TCR_STopME':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopME-SF.root'
+  elif region == 'TCR_STopISRup':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopISRup-SF.root'
+  elif region == 'TCR_STopISRdo':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopISRdo-SF.root'
+  elif region == 'TCR_STopFSRup':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopFSRup-SF.root'
+  elif region == 'TCR_STopFSRdo':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopFSRdo-SF.root'
   elif region == 'MultiJetsLFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
   elif region == 'SSExtrap':
@@ -503,7 +515,7 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'LeptonPtSF', prefix+"Btag", 0.1, 0.1)
@@ -529,7 +541,7 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson+Top/single]'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson+Top/single/nominal]'.format(channel_path, period_path)
         bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/nominal'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
@@ -557,7 +569,7 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
@@ -584,7 +596,7 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
@@ -611,7 +623,7 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
@@ -638,7 +650,7 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
@@ -665,7 +677,7 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ISRup]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/ISRup]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
@@ -692,7 +704,7 @@ if __name__=='__main__':
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ME]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/ME]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
@@ -720,12 +732,174 @@ if __name__=='__main__':
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
         #bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFake]/[Zjets+Wjets+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
         bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/PS]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/PS]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_PS.root "+analysis+"/auxData/ScaleFactors/TCR_PSAll*.root\033[0m")
+
+  elif region == 'TCR_STopISRup':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopISRup.root "+analysis+"/auxData/ScaleFactors/TCR_STopISRupAll*.root\033[0m")
+
+  elif region == 'TCR_STopISRdo':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopISRdo.root "+analysis+"/auxData/ScaleFactors/TCR_STopISRdoAll*.root\033[0m")
+
+  elif region == 'TCR_STopFSRup':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopFSRup.root "+analysis+"/auxData/ScaleFactors/TCR_STopFSRupAll*.root\033[0m")
+
+  elif region == 'TCR_STopFSRdo':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopFSRdo.root "+analysis+"/auxData/ScaleFactors/TCR_STopFSRdoAll*.root\033[0m")
+
+  elif region == 'TCR_STopME':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/ME+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopME.root "+analysis+"/auxData/ScaleFactors/TCR_STopMEAll*.root\033[0m")
+
+  elif region == 'TCR_STopPS':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/PS+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+        
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
+        
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopPS.root "+analysis+"/auxData/ScaleFactors/TCR_STopPSAll*.root\033[0m")
 
   if region == 'OtherJetsSSR':
     # Loop over data taking period and channels
