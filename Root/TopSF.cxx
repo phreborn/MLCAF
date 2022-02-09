@@ -270,22 +270,22 @@ double TopSF::getValue() const {
     retval = -5.11e-04 * st + 1.06;
   }
   else if( fSysName.Contains("STop_ME") && f_n_bjets>0 ) {
-    retval = -3.19e-04 * st + 0.95;
+    retval = -4.26e-04 * st + 1.01;
   }
   else if( fSysName.Contains("STop_PS") && f_n_bjets>0 ) {
-    retval = -3.59e-04 * st + 1.06;
+    retval = -4.05e-04 * st + 1.00;
   }
   else if( fSysName.Contains("STop_ISR_1up") && f_n_bjets>0 ) {
-    retval = -4.21e-04 * st + 0.98;
+    retval = -4.58e-04 * st + 1.02;
   }
   else if( fSysName.Contains("STop_ISR_1down") && f_n_bjets>0 ) {
-    retval = -5.76e-04 * st + 1.15;
+    retval = -4.04e-04 * st + 1.01;
   }
   else if( fSysName.Contains("STop_FSR_1up") && f_n_bjets>0 ) {
-    retval = -4.49e-04 * st + 1.01;
+    retval = -4.33e-04 * st + 1.01;
   }
   else if( fSysName.Contains("STop_FSR_1down") && f_n_bjets>0 ) {
-    retval = -5.11e-04 * st + 1.06;
+    retval = -3.92e-04 * st + 1.00;
   }
      
      
