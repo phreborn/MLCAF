@@ -76,6 +76,7 @@ if __name__ == '__main__':
   _, fn_list = commands.getstatusoutput('ls '+sys_path+'/analyze-systematics-*.cfg')
   for fn in fn_list.split():
     sys = fn.split('.cfg')[0].split('-')[-1]
+    #if sys == 'Theory_Top' or sys == 'base' or sys == 'Top_Residual': continue
     if sys == 'Theory_Top' or sys == 'base': continue
     print(sys)
 
