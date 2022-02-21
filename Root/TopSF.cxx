@@ -238,18 +238,11 @@ double TopSF::getValue() const {
   ///////////////////////////////////////////////////////////////
   // systematic uncertainty
   ///////////////////////////////////////////////////////////////
-  if ( (fSysName.Contains("FakeFactor_TCR_ElBveto_1up") && isElectron() && f_n_bjets==0) ||
-       (fSysName.Contains("FakeFactor_TCR_ElBtag_1up") && isElectron() && f_n_bjets>0) ||
-       (fSysName.Contains("FakeFactor_TCR_MuBveto_1up") && isMuon() && f_n_bjets==0) ||
-       (fSysName.Contains("FakeFactor_TCR_MuBtag_1up") && isMuon() && f_n_bjets>0)  ) {
+  if ( (fSysName.Contains("TopReweight_Btag_1up") && f_n_bjets>0) ) {
     retval += retval_error;
   }
-  else if(  (fSysName.Contains("FakeFactor_TCR_ElBveto_1down") && isElectron() && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_TCR_ElBtag_1down") && isElectron() && f_n_bjets>0) ||
-            (fSysName.Contains("FakeFactor_TCR_MuBveto_1down") && isMuon() && f_n_bjets==0) ||
-            (fSysName.Contains("FakeFactor_TCR_MuBtag_1down") && isMuon() && f_n_bjets>0) ) {
+  else if( (fSysName.Contains("TopReweight_Btag_1down") && f_n_bjets>0) ) {
     retval -= retval_error;
-
   }
   else if( fSysName.Contains("TTBar_ME") && f_n_bjets>0 ) {
     retval = -3.19e-04 * st + 0.95;
