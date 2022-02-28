@@ -1,0 +1,4 @@
+#name                                                  type        variation
+# Jet: 2
+JET_RelativeNonClosure_AFII                            p4          two                       
+JET_JER_DataVsMC_AFII_1up                              p4          one                   

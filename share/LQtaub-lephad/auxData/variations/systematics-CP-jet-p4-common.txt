@@ -9,7 +9,6 @@ JET_GroupedNP_1                                        p4          two
 JET_GroupedNP_2                                        p4          two                   
 JET_GroupedNP_3                                        p4          two               
 JET_TILECORR_Uncertainty                               p4          two                       
-JET_JER_DataVsMC_MC16_1up                              p4          one                   
 JET_JER_EffectiveNP_1_1up                              p4          one                   
 JET_JER_EffectiveNP_2_1up                              p4          one                   
 JET_JER_EffectiveNP_3_1up                              p4          one                       
