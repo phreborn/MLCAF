@@ -54,7 +54,18 @@ def copyJobs(sys):
       l_files.append('unmerged_*_bkg_X_c16?_mcFakeCorrected_Wjets*.root')
       l_files.append('unmerged_*_bkg_X_c16?_MultiJetsFake_*.root')
       l_files.append('unmerged_*_sig_X_c16?_*.root')
-    elif sys=='CP_jet_p4' or sys=='CP_lep_p4':
+    elif sys=='CP_jet_p4_common' or sys=='CP_lep_p4':
+      l_files.append('unmerged_*_bkg_X_c16?_mcFakeCorrected*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_MultiJetsFake_*.root')
+    elif sys=='CP_jet_p4_bkg':
+      l_files.append('unmerged_*_bkg_X_c16?_mcFakeCorrected*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_MultiJetsFake_*.root')
+      l_files.append('unmerged_*_sig_X_c16?_*.root')
+    elif sys=='CP_jet_p4_sig':
+      l_files.append('unmerged_*_bkg_X_c16?_mcReal_Diboson*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_mcReal_Top*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_mcReal_Z*.root')
+      l_files.append('unmerged_*_bkg_X_c16?_mcReal_Wjets*.root')
       l_files.append('unmerged_*_bkg_X_c16?_mcFakeCorrected*.root')
       l_files.append('unmerged_*_bkg_X_c16?_MultiJetsFake_*.root')
     elif sys=='CP_lep_weight' or sys=='CP_tau_weight' or sys=='CP_other_weight':
