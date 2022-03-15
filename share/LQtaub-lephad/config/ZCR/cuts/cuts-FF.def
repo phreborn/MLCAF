@@ -1,0 +1,77 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, MT
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+         ($(isJet) && [TruthTauSelector] == -30)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+               
+                +CutLeptonISO {
+                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+
+                    +CutTauID {
+                        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+                        .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="PassTauID">
+
+                    } #End: CutTauID
+                } #End: CutLeptonISO
+            } #End: CutTauBasic
+        } #End: CutLeptonBasic
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+# Divide to SS/OS region
+@ */CutTauID {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS",
+         .weightExpression="($(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight)) : 1)*($(isISRup) ? ($(ISRHiWeight)) : 1)*($(isSTop) ? ($(STopISRLoWeight))*($(STopISRHiWeight))*($(STopFSRLoWeight))*($(STopFSRHiWeight)) : 1)">
+    } #End: CutOS
+} #End: CutTauID
+
+
+
+# Divide to Bveto/Btag region
+@ */CutOS {
+    +CutOSBtag {
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="$(CHARGE)Btag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopResidualSF)) : 1">
+    } #End: CutOSBtag
+} #End: CutOS
+
+@ */CutOSBtag {
+    +CutZMTLepMET {
+        <.cutExpression="lephad_mt_lep0_met < 50",.title="ZMTLepMET">
+       
+        +CutZLowDPhi {
+            <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="ZLowDPhi">
+     
+            +CutZHighST {
+                <.cutExpression="$(St) > 300", .title="ZHighST">
+               
+                +CutZVisMass {
+                    <.cutExpression="lephad_p4.M() >=45 && lephad_p4.M() < 90",.title="ZVisMassWindow">
+                }
+            }
+        }
+    }
+} 
+
+
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");
