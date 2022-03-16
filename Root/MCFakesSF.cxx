@@ -113,7 +113,7 @@ auto MCFakesSF::getFakeFactorHist() const {
     histName += "TauPtSF";
   }
   else if ( "TauPtBjetPt" == param_tag) {
-    if ( f_bjet_0_pt >= 25.0 && f_bjet_0_pt < 75.0 ) {
+    if ( f_bjet_0_pt < 75.0 ) {
       histName += "TauPtBjetPt1SF";
     }
     else if ( f_bjet_0_pt >= 75.0 && f_bjet_0_pt < 125.0 ) {
