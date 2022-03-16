@@ -1,3 +1,2 @@
 #name                                                   type        variation
-FakeFactor_TCR_ElBtag                                   weight      two
-FakeFactor_TCR_MuBtag                                   weight      two
+TopReweight_Btag                                        weight      two
