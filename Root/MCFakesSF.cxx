@@ -37,11 +37,6 @@ MCFakesSF::MCFakesSF(const TString& expression) : LepHadObservable(expression) {
   if (!file) {
     ERRORclass("Can not find OtherJetsSSR_SF.root");
   }
-  //TFile* file= TFile::Open(signalProcess+"-lephad/auxData/ScaleFactors/OtherJetsTFR_SF.root");
-  //if (!file) {
-  //  ERRORclass("Can not find OtherJetsTFR_SF.root");
-  //}
-
   /// Read all the histgrams in the root files, and save it to a map so that we can find the
   /// right histgram given the name
   TList* list = file->GetListOfKeys();
@@ -88,26 +83,14 @@ bool MCFakesSF::finalizeSelf() {
 
 auto MCFakesSF::getFakeFactorHist() const {
   // determine which FF hist we want: All
+  float f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
+
   TString histName = "OtherJetsSSR";
-  //TString histName = "OtherJetsTFR";
 
   histName += "All";
 
   // -- channel: muhad
   histName += "muhad";
-  //if (isMuon()) {
-  //  histName += "muhad";
-  //} 
-  //else if (isElectron()) {
-  //  histName += "ehad";
-  //}
-  //else {
-  //  ERRORclass("Unknown channel");
-    //return nullptr;
-  //}
-
-  // -- charge: OS/SS, use SS for now
-  //histName += "SS";
 
   // -- category: Bveto/Btag
   histName += "Btag";
@@ -121,13 +104,25 @@ auto MCFakesSF::getFakeFactorHist() const {
   }
   
   // -- parameterization
-  histName += "TauPtSF";
-  //if (this->tau_0_n_charged_tracks->EvalInstance() == 1) {
-  //  histName += "TauPt1pSF";
-  //}
-  //else {
-  //  histName += "TauPt3pSF";
-  //}
+  TString param_tag = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("MCFakesSFParam", param_tag) ) {
+    ERRORclass("Can not get MCFakesSFParam tag");
+  }
+
+  if ( "TauPt" == param_tag ) {
+    histName += "TauPtSF";
+  }
+  else if ( "TauPtBjetPt" == param_tag) {
+    if ( f_bjet_0_pt >= 25.0 && f_bjet_0_pt < 75.0 ) {
+      histName += "TauPtBjetPt1SF";
+    }
+    else if ( f_bjet_0_pt >= 75.0 && f_bjet_0_pt < 125.0 ) {
+      histName += "TauPtBjetPt2SF";
+    }
+    else if ( f_bjet_0_pt >= 125.0 ) {
+      histName += "TauPtBjetPt3SF";
+    }
+  }
 
   const TH1F * h_nominal = 0;
   const TH1F * h_up = 0;
@@ -168,9 +163,6 @@ double MCFakesSF::getValue() const {
   const TH1F* h_up;
   const TH1F* h_down;
 
-  std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();  
-
-
   int f_lep_0 = this->lep_0->EvalInstance();
   int f_tau_0_n_charged_tracks = this->tau_0_n_charged_tracks->EvalInstance();
   int f_n_bjets        = this->n_bjets->EvalInstance();
@@ -178,10 +170,26 @@ double MCFakesSF::getValue() const {
   float f_lep_0_pt = this->lep_0_pt->EvalInstance();
   float f_bjet_0_pt = this->bjet_0_pt->EvalInstance();
   
+  float variable = 0.0;
+  TString param_tag = "";
+  if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("MCFakesSFParam", param_tag) ) {
+    ERRORclass("Can not get MCFakesSFParam tag");
+  }
+
+  if ( "TauPt" == param_tag ) {
+    variable = f_tau_0_pt;
+  }
+  else if ( "TauPtBjetPt" == param_tag) {
+    variable = f_tau_0_pt;
+  }
+  else {
+    variable = f_tau_0_pt;
+  } 
 
   if (0 == f_n_bjets) { return 1.0;}
+  std::tie(h_nominal,h_up,h_down)  = getFakeFactorHist();  
 
-  int binID = std::min(h_nominal->FindFixBin(f_tau_0_pt), h_nominal->GetNbinsX());
+  int binID = std::min(h_nominal->FindFixBin(variable), h_nominal->GetNbinsX());
   if (binID == 0) binID = 1;
 
   float retval = h_nominal->GetBinContent(binID);
@@ -204,20 +212,12 @@ double MCFakesSF::getValue() const {
   //}
 
   if    (
-         (fSysName.Contains("MCFakes_ElHadBtag1p_1up")  && f_lep_0==2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-         (fSysName.Contains("MCFakes_ElHadBtag3p_1up")  && f_lep_0==2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-         (fSysName.Contains("MCFakes_MuHadBtag1p_1up")  && f_lep_0==1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-         (fSysName.Contains("MCFakes_MuHadBtag3p_1up")  && f_lep_0==1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
          (fSysName.Contains("MCFakes_Btag1p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
          (fSysName.Contains("MCFakes_Btag3p_1up")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
         ) {
     retval += retval_error;
   }
   else if(
-           (fSysName.Contains("MCFakes_ElHadBtag1p_1down")  && f_lep_0==2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-           (fSysName.Contains("MCFakes_ElHadBtag3p_1down")  && f_lep_0==2 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
-           (fSysName.Contains("MCFakes_MuHadBtag1p_1down")  && f_lep_0==1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
-           (fSysName.Contains("MCFakes_MuHadBtag3p_1down")  && f_lep_0==1 && f_n_bjets>0 && f_tau_0_n_charged_tracks==3) ||
            (fSysName.Contains("MCFakes_Btag1p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==1) ||
            (fSysName.Contains("MCFakes_Btag3p_1down")  && f_n_bjets>0 && f_tau_0_n_charged_tracks==3)
           ) {

@@ -22,10 +22,10 @@ TH1F('MTTauBJet', '', 15, 0, 300) << ($(MTTauBJet) : "m_{T}(\#tau_{had-vis},b-je
 TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
 TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
 TH1F('VisibleMass'   ,'', 30, 0, 300)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
-@Cut*ID,CutST*: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass,MTTauBJet;
+@Cut*ID: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass,MTTauBJet;
 
 TH1F('TauIDScore','', 25,0,0.25) << ($(TauIDScore): "\#tau_{had-vis} ID score");
-@Cut*ID,CutST*: TauIDScore;
+@Cut*ID: TauIDScore;
 
 TH1F('LepTauDphi', '', 30, -3.15, 3.15) << ($(LepTauDphi) : "\#Delta\#phi(lep,\#tau_{had-vis})");
 TH1F('LepMETDphi', '', 30, -3.15, 3.15) << ($(LepMETDphi) : "\#Delta\#phi(lep,MET)");
@@ -34,27 +34,27 @@ TH1F('TauMETDphi', '', {0.,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.,2.2,2.4,2.6,2.
 TH1F('LepJetDphi', '', 30, -3.15, 3.15) << ($(LepJetDphi) : "\#Delta\#phi(lep,b-jet)");
 #TH1F('TauJetDphi', '', 30, -3.15, 3.15) << ($(TauJetDphi) : "\#Delta\#phi(\#tau_{had-vis},b-jet)");
 TH1F('TauJetDphi', '', {0.,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.,2.2,2.4,2.6,2.8,3.,3.15}) << (fabs($(TauJetDphi)) : "|\#Delta\#phi(\#tau_{had-vis},b-jet)|");
-@Cut*ID,CutST*: LepTauDphi,LepMETDphi,TauMETDphi,LepJetDphi,TauJetDphi;
+@Cut*ID: LepTauDphi,LepMETDphi,TauMETDphi,LepJetDphi,TauJetDphi;
 
 TH1F('LepTauDeta', '', 50, -5, 5) << ($(LepTauDeta) : "\#Delta\eta(lep,\#tau_{had-vis})");
 TH1F('LepJetDeta', '', 50, -5, 5) << ($(LepJetDeta) : "\#Delta\eta(lep,b-jet)");
 TH1F('TauJetDeta', '', 50, -5, 5) << ($(TauJetDeta) : "\#Delta\eta(\#tau_{had-vis},b-jet)");
-@Cut*ID,CutST*: LepTauDeta,LepJetDeta,TauJetDeta; 
+@Cut*ID: LepTauDeta,LepJetDeta,TauJetDeta; 
 
 TH1F('LepTauDr', '', 25, 0, 5) << ($(LepTauDr) : "\#DeltaR(lep,\#tau_{had-vis})");
 TH1F('LepJetDr', '', 25, 0, 5) << ($(LepJetDr) : "\#DeltaR(lep,b-jet)");
 TH1F('TauJetDr', '', 25, 0, 5) << ($(TauJetDr) : "\#DeltaR(\#tau_{had-vis},b-jet)");
-@Cut*ID,CutST*: LepTauDr,LepJetDr,TauJetDr; 
+@Cut*ID: LepTauDr,LepJetDr,TauJetDr; 
 
 TH1F('TauPtOverLeptonPt', '', 30, 0, 3) << (tau_0_p4.Pt()/lep_0_p4.Pt() : "p_{T} fraction(\#tau_{had-vis},lep)");
 TH1F('TauPtOverBJetPt', '', 30, 0, 3) << (tau_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} fraction(\#tau_{had-vis},b-jet)");
 TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{T} fraction(lep,b-jet)");
-@Cut*ID,CutST*: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
+@Cut*ID: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 
 TH1F('St', '', {0,50,100, 200, 300, 1000}) << ($(St) : "S_{T} [GeV]");
 TH1F('StMoreBins', '', 25, 0, 1000) << ($(St) : "S_{T} [GeV]");
 TH1F('HtMET', '', {0,50,100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 1000, 1500}) << ($(HtMET) : "H_{T} [GeV]");
-@Cut*ID,CutST*: St,HtMET,StMoreBins;
+@Cut*ID: St,HtMET,StMoreBins;
 
 # Top Fake Factors
 #TH1F('TauPtFF','', {50.,75.,100.,125.,150.,200.,300.}) << (tau_0_p4.Pt() : "\#tau_{had-vis} p_{T} [GeV]");
@@ -80,6 +80,6 @@ TH1F('TauPtBjetPt3SF', '',{50.,100.,300.}) << ([bjet_0_p4.Pt() >= 125 ? tau_0_p4
 
 
 
-@Cut*ID,CutST*: TauPtSF,TauPtSFOneBin,MTTauMETSF,MTTauBJetSF;
-@Cut*ID,CutST*: TauPtDPhi1SF,TauPtDPhi2SF,TauPtDPhi3SF;
-@Cut*ID,CutST*: TauPtBjetPt1SF,TauPtBjetPt2SF,TauPtBjetPt3SF;
+@Cut*ID: TauPtSF,TauPtSFOneBin,MTTauMETSF,MTTauBJetSF;
+@Cut*ID: TauPtDPhi1SF,TauPtDPhi2SF,TauPtDPhi3SF;
+@Cut*ID: TauPtBjetPt1SF,TauPtBjetPt2SF,TauPtBjetPt3SF;
