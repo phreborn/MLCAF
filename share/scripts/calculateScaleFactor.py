@@ -924,10 +924,15 @@ if __name__=='__main__':
         bkgPath2 = 'bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top+Diboson]'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
 
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtSF', prefix+"Btag1p", 0.15, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtSF', prefix+"Btag3p", 0.15, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtSFOneBin', prefix+"Btag1p", 0.15, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtSFOneBin', prefix+"Btag3p", 0.15, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtSF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtSF', prefix+"Btag3p", 0.12, 0.1)
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtBjetPt1SF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtBjetPt2SF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtBjetPt3SF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtBjetPt1SF', prefix+"Btag3p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtBjetPt2SF', prefix+"Btag3p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtBjetPt3SF', prefix+"Btag3p", 0.12, 0.1)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsSSR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsSSRAll*.root\033[0m")
 
