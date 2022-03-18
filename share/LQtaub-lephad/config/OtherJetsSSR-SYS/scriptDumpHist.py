@@ -55,16 +55,22 @@ if __name__ == '__main__':
   channels = ['ehad','muhad'] 
 
   variations = {
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-NOMINAL.root': None,
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-MultiJetsLFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-MCFakes.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MC.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Top_Reweight.root': 'LQtaub-lephad/auxData/variations/systematics-Top-Reweight.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_jet_p4_common.root': 'LQtaub-lephad/auxData/variations/systematics-CP-jet-p4-common.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_jet_p4_bkg.root': 'LQtaub-lephad/auxData/variations/systematics-CP-jet-p4-bkg.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_lep_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-p4.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_lep_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-weight.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_tau_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-tau-weight.txt',
-                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_other_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-other-weight.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-MultiJetsLFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-MCFakes.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MC.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Top_Reweight.root': 'LQtaub-lephad/auxData/variations/systematics-Top-Reweight.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_jet_p4_common.root': 'LQtaub-lephad/auxData/variations/systematics-CP-jet-p4-common.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_jet_p4_bkg.root': 'LQtaub-lephad/auxData/variations/systematics-CP-jet-p4-bkg.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_lep_p4.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-p4.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_lep_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-lep-weight.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_tau_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-tau-weight.txt',
+                #'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-CP_other_weight.root': 'LQtaub-lephad/auxData/variations/systematics-CP-other-weight.txt',
+                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Theory_Top_FSRup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-FSRup.txt',
+                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Theory_Top_FSRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-FSRdo.txt',
+                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Theory_Top_ISRup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-ISRup.txt',
+                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Theory_Top_ISRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-ISRdo.txt',
+                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Theory_Top_ME.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-ME.txt',
+                'samples-analyzed-LQtaub-lephad-OtherJetsSSR-FF-SYS-Theory_Top_PS.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-PS.txt',
                 }  
 
   # Get the input files

@@ -76,7 +76,8 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
     outputdir_channel = 'lephad'
   # Output file dir
   #dir_out = "dumpHist_{:s}_l{:s}/{:s}/{:s}/{:s}".format(args.version,args.coupling,sys_name,args.datasets,args.channel) 
-  dir_out = "dumpHist_{:s}_l{:s}/{:s}/{:s}/{:s}".format(args.version,args.coupling,sys_name,args.datasets,outputdir_channel) 
+  #dir_out = "dumpHist_{:s}_l{:s}/{:s}/{:s}/{:s}".format(args.version,args.coupling,sys_name,args.datasets,outputdir_channel) 
+  dir_out = "dumpHist_{:s}_l{:s}_{:s}/{:s}/{:s}/{:s}".format(args.version,args.coupling,args.sample,sys_name,args.datasets,outputdir_channel) 
   os.system('mkdir -p {:s}'.format(dir_out))
 
   # Dump hists reduce files !! channel campain region
@@ -94,7 +95,11 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
     for sys in sys_name_list:
       
       if sys_name != 'NOMINAL':
-        channel = args.channel + sys.split("ATLAS")[1]
+        channel = ''
+        if '[ehad+muhad]' not in args.channel:
+          channel = args.channel + sys.split("ATLAS")[1]
+        elif '[ehad+muhad]' in args.channel:
+          channel = '[ehad' + sys.split("ATLAS")[1] + '+' + 'muhad' + sys.split("ATLAS")[1] + ']'
         INFO(channel)
         if 'JET_JER' in sys or 'PRW_DATASF' in sys:
           sys = sys.replace("_1up", "")
@@ -105,40 +110,72 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
         else:
           dir_sys = f_out.mkdir(sys, sys)
 
-      if 'TTBar_ME' in sys:
-        #sample_dict['Top'] = "bkg/[["+args.channel+"/{1}/mcReal/Top/single]+[{0}/{1}/mcReal/Top/ttbar/ME]]"
-        sample_dict['Top'] = "bkg/{0}/{1}/mcReal/Top/[single+ttbar/ME]"
-        sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single+ttbar/ME]]]"
-      elif 'TTBar_PS' in sys:
-        #sample_dict['Top'] = "bkg/[["+args.channel+"/{1}/mcReal/Top/single]+[{0}/{1}/mcReal/Top/ttbar/PS]]"
-        sample_dict['Top'] = "bkg/{0}/{1}/mcReal/Top/[single+ttbar/PS]"
-        sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single+ttbar/PS]]]"
-      elif 'TTBar_ISR_1up' in sys:
-        #sample_dict['Top'] = "bkg/[["+args.channel+"/{1}/mcReal/Top/single]+[{0}/{1}/mcReal/Top/ttbar/ISRup]]"
-        sample_dict['Top'] = "bkg/{0}/{1}/mcReal/Top/[single+ttbar/ISRup]"
-        sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single+ttbar/ISRup]]]"
-      elif 'TTBar_ISR_1down' in sys or 'TTBar_FSR' in sys:
-        #sample_dict['Top'] = "bkg/[["+args.channel+"/{1}/mcReal/Top/single]+[{0}/{1}/mcReal/Top/ttbar/nominal]]"
-        sample_dict['Top'] = "bkg/{0}/{1}/mcReal/Top/[single+ttbar/nominal]"
-        sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single+ttbar/nominal]]]"
+      if args.sample == 'bkg':
+        if 'TTBar_ME' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/ME"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/nominal"
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/ME]]]"
+        elif 'TTBar_PS' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/PS"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/nominal"
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/PS]]]"
+        elif 'TTBar_ISR_1up' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/ISRup"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/nominal"
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/ISRup]]]"
+        elif 'TTBar_ISR_1down' in sys or 'TTBar_FSR' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/nominal"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/nominal"
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/nominal]]]"
 
-      if 'LPX' in sys:
-        sample_dict['DYZ'] = "bkg/{0}/{1}/mcReal/Zjets/[ee+mumu]" 
-        sample_dict['ZplusJets'] = "bkg/{0}/{1}/mcReal/Zjets/tautau" 
-        sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Diboson+Top/[single+ttbar/nominal]]]+[{0}/{1}/mcFakeCorrected/Zjets]]"
+        if 'STop_ME' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/nominal"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/ME"     
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/ME+ttbar/nominal]]]"
+        elif 'STop_PS' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/nominal"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/PS"     
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/PS+ttbar/nominal]]]"
+        elif 'STop_ISR' in sys or 'STop_FSR' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/nominal"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/nominal"     
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/nominal]]]"
 
+
+        if 'LPX' in sys:
+          sample_dict['DYZ'] = "bkg/{0}/{1}/mcReal/Zjets/[ee+mumu]" 
+          sample_dict['ZplusJets'] = "bkg/{0}/{1}/mcReal/Zjets/tautau" 
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Diboson+Top/[single/nominal+ttbar/nominal]]]+[{0}/{1}/mcFakeCorrected/Zjets]]"
+
+        if 'TopReweight' in sys or 'TopResi' in sys:
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/nominal]]]"
+        
         
       for sample_name, sample_path in sample_dict.items():
         if sample_name == 'data':
           sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
         else:
-          if sys_name == 'CP_jet_p4' or sys_name == 'CP_lep_p4':
+          if sys_name == 'CP_jet_p4_common' or sys_name == 'CP_lep_p4':
             if 'QCDFakes' in sample_name or 'JETSFakes' in sample_name:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
             elif 'LQ' in sample_name:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets], args.coupling)
             else:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+          if sys_name == 'CP_jet_p4_bkg':
+            if 'QCDFakes' in sample_name or 'JETSFakes' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
+            else:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets])
+          if sys_name == 'CP_jet_p4_sig':
+            if 'QCDFakes' in sample_name or 'JETSFakes' in sample_name:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
+            elif 'LQ' in sample_name:
+              sample_path = sample_path.format(channel, dataset_dict[args.datasets], args.coupling)
+            else:
+              sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
           elif sys_name == 'CP_lep_weight' or sys_name == 'CP_tau_weight' or sys_name == 'CP_other_weight':
             if 'QCDFakes' in sample_name or 'JETSFakes' in sample_name:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
@@ -160,15 +197,15 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
             else:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
-          elif sys_name == 'Top_Reweight':
-            if 'Top' in sample_name:
+          elif sys_name == 'Top_Reweight' or sys_name == 'Top_Residual':
+            if 'Top' in sample_name or 'JETSFakes' in sample_name or 'ttbar' in sample_name or 'singletop' in sample_name:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets])
             elif 'LQ' in sample_name:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
             else:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
-          elif sys_name == 'Theory_Top':
-            if 'Top' in sample_name or 'JETSFakes' in sample_name:
+          elif 'Theory_Top' in sys_name:
+            if 'Top' in sample_name or 'JETSFakes' in sample_name or 'ttbar' in sample_name or 'singletop' in sample_name:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets])
             elif 'LQ' in sample_name:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
@@ -201,6 +238,10 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
               hist_new_name += "lowbjetpt_"
             elif "High" in region_name:
               hist_new_name += "highbjetpt_"
+            if "1p" in region_name:
+              hist_new_name += "1p_"
+            elif "3p" in region_name:
+              hist_new_name += "3p_"
           elif "Bveto" in region_name:
             hist_new_name += "_0tag0jet_0ptv_"
           else:
@@ -218,6 +259,12 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
             hist_new_name += "TCR"
           if "VR" in region_name:
             hist_new_name += "VR"
+          if "FTCR" in region_name:
+            hist_new_name += "FTCR"
+          if "MultijetCR" in region_name:
+            hist_new_name += "MultijetCR"
+          if "SSCR" in region_name:
+            hist_new_name += "SSCR"
 
           hist_new_name += "_"+hist_rename
 
@@ -260,6 +307,9 @@ if __name__ == "__main__":
   parser.add_argument('coupling', metavar='COUPLING', type=str,
             default="1_0",
             help='coupling to be used')
+  parser.add_argument('sample', metavar='SAMPLES', type=str,
+            default="sig",
+            help='signals(sig) or backgrounds(bkg)')
   args = parser.parse_args()
 
   dataset_dict = {
@@ -270,60 +320,119 @@ if __name__ == "__main__":
   }
 
   ### The following Samples will be dumped
+  ## SR/VR/FTCR/SSCR
+  sample_dict = {}
+  if args.sample == 'bkg':
+    sample_dict = {
+      'data':         "data/{:s}/{:s}/",
+      'Diboson':      "bkg/{:s}/{:s}/mcReal/Diboson/", 
+      'DYZ':          "bkg/{:s}/{:s}/mcReal/Zjets/[ee+mumu]", 
+      'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
+      'WplusJets':    "bkg/{:s}/{:s}/mcReal/Wjets", 
+      'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
+      'JETSFakes':    "bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top/[single/nominal+ttbar/nominal]+Diboson]",
+      'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single/nominal+ttbar/nominal]",
+      #'ttbar':          "bkg/{:s}/{:s}/mcReal/Top/ttbar/nominal",
+      #'singletop':      "bkg/{:s}/{:s}/mcReal/Top/single/nominal",
+    }
+  elif args.sample == 'sig':
+    sample_dict = { 
+      'LQlh400':      "sig/{:s}/{:s}/LQ/M400_l{:s}/",
+      'LQlh700':      "sig/{:s}/{:s}/LQ/M700_l{:s}/",
+      'LQlh900':      "sig/{:s}/{:s}/LQ/M900_l{:s}/",
+      'LQlh1100':     "sig/{:s}/{:s}/LQ/M1100_l{:s}/",
+      'LQlh1300':     "sig/{:s}/{:s}/LQ/M1300_l{:s}/",
+      'LQlh1600':     "sig/{:s}/{:s}/LQ/M1600_l{:s}/",
+      'LQlh1900':     "sig/{:s}/{:s}/LQ/M1900_l{:s}/",
+      'LQlh2200':     "sig/{:s}/{:s}/LQ/M2200_l{:s}/",
+      'LQlh2500':     "sig/{:s}/{:s}/LQ/M2500_l{:s}/",
+    }
+  else:
+    print("Error! sig samples or bkg samples")
+    exit(1)
+  ## TCR
+  #sample_dict = {
+  #  'data':         "data/{:s}/{:s}/",
+  #  'Diboson':      "bkg/{:s}/{:s}/mcReal/Diboson/", 
+  #  'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single/nominal+ttbar/nominal]",
+  #  'DYZ':          "bkg/{:s}/{:s}/mcReal/Zjets/[ee+mumu]", 
+  #  'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
+  #  'WplusJets':    "bkg/{:s}/{:s}/mcReal/Wjets", 
+  #  'JETSFakes':   "bkg/{:s}/{:s}/mcFake/[Wjets+Zjets+Top/[single/nominal+ttbar/nominal]+Diboson]",
+  #  'LQlh900':      "sig/{:s}/{:s}/LQ/M900_l{:s}/",
+  #  'LQlh1600':     "sig/{:s}/{:s}/LQ/M1600_l{:s}/",
+  #  'LQlh2500':     "sig/{:s}/{:s}/LQ/M2500_l{:s}/",
+  #}
+  '''
   sample_dict = {
-    'data':         "data/{:s}/{:s}/",
-    'Diboson':      "bkg/{:s}/{:s}/mcReal/Diboson/", 
-    'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/nominal]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/nominal]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single+ttbar/nominal]",
-    #'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single+ttbar/ISRup]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ISRup]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single+ttbar/ISRup]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/ME]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single+ttbar/ME]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single+ttbar/PS]",
-    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single+ttbar/PS]",
-    'DYZ':          "bkg/{:s}/{:s}/mcReal/Zjets/[ee+mumu]", 
-    'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
-    'WplusJets':    "bkg/{:s}/{:s}/mcReal/Wjets", 
-    'JETSFakes':   "bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top/[single+ttbar/nominal]+Diboson]",
-    #'JETSFakes':   "bkg/{:s}/{:s}/mcFake/[Wjets+Zjets+Top/[single+ttbar/nominal]+Diboson]",
-    'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
-    'LQlh900':      "sig/{:s}/{:s}/LQ/M900_l{:s}/",
-    'LQlh1600':     "sig/{:s}/{:s}/LQ/M1600_l{:s}/",
-    'LQlh2500':     "sig/{:s}/{:s}/LQ/M2500_l{:s}/",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/nominal]",
+    #'SingleTop':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/single/nominal",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/nominal",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/ISRup",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/ISRdo",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/FSRup",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/FSRdo",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/PS",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/ME",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single/nominal+ttbar/nominal]",
+    #'SingleTop':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/single/nominal",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/ttbar/nominal",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/ttbar/ISRup",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/ttbar/ISRdo",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/ttbar/FSRup",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/ttbar/FSRdo",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/ttbar/PS",
+    #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/ttbar/ME",
+    #'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single/nominal+ttbar/ISRup]",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/ISRup]",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single/nominal+ttbar/ISRup]",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/ME]",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single/nominal+ttbar/ME]",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/nominal+ttbar/PS]",
+    #'Top':          "bkg/{:s}/{:s}/[mcReal+mcFakeCorrected]/Top/[single/nominal+ttbar/PS]",
   }
+  '''
 
   ### The following regions will be dumped
   region_dict = {
     "SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPt",
     "SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPt",
+    #"SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPtSideBand",
+    #"SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPtSideBand",
     #"SROSBtag"  :   "CutHighVisMass",
     #"VROSBtagLowBJetPt"   :   "CutVROSBtagLowBJetPt",
     #"VROSBtagHighBJetPt"  :   "CutVROSBtagHighBJetPt",
     #"VROSBtag"  :   "CutVROSBtagHighST",
     #"TCROSBtag"  :   "CutTCRPassTauID",
-    #"TFROSBtag"  :   "CutTFRPassTauID",
-    #"TVROSBtag"  :   "CutTVR1pPassTauID",
-    #"LFROSBtag"  :   "CutBtagMultiJetsLFRPassISO",
-    #"WFROSBtag"  :   "CutBtagMultiJetsWFRPassISO",
-    #"WFROSBtag"  :   "CutNoIDBtagMultiJetsWFRPassISO",
-    #"LFROSBtag"  :   "CutBtagMultiJetsWFRPassISO",
+    #"MultijetCRBtag"  :   "CutBtagMultiJetsLFRPassISO",
+    #"SSCRBtag1p"  :   "CutSS1pPassTauID",
+    #"SSCRBtag3p"  :   "CutSS3pPassTauID",
   }
 
   ### The following hists will be dumped
-  hist_dict = {
-    #"TauPtFF"     	: "TauPt",
+  #hist_dict = {
     "TauPt"     	: "TauPt",
     "LeptonPt"  	: "LeptonPt",
     "BjetPt"    	: "BjetPt",
-    #"MET"       	: "MET",
+    "BjetPtLow"    	: "BjetPtLow",
+    "BjetPtHigh"    	: "BjetPtHigh",
     "StLowBJetPt"       : "StLowBJetPt",
     "StHighBJetPt"      : "StHighBJetPt",
     "St"                : "St",
-    #"St_fineBin"        : "SumOfPt",
-    #"HtMETSF"        : "HtMET",
-    #"HtMET"        : "HtMET",
-  }
+    "St_fineBin"        : "SumOfPt",
+    #"St_lowSB_SR"        : "SumOfPt",
+    #"St_lowSB_VR"        : "SumOfPt",
+  #}
+  #hist_dict = {
+  #  "TauPtSF"     	: "TauPt",
+  #  #"TauPt"     	: "TauPt",
+  #  "LeptonPt"  	: "LeptonPt",
+  #  "BjetPt"    	: "BjetPt",
+  #  "St"                : "St",
+  #}
+
+
+
+
 
   main(args, dataset_dict, sample_dict, region_dict, hist_dict); 
