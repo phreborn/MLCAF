@@ -16,9 +16,15 @@ $printline("Applying post-initialize pool tags...");
 # -- Wjets
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Wjets;
 # -- Top
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/nominal;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/ME;
-<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/PS;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/nominal/schannel;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/nominal/tchannel;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/nominal/tW;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/ME/schannel;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/ME/tchannel;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/ME/tW;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/PS/schannel;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/PS/tchannel;
+<.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/single/PS/tW;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar/nominal;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar/ISRup;
 <.aj.pool.counters=true, .aj.pool.histograms=true> @ /bkg/?/?/Top/ttbar/ME;

@@ -132,23 +132,25 @@
 ### Top production
 ### -- single top 
 ### -- Nominal: PowhegPythia8
-410644 /bkg/$(channel)/$(campaign)/Top/single/nominal
-410645 /bkg/$(channel)/$(campaign)/Top/single/nominal
-410646 /bkg/$(channel)/$(campaign)/Top/single/nominal
-410647 /bkg/$(channel)/$(campaign)/Top/single/nominal
-410658 /bkg/$(channel)/$(campaign)/Top/single/nominal
-410659 /bkg/$(channel)/$(campaign)/Top/single/nominal
+410644 /bkg/$(channel)/$(campaign)/Top/single/nominal/schannel
+410645 /bkg/$(channel)/$(campaign)/Top/single/nominal/schannel
+410646 /bkg/$(channel)/$(campaign)/Top/single/nominal/tW
+410647 /bkg/$(channel)/$(campaign)/Top/single/nominal/tW
+410658 /bkg/$(channel)/$(campaign)/Top/single/nominal/tchannel
+410659 /bkg/$(channel)/$(campaign)/Top/single/nominal/tchannel
 ### -- Matrix Element: aMcNloPythia8
-412002 /bkg/$(channel)/$(campaign)/Top/single/ME
-412004 /bkg/$(channel)/$(campaign)/Top/single/ME
-412005 /bkg/$(channel)/$(campaign)/Top/single/ME
+412002 /bkg/$(channel)/$(campaign)/Top/single/ME/tW
+412004 /bkg/$(channel)/$(campaign)/Top/single/ME/tchannel
+412005 /bkg/$(channel)/$(campaign)/Top/single/ME/schannel
 ### -- Fragmentation/Hadronization model : PowhegHerwig7
-411032 /bkg/$(channel)/$(campaign)/Top/single/PS
-411033 /bkg/$(channel)/$(campaign)/Top/single/PS
-411034 /bkg/$(channel)/$(campaign)/Top/single/PS
-411035 /bkg/$(channel)/$(campaign)/Top/single/PS
-411036 /bkg/$(channel)/$(campaign)/Top/single/PS
-411037 /bkg/$(channel)/$(campaign)/Top/single/PS
+411032 /bkg/$(channel)/$(campaign)/Top/single/PS/tchannel
+411033 /bkg/$(channel)/$(campaign)/Top/single/PS/tchannel
+411034 /bkg/$(channel)/$(campaign)/Top/single/PS/schannel
+411035 /bkg/$(channel)/$(campaign)/Top/single/PS/schannel
+411036 /bkg/$(channel)/$(campaign)/Top/single/PS/tW
+411037 /bkg/$(channel)/$(campaign)/Top/single/PS/tW
+### -- Single Top Interference (tW channel)
+
 
 ### -- pair production 
 ### -- Nominal: PowhegPythia8

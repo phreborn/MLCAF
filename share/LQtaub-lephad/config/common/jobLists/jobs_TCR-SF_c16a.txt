@@ -8,13 +8,17 @@
 /bkg/?/c16a/MultiJetsFake/mc/Wjets
 
 ##### mc bkg #####
-/bkg/?/c16a/mcReal/Top/single/nominal
+/bkg/?/c16a/mcReal/Top/single/nominal/tW
+/bkg/?/c16a/mcReal/Top/single/nominal/schannel
+/bkg/?/c16a/mcReal/Top/single/nominal/tchannel
 /bkg/?/c16a/mcReal/Top/ttbar/nominal
 /bkg/?/c16a/mcReal/Zjets
 /bkg/?/c16a/mcReal/Diboson
 /bkg/?/c16a/mcReal/Wjets
 
-/bkg/?/c16a/mcFake/Top/single/nominal
+/bkg/?/c16a/mcFake/Top/single/nominal/tW
+/bkg/?/c16a/mcFake/Top/single/nominal/schannel
+/bkg/?/c16a/mcFake/Top/single/nominal/tchannel
 /bkg/?/c16a/mcFake/Top/ttbar/nominal
 /bkg/?/c16a/mcFake/Zjets
 /bkg/?/c16a/mcFake/Diboson
