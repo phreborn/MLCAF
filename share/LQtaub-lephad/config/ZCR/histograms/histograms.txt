@@ -22,7 +22,7 @@ TH1F('MTLepMET', '', 30, 0, 300) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]"
 TH1F('MTTauMET', '', 30, 0, 300) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis},MET) [GeV]");
 TH1F('JetCount','', 10,0,10) << (n_jets : "N_{jets}");
 TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
-TH1F('VisibleMass'   ,'', 30, 0, 300)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
+TH1F('VisibleMass'   ,'', 30, 40, 100)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
 @CutZVisMass: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass,BjetPtHigh,BjetPtLow;
 
 TH1F('TauIDScore','', 25,0,0.25) << ($(TauIDScore): "\#tau_{had-vis} ID score");

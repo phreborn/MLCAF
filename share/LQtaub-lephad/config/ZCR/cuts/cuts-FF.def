@@ -58,14 +58,18 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     +CutZMTLepMET {
         <.cutExpression="lephad_mt_lep0_met < 50",.title="ZMTLepMET">
        
-        +CutZLowDPhi {
-            <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="ZLowDPhi">
+        +CutZLepTauDPhi {
+            <.cutExpression="lephad_dphi > 2.4", .title="ZLepTauDPhi">
      
-            +CutZHighST {
-                <.cutExpression="$(St) > 300", .title="ZHighST">
+            +CutZLeptonPtBjetPt {
+                <.cutExpression="(lep_0_p4.Pt()/bjet_0_p4.Pt()) > 0.8", .title="ZLeptonPtBjetPt">
+
+                +CutZLowST {
+                    <.cutExpression="$(St) < 300", .title="ZLowST">
                
-                +CutZVisMass {
-                    <.cutExpression="lephad_p4.M() >=45 && lephad_p4.M() < 90",.title="ZVisMassWindow">
+                    +CutZVisMass {
+                        <.cutExpression="lephad_p4.M() >=45 && lephad_p4.M() < 90",.title="ZVisMassWindow">
+                    }
                 }
             }
         }
