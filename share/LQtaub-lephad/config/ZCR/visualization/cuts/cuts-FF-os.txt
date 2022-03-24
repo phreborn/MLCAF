@@ -12,10 +12,6 @@
 .name="||"
 .name=CutTruth
 .name="|"
-.name=CutLeptonBasic
-.name="|"
-.name=CutTauBasic
-.name="|"
 .name=CutLeptonISO
 .name="|"
 .name=CutTauID
@@ -27,3 +23,9 @@
 
 .name="||"
 .name=CutZVisMass
+.name=CutZLeptonPtBjetPt
+.name=CutZLepTauDPhi
+.name="||"
+.name=CutST
+.name=CutZVRLowBJetPt
+.name=CutZVRHighBJetPt
