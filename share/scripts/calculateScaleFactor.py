@@ -168,10 +168,12 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
 
     # up variation
     temp_up =histoObs_up.Clone()
-    temp_up.Divide(histoExp_down)
+    #temp_up.Divide(histoExp_down)
+    temp_up.Divide(histoExp_up)
     # down variation
     temp_down =histoObs_down.Clone()
-    temp_down.Divide(histoExp_up)
+    #temp_down.Divide(histoExp_up)
+    temp_down.Divide(histoExp_down)
 
     # difference
     temp_up.Add(SF_nom,-1)
@@ -353,8 +355,8 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
   elif region == 'OtherJetsSSR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsSSR-FF.root'
-  elif region == 'VR':
-    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
+  elif region == 'ZCR':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-ZCR-FF-NOMINAL.root'
 
   #get the sample folder:
   samples = TQSampleFolder.loadLazySampleFolder(sFile+':samples')
@@ -966,7 +968,7 @@ if __name__=='__main__':
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsSSR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsSSRAll*.root\033[0m")
 
-  elif region == 'VR':
+  elif region == 'ZCR':
     # Loop over data taking period and channels
     periods = {
                 #'1516': 'c16a',
@@ -985,13 +987,10 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFake]/[Zjets+Wjets+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
-        #bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFakeCorrected]/[Top+Wjets+Diboson]+mcFakeCorrected/Zjets+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/mcReal/Zjets'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVROSBtagHighST', 'StSF', prefix+"Btag", 0.1, 0.1) 
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVROSBtagLowBJetPt', 'StSF', prefix+"Btag", 0.1, 0.1)
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutVROSBtagHighBJetPt', 'StSF', prefix+"Btag", 0.1, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutZVisMass', 'VisibleMassOneBin', prefix+"Btag", 0.1, 0.1) 
         
-    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopExtrap_SF.root "+analysis+"/auxData/ScaleFactors/VRAll*.root\033[0m")
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/Zjets_SF.root "+analysis+"/auxData/ScaleFactors/ZCRAll*.root\033[0m")

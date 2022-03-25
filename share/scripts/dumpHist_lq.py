@@ -335,7 +335,6 @@ if __name__ == "__main__":
       'WplusJets':    "bkg/{:s}/{:s}/mcReal/Wjets", 
       'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
       'JETSFakes':    "bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top/[single/nominal+ttbar/nominal]+Diboson]",
-#      'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single/nominal+ttbar/nominal]",
       'ttbar':          "bkg/{:s}/{:s}/mcReal/Top/ttbar/nominal",
       'singletop':      "bkg/{:s}/{:s}/mcReal/Top/single/nominal",
     }
@@ -399,18 +398,21 @@ if __name__ == "__main__":
 
   ### The following regions will be dumped
   region_dict = {
-    "SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPt",
-    "SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPt",
+    #"SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPt",
+    #"SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPt",
     #"SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPtSideBand",
     #"SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPtSideBand",
     #"SROSBtag"  :   "CutHighVisMass",
-    #"VROSBtagLowBJetPt"   :   "CutVROSBtagLowBJetPt",
-    #"VROSBtagHighBJetPt"  :   "CutVROSBtagHighBJetPt",
+    "VROSBtagLowBJetPt"   :   "CutVROSBtagLowBJetPt",
+    "VROSBtagHighBJetPt"  :   "CutVROSBtagHighBJetPt",
     #"VROSBtag"  :   "CutVROSBtagHighST",
     #"TCROSBtag"  :   "CutTCRPassTauID",
     #"MultijetCRBtag"  :   "CutBtagMultiJetsLFRPassISO",
     #"SSCRBtag1p"  :   "CutSS1pPassTauID",
     #"SSCRBtag3p"  :   "CutSS3pPassTauID",
+    #"ZCROSBtag"  :   "CutZLepTauDPhi",
+    #"ZVROSBtagLowBJetPt"  :   "CutZVRLowBJetPt",
+    #"ZVROSBtagHighBJetPt"  :   "CutZVRHighBJetPt",
   }
 
   ### The following hists will be dumped
@@ -423,9 +425,10 @@ if __name__ == "__main__":
     "StLowBJetPt"       : "StLowBJetPt",
     "StHighBJetPt"      : "StHighBJetPt",
     "St"                : "St",
-    "St_fineBin"        : "SumOfPt",
+    #"St_fineBin"        : "SumOfPt",
     #"St_lowSB_SR"        : "SumOfPt",
-    #"St_lowSB_VR"        : "SumOfPt",
+    "St_lowSB_VR"        : "SumOfPt",
+
   }
   #hist_dict = {
   #  "TauPtSF"     	: "TauPt",
@@ -433,6 +436,9 @@ if __name__ == "__main__":
   #  "LeptonPt"  	: "LeptonPt",
   #  "BjetPt"    	: "BjetPt",
   #  "St"                : "St",
+  #}
+  #hist_dict = {
+  #  "VisibleMassOneBin"                : "VisibleMass",
   #}
 
 

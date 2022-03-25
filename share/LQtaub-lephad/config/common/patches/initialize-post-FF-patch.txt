@@ -3,6 +3,30 @@
 $printline("Including fake folders");
 
 # split the MC samples
+# -- split Zjets samples
+$create(path="/bkg/?/?/Z2bbbcccjets", type="sf");
+$create(path="/bkg/?/?/Z1bjets", type="sf");
+$create(path="/bkg/?/?/Z1cjets", type="sf");
+$create(path="/bkg/?/?/Z1ljets", type="sf");
+@ /bkg/?/? {
+    $copy("Zjets >> Z2bbbcccjets");
+    $copy("Zjets >> Z1bjets");
+    $copy("Zjets >> Z1cjets");
+    $copy("Zjets >> Z1ljets");
+}
+
+<isZ2BJET=false> @ /.;
+<isZ2BJET=true> @ /bkg/?/?/Z2bbbcccjets;
+
+<isZ1BJET=false> @ /.;
+<isZ1BJET=true> @ /bkg/?/?/Z1bjets;
+
+<isZ1CJET=false> @ /.;
+<isZ1CJET=true> @ /bkg/?/?/Z1cjets;
+
+<isZ1LJET=false> @ /.;
+<isZ1LJET=true> @ /bkg/?/?/Z1ljets;
+
 # -- mc real tau or prompt lepton
 $create(path="/bkg/?/?/mcReal", type="sf");
 $create(path="/bkg/?/?/mcFake", type="sf");
@@ -10,6 +34,10 @@ $create(path="/bkg/?/?/mcFakeCorrected", type="sf");
 @ /bkg/?/? {
     $move("Diboson >> mcReal");
     $move("Zjets >> mcReal");
+    $move("Z2bbbcccjets >> mcReal");
+    $move("Z1bjets >> mcReal");
+    $move("Z1cjets >> mcReal");
+    $move("Z1ljets >> mcReal");
     $move("Wjets >> mcReal");
     $move("Top >> mcReal");
 }
@@ -18,6 +46,10 @@ $create(path="/bkg/?/?/mcFakeCorrected", type="sf");
 @ /bkg/?/? {
     $copy("mcReal/Diboson >> mcFake");
     $copy("mcReal/Zjets >> mcFake");
+    $copy("mcReal/Z2bbbcccjets >> mcFake");
+    $copy("mcReal/Z1bjets >> mcFake");
+    $copy("mcReal/Z1cjets >> mcFake");
+    $copy("mcReal/Z1ljets >> mcFake");
     $copy("mcReal/Wjets >> mcFake");
     $copy("mcReal/Top >> mcFake");
 }
@@ -26,6 +58,10 @@ $create(path="/bkg/?/?/mcFakeCorrected", type="sf");
 @ /bkg/?/? {
     $copy("mcReal/Diboson >> mcFakeCorrected");
     $copy("mcReal/Zjets >> mcFakeCorrected");
+    $copy("mcReal/Z2bbbcccjets >> mcFakeCorrected");
+    $copy("mcReal/Z1bjets >> mcFakeCorrected");
+    $copy("mcReal/Z1cjets >> mcFakeCorrected");
+    $copy("mcReal/Z1ljets >> mcFakeCorrected");
     $copy("mcReal/Wjets >> mcFakeCorrected");
     $copy("mcReal/Top >> mcFakeCorrected");
 }

@@ -12,25 +12,16 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
          ($(isJet) && [TruthTauSelector] == -30)}",
          .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
 
-        +CutLeptonBasic {
-            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
-        
-            +CutTauBasic {
-                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
-                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
-               
-                +CutLeptonISO {
-                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+        +CutLeptonISO {
+            <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+             .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
 
-                    +CutTauID {
-                        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-                        .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="PassTauID">
+            +CutTauID {
+                <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+                 .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="PassTauID">
 
-                    } #End: CutTauID
-                } #End: CutLeptonISO
-            } #End: CutTauBasic
-        } #End: CutLeptonBasic
+            } #End: CutTauID
+        } #End: CutLeptonISO
     } #End: CutTruth
 } #End: CutMaterialCorrection
         
@@ -55,26 +46,77 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 } #End: CutOS
 
 @ */CutOSBtag {
+    +CutZCR {
+        <.cutExpression="1",.title="ZCR">
+
+        +CutLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+            +CutTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+            }
+        }
+    }
+    +CutZVR {
+        <.cutExpression="1",.title="ZVR">
+
+        +CutLeptonHadHad {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton cut for hadhad">
+        
+            +CutTauHadHad {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau cut for HadHad">
+            }
+        }
+    }
+}   
+
+@ */CutTauBasic {
     +CutZMTLepMET {
         <.cutExpression="lephad_mt_lep0_met < 50",.title="ZMTLepMET">
        
-        +CutZLepTauDPhi {
-            <.cutExpression="lephad_dphi > 2.4", .title="ZLepTauDPhi">
-     
+        +CutZVisMass {
+            <.cutExpression="lephad_p4.M() >=45 && lephad_p4.M() < 80",.title="ZVisMassWindow">
+
             +CutZLeptonPtBjetPt {
                 <.cutExpression="(lep_0_p4.Pt()/bjet_0_p4.Pt()) > 0.8", .title="ZLeptonPtBjetPt">
-
-                +CutZLowST {
-                    <.cutExpression="$(St) < 300", .title="ZLowST">
-               
-                    +CutZVisMass {
-                        <.cutExpression="lephad_p4.M() >=45 && lephad_p4.M() < 90",.title="ZVisMassWindow">
-                    }
+        
+                +CutZLepTauDPhi {
+                    <.cutExpression="lephad_dphi > 2.4", .title="ZLepTauDPhi">
                 }
             }
         }
     }
-} 
+}
+
+@ */CutZVR {
+    +CutLeptonHadHad {
+        <.cutExpression="lep_0_p4.Pt() > 65 && lep_0_id_medium ==1", .title = "Lepton cut for hadhad">
+        
+        +CutTauHadHad {
+            <.cutExpression="tau_0_p4.Pt() > 85 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau cut for HadHad">
+
+            +CutVisMass {
+                <.cutExpression="lephad_p4.M() > 100",.title="VisMass">
+
+                +CutST {
+                    <.cutExpression="$(St) > 300", .title="ST">
+  
+                    +CutZVRLowBJetPt {
+                        <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="ZVRLowBJetPt">
+                    }
+
+                    +CutZVRHighBJetPt {
+                        <.cutExpression="bjet_0_p4.Pt() > 200",.title="ZVRHighBJetPt">
+                    }
+                }
+            }
+        }
+    }   
+}
+
 
 
 $replace("*/CutOS/*:.name,.title", CHARGE="OS");

@@ -1,0 +1,7 @@
+# ------------------------------ c16d ------------------------------ #
+##### mc bkg #####
+/bkg/?/c16d/mcReal/Zjets
+#/bkg/?/c16d/mcReal/Z2bbbcccjets
+#/bkg/?/c16d/mcReal/Z1bjets
+#/bkg/?/c16d/mcReal/Z1cjets
+#/bkg/?/c16d/mcReal/Z1ljets
