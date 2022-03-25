@@ -63,6 +63,7 @@ LPXKfactor::LPXKfactor(const TString& expression): LepHadObservable(expression) 
   lpx_kfactor_sys |= lpx_kfactor_PDF_epWZ16_down;
   Condition lpx_kfactor_PDF_epWZ16_up = registerVariation("LPX_KFACTOR_PDF_epWZ16_Corr_1up");
   lpx_kfactor_sys |= lpx_kfactor_PDF_epWZ16_up;
+  /*
   Condition lpx_kfactor_PDF_EV1 = registerVariation("LPX_KFACTOR_PDF_EV1_Corr");
   lpx_kfactor_sys |= lpx_kfactor_PDF_EV1;
   Condition lpx_kfactor_PDF_EV2 = registerVariation("LPX_KFACTOR_PDF_EV2_Corr");
@@ -77,7 +78,8 @@ LPXKfactor::LPXKfactor(const TString& expression): LepHadObservable(expression) 
   lpx_kfactor_sys |= lpx_kfactor_PDF_EV6;
   Condition lpx_kfactor_PDF_EV7 = registerVariation("LPX_KFACTOR_PDF_EV7_Corr");
   lpx_kfactor_sys |= lpx_kfactor_PDF_EV7;
-  
+  */  
+
   // --- SCALE
   Condition lpx_kfactor_SCALE_W_down = registerVariation("LPX_KFACTOR_SCALE_W_Corr_1down");
   lpx_kfactor_sys |= lpx_kfactor_SCALE_W_down;
@@ -112,13 +114,13 @@ LPXKfactor::LPXKfactor(const TString& expression): LepHadObservable(expression) 
   addScaleFactor(lpx_kfactor_PDF_EW_up, "LPX_KFACTOR_PDF_EW_1up_lpx_kfactor");
   addScaleFactor(lpx_kfactor_PDF_epWZ16_down, "LPX_KFACTOR_PDF_epWZ16_1down_lpx_kfactor");
   addScaleFactor(lpx_kfactor_PDF_epWZ16_up, "LPX_KFACTOR_PDF_epWZ16_1up_lpx_kfactor");
-  addScaleFactor(lpx_kfactor_PDF_EV1, "LPX_KFACTOR_PDF_EV1_lpx_kfactor");
-  addScaleFactor(lpx_kfactor_PDF_EV2, "LPX_KFACTOR_PDF_EV2_lpx_kfactor");
-  addScaleFactor(lpx_kfactor_PDF_EV3, "LPX_KFACTOR_PDF_EV3_lpx_kfactor");
-  addScaleFactor(lpx_kfactor_PDF_EV4, "LPX_KFACTOR_PDF_EV4_lpx_kfactor");
-  addScaleFactor(lpx_kfactor_PDF_EV5, "LPX_KFACTOR_PDF_EV5_lpx_kfactor");
-  addScaleFactor(lpx_kfactor_PDF_EV6, "LPX_KFACTOR_PDF_EV6_lpx_kfactor");
-  addScaleFactor(lpx_kfactor_PDF_EV7, "LPX_KFACTOR_PDF_EV7_lpx_kfactor");
+  //addScaleFactor(lpx_kfactor_PDF_EV1, "LPX_KFACTOR_PDF_EV1_lpx_kfactor");
+  //addScaleFactor(lpx_kfactor_PDF_EV2, "LPX_KFACTOR_PDF_EV2_lpx_kfactor");
+  //addScaleFactor(lpx_kfactor_PDF_EV3, "LPX_KFACTOR_PDF_EV3_lpx_kfactor");
+  //addScaleFactor(lpx_kfactor_PDF_EV4, "LPX_KFACTOR_PDF_EV4_lpx_kfactor");
+  //addScaleFactor(lpx_kfactor_PDF_EV5, "LPX_KFACTOR_PDF_EV5_lpx_kfactor");
+  //addScaleFactor(lpx_kfactor_PDF_EV6, "LPX_KFACTOR_PDF_EV6_lpx_kfactor");
+  //addScaleFactor(lpx_kfactor_PDF_EV7, "LPX_KFACTOR_PDF_EV7_lpx_kfactor");
   addScaleFactor(lpx_kfactor_SCALE_W_down, "LPX_KFACTOR_SCALE_W_1down_lpx_kfactor");
   addScaleFactor(lpx_kfactor_SCALE_W_up, "LPX_KFACTOR_SCALE_W_1up_lpx_kfactor");
   addScaleFactor(lpx_kfactor_SCALE_Z_down, "LPX_KFACTOR_SCALE_Z_1down_lpx_kfactor");

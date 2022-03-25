@@ -11,10 +11,3 @@ LPX_KFACTOR_CHOICE_HERAPDF20_Corr                      weight      one
 LPX_KFACTOR_CHOICE_NNPDF30_Corr                        weight      one                   
 LPX_KFACTOR_CHOICE_epWZ16_Corr                         weight      one                               
 LPX_KFACTOR_REDCHOICE_NNPDF30_Corr                     weight      one                   
-LPX_KFACTOR_PDF_EV1_Corr                               weight      one                   
-LPX_KFACTOR_PDF_EV2_Corr                               weight      one                   
-LPX_KFACTOR_PDF_EV3_Corr                               weight      one                   
-LPX_KFACTOR_PDF_EV4_Corr                               weight      one                   
-LPX_KFACTOR_PDF_EV5_Corr                               weight      one                   
-LPX_KFACTOR_PDF_EV6_Corr                               weight      one                   
-LPX_KFACTOR_PDF_EV7_Corr                               weight      one                   
