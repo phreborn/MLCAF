@@ -66,6 +66,8 @@ if __name__ == '__main__':
     region = 'OtherJetsSSR-SYS'
   elif args.region == 'MultiJetsLFR':
     region = 'MultiJetsLFR-SYS'
+  elif args.region == 'ZCR':
+    region = 'ZCR-SYS'
 
   if not os.path.exists('mergeWorkloadTemp'): 
     os.system('mkdir -pv ./mergeWorkloadTemp')
