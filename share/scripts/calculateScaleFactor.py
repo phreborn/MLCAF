@@ -168,10 +168,12 @@ def calcScaleFactor(datapath, bkgpath1, bkgpath2, cut, histogram, prefix, mcVar1
 
     # up variation
     temp_up =histoObs_up.Clone()
-    temp_up.Divide(histoExp_down)
+    #temp_up.Divide(histoExp_down)
+    temp_up.Divide(histoExp_up)
     # down variation
     temp_down =histoObs_down.Clone()
-    temp_down.Divide(histoExp_up)
+    #temp_down.Divide(histoExp_up)
+    temp_down.Divide(histoExp_down)
 
     # difference
     temp_up.Add(SF_nom,-1)
