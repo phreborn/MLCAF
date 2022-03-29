@@ -7,7 +7,7 @@ def getData():
         print('\33[96mLinking {0} samples\033[0m'.format(year))
         
         # loop through the DIDS and get replica directory on EOS
-        for DID in rucioClient.list_dids(scope=scope, filters={'name':scope+'.BSMDITAU.'+year+'*'+release+'*_BS'}, type='container'):
+        for DID in rucioClient.list_dids(scope=scope, filters={'name':scope+'.BSMDITAU.'+year+'*'+release+'*_BS', 'type':'container'}):
 	    os.system("mkdir -p {0}{1}/data/{2}/{3}".format(path, release, year, DID))
 	    replicas = list(rucioClient.list_replicas([{'scope':scope, 'name':DID}]))
 	    for f in replicas:
@@ -30,7 +30,7 @@ def getMC():
         for i,campaign in enumerate(['9364', '10201', '10724']):
             print('\33[96mLinking {0} {1} samples\033[0m'.format(mc_campaigns[i], type))
             
-            for DID in rucioClient.list_dids(scope=scope, filters={'name':scope+'.BSMDITAU*'+campaign+'*'+release+ver+'*_BS'}, type='container'):	
+            for DID in rucioClient.list_dids(scope=scope, filters={'name':scope+'.BSMDITAU*'+campaign+'*'+release+ver+'*_BS', 'type':'container'}):	
                 os.system("mkdir -p {0}{1}/mc/{2}/{3}/{4}".format(path, release, mc_campaigns[i],type, DID))
 	        replicas = list(rucioClient.list_replicas([{'scope':scope, 'name':DID}]))
                 for f in replicas:
