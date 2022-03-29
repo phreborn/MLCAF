@@ -55,6 +55,7 @@ if __name__ == '__main__':
   channels = ['[ehad+muhad]'] 
 
   variations = {
+                'samples-analyzed-LQtaub-lephad-ZCR-FF-SYS-NOMINAL.root': None,
                 'samples-analyzed-LQtaub-lephad-ZCR-FF-SYS-Theory_Zjets.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Zjets.txt',
                 }  
 
