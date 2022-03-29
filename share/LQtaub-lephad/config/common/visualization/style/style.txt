@@ -13,6 +13,10 @@
 <style.default.title="W+jets",                  style.default.histFillColor=kRed-4   > @ /bkg/?/?/mcReal/Wjets;
 <style.default.title="Z+jets",                  style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal/Zjets;
 <style.default.title="Z($\tau\tau$)+jets",      style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal/Zjets/tautau;
+<style.default.title="Z($\tau\tau$)+(bb,bc,cc)",      style.default.histFillColor=kBlue-6  > @ /bkg/?/?/mcReal/Zjets/2bbbcccjets;
+<style.default.title="Z($\tau\tau$)+(b,bl)",      style.default.histFillColor=kBlue-4  > @ /bkg/?/?/mcReal/Zjets/1bjets;
+<style.default.title="Z($\tau\tau$)+(c.cl)",      style.default.histFillColor=kBlue-8  > @ /bkg/?/?/mcReal/Zjets/1cjets;
+<style.default.title="Z($\tau\tau$)+(l,ll)",      style.default.histFillColor=kBlue-9  > @ /bkg/?/?/mcReal/Zjets/1ljets;
 <style.default.title="Z(ee/$\mu\mu$)+jets",     style.default.histFillColor=kGreen-4 > @ /bkg/?/?/mcReal/Zjets/ll;
 <style.default.title="Top",                     style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcReal/Top;
 <style.default.title="ttbar",                   style.default.histFillColor=kYellow-4> @ /bkg/?/?/mcReal/Top/ttbar/nominal;

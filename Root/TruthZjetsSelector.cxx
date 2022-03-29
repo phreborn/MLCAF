@@ -37,6 +37,7 @@ TObjArray* TruthZjetsSelector::getBranchNames() const {
 double TruthZjetsSelector::getValue() const {
 
   if (isData()) return 1.0;
+  if ( !isZ2BJET() && !isZ1BJET() && !isZ1CJET() && !isZ1LJET() ) return 1.0;
 
   double retval = -9999;
 

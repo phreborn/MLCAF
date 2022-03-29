@@ -40,6 +40,10 @@ public:
   bool isElectron() const;
   bool isTTBar() const;
   bool isSTop() const;
+  bool isZ2BJET() const;
+  bool isZ1BJET() const;
+  bool isZ1CJET() const;
+  bool isZ1LJET() const;
   bool isTauID() const;
   bool isLepISO() const;
 
@@ -64,6 +68,10 @@ protected:
   bool m_isMC = false;
   bool m_isTTBar = false;
   bool m_isSTop = false;
+  bool m_isZ2BJET = false;
+  bool m_isZ1BJET = false;
+  bool m_isZ1CJET = false;
+  bool m_isZ1LJET = false;
 
   bool m_verbose = false;
 

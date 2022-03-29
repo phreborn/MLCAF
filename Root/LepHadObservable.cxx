@@ -158,7 +158,22 @@ bool LepHadObservable::isTTBar() const {
 bool LepHadObservable::isSTop() const {
   return m_isSTop;
 }
-
+//______________________________________________________________________________________________
+bool LepHadObservable::isZ2BJET() const {
+  return m_isZ2BJET;
+}
+//______________________________________________________________________________________________
+bool LepHadObservable::isZ1BJET() const {
+  return m_isZ1BJET;
+}
+//______________________________________________________________________________________________
+bool LepHadObservable::isZ1CJET() const {
+  return m_isZ1CJET;
+}
+//______________________________________________________________________________________________
+bool LepHadObservable::isZ1LJET() const {
+  return m_isZ1LJET;
+}
 
 unsigned int LepHadObservable::bjetCount() const {
   return n_bjets->EvalInstance();
@@ -212,6 +227,26 @@ bool LepHadObservable::initializeSelf(){
   
   if (!this->fSample->getTag("~isSTop", m_isSTop)) {
     ERROR("tag isSTop missing");
+    return false;
+  }
+
+  if (!this->fSample->getTag("~isZ2BJET", m_isZ2BJET)) {
+    ERROR("tag isZ2BJET missing");
+    return false;
+  }
+
+  if (!this->fSample->getTag("~isZ1BJET", m_isZ1BJET)) {
+    ERROR("tag isZ1BJET missing");
+    return false;
+  }
+
+  if (!this->fSample->getTag("~isZ1CJET", m_isZ1CJET)) {
+    ERROR("tag isZ1CJET missing");
+    return false;
+  }
+
+  if (!this->fSample->getTag("~isZ1LJET", m_isZ1LJET)) {
+    ERROR("tag isZ1LJET missing");
     return false;
   }
   
