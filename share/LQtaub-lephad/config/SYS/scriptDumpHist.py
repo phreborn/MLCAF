@@ -79,6 +79,7 @@ if __name__ == '__main__':
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopISRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopISRdo.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopFSRup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopFSRup.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopFSRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopFSRdo.txt',
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopWTInt.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopWTInt.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Zjets.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Zjets.txt',
                 }  
 

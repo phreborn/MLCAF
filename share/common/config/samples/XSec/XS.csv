@@ -173,6 +173,8 @@ SampleID, process,                                                      xsection
 411035,   PhHerwig7EG_H7UE_singletop_schan_lept_antitop,                1.2687,       1.0000E+00, 1.0157,        0.0,      0.0,        Powheg+Herwig7(v7.0.4)+EvtGen(v1.6.0),                       e6734
 411036,   PowhegHerwig7EvtGen_H7UE_Wt_DR_inclusive_top,                 37.957,       1.0000E+00, 0.9445,        0.0,      0.0,        Powheg+Herwig7(v7.0.4)+EvtGen(v1.6.0),                       e6702
 411037,   PowhegHerwig7EvtGen_H7UE_Wt_DR_inclusive_antitop,             37.927,       1.0000E+00, 0.9452,        0.0,      0.0,        Powheg+Herwig7(v7.0.4)+EvtGen(v1.6.0),                       e6702
+410655,   PowhegPythia8EvtGen_A14_Wt_DS_inclusive_antitop,              37.536,       1.0000E+00, 0.9523,        0.0,      0.0,        Powheg+Pythia8.230+EvtGen,                                   e6552
+410654,   PowhegPythia8EvtGen_A14_Wt_DS_inclusive_top,                  36.785,       1.0000E+00, 0.9711,        0.0,      0.0,        Powheg+Pythia8.230+EvtGen,                                   e6552
 500299,   MGPy8EG_S1TbLQtau_M200_l0_3,                                  0.30551,      1.0000E+00, 1.0,           0.0,      0.0,        MadGraph(v.2.6.7p3.atlas5)+Pythia8(v.240p3)+EvtGen(v.1.7.0), e8041
 500300,   MGPy8EG_S1TbLQtau_M300_l0_3,                                  0.054261,     1.0000E+00, 1.0,           0.0,      0.0,        NULL,                                                        e8041
 500301,   MGPy8EG_S1TbLQtau_M500_l0_3,                                  0.0047809,    1.0000E+00, 1.0,           0.0,      0.0,        MadGraph(v.2.6.7p3.atlas5)+Pythia8(v.240p3)+EvtGen(v.1.7.0), e8041

@@ -150,7 +150,8 @@
 411036 /bkg/$(channel)/$(campaign)/Top/single/PS/tW
 411037 /bkg/$(channel)/$(campaign)/Top/single/PS/tW
 ### -- Single Top Interference (tW channel)
-
+410655 /bkg/$(channel)/$(campaign)/Top/single/WTInt/tW
+410654 /bkg/$(channel)/$(campaign)/Top/single/WTInt/tW
 
 ### -- pair production 
 ### -- Nominal: PowhegPythia8
