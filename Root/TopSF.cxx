@@ -280,6 +280,9 @@ double TopSF::getValue() const {
   else if( fSysName.Contains("STop_FSR_1down") && f_n_bjets>0 ) {
     retval = -3.92e-04 * st + 1.00;
   }
+  else if( fSysName.Contains("STop_WTInt") && f_n_bjets>0 ) {
+    retval = -3.06e-4 * st + 0.99;
+  }
      
      
 

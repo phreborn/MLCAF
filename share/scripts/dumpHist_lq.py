@@ -140,6 +140,10 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
           sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/nominal"
           sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/nominal"     
           sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/nominal]]]"
+        elif 'STop_WTInt' in sys:
+          sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/nominal"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/[WTInt+nominal]"
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/WTInt+single/nominal+ttbar/nominal]]]"
 
 
         if 'LPX' in sys:
@@ -205,6 +209,7 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
             else:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
           elif 'Theory_Top' in sys_name:
+            
             if 'Top' in sample_name or 'JETSFakes' in sample_name or 'ttbar' in sample_name or 'singletop' in sample_name:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets])
             elif 'LQ' in sample_name:
@@ -331,7 +336,6 @@ if __name__ == "__main__":
       'WplusJets':    "bkg/{:s}/{:s}/mcReal/Wjets", 
       'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
       'JETSFakes':    "bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top/[single/nominal+ttbar/nominal]+Diboson]",
-      #'Top':          "bkg/{:s}/{:s}/mcReal/Top/[single/nominal+ttbar/nominal]",
       'ttbar':          "bkg/{:s}/{:s}/mcReal/Top/ttbar/nominal",
       'singletop':      "bkg/{:s}/{:s}/mcReal/Top/single/nominal",
     }
@@ -395,13 +399,13 @@ if __name__ == "__main__":
 
   ### The following regions will be dumped
   region_dict = {
-    #"SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPt",
-    #"SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPt",
+    "SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPt",
+    "SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPt",
     #"SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPtSideBand",
     #"SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPtSideBand",
     #"SROSBtag"  :   "CutHighVisMass",
-    "VROSBtagLowBJetPt"   :   "CutVROSBtagLowBJetPt",
-    "VROSBtagHighBJetPt"  :   "CutVROSBtagHighBJetPt",
+    #"VROSBtagLowBJetPt"   :   "CutVROSBtagLowBJetPt",
+    #"VROSBtagHighBJetPt"  :   "CutVROSBtagHighBJetPt",
     #"VROSBtag"  :   "CutVROSBtagHighST",
     #"TCROSBtag"  :   "CutTCRPassTauID",
     #"MultijetCRBtag"  :   "CutBtagMultiJetsLFRPassISO",
@@ -424,7 +428,8 @@ if __name__ == "__main__":
     "St"                : "St",
     #"St_fineBin"        : "SumOfPt",
     #"St_lowSB_SR"        : "SumOfPt",
-    "St_lowSB_VR"        : "SumOfPt",
+    #"St_lowSB_VR"        : "SumOfPt",
+
   }
   #hist_dict = {
   #  "TauPtSF"     	: "TauPt",

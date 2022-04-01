@@ -1,0 +1,11 @@
+# ------------------------------ c16d ------------------------------ #
+##### mc bkg #####
+/bkg/?/c16d/mcReal/Top/single/WTInt
+/bkg/?/c16d/mcReal/Top/single/nominal/schannel
+/bkg/?/c16d/mcReal/Top/single/nominal/tchannel
+/bkg/?/c16d/mcReal/Top/ttbar/nominal
+
+/bkg/?/c16d/mcFakeCorrected/Top/single/WTInt
+/bkg/?/c16d/mcFakeCorrected/Top/single/nominal/schannel
+/bkg/?/c16d/mcFakeCorrected/Top/single/nominal/tchannel
+/bkg/?/c16d/mcFakeCorrected/Top/ttbar/nominal

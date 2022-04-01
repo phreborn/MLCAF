@@ -347,6 +347,8 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopFSRup-SF.root'
   elif region == 'TCR_STopFSRdo':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopFSRdo-SF.root'
+  elif region == 'TCR_STopWTInt':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-TCR-STopWTInt-SF.root'
   elif region == 'MultiJetsLFR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-MultiJetsLFR-FF-closure.root'
   elif region == 'SSExtrap':
@@ -902,6 +904,34 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopPS.root "+analysis+"/auxData/ScaleFactors/TCR_STopPSAll*.root\033[0m")
+
+  elif region == 'TCR_STopWTInt':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                #'ehad': 'ehad',
+                #'muhad': 'muhad',
+                'lephad': '[ehad+muhad]',
+              }
+
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/[Zjets+Wjets+Diboson]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/[mcReal+mcFake]/Top/[single/WTInt+single/nominal+ttbar/nominal]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutTCRPassTauID', 'StSF', prefix+"Btag", 0.1, 0.1)
+
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/TopCR_SF_STopWTInt.root "+analysis+"/auxData/ScaleFactors/TCR_STopWTIntAll*.root\033[0m")
+
 
   if region == 'OtherJetsSSR':
     # Loop over data taking period and channels
