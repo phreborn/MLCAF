@@ -26,8 +26,10 @@ class TruthZjetsSelector : public LepHadObservable {
     TString fExpression = "";
     TString fOptionName = "";
 
-    TTreeFormula* selected_jet_0_origin = nullptr;
-    TTreeFormula* selected_jet_1_origin = nullptr;
+    //TTreeFormula* selected_jet_0_origin = nullptr;
+    //TTreeFormula* selected_jet_1_origin = nullptr;
+    TTreeFormula* jet_origin_b_count = nullptr;
+    TTreeFormula* jet_origin_c_count = nullptr;
 };
 #endif
 

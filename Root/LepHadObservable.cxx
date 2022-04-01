@@ -159,21 +159,29 @@ bool LepHadObservable::isSTop() const {
   return m_isSTop;
 }
 //______________________________________________________________________________________________
-bool LepHadObservable::isZ2BJET() const {
-  return m_isZ2BJET;
+bool LepHadObservable::isZHF() const {
+  return m_isZHF;
 }
 //______________________________________________________________________________________________
-bool LepHadObservable::isZ1BJET() const {
-  return m_isZ1BJET;
+bool LepHadObservable::isZLF() const {
+  return m_isZLF;
 }
 //______________________________________________________________________________________________
-bool LepHadObservable::isZ1CJET() const {
-  return m_isZ1CJET;
-}
+//bool LepHadObservable::isZ2BJET() const {
+//  return m_isZ2BJET;
+//}
 //______________________________________________________________________________________________
-bool LepHadObservable::isZ1LJET() const {
-  return m_isZ1LJET;
-}
+//bool LepHadObservable::isZ1BJET() const {
+//  return m_isZ1BJET;
+//}
+//______________________________________________________________________________________________
+//bool LepHadObservable::isZ1CJET() const {
+//  return m_isZ1CJET;
+//}
+//______________________________________________________________________________________________
+//bool LepHadObservable::isZ1LJET() const {
+//  return m_isZ1LJET;
+//}
 
 unsigned int LepHadObservable::bjetCount() const {
   return n_bjets->EvalInstance();
@@ -230,6 +238,16 @@ bool LepHadObservable::initializeSelf(){
     return false;
   }
 
+  if (!this->fSample->getTag("~isZHF", m_isZHF)) {
+    ERROR("tag isZHF missing");
+    return false;
+  }
+
+  if (!this->fSample->getTag("~isZLF", m_isZLF)) {
+    ERROR("tag isZLF missing");
+    return false;
+  }
+  /*
   if (!this->fSample->getTag("~isZ2BJET", m_isZ2BJET)) {
     ERROR("tag isZ2BJET missing");
     return false;
@@ -249,7 +267,7 @@ bool LepHadObservable::initializeSelf(){
     ERROR("tag isZ1LJET missing");
     return false;
   }
-  
+  */
   // variables depending on the configuration
   // -- btagging
   TString btaggingWP = "";

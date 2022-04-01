@@ -138,6 +138,9 @@ double ZjetsSF::getValue() const {
     ERRORclass("Can not get ApplyZjetsSF tag");
   }
   if (!apply) return 1.0;
+
+  if (isData()) return 1.0;
+  if ( !isZHF() ) return 1.0;
   
   TString signalProcess = "";
   if ( ! TQTaggable::getGlobalTaggable("aliases")->getTagString("SignalProcess", signalProcess) ){

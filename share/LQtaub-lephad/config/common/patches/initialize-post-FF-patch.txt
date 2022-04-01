@@ -3,30 +3,6 @@
 $printline("Including fake folders");
 
 # split the MC samples
-# -- split Zjets samples
-$create(path="/bkg/?/?/Zjets/2bbbcccjets", type="sf");
-$create(path="/bkg/?/?/Zjets/1bjets", type="sf");
-$create(path="/bkg/?/?/Zjets/1cjets", type="sf");
-$create(path="/bkg/?/?/Zjets/1ljets", type="sf");
-@ /bkg/?/? {
-    $copy("Zjets/tautau >> Zjets/2bbbcccjets");
-    $copy("Zjets/tautau >> Zjets/1bjets");
-    $copy("Zjets/tautau >> Zjets/1cjets");
-    $copy("Zjets/tautau >> Zjets/1ljets");
-}
-
-<isZ2BJET=false> @ /.;
-<isZ2BJET=true> @ /bkg/?/?/Zjets/2bbbcccjets;
-
-<isZ1BJET=false> @ /.;
-<isZ1BJET=true> @ /bkg/?/?/Zjets/1bjets;
-
-<isZ1CJET=false> @ /.;
-<isZ1CJET=true> @ /bkg/?/?/Zjets/1cjets;
-
-<isZ1LJET=false> @ /.;
-<isZ1LJET=true> @ /bkg/?/?/Zjets/1ljets;
-
 # -- mc real tau or prompt lepton
 $create(path="/bkg/?/?/mcReal", type="sf");
 $create(path="/bkg/?/?/mcFake", type="sf");
@@ -149,6 +125,43 @@ $create(path="/bkg/?/?/ddOtherJetsFake/data", type="sf");
 
 <isddOtherJetsFake=false> @ /.;
 <isddOtherJetsFake=true> @ /bkg/?/?/ddOtherJetsFake;
+
+# split the MC samples
+# -- split Zjets samples
+#$create(path="/bkg/?/?/mcReal/Zjets/2bbbcccjets", type="sf");
+#$create(path="/bkg/?/?/mcReal/Zjets/1bjets", type="sf");
+#$create(path="/bkg/?/?/mcReal/Zjets/1cjets", type="sf");
+#$create(path="/bkg/?/?/mcReal/Zjets/1ljets", type="sf");
+#@ /bkg/?/? {
+#    $copy("mcReal/Zjets/tautau/DY >> mcReal/Zjets/2bbbcccjets");
+#    $copy("mcReal/Zjets/tautau/inclusive >> mcReal/Zjets/2bbbcccjets");
+#    $copy("mcReal/Zjets/tautau/DY >> mcReal/Zjets/1bjets");
+#    $copy("mcReal/Zjets/tautau/inclusive >> mcReal/Zjets/1bjets");
+#    $copy("mcReal/Zjets/tautau/DY >> mcReal/Zjets/1cjets");
+#    $copy("mcReal/Zjets/tautau/inclusive >> mcReal/Zjets/1cjets");
+#    $copy("mcReal/Zjets/tautau/DY >> mcReal/Zjets/1ljets");
+#    $copy("mcReal/Zjets/tautau/inclusive >> mcReal/Zjets/1ljets");
+#}
+$create(path="/bkg/?/?/mcReal/Zjets/HF", type="sf");
+$create(path="/bkg/?/?/mcReal/Zjets/LF", type="sf");
+@ /bkg/?/? {
+    $copy("mcReal/Zjets/tautau/DY >> mcReal/Zjets/HF");
+    $copy("mcReal/Zjets/tautau/inclusive >> mcReal/Zjets/HF");
+    $copy("mcReal/Zjets/tautau/DY >> mcReal/Zjets/LF");
+    $copy("mcReal/Zjets/tautau/inclusive >> mcReal/Zjets/LF");
+}
+
+<isZHF=false> @ /.;
+<isZHF=true> @ /bkg/?/?/mcReal/Zjets/HF;
+
+<isZLF=false> @ /.;
+<isZLF=true> @ /bkg/?/?/mcReal/Zjets/LF;
+
+#<isZ1CJET=false> @ /.;
+#<isZ1CJET=true> @ /bkg/?/?/mcReal/Zjets/1cjets;
+
+#<isZ1LJET=false> @ /.;
+#<isZ1LJET=true> @ /bkg/?/?/mcReal/Zjets/1ljets;
 
 <isSTop=false> @ /.;
 <isSTop=true> @ /bkg/?/?/mcReal/Top/single/nominal, /bkg/?/?/mcFake/Top/single/nominal, /bkg/?/?/mcFakeCorrected/Top/single/nominal;

@@ -26,8 +26,10 @@ TObjArray* TruthZjetsSelector::getBranchNames() const {
   // ownership of the list belongs to the caller of the function
   TObjArray* bnames = LepHadObservable::getBranchNames();
 
-  bnames->Add(new TObjString("selected_jet_0_origin"));
-  bnames->Add(new TObjString("selected_jet_1_origin"));
+  //bnames->Add(new TObjString("selected_jet_0_origin"));
+  //bnames->Add(new TObjString("selected_jet_1_origin"));
+  bnames->Add(new TObjString("jet_origin_b_count"));
+  bnames->Add(new TObjString("jet_origin_c_count"));
 
   return bnames;
 }
@@ -37,13 +39,31 @@ TObjArray* TruthZjetsSelector::getBranchNames() const {
 double TruthZjetsSelector::getValue() const {
 
   if (isData()) return 1.0;
-  if ( !isZ2BJET() && !isZ1BJET() && !isZ1CJET() && !isZ1LJET() ) return 1.0;
+  //if ( !isZ2BJET() && !isZ1BJET() && !isZ1CJET() && !isZ1LJET() ) return 1.0;
+  if ( !isZHF() && !isZLF() ) return 1.0;
 
   double retval = -9999;
 
-  int temp_selected_jet_0_origin = this->selected_jet_0_origin->EvalInstance();
-  int temp_selected_jet_1_origin = this->selected_jet_1_origin->EvalInstance();
+  //int temp_selected_jet_0_origin = this->selected_jet_0_origin->EvalInstance();
+  //int temp_selected_jet_1_origin = this->selected_jet_1_origin->EvalInstance();
+  int temp_jet_origin_b_count = this->jet_origin_b_count->EvalInstance();
+  int temp_jet_origin_c_count = this->jet_origin_c_count->EvalInstance();
 
+  bool isZHF = temp_jet_origin_b_count >= 1 || temp_jet_origin_c_count >= 1;
+  bool isZLF = temp_jet_origin_b_count == 0 && temp_jet_origin_c_count == 0;
+
+  if (isZHF) {
+    retval = 30;
+  }
+  else if (isZLF) { 
+    retval = 40;
+  }
+  else {
+    retval = -30;
+  }  
+
+
+  /*
   bool isZ2BJET = (temp_selected_jet_0_origin ==5 && temp_selected_jet_1_origin ==5) || (temp_selected_jet_0_origin ==5 && temp_selected_jet_1_origin ==4) || (temp_selected_jet_0_origin ==4 && temp_selected_jet_1_origin ==5) || (temp_selected_jet_0_origin ==4 && temp_selected_jet_1_origin ==4);
   bool isZ1BJET = (temp_selected_jet_0_origin ==5 && temp_selected_jet_1_origin !=5 && temp_selected_jet_1_origin !=4) || (temp_selected_jet_1_origin ==5 && temp_selected_jet_0_origin !=5 && temp_selected_jet_0_origin !=4);
   bool isZ1CJET = (temp_selected_jet_0_origin ==4 && temp_selected_jet_1_origin !=5 && temp_selected_jet_1_origin !=4) || (temp_selected_jet_1_origin ==4 && temp_selected_jet_0_origin !=5 && temp_selected_jet_0_origin !=4);
@@ -64,6 +84,7 @@ double TruthZjetsSelector::getValue() const {
   else {
     retval = -30;
   }
+  */
 
   return retval;
 }
@@ -107,9 +128,12 @@ void TruthZjetsSelector::setExpression(const TString& expr){
 bool TruthZjetsSelector::initializeSelf(){
   if (!LepHadObservable::initializeSelf()) return false;
 
-  if (!isData()) {
-    this->selected_jet_0_origin = new TTreeFormula("selected_jet_0_origin", "selected_jet_0_origin", this->fTree);
-    this->selected_jet_1_origin = new TTreeFormula("selected_jet_1_origin", "selected_jet_1_origin", this->fTree);
+  //if (!isData() && (isZ2BJET() || isZ1BJET() || isZ1CJET() || isZ1LJET()) ) {
+  if (!isData() && (isZHF() || isZLF()) ) {
+    //this->selected_jet_0_origin = new TTreeFormula("selected_jet_0_origin", "selected_jet_0_origin", this->fTree);
+    //this->selected_jet_1_origin = new TTreeFormula("selected_jet_1_origin", "selected_jet_1_origin", this->fTree);
+    this->jet_origin_b_count = new TTreeFormula("jet_origin_b_count", "jet_origin_b_count", this->fTree);
+    this->jet_origin_c_count = new TTreeFormula("jet_origin_c_count", "jet_origin_c_count", this->fTree);
   }
   return true;
 }
@@ -119,9 +143,12 @@ bool TruthZjetsSelector::initializeSelf(){
 bool TruthZjetsSelector::finalizeSelf(){
   if (! LepHadObservable::finalizeSelf()) return false;
 
-  if (!isData()) {
-    delete this->selected_jet_0_origin;
-    delete this->selected_jet_1_origin;
+  //if (!isData()&& (isZ2BJET() || isZ1BJET() || isZ1CJET() || isZ1LJET())) {
+  if (!isData()&& (isZHF() || isZLF())) {
+    //delete this->selected_jet_0_origin;
+    //delete this->selected_jet_1_origin;
+    delete this->jet_origin_b_count;
+    delete this->jet_origin_c_count;
   }
 
   return true;

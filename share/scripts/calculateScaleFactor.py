@@ -957,10 +957,11 @@ if __name__=='__main__':
     for channel_name, channel_path in channels.items():
       for period_name, period_path in periods.items():
         dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
-        bkgPath1 = 'bkg/{:s}/{:s}/[[mcReal+mcFakeCorrected]/[Top+Wjets+Diboson]+mcFakeCorrected/Zjets+MultiJetsFake]'.format(channel_path, period_path)
-        bkgPath2 = 'bkg/{:s}/{:s}/mcReal/Zjets'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcFakeCorrected+mcReal/[Top+Wjets+Diboson+Zjets/[ee+mumu+LF]]+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/mcReal/Zjets/HF'.format(channel_path, period_path)
         prefix = region+period_name+channel_name
         
-        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutZVisMass', 'VisibleMassOneBin', prefix+"Btag", 0.1, 0.1) 
+        #calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutZLepTauDPhi', 'VisibleMassOneBin', prefix+"Btag", 0.1, 0.1) 
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutZLepTauDPhi', 'VisibleMassOneBin', prefix+"Btag", 0.2, 0.1) 
         
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/Zjets_SF.root "+analysis+"/auxData/ScaleFactors/ZCRAll*.root\033[0m")
