@@ -49,7 +49,47 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
         <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="$(CHARGE)Btag", BJET="Btag",
          .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopResidualSF)) : 1">
     } #End: CutOSBtag
+
+    +CutOSBveto {
+        <.cutExpression="$(NbJets)==0", .title="$(CHARGE)Bveto", BJET="Bveto">
+    } #End: CutOSBveto
 } #End: CutOS
+
+@ */CutOSBveto {
+    +CutBvetoZCR {
+        <.cutExpression="1",.title="BvetoZCR">
+
+        +CutBvetoLeptonBasic {
+            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Bveto Lepton basic cut">
+        
+            +CutBvetoTauBasic {
+                <.cutExpression="tau_0_p4.Pt() > 25 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Bveto Tau basic cut">
+            }
+        }
+    }
+}
+
+@ */CutBvetoTauBasic {
+    +CutBvetoZMTLepMET {
+        <.cutExpression="lephad_mt_lep0_met < 50",.title="ZMTLepMET">
+       
+        +CutBvetoZVisMass {
+            <.cutExpression="lephad_p4.M() >=45 && lephad_p4.M() < 80",.title="BvetoZVisMassWindow">
+
+            +CutBvetoZLeptonPtBjetPt {
+                <.cutExpression="(lep_0_p4.Pt()/jet_0_p4.Pt()) > 0.8", .title="BvetoZLeptonPtBjetPt">
+        
+                +CutBvetoZLepTauDPhi {
+                    <.cutExpression="lephad_dphi > 2.4", .title="BvetoZLepTauDPhi">
+                }
+            }
+        }
+    }
+}
+
+
+
 
 @ */CutOSBtag {
     +CutZCR {

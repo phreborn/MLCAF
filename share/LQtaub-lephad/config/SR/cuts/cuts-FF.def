@@ -12,25 +12,30 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
          ($(isJet) && [TruthTauSelector] == -30)}",
          .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
 
-        +CutLeptonBasic {
-            <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        +CutZjetsFlavor {
+            <.cutExpression="{($(isZHF) || $(isZLF)) ? (($(isZHF) && [TruthZjetsSelector] == 30) || ($(isZLF) && [TruthZjetsSelector] == 40)) : (1)}",
+             .weightExpression="{$(isZHF) ? [ZjetsSF] : 1}", .title="ZjetsFlavor">
+
+            +CutLeptonBasic {
+                <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
         
-            +CutTauBasic {
-                <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
-                    (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+                +CutTauBasic {
+                    <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                        (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
                
-                +CutLeptonISO {
-                    <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
-                    .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+                    +CutLeptonISO {
+                        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
 
-                    +CutTauID {
-                        <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
-                        .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="PassTauID">
+                        +CutTauID {
+                            <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+                             .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="PassTauID">
 
-                    } #End: CutTauID
-                } #End: CutLeptonISO
-            } #End: CutTauBasic
-        } #End: CutLeptonBasic
+                        } #End: CutTauID
+                    } #End: CutLeptonISO
+                } #End: CutTauBasic
+            } #End: CutLeptonBasic
+        } #End: CutZjetsFlavor
     } #End: CutTruth
 } #End: CutMaterialCorrection
         

@@ -5,8 +5,8 @@
 ### dd backgrounds ####
 .path="|"
 #.name="MultiJetsFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/MultiJetsFake"
-.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/[Wjets+Top+Zjets+Diboson]", .title="Other jet fake", histFillColor=kYellow+2, histFillStyle=1001
-.name="Others",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[MultiJetsFake+mcReal/[Wjets+Diboson+Zjets]]", .title="Others", histFillColor=kOrange-4, histFillStyle=1001
+.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/[Wjets+Top+Zjets/[ee+mumu+HF+LF]+Diboson]", .title="Other jet fake", histFillColor=kYellow+2, histFillStyle=1001
+.name="Others",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[MultiJetsFake+mcReal/[Wjets+Diboson+Zjets/[ee+mumu+HF+LF]]]", .title="Others", histFillColor=kOrange-4, histFillStyle=1001
 
 ### mc backgrounds ###
 #.path="|"

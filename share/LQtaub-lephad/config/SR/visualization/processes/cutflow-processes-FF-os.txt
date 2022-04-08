@@ -11,7 +11,7 @@
 ### mc backgrounds ###
 .path="|"
 .name="WjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Wjets"
-.name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Zjets"
+.name="ZjetsFake",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Zjets/[ee+mumu+HF+LF]"
 .name="DibosonFake",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Diboson"
 #.name="TopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Top/[single/nominal+ttbar/nominal]"
 #.name="stopFake",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/Top/single/nominal"
@@ -25,6 +25,8 @@
 .name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Diboson"
 .name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets"
 .name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau"
+.name="ZHF",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/HF"
+.name="ZLF",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/LF"
 #.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top"
 #.name="stopReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/single/nominal"
 .name="tWReal",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/single/nominal/tW"

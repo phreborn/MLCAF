@@ -1,0 +1,34 @@
+### data ###
+#.path="||"
+#.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### dd backgrounds ####
+.path="|"
+.name="OtherJetsFake",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcFakeCorrected/[Wjets+Top+Diboson+Zjets]", .title="Other jet fake", histFillColor=kYellow+2, histFillStyle=1001
+.name="Others",  .isBackground=true, .path="/bkg/$(channel)/$(campaign)/[MultiJetsFake+mcReal/[Wjets+Diboson+Zjets/[ee+mumu]]]", .title="Others", histFillColor=kOrange-4, histFillStyle=1001
+
+.path="|"
+.name="stop",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/single/nominal"
+.name="ttbar",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Top/ttbar/nominal"
+#.name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/tautau", .title="Z($\tau\tau$)+jets", histFillColor=kBlue-4, histFillStyle=1001
+.name="ZLF",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/LF"
+.name="ZHF",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/HF"
+#.name="Z2BJETS",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/2bbbcccjets"
+#.name="Z1BJETS",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/1bjets"
+#.name="Z1CJETS",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/1cjets"
+#.name="Z1LJETS",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/mcReal/Zjets/1ljets"
+
+
+### signal ###
+## (900,1.0) 0.00466
+## (900,2.0) 0.046
+## (1600,1.0) 0.000328
+## (1600,2.0) 0.00467
+## (2500,1.0) 0.0000512
+## (2500,2.0) 0.000812
+#.name="LQ(900,1.0)", .isSignal=true, .path="0.0466*/sig/$(channel)/$(campaign)/LQ/M900_l1_0", .title="LQ(900,1.0)$\times$10"
+#.name="LQ(900,2.0)", .isSignal=true, .path="0.46*/sig/$(channel)/$(campaign)/LQ/M900_l2_0",   .title="LQ(900,2.0)$\times$10"
+#.name="LQ(1600,1.0)", .isSignal=true, .path="0.0328*/sig/$(channel)/$(campaign)/LQ/M1600_l1_0", .title="LQ(1600,1.0)$\times$100"
+#.name="LQ(1600,2.0)", .isSignal=true, .path="0.467*/sig/$(channel)/$(campaign)/LQ/M1600_l2_0",  .title="LQ(1600,2.0)$\times$100"
+#.name="LQ(2500,1.0)", .isSignal=true, .path="0.0512*/sig/$(channel)/$(campaign)/LQ/M2500_l1_0", .title="LQ(2500,1.0)$\times$1000"
+#.name="LQ(2500,2.0)", .isSignal=true, .path="0.812*/sig/$(channel)/$(campaign)/LQ/M2500_l2_0",  .title="LQ(2500,2.0)$\times$1000"

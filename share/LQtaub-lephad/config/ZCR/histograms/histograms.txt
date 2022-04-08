@@ -23,7 +23,9 @@ TH1F('BJetCount','', 10,0,10) << ($(NbJets) : "N_{bjets}");
 TH1F('VisibleMass'   ,'', 30, 40, 100)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
 TH1F('VisibleMassOneBin'   ,'', 1, 0, 300)   <<   (lephad_p4.M() : "m_{vis} [GeV]");
 @CutZVisMass,CutZLeptonPtBjetPt,CutZLepTauDPhi: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,VisibleMass,VisibleMassOneBin,ZPt;
-@CutZVRLowBJetPt,CutZVRHighBJetPt,CutST:VisibleMassOneBin;
+@CutBvetoZLepTauDPhi: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,MET,MTLepMET,MTTauMET,JetCount,VisibleMass,VisibleMassOneBin,ZPt;
+@CutZVRLowBJetPt,CutZVRHighBJetPt,CutST: VisibleMassOneBin;
+@CutZVRLowBJetPt,CutZVRHighBJetPt: VisibleMass,TauPt,BjetPt,LeptonPt;
 
 TH1F('TauIDScore','', 25,0,0.25) << ($(TauIDScore): "\#tau_{had-vis} ID score");
 @CutZVisMass,CutZLeptonPtBjetPt,CutZLepTauDPhi: TauIDScore;
@@ -51,13 +53,16 @@ TH1F('LeptonPtOverBJetPt', '', 30, 0, 3) << (lep_0_p4.Pt()/bjet_0_p4.Pt() : "p_{
 @CutZVisMass,CutZLeptonPtBjetPt,CutZLepTauDPhi: TauPtOverLeptonPt,TauPtOverBJetPt,LeptonPtOverBJetPt;
 
 #TH1F('St', '', {300.,350.,400.,450.,500.,550.,600.,700.,1000.}) << ($(St) : "S_{T} [GeV]");
-TH1F('St', '', 30,0,300) << ($(St) : "S_{T} [GeV]");
-#TH1F('StLowBJetPt', '', {300, 350, 400, 450, 500, 550, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
-#TH1F('StHighBJetPt', '', {300,350,400,450,500,550,600,650,700,800,900,1000}) << ($(St) : "S_{T} [GeV]");
+TH1F('St', '', 10,50,150) << ($(St) : "S_{T} [GeV]");
+TH1F('StBveto', '', 10,50,150) << ((lep_0_p4.Pt() + tau_0_p4.Pt() + jet_0_p4.Pt()) : "S_{T} [GeV]");
+TH1F('StLowBJetPt', '', {300, 350, 400, 450, 500, 550, 600, 700, 1000}) << ($(St) : "S_{T} [GeV]");
+TH1F('StHighBJetPt', '', {300,350,400,450,500,550,600,650,700,800,900,1000}) << ($(St) : "S_{T} [GeV]");
 #TH1F('St_fineBin', '', 2700, 300,3000) << ($(St) : "S_{T} [GeV]");
 #TH1F('St_lowSB_SR', '', 150, 300,450) << ($(St) : "S_{T} [GeV]");
 #TH1F('St_lowSB_VR', '', 300, 300,600) << ($(St) : "S_{T} [GeV]");
 @CutZVisMass,CutZLeptonPtBjetPt,CutZLepTauDPhi: St;
+@CutBvetoZLepTauDPhi: StBveto;
+@CutZVRLowBJetPt,CutZVRHighBJetPt: StLowBJetPt,StHighBJetPt;
 
 #TH1F('HtMET', '', {100.,200.,300.,400.,500.,600.,700.,800.,900.,1000.}) << ($(HtMET) : "H_{T} [GeV]");
 #TH1F('Gt', '', {100.,150.,200.,250.,300.,350.,400.,450.,500.,550.,600.,700.,1000.}) << ($(StMET) : "G_{T} [GeV]");
