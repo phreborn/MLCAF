@@ -45,7 +45,7 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
 @ */CutTauID {
     +CutOS {
         <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS",
-         .weightExpression="($(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight)) : 1)*($(isISRup) ? ($(ISRHiWeight)) : 1)*($(isSTop) ? ($(STopISRLoWeight))*($(STopISRHiWeight))*($(STopFSRLoWeight))*($(STopFSRHiWeight)) : 1)">
+         .weightExpression="($(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight))*($(PDFHiWeight))*($(PDFLoWeight)) : 1)*($(isISRup) ? ($(ISRHiWeight)) : 1)*($(isSTop) ? ($(STopISRLoWeight))*($(STopISRHiWeight))*($(STopFSRLoWeight))*($(STopFSRHiWeight))*($(STopPDFHiWeight))*($(STopPDFLoWeight)) : 1)">
     } #End: CutOS
 } #End: CutTauID
 

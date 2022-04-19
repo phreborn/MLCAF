@@ -55,6 +55,13 @@ if __name__ == '__main__':
   channels = ['[ehad+muhad]'] 
 
   variations = {
+                #'samples-analyzed-LQtaub-lephad-TCR-SF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-PS-SF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-ME-SF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-ISRup-SF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-ISRdo-SF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-FSRup-SF-NOMINAL.root': None,
+                #'samples-analyzed-LQtaub-lephad-TCR-FSRdo-SF-NOMINAL.root': None,
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-NOMINAL.root': None,
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MultiJetsLFR.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MJ.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-MCFakes.root': 'LQtaub-lephad/auxData/variations/systematics-Fake-MC.txt',
@@ -73,12 +80,16 @@ if __name__ == '__main__':
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_ISRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-ISRdo.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_FSRup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-FSRup.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_FSRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-FSRdo.txt',
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_PDFup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-PDFup.txt',
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_PDFdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-PDFdo.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopPS.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopPS.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopME.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopME.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopISRup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopISRup.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopISRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopISRdo.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopFSRup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopFSRup.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopFSRdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopFSRdo.txt',
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopPDFup.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopPDFup.txt',
+                'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopPDFdo.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopPDFdo.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Top_STopWTInt.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Top-STopWTInt.txt',
                 'samples-analyzed-LQtaub-lephad-SR-FF-SYS-Theory_Zjets.root': 'LQtaub-lephad/auxData/variations/systematics-Theory-Zjets.txt',
                 }  

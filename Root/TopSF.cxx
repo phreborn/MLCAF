@@ -262,6 +262,12 @@ double TopSF::getValue() const {
   else if( fSysName.Contains("TTBar_FSR_1down") && f_n_bjets>0 ) {
     retval = -5.11e-04 * st + 1.06;
   }
+  else if( fSysName.Contains("TTBar_PDF_1up") && f_n_bjets>0 ) {
+    retval = -4.29e-04 * st + 1.00;
+  }
+  else if( fSysName.Contains("TTBar_PDF_1down") && f_n_bjets>0 ) {
+    retval = -4.23e-04 * st + 1.02;
+  }
   else if( fSysName.Contains("STop_ME") && f_n_bjets>0 ) {
     retval = -4.26e-04 * st + 1.01;
   }
@@ -279,6 +285,12 @@ double TopSF::getValue() const {
   }
   else if( fSysName.Contains("STop_FSR_1down") && f_n_bjets>0 ) {
     retval = -3.92e-04 * st + 1.00;
+  }
+  else if( fSysName.Contains("STop_PDF_1up") && f_n_bjets>0 ) {
+    retval = -4.28e-04 * st + 1.01;
+  }
+  else if( fSysName.Contains("STop_PDF_1down") && f_n_bjets>0 ) {
+    retval = -4.23e-04 * st + 1.01;
   }
   else if( fSysName.Contains("STop_WTInt") && f_n_bjets>0 ) {
     retval = -3.06e-4 * st + 0.99;
