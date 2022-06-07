@@ -1,0 +1,4 @@
++CutChannels {
+  #<.cutExpression = "[lep_Pt_0]>0&&[lep_Pt_1]>0&&[lep_Pt_2]==0&&[lep_ID_0]*[lep_ID_1]>0&&[tau_pt_0]>0&&[tau_pt_1]==0", .weightExpression = "{$(isData) ? 1 : $(MCweight)}", .title="Channel Selection">
+  <.cutExpression = "$(Lep0Medium) && $(Lep1Medium) && $(2lepSS) && $(Tau0Medium) && [nJets_OR_DL1r_77]==0 && [nJets_OR]>1", .weightExpression = "{$(isData) ? 1 : $(MCweight)}", .title="Channel Selection">
+} # end CutChannels

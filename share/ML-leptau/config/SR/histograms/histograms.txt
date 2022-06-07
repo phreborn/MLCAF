@@ -1,0 +1,11 @@
+
+TH1F('Lepton0Pt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << ([lep_Pt_0]*0.001 : "lepton p_{T} [GeV]");
+TH1F('Lepton1Pt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << ([lep_Pt_1]*0.001 : "lepton p_{T} [GeV]");
+TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << ([tau_pt_0]*0.001 : "\#tau_{had-vis} p_{T} [GeV]");
+
+TH1F('Lepton0Eta', '',25, -2.5, 2.5) << ([lep_Eta_0] : "lepton \eta");
+TH1F('Lepton1Eta', '',25, -2.5, 2.5) << ([lep_Eta_1] : "lepton \eta");
+TH1F('TauEta', '', 25, -2.5, 2.5) << ([tau_eta_0] : "\#tau_{had-vis} \eta");
+
+
+@CutChannels: Lepton0Pt,Lepton1Pt,TauPt,Lepton0Eta,Lepton1Eta,TauEta

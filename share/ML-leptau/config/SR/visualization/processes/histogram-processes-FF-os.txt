@@ -1,0 +1,21 @@
+### data ###
+#.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### mc backgrounds ###
+
+.path="|"
+.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Diboson", .title="VV", histFillColor=kOrange
+.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets", histFillColor=kGreen-4
+#.name="WZ",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/WZ", .title="WZ", histFillColor=kGray
+.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Wjets", .title="W+jets", histFillColor=kGray
+.name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/tautau", .title="Z($\tau\tau$)+jets", histFillColor=kRed+1
+.name="Top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top", .title="top", histFillColor=kRed+1
+.name="singleHiggs",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/singleHiggs", .title="single H", histFillColor=kRed+1
+.name="Triboson",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Triboson", .title="VVV", histFillColor=kRed+1
+.name="VVjj",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/VVjj", .title="VVjj", histFillColor=kRed+1
+
+
+### signal ###
+.name="ggHH(kl=10)", .isSignal=true, .path="10*/sig/$(channel)/$(campaign)/ggHH/klambda10/PS",  .title="ggHH(kl=10)$\times$10"
+.name="ggHH(kl=01)", .isSignal=true, .path="100*/sig/$(channel)/$(campaign)/ggHH/klambda01/PS",  .title="ggHH(kl=1)$\times$100", histLineColor=kGreen

@@ -1,0 +1,22 @@
+### data ###
+#.path="||"
+.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+
+### mc backgrounds ###
+
+.path="|"
+.name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Diboson"
+.name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Wjets"
+.name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets"
+.name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/tautau"
+.name="top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top"
+.name="singleHiggs",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/singleHiggs"
+.name="Triboson",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Triboson"
+.name="VVjj",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/VVjj"
+#.name="WZ",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/WZ"
+.name="totalBkgs",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)"
+
+
+### signal ###
+.name="ggHH(kl=10)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda10/PS"
+.name="ggHH(kl=1)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda01/PS"

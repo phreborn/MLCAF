@@ -1,0 +1,370 @@
+#### Top ####
+304014 /bkg/$(channel)/$(campaign)/Top/3tops/
+
+410080 /bkg/$(channel)/$(campaign)/Top/4tops/
+
+410081 /bkg/$(channel)/$(campaign)/Top/ttWW/
+
+410156 /bkg/$(channel)/$(campaign)/Top/ttZ/
+410157 /bkg/$(channel)/$(campaign)/Top/ttZ/
+410218 /bkg/$(channel)/$(campaign)/Top/ttZ/
+410219 /bkg/$(channel)/$(campaign)/Top/ttZ/
+410220 /bkg/$(channel)/$(campaign)/Top/ttZ/
+
+410276 /bkg/$(channel)/$(campaign)/Top/ttZ/
+410277 /bkg/$(channel)/$(campaign)/Top/ttZ/
+410278 /bkg/$(channel)/$(campaign)/Top/ttZ/
+
+410397 /bkg/$(channel)/$(campaign)/Top/Wb/
+410398 /bkg/$(channel)/$(campaign)/Top/Wb/
+410399 /bkg/$(channel)/$(campaign)/Top/Wb/
+
+410408 /bkg/$(channel)/$(campaign)/Top/tWZ/
+
+410470 /bkg/$(channel)/$(campaign)/Top/ttbar/
+#?#410471 /bkg/$(channel)/$(campaign)//
+410472 /bkg/$(channel)/$(campaign)/Top/ttbar/
+
+410560 /bkg/$(channel)/$(campaign)/Top/tZ/
+
+410644 /bkg/$(channel)/$(campaign)/Top/single/schannel/
+410645 /bkg/$(channel)/$(campaign)/Top/single/schannel/
+410646 /bkg/$(channel)/$(campaign)/Top/single/tW/
+410647 /bkg/$(channel)/$(campaign)/Top/single/tW/
+#?#410648 /bkg/$(channel)/$(campaign)/Top/single//
+#?#410649 /bkg/$(channel)/$(campaign)/Top/single//
+
+410658 /bkg/$(channel)/$(campaign)/Top/single/tchannel/
+410659 /bkg/$(channel)/$(campaign)/Top/single/tchannel/
+
+
+#### singleHiggs ####
+341471 /bkg/$(channel)/$(campaign)/singleHiggs/ggH/ZZ4l/
+341488 /bkg/$(channel)/$(campaign)/singleHiggs/VBFH/ZZ4l/
+#?#342282 /bkg/$(channel)/$(campaign)//
+#?#342283 /bkg/$(channel)/$(campaign)//
+342284 /bkg/$(channel)/$(campaign)/singleHiggs/WH/
+342285 /bkg/$(channel)/$(campaign)/singleHiggs/ZH/
+
+346343 /bkg/$(channel)/$(campaign)/singleHiggs/ttH/
+346344 /bkg/$(channel)/$(campaign)/singleHiggs/ttH/
+346345 /bkg/$(channel)/$(campaign)/singleHiggs/ttH/
+
+
+#### DiBoson ####
+### -- semi-leptonic diboson decays (Sherpa 2.2.1)
+363355 /bkg/$(channel)/$(campaign)/Diboson/
+363356 /bkg/$(channel)/$(campaign)/Diboson/
+363357 /bkg/$(channel)/$(campaign)/Diboson/
+363358 /bkg/$(channel)/$(campaign)/Diboson/
+363359 /bkg/$(channel)/$(campaign)/Diboson/
+363360 /bkg/$(channel)/$(campaign)/Diboson/
+363489 /bkg/$(channel)/$(campaign)/Diboson/
+
+### -- fully-leptonic diboson decays (Sherpa 2.2.2)
+364250 /bkg/$(channel)/$(campaign)/Diboson/
+364253 /bkg/$(channel)/$(campaign)/Diboson/
+364254 /bkg/$(channel)/$(campaign)/Diboson/
+364255 /bkg/$(channel)/$(campaign)/Diboson/
+
+
+#### V+jets ####
+364100 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364101 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364102 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364103 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364104 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364105 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364106 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364107 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364108 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364109 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364110 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364111 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364112 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+364113 /bkg/$(channel)/$(campaign)/Zjets/mumu/
+
+364114 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364115 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364116 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364117 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364118 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364119 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364120 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364121 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364122 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364123 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364124 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364125 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364126 /bkg/$(channel)/$(campaign)/Zjets/ee/
+364127 /bkg/$(channel)/$(campaign)/Zjets/ee/
+
+364128 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364129 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364130 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364131 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364132 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364133 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364134 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364135 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364136 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364137 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364138 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364139 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364140 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+364141 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+
+364156 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364157 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364158 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364159 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364160 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364161 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364162 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364163 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364164 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364165 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364166 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364167 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364168 /bkg/$(channel)/$(campaign)/Wjets/munu/
+364169 /bkg/$(channel)/$(campaign)/Wjets/munu/
+
+364170 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364171 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364172 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364173 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364174 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364175 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364176 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364177 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364178 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364179 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364180 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364181 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364182 /bkg/$(channel)/$(campaign)/Wjets/enu/
+364183 /bkg/$(channel)/$(campaign)/Wjets/enu/
+
+364184 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364185 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364186 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364187 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364188 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364189 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364190 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364191 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364192 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364193 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364194 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364195 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364196 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+364197 /bkg/$(channel)/$(campaign)/Wjets/taunu/
+
+364198 /bkg/$(channel)/$(campaign)/Zjets/mumu/Mll10_40/
+364199 /bkg/$(channel)/$(campaign)/Zjets/mumu/Mll10_40/
+364200 /bkg/$(channel)/$(campaign)/Zjets/mumu/Mll10_40/
+364201 /bkg/$(channel)/$(campaign)/Zjets/mumu/Mll10_40/
+364202 /bkg/$(channel)/$(campaign)/Zjets/mumu/Mll10_40/
+364203 /bkg/$(channel)/$(campaign)/Zjets/mumu/Mll10_40/
+
+364204 /bkg/$(channel)/$(campaign)/Zjets/ee/Mll10_40/
+364205 /bkg/$(channel)/$(campaign)/Zjets/ee/Mll10_40/
+364206 /bkg/$(channel)/$(campaign)/Zjets/ee/Mll10_40/
+364207 /bkg/$(channel)/$(campaign)/Zjets/ee/Mll10_40/
+364208 /bkg/$(channel)/$(campaign)/Zjets/ee/Mll10_40/
+364209 /bkg/$(channel)/$(campaign)/Zjets/ee/Mll10_40/
+
+364210 /bkg/$(channel)/$(campaign)/Zjets/tautau/Mll10_40/
+364211 /bkg/$(channel)/$(campaign)/Zjets/tautau/Mll10_40/
+364212 /bkg/$(channel)/$(campaign)/Zjets/tautau/Mll10_40/
+364213 /bkg/$(channel)/$(campaign)/Zjets/tautau/Mll10_40/
+364214 /bkg/$(channel)/$(campaign)/Zjets/tautau/Mll10_40/
+364215 /bkg/$(channel)/$(campaign)/Zjets/tautau/Mll10_40/
+
+
+#### Triboson ####
+364242 /bkg/$(channel)/$(campaign)/Triboson/
+364243 /bkg/$(channel)/$(campaign)/Triboson/
+364244 /bkg/$(channel)/$(campaign)/Triboson/
+364245 /bkg/$(channel)/$(campaign)/Triboson/
+364246 /bkg/$(channel)/$(campaign)/Triboson/
+364247 /bkg/$(channel)/$(campaign)/Triboson/
+364248 /bkg/$(channel)/$(campaign)/Triboson/
+364249 /bkg/$(channel)/$(campaign)/Triboson/
+
+#### VVjj ####
+364283 /bkg/$(channel)/$(campaign)/VVjj/
+364284 /bkg/$(channel)/$(campaign)/VVjj/
+#?#364285 /bkg/$(channel)/$(campaign)//
+#?#364286 /bkg/$(channel)/$(campaign)//
+364287 /bkg/$(channel)/$(campaign)/VVjj/
+
+#361601 /bkg/$(channel)/$(campaign)/WZ/
+
+######################################
+######################################
+##344388 /bkg/$(channel)/$(campaign)//
+##345705 /bkg/$(channel)/$(campaign)//
+##345706 /bkg/$(channel)/$(campaign)//
+##345708 /bkg/$(channel)/$(campaign)//
+##345715 /bkg/$(channel)/$(campaign)//
+##345716 /bkg/$(channel)/$(campaign)//
+##345718 /bkg/$(channel)/$(campaign)//
+##345723 /bkg/$(channel)/$(campaign)//
+##346222 /bkg/$(channel)/$(campaign)//
+##346223 /bkg/$(channel)/$(campaign)//
+##346224 /bkg/$(channel)/$(campaign)//
+##346225 /bkg/$(channel)/$(campaign)//
+##346226 /bkg/$(channel)/$(campaign)//
+##346227 /bkg/$(channel)/$(campaign)//
+##
+##346413 /bkg/$(channel)/$(campaign)//
+##346443 /bkg/$(channel)/$(campaign)//
+##346444 /bkg/$(channel)/$(campaign)//
+##346445 /bkg/$(channel)/$(campaign)//
+##346676 /bkg/$(channel)/$(campaign)//
+##346678 /bkg/$(channel)/$(campaign)//
+##346799 /bkg/$(channel)/$(campaign)//
+##361600 /bkg/$(channel)/$(campaign)//
+##361602 /bkg/$(channel)/$(campaign)//
+##361603 /bkg/$(channel)/$(campaign)//
+##361604 /bkg/$(channel)/$(campaign)//
+##361605 /bkg/$(channel)/$(campaign)//
+
+##364288 /bkg/$(channel)/$(campaign)//
+##364289 /bkg/$(channel)/$(campaign)//
+##364290 /bkg/$(channel)/$(campaign)//
+##364500 /bkg/$(channel)/$(campaign)//
+##364501 /bkg/$(channel)/$(campaign)//
+##364502 /bkg/$(channel)/$(campaign)//
+##364503 /bkg/$(channel)/$(campaign)//
+##364504 /bkg/$(channel)/$(campaign)//
+##364505 /bkg/$(channel)/$(campaign)//
+##364506 /bkg/$(channel)/$(campaign)//
+##364507 /bkg/$(channel)/$(campaign)//
+##364508 /bkg/$(channel)/$(campaign)//
+##364509 /bkg/$(channel)/$(campaign)//
+##364510 /bkg/$(channel)/$(campaign)//
+##364511 /bkg/$(channel)/$(campaign)//
+##364512 /bkg/$(channel)/$(campaign)//
+##364513 /bkg/$(channel)/$(campaign)//
+##364514 /bkg/$(channel)/$(campaign)//
+##364521 /bkg/$(channel)/$(campaign)//
+##364522 /bkg/$(channel)/$(campaign)//
+##364523 /bkg/$(channel)/$(campaign)//
+##364524 /bkg/$(channel)/$(campaign)//
+##364525 /bkg/$(channel)/$(campaign)//
+##364526 /bkg/$(channel)/$(campaign)//
+##364527 /bkg/$(channel)/$(campaign)//
+##364528 /bkg/$(channel)/$(campaign)//
+##364529 /bkg/$(channel)/$(campaign)//
+##364530 /bkg/$(channel)/$(campaign)//
+##364531 /bkg/$(channel)/$(campaign)//
+##364532 /bkg/$(channel)/$(campaign)//
+##364533 /bkg/$(channel)/$(campaign)//
+##364534 /bkg/$(channel)/$(campaign)//
+##364535 /bkg/$(channel)/$(campaign)//
+##410142 /bkg/$(channel)/$(campaign)//
+##410143 /bkg/$(channel)/$(campaign)//
+##410144 /bkg/$(channel)/$(campaign)//
+##410155 /bkg/$(channel)/$(campaign)//
+##
+##410250 /bkg/$(channel)/$(campaign)//
+##410251 /bkg/$(channel)/$(campaign)//
+##410252 /bkg/$(channel)/$(campaign)//
+##
+##410370 /bkg/$(channel)/$(campaign)//
+##410371 /bkg/$(channel)/$(campaign)//
+##410372 /bkg/$(channel)/$(campaign)//
+##410373 /bkg/$(channel)/$(campaign)//
+##410374 /bkg/$(channel)/$(campaign)//
+##410375 /bkg/$(channel)/$(campaign)//
+##410376 /bkg/$(channel)/$(campaign)//
+##410377 /bkg/$(channel)/$(campaign)//
+##410389 /bkg/$(channel)/$(campaign)//
+##
+##411287 /bkg/$(channel)/$(campaign)//
+##412123 /bkg/$(channel)/$(campaign)//
+##412123 /bkg/$(channel)/$(campaign)//
+##413001 /bkg/$(channel)/$(campaign)//
+##413008 /bkg/$(channel)/$(campaign)//
+##413023 /bkg/$(channel)/$(campaign)//
+##423100 /bkg/$(channel)/$(campaign)//
+##423101 /bkg/$(channel)/$(campaign)//
+##423102 /bkg/$(channel)/$(campaign)//
+##423103 /bkg/$(channel)/$(campaign)//
+##423104 /bkg/$(channel)/$(campaign)//
+##423105 /bkg/$(channel)/$(campaign)//
+##423106 /bkg/$(channel)/$(campaign)//
+##423107 /bkg/$(channel)/$(campaign)//
+##423108 /bkg/$(channel)/$(campaign)//
+##423109 /bkg/$(channel)/$(campaign)//
+##423300 /bkg/$(channel)/$(campaign)//
+######################################
+######################################
+
+### -------------------------------------------
+
+### old HH ggF
+450661 /sig/$(channel)/$(campaign)//
+450662 /sig/$(channel)/$(campaign)//
+450663 /sig/$(channel)/$(campaign)//
+
+### VBF HH
+502959 /sig/$(channel)/$(campaign)/VBFHH/
+502960 /sig/$(channel)/$(campaign)/VBFHH/
+502961 /sig/$(channel)/$(campaign)/VBFHH/
+502962 /sig/$(channel)/$(campaign)/VBFHH/
+502963 /sig/$(channel)/$(campaign)/VBFHH/
+502964 /sig/$(channel)/$(campaign)/VBFHH/
+
+#### VBF bbZZ
+#508674 /sig/$(channel)/$(campaign)//
+#508675 /sig/$(channel)/$(campaign)//
+
+### Herwig7 ggF HH, Klambda 1
+600536 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600537 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600538 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600539 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600540 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600541 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+
+#### Herwig7 ggF bbZZ, Klambda 1
+#600761 /sig/$(channel)/$(campaign)//
+#600762 /sig/$(channel)/$(campaign)//
+
+### Herwig7 ggF HH, Klambda 10
+600763 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600764 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600765 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600766 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600767 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600768 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+
+#### Herwig7 ggF bbZZ, Klambda 10
+#600772 /sig/$(channel)/$(campaign)//
+#600773 /sig/$(channel)/$(campaign)//
+
+### Pythia8 ggF HH, Klambda 1
+600853 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+600854 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+600855 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+600856 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+600857 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+600858 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+
+#### Pythia8 ggF bbZZ, Klambda 1
+#600862 /sig/$(channel)/$(campaign)//
+#600863 /sig/$(channel)/$(campaign)//
+
+### Pythia8 ggF HH, Klambda 10
+600888 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+600889 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+600890 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+600891 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+600892 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+600893 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+
+#### Pythia8 ggF bbZZ, Klambda 10
+#600897 /sig/$(channel)/$(campaign)//
+#600898 /sig/$(channel)/$(campaign)//

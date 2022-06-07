@@ -1,0 +1,7 @@
+# -*- mode: tqfolder -*-
+
+<isData=false> @ /.;
+<isData=true> @ /data;
+
+<isMC=true> @ /.;
+<isMC=false> @ /data;
