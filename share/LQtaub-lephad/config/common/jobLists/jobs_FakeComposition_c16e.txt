@@ -1,0 +1,27 @@
+# ------------------------------ c16e ------------------------------ #
+##### dd bkg #####
+
+##### mc bkg #####
+/bkg/?/c16e/Gluon/Top/ttbar/nominal
+/bkg/?/c16e/Gluon/Top/single
+/bkg/?/c16e/Gluon/Wjets
+
+/bkg/?/c16e/bottom/Top/ttbar/nominal
+/bkg/?/c16e/bottom/Top/single
+/bkg/?/c16e/bottom/Wjets
+
+/bkg/?/c16e/charm/Top/ttbar/nominal
+/bkg/?/c16e/charm/Top/single
+/bkg/?/c16e/charm/Wjets
+
+/bkg/?/c16e/uds/Top/ttbar/nominal
+/bkg/?/c16e/uds/Top/single
+/bkg/?/c16e/uds/Wjets
+
+/bkg/?/c16e/other/Top/ttbar/nominal
+/bkg/?/c16e/other/Top/single
+/bkg/?/c16e/other/Wjets
+
+
+
+
