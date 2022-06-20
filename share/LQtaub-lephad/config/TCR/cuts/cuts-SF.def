@@ -48,6 +48,16 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
             <.cutExpression="lephad_met_lep0_cos_dphi >= 2.5", .title="TCR", 
              .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
         } #End: CutTCR
+
+        +CutIncTCR {
+            <.cutExpression="1", .title="InclusiveTCR", 
+             .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+        } #End: CutIncTCR
+
+        +CutInc2TCR {
+            <.cutExpression="bjet_0_p4.Pt() > 200", .title="Inclusive2TCR", 
+             .weightExpression="$(isTop) && $(ApplyTopSF) ? $(TopSF) : 1">
+        } #End: CutInc2TCR
     } #End: CutBtag
 } #End: CutOS
 
@@ -60,6 +70,19 @@ $include("LQtaub-lephad/config/common/cuts/cuts.def");
     }
 }
 
+@ */CutIncTCR {
+    +CutIncTCRPassTauID {
+        <.cutExpression="$(isPassID)", TAU="TauID", .title="IncTCRPassTauID",
+         .weightExpression="($(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight))*($(PDFHiWeight))*($(PDFLoWeight)) : 1)*($(isSTop) ? ($(STopISRLoWeight))*($(STopISRHiWeight))*($(STopFSRLoWeight))*($(STopFSRHiWeight))*($(STopPDFHiWeight))*($(STopPDFLoWeight)) : 1)">
+    }
+}
+
+@ */CutInc2TCR {
+    +CutInc2TCRPassTauID {
+        <.cutExpression="$(isPassID)", TAU="TauID", .title="Inc2TCRPassTauID",
+         .weightExpression="($(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight))*($(PDFHiWeight))*($(PDFLoWeight)) : 1)*($(isSTop) ? ($(STopISRLoWeight))*($(STopISRHiWeight))*($(STopFSRLoWeight))*($(STopFSRHiWeight))*($(STopPDFHiWeight))*($(STopPDFLoWeight)) : 1)">
+    }
+}
 
 
 

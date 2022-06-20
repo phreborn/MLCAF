@@ -142,13 +142,15 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
           sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/nominal+ttbar/nominal]]]"
         elif 'STop_WTInt' in sys:
           sample_dict['ttbar'] = "bkg/{0}/{1}/mcReal/Top/ttbar/nominal"
-          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/[WTInt+nominal]"
-          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/WTInt+single/nominal+ttbar/nominal]]]"
+          sample_dict['singletop'] = "bkg/{0}/{1}/mcReal/Top/single/[WTInt+nominal/[schannel+tchannel]]"
+          sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Zjets+Diboson]]+[{0}/{1}/mcFakeCorrected/Top/[single/WTInt+single/nominal/[schannel+tchannel]+ttbar/nominal]]]"
 
 
         if 'LPX' in sys:
           sample_dict['DYZ'] = "bkg/{0}/{1}/mcReal/Zjets/[ee+mumu]" 
-          sample_dict['ZplusJets'] = "bkg/{0}/{1}/mcReal/Zjets/tautau" 
+          #sample_dict['ZplusJets'] = "bkg/{0}/{1}/mcReal/Zjets/tautau" 
+          sample_dict['ZtautauHF'] = "bkg/{0}/{1}/mcReal/Zjets/HF" 
+          sample_dict['ZtautauLF'] = "bkg/{0}/{1}/mcReal/Zjets/LF" 
           sample_dict['JETSFakes'] = "bkg/[["+args.channel+"/{1}/mcFakeCorrected/[Wjets+Diboson+Top/[single/nominal+ttbar/nominal]]]+[{0}/{1}/mcFakeCorrected/Zjets]]"
 
         if 'TopReweight' in sys or 'TopResi' in sys:
@@ -209,7 +211,6 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
             else:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
           elif 'Theory_Top' in sys_name:
-            
             if 'Top' in sample_name or 'JETSFakes' in sample_name or 'ttbar' in sample_name or 'singletop' in sample_name:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets])
             elif 'LQ' in sample_name:
@@ -217,7 +218,7 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
             else:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets])
           elif sys_name == 'Theory_Zjets':
-            if 'DYZ' in sample_name or 'ZplusJets' in sample_name or 'JETSFakes' in sample_name:
+            if 'DYZ' in sample_name or 'ZplusJets' in sample_name or 'ZtautauHF' in sample_name or 'ZtautauLF' in sample_name or 'JETSFakes' in sample_name:
               sample_path = sample_path.format(channel, dataset_dict[args.datasets])
             elif 'LQ' in sample_name:
               sample_path = sample_path.format(args.channel, dataset_dict[args.datasets], args.coupling)
@@ -262,6 +263,8 @@ def main(args, dataset_dict, sample_dict, region_dict, hist_dict):
             BREAK("Unexpected channel {:s}".format(args.channel))
           if "TCR" in region_name:
             hist_new_name += "TCR"
+          if "ZCR" in region_name:
+            hist_new_name += "ZCR"
           if "VR" in region_name:
             hist_new_name += "VR"
           if "FTCR" in region_name:
@@ -332,12 +335,22 @@ if __name__ == "__main__":
       'data':         "data/{:s}/{:s}/",
       'Diboson':      "bkg/{:s}/{:s}/mcReal/Diboson/", 
       'DYZ':          "bkg/{:s}/{:s}/mcReal/Zjets/[ee+mumu]", 
-      'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
+      #'ZplusJets':    "bkg/{:s}/{:s}/mcReal/Zjets/tautau", 
+      'ZtautauHF':    "bkg/{:s}/{:s}/mcReal/Zjets/HF", 
+      'ZtautauLF':    "bkg/{:s}/{:s}/mcReal/Zjets/LF", 
       'WplusJets':    "bkg/{:s}/{:s}/mcReal/Wjets", 
       'QCDFakes':     "bkg/{:s}/{:s}/MultiJetsFake", 
       'JETSFakes':    "bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top/[single/nominal+ttbar/nominal]+Diboson]",
+      #'JETSFakes':    "bkg/{:s}/{:s}/mcFake/[Wjets+Zjets+Top/[single/nominal+ttbar/nominal]+Diboson]",
       'ttbar':          "bkg/{:s}/{:s}/mcReal/Top/ttbar/nominal",
       'singletop':      "bkg/{:s}/{:s}/mcReal/Top/single/nominal",
+      #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/nominal",
+      #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/ISRup",
+      #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/ISRdo",
+      #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/FSRup",
+      #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/FSRdo",
+      #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/PS",
+      #'TTBar':          "bkg/{:s}/{:s}/[mcReal+mcFake]/Top/ttbar/ME",
     }
   elif args.sample == 'sig':
     sample_dict = { 
@@ -399,11 +412,17 @@ if __name__ == "__main__":
 
   ### The following regions will be dumped
   region_dict = {
-    "SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPt",
-    "SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPt",
+    #"SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPt",
+    #"SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPt",
     #"SROSBtagLowBJetPt"   :   "CutOSBtagLowBJetPtSideBand",
     #"SROSBtagHighBJetPt"  :   "CutOSBtagHighBJetPtSideBand",
     #"SROSBtag"  :   "CutHighVisMass",
+    #"SROSBtagLowBJetPtLeptonPt50"  :   "CutOSBtagLowBJetPtLeptonPt50",
+    #"SROSBtagHighBJetPtLeptonPt50"  :   "CutOSBtagHighBJetPtLeptonPt50",
+    #"SROSBtagLowBJetPtLeptonPt75"  :   "CutOSBtagLowBJetPtLeptonPt75",
+    #"SROSBtagHighBJetPtLeptonPt75"  :   "CutOSBtagHighBJetPtLeptonPt75",
+    #"SROSBtagLowBJetPtLeptonPt100"  :   "CutOSBtagLowBJetPtLeptonPt100",
+    #"SROSBtagHighBJetPtLeptonPt100"  :   "CutOSBtagHighBJetPtLeptonPt100",
     #"VROSBtagLowBJetPt"   :   "CutVROSBtagLowBJetPt",
     #"VROSBtagHighBJetPt"  :   "CutVROSBtagHighBJetPt",
     #"VROSBtag"  :   "CutVROSBtagHighST",
@@ -411,35 +430,42 @@ if __name__ == "__main__":
     #"MultijetCRBtag"  :   "CutBtagMultiJetsLFRPassISO",
     #"SSCRBtag1p"  :   "CutSS1pPassTauID",
     #"SSCRBtag3p"  :   "CutSS3pPassTauID",
-    #"ZCROSBtag"  :   "CutZLepTauDPhi",
+    "ZCROSBtag"  :   "CutZLepTauDPhi",
     #"ZVROSBtagLowBJetPt"  :   "CutZVRLowBJetPt",
     #"ZVROSBtagHighBJetPt"  :   "CutZVRHighBJetPt",
   }
 
   ### The following hists will be dumped
-  hist_dict = {
-    "TauPt"     	: "TauPt",
-    "LeptonPt"  	: "LeptonPt",
-    "BjetPt"    	: "BjetPt",
-    "BjetPtLow"    	: "BjetPtLow",
-    "BjetPtHigh"    	: "BjetPtHigh",
-    "StLowBJetPt"       : "StLowBJetPt",
-    "StHighBJetPt"      : "StHighBJetPt",
-    "St"                : "St",
-    #"St_fineBin"        : "SumOfPt",
-    #"St_lowSB_SR"        : "SumOfPt",
-    #"St_lowSB_VR"        : "SumOfPt",
-
-  }
   #hist_dict = {
-  #  "TauPtSF"     	: "TauPt",
-  #  #"TauPt"     	: "TauPt",
+  #  "MET"     		: "MET",
+  #  "TauPt"     	: "TauPt",
+  #  "LeptonPt"  	: "LeptonPt",
+  #  "LepMETDphi"  	: "LepMETDphi",
+  #  "BjetPt"    	: "BjetPt",
+  #  "BjetPtLow"    	: "BjetPtLow",
+  #  "BjetPtHigh"    	: "BjetPtHigh",
+  #  "StLowBJetPt"       : "StLowBJetPt",
+  #  "StHighBJetPt"      : "StHighBJetPt",
+  #  "St"                : "St",
+  #  "St_fineBin"        : "SumOfPt",
+  #  #"St_lowSB_SR"        : "SumOfPt",
+  #  #"St_lowSB_VR"        : "SumOfPt",
+  #
+  #}
+  #hist_dict = {
+  #  #"TauPtSF"     	: "TauPt",
+  #  "TauPt"     	: "TauPt",
   #  "LeptonPt"  	: "LeptonPt",
   #  "BjetPt"    	: "BjetPt",
   #  "St"                : "St",
   #}
+  hist_dict = {
+    "VisibleMass"                : "VisibleMass",
+    "VisibleMassOneBin"          : "NEvents",
+    "St"                	 : "SumOfPt",
+  }
   #hist_dict = {
-  #  "VisibleMassOneBin"                : "VisibleMass",
+  #  "StSF"                : "St",
   #}
 
 
