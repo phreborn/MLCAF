@@ -44,7 +44,8 @@ TObjArray* TTBarPDFUpWeight::getBranchNames() const {
   int n = 30;
   TString pdf_weight = "pmg_truth_weight_pdf_signal_weight_";
   for ( int i = 0; i < 31; i++) {
-    bnames->Add(new TObjString(pdf_weight + i));
+    //bnames->Add(new TObjString(pdf_weight + i));
+    bnames->Add(new TObjString(pdf_weight + std::to_string(i)));
   }
 
   return bnames;
