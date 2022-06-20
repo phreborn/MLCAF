@@ -10,6 +10,6 @@ CONFIG="LQtaub-lephad/config/${REGION}/master/analyze-${TASK}.cfg"
 IDENTIFIER=${REGION}-${TASK}
 
 # Job list
-JOBLIST="jobs_SR-FakeComposition_c16a.txt jobs_SR-FakeComposition_c16d.txt jobs_SR-FakeComposition_c16e.txt"
+JOBLIST="jobs_FakeComposition_c16a.txt jobs_FakeComposition_c16d.txt jobs_FakeComposition_c16e.txt"
 
 source "${CAFANALYSISSHARE:?}/LQtaub-lephad/config/common/submit.sh" "${CONFIG}" "${IDENTIFIER}" "${JOBLIST}"

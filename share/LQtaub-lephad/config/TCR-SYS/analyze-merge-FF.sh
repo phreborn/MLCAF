@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # common config
-SAMPLEBASE="sampleFolders/analyzed/samples-analyzed-LQtaub-lephad-TCR-FF"
+SAMPLEBASE="sampleFolders/analyzed/samples-analyzed-LQtaub-lephad-TCR"
 
 # handle arguments
 if [ -z "$*" ]; then
