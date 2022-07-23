@@ -1,2 +1,6 @@
 .name="||"
 .name=CutChannels
+.name=CutLepTauOS
+.name=CutFakeTau
+.name=CutLepFakeTau
+.name=CutJetFakeTau

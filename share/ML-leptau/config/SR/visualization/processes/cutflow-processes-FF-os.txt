@@ -1,22 +1,41 @@
 ### data ###
 #.path="||"
-.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
+#.name="Data",       .isData=true,       .path="/data/$(channel)/$(campaign)"
 
 ### mc backgrounds ###
 
 .path="|"
 .name="Diboson",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Diboson"
+.name="Diboson(raw)",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Diboson", .showRaw=true
 .name="Wjets",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Wjets"
+.name="Wjets(raw)",    .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Wjets", .showRaw=true
 .name="Zll",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets"
+.name="Zll(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/[ee+mumu]", .title="Z(ee/$\mu\mu$)+jets", .showRaw=true
 .name="Ztautau",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/tautau"
+.name="Ztautau(raw)",      .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Zjets/tautau", .showRaw=true
+.name="ttV",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top/[ttZ+ttW]"
+.name="ttV(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top/[ttZ+ttW]", .showRaw=true
+.name="ttbar",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top/ttbar"
+.name="ttbar(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top/ttbar", .showRaw=true
 .name="top",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top"
+.name="top(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Top", .showRaw=true
+.name="VH",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/singleHiggs/[WH+ZH]"
+.name="VH(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/singleHiggs/[WH+ZH]", .showRaw=true
 .name="singleHiggs",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/singleHiggs"
+.name="singleHiggs(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/singleHiggs", .showRaw=true
 .name="Triboson",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Triboson"
+.name="Triboson(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Triboson", .showRaw=true
 .name="VVjj",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/VVjj"
-#.name="WZ",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/WZ"
+.name="VVjj(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/VVjj", .showRaw=true
+.name="Vyy",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Vyy"
+.name="Vyy(raw)",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)/Vyy", .showRaw=true
 .name="totalBkgs",        .isBackground=true, .path="/bkg/$(channel)/$(campaign)"
 
 
 ### signal ###
-.name="ggHH(kl=10)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda10/PS"
-.name="ggHH(kl=1)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda01/PS"
+.name="ggHH(kl=10)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda10/nominal"
+.name="ggHH(kl=10)(raw)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda10/nominal", .showRaw=true
+.name="ggHH(kl=1)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda01/nominal"
+.name="ggHH(kl=1)(raw)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/ggHH/klambda01/nominal", .showRaw=true
+.name="HH", .isSignal=true, .path="/sig/$(channel)/$(campaign)/[ggHH+VBFHH]/klambda01/nominal"
+.name="HH(raw)", .isSignal=true, .path="/sig/$(channel)/$(campaign)/[ggHH+VBFHH]/klambda01/nominal", .showRaw=true

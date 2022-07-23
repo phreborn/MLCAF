@@ -1,11 +1,32 @@
 
-TH1F('Lepton0Pt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << ([lep_Pt_0]*0.001 : "lepton p_{T} [GeV]");
-TH1F('Lepton1Pt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << ([lep_Pt_1]*0.001 : "lepton p_{T} [GeV]");
-TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << ([tau_pt_0]*0.001 : "\#tau_{had-vis} p_{T} [GeV]");
+#TH1F('Lepton0Pt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << ([lep_Pt_0]*0.001 : "lepton p_{T} [GeV]");
+#TH1F('Lepton1Pt', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << ([lep_Pt_1]*0.001 : "lepton p_{T} [GeV]");
+#TH1F('TauPt', '',{50.,90.,120.,150.,200.,300.}) << ([tau_pt_0]*0.001 : "\#tau_{had-vis} p_{T} [GeV]");
+TH1F('Lepton0Pt', '', 25, 0, 300) << ([lep_Pt_0]*0.001 : "lepton p_{T} [GeV]");
+TH1F('Lepton1Pt', '', 25, 0, 300) << ([lep_Pt_1]*0.001 : "lepton p_{T} [GeV]");
+TH1F('TauPt', '', 25, 0, 300) << ([tau_pt_0]*0.001 : "\#tau_{had-vis} p_{T} [GeV]");
 
 TH1F('Lepton0Eta', '',25, -2.5, 2.5) << ([lep_Eta_0] : "lepton \eta");
 TH1F('Lepton1Eta', '',25, -2.5, 2.5) << ([lep_Eta_1] : "lepton \eta");
 TH1F('TauEta', '', 25, -2.5, 2.5) << ([tau_eta_0] : "\#tau_{had-vis} \eta");
 
+TH1F('MissEt', '', 25, 0, 300) << ([met_met]*0.001 : "E^{miss}_{T}")
 
-@CutChannels: Lepton0Pt,Lepton1Pt,TauPt,Lepton0Eta,Lepton1Eta,TauEta
+TH1F('tauTruthType', '', 39, 0, 39) << ([tau_truthType_0] : "tau truth type")
+TH1F('tauTruthJetFlavour', '', 47, -1, 46) << ([tau_truthJetFlavour_0] : "tau truth jet flavor")
+TH1F('tauTruthOrigin', '', 46, 0, 46) << ([tau_truthOrigin_0] : "tau truth origin")
+
+TH1F('lep0TruthMatched', '', 2, 0, 2) << ([lep_isTruthMatched_0] : "lep0 truth matched")
+TH1F('lep0TruthType', '', 39, 0, 39) << ([lep_truthType_0] : "lep0 truth type")
+TH1F('lep0TruthOrigin', '', 46, 0, 46) << ([lep_truthOrigin_0] : "lep0 truth origin")
+TH1F('lep0TruthPdgID', '', 26, 0, 26) << ([lep_truthPdgId_0] : "lep0 pdgID")
+TH1F('lep1TruthMatched', '', 2, 0, 2) << ([lep_isTruthMatched_1] : "lep1 truth matched")
+TH1F('lep1TruthType', '', 39, 0, 39) << ([lep_truthType_1] : "lep1 truth type")
+TH1F('lep1TruthOrigin', '', 46, 0, 46) << ([lep_truthOrigin_1] : "lep1 truth origin")
+TH1F('lep1TruthPdgID', '', 26, 0, 26) << ([lep_truthPdgId_1] : "lep1 pdgID")
+
+@CutChannels: Lepton0Pt,Lepton1Pt,TauPt,Lepton0Eta,Lepton1Eta,TauEta,MissEt
+@CutLepTauOS: Lepton0Pt,Lepton1Pt,TauPt,Lepton0Eta,Lepton1Eta,TauEta,MissEt,tauTruthType, lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0TruthPdgID,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1TruthPdgID
+@CutFakeTau: tauTruthType,tauTruthJetFlavour,tauTruthOrigin
+@CutLepFakeTau: tauTruthType,tauTruthJetFlavour,tauTruthOrigin
+@CutJetFakeTau: tauTruthType,tauTruthJetFlavour,tauTruthOrigin

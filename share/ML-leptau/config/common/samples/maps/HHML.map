@@ -1,38 +1,42 @@
+#refer to https://twiki.cern.ch/twiki/bin/view/AtlasProtected/PmgTopProcesses
 #### Top ####
 304014 /bkg/$(channel)/$(campaign)/Top/3tops/
 
-410080 /bkg/$(channel)/$(campaign)/Top/4tops/
+#no16e#410080 /bkg/$(channel)/$(campaign)/Top/4tops/
 
 410081 /bkg/$(channel)/$(campaign)/Top/ttWW/
 
 410156 /bkg/$(channel)/$(campaign)/Top/ttZ/
 410157 /bkg/$(channel)/$(campaign)/Top/ttZ/
-410218 /bkg/$(channel)/$(campaign)/Top/ttZ/
-410219 /bkg/$(channel)/$(campaign)/Top/ttZ/
-410220 /bkg/$(channel)/$(campaign)/Top/ttZ/
 
-410276 /bkg/$(channel)/$(campaign)/Top/ttZ/
-410277 /bkg/$(channel)/$(campaign)/Top/ttZ/
-410278 /bkg/$(channel)/$(campaign)/Top/ttZ/
+410218 /bkg/$(channel)/$(campaign)/Top/ttZ/ #?
+410219 /bkg/$(channel)/$(campaign)/Top/ttZ/ #?
+410220 /bkg/$(channel)/$(campaign)/Top/ttZ/ #?
 
-410397 /bkg/$(channel)/$(campaign)/Top/Wb/
-410398 /bkg/$(channel)/$(campaign)/Top/Wb/
-410399 /bkg/$(channel)/$(campaign)/Top/Wb/
+410276 /bkg/$(channel)/$(campaign)/Top/ttZ/ #?
+410277 /bkg/$(channel)/$(campaign)/Top/ttZ/ #?
+410278 /bkg/$(channel)/$(campaign)/Top/ttZ/ #?
 
-410408 /bkg/$(channel)/$(campaign)/Top/tWZ/
+700168 /bkg/$(channel)/$(campaign)/Top/ttW
+
+410397 /bkg/$(channel)/$(campaign)/Top/Wb/ #?
+410398 /bkg/$(channel)/$(campaign)/Top/Wb/ #?
+410399 /bkg/$(channel)/$(campaign)/Top/Wb/ #?
+
+410408 /bkg/$(channel)/$(campaign)/Top/tWZ/ #?
 
 410470 /bkg/$(channel)/$(campaign)/Top/ttbar/
-#?#410471 /bkg/$(channel)/$(campaign)//
-410472 /bkg/$(channel)/$(campaign)/Top/ttbar/
+#allhad#410471 /bkg/$(channel)/$(campaign)//
+#dilep#410472 /bkg/$(channel)/$(campaign)/Top/ttbar/
 
-410560 /bkg/$(channel)/$(campaign)/Top/tZ/
+410560 /bkg/$(channel)/$(campaign)/Top/tZ/ #?
 
 410644 /bkg/$(channel)/$(campaign)/Top/single/schannel/
 410645 /bkg/$(channel)/$(campaign)/Top/single/schannel/
 410646 /bkg/$(channel)/$(campaign)/Top/single/tW/
 410647 /bkg/$(channel)/$(campaign)/Top/single/tW/
-#?#410648 /bkg/$(channel)/$(campaign)/Top/single//
-#?#410649 /bkg/$(channel)/$(campaign)/Top/single//
+#dilep, incl in 46-47#410648 /bkg/$(channel)/$(campaign)/Top/single//
+#dilep, incl in 46-47#410649 /bkg/$(channel)/$(campaign)/Top/single//
 
 410658 /bkg/$(channel)/$(campaign)/Top/single/tchannel/
 410659 /bkg/$(channel)/$(campaign)/Top/single/tchannel/
@@ -46,16 +50,18 @@
 342284 /bkg/$(channel)/$(campaign)/singleHiggs/WH/
 342285 /bkg/$(channel)/$(campaign)/singleHiggs/ZH/
 
+#Ws from top: hadronic, semi-leptonic, leptonic
 346343 /bkg/$(channel)/$(campaign)/singleHiggs/ttH/
 346344 /bkg/$(channel)/$(campaign)/singleHiggs/ttH/
 346345 /bkg/$(channel)/$(campaign)/singleHiggs/ttH/
 
 
+# refer to https://twiki.cern.ch/twiki/bin/view/AtlasProtected/PmgWeakBosonProcesses
 #### DiBoson ####
 ### -- semi-leptonic diboson decays (Sherpa 2.2.1)
 363355 /bkg/$(channel)/$(campaign)/Diboson/
 363356 /bkg/$(channel)/$(campaign)/Diboson/
-363357 /bkg/$(channel)/$(campaign)/Diboson/
+#0 events#363357 /bkg/$(channel)/$(campaign)/Diboson/
 363358 /bkg/$(channel)/$(campaign)/Diboson/
 363359 /bkg/$(channel)/$(campaign)/Diboson/
 363360 /bkg/$(channel)/$(campaign)/Diboson/
@@ -113,6 +119,7 @@
 364139 /bkg/$(channel)/$(campaign)/Zjets/tautau/
 364140 /bkg/$(channel)/$(campaign)/Zjets/tautau/
 364141 /bkg/$(channel)/$(campaign)/Zjets/tautau/
+#364142?
 
 364156 /bkg/$(channel)/$(campaign)/Wjets/munu/
 364157 /bkg/$(channel)/$(campaign)/Wjets/munu/
@@ -192,13 +199,23 @@
 364249 /bkg/$(channel)/$(campaign)/Triboson/
 
 #### VVjj ####
-364283 /bkg/$(channel)/$(campaign)/VVjj/
-364284 /bkg/$(channel)/$(campaign)/VVjj/
-#?#364285 /bkg/$(channel)/$(campaign)//
-#?#364286 /bkg/$(channel)/$(campaign)//
+364283 /bkg/$(channel)/$(campaign)/VVjj/lllljj/
+364284 /bkg/$(channel)/$(campaign)/VVjj/lllvjj/
 364287 /bkg/$(channel)/$(campaign)/VVjj/
+#buggy should not be used#364285 /bkg/$(channel)/$(campaign)//
+#REMOVED#364286 /bkg/$(channel)/$(campaign)//
 
-#361601 /bkg/$(channel)/$(campaign)/WZ/
+#double count diboson#361601 /bkg/$(channel)/$(campaign)/WZ/
+
+#### Vyy ####
+700011 /bkg/$(channel)/$(campaign)/Vyy/
+700012 /bkg/$(channel)/$(campaign)/Vyy/
+700013 /bkg/$(channel)/$(campaign)/Vyy/
+700014 /bkg/$(channel)/$(campaign)/Vyy/
+700015 /bkg/$(channel)/$(campaign)/Vyy/
+700016 /bkg/$(channel)/$(campaign)/Vyy/
+700017 /bkg/$(channel)/$(campaign)/Vyy/
+
 
 ######################################
 ######################################
@@ -304,67 +321,67 @@
 
 ### -------------------------------------------
 
-### old HH ggF
-450661 /sig/$(channel)/$(campaign)//
-450662 /sig/$(channel)/$(campaign)//
-450663 /sig/$(channel)/$(campaign)//
+#### old HH ggF
+#450661 /sig/$(channel)/$(campaign)//
+#450662 /sig/$(channel)/$(campaign)//
+#450663 /sig/$(channel)/$(campaign)//
 
 ### VBF HH
-502959 /sig/$(channel)/$(campaign)/VBFHH/
-502960 /sig/$(channel)/$(campaign)/VBFHH/
-502961 /sig/$(channel)/$(campaign)/VBFHH/
-502962 /sig/$(channel)/$(campaign)/VBFHH/
-502963 /sig/$(channel)/$(campaign)/VBFHH/
-502964 /sig/$(channel)/$(campaign)/VBFHH/
+502959 /sig/$(channel)/$(campaign)/VBFHH/klambda01/nominal/
+502960 /sig/$(channel)/$(campaign)/VBFHH/klambda01/nominal/
+502961 /sig/$(channel)/$(campaign)/VBFHH/klambda01/nominal/
+502962 /sig/$(channel)/$(campaign)/VBFHH/klambda01/nominal/
+502963 /sig/$(channel)/$(campaign)/VBFHH/klambda01/nominal/
+502964 /sig/$(channel)/$(campaign)/VBFHH/klambda01/nominal/
 
-#### VBF bbZZ
-#508674 /sig/$(channel)/$(campaign)//
-#508675 /sig/$(channel)/$(campaign)//
+##### VBF bbZZ
+##508674 /sig/$(channel)/$(campaign)//
+##508675 /sig/$(channel)/$(campaign)//
 
 ### Herwig7 ggF HH, Klambda 1
-600536 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
-600537 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
-600538 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
-600539 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
-600540 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
-600541 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+#600536 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+#600537 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+#600538 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+#600539 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+#600540 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+#600541 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
 
 #### Herwig7 ggF bbZZ, Klambda 1
 #600761 /sig/$(channel)/$(campaign)//
 #600762 /sig/$(channel)/$(campaign)//
 
 ### Herwig7 ggF HH, Klambda 10
-600763 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
-600764 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
-600765 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
-600766 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
-600767 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
-600768 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+#600763 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+#600764 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+#600765 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+#600766 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+#600767 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+#600768 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
 
 #### Herwig7 ggF bbZZ, Klambda 10
 #600772 /sig/$(channel)/$(campaign)//
 #600773 /sig/$(channel)/$(campaign)//
 
 ### Pythia8 ggF HH, Klambda 1
-600853 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
-600854 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
-600855 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
-600856 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
-600857 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
-600858 /sig/$(channel)/$(campaign)/ggHH/klambda01/PS/
+600853 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600854 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600855 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600856 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600857 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
+600858 /sig/$(channel)/$(campaign)/ggHH/klambda01/nominal/
 
-#### Pythia8 ggF bbZZ, Klambda 1
-#600862 /sig/$(channel)/$(campaign)//
-#600863 /sig/$(channel)/$(campaign)//
+##### Pythia8 ggF bbZZ, Klambda 1
+##600862 /sig/$(channel)/$(campaign)//
+##600863 /sig/$(channel)/$(campaign)//
 
 ### Pythia8 ggF HH, Klambda 10
-600888 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
-600889 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
-600890 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
-600891 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
-600892 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
-600893 /sig/$(channel)/$(campaign)/ggHH/klambda10/PS/
+600888 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600889 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600890 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600891 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600892 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
+600893 /sig/$(channel)/$(campaign)/ggHH/klambda10/nominal/
 
-#### Pythia8 ggF bbZZ, Klambda 10
-#600897 /sig/$(channel)/$(campaign)//
-#600898 /sig/$(channel)/$(campaign)//
+##### Pythia8 ggF bbZZ, Klambda 10
+##600897 /sig/$(channel)/$(campaign)//
+##600898 /sig/$(channel)/$(campaign)//

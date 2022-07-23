@@ -1,4 +1,27 @@
 +CutChannels {
   #<.cutExpression = "[lep_Pt_0]>0&&[lep_Pt_1]>0&&[lep_Pt_2]==0&&[lep_ID_0]*[lep_ID_1]>0&&[tau_pt_0]>0&&[tau_pt_1]==0", .weightExpression = "{$(isData) ? 1 : $(MCweight)}", .title="Channel Selection">
-  <.cutExpression = "$(Lep0Medium) && $(Lep1Medium) && $(2lepSS) && $(Tau0Medium) && [nJets_OR_DL1r_77]==0 && [nJets_OR]>1", .weightExpression = "{$(isData) ? 1 : $(MCweight)}", .title="Channel Selection">
+  <.cutExpression = "[GlobalTrigDecision] && [custTrigMatch_TightElMediumMuID_FCLooseIso_SLTorDLT] && $(Lep0Medium) && $(Lep1Medium) && $(2lepSS) && [nTaus_OR_Pt25_RNN]==1 && fabs([tau_charge_0])==1 && $(Tau0Medium) && [nJets_OR_DL1r_77]==0 && [nJets_OR]>1", .weightExpression = "{$(isData) ? 1 : $(nomFinWght)}", .title="Channel Selection">
+  #<.cutExpression = "[GlobalTrigDecision] && [custTrigMatch_LooseID_FCLooseIso_SLTorDLT] && [nJets_OR_DL1r_77]==0", .weightExpression = "{$(isData) ? 1 : $(nomFinWght)}", .title="Channel Selection">
 } # end CutChannels
+
+@ */CutChannels{
+  +CutLepTauOS{
+    <.cutExpression = "[tau_charge_0]*[lep_ID_0] > 0", .title="lep tau OS">
+  }
+}
+
+@ */CutLepTauOS{
+  +CutFakeTau{
+    <.cutExpression = "[tau_truthType_0]<9 || [tau_truthType_0]>12", .title="fake tau">
+  }
+}
+@ */CutFakeTau{
+  +CutLepFakeTau{
+    <.cutExpression = "[tau_truthType_0]<9 && [tau_truthType_0]>0", .title="lep fake tau">
+  }
+}
+@ */CutFakeTau{
+  +CutJetFakeTau{
+    <.cutExpression = "[tau_truthType_0]>12 || [tau_truthType_0]==0", .title="jet fake tau">
+  }
+}
