@@ -20,13 +20,28 @@ TH1F('lep0TruthMatched', '', 2, 0, 2) << ([lep_isTruthMatched_0] : "lep0 truth m
 TH1F('lep0TruthType', '', 39, 0, 39) << ([lep_truthType_0] : "lep0 truth type")
 TH1F('lep0TruthOrigin', '', 46, 0, 46) << ([lep_truthOrigin_0] : "lep0 truth origin")
 TH1F('lep0TruthPdgID', '', 26, 0, 26) << ([lep_truthPdgId_0] : "lep0 pdgID")
+TH1F('lep0Prompt', '', 2, 0, 2) << ([lep_isPrompt_0] : "lep0 prompt")
+TH1F('lep0QmissID', '', 2, 0, 2) << ([lep_isQMisID_0] : "lep0 QMissID")
+TH1F('lep0ExtConv', '', 2, 0, 2) << ([lep_isExtConvPh_0] : "lep0 ExtConv")
+TH1F('lep0IntConv', '', 2, 0, 2) << ([lep_isIntConvPh_0] : "lep0 IntConv")
 TH1F('lep1TruthMatched', '', 2, 0, 2) << ([lep_isTruthMatched_1] : "lep1 truth matched")
 TH1F('lep1TruthType', '', 39, 0, 39) << ([lep_truthType_1] : "lep1 truth type")
 TH1F('lep1TruthOrigin', '', 46, 0, 46) << ([lep_truthOrigin_1] : "lep1 truth origin")
 TH1F('lep1TruthPdgID', '', 26, 0, 26) << ([lep_truthPdgId_1] : "lep1 pdgID")
+TH1F('lep1Prompt', '', 2, 0, 2) << ([lep_isPrompt_1] : "lep1 prompt")
+TH1F('lep1QmissID', '', 2, 0, 2) << ([lep_isQMisID_1] : "lep1 QMissID")
+TH1F('lep1ExtConv', '', 2, 0, 2) << ([lep_isExtConvPh_1] : "lep1 ExtConv")
+TH1F('lep1IntConv', '', 2, 0, 2) << ([lep_isIntConvPh_1] : "lep1 IntConv")
 
 @CutChannels: Lepton0Pt,Lepton1Pt,TauPt,Lepton0Eta,Lepton1Eta,TauEta,MissEt
 @CutLepTauOS: Lepton0Pt,Lepton1Pt,TauPt,Lepton0Eta,Lepton1Eta,TauEta,MissEt,tauTruthType, lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0TruthPdgID,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1TruthPdgID
 @CutFakeTau: tauTruthType,tauTruthJetFlavour,tauTruthOrigin
 @CutLepFakeTau: tauTruthType,tauTruthJetFlavour,tauTruthOrigin
 @CutJetFakeTau: tauTruthType,tauTruthJetFlavour,tauTruthOrigin
+
+@CutTtauTlep: lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0Prompt,lep0QmissID,lep0ExtConv,lep0IntConv,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1QmissID,lep1Prompt,lep1ExtConv,lep1IntConv
+@CutTtauFlep: lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0Prompt,lep0QmissID,lep0ExtConv,lep0IntConv,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1QmissID,lep1Prompt,lep1ExtConv,lep1IntConv
+@CutTtauQmisID: lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0Prompt,lep0QmissID,lep0ExtConv,lep0IntConv,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1QmissID,lep1Prompt,lep1ExtConv,lep1IntConv
+@CutFtauTlep: tauTruthType,tauTruthJetFlavour,tauTruthOrigin,lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0Prompt,lep0QmissID,lep0ExtConv,lep0IntConv,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1QmissID,lep1Prompt,lep1ExtConv,lep1IntConv
+@CutFtauFlep: tauTruthType,tauTruthJetFlavour,tauTruthOrigin,lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0Prompt,lep0QmissID,lep0ExtConv,lep0IntConv,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1QmissID,lep1Prompt,lep1ExtConv,lep1IntConv
+@CutFtauQmisID: tauTruthType,tauTruthJetFlavour,tauTruthOrigin,lep0TruthMatched,lep0TruthType,lep0TruthOrigin,lep0Prompt,lep0QmissID,lep0ExtConv,lep0IntConv,lep1TruthMatched,lep1TruthType,lep1TruthOrigin,lep1QmissID,lep1Prompt,lep1ExtConv,lep1IntConv
