@@ -22,7 +22,7 @@ TH1F('mu','', 10, 0, 100)   <<   (n_actual_int  : "number of interactions per bu
 TH1F('MET', '', 30, 0, 300) << (met_reco_p4.Et() : "E_{T}^{miss} [GeV]");
 TH1F('MTLepMET', '', 30, 0, 300) << (lephad_mt_lep0_met : "m_{T}(lep,MET) [GeV]");
 TH1F('MTTauMET', '', 30, 0, 300) << (lephad_mt_lep1_met : "m_{T}(\#tau_{had-vis},MET) [GeV]"); 
-@CutTCRPassTauID: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,mu;
+@Cut*TCRPassTauID: LeptonPt,LeptonEta,TauPt,TauEta,JetPt,JetEta,BjetPt,BjetEta,MET,MTLepMET,MTTauMET,JetCount,BJetCount,mu;
 
 TH1F('LepTauDphi', '', 30, -3.15, 3.15) << ($(LepTauDphi) : "\#Delta\#phi(lep,\#tau_{had-vis})");
 TH1F('LepMETDphi', '', 30, -3.15, 3.15) << ($(LepMETDphi) : "\#Delta\#phi(lep,MET)");
@@ -30,7 +30,7 @@ TH1F('TauMETDphi', '', 30, -3.15, 3.15) << ($(TauMETDphi) : "\#Delta\#phi(\#tau_
 TH1F('LepJetDphi', '', 30, -3.15, 3.15) << ($(LepJetDphi) : "\#Delta\#phi(lep,b-jet)");
 TH1F('TauJetDphi', '', 30, -3.15, 3.15) << ($(TauJetDphi) : "\#Delta\#phi(\#tau_{had-vis},b-jet)");
 
-@CutTCRPassTauID: LepTauDphi,LepMETDphi,TauMETDphi,LepJetDphi,TauJetDphi; 
+@Cut*TCRPassTauID: LepTauDphi,LepMETDphi,TauMETDphi,LepJetDphi,TauJetDphi; 
 
 
 # Correction factor
@@ -44,4 +44,4 @@ TH1F('StMoreBins', '', {100.,150.,200.,250.,300.,350.,400.,450.,500.,550.,600.,7
 TH1F('HtMETSF', '', {100.,200.,300.,400.,500.,600.,700.,800.,900.,1000.}) << ($(HtMET) : "H_{T} [GeV]");
 TH1F('HtSF', '', {100.,200.,300.,400.,500.,600.,700.,800.,900.,1000.}) << ($(Ht) : "H_{T} [GeV]");
 TH1F('LeptonPtSF', '', {30.,70.,110.,140.,170.,210.,250.,300.}) << (lep_0_p4.Pt() : "lepton p_{T} [GeV]");
-@CutTCRPassTauID: St, StSF, GtSF, StMoreBins, HtMETSF, HtSF, LeptonPtSF;
+@Cut*TCRPassTauID: St, StSF, GtSF, StMoreBins, HtMETSF, HtSF, LeptonPtSF;

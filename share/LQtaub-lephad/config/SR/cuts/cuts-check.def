@@ -1,0 +1,157 @@
+# -*- mode: tqfolder -*-
+
+################################################################
+## SR optimization: tau eta, visible mass, dphi, MT
+#################################################################
+
+$include("LQtaub-lephad/config/common/cuts/cuts.def");
+
+@ */CutMaterialCorrection {
+    +CutTruth {
+        <.cutExpression="{ $(isData) || (([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30) && ([TruthLepSelector] == 10 || [TruthLepSelector] == 20))}",
+        #<.cutExpression="{ $(isData) || $(isSig) || ($(isTTL) && ([TruthTauSelector] == 20 || [TruthTauSelector] == 5 ||[TruthTauSelector] == 30)) || 
+        #($(isJet) && [TruthTauSelector] == -30)}",
+         .weightExpression="{$(isData) ? 1 : [ScaleFactor]}", .title="Truth">
+
+        +CutZjetsFlavor {
+            <.cutExpression="{($(isZHF) || $(isZLF)) ? (($(isZHF) && [TruthZjetsSelector] == 30) || ($(isZLF) && [TruthZjetsSelector] == 40)) : (1)}",
+             .weightExpression="{$(isZHF) ? [ZjetsSF] : 1}", .title="ZjetsFlavor">
+
+            +CutLeptonBasic {
+                <.cutExpression="lep_0_p4.Pt() > 30 && lep_0_id_medium ==1", .title = "Lepton basic cut">
+        
+                +CutTauBasic {
+                    <.cutExpression="tau_0_p4.Pt() > 50 && fabs(tau_0_p4.Eta()) < 2.3 && 
+                        (tau_0_n_charged_tracks == 1 || tau_0_n_charged_tracks == 3) ", .title="Tau basic cut">
+               
+                    +CutLeptonISO {
+                        <.cutExpression="($(isMultiJetsFake) ? $(isFailISO) : $(isPassISO))",
+                         .weightExpression="($(isMultiJetsFake) ? ($(MultiJetsLFF))*($(MultiJetsSFSYS))*($(LeptonFakeNom)) : 1)", .title="Lepton isolation">
+
+                        +CutTauID {
+                            <.cutExpression="($(isddOtherJetsFake) ? $(isFailID) : $(isPassID))",
+                             .weightExpression="($(isddOtherJetsFake) ? ($(OtherJetsTFF))*($(OtherJetsSF))*($(ExtrapolationSF))*($(TauFakeNom)) : 1)*($(ismcFakeCorrected) ? [MCFakesSF] : 1)", .title="PassTauID">
+
+                        } #End: CutTauID
+                    } #End: CutLeptonISO
+                } #End: CutTauBasic
+            } #End: CutLeptonBasic
+        } #End: CutZjetsFlavor
+    } #End: CutTruth
+} #End: CutMaterialCorrection
+        
+
+
+# Divide to SS/OS region
+@ */CutTauID {
+    +CutOS {
+        <.cutExpression="lephad_qxq == -1", .title="OS", CHARGE="OS",
+         .weightExpression="($(isTTBar) ? ($(ISRLoWeight))*($(FSRLoWeight))*($(FSRHiWeight))*($(PDFHiWeight))*($(PDFLoWeight)) : 1)*($(isISRup) ? ($(ISRHiWeight)) : 1)*($(isSTop) ? ($(STopISRLoWeight))*($(STopISRHiWeight))*($(STopFSRLoWeight))*($(STopFSRHiWeight))*($(STopPDFHiWeight))*($(STopPDFLoWeight)) : 1)">
+    } #End: CutOS
+} #End: CutTauID
+
+
+
+# Divide to Bveto/Btag region
+@ */CutOS {
+    +CutOSBtag {
+        <.cutExpression="$(NbJets)>=1 && bjet_0_p4.Pt() > 25", .title="$(CHARGE)Btag", BJET="Btag",
+         .weightExpression="$(isTop) && $(ApplyTopSF) ? ($(TopSF))*($(TopResidualSF)) : 1">
+    } #End: CutOSBtag
+} #End: CutOS
+
+
+
+# Divide to different MT region
+@ */CutOSBtag {
+    +CutLowDPhi {
+        <.cutExpression="lephad_met_lep0_cos_dphi < 1.5", .title="LowDPhi">
+    } 
+   
+    +CutMediumDPhi {
+        <.cutExpression="lephad_met_lep0_cos_dphi >= 1.5 && lephad_met_lep0_cos_dphi < 2.5", .title="MediumDPhi">  
+    }
+}
+
+@ */CutLowDPhi {
+    +CutOSBtagHighST {
+        <.cutExpression="$(St) > 300", .title="$(CHARGE)$(BJET)HighST">
+    
+        +CutHighVisMass {
+            <.cutExpression="lephad_p4.M() > 100",.title="HighVisMass">
+  
+            +CutOSBtagLowBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="OSBtagLowBJetPt"> 
+    
+                +CutOSBtagLowBJetPtLeptonPt50 {
+                    <.cutExpression="lep_0_p4.Pt() > 50",.title="OSBtagLowBJetPtLeptonPt50">
+                }
+
+                +CutOSBtagLowBJetPtLeptonPt75 {
+                    <.cutExpression="lep_0_p4.Pt() > 75",.title="OSBtagLowBJetPtLeptonPt75">
+                }
+
+                +CutOSBtagLowBJetPtLeptonPt100 {
+                    <.cutExpression="lep_0_p4.Pt() > 100",.title="OSBtagLowBJetPtLeptonPt100">
+                }
+            }
+   
+            +CutOSBtagHighBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 200",.title="OSBtagHighBJetPt"> 
+    
+                +CutOSBtagHighBJetPtLeptonPt50 {
+                    <.cutExpression="lep_0_p4.Pt() > 50",.title="OSBtagHighBJetPtLeptonPt50">
+                }
+
+                +CutOSBtagHighBJetPtLeptonPt75 {
+                    <.cutExpression="lep_0_p4.Pt() > 75",.title="OSBtagHighBJetPtLeptonPt75">
+                }
+
+                +CutOSBtagHighBJetPtLeptonPt100 {
+                    <.cutExpression="lep_0_p4.Pt() > 100",.title="OSBtagHighBJetPtLeptonPt100">
+                }
+            }
+        }
+    } 
+}
+
+@ */CutLowDPhi {
+    +CutOSBtagHighSTSideBand {
+        <.cutExpression="$(St) > 300 && $(St) < 450", .title="$(CHARGE)$(BJET)HighSTSideBand">
+    
+        +CutHighVisMassSideBand {
+            <.cutExpression="lephad_p4.M() > 100",.title="HighVisMassSideBand">
+  
+            +CutOSBtagLowBJetPtSideBand {
+                <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="OSBtagLowBJetPtSideBand"> 
+            }
+   
+            +CutOSBtagHighBJetPtSideBand {
+                <.cutExpression="bjet_0_p4.Pt() > 200",.title="OSBtagHighBJetPtSideBand"> 
+            }
+        }
+    } 
+}
+
+@ */CutMediumDPhi {
+    +CutVROSBtagHighST {
+        <.cutExpression="$(St) > 300 && $(St) < 600", .title="VR$(CHARGE)$(BJET)HighST">
+
+        +CutVRHighVisMass {
+            <.cutExpression="lephad_p4.M() > 100",.title="VRHighVisMass">        
+
+            +CutVROSBtagLowBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 25 && bjet_0_p4.Pt() <=200",.title="OSVRBtagLowBJetPt">
+            }
+
+            +CutVROSBtagHighBJetPt {
+                <.cutExpression="bjet_0_p4.Pt() > 200",.title="OSVRBtagHighBJetPt">
+            }
+        }
+    }
+}
+
+
+
+$replace("*/CutOS/*:.name,.title", CHARGE="OS");
+$replace("*/Cut*Btag/*:.name,.title", BJET="Btag");

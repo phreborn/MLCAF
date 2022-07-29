@@ -363,6 +363,8 @@ if __name__=='__main__':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-SR-FF-NOMINAL.root'
   elif region == 'OtherJetsSSR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsSSR-FF.root'
+  elif region == 'OtherJetsSSR_withoutTopCorr':
+    sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-OtherJetsSSR-FF_withoutTopCorr.root'
   elif region == 'ZCR':
     sFile = 'sampleFolders/analyzed/samples-analyzed-'+analysis+'-ZCR-FF-NOMINAL.root'
 
@@ -1082,6 +1084,41 @@ if __name__=='__main__':
         calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtBjetPt3SF', prefix+"Btag3p", 0.12, 0.1)
 
     print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsSSR_SF.root "+analysis+"/auxData/ScaleFactors/OtherJetsSSRAll*.root\033[0m")
+
+  if region == 'OtherJetsSSR_withoutTopCorr':
+    # Loop over data taking period and channels
+    periods = {
+                #'1516': 'c16a',
+                #'17': 'c16d',
+                #'18': 'c16e',
+                'All': '[c16a+c16d+c16e]',
+             }
+    channels = {
+                'ehad': 'ehad',
+                'muhad': 'muhad',
+                #'lephad': '[ehad+muhad]',
+              }
+    
+    # We use same histograms for ehad, and muhad
+    # Btag/Bveto, 1p/3p appears in the name of the histograms
+    for channel_name, channel_path in channels.items():
+      for period_name, period_path in periods.items():
+        dataPath = 'data/{:s}/{:s}'.format(channel_path, period_path)
+        bkgPath1 = 'bkg/{:s}/{:s}/[mcReal/[Wjets+Zjets+Top+Diboson]+MultiJetsFake]'.format(channel_path, period_path)
+        bkgPath2 = 'bkg/{:s}/{:s}/mcFakeCorrected/[Wjets+Zjets+Top+Diboson]'.format(channel_path, period_path)
+        prefix = region+period_name+channel_name
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtSF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtSF', prefix+"Btag3p", 0.12, 0.1)
+
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtBjetPt1SF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtBjetPt2SF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS1pPassTauID', 'TauPtBjetPt3SF', prefix+"Btag1p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtBjetPt1SF', prefix+"Btag3p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtBjetPt2SF', prefix+"Btag3p", 0.12, 0.1)
+        calcScaleFactor(dataPath, bkgPath1, bkgPath2, 'CutSS3pPassTauID', 'TauPtBjetPt3SF', prefix+"Btag3p", 0.12, 0.1)
+
+    print("\033[92mHadd command: \nhadd "+analysis+"/auxData/ScaleFactors/OtherJetsSSR_SF_withoutTopCorr.root "+analysis+"/auxData/ScaleFactors/OtherJetsSSR_withoutTopCorrAll*.root\033[0m")
 
   elif region == 'ZCR':
     # Loop over data taking period and channels
